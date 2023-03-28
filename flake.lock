@@ -53,16 +53,16 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1679878099,
-        "narHash": "sha256-SSSOW3YRdZ9G61DG1wRF+69PTMUS//1uxHVAWwmkY94=",
-        "owner": "PedroHLC",
+        "lastModified": 1679793451,
+        "narHash": "sha256-JafTtgMDATE8dZOImBhWMA9RCn9AP8FVOpN+9K/tTlg=",
+        "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "7660fc4686ef4ce0ade86af21439cfeeea8ab1c4",
+        "rev": "0cd51a933d91078775b300cf0f29aa3495231aa2",
         "type": "github"
       },
       "original": {
-        "owner": "PedroHLC",
-        "ref": "gamescope-hdr-rebased",
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
         "repo": "nixpkgs",
         "type": "github"
       }

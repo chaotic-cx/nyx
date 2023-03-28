@@ -2,7 +2,7 @@
   description = "Flake-compatible nixpkgs-overlay for bleeding-edge and unreleased packages. The first child of Chaos. ";
 
   inputs = {
-    nixpkgs.url = "github:PedroHLC/nixpkgs/gamescope-hdr-rebased";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     # --- PKGS SOURCES ---
     # Please, set them in alphabetical order
