@@ -22,8 +22,18 @@
       flake = false;
     };
 
+    sway-git-src = {
+      url = "github:swaywm/sway/master";
+      flake = false;
+    };
+
     waynergy-git-src = {
       url = "github:r-c-f/waynergy/master";
+      flake = false;
+    };
+
+    wlroots-git-src = {
+      url = "git+https://gitlab.freedesktop.org/wlroots/wlroots.git?ref=master";
       flake = false;
     };
   };
