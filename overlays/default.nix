@@ -31,5 +31,19 @@ in
       final.pkgsi686Linux.callPackage ../pkgs/mesa-git { inherit (inputs) mesa-git-src; inherit utils; }
     else throw "No mesa-git-32 for non-x86";
 
+  sway-unwrapped-git = (final.sway-unwrapped.override {
+    wlroots_0_16 = final.wlroots-git;
+  }).overrideAttrs (_: {
+    version = "1.9-unstable";
+    src = inputs.sway-git-src;
+  });
+  sway-git = final.sway.override {
+    sway-unwrapped = final.sway-unwrapped-git;
+  };
+
   waynergy-git = final.waynergy.overrideAttrs (_: { src = inputs.waynergy-git-src; });
+
+  wlroots-git = final.callPackage ../pkgs/wlroots-git {
+    inherit (inputs) wlroots-git-src;
+  };
 }

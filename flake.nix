@@ -22,20 +22,47 @@
       flake = false;
     };
 
+    sway-git-src = {
+      url = "github:swaywm/sway/master";
+      flake = false;
+    };
+
     waynergy-git-src = {
       url = "github:r-c-f/waynergy/master";
       flake = false;
     };
+
+    wlroots-git-src = {
+      url = "git+https://gitlab.freedesktop.org/wlroots/wlroots.git?ref=master";
+      flake = false;
+    };
   };
 
-  outputs = { nixpkgs, ... }@inputs: {
-    # I would prefer if we had something stricter, with attribute alphabetical
-    # sorting, and optimized for git's diffing. But this is the closer we have.
-    formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
-    formatter.aarch64-linux = nixpkgs.legacyPackages.aarch64-linux.nixpkgs-fmt;
+  outputs = { nixpkgs, ... }@inputs:
+    let
+      defaultOverlay = import ./overlays { inherit inputs; };
+    in
+    {
+      # I would prefer if we had something stricter, with attribute alphabetical
+      # sorting, and optimized for git's diffing. But this is the closer we have.
+      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
+      formatter.aarch64-linux = nixpkgs.legacyPackages.aarch64-linux.nixpkgs-fmt;
 
-    overlays.default = import ./overlays { inherit inputs; };
+      overlays.default = defaultOverlay;
 
-    nixosModules.default = import ./modules { inherit inputs; };
-  };
+      nixosModules.default = import ./modules { inherit inputs; };
+
+      packages =
+        let
+          applyOverlay = prev:
+            let
+              final = defaultOverlay (prev // final) prev;
+            in
+            final;
+        in
+        {
+          x86_64-linux = applyOverlay nixpkgs.legacyPackages.x86_64-linux;
+          aarch64-linux = applyOverlay nixpkgs.legacyPackages.aarch64-linux;
+        };
+    };
 }
