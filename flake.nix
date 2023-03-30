@@ -13,7 +13,7 @@
     };
 
     gamescope-git-src = {
-      url = "github:Plagman/gamescope/master";
+      url = "github:ValveSoftware/gamescope/master";
       flake = false;
     };
 

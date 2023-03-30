@@ -5,13 +5,13 @@
       "locked": {
         "lastModified": 1679448083,
         "narHash": "sha256-1Ya59k60YmrJ1AWQ3eoWYBFjiz+RENBNc4FxK3GcgIQ=",
-        "owner": "Plagman",
+        "owner": "ValveSoftware",
         "repo": "gamescope",
         "rev": "5d9ecd462e6d5939fc2697509f53bcb6aba7eb92",
         "type": "github"
       },
       "original": {
-        "owner": "Plagman",
+        "owner": "ValveSoftware",
         "ref": "master",
         "repo": "gamescope",
         "type": "github"
