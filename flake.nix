@@ -56,7 +56,8 @@
         let
           applyOverlay = prev:
             let
-              final = defaultOverlay (prev // final) prev;
+              overlayFinal = prev // final // { callPackage = prev.newScope final; };
+              final = defaultOverlay overlayFinal prev;
             in
             final;
         in

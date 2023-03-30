@@ -51,6 +51,14 @@ We recommend to integrate this repo using Flakes:
 ]
 ```
 
+## Running packages
+
+Besides using our module/overlay, you can run packages using:
+
+```sh
+nix run github:chaotic-aur/nyx#input-leap-git
+```
+
 ## List of options
 
 ```nix
