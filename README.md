@@ -44,8 +44,19 @@ We recommend to integrate this repo using Flakes:
   linuxPackages_hdr # recommended option: chaotic.linux_hdr.specialisation.enable
   mesa-git # recommended option: chaotic.mesa-git.enable
   mesa-git-32 # only x86, recommended option: chaotic.mesa-git.enable
+  sway-unwrapped-git
+  sway-git
   waynergy-git
+  wlroots-git
 ]
+```
+
+## Running packages
+
+Besides using our module/overlay, you can run packages using:
+
+```sh
+nix run github:chaotic-aur/nyx#input-leap-git
 ```
 
 ## List of options
