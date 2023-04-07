@@ -8,7 +8,6 @@
 , mint-x-icons
 , pantheon
 , stdenvNoCC
-,
 }:
 stdenvNoCC.mkDerivation rec {
   pname = "BeautyLine";
