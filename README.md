@@ -70,4 +70,15 @@ nix run github:chaotic-aur/nyx#input-leap-git
 
 ## Cache
 
-Soon...
+```nix
+{
+  nix.settings = {
+    extra-substituters = [
+      "https://nyx.chaotic.cx"
+    ];
+    extra-trusted-public-keys = [
+      "nyx.chaotic.cx-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
+    ];
+  };
+}
+```

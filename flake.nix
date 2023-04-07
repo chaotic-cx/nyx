@@ -54,8 +54,9 @@
           let
             overlayFinal = prev // final // { callPackage = prev.newScope final; };
             final = overlays.default overlayFinal prev;
+            packageList = overlayFinal.callPackage ./shared/package-list.nix { all-packages = final; };
           in
-          final;
+          final // { default = packageList; };
       in
       {
         x86_64-linux = applyOverlay nixpkgs.legacyPackages.x86_64-linux;
