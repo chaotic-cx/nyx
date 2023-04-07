@@ -21,7 +21,7 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-6Nt7m/P0WUjoOetWLrh6pgkyg7FSLg1hGURgKgy6zdc=";
   };
 
-  sourceRoot = "${src.name}";
+  sourceRoot = "${pname}";
 
   nativeBuildInputs = [ jdupes gtk3 ];
 
