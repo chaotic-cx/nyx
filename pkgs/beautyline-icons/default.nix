@@ -16,7 +16,7 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchFromGitLab {
     owner = "garuda-linux/themes-and-settings/artwork";
-    repo = "beautyline";
+    repo = pname;
     rev = "24052efcb887a58721ffef731181af65ee81b3c1";
     sha256 = "sha256-6Nt7m/P0WUjoOetWLrh6pgkyg7FSLg1hGURgKgy6zdc=";
   };
