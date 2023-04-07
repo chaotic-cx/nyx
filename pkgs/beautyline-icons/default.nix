@@ -42,7 +42,7 @@ stdenvNoCC.mkDerivation rec {
     runHook preInstall
     mkdir -p $out/share/icons/${pname}
     cp -r * $out/share/icons/${pname}/
-    rm -rf $out/share/icons/${pname}/{.gitignore,README.md,ReadMe}
+    rm $out/share/icons/${pname}/{.gitignore,README.md,ReadMe}
     gtk-update-icon-cache $out/share/icons/${pname}
     jdupes --link-soft --recurse $out/share
     runHook postInstall
