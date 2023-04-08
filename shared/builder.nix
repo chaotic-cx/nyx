@@ -41,5 +41,8 @@ let
     )
   ;
 in
-writeShellScriptBin "build-chaotic-nyx"
-  (packagesEval "" "" all-packages)
+writeShellScriptBin "build-chaotic-nyx" ''
+  cd "$(mktemp -d)"
+
+  ${packagesEval "" "" all-packages}
+''
