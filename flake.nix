@@ -38,7 +38,7 @@
     };
   };
 
-  outputs = { nixpkgs, ... }@inputs: rec {
+  outputs = { nixpkgs, self, ... }@inputs: rec {
     # I would prefer if we had something stricter, with attribute alphabetical
     # sorting, and optimized for git's diffing. But this is the closer we have.
     formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
@@ -54,8 +54,9 @@
           let
             overlayFinal = prev // final // { callPackage = prev.newScope final; };
             final = overlays.default overlayFinal prev;
+            builder = overlayFinal.callPackage ./shared/builder.nix { all-packages = final; flakeSelf = self; };
           in
-          final;
+          final // { default = builder; };
       in
       {
         x86_64-linux = applyOverlay nixpkgs.legacyPackages.x86_64-linux;
@@ -63,5 +64,13 @@
       };
 
     hydraJobs.default = packages;
+  };
+
+  nixConfig = {
+    extra-substituters = [ "https://nyx.chaotic.cx" ];
+    extra-trusted-public-keys = [
+      "nyx.chaotic.cx-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
+      "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
+    ];
   };
 }
