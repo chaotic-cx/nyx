@@ -7,12 +7,18 @@
 , writeShellScriptBin
 }:
 let
-  evalCommand = where: ''
-    echo "Building ${flakeSelf}#${where}"
-    ${nix}/bin/nix build --json "${flakeSelf}#${where}" |\
-      ${jq}/bin/jq -r '.[0].outputs[]' |\
-      ${cachix}/bin/cachix push chaotic-nyx --compression-method zstd
-  '';
+  evalCommand = where: drvOutputs:
+    let
+      derivation = "${flakeSelf}#${where}";
+      outputs = map (guide derivation) drvOutputs;
+    in
+    ''
+      echo "Building ${derivation}"
+      ${nix}/bin/nix build --json \
+        ${lib.strings.concatStringsSep " \\\n  " outputs} |\
+        ${jq}/bin/jq -r '.[].outputs[]' |\
+        ${cachix}/bin/cachix push chaotic-nyx --compression-method zstd
+    '';
 
   guide = namespace: n:
     if namespace != "" then
@@ -28,7 +34,7 @@ let
         else if (v.meta.unfree or true) then
           "# unfree: ${n}"
         else
-          evalCommand (guide namespace n)
+          evalCommand (guide namespace n) v.outputs
         )
       else if builtins.isAttrs v then
         lib.strings.concatStringsSep "\n"
