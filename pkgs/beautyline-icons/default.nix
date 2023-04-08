@@ -1,13 +1,11 @@
-{ breeze-icons
-, fetchFromGitLab
+{ fetchFromGitLab
 , gnome-icon-theme
 , gtk3
 , hicolor-icon-theme
 , jdupes
 , lib
-, mint-x-icons
-, pantheon
 , stdenvNoCC
+,
 }:
 stdenvNoCC.mkDerivation rec {
   pname = "BeautyLine";
@@ -20,17 +18,11 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-6Nt7m/P0WUjoOetWLrh6pgkyg7FSLg1hGURgKgy6zdc=";
   };
 
-  sourceRoot = "${pname}";
-
   nativeBuildInputs = [ jdupes gtk3 ];
 
-  # ubuntu-mono is also required but missing in ubuntu-themes (please add it if it is packaged at some point)
   propagatedBuildInputs = [
-    breeze-icons
     gnome-icon-theme
     hicolor-icon-theme
-    mint-x-icons
-    pantheon.elementary-icon-theme
   ];
 
   dontDropIconThemeCache = true;
@@ -42,7 +34,7 @@ stdenvNoCC.mkDerivation rec {
     runHook preInstall
     mkdir -p $out/share/icons/${pname}
     cp -r * $out/share/icons/${pname}/
-    rm $out/share/icons/${pname}/{.gitignore,README.md,ReadMe}
+    rm $out/share/icons/${pname}/{README.md,ReadMe}
     gtk-update-icon-cache $out/share/icons/${pname}
     jdupes --link-soft --recurse $out/share
     runHook postInstall
