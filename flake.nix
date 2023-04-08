@@ -46,7 +46,7 @@
 
     overlays.default = import ./overlays { inherit inputs; };
 
-    nixosModules.default = import ./modules { inherit inputs; };
+    nixosModules = import ./modules { inherit inputs; };
 
     packages =
       let

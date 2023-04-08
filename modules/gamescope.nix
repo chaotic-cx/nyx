@@ -1,4 +1,5 @@
 # Totally based on nrdxp modules
+_:
 { config
 , lib
 , pkgs
@@ -65,7 +66,7 @@ in
 
   config = 
     let
-      gamescope-wrapped = callPackage ../pkgs/gamescope-wrapped {
+      gamescope-wrapped = pkgs.callPackage ../pkgs/gamescope-wrapped {
         gamescope = cfg.package;
         gamescopeArgs = cfg.args;
         gamescopeEnv = cfg.env;
@@ -73,7 +74,7 @@ in
 
       gamescopeSessionStarter = pkgs.writeShellScriptBin "steam-gamescope" ''
         ${gamescope-wrapped}/bin/gamescope --steam \
-          -- ${configSteam.package}/bin/steam -tenfoot -pipewire-dmabuf
+          -- ${cfgSteam.package}/bin/steam -tenfoot -pipewire-dmabuf
       '';
 
       gamescopeSessionFile = (pkgs.writeTextDir "share/wayland-sessions/steam.desktop" ''
@@ -102,7 +103,7 @@ in
       };
 
       environment.systemPackages =
-        lib.optional (cfg.enable) [gamescope-wrapped]
+        lib.optional (cfg.enable) gamescope-wrapped
         ++ lib.optional cfg.session.enable gamescopeSessionStarter;
 
       programs.gamescope.enable = lib.mkDefault cfg.session.enable;
