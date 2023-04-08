@@ -6,11 +6,11 @@ _:
 , ...
 }:
 with lib; let
-  cfg = config.programs.gamescope;
+  cfg = config.chaotic.gamescope;
   cfgSteam = config.programs.steam;
 in
 {
-  options.programs.gamescope = {
+  options.chaotic.gamescope = {
     enable = mkEnableOption (mdDoc "gamescope");
 
     package = mkOption {
@@ -106,7 +106,7 @@ in
         lib.optional (cfg.enable) gamescope-wrapped
         ++ lib.optional cfg.session.enable gamescopeSessionStarter;
 
-      programs.gamescope.enable = lib.mkDefault cfg.session.enable;
+      chaotic.gamescope.enable = lib.mkDefault cfg.session.enable;
       programs.steam.enable = lib.mkDefault cfg.session.enable;
 
       services.xserver.displayManager.sessionPackages = lib.mkIf cfg.session.enable [ gamescopeSessionFile ];
