@@ -37,6 +37,7 @@ We recommend to integrate this repo using Flakes:
 
 ```nix
 [
+  ananicy-cpp-rules
   applet-window-appmenu
   applet-window-title
   beautyline-icons # Garuda Linux's version
