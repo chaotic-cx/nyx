@@ -15,11 +15,16 @@ in
 
   input-leap-git = prev.callPackage ../pkgs/input-leap-git {
     inherit (inputs) input-leap-git-src;
-    inherit (final) libei;
+    libei = final.libei_0_4;
     qttools = final.libsForQt5.qt5.qttools;
   };
 
-  libei = final.callPackage ../pkgs/libei { };
+  libei_0_4 = final.callPackage ../pkgs/libei {
+    libeiVersion = "0.4.1";
+    libeiSrcHash = "sha256-wjzzOU/wvs4QeRCQMH56TARONx+LjYFVMHgWWM/XOs4=";
+  };
+  libei_0_5 = final.callPackage ../pkgs/libei { };
+  libei = final.libei_0_5;
 
   linux_hdr = final.callPackage ../pkgs/linux-hdr {
     kernelPatches = with final.kernelPatches; [
