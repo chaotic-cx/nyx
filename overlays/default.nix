@@ -8,6 +8,10 @@ let
   };
 in
 {
+  applet-window-appmenu = final.libsForQt5.callPackage ../pkgs/applet-window-appmenu { };
+
+  applet-window-title = final.callPackage ../pkgs/applet-window-title { };
+
   beautyline-icons = final.callPackage ../pkgs/beautyline-icons { };
 
   gamescope-git = prev.callPackage ../pkgs/gamescope-git {
