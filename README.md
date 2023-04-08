@@ -37,7 +37,9 @@ We recommend to integrate this repo using Flakes:
 
 ```nix
 [
-  beautyline-icons # Garuda Linux's verison
+  applet-window-appmenu
+  applet-window-title
+  beautyline-icons # Garuda Linux's version
   gamescope-git
   input-leap-git
   libei
