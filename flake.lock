@@ -37,11 +37,11 @@
     "mesa-git-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1680870596,
-        "narHash": "sha256-3mSxROeVnlY9zA7hbqS1kjvi8N+3WklFHJ01iySxe+A=",
+        "lastModified": 1680934244,
+        "narHash": "sha256-Owntlt2R074o4IgNwHyO+1KxDCObmgSFvVtCp9y4rvc=",
         "owner": "chaotic-aur",
         "repo": "mesa-mirror",
-        "rev": "215beee16d9e075a63fd1afc62cc00b28aae1086",
+        "rev": "c7da969f8fe1b78d2479623e2510e52827c3035a",
         "type": "github"
       },
       "original": {
@@ -53,11 +53,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1680819799,
-        "narHash": "sha256-zuHl2LNr1Bll64zfr7805Yvvu23S1e//5Up0oqvjknY=",
+        "lastModified": 1680942619,
+        "narHash": "sha256-kpCW1IegAZfEjCVJW7IPN/hEtRL/9dxaFFYiHS5qVAk=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "144133c526040a5140e89366ff72ac2d387e9bbb",
+        "rev": "6f95dd4fd050daf017cae2dfeb1cea1ec0e4c1a1",
         "type": "github"
       },
       "original": {
@@ -98,11 +98,11 @@
     "waynergy-git-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1680693125,
-        "narHash": "sha256-ApHIwJfADf/s1H99FH8CajyEz2gCxfTCuTJxqnWuNho=",
+        "lastModified": 1680951881,
+        "narHash": "sha256-DHP84AYDd3M8on4LgS2TzFU/QulrWXdl1qbLV+qKoxw=",
         "owner": "r-c-f",
         "repo": "waynergy",
-        "rev": "2c15551259d3e25263c433375e81488d3937acba",
+        "rev": "833ff57906460acb4ba9e3ec45737f42f461fc53",
         "type": "github"
       },
       "original": {
