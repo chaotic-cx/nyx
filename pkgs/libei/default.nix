@@ -13,6 +13,8 @@
 , python3Packages
 , stdenv
 , systemd
+, libeiVersion ? "0.5"
+, libeiSrcHash ? "sha256-2SCQbuRYX6/r5ZcWG9vn1QurYS94nlHp+BXIBDPmTaM="
 }:
 let
   munit = fetchFromGitHub {
@@ -24,22 +26,23 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "libei";
-  version = "0.4.1";
+  version = libeiVersion;
 
   src = fetchFromGitLab {
     domain = "gitlab.freedesktop.org";
     owner = "libinput";
     repo = "libei";
     rev = version;
-    hash = "sha256-wjzzOU/wvs4QeRCQMH56TARONx+LjYFVMHgWWM/XOs4=";
+    hash = libeiSrcHash;
   };
 
   buildInputs = [ libevdev libxkbcommon protobuf protobufc systemd ];
   nativeBuildInputs = [ attr meson ninja pkg-config python3 ] ++
-    (with python3Packages; [ pytest python-dbusmock ]);
+    (with python3Packages; [ jinja2 pytest python-dbusmock strenum structlog ]);
 
   postPatch = ''
     ln -s "${munit}" ./subprojects/munit
+    patchShebangs ./proto/ei-scanner
   '';
 
   meta = with lib; {
