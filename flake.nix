@@ -38,7 +38,7 @@
     };
   };
 
-  outputs = { nixpkgs, ... }@inputs: rec {
+  outputs = { nixpkgs, self, ... }@inputs: rec {
     # I would prefer if we had something stricter, with attribute alphabetical
     # sorting, and optimized for git's diffing. But this is the closer we have.
     formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
@@ -54,9 +54,9 @@
           let
             overlayFinal = prev // final // { callPackage = prev.newScope final; };
             final = overlays.default overlayFinal prev;
-            packageList = overlayFinal.callPackage ./shared/package-list.nix { all-packages = final; };
+            builder = overlayFinal.callPackage ./shared/builder.nix { all-packages = final; flakeSelf = self; };
           in
-          final // { default = packageList; };
+          final // { default = builder; };
       in
       {
         x86_64-linux = applyOverlay nixpkgs.legacyPackages.x86_64-linux;
