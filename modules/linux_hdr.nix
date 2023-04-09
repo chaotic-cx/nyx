@@ -23,7 +23,7 @@ in
             DXVK_HDR = "1";
             ENABLE_GAMESCOPE_WSI = "1";
           };
-        chaotic.gamescope.args = [ "--hdr-enabled" ];
+        chaotic.gamescope.session.args = [ "--hdr-enabled" ];
       };
     };
   };
