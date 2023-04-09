@@ -73,7 +73,7 @@ nix run github:chaotic-aur/nyx#input-leap-git
     package = pkgs.gamescope-git;
     capSysNice = true;
     args = [ "--rt" "--prefer-vk-device 8086:9bc4" ];
-    env = { "__GLX_VENDOR_LIBRARY_NAME" = "nvidia" };
+    env = { "__GLX_VENDOR_LIBRARY_NAME" = "nvidia"; };
     session.enable = true;
   };
 }
