@@ -2,11 +2,11 @@
 
 let
   argToWrapper =
-    (x: "--add-flags \"${lib.strings.escapeShellArg x}\"");
+    (x: "--add-flags ${lib.strings.escapeShellArg x}");
   args = lib.strings.concatStringsSep " "
     (lib.lists.map argToWrapper gamescopeArgs);
   envToWrapper =
-    (k: v: "--set \"${k}\" \"${lib.strings.escapeShellArg v}\"");
+    (k: v: "--set \"${k}\" ${lib.strings.escapeShellArg v}");
   env = lib.strings.concatStringsSep " "
     (lib.attrsets.mapAttrsToList envToWrapper gamescopeEnv);
 in
