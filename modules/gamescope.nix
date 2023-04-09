@@ -107,18 +107,12 @@ in
       '').overrideAttrs (_: { passthru.providedSessions = [ "steam" ]; });
     in
     {
-      security.wrappers = {
-        gamescope = lib.mkIf cfg.enable {
+      security.wrappers = lib.mkIf (cfg.enable && cfg.capSysNice) {
+        gamescope = {
           owner = "root";
           group = "root";
-          source = "${gamescope-wrapped}/bin/gamescope";
-          capabilities = "cap_sys_nice";
-        };
-        steam-gamescope = lib.mkIf cfgSession.enable {
-          owner = "root";
-          group = "root";
-          source = "${gamescopeSessionStarter}/bin/steam-gamescope";
-          capabilities = "cap_sys_nice";
+          source = "${cfg.package}/bin/gamescope";
+          capabilities = "cap_sys_nice+pie";
         };
       };
 
