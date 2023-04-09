@@ -112,7 +112,7 @@ in
           owner = "root";
           group = "root";
           source = "${cfg.package}/bin/gamescope";
-          capabilities = "cap_sys_nice+pie";
+          capabilities = "cap_sys_nice+ep";
         };
       };
 

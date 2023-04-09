@@ -74,7 +74,11 @@ nix run github:chaotic-aur/nyx#input-leap-git
     capSysNice = true;
     args = [ "--rt" "--prefer-vk-device 8086:9bc4" ];
     env = { "__GLX_VENDOR_LIBRARY_NAME" = "nvidia"; };
-    session.enable = true;
+    session = {
+      enable = true;
+      args = "--rt";
+      env = { };
+    };
   };
 }
 ```
