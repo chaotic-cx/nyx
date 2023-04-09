@@ -24,14 +24,6 @@ in
         '';
       };
 
-      capSysNice = mkOption {
-        type = types.bool;
-        default = false;
-        description = mdDoc ''
-          Add cap_sys_nice capability to the GameScope binary.
-        '';
-      };
-
       args = mkOption {
         type = types.listOf types.string;
         default = [ ];
@@ -107,15 +99,6 @@ in
       '').overrideAttrs (_: { passthru.providedSessions = [ "steam" ]; });
     in
     {
-      security.wrappers = lib.mkIf (cfg.enable && cfg.capSysNice) {
-        gamescope = {
-          owner = "root";
-          group = "root";
-          source = "${cfg.package}/bin/gamescope";
-          capabilities = "cap_sys_nice+ep";
-        };
-      };
-
       environment.systemPackages =
         lib.optional cfg.enable gamescope-wrapped
         ++ lib.optional cfgSession.enable gamescopeSessionStarter;
