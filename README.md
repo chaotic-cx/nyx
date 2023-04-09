@@ -68,6 +68,14 @@ nix run github:chaotic-aur/nyx#input-leap-git
 {
   chaotic.mesa-git.enable = true;
   chaotic.linux_hdr.specialisation.enable = true;
+  chaotic.gamescope = {
+    enable = true;
+    package = pkgs.gamescope-git;
+    capSysNice = true;
+    args = [ "--rt" "--prefer-vk-device 8086:9bc4" ];
+    env = { "__GLX_VENDOR_LIBRARY_NAME" = "nvidia" };
+    session.enable = true;
+  };
 }
 ```
 
