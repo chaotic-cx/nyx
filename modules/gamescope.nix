@@ -8,63 +8,73 @@ _:
 with lib; let
   cfg = config.chaotic.gamescope;
   cfgSteam = config.programs.steam;
+  cfgSession = cfg.session;
 in
 {
-  options.chaotic.gamescope = {
-    enable = mkEnableOption (mdDoc "gamescope");
+  options = rec {
+    chaotic.gamescope = {
+      enable = mkEnableOption (mdDoc "gamescope");
 
-    package = mkOption {
-      type = types.package;
-      default = pkgs.gamescope;
-      defaultText = literalExpression "pkgs.gamescope";
-      description = mdDoc ''
-        The GameScope package to use.
-      '';
-    };
+      package = mkOption {
+        type = types.package;
+        default = pkgs.gamescope;
+        defaultText = literalExpression "pkgs.gamescope";
+        description = mdDoc ''
+          The GameScope package to use.
+        '';
+      };
 
-    capSysNice = mkOption {
-      type = types.bool;
-      default = false;
-      description = mdDoc ''
-        Add cap_sys_nice capability to the GameScope binary.
-      '';
-    };
+      args = mkOption {
+        type = types.listOf types.string;
+        default = [ ];
+        example = [ "--rt" "--prefer-vk-device 8086:9bc4" ];
+        description = mdDoc ''
+          Arguments passed to GameScope on startup.
+        '';
+      };
 
-    args = mkOption {
-      type = types.listOf types.string;
-      default = [ ];
-      example = [ "--rt" "--prefer-vk-device 8086:9bc4" ];
-      description = mdDoc ''
-        Arguments passed to GameScope on startup.
-      '';
-    };
+      env = mkOption {
+        type = types.attrsOf types.string;
+        default = { };
+        example = literalExpression ''
+          # for Prime render offload on Nvidia laptops.
+          # Also requires `hardware.nvidia.prime.offload.enable`.
+          {
+            __NV_PRIME_RENDER_OFFLOAD = "1";
+            __VK_LAYER_NV_optimus = "NVIDIA_only";
+            __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+          }
+        '';
+        description = mdDoc ''
+          Default environment variables available to the GameScope process, overridable at runtime.
+        '';
+      };
 
-    env = mkOption {
-      type = types.attrsOf types.string;
-      default = { };
-      example = literalExpression ''
-        # for Prime render offload on Nvidia laptops.
-        # Also requires `hardware.nvidia.prime.offload.enable`.
-        {
-          __NV_PRIME_RENDER_OFFLOAD = "1";
-          __VK_LAYER_NV_optimus = "NVIDIA_only";
-          __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-        }
-      '';
-      description = mdDoc ''
-        Default environment variables available to the GameScope process, overridable at runtime.
-      '';
-    };
+      session = {
+        enable = mkEnableOption (mdDoc "GameScope Session");
 
-    session = mkOption {
-      description = mdDoc "Run a GameScope driven Steam session from your display-manager";
-      type = types.submodule {
-        options.enable = mkEnableOption (mdDoc "GameScope Session");
+        args = mkOption {
+          type = types.listOf types.string;
+          default = config.chaotic.gamescope.args;
+          example = chaotic.gamescope.args.example;
+          description = mdDoc ''
+            Arguments to be passed to GameScope for the session.
+          '';
+        };
+
+        env = mkOption {
+          type = types.attrsOf types.string;
+          default = config.chaotic.gamescope.env;
+          example = chaotic.gamescope.env.example;
+          description = mdDoc ''
+            Environmental variables to be passed to GameScope for the session.
+          '';
+        };
       };
     };
   };
 
-  config = 
+  config =
     let
       gamescope-wrapped = pkgs.callPackage ../pkgs/gamescope-wrapped {
         gamescope = cfg.package;
@@ -72,10 +82,13 @@ in
         gamescopeEnv = cfg.env;
       };
 
-      gamescopeSessionStarter = pkgs.writeShellScriptBin "steam-gamescope" ''
-        ${gamescope-wrapped}/bin/gamescope --steam \
-          -- ${cfgSteam.package}/bin/steam -tenfoot -pipewire-dmabuf
-      '';
+      gamescopeSessionStarter = pkgs.callPackage ../pkgs/gamescope-wrapped {
+        gamescope = cfg.package;
+        gamescopeArgs = cfgSession.args ++ [ "--steam" "--" "${cfgSteam.package}/bin/steam" "-tenfoot" "-pipewire-dmabuf" ];
+        gamescopeEnv = cfgSession.env;
+        gamescopeExecutable = "steam-gamescope";
+        gamescopeVulkanLayers = false;
+      };
 
       gamescopeSessionFile = (pkgs.writeTextDir "share/wayland-sessions/steam.desktop" ''
         [Desktop Entry]
@@ -86,30 +99,15 @@ in
       '').overrideAttrs (_: { passthru.providedSessions = [ "steam" ]; });
     in
     {
-      security.wrappers = lib.mkIf (cfg.enable && cfg.capSysNice) {
-        gamescope = {
-          owner = "root";
-          group = "root";
-          source = "${gamescope-wrapped}/bin/gamescope";
-          capabilities = "cap_sys_nice+pie";
-        };
-        # needed or steam fails
-        bwrap = lib.mkIf cfg.session.enable {
-          owner = "root";
-          group = "root";
-          source = "${pkgs.bubblewrap}/bin/bwrap";
-          setuid = true;
-        };
-      };
-
       environment.systemPackages =
-        lib.optional (cfg.enable) gamescope-wrapped
-        ++ lib.optional cfg.session.enable gamescopeSessionStarter;
+        lib.optional cfg.enable gamescope-wrapped
+        ++ lib.optional cfgSession.enable gamescopeSessionStarter;
 
-      chaotic.gamescope.enable = lib.mkDefault cfg.session.enable;
-      programs.steam.enable = lib.mkDefault cfg.session.enable;
+      # Forces gamescope & steam for gamescope.session
+      chaotic.gamescope.enable = lib.mkIf cfgSession.enable true;
+      programs.steam.enable = lib.mkIf cfgSession.enable true;
 
-      services.xserver.displayManager.sessionPackages = lib.mkIf cfg.session.enable [ gamescopeSessionFile ];
+      services.xserver.displayManager.sessionPackages = lib.mkIf cfgSession.enable [ gamescopeSessionFile ];
     };
 
   meta.maintainers = with maintainers; [ pedrohlc ];

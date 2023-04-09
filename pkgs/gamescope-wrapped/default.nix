@@ -1,4 +1,12 @@
-{stdenvNoCC, lib, gamescope, gamescopeArgs, gamescopeEnv, makeBinaryWrapper }:
+{ stdenv
+, lib
+, gamescope
+, makeBinaryWrapper
+, gamescopeArgs
+, gamescopeEnv
+, gamescopeExecutable ? "gamescope"
+, gamescopeVulkanLayers ? true
+}:
 
 let
   argToWrapper =
@@ -10,18 +18,19 @@ let
   env = lib.strings.concatStringsSep " "
     (lib.attrsets.mapAttrsToList envToWrapper gamescopeEnv);
 in
-stdenvNoCC.mkDerivation {
+stdenv.mkDerivation {
   name = "gamescope-wrapped";
-  nativeBuildInputs = [makeBinaryWrapper];
+  nativeBuildInputs = [ makeBinaryWrapper ];
 
   src = gamescope;
   dontBuild = true;
 
   installPhase = ''
     install -d $out/bin
-    makeBinaryWrapper "$src/bin/gamescope" $out/bin/gamescope \
+    makeBinaryWrapper "$src/bin/gamescope" $out/bin/${gamescopeExecutable} \
       ${args} \
       ${env}
+  '' + lib.strings.optionalString gamescopeVulkanLayers ''
     # We need the vulkan layers in systemPackages
     ln -s $src/share $out/share
   '';
