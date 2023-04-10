@@ -52,10 +52,6 @@ with lib.kernel; {
   ZSWAP_COMPRESSOR_DEFAULT_ZSTD = yes;
 
 
-  # AMD P-state driver
-  # Could cause issues in AMD Virtual machine
-  X86_AMD_PSTATE = yes;
-
   PREEMPT_RCU = yes;
   TASKS_RCU = yes;
   UNINLINE_SPIN_UNLOCK = yes;
