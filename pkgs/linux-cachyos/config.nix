@@ -51,8 +51,6 @@ with lib.kernel; {
   ZSWAP_COMPRESSOR_DEFAULT_LZ4 = no;
   ZSWAP_COMPRESSOR_DEFAULT_ZSTD = yes;
 
-  # Enable USER_NS_UNPRIVILEGED
-  USER_NS = yes;
 
   # # FQ-PIE Packet Scheduling
   # DEFAULT_FQ_PIE = yes;
