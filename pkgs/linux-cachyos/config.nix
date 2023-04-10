@@ -78,11 +78,6 @@ with lib.kernel; {
   # Could cause issues in AMD Virtual machine
   X86_AMD_PSTATE = yes;
 
-  # Paragon's NTFS3 driver
-  NTFS3_FS = module;
-  NTFS3_FS_POSIX_ACL = yes;
-  NTFS3_LZX_XPRESS = yes;
-
   PREEMPT_RCU = yes;
   TASKS_RCU = yes;
   UNINLINE_SPIN_UNLOCK = yes;
