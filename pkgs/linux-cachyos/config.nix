@@ -10,6 +10,7 @@ with lib.kernel; {
   # Tick to 750hz
   HZ = freeform "500";
   HZ_500 = yes;
+  HZ_1000 = no;
 
   # Disable MQ Deadline I/O scheduler
   MQ_IOSCHED_DEADLINE = lib.mkForce no;
