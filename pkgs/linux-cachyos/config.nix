@@ -52,20 +52,6 @@ with lib.kernel; {
   ZSWAP_COMPRESSOR_DEFAULT_ZSTD = yes;
 
 
-  # # FQ-PIE Packet Scheduling
-  # DEFAULT_FQ_PIE = yes;
-  # NET_SCH_DEFAULT = yes;
-
-  # # ZRAM & Zswap
-  # Z3FOLD = no;
-  # ZBUD = lib.mkForce no;
-  # ZRAM = module;
-  # ZRAM_DEF_COMP_ZSTD = yes;
-  # ZSMALLOC = lib.mkForce yes;
-  # ZSWAP_COMPRESSOR_DEFAULT_ZSTD = yes;
-  # ZSWAP_DEFAULT_ON = yes;
-  # ZSWAP_ZPOOL_DEFAULT_ZSMALLOC = yes;
-
   # Haswell & newer
   GENERIC_CPU3 = yes;
 
