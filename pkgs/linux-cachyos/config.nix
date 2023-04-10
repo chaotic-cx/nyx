@@ -4,10 +4,10 @@ with lib.kernel; {
   EXPERT = yes;
   WERROR = no;
 
-  # Bore scheduler
+  # BORE scheduler
   SCHED_BORE = yes;
 
-  # Tick to 750hz
+  # Tick to 500hz
   HZ = freeform "500";
   HZ_500 = yes;
   HZ_1000 = no;
@@ -35,11 +35,6 @@ with lib.kernel; {
   TCP_CONG_BBR2 = yes;
   TCP_CONG_CUBIC = lib.mkForce module;
 
-  # LRU config
-  LRU_GEN = yes;
-  LRU_GEN_ENABLED = yes;
-  LRU_GEN_STATS = no;
-
   # Enable zram/zswap ZSTD compression
   MODULE_COMPRESS_ZSTD_LEVEL = option (freeform "9");
   MODULE_COMPRESS_ZSTD_ULTRA = option no;
@@ -50,6 +45,4 @@ with lib.kernel; {
   ZSWAP_COMPRESSOR_DEFAULT = freeform "zstd";
   ZSWAP_COMPRESSOR_DEFAULT_LZ4 = no;
   ZSWAP_COMPRESSOR_DEFAULT_ZSTD = yes;
-
-
 }
