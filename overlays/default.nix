@@ -16,6 +16,13 @@ in
 
   beautyline-icons = final.callPackage ../pkgs/beautyline-icons { };
 
+  firedragon-unwrapped = final.callPackage ../pkgs/firedragon { };
+
+  firedragon = final.wrapFirefox final.firedragon-unwrapped {
+    inherit (final.firedragon-unwrapped) extraPrefsFiles extraPoliciesFiles;
+    libName = "firedragon";
+  };
+
   gamescope-git = prev.callPackage ../pkgs/gamescope-git {
     inherit (inputs) gamescope-git-src;
   };
