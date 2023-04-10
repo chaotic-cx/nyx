@@ -18,7 +18,6 @@ with lib.kernel; {
   MQ_IOSCHED_KYBER = lib.mkForce no;
 
   # Enabling full ticks
-  CONTEXT_TRACKING = yes;
   CONTEXT_TRACKING_FORCE = option no;
   HZ_PERIODIC = no;
   NO_HZ = yes;
