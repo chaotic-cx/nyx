@@ -42,6 +42,7 @@ We recommend to integrate this repo using Flakes:
   applet-window-title
   beautyline-icons # Garuda Linux's version
   firedragon
+  dr460nized-kde-theme
   gamescope-git
   input-leap-git
   libei
