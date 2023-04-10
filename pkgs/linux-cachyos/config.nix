@@ -20,9 +20,6 @@ with lib.kernel; {
   # Enabling full ticks
   CONTEXT_TRACKING_FORCE = option no;
   HZ_PERIODIC = no;
-  NO_HZ = yes;
-  NO_HZ_COMMON = yes;
-  NO_HZ_FULL = yes;
   NO_HZ_FULL_NODEF = option yes;
   NO_HZ_IDLE = no;
 
