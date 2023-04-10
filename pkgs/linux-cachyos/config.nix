@@ -52,9 +52,6 @@ with lib.kernel; {
   ZSWAP_COMPRESSOR_DEFAULT_ZSTD = yes;
 
 
-  # Haswell & newer
-  GENERIC_CPU3 = yes;
-
   # AMD P-state driver
   # Could cause issues in AMD Virtual machine
   X86_AMD_PSTATE = yes;
