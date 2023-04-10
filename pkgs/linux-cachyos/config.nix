@@ -52,7 +52,4 @@ with lib.kernel; {
   ZSWAP_COMPRESSOR_DEFAULT_ZSTD = yes;
 
 
-  PREEMPT_RCU = yes;
-  TASKS_RCU = yes;
-  UNINLINE_SPIN_UNLOCK = yes;
 }
