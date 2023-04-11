@@ -53,10 +53,25 @@ writeShellScriptBin "build-chaotic-nyx" ''
   NYX_WD="''${NYX_WD:-$(mktemp -d)}"
   R='\033[0;31m'
   G='\033[0;32m'
+  Y='\033[1;33m'
   W='\033[0m'
 
   cd "$NYX_WD"
   echo -n "" > push.txt > errors.txt > success.txt > failures.txt
+
+  function echo_warning() {
+    echo -ne "''${Y}WARNING:''${W} "
+    echo "$@"
+  }
+
+  function echo_error() {
+    echo -ne "''${R}ERROR:''${W} " 1>&2
+    echo "$@" 1>&2
+  }
+
+  if [ -z "$CACHIX_AUTH_TOKEN" ] && [ -z "$CACHIX_SIGNING_KEY" ]; then
+    echo_warning "No key for cachix -- building anyway."
+  fi
 
   function build() {
     _WHAT="''${1:- アンノーン}"
@@ -78,7 +93,7 @@ writeShellScriptBin "build-chaotic-nyx" ''
   ${packagesEval "" "" all-packages}
 
   if [ -z "$CACHIX_AUTH_TOKEN" ] && [ -z "$CACHIX_SIGNING_KEY" ]; then
-    echo "No key for cachix -- ignoring deploy."
+    echo_error "No key for cachix -- failing to deploy."
     exit 23
   elif [ -s push.txt ]; then
     # Let nix digest store paths first
@@ -89,7 +104,7 @@ writeShellScriptBin "build-chaotic-nyx" ''
       --compression-method zstd
 
   else
-    echo "Nothing to push."
+    echo_error "Nothing to push."
     exit 42
   fi
 
