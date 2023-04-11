@@ -28,7 +28,7 @@ stdenvNoCC.mkDerivation rec {
     description = "Plasma 5 applet that shows the application title and icon for active window";
     homepage = "https://github.com/psifidotos/applet-window-title";
     license = licenses.gpl2Plus;
-    maintainers = [ "dr460nf1r3" ];
+    maintainers = [ maintainers.dr460nf1r3 ];
     platforms = platforms.all;
   };
 }

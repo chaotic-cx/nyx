@@ -44,6 +44,6 @@ stdenv.mkDerivation rec {
     description = "Plasma 5 applet in order to show the window appmenu";
     homepage = "https://github.com/psifidotos/applet-window-appmenu";
     license = licenses.gpl2Plus;
-    maintainers = [ "dr460nf1r3" ];
+    maintainers = [ maintainers.dr460nf1r3 ];
   };
 }

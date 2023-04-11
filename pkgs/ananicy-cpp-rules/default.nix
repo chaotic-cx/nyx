@@ -26,7 +26,7 @@ stdenvNoCC.mkDerivation {
     description = "CachyOS' ananicy-rules meant to be used with ananicy-cpp";
     homepage = "https://github.com/CachyOS/ananicy-rules";
     license = licenses.gpl3;
-    maintainers = [ "dr460nf1r3" ];
+    maintainers = [ maintainers.dr460nf1r3 ];
     platforms = platforms.all;
   };
 }
