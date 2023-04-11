@@ -8,8 +8,8 @@
 , ...
 } @ args:
 let
-  major = "6.1";
-  minor = "23";
+  major = "6.2";
+  minor = "10";
 
   patches-src = fetchFromGitHub {
     owner = "CachyOS";
@@ -26,15 +26,15 @@ let
   };
 in
 
-(pkgs.linux_6_1.override { argsOverride = rec {
+(pkgs.linux_6_2.override { argsOverride = rec {
   version = "${major}.${minor}";
 
   src = fetchurl {
     url = "mirror://kernel/linux/kernel/v6.x/linux-${major}.${minor}.tar.xz";
-    sha256 = "sha256-dFg3LodQr+N/0aw+erPCLyxgGPdg+BNAVaA/VKuj6+s=";
+    sha256 = "sha256-V8Viw80nU/IyVJyrBcitdw7YSK6GQBYZx1gb3/rupP4=";
   };
 
-  extraMeta = { maintainers = [ "dr460nf1r3" ]; };
+  extraMeta = { maintainers = with lib; [ maintainers.dr460nf1r3 ]; };
 
   defconfig = "${config-src}/linux-cachyos/config";
 
