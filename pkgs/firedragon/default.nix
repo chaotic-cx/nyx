@@ -22,7 +22,7 @@ in
     description = "A fork of LibreWolf, focused on being easier to use";
     homepage = "https://github.com/dr460nf1r3/firedragon-browser";
     license = lib.licenses.mpl20;
-    maintainers = [ "dr460nf1r3" ];
+    maintainers = with lib; [ maintainers.dr460nf1r3 ];
     maxSilent = 14400; # 4h, double the default of 7200s (c.f. #129212, #129115)
     platforms = lib.platforms.unix;
   };
