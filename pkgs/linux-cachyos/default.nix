@@ -1,93 +1,42 @@
-{ pkgs
-, stdenv
-, lib
+{ argsOverride ? { }
 , fetchFromGitHub
-, buildLinux
-, lto ? false
+, fetchurl
+, kernelPatches
+, lib
+, stdenv
+, pkgs
 , ...
 } @ args:
-# https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/os-specific/linux/kernel/linux-xanmod.nix
-# Taken & updated from https://github.com/VolodiaPG/nur-packages
 let
-  _major = "6";
-  _minor = "2";
-  _rc = "9";
-
-  major = "${_major}.${_minor}";
-  minor = _rc;
-  version = "${major}.${minor}";
-  release = "1";
+  major = "6.1";
+  minor = "23";
 
   patches-src = fetchFromGitHub {
     owner = "CachyOS";
     repo = "kernel-patches";
-    rev = "8d374579e993cc89ea6c8fc8781f94235707dfeb";
-    sha256 = "IpwEe8Wh6FIhnC8fqtBn/KjM0mU59p8Q0NMf1wZkMLk=";
+    rev = "170aecb143126d2bd2ceb1435c08a41573ee1a76";
+    hash = "sha256-+XjguA+HPzIdPdEbROc1Wk3BCdBNl6r/nzvnqDmt8Os=";
   };
 
   config-src = fetchFromGitHub {
     owner = "CachyOS";
     repo = "linux-cachyos";
-    rev = "8237304919f2fe7845d969e649113cc6227baee2";
-    sha256 = "M2zWHI5TyD0a+oQjW3fz9bjInp87BHtfPd3BIHapvd0=";
+    rev = "2b86f87806a40d0b8cd46c7032e81de902affd57";
+    hash = "sha256-Gua1agYq9pw+TuAGJX1597o9BJvKhYANSkZKFQ7ohls=";
   };
-
-  # https://github.com/NixOS/nixpkgs/pull/129806
-  stdenvLLVM =
-    let
-      llvmPin = pkgs.llvmPackages_latest.override {
-        bootBintools = null;
-        bootBintoolsNoLibc = null;
-      };
-
-      stdenv' = pkgs.overrideCC llvmPin.stdenv llvmPin.clangUseLLVM;
-    in
-    stdenv'.override {
-      extraNativeBuildInputs = [ llvmPin.lld pkgs.patchelf ];
-    };
-
-  configfile = builtins.storePath (
-    builtins.toFile "config" (lib.concatStringsSep "\n"
-      (map (builtins.getAttr "configLine") "${config-src}/linux-cachyos/config"))
-  );
 in
-buildLinux {
-  inherit lib version;
 
-  allowImportFromDerivation = true;
+(pkgs.linux_6_1.override { argsOverride = rec {
+  version = "${major}.${minor}";
+
+  src = fetchurl {
+    url = "mirror://kernel/linux/kernel/v6.x/linux-${major}.${minor}.tar.xz";
+    sha256 = "sha256-dFg3LodQr+N/0aw+erPCLyxgGPdg+BNAVaA/VKuj6+s=";
+  };
+
+  extraMeta = { maintainers = [ "dr460nf1r3" ]; };
+
   defconfig = "${config-src}/linux-cachyos/config";
-
-  stdenv =
-    if lto
-    then stdenvLLVM
-    else stdenv;
-  extraMakeFlags = lib.optionals lto [ "LLVM=1" "LLVM_IAS=1" ];
-
-  src = fetchTarball {
-    url = "https://cdn.kernel.org/pub/linux/kernel/v${_major}.x/linux-${version}.tar.xz";
-    sha256 = "09xbz17h5ni2zrjbcf53pssfablzxjzsk7ljagl9dlqxkp6sly5v";
-  };
-
-  modDirVersion = "${version}-cachyos-bore";
-
-  structuredExtraConfig =
-    let
-      cfg = import ./config.nix args;
-    in
-    if lto
-    then
-      ((builtins.removeAttrs cfg [ "GCC_PLUGINS" "FORTIFY_SOURCE" ])
-        // (with lib.kernel; {
-        LTO_NONE = no;
-        LTO_CLANG_FULL = yes;
-      }))
-    else cfg;
-
-  config = {
-    # needed to get the vm test working. whatever.
-    isEnabled = f: true;
-    isYes = f: true;
-  };
 
   kernelPatches =
     builtins.map
@@ -101,5 +50,47 @@ buildLinux {
         "${patches-src}/${major}/sched/0001-bore-cachy.patch"
       ];
 
-  extraMeta.broken = !stdenv.hostPlatform.isx86_64;
-}
+  structuredExtraConfig = with lib.kernel; {
+    EXPERT = yes;
+    WERROR = no;
+
+    # Tick to 500hz
+    HZ = freeform "500";
+    HZ_500 = yes;
+    HZ_1000 = no;
+
+    # Disable MQ Deadline I/O scheduler
+    MQ_IOSCHED_DEADLINE = lib.mkForce no;
+
+    # Disable Kyber I/O scheduler
+    MQ_IOSCHED_KYBER = lib.mkForce no;
+
+    # Enabling full ticks
+    CONTEXT_TRACKING_FORCE = option no;
+    HZ_PERIODIC = no;
+    NO_HZ_FULL_NODEF = option yes;
+    NO_HZ_IDLE = no;
+
+    # Enable O3
+    CC_OPTIMIZE_FOR_PERFORMANCE = no;
+    CC_OPTIMIZE_FOR_PERFORMANCE_O3 = yes;
+
+    # Enable bbr2
+    DEFAULT_BBR2 = yes;
+    DEFAULT_CUBIC = option no;
+    DEFAULT_TCP_CONG = freeform "bbr2";
+    TCP_CONG_BBR2 = yes;
+    TCP_CONG_CUBIC = lib.mkForce module;
+
+    # Enable zram/zswap ZSTD compression
+    MODULE_COMPRESS_ZSTD_LEVEL = option (freeform "9");
+    MODULE_COMPRESS_ZSTD_ULTRA = option no;
+    ZRAM_DEF_COMP = freeform "zstd";
+    ZRAM_DEF_COMP_LZORLE = no;
+    ZRAM_DEF_COMP_ZSTD = yes;
+    ZSTD_COMPRESSION_LEVEL = freeform "19";
+    ZSWAP_COMPRESSOR_DEFAULT = freeform "zstd";
+    ZSWAP_COMPRESSOR_DEFAULT_LZO = no;
+    ZSWAP_COMPRESSOR_DEFAULT_ZSTD = yes;
+  };};
+})
