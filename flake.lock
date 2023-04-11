@@ -39,13 +39,13 @@
       "locked": {
         "lastModified": 1681228106,
         "narHash": "sha256-YNxB9hhwk1WkOJRB80J+2RSudRprRqotVbdEweRydN4=",
-        "owner": "chaotic-aur",
+        "owner": "chaotic-cx",
         "repo": "mesa-mirror",
         "rev": "f9401a515a4cf75dfea99fe0fc579db0ae80d10e",
         "type": "github"
       },
       "original": {
-        "owner": "chaotic-aur",
+        "owner": "chaotic-cx",
         "ref": "main",
         "repo": "mesa-mirror",
         "type": "github"

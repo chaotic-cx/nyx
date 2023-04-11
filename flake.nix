@@ -18,7 +18,7 @@
     };
 
     mesa-git-src = {
-      url = "github:chaotic-aur/mesa-mirror/main";
+      url = "github:chaotic-cx/mesa-mirror/main";
       flake = false;
     };
 
