@@ -51,7 +51,7 @@ in
       ];
 
   structuredExtraConfig = with lib.kernel; {
-    EXPERT = yes;
+    EXPERT = no;
     WERROR = no;
 
     # Tick to 500hz
