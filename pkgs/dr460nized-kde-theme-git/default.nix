@@ -1,17 +1,16 @@
-{ beautyline-icons
+{ beautyline-icons-git
 , dr460nized-kde-git-src
 , lib
 , stdenvNoCC
 , sweet-nova
-,
 }:
 stdenvNoCC.mkDerivation rec {
-  pname = "dr460nized-kde-theme";
+  pname = "dr460nized-kde-theme-git";
   version = "unstable-2023-04-02";
 
   src = dr460nized-kde-git-src;
 
-  buildInputs = [ beautyline-icons sweet-nova ];
+  buildInputs = [ beautyline-icons-git sweet-nova ];
 
   installPhase = ''
     runHook preInstall

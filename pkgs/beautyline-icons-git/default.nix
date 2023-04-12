@@ -5,10 +5,9 @@
 , jdupes
 , lib
 , stdenvNoCC
-,
 }:
 stdenvNoCC.mkDerivation rec {
-  pname = "BeautyLine";
+  pname = "beautyline-icons-git";
   version = "unstable-2023-04-02";
 
   src = beautyline-git-src;
@@ -27,10 +26,10 @@ stdenvNoCC.mkDerivation rec {
 
   installPhase = ''
     runHook preInstall
-    mkdir -p $out/share/icons/${pname}
-    cp -r * $out/share/icons/${pname}/
-    rm $out/share/icons/${pname}/{README.md,ReadMe}
-    gtk-update-icon-cache $out/share/icons/${pname}
+    mkdir -p $out/share/icons/BeautyLine
+    cp -r * $out/share/icons/BeautyLine/
+    rm $out/share/icons/BeautyLine/{README.md,ReadMe}
+    gtk-update-icon-cache $out/share/icons/BeautyLine
     jdupes --link-soft --recurse $out/share
     runHook postInstall
   '';

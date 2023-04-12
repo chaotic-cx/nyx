@@ -3,7 +3,6 @@
 , lib
 , nixosTests
 , stdenv
-,
 }:
 let
   firedragon-src = callPackage ./firedragon.nix { };

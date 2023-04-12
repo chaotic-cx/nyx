@@ -8,7 +8,7 @@ let
   };
 in
 {
-  ananicy-cpp-rules = final.callPackage ../pkgs/ananicy-cpp-rules {
+  ananicy-cpp-rules-git = final.callPackage ../pkgs/ananicy-cpp-rules-git {
     inherit (inputs) ananicy-rules-git-src;
   };
 
@@ -16,7 +16,7 @@ in
 
   applet-window-title = final.callPackage ../pkgs/applet-window-title { };
 
-  beautyline-icons = final.callPackage ../pkgs/beautyline-icons {
+  beautyline-icons-git = final.callPackage ../pkgs/beautyline-icons-git {
     inherit (inputs) beautyline-git-src;
   };
 
@@ -27,7 +27,8 @@ in
     libName = "firedragon";
   };
 
-  dr460nized-kde-theme = final.callPackage ../pkgs/dr460nized-kde-theme {
+  dr460nized-kde-theme-git = final.callPackage ../pkgs/dr460nized-kde-theme-git {
+    beautyline-icons-git = final.beautyline-icons-git;
     inherit (inputs) dr460nized-kde-git-src;
   };
 

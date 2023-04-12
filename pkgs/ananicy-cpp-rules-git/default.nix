@@ -1,10 +1,9 @@
 { ananicy-rules-git-src
 , lib
 , stdenvNoCC
-,
 }:
 stdenvNoCC.mkDerivation {
-  pname = "ananicy-cpp-rules";
+  pname = "ananicy-cpp-rules-git";
   version = "unstable-2023-03-31";
 
   src = ananicy-rules-git-src;
