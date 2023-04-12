@@ -7,13 +7,28 @@
     # --- PKGS SOURCES ---
     # Please, set them in alphabetical order
 
-    input-leap-git-src = {
-      url = "github:input-leap/input-leap/master";
+    ananicy-rules-git-src = {
+      url = "github:CachyOS/ananicy-rules/master";
+      flake = false;
+    };
+
+    beautyline-git-src = {
+      url = "git+https://gitlab.com/garuda-linux/themes-and-settings/artwork/beautyline.git";
+      flake = false;
+    };
+
+    dr460nized-kde-git-src = {
+      url = "git+https://gitlab.com/garuda-linux/themes-and-settings/settings/garuda-dr460nized.git";
       flake = false;
     };
 
     gamescope-git-src = {
       url = "github:ValveSoftware/gamescope/master";
+      flake = false;
+    };
+
+    input-leap-git-src = {
+      url = "github:input-leap/input-leap/master";
       flake = false;
     };
 

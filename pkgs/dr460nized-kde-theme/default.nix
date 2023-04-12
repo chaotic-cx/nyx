@@ -1,5 +1,5 @@
 { beautyline-icons
-, fetchFromGitLab
+, dr460nized-kde-git-src
 , lib
 , stdenvNoCC
 , sweet-nova
@@ -9,12 +9,7 @@ stdenvNoCC.mkDerivation rec {
   pname = "dr460nized-kde-theme";
   version = "unstable-2023-04-02";
 
-  src = fetchFromGitLab {
-    owner = "garuda-linux/themes-and-settings/settings";
-    repo = "garuda-dr460nized";
-    rev = "50dfcb081d3bc304ab16e98e2dd8168b11a9e017";
-    sha256 = "sha256-73QxPtfoCGaV2g6A/IeKebakKLcyRMcX1WQnVGPTTAA=";
-  };
+  src = dr460nized-kde-git-src;
 
   buildInputs = [ beautyline-icons sweet-nova ];
 

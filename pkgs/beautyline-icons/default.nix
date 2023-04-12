@@ -1,4 +1,4 @@
-{ fetchFromGitLab
+{ beautyline-git-src
 , gnome-icon-theme
 , gtk3
 , hicolor-icon-theme
@@ -11,12 +11,7 @@ stdenvNoCC.mkDerivation rec {
   pname = "BeautyLine";
   version = "unstable-2023-04-02";
 
-  src = fetchFromGitLab {
-    owner = "garuda-linux/themes-and-settings/artwork";
-    repo = pname;
-    rev = "24052efcb887a58721ffef731181af65ee81b3c1";
-    hash = "sha256-6Nt7m/P0WUjoOetWLrh6pgkyg7FSLg1hGURgKgy6zdc=";
-  };
+  src = beautyline-git-src;
 
   nativeBuildInputs = [ jdupes gtk3 ];
 
