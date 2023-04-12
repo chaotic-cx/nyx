@@ -8,13 +8,17 @@ let
   };
 in
 {
-  ananicy-cpp-rules = final.callPackage ../pkgs/ananicy-cpp-rules { };
+  ananicy-cpp-rules = final.callPackage ../pkgs/ananicy-cpp-rules {
+    inherit (inputs) ananicy-rules-git-src;
+  };
 
   applet-window-appmenu = final.libsForQt5.callPackage ../pkgs/applet-window-appmenu { };
 
   applet-window-title = final.callPackage ../pkgs/applet-window-title { };
 
-  beautyline-icons = final.callPackage ../pkgs/beautyline-icons { };
+  beautyline-icons = final.callPackage ../pkgs/beautyline-icons {
+    inherit (inputs) beautyline-git-src;
+  };
 
   firedragon-unwrapped = final.callPackage ../pkgs/firedragon { };
 
@@ -23,7 +27,9 @@ in
     libName = "firedragon";
   };
 
-  dr460nized-kde-theme = final.callPackage ../pkgs/dr460nized-kde-theme { };
+  dr460nized-kde-theme = final.callPackage ../pkgs/dr460nized-kde-theme {
+    inherit (inputs) dr460nized-kde-git-src;
+  };
 
   gamescope-git = prev.callPackage ../pkgs/gamescope-git {
     inherit (inputs) gamescope-git-src;
