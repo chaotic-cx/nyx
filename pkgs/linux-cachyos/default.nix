@@ -36,7 +36,7 @@ in
 
   extraMeta = { maintainers = with lib; [ maintainers.dr460nf1r3 ]; };
 
-  defconfig = "${config-src}/linux-cachyos/config";
+  configfile = "${config-src}/linux-cachyos/config";
 
   kernelPatches =
     builtins.map
