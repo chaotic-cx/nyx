@@ -22,7 +22,7 @@ in
     inherit (final.firedragon-unwrapped) extraPrefsFiles extraPoliciesFiles;
     libName = "firedragon";
   };
-  
+
   dr460nized-kde-theme = final.callPackage ../pkgs/dr460nized-kde-theme { };
 
   gamescope-git = prev.callPackage ../pkgs/gamescope-git {

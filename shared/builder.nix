@@ -9,14 +9,14 @@
 , writeShellScript
 }:
 let
-  evalCommand = where: drvOutputs:
+  evalCommand = where: drv:
     let
       derivation = "$NYX_SOURCE#${where}";
       fullTag = output: "\"${guide derivation output}\"";
-      outputs = map fullTag drvOutputs;
+      outputs = map fullTag drv.outputs;
     in
     ''
-      build "${where}" \
+      build "${where}" "${builtins.unsafeDiscardStringContext drv.outPath}" \
         ${lib.strings.concatStringsSep " \\\n  " outputs}
     '';
 
@@ -34,7 +34,7 @@ let
         else if (v.meta.unfree or true) then
           "# unfree: ${n}"
         else
-          evalCommand (guide namespace n) v.outputs
+          evalCommand (guide namespace n) v
         )
       else if builtins.isAttrs v then
         lib.strings.concatStringsSep "\n"
@@ -51,6 +51,7 @@ writeShellScriptBin "build-chaotic-nyx" ''
   NYX_SOURCE="''${NYX_SOURCE:-${flakeSelf}}"
   NYX_FLAGS="''${NYX_FLAGS:---accept-flake-config}"
   NYX_WD="''${NYX_WD:-$(mktemp -d)}"
+  NYX_UNCACHED_ONLY="''${NYX_UNCACHED_ONLY:-0}"
   R='\033[0;31m'
   G='\033[0;32m'
   Y='\033[1;33m'
@@ -73,12 +74,25 @@ writeShellScriptBin "build-chaotic-nyx" ''
     echo_warning "No key for cachix -- building anyway."
   fi
 
+  # Check if $1 is in the cache
+  function cached() {
+    set -e
+    ${nix}/bin/nix path-info "$1" --store 'https://chaotic-nyx.cachix.org' >/dev/null 2>/dev/null
+  }
+
   function build() {
     _WHAT="''${1:- アンノーン}"
+    _DEST="''${2:-/dev/null}"
+    if [ "$NYX_UNCACHED_ONLY" -eq 1 ]; then
+      if cached "$_DEST"; then
+        echo "$_WHAT" >> success.txt
+        return 0
+      fi
+    fi
     echo -n "Building $_WHAT..."
     if \
       ( set -o pipefail;
-        ${nix}/bin/nix build --json $NYX_FLAGS "''${@:2}" |\
+        ${nix}/bin/nix build --json $NYX_FLAGS "''${@:3}" |\
           ${jq}/bin/jq -r '.[].outputs[]' \
       ) 2>> errors.txt >> push.txt
     then
