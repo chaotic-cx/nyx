@@ -23,15 +23,21 @@ We recommend to integrate this repo using Flakes:
         system = "x86_64-linux";
         modules = [
           ./configuration.nix # Your system configuration.
-          chaotic.nixosModules.default
-          ({ pkgs, ... }: {
-            environment.systemPackages = [ pkgs.input-leap_git ];
-            chaotic.mesa-git.enable = true;
-          })
+          chaotic.nixosModules.default # OUR DEFAULT MODULE
         ];
       };
     };
   };
+}
+```
+
+In your `configuration.nix` enable the packages and options that you prefer:
+
+```nix
+{ pkgs, ... }:
+{
+  environment.systemPackages = [ pkgs.input-leap-git ];
+  chaotic.mesa-git.enable = true;
 }
 ```
 
@@ -73,8 +79,6 @@ nix run github:chaotic-cx/nyx#input-leap_git
 
 ```nix
 {
-  chaotic.mesa-git.enable = true; # requires `--impure`
-  chaotic.linux_hdr.specialisation.enable = true;
   chaotic.gamescope = {
     enable = true;
     package = pkgs.gamescope_git;
@@ -86,21 +90,19 @@ nix run github:chaotic-cx/nyx#input-leap_git
       env = { };
     };
   };
+  chaotic.linux_hdr.specialisation.enable = true;
+  chaotic.mesa-git.enable = true; # requires `--impure`
+  chaotic.nyx.cache.enable = false;
 }
 ```
 
 ## Cache
 
-```nix
-{
-  nix.settings = {
-    extra-substituters = [
-      "https://nyx.chaotic.cx"
-    ];
-    extra-trusted-public-keys = [
-      "nyx.chaotic.cx-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
-      "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
-    ];
-  };
-}
-```
+You'll get the binary cache added to your configuration as soon as you add our default module.
+We do this automatically so we can gracefully update its address and keys without prompting you for manual work.
+
+If you dislike this behavior for any reason, you can disable it with `chaotic.nyx.cache.enable = false`.
+
+**Remember**: If you want to fetch derivations from our cache, you'll need to enable our module and rebuild your system **before** adding these derivations to your configuration.
+
+Commands like `nix run ...`, `nix develop ...`, and others, when using our flake as input, will ask you to add the cache interactively when missing from your user's nix-settings.
