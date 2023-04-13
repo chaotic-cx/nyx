@@ -1,0 +1,59 @@
+name: Organize pull requests
+on:
+  pull_request_target:
+    types: [opened, synchronize]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+
+jobs:
+  check-nix-fmt:
+    runs-on: ubuntu-latest
+    outputs:
+      fmt: ${{ steps.check_fmt.outcome }}
+    steps:
+      - name: Install Nix
+        uses: cachix/install-nix-action@v20
+        with:
+          extra_nix_config: "accept-flake-config = true"
+          nix_path: "nixpkgs=channel:nixpkgs-unstable"
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Check nixpkgs-fmt
+        run: |
+          nix run nixpkgs#nixpkgs-fmt -- --check ${{ github.workspace }}
+        id: check_fmt
+        working-directory: ${{ runner.temp }}
+  organize:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    needs: check-nix-fmt
+    if: (!cancelled() && (contains(github.event.pull_request.labels.*.name, 'cached') || (needs.check-nix-fmt.outputs.fmt == 'failure' && github.event.action == 'opened')))
+    steps:
+      - name: Add comment
+        if: needs.check-nix-fmt.outputs.fmt == 'failure' && github.event.action == 'opened'
+        continue-on-error: true
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: "Thank you for contributing to nyx! Please run `nix fmt` on your code before submitting a pull request. Afterwards, please force push your changes."
+            })
+      - name: Remove cached label
+        if: contains(github.event.pull_request.labels.*.name, 'cached')
+        continue-on-error: true
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.removeLabel({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              name: "cached"
+            })

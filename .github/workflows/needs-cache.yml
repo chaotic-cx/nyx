@@ -1,0 +1,98 @@
+name: Cache PRs
+on:
+  pull_request_target:
+    types: [labeled]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    if: github.event.label.name == 'needs-cache'
+    outputs:
+      FAILED_BUILDS_COUNT: ${{ steps.upload.outputs.FAILED_BUILDS_COUNT }}
+      FAILED_BUILDS: ${{ steps.upload.outputs.FAILED_BUILDS }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Nix
+        uses: cachix/install-nix-action@v20
+        with:
+          extra_nix_config: "accept-flake-config = true"
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Build packages
+        run: nix shell -c build-chaotic-nyx && exit 1 || [ $? -eq 23 ]
+        env:
+          NYX_UNCACHED_ONLY: 1
+          NYX_WD: ${{ runner.temp }}
+      - name: Install Cachix
+        uses: cachix/cachix-action@v12
+        with:
+          name: chaotic-nyx
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          skipPush: true
+      - name: Upload to cachix
+        id: upload
+        run: |
+          cd "${{ runner.temp }}"
+          cat push.txt | cachix push chaotic-nyx \
+            --compression-method zstd
+          failed_builds="$(cat ${{ runner.temp }}/failures.txt | sed 's/^/    <li>/; s/$/<\/li>/')"
+          failed_builds_count="$(cat ${{ runner.temp }}/failures.txt | wc -l)"
+          echo "FAILED_BUILDS_COUNT=$failed_builds_count
+          FAILED_BUILDS<<EOF
+          $failed_builds
+          EOF" >> $GITHUB_OUTPUT
+  organize:
+    runs-on: ubuntu-latest
+    needs: [build]
+    if: always()
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Set labels
+        continue-on-error: true
+        uses: actions/github-script@v6
+        env:
+          FAILED_BUILDS_COUNT: ${{ needs.build.outputs.FAILED_BUILDS_COUNT }}
+          FAILED_BUILDS: ${{ needs.build.outputs.FAILED_BUILDS }}
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.rest.issues.removeLabel({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              name: 'needs-cache'
+            })
+            if ('${{ needs.build.result }}' == 'success') {
+              github.rest.issues.addLabels({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                labels: ['cached']
+              })
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: `This PR has been built and cached!
+              <details>
+                <summary>${process.env.FAILED_BUILDS_COUNT} packages failed</summary>
+                <ul>
+                  ${process.env.FAILED_BUILDS}
+                </ul>
+              </details>
+                  `
+              })
+            }
+            else if ('${{ needs.build.result }}' == 'failure')
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: 'Oops! Something went wrong while caching this PR! Check the logs for more information.'
+              })
