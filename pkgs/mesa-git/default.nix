@@ -12,5 +12,5 @@ mesa.overrideAttrs (fa: {
   mesonFlags =
     lib.lists.remove "-Dgallium-rusticl=true" fa.mesonFlags # fails to find "valgrind.h"
     ++ [ "-Dandroid-libbacktrace=disabled" ];
-  patches = utils.dropN 1 fa.patches ++ [ ./disk_cache-include-dri-driver-path-in-cache-key.patch ];
+  patches = utils.dropN 2 fa.patches ++ [ ./disk_cache-include-dri-driver-path-in-cache-key.patch ];
 })
