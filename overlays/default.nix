@@ -1,8 +1,12 @@
+# Conventions:
 # - Sort packages in alphabetic order.
 # - If the recipe uses `override` or `overrideAttrs`, then use `prev`,
 #   otherwise use `final`.
-# - Composed names are separated with minus: input-leap
-# - Versions/varitions are suffixed with an underline: mesa_git, libei_0_5, linux_hdr
+# - Composed names are separated with minus: `input-leap`
+# - Versions/patches are suffixed with an underline: `mesa_git`, `libei_0_5`, `linux_hdr`
+
+# NOTE:
+# - `*_next` packages will be removed once merged into nixpkgs-unstable.
 
 { inputs }: final: prev:
 let
@@ -18,6 +22,30 @@ in
   applet-window-title = final.callPackage ../pkgs/applet-window-title { };
 
   beautyline-icons = final.callPackage ../pkgs/beautyline-icons { };
+
+  directx-headers_next = prev.directx-headers.overrideAttrs (_: rec {
+    version = "1.610.0";
+      src = final.fetchFromGitHub {
+      owner = "microsoft";
+      repo = "DirectX-Headers";
+      rev = "v${version}";
+      hash = "sha256-lPYXAMFSyU3FopWdE6dDRWD6sVKcjxDVsTbgej/T2sk=";
+    };
+  });
+
+  directx-headers32_next =
+    if final.stdenv.hostPlatform.isLinux && final.stdenv.hostPlatform.isx86
+    then
+      prev.pkgsi686Linux.directx-headers.overrideAttrs (_: rec {
+        version = "1.610.0";
+          src = final.fetchFromGitHub {
+          owner = "microsoft";
+          repo = "DirectX-Headers";
+          rev = "v${version}";
+          hash = "sha256-lPYXAMFSyU3FopWdE6dDRWD6sVKcjxDVsTbgej/T2sk=";
+        };
+      })
+    else throw "No headers32_next for non-x86";
 
   firedragon-unwrapped = final.callPackage ../pkgs/firedragon { };
 
@@ -56,6 +84,7 @@ in
 
   mesa_git = prev.callPackage ../pkgs/mesa-git {
     inherit (inputs) mesa-git-src;
+    inherit (final) directx-headers_next;
     inherit utils;
   };
   mesa32_git =
@@ -64,6 +93,7 @@ in
       prev.pkgsi686Linux.callPackage ../pkgs/mesa-git
         {
           inherit (inputs) mesa-git-src;
+          directx-headers_next = final.directx-headers32_next;
           inherit utils;
         }
     else throw "No mesa32_git for non-x86";
