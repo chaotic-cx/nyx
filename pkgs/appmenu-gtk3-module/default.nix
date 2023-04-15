@@ -52,8 +52,8 @@ stdenv.mkDerivation rec {
     "--prefix=${placeholder "out"}"
   ];
 
-  PKG_CONFIG_GTK__3_0_LIBDIR = "${placeholder "out"}/lib";
-  PKG_CONFIG_SYSTEMD_SYSTEMDUSERUNITDIR = "${placeholder "out"}/lib/systemd/user";
+  env.PKG_CONFIG_GTK__3_0_LIBDIR = "${placeholder "out"}/lib";
+  env.PKG_CONFIG_SYSTEMD_SYSTEMDUSERUNITDIR = "${placeholder "out"}/lib/systemd/user";
 
   postInstall = ''
     glib-compile-schemas "$out/share/glib-2.0/schemas"
