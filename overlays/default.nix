@@ -1,6 +1,9 @@
 # - Sort packages in alphabetic order.
 # - If the recipe uses `override` or `overrideAttrs`, then use `prev`,
 #   otherwise use `final`.
+# - Composed names are separated with minus: input-leap
+# - Versions/varitions are suffixed with an underline: mesa_git, libei_0_5, linux_hdr
+
 { inputs }: final: prev:
 let
   utils = import ../shared/utils.nix {
@@ -25,11 +28,11 @@ in
 
   dr460nized-kde-theme = final.callPackage ../pkgs/dr460nized-kde-theme { };
 
-  gamescope-git = prev.callPackage ../pkgs/gamescope-git {
+  gamescope_git = prev.callPackage ../pkgs/gamescope-git {
     inherit (inputs) gamescope-git-src;
   };
 
-  input-leap-git = prev.callPackage ../pkgs/input-leap-git {
+  input-leap_git = prev.callPackage ../pkgs/input-leap-git {
     inherit (inputs) input-leap-git-src;
     libei = final.libei_0_4;
     qttools = final.libsForQt5.qt5.qttools;
@@ -51,11 +54,11 @@ in
 
   linuxPackages_hdr = final.linuxPackagesFor final.linux_hdr;
 
-  mesa-git = prev.callPackage ../pkgs/mesa-git {
+  mesa_git = prev.callPackage ../pkgs/mesa-git {
     inherit (inputs) mesa-git-src;
     inherit utils;
   };
-  mesa-git-32 =
+  mesa32_git =
     if final.stdenv.hostPlatform.isLinux && final.stdenv.hostPlatform.isx86
     then
       prev.pkgsi686Linux.callPackage ../pkgs/mesa-git
@@ -63,22 +66,32 @@ in
           inherit (inputs) mesa-git-src;
           inherit utils;
         }
-    else throw "No mesa-git-32 for non-x86";
+    else throw "No mesa32_git for non-x86";
 
-  sway-unwrapped-git =
+  sway-unwrapped_git =
     (prev.sway-unwrapped.override {
-      wlroots_0_16 = final.wlroots-git;
+      wlroots_0_16 = final.wlroots_git;
+      wayland = final.wayland_next;
     }).overrideAttrs (_: {
       version = "1.9-unstable";
       src = inputs.sway-git-src;
     });
-  sway-git = prev.sway.override {
-    sway-unwrapped = final.sway-unwrapped-git;
+  sway_git = prev.sway.override {
+    sway-unwrapped = final.sway-unwrapped_git;
   };
 
-  waynergy-git = prev.waynergy.overrideAttrs (_: { src = inputs.waynergy-git-src; });
+  wayland_next = prev.wayland.overrideAttrs (_: rec {
+    version = "1.22.0";
+    src = final.fetchurl {
+      url = "https://gitlab.freedesktop.org/wayland/wayland/-/releases/${version}/downloads/wayland-${version}.tar.xz";
+      hash = "sha256-FUCvHqaYpHHC2OnSiDMsfg/TYMjx0Sk267fny8JCWEI=";
+    };
+  });
 
-  wlroots-git = prev.callPackage ../pkgs/wlroots-git {
+  waynergy_git = prev.waynergy.overrideAttrs (_: { src = inputs.waynergy-git-src; });
+
+  wlroots_git = prev.callPackage ../pkgs/wlroots-git {
     inherit (inputs) wlroots-git-src;
+    inherit (final) wayland_next;
   };
 }
