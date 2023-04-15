@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     owner = "vala-panel-project";
     repo = "vala-panel-appmenu";
     rev = version;
-    sha256 = "sha256:1ywpygjwlbli65203ja2f8wwxh5gbavnfwcxwg25v061pcljaqmm";
+    hash = "sha256-tWIlKbvBgF3E451xZ7dar8DOOXJCyQFEMZEuyuXzl/s=";
   };
 
   sourceRoot = "source/subprojects/appmenu-gtk-module";
