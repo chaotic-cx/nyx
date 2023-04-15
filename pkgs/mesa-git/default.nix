@@ -1,11 +1,14 @@
-{ lib
+{ directx-headers_next
+, lib
 , libunwind
 , lm_sensors
 , mesa
 , mesa-git-src
 , utils
 }:
-mesa.overrideAttrs (fa: {
+(mesa.override {
+  directx-headers = directx-headers_next;
+}).overrideAttrs (fa: {
   version = "23.1.99";
   src = mesa-git-src;
   buildInputs = fa.buildInputs ++ [ libunwind lm_sensors ];

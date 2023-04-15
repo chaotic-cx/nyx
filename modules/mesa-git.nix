@@ -15,9 +15,9 @@ in
   };
   config = {
     hardware.opengl = lib.mkIf cfg.mesa-git.enable {
-      package = pkgs.mesa-git.drivers;
-      package32 = lib.mkIf (pkgs.stdenv.hostPlatform.isLinux && pkgs.stdenv.hostPlatform.isx86) pkgs.mesa-git-32.drivers;
-      extraPackages = [ pkgs.mesa-git.opencl ];
+      package = pkgs.mesa_git.drivers;
+      package32 = lib.mkIf (pkgs.stdenv.hostPlatform.isLinux && pkgs.stdenv.hostPlatform.isx86) pkgs.mesa32_git.drivers;
+      extraPackages = [ pkgs.mesa_git.opencl ];
     };
 
     specialisation.stable-mesa = lib.mkIf cfg.mesa-git.enable {
