@@ -23,7 +23,7 @@ We recommend to integrate this repo using Flakes:
           ./configuration.nix # Your system configuration.
           chaotic.nixosModules.default
           ({ pkgs, ... }: {
-            environment.systemPackages = [ pkgs.input-leap-git ];
+            environment.systemPackages = [ pkgs.input-leap_git ];
             chaotic.mesa-git.enable = true;
           })
         ];
@@ -43,17 +43,17 @@ We recommend to integrate this repo using Flakes:
   beautyline-icons # Garuda Linux's version
   firedragon
   dr460nized-kde-theme
-  gamescope-git
-  input-leap-git
+  gamescope_git
+  input-leap_git
   libei
   linux_hdr # recommended option: chaotic.linux_hdr.specialisation.enable
   linuxPackages_hdr # recommended option: chaotic.linux_hdr.specialisation.enable
-  mesa-git # recommended option: chaotic.mesa-git.enable
-  mesa-git-32 # only x86, recommended option: chaotic.mesa-git.enable
-  sway-unwrapped-git
-  sway-git
-  waynergy-git
-  wlroots-git
+  mesa_git # recommended option: chaotic.mesa-git.enable
+  mesa32_git # only x86, recommended option: chaotic.mesa-git.enable
+  sway-unwrapped_git
+  sway_git
+  waynergy_git
+  wlroots_git
 ]
 ```
 
@@ -62,7 +62,7 @@ We recommend to integrate this repo using Flakes:
 Besides using our module/overlay, you can run packages using:
 
 ```sh
-nix run github:chaotic-cx/nyx#input-leap-git
+nix run github:chaotic-cx/nyx#input-leap_git
 ```
 
 ## List of options
@@ -73,7 +73,7 @@ nix run github:chaotic-cx/nyx#input-leap-git
   chaotic.linux_hdr.specialisation.enable = true;
   chaotic.gamescope = {
     enable = true;
-    package = pkgs.gamescope-git;
+    package = pkgs.gamescope_git;
     args = [ "--rt" "--prefer-vk-device 8086:9bc4" ];
     env = { "__GLX_VENDOR_LIBRARY_NAME" = "nvidia"; };
     session = {
