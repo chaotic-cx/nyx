@@ -23,6 +23,8 @@ jobs:
         uses: actions/checkout@v3
         with:
           ref: ${{ github.event.pull_request.head.sha }}
+      - name: Run GH actions cleanup
+        run: sudo rm -rf /usr/share /usr/local /opt || true # https://github.com/easimon/maximize-build-space
       - name: Build packages
         run: nix shell -c build-chaotic-nyx && exit 1 || [ $? -eq 23 ]
         env:
