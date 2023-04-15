@@ -22,6 +22,8 @@ in
 
   applet-window-title = final.callPackage ../pkgs/applet-window-title { };
 
+  appmenu-gtk3-module = final.callPackage ../pkgs/appmenu-gtk3-module { };
+
   beautyline-icons = final.callPackage ../pkgs/beautyline-icons { };
 
   directx-headers_next = prev.directx-headers.overrideAttrs (_: rec {
