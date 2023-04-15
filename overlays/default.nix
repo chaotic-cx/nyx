@@ -25,7 +25,7 @@ in
 
   directx-headers_next = prev.directx-headers.overrideAttrs (_: rec {
     version = "1.610.0";
-      src = final.fetchFromGitHub {
+    src = final.fetchFromGitHub {
       owner = "microsoft";
       repo = "DirectX-Headers";
       rev = "v${version}";
@@ -36,15 +36,16 @@ in
   directx-headers32_next =
     if final.stdenv.hostPlatform.isLinux && final.stdenv.hostPlatform.isx86
     then
-      prev.pkgsi686Linux.directx-headers.overrideAttrs (_: rec {
-        version = "1.610.0";
+      prev.pkgsi686Linux.directx-headers.overrideAttrs
+        (_: rec {
+          version = "1.610.0";
           src = final.fetchFromGitHub {
-          owner = "microsoft";
-          repo = "DirectX-Headers";
-          rev = "v${version}";
-          hash = "sha256-lPYXAMFSyU3FopWdE6dDRWD6sVKcjxDVsTbgej/T2sk=";
-        };
-      })
+            owner = "microsoft";
+            repo = "DirectX-Headers";
+            rev = "v${version}";
+            hash = "sha256-lPYXAMFSyU3FopWdE6dDRWD6sVKcjxDVsTbgej/T2sk=";
+          };
+        })
     else throw "No headers32_next for non-x86";
 
   firedragon-unwrapped = final.callPackage ../pkgs/firedragon { };
