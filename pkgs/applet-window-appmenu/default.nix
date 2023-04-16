@@ -11,7 +11,6 @@
 , plasma-workspace
 , stdenv
 , wrapQtAppsHook
-,
 }:
 stdenv.mkDerivation rec {
   pname = "applet-window-appmenu";

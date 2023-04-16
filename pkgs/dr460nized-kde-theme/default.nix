@@ -3,7 +3,6 @@
 , lib
 , stdenvNoCC
 , sweet-nova
-,
 }:
 stdenvNoCC.mkDerivation rec {
   pname = "dr460nized-kde-theme";

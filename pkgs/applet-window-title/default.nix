@@ -1,7 +1,6 @@
 { fetchFromGitHub
 , lib
 , stdenvNoCC
-,
 }:
 stdenvNoCC.mkDerivation rec {
   pname = "applet-window-title";
