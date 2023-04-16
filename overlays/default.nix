@@ -4,17 +4,20 @@
 #   otherwise use `final`.
 # - Composed names are separated with minus: `input-leap`
 # - Versions/patches are suffixed with an underline: `mesa_git`, `libei_0_5`, `linux_hdr`
+# - Use `inherit (final) nyxUtils` since someone might want to override our utils
 
 # NOTE:
 # - `*_next` packages will be removed once merged into nixpkgs-unstable.
 
 { inputs }: final: prev:
 let
-  utils = import ../shared/utils.nix {
+  nyxUtils = import ../shared/utils.nix {
     inherit (final) lib;
   };
 in
 {
+  inherit nyxUtils;
+
   ananicy-cpp-rules = final.callPackage ../pkgs/ananicy-cpp-rules { };
 
   applet-window-appmenu = final.libsForQt5.callPackage ../pkgs/applet-window-appmenu { };
@@ -59,10 +62,12 @@ in
 
   gamescope_git = prev.callPackage ../pkgs/gamescope-git {
     inherit (inputs) gamescope-git-src;
+    inherit (final) nyxUtils;
   };
 
   input-leap_git = prev.callPackage ../pkgs/input-leap-git {
     inherit (inputs) input-leap-git-src;
+    inherit (final) nyxUtils;
     libei = final.libei_0_4;
     qttools = final.libsForQt5.qt5.qttools;
   };
@@ -85,8 +90,7 @@ in
 
   mesa_git = prev.callPackage ../pkgs/mesa-git {
     inherit (inputs) mesa-git-src;
-    inherit (final) directx-headers_next;
-    inherit utils;
+    inherit (final) directx-headers_next nyxUtils;
   };
   mesa32_git =
     if final.stdenv.hostPlatform.isLinux && final.stdenv.hostPlatform.isx86
@@ -94,19 +98,17 @@ in
       prev.pkgsi686Linux.callPackage ../pkgs/mesa-git
         {
           inherit (inputs) mesa-git-src;
+          inherit (final) nyxUtils;
           directx-headers_next = final.directx-headers32_next;
-          inherit utils;
         }
     else throw "No mesa32_git for non-x86";
 
   sway-unwrapped_git =
-    (prev.sway-unwrapped.override {
-      wlroots_0_16 = final.wlroots_git;
-      wayland = final.wayland_next;
-    }).overrideAttrs (_: {
-      version = "1.9-unstable";
-      src = inputs.sway-git-src;
-    });
+    nyxUtils.gitOverride inputs.sway-git-src
+      (prev.sway-unwrapped.override {
+        wlroots_0_16 = final.wlroots_git;
+        wayland = final.wayland_next;
+      });
   sway_git = prev.sway.override {
     sway-unwrapped = final.sway-unwrapped_git;
   };
@@ -119,10 +121,10 @@ in
     };
   });
 
-  waynergy_git = prev.waynergy.overrideAttrs (_: { src = inputs.waynergy-git-src; });
+  waynergy_git = nyxUtils.gitOverride inputs.waynergy-git-src prev.waynergy;
 
   wlroots_git = prev.callPackage ../pkgs/wlroots-git {
     inherit (inputs) wlroots-git-src;
-    inherit (final) wayland_next;
+    inherit (final) wayland_next nyxUtils;
   };
 }

@@ -1,6 +1,6 @@
-{ gamescope, gamescope-git-src, lib }:
+{ gamescope, gamescope-git-src, lib, nyxUtils }:
 gamescope.overrideAttrs (pa: {
-  version = "3.11.52-unstable";
+  version = nyxUtils.gitToVersion gamescope-git-src;
   src = gamescope-git-src;
   patches = [ (lib.lists.take 1 pa.patches) ];
 })

@@ -4,12 +4,14 @@
 , input-leap-git-src
 , libei
 , libportal
+, nyxUtils
 , pkg-config
 , qttools
 }:
 barrier.overrideAttrs (pa: {
   pname = "input-leap";
   src = input-leap-git-src;
+  version = nyxUtils.gitToVersion input-leap-git-src;
   nativeBuildInputs = pa.nativeBuildInputs ++ [
     pkg-config
     gtest

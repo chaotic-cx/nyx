@@ -1,7 +1,6 @@
 { fetchFromGitHub
 , lib
 , stdenvNoCC
-,
 }:
 stdenvNoCC.mkDerivation {
   pname = "ananicy-cpp-rules";
