@@ -79,12 +79,21 @@ in
   libei_0_5 = final.callPackage ../pkgs/libei { };
   libei = final.libei_0_5;
 
+  linux_cachyos = final.callPackage ../pkgs/linux-cachyos {
+    kernelPatches = with final.kernelPatches; [
+      bridge_stp_helper
+      request_key_helper
+    ];
+  };
+
   linux_hdr = final.callPackage ../pkgs/linux-hdr {
     kernelPatches = with final.kernelPatches; [
       bridge_stp_helper
       request_key_helper
     ];
   };
+
+  linuxPackages_cachyos = final.linuxPackagesFor final.linux_cachyos;
 
   linuxPackages_hdr = final.linuxPackagesFor final.linux_hdr;
 

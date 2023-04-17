@@ -46,7 +46,9 @@ We recommend to integrate this repo using Flakes:
   gamescope_git
   input-leap_git
   libei
+  linux_cachyos # the default BORE scheduler
   linux_hdr # recommended option: chaotic.linux_hdr.specialisation.enable
+  linuxPackages_cachyos # the default BORE scheduler
   linuxPackages_hdr # recommended option: chaotic.linux_hdr.specialisation.enable
   mesa_git # recommended option: chaotic.mesa-git.enable
   mesa32_git # only x86, recommended option: chaotic.mesa-git.enable
