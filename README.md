@@ -1,6 +1,8 @@
-# Nyx
+# Chaotic's Nyx
 
 Flake-compatible nixpkgs-overlay for bleeding-edge and unreleased packages. The first child of Chaos.
+
+From the Chaotic Linux User Group (LUG), the same one that maintains Chaotic-AUR.
 
 ## How to use it
 
