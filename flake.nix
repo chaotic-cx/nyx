@@ -54,9 +54,8 @@
           let
             overlayFinal = prev // final // { callPackage = prev.newScope final; };
             final = overlays.default overlayFinal prev;
-            builder = overlayFinal.callPackage ./shared/builder.nix { all-packages = final; flakeSelf = self; };
           in
-          final // { default = builder; };
+          final;
       in
       {
         x86_64-linux = applyOverlay nixpkgs.legacyPackages.x86_64-linux;
@@ -64,6 +63,29 @@
       };
 
     hydraJobs.default = packages;
+
+    devShells =
+      let
+        mkShells = final: prev:
+          let
+            overlayFinal = prev // final // { callPackage = prev.newScope final; };
+            derivationRecursiveFinder = overlayFinal.callPackage ./shared/derivation-recursive-finder.nix { };
+            builder = overlayFinal.callPackage ./shared/builder.nix
+              { all-packages = final; flakeSelf = self; inherit derivationRecursiveFinder; };
+            evaluated = overlayFinal.callPackage ./shared/eval.nix
+              { all-packages = final; inherit derivationRecursiveFinder; };
+          in
+          {
+            default = overlayFinal.mkShell { buildInputs = [ builder ]; };
+            evaluator = { env.NYX_EVALUATED = evaluated; };
+          };
+      in
+      {
+        x86_64-linux = mkShells packages.x86_64-linux
+          nixpkgs.legacyPackages.x86_64-linux;
+        aarch64-linux = mkShells packages.aarch64-linux
+          nixpkgs.legacyPackages.aarch64-linux;
+      };
   };
 
   nixConfig = {

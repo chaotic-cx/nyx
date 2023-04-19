@@ -26,7 +26,7 @@ jobs:
       - name: Run GH actions cleanup
         run: sudo rm -rf /usr/share /usr/local /opt || true # https://github.com/easimon/maximize-build-space
       - name: Build packages
-        run: nix shell -c build-chaotic-nyx && exit 1 || [ $? -eq 23 ]
+        run: nix develop -c build-chaotic-nyx && exit 1 || [ $? -eq 23 ]
         env:
           NYX_UNCACHED_ONLY: 1
           NYX_WD: ${{ runner.temp }}

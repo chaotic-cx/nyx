@@ -27,7 +27,7 @@ jobs:
         id: bump
       - name: Build packages
         if: steps.bump.outcome == 'success'
-        run: nix shell -c build-chaotic-nyx && exit 1 || [ $? -eq 23 ]
+        run: nix develop -c build-chaotic-nyx && exit 1 || [ $? -eq 23 ]
         env:
           NYX_WD: ${{ runner.temp }}
       - name: Install Cachix
