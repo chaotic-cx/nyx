@@ -1,51 +1,26 @@
 # The smallest and KISSer continuos-deploy I was able to create.
 { all-packages
 , cachix
+, derivationRecursiveFinder
 , jq
 , lib
 , nix
 , flakeSelf
 , writeShellScriptBin
-, writeShellScript
 }:
 let
-  evalCommand = where: drv:
+  evalCommand = key: drv:
     let
-      derivation = "$NYX_SOURCE#${where}";
-      fullTag = output: "\"${guide derivation output}\"";
+      derivation = "$NYX_SOURCE#${key}";
+      fullTag = output: "\"${derivationRecursiveFinder.join derivation output}\"";
       outputs = map fullTag drv.outputs;
     in
     ''
-      build "${where}" "${builtins.unsafeDiscardStringContext drv.outPath}" \
+      build "${key}" "${builtins.unsafeDiscardStringContext drv.outPath}" \
         ${lib.strings.concatStringsSep " \\\n  " outputs}
     '';
 
-  guide = namespace: n:
-    if namespace != "" then
-      "${namespace}.${n}"
-    else
-      n
-  ;
-  packagesEval = namespace: n: v:
-    (if (builtins.tryEval v).success then
-      (if lib.attrsets.isDerivation v then
-        (if (v.meta.broken or true) then
-          "# broken: ${n}"
-        else if (v.meta.unfree or true) then
-          "# unfree: ${n}"
-        else
-          evalCommand (guide namespace n) v
-        )
-      else if builtins.isAttrs v then
-        lib.strings.concatStringsSep "\n"
-          (lib.attrsets.mapAttrsToList (packagesEval (guide namespace n)) v)
-      else
-        "# unrelated: ${n}"
-      )
-    else
-      "# not evaluating: ${n}"
-    )
-  ;
+  packagesEval = derivationRecursiveFinder.evalToString evalCommand;
 in
 writeShellScriptBin "build-chaotic-nyx" ''
   NYX_SOURCE="''${NYX_SOURCE:-${flakeSelf}}"
@@ -83,14 +58,11 @@ writeShellScriptBin "build-chaotic-nyx" ''
   function build() {
     _WHAT="''${1:- アンノーン}"
     _DEST="''${2:-/dev/null}"
-    if [ "$NYX_UNCACHED_ONLY" -eq 1 ]; then
-      if cached "$_DEST"; then
-        echo "$_WHAT" >> success.txt
-        return 0
-      fi
-    fi
     echo -n "Building $_WHAT..."
-    if \
+    if cached "$_DEST"; then
+      echo "$_WHAT" >> cached.txt
+      echo -e "''${Y} CACHED''${W}"
+    elif \
       ( set -o pipefail;
         ${nix}/bin/nix build --json $NYX_FLAGS "''${@:3}" |\
           ${jq}/bin/jq -r '.[].outputs[]' \
@@ -104,7 +76,7 @@ writeShellScriptBin "build-chaotic-nyx" ''
     fi
   }
 
-  ${packagesEval "" "" all-packages}
+  ${packagesEval all-packages}
 
   if [ -z "$CACHIX_AUTH_TOKEN" ] && [ -z "$CACHIX_SIGNING_KEY" ]; then
     echo_error "No key for cachix -- failing to deploy."
