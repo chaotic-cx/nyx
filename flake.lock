@@ -37,11 +37,11 @@
     "mesa-git-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1681811384,
-        "narHash": "sha256-Qd9LW3OAicdCfZ7Bn0OVS+B3PVRaGZ/+QrthIoffrvc=",
+        "lastModified": 1681911312,
+        "narHash": "sha256-mUyXdqffsuBKylp63W3FsgUF58Gwoe4GJya33PG4oHA=",
         "owner": "chaotic-cx",
         "repo": "mesa-mirror",
-        "rev": "73e9cf606267938586a39d6cc59e3cd9f26e05b7",
+        "rev": "8b366b6bc09e3f51fc8212b0c9b03a138a7eddf7",
         "type": "github"
       },
       "original": {
@@ -115,11 +115,11 @@
     "wlroots-git-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1681806570,
-        "narHash": "sha256-Q3En42poeOlVJz4K1rg7p7hrlNCpC0dQy91R4Ucoapc=",
+        "lastModified": 1681910993,
+        "narHash": "sha256-AMGW79rRgdjeQF2lLYe/ugKHCngPj/iTQHSQJsUmu0o=",
         "ref": "master",
-        "rev": "00489b11a0d926058d23584e2ad0e2b64f5b7406",
-        "revCount": 6200,
+        "rev": "d79582434685827275d79dca05f61efed5e3d6e7",
+        "revCount": 6205,
         "type": "git",
         "url": "https://gitlab.freedesktop.org/wlroots/wlroots.git"
       },
