@@ -44,6 +44,8 @@
     formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
     formatter.aarch64-linux = nixpkgs.legacyPackages.aarch64-linux.nixpkgs-fmt;
 
+    # The three stars: our overlay, our modules and the packages.
+
     overlays.default = import ./overlays { inherit inputs; };
 
     nixosModules = import ./modules { inherit inputs; };
@@ -64,6 +66,7 @@
 
     hydraJobs.default = packages;
 
+    # The following shells are used to help our maintainers and CI/CDs.
     devShells =
       let
         mkShells = final: prev:
@@ -88,6 +91,7 @@
       };
   };
 
+  # Allows the user to use our cache when using `nix run <thisFlake>`.
   nixConfig = {
     extra-substituters = [ "https://nyx.chaotic.cx" ];
     extra-trusted-public-keys = [
