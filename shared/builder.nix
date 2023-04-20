@@ -1,26 +1,66 @@
 # The smallest and KISSer continuos-deploy I was able to create.
 { all-packages
 , cachix
-, derivationRecursiveFinder
+, derivationRecursiveFinder ? nyxUtils.derivationRecursiveFinder
 , flakeSelf
 , jq
 , lib
 , nix
+, nyxUtils
 , writeShellScriptBin
 }:
 let
+  allPackagesList =
+    builtins.map (xsx: xsx.drv)
+      (lib.lists.filter (xsx: xsx.drv != null) packagesEval);
+
+  depVar = drv:
+    "_dep_${nyxUtils.drvHash drv}";
+
+  depVarQuoted = drv:
+    "\"$_dep_${nyxUtils.drvHash drv}\"";
+
   evalCommand = key: drv:
     let
       derivation = "$NYX_SOURCE#${key}";
       fullTag = output: "\"${derivationRecursiveFinder.join derivation output}\"";
       outputs = map fullTag drv.outputs;
+      deps = nyxUtils.internalDeps allPackagesList drv;
+      depsCond = lib.strings.concatStrings
+        (builtins.map (dep: "[ ${depVarQuoted dep} == '1' ] && ") deps);
     in
-    ''
-      build "${key}" "${builtins.unsafeDiscardStringContext drv.outPath}" \
-        ${lib.strings.concatStringsSep " \\\n  " outputs}
-    '';
+    {
+      cmd = ''
+        ${depsCond}[ -z ${depVarQuoted drv} ] && ${depVar drv}=0 && \
+        build "${key}" "${builtins.unsafeDiscardStringContext drv.outPath}" \
+          ${lib.strings.concatStringsSep " \\\n  " outputs} && \
+            ${depVar drv}=1
+      '';
+      inherit deps drv;
+    };
 
-  packagesEval = derivationRecursiveFinder.evalToString evalCommand all-packages;
+  commentWarn = k: _: message:
+    {
+      cmd = "# ${message}: ${k}";
+      drv = null;
+      deps = [ ];
+    };
+
+  packagesEval =
+    lib.lists.flatten
+      (derivationRecursiveFinder.eval commentWarn evalCommand all-packages);
+
+  depFirstSorter = pkgA: pkgB:
+    if pkgA.drv == null || pkgB.drv == null then
+      false
+    else
+      nyxUtils.drvElem pkgA.drv pkgB.deps;
+
+  packagesEvalSorted =
+    lib.lists.toposort depFirstSorter packagesEval;
+
+  packagesCmds =
+    builtins.map (pkg: pkg.cmd) packagesEvalSorted.result;
 in
 writeShellScriptBin "build-chaotic-nyx" ''
   NYX_SOURCE="''${NYX_SOURCE:-${flakeSelf}}"
@@ -62,6 +102,7 @@ writeShellScriptBin "build-chaotic-nyx" ''
     if cached "$_DEST"; then
       echo "$_WHAT" >> cached.txt
       echo -e "''${Y} CACHED''${W}"
+      return 0
     elif \
       ( set -o pipefail;
         ${nix}/bin/nix build --json $NYX_FLAGS "''${@:3}" |\
@@ -70,13 +111,15 @@ writeShellScriptBin "build-chaotic-nyx" ''
     then
       echo "$_WHAT" >> success.txt
       echo -e "''${G} OK''${W}"
+      return 0
     else
       echo "$_WHAT" >> failures.txt
       echo -e "''${R} ERR''${W}"
+      return 1
     fi
   }
 
-  ${packagesEval}
+  ${lib.strings.concatStringsSep "\n" packagesCmds}
 
   if [ -z "$CACHIX_AUTH_TOKEN" ] && [ -z "$CACHIX_SIGNING_KEY" ]; then
     echo_error "No key for cachix -- failing to deploy."

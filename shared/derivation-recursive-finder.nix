@@ -35,12 +35,4 @@ rec {
       ;
     in
     recursive "" "" root;
-
-  evalToString = mapFn: root:
-    let
-      warnFn = k: _: message:
-        "# ${message}: ${k}";
-    in
-    lib.strings.concatStringsSep "\n"
-      (lib.lists.flatten (eval warnFn mapFn root));
 }

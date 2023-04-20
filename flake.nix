@@ -76,7 +76,7 @@
               {
                 all-packages = final;
                 flakeSelf = self;
-                inherit (overlayFinal.nyxUtils) derivationRecursiveFinder;
+                inherit (overlayFinal) nyxUtils;
               };
             evaluated = overlayFinal.callPackage ./shared/eval.nix
               {
