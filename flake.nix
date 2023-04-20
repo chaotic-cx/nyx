@@ -72,15 +72,21 @@
         mkShells = final: prev:
           let
             overlayFinal = prev // final // { callPackage = prev.newScope final; };
-            derivationRecursiveFinder = overlayFinal.callPackage ./shared/derivation-recursive-finder.nix { };
             builder = overlayFinal.callPackage ./shared/builder.nix
-              { all-packages = final; flakeSelf = self; inherit derivationRecursiveFinder; };
+              {
+                all-packages = final;
+                flakeSelf = self;
+                inherit (overlayFinal.nyxUtils) derivationRecursiveFinder;
+              };
             evaluated = overlayFinal.callPackage ./shared/eval.nix
-              { all-packages = final; inherit derivationRecursiveFinder; };
+              {
+                all-packages = final;
+                inherit (overlayFinal.nyxUtils) derivationRecursiveFinder;
+              };
           in
           {
             default = overlayFinal.mkShell { buildInputs = [ builder ]; };
-            evaluator = { env.NYX_EVALUATED = evaluated; };
+            evaluator = overlayFinal.mkShell { env.NYX_EVALUATED = evaluated; };
           };
       in
       {
