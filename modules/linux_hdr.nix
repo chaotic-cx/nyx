@@ -7,7 +7,6 @@ in
     chaotic.linux_hdr.specialisation.enable =
       lib.mkOption {
         default = false;
-        internal = true;
         description = ''
           Adds an specialisation for booting with linux_hdr.
         '';

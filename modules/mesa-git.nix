@@ -9,7 +9,6 @@ in
     chaotic.mesa-git.enable =
       lib.mkOption {
         default = false;
-        internal = true;
         description = ''
           Whether to use latest Mesa drivers.
 
