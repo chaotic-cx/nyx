@@ -35,7 +35,4 @@ rec {
       ;
     in
     recursive "" "" root;
-
-  evalToDerivationList = root:
-    lib.lists.remove null (lib.lists.flatten (eval (_: _: _: null) (_: v: v) root));
 }

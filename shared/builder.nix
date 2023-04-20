@@ -11,8 +11,8 @@
 }:
 let
   allPackagesDrvPathList =
-    builtins.map (xsx: xsx.drvPath)
-      (derivationRecursiveFinder.evalToDerivationList all-packages);
+    builtins.map (xsx: xsx.drv.drvPath)
+      (lib.lists.filter (xsx: xsx.drv != null) packagesEval);
 
   depVar = drv:
     "_dep_${nyxUtils.drvHash drv}";
@@ -47,7 +47,8 @@ let
     };
 
   packagesEval =
-    derivationRecursiveFinder.eval commentWarn evalCommand all-packages;
+    lib.lists.flatten
+      (derivationRecursiveFinder.eval commentWarn evalCommand all-packages);
 
   depFirstSorter = pkgA: pkgB:
     if pkgA.drv == null || pkgB.drv == null then
@@ -56,8 +57,7 @@ let
       nyxUtils.drvElem pkgA.drv pkgB.deps;
 
   packagesEvalSorted =
-    lib.lists.toposort depFirstSorter
-      (lib.lists.flatten packagesEval);
+    lib.lists.toposort depFirstSorter packagesEval;
 
   packagesCmds =
     builtins.map (pkg: pkg.cmd) packagesEvalSorted.result;

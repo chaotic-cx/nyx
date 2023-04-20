@@ -13,17 +13,17 @@ rec {
   drvInputs = drv:
     (drv.paths or [ ]) ++ (drv.buildInputs or [ ]);
 
-  flattenDeps = drv:
+  internalDeps = packagesOutPaths: drv:
     let
       recursive = input:
-        if input != null && builtins.isAttrs input then
-          [ input (builtins.map recursive input.buildInputs) ]
+        if builtins.isAttrs input then
+          if builtins.elem input.drvPath packagesOutPaths then
+            input
+          else
+            builtins.map recursive (drvInputs input)
         else [ ];
     in
     lib.lists.unique (lib.lists.flatten (builtins.map recursive (drvInputs drv)));
-
-  internalDeps = packagesOutPaths: drv:
-    builtins.filter (x: builtins.elem x.drvPath packagesOutPaths) (flattenDeps drv);
 
   gitToVersion = src: "unstable-${src.lastModifiedDate}-${src.shortRev}";
 
