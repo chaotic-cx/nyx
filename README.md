@@ -42,6 +42,7 @@ We recommend to integrate this repo using Flakes:
   ananicy-cpp-rules
   applet-window-appmenu
   applet-window-title
+  appmenu-gtk3-module
   beautyline-icons # Garuda Linux's version
   firedragon
   dr460nized-kde-theme
@@ -73,6 +74,7 @@ nix run github:chaotic-cx/nyx#input-leap_git
 
 ```nix
 {
+  chaotic.appmenu-gtk3-module.enable = true;
   chaotic.mesa-git.enable = true; # requires `--impure`
   chaotic.linux_hdr.specialisation.enable = true;
   chaotic.gamescope = {
