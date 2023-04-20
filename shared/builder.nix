@@ -73,7 +73,7 @@ writeShellScriptBin "build-chaotic-nyx" ''
   W='\033[0m'
 
   cd "$NYX_WD"
-  echo -n "" > push.txt > errors.txt > success.txt > failures.txt
+  echo -n "" > push.txt > errors.txt > success.txt > failures.txt > cached.txt
 
   function echo_warning() {
     echo -ne "''${Y}WARNING:''${W} "
