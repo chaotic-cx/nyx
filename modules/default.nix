@@ -5,7 +5,7 @@ rec {
       nixpkgs.overlays = [ inputs.self.overlays.default ];
     };
 
-    imports = [ appmenu-gtk3-module gamescope linux_hdr mesa_git  ];
+    imports = [ appmenu-gtk3-module gamescope linux_hdr mesa_git ];
   };
   appmenu-gtk3-module = import ./appmenu-gtk3-module.nix fromFlakes;
   gamescope = import ./gamescope.nix fromFlakes;
