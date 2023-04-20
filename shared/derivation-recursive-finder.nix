@@ -12,25 +12,26 @@ rec {
   # root: attrset | derivation
   eval = warnFn: mapFn: root:
     let
-      recursive =
-        namespace: n: v:
-        (if (builtins.tryEval v).success then
+      recursive = namespace: key: v:
+        let
+          fullKey = join namespace key;
+        in
+        if (builtins.tryEval v).success then
           (if lib.attrsets.isDerivation v then
             (if (v.meta.broken or true) then
-              warnFn n v "broken"
+              warnFn fullKey v "broken"
             else if (v.meta.unfree or true) then
-              warnFn n v "unfree"
+              warnFn fullKey v "unfree"
             else
-              mapFn (join namespace n) v
+              mapFn fullKey v
             )
-          else if builtins.isAttrs v then
-            lib.attrsets.mapAttrsToList (recursive (join namespace n)) v
+          else if builtins.isAttrs v && (v.recurseForDerivations or true) then
+            lib.attrsets.mapAttrsToList (recursive fullKey) v
           else
-            warnFn n v "unrelated"
+            warnFn fullKey v "unrelated"
           )
         else
-          warnFn n v "not evaluating"
-        )
+          warnFn fullKey v "not evaluating"
       ;
     in
     recursive "" "" root;

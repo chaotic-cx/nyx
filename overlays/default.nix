@@ -11,9 +11,7 @@
 
 { inputs }: final: prev:
 let
-  nyxUtils = import ../shared/utils.nix {
-    inherit (final) lib;
-  };
+  nyxUtils = final.callPackage ../shared/utils.nix { };
 in
 {
   inherit nyxUtils;

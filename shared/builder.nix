@@ -2,10 +2,10 @@
 { all-packages
 , cachix
 , derivationRecursiveFinder
+, flakeSelf
 , jq
 , lib
 , nix
-, flakeSelf
 , writeShellScriptBin
 }:
 let
@@ -20,7 +20,7 @@ let
         ${lib.strings.concatStringsSep " \\\n  " outputs}
     '';
 
-  packagesEval = derivationRecursiveFinder.evalToString evalCommand;
+  packagesEval = derivationRecursiveFinder.evalToString evalCommand all-packages;
 in
 writeShellScriptBin "build-chaotic-nyx" ''
   NYX_SOURCE="''${NYX_SOURCE:-${flakeSelf}}"
@@ -76,7 +76,7 @@ writeShellScriptBin "build-chaotic-nyx" ''
     fi
   }
 
-  ${packagesEval all-packages}
+  ${packagesEval}
 
   if [ -z "$CACHIX_AUTH_TOKEN" ] && [ -z "$CACHIX_SIGNING_KEY" ]; then
     echo_error "No key for cachix -- failing to deploy."
