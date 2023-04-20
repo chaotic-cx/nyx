@@ -10,20 +10,12 @@ rec {
   drvHash = drv:
     builtins.substring 0 32 (builtins.baseNameOf (builtins.unsafeDiscardStringContext drv.drvPath));
 
-  drvInputs = drv:
-    (drv.paths or [ ]) ++ (drv.buildInputs or [ ]);
-
-  internalDeps = packagesOutPaths: drv:
+  internalDeps = packages: drv:
     let
-      recursive = input:
-        if builtins.isAttrs input then
-          if builtins.elem input.drvPath packagesOutPaths then
-            input
-          else
-            builtins.map recursive (drvInputs input)
-        else [ ];
+      allDeps = lib.strings.concatStringsSep " "
+        (builtins.attrNames (builtins.getContext (builtins.toJSON (drv.drvAttrs))));
     in
-    lib.lists.unique (lib.lists.flatten (builtins.map recursive (drvInputs drv)));
+    builtins.filter (x: lib.strings.hasInfix (builtins.unsafeDiscardStringContext x.drvPath) allDeps) packages;
 
   gitToVersion = src: "unstable-${src.lastModifiedDate}-${src.shortRev}";
 

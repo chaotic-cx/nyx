@@ -10,8 +10,8 @@
 , writeShellScriptBin
 }:
 let
-  allPackagesDrvPathList =
-    builtins.map (xsx: xsx.drv.drvPath)
+  allPackagesList =
+    builtins.map (xsx: xsx.drv)
       (lib.lists.filter (xsx: xsx.drv != null) packagesEval);
 
   depVar = drv:
@@ -25,7 +25,7 @@ let
       derivation = "$NYX_SOURCE#${key}";
       fullTag = output: "\"${derivationRecursiveFinder.join derivation output}\"";
       outputs = map fullTag drv.outputs;
-      deps = nyxUtils.internalDeps allPackagesDrvPathList drv;
+      deps = nyxUtils.internalDeps allPackagesList drv;
       depsCond = lib.strings.concatStrings
         (builtins.map (dep: "[ ${depVarQuoted dep} == '1' ] && ") deps);
     in
