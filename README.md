@@ -75,7 +75,7 @@ nix run github:chaotic-cx/nyx#input-leap_git
 ```nix
 {
   chaotic.appmenu-gtk3-module.enable = true;
-  chaotic.mesa-git.enable = true;
+  chaotic.mesa-git.enable = true; # requires `--impure`
   chaotic.linux_hdr.specialisation.enable = true;
   chaotic.gamescope = {
     enable = true;
