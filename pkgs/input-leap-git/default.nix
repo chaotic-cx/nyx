@@ -1,25 +1,16 @@
-{ barrier
-, ghc_filesystem
-, gtest
-, input-leap-git-src
-, libei
-, libportal
-, nyxUtils
-, pkg-config
-, qttools
-}:
-barrier.overrideAttrs (pa: {
+{ final, inputs, libei, nyxUtils, prev, qttools, ... }:
+
+prev.barrier.overrideAttrs (pa: {
   pname = "input-leap";
-  src = input-leap-git-src;
-  version = nyxUtils.gitToVersion input-leap-git-src;
-  nativeBuildInputs = pa.nativeBuildInputs ++ [
+  src = inputs.input-leap-git-src;
+  version = nyxUtils.gitToVersion inputs.input-leap-git-src;
+  nativeBuildInputs = pa.nativeBuildInputs ++ (with final; [
     pkg-config
     gtest
     ghc_filesystem
-    libei
-  ];
+  ]) ++ [ libei ];
   buildInputs = pa.buildInputs ++ [
-    libportal
+    final.libportal
     qttools
   ];
   patches = [ ];

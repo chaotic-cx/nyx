@@ -1,6 +1,6 @@
 # Conventions:
 # - Sort packages in alphabetic order.
-# - If the recipe uses `override` or `overrideAttrs`, then use `prev`,
+# - If the recipe uses `override` or `overrideAttrs`, then use callOverride,
 #   otherwise use `final`.
 # - Composed names are separated with minus: `input-leap`
 # - Versions/patches are suffixed with an underline: `mesa_git`, `libei_0_5`, `linux_hdr`
@@ -12,6 +12,14 @@
 { inputs }: final: prev:
 let
   nyxUtils = final.callPackage ../shared/utils.nix { };
+
+  callOverride = path: attrs: import path ({ inherit final inputs nyxUtils prev; } // attrs);
+
+  callOverride32 = path: attrs: import path ({
+    inherit inputs nyxUtils;
+    final = final.pkgsi686Linux;
+    prev = prev.pkgsi686Linux;
+  } // attrs);
 in
 {
   inherit nyxUtils;
@@ -60,14 +68,9 @@ in
 
   dr460nized-kde-theme = final.callPackage ../pkgs/dr460nized-kde-theme { };
 
-  gamescope_git = prev.callPackage ../pkgs/gamescope-git {
-    inherit (inputs) gamescope-git-src;
-    inherit (final) nyxUtils;
-  };
+  gamescope_git = callOverride ../pkgs/gamescope-git { };
 
-  input-leap_git = prev.callPackage ../pkgs/input-leap-git {
-    inherit (inputs) input-leap-git-src;
-    inherit (final) nyxUtils;
+  input-leap_git = callOverride ../pkgs/input-leap-git {
     libei = final.libei_0_4;
     qttools = final.libsForQt5.qt5.qttools;
   };
@@ -97,18 +100,15 @@ in
 
   linuxPackages_hdr = final.linuxPackagesFor final.linux_hdr;
 
-  mesa_git = prev.callPackage ../pkgs/mesa-git {
-    inherit (inputs) mesa-git-src;
-    inherit (final) directx-headers_next nyxUtils;
+  mesa_git = callOverride ../pkgs/mesa-git {
+    directx-headers = final.directx-headers_next;
   };
   mesa32_git =
     if final.stdenv.hostPlatform.isLinux && final.stdenv.hostPlatform.isx86
     then
-      prev.pkgsi686Linux.callPackage ../pkgs/mesa-git
+      callOverride32 ../pkgs/mesa-git
         {
-          inherit (inputs) mesa-git-src;
-          inherit (final) nyxUtils;
-          directx-headers_next = final.directx-headers32_next;
+          directx-headers = final.directx-headers32_next;
         }
     else throw "No mesa32_git for non-x86";
 
@@ -132,8 +132,7 @@ in
 
   waynergy_git = nyxUtils.gitOverride inputs.waynergy-git-src prev.waynergy;
 
-  wlroots_git = prev.callPackage ../pkgs/wlroots-git {
-    inherit (inputs) wlroots-git-src;
-    inherit (final) wayland_next nyxUtils;
+  wlroots_git = callOverride ../pkgs/wlroots-git {
+    wayland = final.wayland_next;
   };
 }

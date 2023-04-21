@@ -1,18 +1,17 @@
 { enableXWayland ? true
-, hwdata
-, lib
-, libdisplay-info
+, final
+, inputs
 , nyxUtils
-, wayland_next
-, wlroots_0_16
-, wlroots-git-src
+, prev
+, wayland
+, ...
 }:
-(wlroots_0_16.override {
-  inherit enableXWayland;
-  wayland = wayland_next;
+
+(prev.wlroots_0_16.override {
+  inherit enableXWayland wayland;
 }).overrideAttrs (pa: {
-  version = nyxUtils.gitToVersion wlroots-git-src;
-  src = wlroots-git-src;
-  buildInputs = pa.buildInputs ++ [ hwdata libdisplay-info ];
+  version = nyxUtils.gitToVersion inputs.wlroots-git-src;
+  src = inputs.wlroots-git-src;
+  buildInputs = pa.buildInputs ++ (with final; [ hwdata libdisplay-info ]);
   postPatch = "";
 })
