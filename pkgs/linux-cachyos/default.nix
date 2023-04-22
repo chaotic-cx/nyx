@@ -11,20 +11,20 @@
 } @ args:
 let
   major = "6.2";
-  minor = "11";
+  minor = "12";
 
   patches-src = fetchFromGitHub {
     owner = "CachyOS";
     repo = "kernel-patches";
-    rev = "977c74a08501e82592bf6767c62a9c498a973951";
-    hash = "sha256-K9zr0Xfdf8tOkn+REn/zA95pEt/mHB2n7mWpNJqnamc=";
+    rev = "7f016bcf76d6879cbc8a1efbf5f4d55c581a4906";
+    hash = "sha256-4dtnMKiBjFoJILuh8lbOPkk8u3cLrONGFOt5SlVz7/c=";
   };
 
   config-src = fetchFromGitHub {
     owner = "CachyOS";
     repo = "linux-cachyos";
-    rev = "4e07e1b4ac296fbacd0e09889f6d29da8da4134c";
-    hash = "sha256-dng4/rGmgHFGHICLk3P0jdB6BCzummCg7jKUovA4G9U=";
+    rev = "ba60bf209c85851a28f076ad3ca3a39cb8f78142";
+    hash = "sha256-hlVk9cYR+yeWtgEt6o4dy6r3OM4GeVTb7sjUbbsM8eU=";
   };
 in
 
@@ -34,7 +34,7 @@ buildLinux (args // rec {
 
   src = fetchurl {
     url = "mirror://kernel/linux/kernel/v6.x/linux-${major}.${minor}.tar.xz";
-    sha256 = "sha256-DSNnhOYLh8eVNTWusUjdnnc7Jkld+pxtaWFfVP4A3Uc=";
+    sha256 = "x+FGtSc3rfpMckv6Qb9HIcXuPPIgwHT7xg6z6mKwzMg=";
   };
 
   extraMeta = { maintainers = with lib; [ maintainers.dr460nf1r3 ]; };
