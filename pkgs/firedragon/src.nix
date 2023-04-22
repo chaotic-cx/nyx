@@ -8,7 +8,7 @@ in
 {
   inherit (src) packageVersion;
   source = fetchFromGitLab {
-    owner = "librewolf-community";
+    owner = "librewolf-community/browser";
     repo = "source";
     fetchSubmodules = true;
     inherit (src.source) rev hash;
