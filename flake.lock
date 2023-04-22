@@ -75,7 +75,8 @@
         "nixpkgs": "nixpkgs",
         "sway-git-src": "sway-git-src",
         "waynergy-git-src": "waynergy-git-src",
-        "wlroots-git-src": "wlroots-git-src"
+        "wlroots-git-src": "wlroots-git-src",
+        "yuzu-ea-git-src": "yuzu-ea-git-src"
       }
     },
     "sway-git-src": {
@@ -127,6 +128,23 @@
         "ref": "master",
         "type": "git",
         "url": "https://gitlab.freedesktop.org/wlroots/wlroots.git"
+      }
+    },
+    "yuzu-ea-git-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1682177268,
+        "narHash": "sha256-Ld4chW2yxpFDtZvZIWmps0GBtiGWbS0FZjGieDzg1e8=",
+        "owner": "pineappleEA",
+        "repo": "pineapple-src",
+        "rev": "ab28951bc09ca5ac85760a19ad1b7ea34803e1a9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "pineappleEA",
+        "ref": "main",
+        "repo": "pineapple-src",
+        "type": "github"
       }
     }
   },

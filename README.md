@@ -59,6 +59,7 @@ We recommend to integrate this repo using Flakes:
   sway_git
   waynergy_git
   wlroots_git
+  yuzu-early-access_git
 ]
 ```
 
