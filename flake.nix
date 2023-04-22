@@ -36,6 +36,11 @@
       url = "git+https://gitlab.freedesktop.org/wlroots/wlroots.git?ref=master";
       flake = false;
     };
+
+    yuzu-ea-git-src = {
+      url = "github:pineappleEA/pineapple-src/main";
+      flake = false;
+    };
   };
 
   outputs = { nixpkgs, self, ... }@inputs: rec {

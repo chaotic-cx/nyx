@@ -105,6 +105,31 @@ in
     sway-unwrapped = final.sway-unwrapped_git;
   };
 
+  vulkan-headers_next =
+    prev.vulkan-headers.overrideAttrs (_: rec {
+      version = "v1.3.248";
+      src = final.fetchFromGitHub {
+        owner = "KhronosGroup";
+        repo = "Vulkan-Headers";
+        rev = "v1.3.248";
+        hash = "sha256-bilEf59jBDgl5WUgOZpRSMkp33C/rssj37rdvHaxRGU=";
+      };
+    });
+
+  vulkan-loader_next =
+    (prev.vulkan-loader.override {
+      vulkan-headers = final.vulkan-headers_next;
+    }).overrideAttrs (pa: rec {
+      version = "v1.3.248";
+      src = final.fetchFromGitHub {
+        owner = "KhronosGroup";
+        repo = "Vulkan-Loader";
+        rev = "v1.3.248";
+        hash = "sha256-4Qy71oeni3kBln7htrV5QBTjGktrVH9IiaPOCUn0Mjs=";
+      };
+      meta = pa.meta // { broken = false; };
+    });
+
   wayland_next = prev.wayland.overrideAttrs (_: rec {
     version = "1.22.0";
     src = final.fetchurl {
@@ -118,4 +143,6 @@ in
   wlroots_git = callOverride ../pkgs/wlroots-git {
     wayland = final.wayland_next;
   };
+
+  yuzu-early-access_git = callOverride ../pkgs/yuzu-ea-git { };
 }
