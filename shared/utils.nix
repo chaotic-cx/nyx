@@ -1,5 +1,7 @@
 { lib, callPackage }:
 rec {
+  unreachableHash = "sha256-2342234223422342234223422342234223422342069=";
+
   derivationRecursiveFinder = callPackage ../shared/derivation-recursive-finder.nix { };
 
   dropN = n: list: lib.lists.take (builtins.length list - n) list;
