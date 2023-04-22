@@ -1,24 +1,17 @@
 { argsOverride ? { }
+, buildLinux
 , fetchFromGitHub
 , fetchurl
-, buildLinux
 , lib
 , linuxKernel
-, super
-, stdenv
 , pkgs
+, stdenv
+, super
 , ...
 } @ args:
 let
   major = "6.2";
   minor = "12";
-
-  patches-src = fetchFromGitHub {
-    owner = "CachyOS";
-    repo = "kernel-patches";
-    rev = "7f016bcf76d6879cbc8a1efbf5f4d55c581a4906";
-    hash = "sha256-4dtnMKiBjFoJILuh8lbOPkk8u3cLrONGFOt5SlVz7/c=";
-  };
 
   config-src = fetchFromGitHub {
     owner = "CachyOS";
@@ -26,21 +19,31 @@ let
     rev = "ba60bf209c85851a28f076ad3ca3a39cb8f78142";
     hash = "sha256-hlVk9cYR+yeWtgEt6o4dy6r3OM4GeVTb7sjUbbsM8eU=";
   };
+
+  patches-src = fetchFromGitHub {
+    owner = "CachyOS";
+    repo = "kernel-patches";
+    rev = "7f016bcf76d6879cbc8a1efbf5f4d55c581a4906";
+    hash = "sha256-4dtnMKiBjFoJILuh8lbOPkk8u3cLrONGFOt5SlVz7/c=";
+  };
 in
 
 buildLinux (args // rec {
 
-  version = "${major}.${minor}";
+  version = "${major}.${minor}-cachyos";
+  modDirVersion = "${major}.${minor}";
 
   src = fetchurl {
     url = "mirror://kernel/linux/kernel/v6.x/linux-${major}.${minor}.tar.xz";
     sha256 = "x+FGtSc3rfpMckv6Qb9HIcXuPPIgwHT7xg6z6mKwzMg=";
   };
 
+  allowImportFromDerivation = true;
+
   extraMeta = { maintainers = with lib; [ maintainers.dr460nf1r3 ]; };
 
   configfile = "${config-src}/linux-cachyos/config";
-  defconfig = "${config-src}/linux-cachyos/config";
+
   kernelPatches =
     builtins.map
       (name: {
