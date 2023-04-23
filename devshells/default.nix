@@ -27,7 +27,7 @@ let
       compared = overlayFinal.callPackage ./comparer.nix
         {
           packagesA = final;
-          compareTo = inputs.compare-to;
+          compareToFlake = inputs.compare-to;
           inherit derivationRecursiveFinder;
         };
     in

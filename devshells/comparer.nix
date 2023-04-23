@@ -1,6 +1,7 @@
-{ packagesA
-, packagesB ? compareTo.packages.${system}
-, compareTo ? (builtins.getFlake "github.com/chaotic-cx/nix-empty-flake")
+{ all-packages
+, compareTo ? compareToFlake.packages.${system}
+, compareToFlake ? (builtins.getFlake compareToFlakeUrl)
+, compareToFlakeUrl ? "github.com/chaotic-cx/nix-empty-flake"
 , derivationRecursiveFinder
 , lib
 , system
@@ -16,13 +17,13 @@ let
   packagesEval = packages:
     lib.lists.flatten (derivationRecursiveFinder.eval warn evalResult packages);
 
-  packagesBEvalSet = builtins.listToAttrs (packagesEval packagesB);
+  compareToEvalSet = builtins.listToAttrs (packagesEval compareTo);
 
   onlyNewPackages = builtins.filter
     ({ name, value }:
-      value != (packagesBEvalSet.${name} or null)
+      value != (compareToEvalSet.${name} or null)
     )
-    (packagesEval packagesA);
+    (packagesEval all-packages);
 
   onlyNewPackagesNames = lib.attrsets.catAttrs "name" onlyNewPackages;
 in
