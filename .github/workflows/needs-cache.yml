@@ -28,7 +28,7 @@ jobs:
       - name: Build packages
         run: nix develop -c build-chaotic-nyx && exit 1 || [ $? -eq 23 ]
         env:
-          NYX_UNCACHED_ONLY: 1
+          NYX_CHANGED_ONLY: "github:${{ github.repository }}/${{ github.event.pull_request.base.ref }}"
           NYX_WD: ${{ runner.temp }}
       - name: Install Cachix
         uses: cachix/cachix-action@v12
@@ -51,7 +51,7 @@ jobs:
   organize:
     runs-on: ubuntu-latest
     needs: [build]
-    if: always()
+    if: (!cancelled() && needs.build.result != 'skipped')
     permissions:
       pull-requests: write
     steps:
@@ -77,19 +77,26 @@ jobs:
                 repo: context.repo.repo,
                 labels: ['cached']
               })
-              github.rest.issues.createComment({
-                issue_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                body: `This PR has been built and cached!
-              <details>
-                <summary>${process.env.FAILED_BUILDS_COUNT} packages failed</summary>
-                <ul>
-                  ${process.env.FAILED_BUILDS}
-                </ul>
-              </details>
-                  `
-              })
+              if (process.env.FAILED_BUILDS_COUNT > 0)
+                github.rest.issues.createComment({
+                  issue_number: context.issue.number,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  body: `This PR has been built and cached! However, it looks like some new failures have been introduced. Please check the logs for more information.
+            <details>
+              <summary>${process.env.FAILED_BUILDS_COUNT} packages failed</summary>
+              <ul>
+                ${process.env.FAILED_BUILDS}
+              </ul>
+            </details>`
+                })
+              else
+                github.rest.issues.createComment({
+                  issue_number: context.issue.number,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  body: 'This PR has been built and cached successfully! All changed derivations have built successfully.'
+                })
             }
             else if ('${{ needs.build.result }}' == 'failure')
               github.rest.issues.createComment({

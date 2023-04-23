@@ -15,6 +15,8 @@ concurrency:
 jobs:
   bump:
     runs-on: ubuntu-latest
+    outputs:
+      should_deploy: ${{ steps.bump.outcome == 'success' }}
     steps:
       - name: Install Nix
         uses: cachix/install-nix-action@v20
@@ -25,62 +27,13 @@ jobs:
         run: nix flake lock --update-input nixpkgs || exit 1; git diff --exit-code flake.lock && exit 1 || exit 0
         continue-on-error: true
         id: bump
-      - name: Build packages
-        if: steps.bump.outcome == 'success'
-        run: nix develop -c build-chaotic-nyx && exit 1 || [ $? -eq 23 ]
-        env:
-          NYX_WD: ${{ runner.temp }}
-      - name: Install Cachix
-        if: steps.bump.outcome == 'success'
-        uses: cachix/cachix-action@v12
-        with:
-          name: chaotic-nyx
-          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-          skipPush: true
-      - name: Upload to cachix
-        if: steps.bump.outcome == 'success'
-        run: |
-          pushd "${{ runner.temp }}"
-          cat push.txt | cachix push chaotic-nyx \
-            --compression-method zstd
-          popd
       - name: Commit nixpkgs bump
-        id: commit
         if: steps.bump.outcome == 'success'
         run: |
           set -e
           git config --global user.name 'Github Actions'
           git config --global user.email 'actions@chaotic.cx'
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
-          git pull --ff-only
           git add flake.lock
-          failed_builds="$(cat ${{ runner.temp }}/failures.txt | sed 's/^/    <li>/; s/$/<\/li>/')"
-          failed_builds_count="$(cat ${{ runner.temp }}/failures.txt | wc -l)"
           git commit -m "nixpkgs: bump to $(date +%Y%m%d)"
           git push
-          echo "COMMIT_ID=$(git rev-parse HEAD)
-          FAILED_BUILDS_COUNT=$failed_builds_count
-          FAILED_BUILDS<<EOF
-          $failed_builds
-          EOF" >> $GITHUB_OUTPUT
-      - name: Comment on commit
-        if: steps.bump.outcome == 'success'
-        uses: actions/github-script@v6
-        with:
-          script: |
-            github.rest.repos.createCommitComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              commit_sha: process.env.COMMIT_ID,
-              body: `<details>
-              <summary>${process.env.FAILED_BUILDS_COUNT} packages failed</summary>
-              <ul>
-                ${process.env.FAILED_BUILDS}
-              </ul>
-            </details>
-              `
-            })
-        env:
-          COMMIT_ID: ${{ steps.commit.outputs.COMMIT_ID }}
-          FAILED_BUILDS_COUNT: ${{ steps.commit.outputs.FAILED_BUILDS_COUNT }}
-          FAILED_BUILDS: ${{ steps.commit.outputs.FAILED_BUILDS }}
