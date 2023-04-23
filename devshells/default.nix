@@ -26,9 +26,14 @@ let
         };
       compared = overlayFinal.callPackage ./comparer.nix
         {
-          packagesA = final;
+          all-packages = final;
           compareToFlake = inputs.compare-to;
           inherit derivationRecursiveFinder;
+        };
+      comparor = compareToFlakeUrl: overlayFinal.callPackage ./comparer.nix
+        {
+          all-packages = final;
+          inherit compareToFlakeUrl derivationRecursiveFinder;
         };
     in
     {
@@ -36,7 +41,7 @@ let
         buildInputs = [ builder ];
       };
       evaluator = overlayFinal.mkShell { env.NYX_EVALUATED = evaluated; };
-      comparor = overlayFinal.mkShell { env.NYX_COMPARED = compared; };
+      comparor = overlayFinal.mkShell { env.NYX_COMPARED = compared; passthru.any = comparor; };
     };
 in
 {
