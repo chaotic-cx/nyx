@@ -1,7 +1,7 @@
 # The smallest and KISSer continuos-deploy I was able to create.
 { all-packages
 , cachix
-, derivationRecursiveFinder ? nyxUtils.derivationRecursiveFinder
+, derivationRecursiveFinder
 , flakeSelf
 , jq
 , lib

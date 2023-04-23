@@ -2,10 +2,14 @@
   description = "Flake-compatible nixpkgs-overlay for bleeding-edge and unreleased packages. The first child of Chaos. ";
 
   inputs = {
+    # --- UTILITIES ---
+
+    compare-to.url = "github:chaotic-cx/nix-empty-flake";
+
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     # --- PKGS SOURCES ---
-    # Please, set them in alphabetical order
+    # Please, sort them in alphabetical order
 
     input-leap-git-src = {
       url = "github:input-leap/input-leap/master";
@@ -70,36 +74,7 @@
       };
 
     hydraJobs.default = packages;
-
-    # The following shells are used to help our maintainers and CI/CDs.
-    devShells =
-      let
-        mkShells = final: prev:
-          let
-            overlayFinal = prev // final // { callPackage = prev.newScope final; };
-            builder = overlayFinal.callPackage ./shared/builder.nix
-              {
-                all-packages = final;
-                flakeSelf = self;
-                inherit (overlayFinal) nyxUtils;
-              };
-            evaluated = overlayFinal.callPackage ./shared/eval.nix
-              {
-                all-packages = final;
-                inherit (overlayFinal.nyxUtils) derivationRecursiveFinder;
-              };
-          in
-          {
-            default = overlayFinal.mkShell { buildInputs = [ builder ]; };
-            evaluator = overlayFinal.mkShell { env.NYX_EVALUATED = evaluated; };
-          };
-      in
-      {
-        x86_64-linux = mkShells packages.x86_64-linux
-          nixpkgs.legacyPackages.x86_64-linux;
-        aarch64-linux = mkShells packages.aarch64-linux
-          nixpkgs.legacyPackages.aarch64-linux;
-      };
+    devShells = import ./devshells { inherit inputs packages; };
   };
 
   # Allows the user to use our cache when using `nix run <thisFlake>`.
