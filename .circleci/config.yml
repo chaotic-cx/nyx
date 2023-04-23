@@ -1,0 +1,68 @@
+version: 2.1
+
+orbs:
+  cancel_previous_build_and_wait: thinkful/cancel_previous_build_and_wait@0.0.6
+
+workflows:
+  deploy:
+    jobs:
+      - deploy:
+          filters:
+            branches:
+              only: main
+          pre-steps:
+          - run: nix-env -i jq curl
+          - cancel_previous_build_and_wait/cancel_previous_build_and_wait:
+              wait: 1
+
+jobs:
+  deploy:
+    docker:
+      - image: nixos/nix
+    steps:
+      - checkout
+      # Check if it is safe to skip the build. This is the case when the latest commit is a PR squash merge commit and the PR itself is also cached, as well as the base commit of the PR being the same as the last commit on the nyxpkgs-unstable branch.
+      # This makes pushing to nyxpkgs-unstable FAST without having to worry about the cache being outdated.
+      # In all other scenarios, the build will be run to ensure the cache is up to date.
+      - run: |
+          COMMIT_COUNT=$(git rev-list --count origin/nyxpkgs-unstable..HEAD || true)
+          if [ $COMMIT_COUNT -eq 1 ]; then
+            PR_NUMBER=$(git log -1 --pretty=%B | grep -oP '(?<=\(#)\d+(?=\)$)' || true)
+          fi
+
+          if [ -n "$PR_NUMBER" ]; then
+            # Current owner and repo combined into a string
+            OWNER_REPO=$(echo $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME)
+            # Get api output
+            OUTPUT=$(curl -s https://api.github.com/repos/$OWNER_REPO/pulls/$PR_NUMBER)
+            echo $OUTPUT
+            # Get the PR labels
+            PR_LABELS=$(echo $OUTPUT | jq -r '.labels[].name')
+            # Get the base commit of the PR
+            BASE_COMMIT=$(echo $OUTPUT | jq -r '.base.sha')
+            # Get merge_commit_sha
+            MERGE_COMMIT=$(echo $OUTPUT | jq -r '.merge_commit_sha')
+
+            # If the PR is cached and the base commit is the same as the last commit on the nyxpkgs-unstable branch, we can skip the build
+            if [[ $PR_LABELS == *"cached"* ]] && [ $BASE_COMMIT == $(git rev-parse origin/nyxpkgs-unstable) ] && [ $MERGE_COMMIT == $(git rev-parse HEAD) ]; then
+              echo "export CACHED_PR=true" >> $BASH_ENV
+            fi
+          fi
+      # Setup nix to support flakes
+      - run: echo "experimental-features = nix-command flakes" >> /etc/nix/nix.conf
+      # If the PR is cached, we can skip the build
+      - run: |
+          if [ -f "$BASH_ENV" ]; then
+            source "$BASH_ENV"
+          fi
+          if [ "$CACHED_PR" = true ]; then
+            echo Skipping build, PR is cached
+          else
+            nix develop --accept-flake-config -c build-chaotic-nyx || [ $? -eq 42 ]
+          fi
+      - add_ssh_keys:
+          fingerprints:
+            - "6b:46:3b:01:81:b3:7b:4f:cb:6a:8f:8e:47:29:af:6b"
+      # Push the head to the nyxpkgs-unstable branch
+      - run: |
+          git push origin HEAD:nyxpkgs-unstable --force

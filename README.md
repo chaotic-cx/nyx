@@ -14,7 +14,7 @@ We recommend to integrate this repo using Flakes:
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    chaotic.url = "github:chaotic-cx/nyx";
+    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
   };
 
   outputs = { nixpkgs, chaotic, ... }: {
@@ -68,7 +68,7 @@ We recommend to integrate this repo using Flakes:
 Besides using our module/overlay, you can run packages using:
 
 ```sh
-nix run github:chaotic-cx/nyx#input-leap_git
+nix run github:chaotic-cx/nyx/nyxpkgs-unstable#input-leap_git
 ```
 
 ## List of options
