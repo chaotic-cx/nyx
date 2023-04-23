@@ -73,7 +73,7 @@ writeShellScriptBin "build-chaotic-nyx" ''
   W='\033[0m'
 
   cd "$NYX_WD"
-  echo -n "" > push.txt > errors.txt > success.txt > failures.txt > cached.txt > changed.txt
+  echo -n "" > push.txt > errors.txt > success.txt > failures.txt > cached.txt
 
   function echo_warning() {
     echo -ne "''${Y}WARNING:''${W} "
@@ -96,10 +96,9 @@ writeShellScriptBin "build-chaotic-nyx" ''
   }
 
   if [ -n "$NYX_CHANGED_ONLY" ]; then
-    _CURRENT=$(nix build --no-link --print-out-paths "$NYX_SOURCE#devShells.x86_64-linux.evaluator.NYX_EVALUATED" || exit 1)
-    _FROM=$(nix build --no-link --print-out-paths "$NYX_CHANGED_ONLY#devShells.x86_64-linux.evaluator.NYX_EVALUATED" || exit 1)
-    _CHANGED=$(comm -23 <(sort "$_CURRENT") <(sort "$_FROM") | cut -f 2)
-    echo "$_CHANGED" > changed.txt
+    _DIFF=$(nix eval "$NYX_SOURCE#devShells.$(uname -m)-linux.comparor.passthru.any" --impure --raw --apply "x: builtins.toPath (x \"$NYX_CHANGED_ONLY\")" || exit 13)
+
+    ln -s "$_DIFF" filter.txt
   fi
 
   function build() {
@@ -107,8 +106,8 @@ writeShellScriptBin "build-chaotic-nyx" ''
     _DEST="''${2:-/dev/null}"
     echo -n "Building $_WHAT..."
     # If NYX_CHANGED_ONLY is set, only build changed derivations
-    if [ -n "$NYX_CHANGED_ONLY" ] && ! grep -Pq "^$_WHAT\$" changed.txt; then
-      echo -e "''${Y} UNCHANGED''${W}"
+    if [ -f filter.txt ] && ! grep -Pq "^$_WHAT\$" filter.txt; then
+      echo -e "''${Y} SKIP''${W}"
       return 0
     elif cached "$_DEST"; then
       echo "$_WHAT" >> cached.txt
