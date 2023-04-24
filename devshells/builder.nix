@@ -3,6 +3,7 @@
 , cachix
 , derivationRecursiveFinder
 , flakeSelf
+, gnugrep
 , jq
 , lib
 , nix
@@ -95,7 +96,7 @@ writeShellScriptBin "build-chaotic-nyx" ''
   }
 
   if [ -n "''${NYX_CHANGED_ONLY:-}" ]; then
-    _DIFF=$(nix build --no-link --print-out-paths --impure --expr "(builtins.getFlake \"$NYX_SOURCE\").devShells.$(uname -m)-linux.comparer.passthru.any \"$NYX_CHANGED_ONLY\"" || exit 13)
+    _DIFF=$(${nix}/bin/nix build --no-link --print-out-paths --impure --expr "(builtins.getFlake \"$NYX_SOURCE\").devShells.$(uname -m)-linux.comparer.passthru.any \"$NYX_CHANGED_ONLY\"" || exit 13)
 
     ln -s "$_DIFF" filter.txt
   fi
@@ -105,7 +106,7 @@ writeShellScriptBin "build-chaotic-nyx" ''
     _DEST="''${2:-/dev/null}"
     echo -n "Building $_WHAT..."
     # If NYX_CHANGED_ONLY is set, only build changed derivations
-    if [ -f filter.txt ] && ! grep -Pq "^$_WHAT\$" filter.txt; then
+    if [ -f filter.txt ] && ! ${gnugrep}/bin/grep -Pq "^$_WHAT\$" filter.txt; then
       echo -e "''${Y} SKIP''${W}"
       return 0
     elif cached "$_DEST"; then
