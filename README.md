@@ -57,6 +57,7 @@ We recommend to integrate this repo using Flakes:
   mesa32_git # only x86, recommended option: chaotic.mesa-git.enable
   sway-unwrapped_git
   sway_git
+  swaylock-plugin_git
   waynergy_git
   wlroots_git
   yuzu-early-access_git
