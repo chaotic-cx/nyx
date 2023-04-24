@@ -66,7 +66,6 @@ writeShellScriptBin "build-chaotic-nyx" ''
   NYX_SOURCE="''${NYX_SOURCE:-${flakeSelf}}"
   NYX_FLAGS="''${NYX_FLAGS:---accept-flake-config}"
   NYX_WD="''${NYX_WD:-$(mktemp -d)}"
-  NYX_CHANGED_ONLY="''${NYX_CHANGED_ONLY:-}"
   R='\033[0;31m'
   G='\033[0;32m'
   Y='\033[1;33m'
@@ -95,8 +94,8 @@ writeShellScriptBin "build-chaotic-nyx" ''
     ${nix}/bin/nix path-info "$1" --store 'https://chaotic-nyx.cachix.org' >/dev/null 2>/dev/null
   }
 
-  if [ -n "$NYX_CHANGED_ONLY" ]; then
-    _DIFF=$(nix eval "$NYX_SOURCE#devShells.$(uname -m)-linux.comparor.passthru.any" --impure --raw --apply "x: builtins.toPath (x \"$NYX_CHANGED_ONLY\")" || exit 13)
+  if [ -n "''${NYX_CHANGED_ONLY:-}" ]; then
+    _diff=$(nix build --no-link --print-out-paths --impure --expr "(builtins.getFlake \"$NYX_SOURCE\").devShells.$(uname -m)-linux.comparer.passthru.any \"$NYX_CHANGED_ONLY\"" || exit 13)
 
     ln -s "$_DIFF" filter.txt
   fi
