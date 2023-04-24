@@ -31,6 +31,11 @@
       flake = false;
     };
 
+    swaylock-plugin-git-src = {
+      url = "github:mstoeckl/swaylock-plugin/main";
+      flake = false;
+    };
+
     waynergy-git-src = {
       url = "github:r-c-f/waynergy/master";
       flake = false;
