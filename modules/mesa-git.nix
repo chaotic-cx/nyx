@@ -17,7 +17,7 @@ in
       };
   };
   config = {
-    system.replaceRuntimeDependencies = [ replacement ];
+    system.replaceRuntimeDependencies = lib.mkIf cfg.mesa-git.enable [ replacement ];
 
     hardware.opengl = lib.mkIf cfg.mesa-git.enable {
       package = pkgs.mesa_git.drivers;
