@@ -1,5 +1,20 @@
 {
   "nodes": {
+    "compare-to": {
+      "locked": {
+        "lastModified": 1682262834,
+        "narHash": "sha256-kailVn8ZiJ6yaHTLOTDtJKj8MFp/U/ncqYjNUrpryJ8=",
+        "owner": "chaotic-cx",
+        "repo": "nix-empty-flake",
+        "rev": "211c8624d05494ab24993a59e7ddc2fad58305b3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "chaotic-cx",
+        "repo": "nix-empty-flake",
+        "type": "github"
+      }
+    },
     "gamescope-git-src": {
       "flake": false,
       "locked": {
@@ -69,6 +84,7 @@
     },
     "root": {
       "inputs": {
+        "compare-to": "compare-to",
         "gamescope-git-src": "gamescope-git-src",
         "input-leap-git-src": "input-leap-git-src",
         "mesa-git-src": "mesa-git-src",

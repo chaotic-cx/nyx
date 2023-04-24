@@ -1,7 +1,7 @@
 # The smallest and KISSer continuos-deploy I was able to create.
 { all-packages
 , cachix
-, derivationRecursiveFinder ? nyxUtils.derivationRecursiveFinder
+, derivationRecursiveFinder
 , flakeSelf
 , jq
 , lib
@@ -66,14 +66,13 @@ writeShellScriptBin "build-chaotic-nyx" ''
   NYX_SOURCE="''${NYX_SOURCE:-${flakeSelf}}"
   NYX_FLAGS="''${NYX_FLAGS:---accept-flake-config}"
   NYX_WD="''${NYX_WD:-$(mktemp -d)}"
-  NYX_CHANGED_ONLY="''${NYX_CHANGED_ONLY:-}"
   R='\033[0;31m'
   G='\033[0;32m'
   Y='\033[1;33m'
   W='\033[0m'
 
   cd "$NYX_WD"
-  echo -n "" > push.txt > errors.txt > success.txt > failures.txt > cached.txt > changed.txt
+  echo -n "" > push.txt > errors.txt > success.txt > failures.txt > cached.txt
 
   function echo_warning() {
     echo -ne "''${Y}WARNING:''${W} "
@@ -95,11 +94,10 @@ writeShellScriptBin "build-chaotic-nyx" ''
     ${nix}/bin/nix path-info "$1" --store 'https://chaotic-nyx.cachix.org' >/dev/null 2>/dev/null
   }
 
-  if [ -n "$NYX_CHANGED_ONLY" ]; then
-    _CURRENT=$(nix build --no-link --print-out-paths "$NYX_SOURCE#devShells.x86_64-linux.evaluator.NYX_EVALUATED" || exit 1)
-    _FROM=$(nix build --no-link --print-out-paths "$NYX_CHANGED_ONLY#devShells.x86_64-linux.evaluator.NYX_EVALUATED" || exit 1)
-    _CHANGED=$(comm -23 <(sort "$_CURRENT") <(sort "$_FROM") | cut -f 2)
-    echo "$_CHANGED" > changed.txt
+  if [ -n "''${NYX_CHANGED_ONLY:-}" ]; then
+    _diff=$(nix build --no-link --print-out-paths --impure --expr "(builtins.getFlake \"$NYX_SOURCE\").devShells.$(uname -m)-linux.comparer.passthru.any \"$NYX_CHANGED_ONLY\"" || exit 13)
+
+    ln -s "$_DIFF" filter.txt
   fi
 
   function build() {
@@ -107,8 +105,8 @@ writeShellScriptBin "build-chaotic-nyx" ''
     _DEST="''${2:-/dev/null}"
     echo -n "Building $_WHAT..."
     # If NYX_CHANGED_ONLY is set, only build changed derivations
-    if [ -n "$NYX_CHANGED_ONLY" ] && ! grep -Pq "^$_WHAT\$" changed.txt; then
-      echo -e "''${Y} UNCHANGED''${W}"
+    if [ -f filter.txt ] && ! grep -Pq "^$_WHAT\$" filter.txt; then
+      echo -e "''${Y} SKIP''${W}"
       return 0
     elif cached "$_DEST"; then
       echo "$_WHAT" >> cached.txt
