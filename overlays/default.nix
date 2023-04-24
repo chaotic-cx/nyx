@@ -105,6 +105,8 @@ in
     sway-unwrapped = final.sway-unwrapped_git;
   };
 
+  swaylock-plugin_git = callOverride ../pkgs/swaylock-plugin-git { };
+
   vulkan-headers_next =
     prev.vulkan-headers.overrideAttrs (_: rec {
       version = "v1.3.248";

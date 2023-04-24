@@ -90,6 +90,7 @@
         "mesa-git-src": "mesa-git-src",
         "nixpkgs": "nixpkgs",
         "sway-git-src": "sway-git-src",
+        "swaylock-plugin-git-src": "swaylock-plugin-git-src",
         "waynergy-git-src": "waynergy-git-src",
         "wlroots-git-src": "wlroots-git-src",
         "yuzu-ea-git-src": "yuzu-ea-git-src"
@@ -109,6 +110,23 @@
         "owner": "swaywm",
         "ref": "master",
         "repo": "sway",
+        "type": "github"
+      }
+    },
+    "swaylock-plugin-git-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1681470168,
+        "narHash": "sha256-iSX8/shh3oT0JaEcwyJUezVl14MqQJG54LWSnwXDmW4=",
+        "owner": "mstoeckl",
+        "repo": "swaylock-plugin",
+        "rev": "9629e58a7a9d6f063451527e7da547b0cb1d97c6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mstoeckl",
+        "ref": "main",
+        "repo": "swaylock-plugin",
         "type": "github"
       }
     },
