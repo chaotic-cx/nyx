@@ -70,11 +70,13 @@ in
     perl scripts/config.pl set MBEDTLS_CMAC_C
     popd
 
+    _ver=$(grep -Po '(?<=for early-access )([^.]*)' "${src}/README.md")
+
     # See https://github.com/NixOS/nixpkgs/issues/114044, setting this through cmakeFlags does not work.
     # These will fix version "formatting"
     cmakeFlagsArray+=(
-      "-DTITLE_BAR_FORMAT_IDLE=yuzu Early Access NYX-0"
-      "-DTITLE_BAR_FORMAT_RUNNING=yuzu Early Access NYX-0 | {3}"
+      "-DTITLE_BAR_FORMAT_IDLE=yuzu Early Access EA-$_ver"
+      "-DTITLE_BAR_FORMAT_RUNNING=yuzu Early Access EA-$_ver | {3}"
     )
   '';
 
