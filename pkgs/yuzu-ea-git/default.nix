@@ -80,6 +80,9 @@ in
     )
   '';
 
+  # Shows released date in version
+  env.SOURCE_DATE_EPOCH = src.lastModified;
+
   # Right now crypto tests don't pass
   doCheck = false;
 })
