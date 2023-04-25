@@ -19,6 +19,6 @@ in
 
     environment.systemPackages = with pkgs; [ appmenu-gtk3-module ];
 
-    environment.variables."UBUNTU_MENUPROXY" = "1";
+    environment.variables.UBUNTU_MENUPROXY = "1";
   };
 }
