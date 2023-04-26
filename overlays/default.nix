@@ -99,6 +99,8 @@ in
         }
     else throw "No mesa32_git for non-x86";
 
+  proton-ge-custom = final.callPackage ../pkgs/proton-ge-custom { };
+
   sway-unwrapped_git =
     nyxUtils.gitOverride inputs.sway-git-src
       (prev.sway-unwrapped.override {
