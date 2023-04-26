@@ -2,8 +2,8 @@
 , lib
 , fetchurl
 , writeScript
-,
 }:
+
 stdenv.mkDerivation (finalAttrs: {
   name = "proton-ge-custom";
   version = "GE-Proton7-55";
