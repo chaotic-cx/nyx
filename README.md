@@ -57,6 +57,7 @@ We recommend to integrate this repo using Flakes:
   linux_hdr # recommended option: chaotic.linux_hdr.specialisation.enable
   linuxPackages_cachyos # the default BORE scheduler
   linuxPackages_hdr # recommended option: chaotic.linux_hdr.specialisation.enable
+  luxtorpeda # recommended option: chaotic.steam.extraCompatPackages
   mesa_git # recommended option: chaotic.mesa-git.enable
   mesa32_git # only x86, recommended option: chaotic.mesa-git.enable
   proton-ge-custom # recommended option: chaotic.steam.extraCompatPackages
@@ -98,7 +99,7 @@ nix run github:chaotic-cx/nyx/nyxpkgs-unstable#input-leap_git
       env = { };
     };
   };
-  chaotic.steam.extraCompatPackages = [ pkgs.proton-ge-custom ];
+  chaotic.steam.extraCompatPackages = with pkgs; [ luxtorpeda proton-ge-custom ];
 }
 ```
 

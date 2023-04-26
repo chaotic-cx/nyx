@@ -87,6 +87,8 @@ in
 
   linuxPackages_hdr = final.linuxPackagesFor final.linux_hdr;
 
+  luxtorpeda = final.callPackage ../pkgs/luxtorpeda { };
+
   mesa_git = callOverride ../pkgs/mesa-git {
     directx-headers = final.directx-headers_next;
   };
