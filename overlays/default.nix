@@ -87,6 +87,8 @@ in
 
   linuxPackages_hdr = final.linuxPackagesFor final.linux_hdr;
 
+  luxtorpeda = final.callPackage ../pkgs/luxtorpeda { };
+
   mesa_git = callOverride ../pkgs/mesa-git {
     directx-headers = final.directx-headers_next;
   };
@@ -98,6 +100,8 @@ in
           directx-headers = final.directx-headers32_next;
         }
     else throw "No mesa32_git for non-x86";
+
+  proton-ge-custom = final.callPackage ../pkgs/proton-ge-custom { };
 
   sway-unwrapped_git =
     nyxUtils.gitOverride inputs.sway-git-src
