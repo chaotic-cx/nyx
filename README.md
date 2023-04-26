@@ -4,6 +4,8 @@ Flake-compatible nixpkgs-overlay for bleeding-edge and unreleased packages. The 
 
 From the Chaotic Linux User Group (LUG), the same one that maintains Chaotic-AUR.
 
+News channel: https://t.me/s/chaotic_nyx
+
 ## How to use it
 
 We recommend to integrate this repo using Flakes:
