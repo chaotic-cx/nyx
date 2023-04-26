@@ -5,9 +5,10 @@
   ...
 }:
 with lib; let
-  cfg = config.programs.steam;
+  steamCfg = config.programs.steam;
+  cfg = config.chaotic.steam;
 in {
-  options.programs.steam = {
+  options.chaotic.steam = {
     extraCompatPackages = mkOption {
       type = with types; listOf package;
       default = [];
@@ -15,7 +16,7 @@ in {
       example = literalExpression ''
         with pkgs; [
           luxtorpeda
-          proton-ge
+          proton-ge-custom
         ]
       '';
       description = lib.mdDoc ''
@@ -26,7 +27,7 @@ in {
     };
   };
 
-  config = mkIf cfg.enable {
+  config = mkIf steamCfg.enable {
     # Append the extra compatibility packages to whatever else the env variable was populated with.
     # For more information see https://github.com/ValveSoftware/steam-for-linux/issues/6310.
     environment.sessionVariables = mkIf (cfg.extraCompatPackages != []) {

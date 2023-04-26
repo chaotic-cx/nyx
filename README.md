@@ -97,6 +97,7 @@ nix run github:chaotic-cx/nyx/nyxpkgs-unstable#input-leap_git
       env = { };
     };
   };
+  chaotic.steam.extraCompatPackages = [ pkgs.proton-ge-custom ];
 }
 ```
 
