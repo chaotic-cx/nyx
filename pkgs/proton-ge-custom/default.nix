@@ -25,6 +25,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/GloriousEggroll/proton-ge-custom";
     license = licenses.bsd3;
     platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ ajs124 ];
+    maintainers = with maintainers; [ shawn8901 ];
   };
 })
