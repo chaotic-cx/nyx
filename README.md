@@ -46,6 +46,7 @@ We recommend to integrate this repo using Flakes:
   beautyline-icons # Garuda Linux's version
   firedragon
   dr460nized-kde-theme
+  droid-sans-mono-nerdfont
   gamescope_git
   input-leap_git
   libei
