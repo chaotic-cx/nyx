@@ -42,14 +42,18 @@ in
       callOverride32 ../pkgs/directx-headers-next { }
     else throw "No headers32_next for non-x86";
 
+  dr460nized-kde-theme = final.callPackage ../pkgs/dr460nized-kde-theme { };
+
+  droid-sans-mono-nerdfont = final.nerdfonts.override {
+    fonts = [ "DroidSansMono" ];
+  };
+
   firedragon-unwrapped = final.callPackage ../pkgs/firedragon { };
 
   firedragon = final.wrapFirefox final.firedragon-unwrapped {
     inherit (final.firedragon-unwrapped) extraPrefsFiles extraPoliciesFiles;
     libName = "firedragon";
   };
-
-  dr460nized-kde-theme = final.callPackage ../pkgs/dr460nized-kde-theme { };
 
   gamescope_git = callOverride ../pkgs/gamescope-git { };
 
@@ -58,12 +62,12 @@ in
     qttools = final.libsForQt5.qt5.qttools;
   };
 
+  libei = final.libei_0_5;
   libei_0_4 = final.callPackage ../pkgs/libei {
     libeiVersion = "0.4.1";
     libeiSrcHash = "sha256-wjzzOU/wvs4QeRCQMH56TARONx+LjYFVMHgWWM/XOs4=";
   };
   libei_0_5 = final.callPackage ../pkgs/libei { };
-  libei = final.libei_0_5;
 
   linux_cachyos = final.callPackage ../pkgs/linux-cachyos {
     kernelPatches = with final.kernelPatches; [

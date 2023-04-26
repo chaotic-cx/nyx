@@ -44,11 +44,15 @@ We recommend to integrate this repo using Flakes:
   applet-window-title
   appmenu-gtk3-module
   beautyline-icons # Garuda Linux's version
-  firedragon
+  directx-headers_next
+  directx-headers32_next # only x86
   dr460nized-kde-theme
+  droid-sans-mono-nerdfont
+  firedragon # and -unwrapped
   gamescope_git
   input-leap_git
   libei
+  libei_0_4
   linux_cachyos # the default BORE scheduler
   linux_hdr # recommended option: chaotic.linux_hdr.specialisation.enable
   linuxPackages_cachyos # the default BORE scheduler
@@ -56,8 +60,11 @@ We recommend to integrate this repo using Flakes:
   mesa_git # recommended option: chaotic.mesa-git.enable
   mesa32_git # only x86, recommended option: chaotic.mesa-git.enable
   sway-unwrapped_git
-  sway_git
+  sway_git # and -unwrapped_git
   swaylock-plugin_git
+  vulkan-headers_next
+  vulkan-loader_next
+  wayland_next
   waynergy_git
   wlroots_git
   yuzu-early-access_git
