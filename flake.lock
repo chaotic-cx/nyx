@@ -18,11 +18,11 @@
     "gamescope-git-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1682574463,
-        "narHash": "sha256-EVR9MOwbwVxe278LOtfAZxq39E2J+3CIvxIkH535Oi0=",
+        "lastModified": 1682610150,
+        "narHash": "sha256-KDuHT4CUzftPCFNfJAwxbbBIETVGMCTly/gwSg1UTyA=",
         "owner": "ValveSoftware",
         "repo": "gamescope",
-        "rev": "608f952dbadc6a7b061b4cf09882a6c8ef2d3222",
+        "rev": "5af321724c8b8a29cef5ae9e31293fd5d560c4ec",
         "type": "github"
       },
       "original": {
@@ -52,11 +52,11 @@
     "mesa-git-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1682589519,
-        "narHash": "sha256-SvZGkgXrygnZWzpap8qJgdPGjB19Yb0D02BJKoY0qX0=",
+        "lastModified": 1682687635,
+        "narHash": "sha256-oSnHLZV8Yc1/jhSyBfUNGkxZFlaxiukV1uGVHTXTlnA=",
         "owner": "chaotic-cx",
         "repo": "mesa-mirror",
-        "rev": "16f3e9cd76b65d6a767cbbac6219c8baff130b85",
+        "rev": "8b52c9bab74f9aeee298660821fd826279239df2",
         "type": "github"
       },
       "original": {
