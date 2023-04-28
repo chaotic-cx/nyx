@@ -117,12 +117,12 @@ in
 
   vulkan-headers_next =
     prev.vulkan-headers.overrideAttrs (_: rec {
-      version = "v1.3.248";
+      version = "1.3.249";
       src = final.fetchFromGitHub {
         owner = "KhronosGroup";
         repo = "Vulkan-Headers";
-        rev = "v1.3.248";
-        hash = "sha256-bilEf59jBDgl5WUgOZpRSMkp33C/rssj37rdvHaxRGU=";
+        rev = "v${version}";
+        hash = "sha256-PLqF9lO7vWvgRZvXLmOcNhTgkB+3TXUa0eoALwDc5Ws=";
       };
     });
 
@@ -130,12 +130,12 @@ in
     (prev.vulkan-loader.override {
       vulkan-headers = final.vulkan-headers_next;
     }).overrideAttrs (pa: rec {
-      version = "v1.3.248";
+      version = "1.3.249";
       src = final.fetchFromGitHub {
         owner = "KhronosGroup";
         repo = "Vulkan-Loader";
-        rev = "v1.3.248";
-        hash = "sha256-4Qy71oeni3kBln7htrV5QBTjGktrVH9IiaPOCUn0Mjs=";
+        rev = "v${version}";
+        hash = "sha256-v4GEZEcQP3+oiT66sgysIZ2PdLSidyYjecb3TmcHG2Y=";
       };
       meta = pa.meta // { broken = false; };
     });
