@@ -1,14 +1,14 @@
-# Chaotic's Nyx
+# Chaotic's Nyx ❄️
 
-Flake-compatible nixpkgs-overlay for bleeding-edge and unreleased packages. The first child of Chaos.
+Flake-compatible Nixpkgs overlay for bleeding-edge and unreleased packages. The first child of chaos.
 
-From the Chaotic Linux User Group (LUG), the same one that maintains Chaotic-AUR.
+From the [Chaotic Linux User Group (LUG)](https://github.com/chaotic-cx), the same one that maintains [Chaotic-AUR](https://github.com/chaotic-aur)! 🧑🏻‍💻
 
-News channel: https://t.me/s/chaotic_nyx
+A news channel can be found on Telegram: https://t.me/s/chaotic_nyx
 
 ## How to use it
 
-We recommend to integrate this repo using Flakes:
+We recommend integrating this repo using Flakes:
 
 ```nix
 {

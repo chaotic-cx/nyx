@@ -47,7 +47,7 @@ in
   droid-sans-mono-nerdfont = final.nerdfonts.override {
     fonts = [ "DroidSansMono" ];
   };
-
+  
   firedragon-unwrapped = final.callPackage ../pkgs/firedragon { };
 
   firedragon = final.wrapFirefox final.firedragon-unwrapped {
