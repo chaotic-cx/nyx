@@ -6,7 +6,7 @@
 
     compare-to.url = "github:chaotic-cx/nix-empty-flake";
 
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     # --- PKGS SOURCES ---
     # Please, sort them in alphabetical order
