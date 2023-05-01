@@ -9,5 +9,5 @@
   mesonFlags =
     final.lib.lists.remove "-Dgallium-rusticl=true" pa.mesonFlags # fails to find "valgrind.h"
     ++ [ "-Dandroid-libbacktrace=disabled" ];
-  patches = nyxUtils.dropN 2 pa.patches ++ [ ./disk_cache-include-dri-driver-path-in-cache-key.patch ];
+  patches = nyxUtils.dropN 1 pa.patches ++ [ ./disk_cache-include-dri-driver-path-in-cache-key.patch ];
 })

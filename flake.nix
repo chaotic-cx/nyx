@@ -6,7 +6,7 @@
 
     compare-to.url = "github:chaotic-cx/nix-empty-flake";
 
-    nixpkgs-pinned.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     # --- PKGS SOURCES ---
     # Please, sort them in alphabetical order
@@ -52,11 +52,11 @@
     };
   };
 
-  outputs = { nixpkgs-pinned, self, ... }@inputs: rec {
+  outputs = { nixpkgs, self, ... }@inputs: rec {
     # I would prefer if we had something stricter, with attribute alphabetical
     # sorting, and optimized for git's diffing. But this is the closer we have.
-    formatter.x86_64-linux = nixpkgs-pinned.legacyPackages.x86_64-linux.nixpkgs-pinned-fmt;
-    formatter.aarch64-linux = nixpkgs-pinned.legacyPackages.aarch64-linux.nixpkgs-pinned-fmt;
+    formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
+    formatter.aarch64-linux = nixpkgs.legacyPackages.aarch64-linux.nixpkgs-fmt;
 
     # The three stars: our overlay, our modules and the packages.
 
@@ -74,8 +74,8 @@
           final;
       in
       {
-        x86_64-linux = applyOverlay nixpkgs-pinned.legacyPackages.x86_64-linux;
-        aarch64-linux = applyOverlay nixpkgs-pinned.legacyPackages.aarch64-linux;
+        x86_64-linux = applyOverlay nixpkgs.legacyPackages.x86_64-linux;
+        aarch64-linux = applyOverlay nixpkgs.legacyPackages.aarch64-linux;
       };
 
     hydraJobs.default = packages;

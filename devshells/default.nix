@@ -1,5 +1,5 @@
 { inputs
-, nixpkgs ? inputs.nixpkgs-pinned
+, nixpkgs ? inputs.nixpkgs
 , packages
 , self ? inputs.self
 }:
