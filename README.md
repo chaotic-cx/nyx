@@ -102,6 +102,11 @@ nix run github:chaotic-cx/nyx/nyxpkgs-unstable#input-leap_git
     };
   };
   chaotic.steam.extraCompatPackages = with pkgs; [ luxtorpeda proton-ge-custom ];
+  chaotic.zfs-impermanence-on-shutdown = {
+    enable = true;
+    volume = "zroot/ROOT/empty";
+    snapshot = "start";
+  };
 }
 ```
 
