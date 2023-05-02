@@ -1,5 +1,5 @@
 {
-  "packageVersion": "112.0.1-1",
+  "packageVersion": "112.0.2-1",
   "source": {
     "rev": "2e3b643ec8b74f241e7cb3b3444be85afc8a07d1",
     "hash": "sha256-XFLwxbL/DnrwBAXFpYTA3LEaCr3+UInx6Nj0LxiNpN4="
@@ -9,7 +9,7 @@
     "hash": "sha256-al7qb9/nmP2GkkbmpTOjNPzkq22UIH7MR+2hv88txfs="
   },
   "firefox": {
-    "version": "112.0.1",
-    "hash": "sha256-XSsohoEv4bxit4AUldN1496UyhYKZ2BX0d+S3ofvtkk="
+    "version": "112.0.2",
+    "hash": "sha256-5qSBmjuCscpsRSluUObJq2UzBu61QOULqGg+M5VlmS4="
   }
 }
