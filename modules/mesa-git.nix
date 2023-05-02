@@ -1,6 +1,6 @@
 { inputs }: { config, lib, pkgs, ... }:
 let
-  cfg = config.chaotic;
+  cfg = config.chaotic.mesa-git;
 
   replacement = ({ original = pkgs.mesa; replacement = pkgs.mesa_git; });
 in
@@ -16,16 +16,17 @@ in
         '';
       };
   };
-  config = {
-    system.replaceRuntimeDependencies = lib.mkIf cfg.mesa-git.enable [ replacement ];
 
-    hardware.opengl = lib.mkIf cfg.mesa-git.enable {
+  config = {
+    system.replaceRuntimeDependencies = lib.mkIf cfg.enable [ replacement ];
+
+    hardware.opengl = lib.mkIf cfg.enable {
       package = pkgs.mesa_git.drivers;
       package32 = lib.mkIf (pkgs.stdenv.hostPlatform.isLinux && pkgs.stdenv.hostPlatform.isx86) pkgs.mesa32_git.drivers;
       extraPackages = [ pkgs.mesa_git.opencl ];
     };
 
-    specialisation.stable-mesa = lib.mkIf cfg.mesa-git.enable {
+    specialisation.stable-mesa = lib.mkIf cfg.enable {
       configuration = {
         system.nixos.tags = [ "stable-mesa" ];
         hardware.opengl.package = lib.mkForce pkgs.mesa.drivers;
