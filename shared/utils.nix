@@ -13,7 +13,7 @@ rec {
   internalDeps = packages: drv:
     let
       allDeps = lib.strings.concatStringsSep " "
-        (builtins.attrNames (builtins.getContext (builtins.toJSON (drv.drvAttrs))));
+        (builtins.attrNames (builtins.getContext (builtins.toJSON drv.drvAttrs)));
     in
     builtins.filter (x: lib.strings.hasInfix (builtins.unsafeDiscardStringContext x.drvPath) allDeps) packages;
 

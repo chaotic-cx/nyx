@@ -59,7 +59,7 @@ in
 
   input-leap_git = callOverride ../pkgs/input-leap-git {
     libei = final.libei_0_4;
-    qttools = final.libsForQt5.qt5.qttools;
+    inherit (final.libsForQt5.qt5) qttools;
   };
 
   libei = final.libei_0_5;

@@ -2,7 +2,7 @@
 let
   cfg = config.chaotic.mesa-git;
 
-  replacement = ({ original = pkgs.mesa; replacement = pkgs.mesa_git; });
+  replacement = { original = pkgs.mesa; replacement = pkgs.mesa_git; };
 in
 {
   options = {
