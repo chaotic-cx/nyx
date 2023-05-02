@@ -125,3 +125,7 @@ nix run github:chaotic-cx/nyx/nyxpkgs-unstable#input-leap_git
   };
 }
 ```
+
+:godmode: Our `nyxpkgs-unstable` branch is the one that's always cached.
+
+:shipit: Sometimes the `main` branch is too, check it through this badge: [![CircleCI](https://dl.circleci.com/status-badge/img/gh/chaotic-cx/nyx/tree/main.svg?style=shield)](https://dl.circleci.com/status-badge/redirect/gh/chaotic-cx/nyx/tree/main)
