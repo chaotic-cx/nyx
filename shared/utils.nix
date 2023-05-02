@@ -28,6 +28,10 @@ rec {
   removeByBaseName = baseName:
     builtins.filter (x: builtins.baseNameOf x != baseName);
 
+  removeByURL = url: builtins.filter (x:
+    !(lib.attrsets.isDerivation x) || (x.url or null) != url
+  );
+
   # We don't want builders playing around here.
   recurseForDerivations = false;
 }
