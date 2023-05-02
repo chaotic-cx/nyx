@@ -103,12 +103,9 @@ in
 
   proton-ge-custom = final.callPackage ../pkgs/proton-ge-custom { };
 
-  sway-unwrapped_git =
-    nyxUtils.gitOverride inputs.sway-git-src
-      (prev.sway-unwrapped.override {
-        wlroots_0_16 = final.wlroots_git;
-        wayland = final.wayland_next;
-      });
+  sway-unwrapped_git = callOverride ../pkgs/sway-unwrapped-git {
+    wayland = final.wayland_next;
+  };
   sway_git = prev.sway.override {
     sway-unwrapped = final.sway-unwrapped_git;
   };
