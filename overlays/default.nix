@@ -34,16 +34,19 @@ in
 
   beautyline-icons = final.callPackage ../pkgs/beautyline-icons { };
 
-  directx-headers_next = callOverride ../pkgs/directx-headers-next { };
+  # Upstream is up-to-date (2023-05-01)
+  directx-headers_next = final.directx-headers;
 
+  # Upstream is up-to-date (2023-05-01)
   directx-headers32_next =
     if final.stdenv.hostPlatform.isLinux && final.stdenv.hostPlatform.isx86
     then
-      callOverride32 ../pkgs/directx-headers-next { }
+      final.pkgsi686Linux.directx-headers
     else throw "No headers32_next for non-x86";
 
   dr460nized-kde-theme = final.callPackage ../pkgs/dr460nized-kde-theme { };
 
+  # nixpkgs builds this one, but does not expose it.
   droid-sans-mono-nerdfont = final.nerdfonts.override {
     fonts = [ "DroidSansMono" ];
   };
@@ -112,38 +115,14 @@ in
 
   swaylock-plugin_git = callOverride ../pkgs/swaylock-plugin-git { };
 
-  vulkan-headers_next =
-    prev.vulkan-headers.overrideAttrs (_: rec {
-      version = "1.3.249";
-      src = final.fetchFromGitHub {
-        owner = "KhronosGroup";
-        repo = "Vulkan-Headers";
-        rev = "v${version}";
-        hash = "sha256-PLqF9lO7vWvgRZvXLmOcNhTgkB+3TXUa0eoALwDc5Ws=";
-      };
-    });
+  # Upstream is up-to-date (2023-05-01)
+  vulkan-headers_next = final.vulkan-headers;
 
-  vulkan-loader_next =
-    (prev.vulkan-loader.override {
-      vulkan-headers = final.vulkan-headers_next;
-    }).overrideAttrs (pa: rec {
-      version = "1.3.249";
-      src = final.fetchFromGitHub {
-        owner = "KhronosGroup";
-        repo = "Vulkan-Loader";
-        rev = "v${version}";
-        hash = "sha256-v4GEZEcQP3+oiT66sgysIZ2PdLSidyYjecb3TmcHG2Y=";
-      };
-      meta = pa.meta // { broken = false; };
-    });
+  # Upstream is up-to-date (2023-05-01)
+  vulkan-loader_next = final.vulkan-loader;
 
-  wayland_next = prev.wayland.overrideAttrs (_: rec {
-    version = "1.22.0";
-    src = final.fetchurl {
-      url = "https://gitlab.freedesktop.org/wayland/wayland/-/releases/${version}/downloads/wayland-${version}.tar.xz";
-      hash = "sha256-FUCvHqaYpHHC2OnSiDMsfg/TYMjx0Sk267fny8JCWEI=";
-    };
-  });
+  # Upstream is up-to-date (2023-05-01)
+  wayland_next = final.wayland;
 
   waynergy_git = nyxUtils.gitOverride inputs.waynergy-git-src prev.waynergy;
 
