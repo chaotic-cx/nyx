@@ -73,7 +73,7 @@ writeShellScriptBin "build-chaotic-nyx" ''
   W='\033[0m'
 
   cd "$NYX_WD"
-  echo -n "" > push.txt > errors.txt > success.txt > failures.txt > cached.txt
+  echo -n "" > push.txt > errors.txt > success.txt > failures.txt > cached.txt > upstream.txt
 
   function echo_warning() {
     echo -ne "''${Y}WARNING:''${W} "
@@ -114,7 +114,7 @@ writeShellScriptBin "build-chaotic-nyx" ''
       echo -e "''${Y} CACHED''${W}"
       return 0
     elif cached 'https://cache.nixos.org' "$_DEST"; then
-      echo "$_WHAT" >> cached.txt
+      echo "$_WHAT" >> upstream.txt
       echo -e "''${Y} CACHED-UPSTREAM''${W}"
       return 0
     elif \
