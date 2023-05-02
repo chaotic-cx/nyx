@@ -72,6 +72,12 @@ writeShellScriptBin "build-chaotic-nyx" ''
   Y='\033[1;33m'
   W='\033[0m'
 
+  TMPDIR="''${NYX_TEMP:-''${TMPDIR}}"
+  NIX_BUILD_TOP="''${NYX_TEMP:-''${NIX_BUILD_TOP}}"
+  TMP="''${NYX_TEMP:-''${TMP}}"
+  TEMP="''${NYX_TEMP:-''${TEMP}}"
+  TEMPDIR="''${NYX_TEMP:-''${TEMPDIR}}"
+
   cd "$NYX_WD"
   echo -n "" > push.txt > errors.txt > success.txt > failures.txt > cached.txt > upstream.txt
 
