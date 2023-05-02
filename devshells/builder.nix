@@ -73,7 +73,7 @@ writeShellScriptBin "build-chaotic-nyx" ''
   W='\033[0m'
 
   cd "$NYX_WD"
-  echo -n "" > push.txt > errors.txt > success.txt > failures.txt > cached.txt
+  echo -n "" > push.txt > errors.txt > success.txt > failures.txt > cached.txt > upstream.txt
 
   function echo_warning() {
     echo -ne "''${Y}WARNING:''${W} "
@@ -92,7 +92,7 @@ writeShellScriptBin "build-chaotic-nyx" ''
   # Check if $1 is in the cache
   function cached() {
     set -e
-    ${nix}/bin/nix path-info "$1" --store 'https://chaotic-nyx.cachix.org' >/dev/null 2>/dev/null
+    ${nix}/bin/nix path-info "$2" --store "$1" >/dev/null 2>/dev/null
   }
 
   if [ -n "''${NYX_CHANGED_ONLY:-}" ]; then
@@ -109,9 +109,13 @@ writeShellScriptBin "build-chaotic-nyx" ''
     if [ -f filter.txt ] && ! ${gnugrep}/bin/grep -Pq "^$_WHAT\$" filter.txt; then
       echo -e "''${Y} SKIP''${W}"
       return 0
-    elif cached "$_DEST"; then
+    elif cached 'https://chaotic-nyx.cachix.org' "$_DEST"; then
       echo "$_WHAT" >> cached.txt
       echo -e "''${Y} CACHED''${W}"
+      return 0
+    elif cached 'https://cache.nixos.org' "$_DEST"; then
+      echo "$_WHAT" >> upstream.txt
+      echo -e "''${Y} CACHED-UPSTREAM''${W}"
       return 0
     elif \
       ( set -o pipefail;
