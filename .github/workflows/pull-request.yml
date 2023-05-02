@@ -26,6 +26,11 @@ jobs:
           nix run nixpkgs#nixpkgs-fmt -- --check ${{ github.workspace }}
         id: check_fmt
         working-directory: ${{ runner.temp }}
+      - name: Check statix
+        run: |
+          nix run nixpkgs#statix -- check ${{ github.workspace }}
+        id: check_statix
+        working-directory: ${{ runner.temp }}
   organize:
     runs-on: ubuntu-latest
     permissions:

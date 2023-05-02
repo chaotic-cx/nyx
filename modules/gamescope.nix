@@ -56,7 +56,7 @@ in
         args = mkOption {
           type = types.listOf types.string;
           default = config.chaotic.gamescope.args;
-          example = chaotic.gamescope.args.example;
+          inherit (chaotic.gamescope.args) example;
           description = mdDoc ''
             Arguments to be passed to GameScope for the session.
           '';
@@ -65,7 +65,7 @@ in
         env = mkOption {
           type = types.attrsOf types.string;
           default = config.chaotic.gamescope.env;
-          example = chaotic.gamescope.env.example;
+          inherit (chaotic.gamescope.env) example;
           description = mdDoc ''
             Environmental variables to be passed to GameScope for the session.
           '';
