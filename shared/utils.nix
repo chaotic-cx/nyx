@@ -25,6 +25,9 @@ rec {
       inherit src;
     });
 
+  removeByBaseName = baseName:
+    builtins.filter (x: builtins.baseNameOf x != baseName);
+
   # We don't want builders playing around here.
   recurseForDerivations = false;
 }

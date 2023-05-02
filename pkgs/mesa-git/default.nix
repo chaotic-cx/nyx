@@ -7,7 +7,12 @@
   src = inputs.mesa-git-src;
   buildInputs = pa.buildInputs ++ (with final; [ libunwind lm_sensors ]);
   mesonFlags =
-    final.lib.lists.remove "-Dgallium-rusticl=true" pa.mesonFlags # fails to find "valgrind.h"
-    ++ [ "-Dandroid-libbacktrace=disabled" ];
-  patches = nyxUtils.dropN 1 pa.patches ++ [ ./disk_cache-include-dri-driver-path-in-cache-key.patch ];
+    pa.mesonFlags ++ [
+      "-Dandroid-libbacktrace=disabled"
+    ];
+  patches =
+    (nyxUtils.removeByBaseName
+      "disk_cache-include-dri-driver-path-in-cache-key.patch"
+      pa.patches
+    ) ++ [ ./disk_cache-include-dri-driver-path-in-cache-key.patch ];
 })
