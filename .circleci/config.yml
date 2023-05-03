@@ -14,13 +14,12 @@ workflows:
 jobs:
   deploy:
     docker:
-      - image: nixos/nix
+      - image: nixpkgs/nix-flakes
     steps:
       - checkout
       - run:
           name: Install jq
           command: |
-            echo "experimental-features = nix-command flakes" >> /etc/nix/nix.conf
             nix profile install --accept-flake-config --inputs-from . nixpkgs#jq
       - cancel_previous_build_and_wait/cancel_previous_build_and_wait:
           wait: 1
