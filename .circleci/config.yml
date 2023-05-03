@@ -55,6 +55,7 @@ jobs:
       # If the PR is cached, we can skip the build
       - run:
           name: Build
+          no_output_timeout: 1h
           command: |
             mkdir "/mnt/ramdisk/nyxpkgs-build"
             if [ -f "$BASH_ENV" ]; then
