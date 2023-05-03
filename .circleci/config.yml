@@ -67,7 +67,7 @@ jobs:
             if [ "$CACHED_PR" = true ]; then
               echo Skipping build, PR is cached
             else
-              NYX_WD="/mnt/ramdisk/nyxpkgs-build" NYX_TEMP="/mnt/ramdisk" nix develop -c build-chaotic-nyx || [ $? -eq 42 ]
+              NYX_WD="/mnt/ramdisk/nyxpkgs-build" NYX_TEMP="/mnt/ramdisk" nix develop --cores $NIX_BUILD_CORES -c build-chaotic-nyx || [ $? -eq 42 ]
             fi
       - add_ssh_keys:
           fingerprints:
