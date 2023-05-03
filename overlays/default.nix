@@ -51,6 +51,8 @@ in
     fonts = [ "DroidSansMono" ];
   };
 
+  fastfetch = final.callPackage ../pkgs/fastfetch { };
+
   firedragon-unwrapped = final.callPackage ../pkgs/firedragon { };
 
   firedragon = final.wrapFirefox final.firedragon-unwrapped {
