@@ -15,6 +15,9 @@ jobs:
   deploy:
     docker:
       - image: nixpkgs/nix-flakes
+    resource_class: large
+    environment:
+      NIX_BUILD_CORES: 4
     steps:
       - checkout
       - run:
