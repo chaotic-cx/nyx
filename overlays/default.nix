@@ -108,6 +108,8 @@ in
 
   proton-ge-custom = final.callPackage ../pkgs/proton-ge-custom { };
 
+  rustdesk-nightly = final.callPackage ../pkgs/rustdesk-nightly { };
+
   sway-unwrapped_git = callOverride ../pkgs/sway-unwrapped-git {
     wayland = final.wayland_next;
   };
