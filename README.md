@@ -50,6 +50,7 @@ We recommend integrating this repo using Flakes:
   directx-headers32_next # only x86
   dr460nized-kde-theme
   droid-sans-mono-nerdfont
+  fastfetch
   firedragon # and -unwrapped
   gamescope_git
   input-leap_git
