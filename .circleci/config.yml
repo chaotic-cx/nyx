@@ -20,6 +20,7 @@ jobs:
       - run:
           name: Install jq
           command: |
+            echo "sandbox = false" >> /etc/nix/nix.conf
             nix profile install --inputs-from . nixpkgs#{jq,curl}
       - cancel_previous_build_and_wait/cancel_previous_build_and_wait:
           wait: 1
