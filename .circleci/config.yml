@@ -20,7 +20,7 @@ jobs:
       - run:
           name: Install jq
           command: |
-            nix profile install --accept-flake-config --inputs-from . nixpkgs#jq
+            nix profile install --inputs-from . nixpkgs#jq
       - cancel_previous_build_and_wait/cancel_previous_build_and_wait:
           wait: 1
       # Check if it is safe to skip the build. This is the case when the latest commit is a PR squash merge commit and the PR itself is also cached, as well as the base commit of the PR being the same as the last commit on the nyxpkgs-unstable branch.
@@ -62,7 +62,7 @@ jobs:
             if [ "$CACHED_PR" = true ]; then
               echo Skipping build, PR is cached
             else
-              NYX_WD="/mnt/ramdisk/nyxpkgs-build" NYX_TEMP="/mnt/ramdisk" nix develop --accept-flake-config -c build-chaotic-nyx || [ $? -eq 42 ]
+              NYX_WD="/mnt/ramdisk/nyxpkgs-build" NYX_TEMP="/mnt/ramdisk" nix develop -c build-chaotic-nyx || [ $? -eq 42 ]
             fi
       - add_ssh_keys:
           fingerprints:
