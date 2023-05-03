@@ -2,22 +2,32 @@
 , lib
 , fetchurl
 , writeScript
+, protonGeTitle ? null
+, protonGeBase ? "8"
+, protonGeRelease ? "1"
+, protonGeHash ? "sha256-evxo0/RHRTRLYamMJxOUC1S+/4D40XJ41vNLpIQRooE="
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   name = "proton-ge-custom";
-  version = "GE-Proton8-1";
+  version = "${protonGeBase}.${protonGeRelease}";
 
-  src = fetchurl {
-    url = "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/${finalAttrs.version}/${finalAttrs.version}.tar.gz";
-    hash = "sha256-evxo0/RHRTRLYamMJxOUC1S+/4D40XJ41vNLpIQRooE=";
-  };
-
-  passthru.runUpdate = true;
+  src =
+    let
+      geVersion = "GE-Proton${protonGeBase}-${protonGeRelease}";
+    in
+    fetchurl {
+      url = "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/${geVersion}/${geVersion}.tar.gz";
+      hash = protonGeHash;
+    };
 
   buildCommand = ''
     mkdir -p $out/bin
     tar -C $out/bin --strip=1 -x -f $src
+  ''
+  # Allow to keep the same name between updates
+  + lib.strings.optionalString (protonGeTitle != null) ''
+    sed -i -r 's|"GE-Proton.*"|"${protonGeTitle}"|' $out/bin/compatibilitytool.vdf
   '';
 
   meta = with lib; {
@@ -25,6 +35,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/GloriousEggroll/proton-ge-custom";
     license = licenses.bsd3;
     platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ shawn8901 ];
+    maintainers = with maintainers; [ pedrohlc shawn8901 ];
   };
 })
