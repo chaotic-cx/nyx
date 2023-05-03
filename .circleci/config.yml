@@ -16,14 +16,13 @@ jobs:
     docker:
       - image: nixpkgs/nix-flakes
     resource_class: large
-    environment:
-      NIX_BUILD_CORES: 4
     steps:
       - checkout
       - run:
           name: Install jq
+          # Core count should be updated when the resource class is changed.
           command: |
-            echo "sandbox = false" >> /etc/nix/nix.conf
+            echo -e "sandbox = false\ncores = 4" >> /etc/nix/nix.conf
             nix profile install --inputs-from . nixpkgs#{jq,curl}
       - cancel_previous_build_and_wait/cancel_previous_build_and_wait:
           wait: 1
@@ -67,7 +66,7 @@ jobs:
             if [ "$CACHED_PR" = true ]; then
               echo Skipping build, PR is cached
             else
-              NYX_WD="/mnt/ramdisk/nyxpkgs-build" NYX_TEMP="/mnt/ramdisk" nix develop --cores $NIX_BUILD_CORES -c build-chaotic-nyx || [ $? -eq 42 ]
+              NYX_WD="/mnt/ramdisk/nyxpkgs-build" NYX_TEMP="/mnt/ramdisk" nix develop -c build-chaotic-nyx || [ $? -eq 42 ]
             fi
       - add_ssh_keys:
           fingerprints:
