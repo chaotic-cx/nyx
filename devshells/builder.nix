@@ -65,7 +65,7 @@ let
 in
 writeShellScriptBin "build-chaotic-nyx" ''
   NYX_SOURCE="''${NYX_SOURCE:-${flakeSelf}}"
-  NYX_FLAGS="''${NYX_FLAGS:---accept-flake-config}"
+  NYX_FLAGS="''${NYX_FLAGS:---accept-flake-config --no-link}"
   NYX_WD="''${NYX_WD:-$(mktemp -d)}"
   R='\033[0;31m'
   G='\033[0;32m'
