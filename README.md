@@ -61,6 +61,7 @@ We recommend integrating this repo using Flakes:
   linuxPackages_cachyos # the default BORE scheduler
   linuxPackages_hdr # recommended option: chaotic.linux_hdr.specialisation.enable
   luxtorpeda # recommended option: chaotic.steam.extraCompatPackages
+  mangohud_git
   mesa_git # recommended option: chaotic.mesa-git.enable
   mesa32_git # only x86, recommended option: chaotic.mesa-git.enable
   proton-ge-custom # recommended option: chaotic.steam.extraCompatPackages
