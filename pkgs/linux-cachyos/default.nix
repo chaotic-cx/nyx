@@ -29,7 +29,7 @@ let
   };
 in
 
-linuxManualConfig rec {
+(linuxManualConfig rec {
 
   inherit stdenv src;
 
@@ -39,8 +39,6 @@ linuxManualConfig rec {
   allowImportFromDerivation = true;
 
   configfile = "${config-src}/linux-cachyos/config";
-
-  extraMeta = { maintainers = with lib; [ maintainers.dr460nf1r3 ]; };
 
   kernelPatches =
     builtins.map
@@ -52,4 +50,17 @@ linuxManualConfig rec {
         "${patches-src}/${major}/all/0001-cachyos-base-all.patch"
         "${patches-src}/${major}/sched/0001-bore-cachy.patch"
       ];
+
+  extraMeta = { maintainers = with lib; [ maintainers.dr460nf1r3 ]; };
 }
+).overrideAttrs (pa: {
+  passthru = pa.passthru // {
+    features = {
+      efiBootStub = true;
+      ia32Emulation = true;
+      iwlwifi = true;
+      needsCifsUtils = true;
+      netfilterRPFilter = true;
+    };
+  };
+})
