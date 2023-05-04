@@ -53,7 +53,8 @@ in
 
   extraMeta = { maintainers = with lib; [ maintainers.dr460nf1r3 ]; };
 }
-).overrideAttrs (pa: { # bypasses https://github.com/NixOS/nixpkgs/issues/216529
+).overrideAttrs (pa: {
+  # bypasses https://github.com/NixOS/nixpkgs/issues/216529
   passthru = pa.passthru // {
     features = {
       efiBootStub = true;
