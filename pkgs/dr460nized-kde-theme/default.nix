@@ -19,6 +19,8 @@ stdenvNoCC.mkDerivation rec {
 
   installPhase = ''
     runHook preInstall
+    install -d $out/skel
+    cp -r etc/skel $out/
     install -d $out/share
     cp -r usr/share/plasma $out/share/
     install -d $out/share/icons/dr460nized
