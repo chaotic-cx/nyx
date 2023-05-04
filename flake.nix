@@ -21,6 +21,11 @@
       flake = false;
     };
 
+    mangohud-git-src = {
+      url = "github:flightlessmango/MangoHud/master";
+      flake = false;
+    };
+
     mesa-git-src = {
       url = "github:chaotic-cx/mesa-mirror/main";
       flake = false;

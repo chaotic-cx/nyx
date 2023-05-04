@@ -94,6 +94,8 @@ in
 
   luxtorpeda = final.callPackage ../pkgs/luxtorpeda { };
 
+  mangohud_git = callOverride ../pkgs/mangohud-git { };
+
   mesa_git = callOverride ../pkgs/mesa-git {
     directx-headers = final.directx-headers_next;
   };

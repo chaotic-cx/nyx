@@ -49,6 +49,23 @@
         "type": "github"
       }
     },
+    "mangohud-git-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1683046343,
+        "narHash": "sha256-L7mvq7WW3ijC09/M+Af7tAM7iK2B0SM6wv6oKHY8gIM=",
+        "owner": "flightlessmango",
+        "repo": "MangoHud",
+        "rev": "416113959738e7556368778b222e23446ad052f1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "flightlessmango",
+        "ref": "master",
+        "repo": "MangoHud",
+        "type": "github"
+      }
+    },
     "mesa-git-src": {
       "flake": false,
       "locked": {
@@ -87,6 +104,7 @@
         "compare-to": "compare-to",
         "gamescope-git-src": "gamescope-git-src",
         "input-leap-git-src": "input-leap-git-src",
+        "mangohud-git-src": "mangohud-git-src",
         "mesa-git-src": "mesa-git-src",
         "nixpkgs": "nixpkgs",
         "sway-git-src": "sway-git-src",
