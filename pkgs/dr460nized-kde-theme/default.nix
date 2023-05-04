@@ -23,8 +23,7 @@ stdenvNoCC.mkDerivation rec {
     cp -r etc/skel $out/
     install -d $out/share
     cp -r usr/share/plasma $out/share/
-    install -d $out/share/icons/dr460nized
-    cp -r usr/share/icons/garuda/* $out/share/icons/dr460nized
+    cp -r usr/share/icons $out/share/
     runHook postInstall
   '';
 
