@@ -4,9 +4,15 @@
 , stdenvNoCC
 , sweet-nova
 }:
+let
+  wallpaper = builtins.fetchurl {
+    url = "https://gitlab.com/garuda-linux/themes-and-settings/artwork/garuda-wallpapers/-/raw/master/src/garuda-wallpapers/Malefor.jpg";
+    sha256 = "0r6b33k24kq4i3vzp41bxx7gqmw20klakcmw4qy7zana4f3pfnw6";
+  };
+in
 stdenvNoCC.mkDerivation rec {
   pname = "dr460nized-kde-theme";
-  version = "unstable-2023-04-02";
+  version = "unstable-2023-05-05";
 
   src = fetchFromGitLab {
     owner = "garuda-linux/themes-and-settings/settings";
@@ -19,11 +25,11 @@ stdenvNoCC.mkDerivation rec {
 
   installPhase = ''
     runHook preInstall
-    install -d $out/skel
+    install -d $out/{share,share/wallpapers/garuda,skel}
     cp -r etc/skel $out/
-    install -d $out/share
     cp -r usr/share/plasma $out/share/
     cp -r usr/share/icons $out/share/
+    cp ${wallpaper} $out/share/wallpapers/garuda/Malefor.jpg
     runHook postInstall
   '';
 
