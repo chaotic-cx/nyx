@@ -7,7 +7,10 @@
   src = inputs.mesa-git-src;
   buildInputs = pa.buildInputs ++ (with final; [ libunwind lm_sensors ]);
   mesonFlags =
-    pa.mesonFlags ++ [
+    (builtins.map
+      (builtins.replaceStrings [ "virtio-experimental" ] [ "virtio" ])
+      pa.mesonFlags
+    ) ++ [
       "-Dandroid-libbacktrace=disabled"
     ];
   patches =
