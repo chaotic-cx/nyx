@@ -23,7 +23,7 @@ jobs:
           # Core count should be updated when the resource class is changed.
           command: |
             echo -e "sandbox = false\ncores = 4" >> /etc/nix/nix.conf
-            nix profile install --inputs-from . nixpkgs#{jq,curl}
+            nix profile install --inputs-from . nixpkgs#{jq,curl,gnugrep}
       - cancel_previous_build_and_wait/cancel_previous_build_and_wait:
           wait: 1
       # Check if it is safe to skip the build. This is the case when the latest commit is a PR squash merge commit and the PR itself is also cached, as well as the base commit of the PR being the same as the last commit on the nyxpkgs-unstable branch.
