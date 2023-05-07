@@ -64,6 +64,7 @@ We recommend integrating this repo using Flakes:
   mangohud_git
   mesa_git # recommended option: chaotic.mesa-git.enable
   mesa32_git # only x86, recommended option: chaotic.mesa-git.enable
+  mpv-vapoursynth
   proton-ge-custom # recommended option: chaotic.steam.extraCompatPackages
   sway-unwrapped_git
   sway_git # and -unwrapped_git

@@ -108,6 +108,16 @@ in
         }
     else throw "No mesa32_git for non-x86";
 
+  mpv-vapoursynth =
+    final.wrapMpv (final.mpv-unwrapped.override { vapoursynthSupport = true; }) {
+      extraMakeWrapperArgs = [
+        "--prefix"
+        "LD_LIBRARY_PATH"
+        ":"
+        "${final.vapoursynth-mvtools}/lib/vapoursynth"
+      ];
+    };
+
   proton-ge-custom = final.callPackage ../pkgs/proton-ge-custom {
     protonGeTitle = "Proton-GE";
   };
