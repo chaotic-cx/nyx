@@ -119,6 +119,10 @@ in
 
   swaylock-plugin_git = callOverride ../pkgs/swaylock-plugin-git { };
 
+  thunderbird-appmenu = final.wrapThunderbird final.thunderbird-appmenu-unwrapped { };
+
+  thunderbird-appmenu-unwrapped = callOverride ../pkgs/thunderbird-appmenu-unwrapped { };
+
   # Upstream is up-to-date (2023-05-01)
   vulkan-headers_next = final.vulkan-headers;
 
