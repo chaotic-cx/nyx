@@ -108,7 +108,9 @@ in
         }
     else throw "No mesa32_git for non-x86";
 
-  proton-ge-custom = final.callPackage ../pkgs/proton-ge-custom { };
+  proton-ge-custom = final.callPackage ../pkgs/proton-ge-custom {
+    protonGeTitle = "Proton-GE";
+  };
 
   sway-unwrapped_git = callOverride ../pkgs/sway-unwrapped-git {
     wayland = final.wayland_next;
