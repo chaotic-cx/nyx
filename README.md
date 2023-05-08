@@ -103,6 +103,7 @@ nix run github:chaotic-cx/nyx/nyxpkgs-unstable#input-leap_git
       enable = true;
       args = [ "--rt" ];
       env = { };
+      steamArgs = [ "-tenfoot" "-pipewire-dmabuf" ];
     };
   };
   chaotic.steam.extraCompatPackages = with pkgs; [ luxtorpeda proton-ge-custom ];
