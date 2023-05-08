@@ -70,6 +70,15 @@ in
             Environmental variables to be passed to GameScope for the session.
           '';
         };
+
+        steamArgs = mkOption {
+          type = types.listOf types.string;
+          default = [ "-tenfoot" "-pipewire-dmabuf" ];
+          example = [ "-tenfoot" "-pipewire-dmabuf" ];
+          description = mdDoc ''
+            Arguments to be passed to Steam inside the GameScope session.
+          '';
+        };
       };
     };
   };
@@ -84,7 +93,7 @@ in
 
       gamescopeSessionStarter = pkgs.callPackage ../pkgs/gamescope-wrapped {
         gamescope = cfg.package;
-        gamescopeArgs = cfgSession.args ++ [ "--steam" "--" "${cfgSteam.package}/bin/steam" "-tenfoot" "-pipewire-dmabuf" ];
+        gamescopeArgs = cfgSession.args ++ [ "--steam" "--" "${cfgSteam.package}/bin/steam" ] ++ cfgSession.steamArgs;
         gamescopeEnv = cfgSession.env;
         gamescopeExecutable = "steam-gamescope";
         gamescopeVulkanLayers = false;
