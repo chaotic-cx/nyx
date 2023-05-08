@@ -25,15 +25,21 @@ We recommend integrating this repo using Flakes:
         system = "x86_64-linux";
         modules = [
           ./configuration.nix # Your system configuration.
-          chaotic.nixosModules.default
-          ({ pkgs, ... }: {
-            environment.systemPackages = [ pkgs.input-leap_git ];
-            chaotic.mesa-git.enable = true;
-          })
+          chaotic.nixosModules.default # OUR DEFAULT MODULE
         ];
       };
     };
   };
+}
+```
+
+In your `configuration.nix` enable the packages and options that you prefer:
+
+```nix
+{ pkgs, ... }:
+{
+  environment.systemPackages = [ pkgs.input-leap-git ];
+  chaotic.mesa-git.enable = true;
 }
 ```
 
