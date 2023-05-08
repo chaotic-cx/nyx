@@ -54,6 +54,7 @@ We recommend integrating this repo using Flakes:
   firedragon # and -unwrapped
   gamescope_git
   input-leap_git
+  latencyflex-vulkan
   libei
   libei_0_4
   linux_cachyos # the default BORE scheduler
