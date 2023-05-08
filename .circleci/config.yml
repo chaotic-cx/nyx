@@ -22,7 +22,7 @@ jobs:
           name: Install jq
           # Core count should be updated when the resource class is changed.
           command: |
-            echo -e "sandbox = false\ncores = 4" >> /etc/nix/nix.conf
+            echo -e "sandbox = false" >> /etc/nix/nix.conf
             nix profile install --inputs-from . nixpkgs#{jq,curl,gnugrep}
       - cancel_previous_build_and_wait/cancel_previous_build_and_wait:
           wait: 1
