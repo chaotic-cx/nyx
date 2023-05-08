@@ -67,6 +67,8 @@ in
     inherit (final.libsForQt5.qt5) qttools;
   };
 
+  latencyflex-vulkan = final.callPackage ../pkgs/latencyflex-vulkan { };
+
   libei = final.libei_0_5;
   libei_0_4 = final.callPackage ../pkgs/libei {
     libeiVersion = "0.4.1";
