@@ -1,15 +1,10 @@
 { beautyline-icons
 , fetchFromGitLab
+, fetchurl
 , lib
 , stdenvNoCC
 , sweet-nova
 }:
-let
-  wallpaper = builtins.fetchurl {
-    url = "https://gitlab.com/garuda-linux/themes-and-settings/artwork/garuda-wallpapers/-/raw/master/src/garuda-wallpapers/Malefor.jpg";
-    sha256 = "0r6b33k24kq4i3vzp41bxx7gqmw20klakcmw4qy7zana4f3pfnw6";
-  };
-in
 stdenvNoCC.mkDerivation rec {
   pname = "dr460nized-kde-theme";
   version = "unstable-2023-05-05";
@@ -21,16 +16,30 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-73QxPtfoCGaV2g6A/IeKebakKLcyRMcX1WQnVGPTTAA=";
   };
 
+  malefor = fetchurl {
+    url = "https://gitlab.com/garuda-linux/themes-and-settings/artwork/garuda-wallpapers/-/raw/master/src/garuda-wallpapers/Malefor.jpg";
+    hash = "sha256-hlt3hyPKqn88JryyqegEglf8Tu8rkPv3iARPIuYYy2Q=";
+  };
+
   buildInputs = [ beautyline-icons sweet-nova ];
 
   installPhase = ''
     runHook preInstall
-    install -d $out/{share,share/wallpapers/garuda,skel}
+    install -d $out/skel
     cp -r etc/skel $out/
-    cp -r usr/share/plasma $out/share/
-    cp -r usr/share/icons $out/share/
-    cp ${wallpaper} $out/share/wallpapers/garuda/Malefor.jpg
+    install -d $out/share
+    cp -r usr/share/* $out/share/
+    install -Dm644 $malefor $out/share/wallpapers/garuda-wallpapers/Malefor.jpg
     runHook postInstall
+  '';
+  postPatch = ''
+    for file in $(find ./* \( -type f \( -name "*.profile" -o -name "*.conf" -o ! -name "*.*" \) \) -o -type l ); do
+      if [ -h $file ]; then
+        ln -fs $(readlink $file | sed -e 's|/usr/share|/run/current-system/sw/share|g') $file
+      else
+        substituteInPlace $file --replace "/usr/bin" "/run/current-system/sw/bin" --replace "/usr/share" "/run/current-system/sw/share"
+      fi
+    done
   '';
 
   meta = with lib; {
