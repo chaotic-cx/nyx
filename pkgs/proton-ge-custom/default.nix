@@ -4,8 +4,8 @@
 , writeScript
 , protonGeTitle ? null
 , protonGeBase ? "8"
-, protonGeRelease ? "2"
-, protonGeHash ? "sha256-gof4yL5sHPKXDC4mDfPyBIvPtWxxxVy6gHx58yoTEbQ="
+, protonGeRelease ? "3"
+, protonGeHash ? "sha256-JYGwb0LhIs6B2/OHiU+mJ/dAAS+Dg+MrVksAsn6IS9g="
 }:
 
 stdenv.mkDerivation (finalAttrs: {
