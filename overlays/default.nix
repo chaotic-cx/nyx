@@ -124,6 +124,8 @@ in
     protonGeTitle = "Proton-GE";
   };
 
+  rustdesk-nightly = final.callPackage ../pkgs/rustdesk-nightly { };
+
   sway-unwrapped_git = callOverride ../pkgs/sway-unwrapped-git {
     wayland = final.wayland_next;
   };
