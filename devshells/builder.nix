@@ -125,7 +125,7 @@ writeShellScriptBin "build-chaotic-nyx" ''
       echo -e "''${Y} CACHED-UPSTREAM''${W}"
       return 0
     else
-      (while true; do echo -n "BUILDING: " && sleep 60; done) &
+      (while true; do echo -e "\nBUILDING: " && sleep 120; done) &
       _KEEPALIVE=$!
       if \
         ( set -o pipefail;
