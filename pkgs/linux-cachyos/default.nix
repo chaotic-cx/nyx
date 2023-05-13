@@ -39,48 +39,74 @@ let
     echo "}" >> $out
   '').outPath;
 
+  # There are some configurations setted by the PKGBUILD
   structuredExtraConfig = with lib.kernel; {
-    EXPERT = no;
-    WERROR = no;
+    # _cachy_config, defaults to "y"
+    CACHY = yes;
 
-    # Tick to 500hz
+    # _cpusched, defaults to "cachyos"
+    SCHED_BORE = yes;
+
+    # _HZ_ticks, defaults to "500"
+    HZ_300 = no;
     HZ = freeform "500";
     HZ_500 = yes;
-    HZ_1000 = no;
 
-    # Disable MQ Deadline I/O scheduler
-    MQ_IOSCHED_DEADLINE = lib.mkForce no;
+    # _nr_cpus, defaults to empty, which later set this
+    NR_CPUS = freeform "320";
 
-    # Disable Kyber I/O scheduler
-    MQ_IOSCHED_KYBER = lib.mkForce no;
+    # _mq_deadline_disable, defaults to "y"
+    MQ_IOSCHED_DEADLINE = no;
 
-    # Enabling full ticks
-    CONTEXT_TRACKING_FORCE = option no;
+    # _mq_deadline_disable, defaults to "y"
+    MQ_IOSCHED_KYBER = no;
+
+    # _per_gov, defaults to "y"
+    CPU_FREQ_DEFAULT_GOV_SCHEDUTIL = no;
+    CPU_FREQ_DEFAULT_GOV_PERFORMANCE = yes;
+
+    # _tickrate defaults to "full"
     HZ_PERIODIC = no;
-    NO_HZ_FULL_NODEF = option yes;
     NO_HZ_IDLE = no;
+    CONTEXT_TRACKING_FORCE = no;
+    NO_HZ_FULL_NODEF = yes;
+    NO_HZ_FULL = yes;
+    NO_HZ = yes;
+    NO_HZ_COMMON = yes;
+    CONTEXT_TRACKING = yes;
 
-    # Enable O3
+    # _preempt, defaults to "full"
+    PREEMPT_BUILD = yes;
+    PREEMPT_NONE = no;
+    PREEMPT_VOLUNTARY = no;
+    PREEMPT = yes;
+    PREEMPT_COUNT = yes;
+    PREEMPTION = yes;
+    PREEMPT_DYNAMIC = yes;
+
+    # _cc_harder, defaults to "y"
     CC_OPTIMIZE_FOR_PERFORMANCE = no;
     CC_OPTIMIZE_FOR_PERFORMANCE_O3 = yes;
 
-    # Enable bbr2
-    DEFAULT_BBR2 = yes;
-    DEFAULT_CUBIC = option no;
-    DEFAULT_TCP_CONG = freeform "bbr2";
+    # _tcp_bbr2, defaults to "y"
+    TCP_CONG_CUBIC = module;
+    DEFAULT_CUBIC = no;
     TCP_CONG_BBR2 = yes;
-    TCP_CONG_CUBIC = lib.mkForce module;
+    DEFAULT_BBR2 = yes;
+    DEFAULT_TCP_CONG = freeform "bbr2";
 
-    # Enable zram/zswap ZSTD compression
-    MODULE_COMPRESS_ZSTD_LEVEL = option (freeform "9");
-    MODULE_COMPRESS_ZSTD_ULTRA = option no;
-    ZRAM_DEF_COMP = freeform "zstd";
-    ZRAM_DEF_COMP_LZORLE = no;
-    ZRAM_DEF_COMP_ZSTD = yes;
-    ZSTD_COMPRESSION_LEVEL = freeform "19";
-    ZSWAP_COMPRESSOR_DEFAULT = freeform "zstd";
-    ZSWAP_COMPRESSOR_DEFAULT_LZO = no;
-    ZSWAP_COMPRESSOR_DEFAULT_ZSTD = yes;
+    # _lru_config, defaults to "standard"
+    LRU_GEN = yes;
+    LRU_GEN_ENABLED = yes;
+    LRU_GEN_STATS = no;
+
+    # _vma_config, defaults to "standard"
+    PER_VMA_LOCK = yes;
+    PER_VMA_LOCK_STATS = no;
+
+    # _hugepage, defaults to "always"
+    TRANSPARENT_HUGEPAGE_MADVISE = no;
+    TRANSPARENT_HUGEPAGE_ALWAYS = yes;
   };
 in
 
@@ -105,7 +131,8 @@ in
       })
       [
         "${patches-src}/${major}/all/0001-cachyos-base-all.patch"
-        "${patches-src}/${major}/sched/0001-bore-cachy.patch"
+        "${patches-src}/${major}/sched/0001-EEVDF.patch"
+        "${patches-src}/${major}/sched/0001-bore-eevdf.patch"
       ];
 
   extraMeta = { maintainers = with lib; [ maintainers.dr460nf1r3 ]; };
