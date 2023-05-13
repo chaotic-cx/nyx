@@ -15,6 +15,8 @@ let
     builtins.map (xsx: xsx.drv)
       (lib.lists.filter (xsx: xsx.drv != null) packagesEval);
 
+  brokenOutPaths = builtins.attrValues (import ./failures.nix);
+
   depVar = drv:
     "_dep_${nyxUtils.drvHash drv}";
 
@@ -29,11 +31,15 @@ let
       deps = nyxUtils.internalDeps allPackagesList drv;
       depsCond = lib.strings.concatStrings
         (builtins.map (dep: "[ ${depVarQuoted dep} == '1' ] && ") deps);
+      outPath = builtins.unsafeDiscardStringContext drv.outPath;
     in
+    if builtins.elem outPath brokenOutPaths then
+      commentWarn key drv "known to be failing"
+    else
     {
       cmd = ''
         ${depsCond}[ -z ${depVarQuoted drv} ] && ${depVar drv}=0 && \
-        build "${key}" "${builtins.unsafeDiscardStringContext drv.outPath}" \
+        build "${key}" "${outPath}" \
           ${lib.strings.concatStringsSep " \\\n  " outputs} && \
             ${depVar drv}=1
       '';
