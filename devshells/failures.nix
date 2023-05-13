@@ -1,5 +1,5 @@
 {
-  "linuxPackages_cachyos.apfs" = "/nix/store/h6gkhlhv8mfl38p50gcb38r93bwgz4zs-apfs-0.3.1-6.3.2-cachyos";
+  #"linuxPackages_cachyos.apfs" = "/nix/store/h6gkhlhv8mfl38p50gcb38r93bwgz4zs-apfs-0.3.1-6.3.2-cachyos";
   "linuxPackages_cachyos.chipsec" = "/nix/store/98qsa26ca7f40vcs6chq0icsbf3mfd4x-chipsec-1.8.1";
   "linuxPackages_cachyos.cryptodev" = "/nix/store/vc662fydd05l6ldww8kwpshx2x4ivwwn-cryptodev-linux-1.12-6.3.2-cachyos";
   "linuxPackages_cachyos.ddcci-driver" = "/nix/store/r3hgg205pnwvf2wjn4mqaknh0jl9xnib-ddcci-driver-6.3.2-cachyos-0.4.3";
