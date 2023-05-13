@@ -92,7 +92,7 @@ in
 
   linuxPackages_cachyos =
     let
-      base = prev.linuxPackagesFor final.linux_cachyos;
+      base = final.linuxPackagesFor final.linux_cachyos;
 
       zfsCachy = base.zfsUnstable.overrideAttrs (pa: {
         src =
