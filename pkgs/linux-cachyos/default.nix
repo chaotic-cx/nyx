@@ -3,7 +3,9 @@
 , lib
 , linuxManualConfig
 , stdenv
-, runCommand
+, flex
+, bison
+, perl
 , ...
 } @ args:
 let
@@ -29,85 +31,75 @@ let
     sha256 = "thLs8oLKP3mJ/22fOQgoM7fcLVIsuWmgUzTTYU6cUyg=";
   };
 
-  readConfig = configfile: import (runCommand "config.nix" { } ''
-    echo "{" > "$out"
-    while IFS='=' read key val; do
-      [ "x''${key#CONFIG_}" != "x$key" ] || continue
-      no_firstquote="''${val#\"}";
-      echo '  "'"$key"'" = "'"''${no_firstquote%\"}"'";' >> "$out"
-    done < "${configfile}"
-    echo "}" >> $out
-  '').outPath;
-
   # There are some configurations setted by the PKGBUILD
-  structuredExtraConfig = with lib.kernel; {
+  pkgbuildConfig = [
     # _cachy_config, defaults to "y"
-    CONFIG_CACHY = yes;
+    "-e" "CACHY"
 
     # _cpusched, defaults to "cachyos"
-    CONFIG_SCHED_BORE = yes;
+    "-e" "SCHED_BORE"
 
     # _HZ_ticks, defaults to "500"
-    CONFIG_HZ_300 = no;
-    CONFIG_HZ = freeform "500";
-    CONFIG_HZ_500 = yes;
+    "-d" "HZ_300"
+    "--set-val" "HZ" "500"
+    "-e" "HZ_500"
 
     # _nr_cpus, defaults to empty, which later set this
-    CONFIG_NR_CPUS = freeform "320";
+    "--set-val" "NR_CPUS" "320"
 
     # _mq_deadline_disable, defaults to "y"
-    CONFIG_MQ_IOSCHED_DEADLINE = no;
+    "-d" "MQ_IOSCHED_DEADLINE"
 
     # _mq_deadline_disable, defaults to "y"
-    CONFIG_MQ_IOSCHED_KYBER = no;
+    "-d" "MQ_IOSCHED_KYBER"
 
     # _per_gov, defaults to "y"
-    CONFIG_CPU_FREQ_DEFAULT_GOV_SCHEDUTIL = no;
-    CONFIG_CPU_FREQ_DEFAULT_GOV_PERFORMANCE = yes;
+    "-d" "CPU_FREQ_DEFAULT_GOV_SCHEDUTIL"
+    "-e" "CPU_FREQ_DEFAULT_GOV_PERFORMANCE"
 
     # _tickrate defaults to "full"
-    CONFIG_HZ_PERIODIC = no;
-    CONFIG_NO_HZ_IDLE = no;
-    CONFIG_CONTEXT_TRACKING_FORCE = no;
-    CONFIG_NO_HZ_FULL_NODEF = yes;
-    CONFIG_NO_HZ_FULL = yes;
-    CONFIG_NO_HZ = yes;
-    CONFIG_NO_HZ_COMMON = yes;
-    CONFIG_CONTEXT_TRACKING = yes;
+    "-d" "HZ_PERIODIC"
+    "-d" "NO_HZ_IDLE"
+    "-d" "CONTEXT_TRACKING_FORCE"
+    "-e" "NO_HZ_FULL_NODEF"
+    "-e" "NO_HZ_FULL"
+    "-e" "NO_HZ"
+    "-e" "NO_HZ_COMMON"
+    "-e" "CONTEXT_TRACKING"
 
     # _preempt, defaults to "full"
-    CONFIG_PREEMPT_BUILD = yes;
-    CONFIG_PREEMPT_NONE = no;
-    CONFIG_PREEMPT_VOLUNTARY = no;
-    CONFIG_PREEMPT = yes;
-    CONFIG_PREEMPT_COUNT = yes;
-    CONFIG_PREEMPTION = yes;
-    CONFIG_PREEMPT_DYNAMIC = yes;
+    "-e" "PREEMPT_BUILD"
+    "-d" "PREEMPT_NONE"
+    "-d" "PREEMPT_VOLUNTARY"
+    "-e" "PREEMPT"
+    "-e" "PREEMPT_COUNT"
+    "-e" "PREEMPTION"
+    "-e" "PREEMPT_DYNAMIC"
 
     # _cc_harder, defaults to "y"
-    CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE = no;
-    CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE_O3 = yes;
+    "-d" "CC_OPTIMIZE_FOR_PERFORMANCE"
+    "-e" "CC_OPTIMIZE_FOR_PERFORMANCE_O3"
 
     # _tcp_bbr2, defaults to "y"
-    CONFIG_TCP_CONG_CUBIC = module;
-    CONFIG_DEFAULT_CUBIC = no;
-    CONFIG_TCP_CONG_BBR2 = yes;
-    CONFIG_DEFAULT_BBR2 = yes;
-    CONFIG_DEFAULT_TCP_CONG = freeform "bbr2";
+    "-m" "TCP_CONG_CUBIC"
+    "-d" "DEFAULT_CUBIC"
+    "-e" "TCP_CONG_BBR2"
+    "-e" "DEFAULT_BBR2"
+    "--set-val" "DEFAULT_TCP_CONG" "bbr2"
 
     # _lru_config, defaults to "standard"
-    CONFIG_LRU_GEN = yes;
-    CONFIG_LRU_GEN_ENABLED = yes;
-    CONFIG_LRU_GEN_STATS = no;
+    "-e" "LRU_GEN"
+    "-e" "LRU_GEN_ENABLED"
+    "-d" "LRU_GEN_STATS"
 
     # _vma_config, defaults to "standard"
-    CONFIG_PER_VMA_LOCK = yes;
-    CONFIG_PER_VMA_LOCK_STATS = no;
+    "-e" "PER_VMA_LOCK"
+    "-d" "PER_VMA_LOCK_STATS"
 
     # _hugepage, defaults to "always"
-    CONFIG_TRANSPARENT_HUGEPAGE_MADVISE = no;
-    CONFIG_TRANSPARENT_HUGEPAGE_ALWAYS = yes;
-  };
+    "-d" "TRANSPARENT_HUGEPAGE_MADVISE"
+    "-e" "TRANSPARENT_HUGEPAGE_ALWAYS"
+  ];
 in
 
 (linuxManualConfig rec {
@@ -116,24 +108,37 @@ in
   version = "${major}.${minor}-cachyos";
   modDirVersion = "${major}.${minor}";
 
-  # just decoration because...
   allowImportFromDerivation = true;
-  configfile = "${config-src}/linux-cachyos/config";
+  configfile = stdenv.mkDerivation {
+    inherit src;
+    name = "linux-cachyos-config";
+    nativeBuildInputs = [flex bison perl];
 
-  # ...this one is being overwritten.
-  config = readConfig configfile // structuredExtraConfig;
+    preparePhase = ''
+      cp "${config-src}/linux-cachyos/config" ".config"
+    '';
 
-  kernelPatches =
-    builtins.map
-      (name: {
-        inherit name;
-        patch = name;
-      })
-      [
-        "${patches-src}/${major}/all/0001-cachyos-base-all.patch"
-        "${patches-src}/${major}/sched/0001-EEVDF.patch"
-        "${patches-src}/${major}/sched/0001-bore-eevdf.patch"
-      ];
+    buildPhase = ''
+      make defconfig
+      patchShebangs scripts/config
+      scripts/config ${lib.concatStringsSep " " pkgbuildConfig}
+    '';
+
+    installPhase = ''
+      cp .config $out
+    '';
+  };
+
+  kernelPatches = builtins.map
+    (filename: {
+      name = builtins.baseNameOf filename;
+      patch = filename;
+    })
+    [
+      "${patches-src}/${major}/all/0001-cachyos-base-all.patch"
+      "${patches-src}/${major}/sched/0001-EEVDF.patch"
+      "${patches-src}/${major}/sched/0001-bore-eevdf.patch"
+    ];
 
   extraMeta = { maintainers = with lib; [ maintainers.dr460nf1r3 ]; };
 }
