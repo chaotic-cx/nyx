@@ -104,6 +104,7 @@ in
             hash = "sha256-wrMZYENs4hmrHXcSN4kYgntaDDs5IwOMeWWqUKortbw=";
           };
         meta = pa.meta // { broken = false; };
+        patches = [];
       });
     };
 
