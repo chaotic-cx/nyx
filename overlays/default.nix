@@ -90,24 +90,7 @@ in
     ];
   };
 
-  linuxPackages_cachyos =
-    let
-      base = final.linuxPackagesFor final.linux_cachyos;
-
-      zfsCachy = base.zfsUnstable.overrideAttrs (pa: {
-        src =
-          final.fetchFromGitHub {
-            owner = "cachyos";
-            repo = "zfs";
-            rev = "ac18dc77f3703940682aecb442f4e58aa2c14f1a";
-            hash = "sha256-wrMZYENs4hmrHXcSN4kYgntaDDs5IwOMeWWqUKortbw=";
-          };
-        meta = pa.meta // { broken = false; };
-        patches = [];
-      });
-    in
-    base // { zfsUnstable = zfsCachy; };
-
+  linuxPackages_cachyos = final.linuxPackagesFor final.linux_cachyos;
 
   linuxPackages_hdr = final.linuxPackagesFor final.linux_hdr;
 
@@ -166,4 +149,16 @@ in
   };
 
   yuzu-early-access_git = callOverride ../pkgs/yuzu-ea-git { };
+
+  zfs_cachyos = final.linuxPackages_cachyos.zfsUnstable.overrideAttrs (pa: {
+    src =
+      final.fetchFromGitHub {
+        owner = "cachyos";
+        repo = "zfs";
+        rev = "ac18dc77f3703940682aecb442f4e58aa2c14f1a";
+        hash = "sha256-wrMZYENs4hmrHXcSN4kYgntaDDs5IwOMeWWqUKortbw=";
+      };
+    meta = pa.meta // { broken = false; };
+    patches = [];
+  });
 }
