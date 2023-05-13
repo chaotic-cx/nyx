@@ -36,15 +36,15 @@ let
     if builtins.elem outPath brokenOutPaths then
       commentWarn key drv "known to be failing"
     else
-    {
-      cmd = ''
-        ${depsCond}[ -z ${depVarQuoted drv} ] && ${depVar drv}=0 && \
-        build "${key}" "${outPath}" \
-          ${lib.strings.concatStringsSep " \\\n  " outputs} && \
-            ${depVar drv}=1
-      '';
-      inherit deps drv;
-    };
+      {
+        cmd = ''
+          ${depsCond}[ -z ${depVarQuoted drv} ] && ${depVar drv}=0 && \
+          build "${key}" "${outPath}" \
+            ${lib.strings.concatStringsSep " \\\n  " outputs} && \
+              ${depVar drv}=1
+        '';
+        inherit deps drv;
+      };
 
   commentWarn = k: _: message:
     {
