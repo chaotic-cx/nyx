@@ -42,71 +42,71 @@ let
   # There are some configurations setted by the PKGBUILD
   structuredExtraConfig = with lib.kernel; {
     # _cachy_config, defaults to "y"
-    CACHY = yes;
+    CONFIG_CACHY = yes;
 
     # _cpusched, defaults to "cachyos"
-    SCHED_BORE = yes;
+    CONFIG_SCHED_BORE = yes;
 
     # _HZ_ticks, defaults to "500"
-    HZ_300 = no;
-    HZ = freeform "500";
-    HZ_500 = yes;
+    CONFIG_HZ_300 = no;
+    CONFIG_HZ = freeform "500";
+    CONFIG_HZ_500 = yes;
 
     # _nr_cpus, defaults to empty, which later set this
-    NR_CPUS = freeform "320";
+    CONFIG_NR_CPUS = freeform "320";
 
     # _mq_deadline_disable, defaults to "y"
-    MQ_IOSCHED_DEADLINE = no;
+    CONFIG_MQ_IOSCHED_DEADLINE = no;
 
     # _mq_deadline_disable, defaults to "y"
-    MQ_IOSCHED_KYBER = no;
+    CONFIG_MQ_IOSCHED_KYBER = no;
 
     # _per_gov, defaults to "y"
-    CPU_FREQ_DEFAULT_GOV_SCHEDUTIL = no;
-    CPU_FREQ_DEFAULT_GOV_PERFORMANCE = yes;
+    CONFIG_CPU_FREQ_DEFAULT_GOV_SCHEDUTIL = no;
+    CONFIG_CPU_FREQ_DEFAULT_GOV_PERFORMANCE = yes;
 
     # _tickrate defaults to "full"
-    HZ_PERIODIC = no;
-    NO_HZ_IDLE = no;
-    CONTEXT_TRACKING_FORCE = no;
-    NO_HZ_FULL_NODEF = yes;
-    NO_HZ_FULL = yes;
-    NO_HZ = yes;
-    NO_HZ_COMMON = yes;
-    CONTEXT_TRACKING = yes;
+    CONFIG_HZ_PERIODIC = no;
+    CONFIG_NO_HZ_IDLE = no;
+    CONFIG_CONTEXT_TRACKING_FORCE = no;
+    CONFIG_NO_HZ_FULL_NODEF = yes;
+    CONFIG_NO_HZ_FULL = yes;
+    CONFIG_NO_HZ = yes;
+    CONFIG_NO_HZ_COMMON = yes;
+    CONFIG_CONTEXT_TRACKING = yes;
 
     # _preempt, defaults to "full"
-    PREEMPT_BUILD = yes;
-    PREEMPT_NONE = no;
-    PREEMPT_VOLUNTARY = no;
-    PREEMPT = yes;
-    PREEMPT_COUNT = yes;
-    PREEMPTION = yes;
-    PREEMPT_DYNAMIC = yes;
+    CONFIG_PREEMPT_BUILD = yes;
+    CONFIG_PREEMPT_NONE = no;
+    CONFIG_PREEMPT_VOLUNTARY = no;
+    CONFIG_PREEMPT = yes;
+    CONFIG_PREEMPT_COUNT = yes;
+    CONFIG_PREEMPTION = yes;
+    CONFIG_PREEMPT_DYNAMIC = yes;
 
     # _cc_harder, defaults to "y"
-    CC_OPTIMIZE_FOR_PERFORMANCE = no;
-    CC_OPTIMIZE_FOR_PERFORMANCE_O3 = yes;
+    CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE = no;
+    CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE_O3 = yes;
 
     # _tcp_bbr2, defaults to "y"
-    TCP_CONG_CUBIC = module;
-    DEFAULT_CUBIC = no;
-    TCP_CONG_BBR2 = yes;
-    DEFAULT_BBR2 = yes;
-    DEFAULT_TCP_CONG = freeform "bbr2";
+    CONFIG_TCP_CONG_CUBIC = module;
+    CONFIG_DEFAULT_CUBIC = no;
+    CONFIG_TCP_CONG_BBR2 = yes;
+    CONFIG_DEFAULT_BBR2 = yes;
+    CONFIG_DEFAULT_TCP_CONG = freeform "bbr2";
 
     # _lru_config, defaults to "standard"
-    LRU_GEN = yes;
-    LRU_GEN_ENABLED = yes;
-    LRU_GEN_STATS = no;
+    CONFIG_LRU_GEN = yes;
+    CONFIG_LRU_GEN_ENABLED = yes;
+    CONFIG_LRU_GEN_STATS = no;
 
     # _vma_config, defaults to "standard"
-    PER_VMA_LOCK = yes;
-    PER_VMA_LOCK_STATS = no;
+    CONFIG_PER_VMA_LOCK = yes;
+    CONFIG_PER_VMA_LOCK_STATS = no;
 
     # _hugepage, defaults to "always"
-    TRANSPARENT_HUGEPAGE_MADVISE = no;
-    TRANSPARENT_HUGEPAGE_ALWAYS = yes;
+    CONFIG_TRANSPARENT_HUGEPAGE_MADVISE = no;
+    CONFIG_TRANSPARENT_HUGEPAGE_ALWAYS = yes;
   };
 in
 
