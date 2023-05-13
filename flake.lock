@@ -18,11 +18,11 @@
     "gamescope-git-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1683826325,
-        "narHash": "sha256-qKbJmauJqJ8ADjixg5uXBLKoSiEyrp4YNwkBrI10y80=",
+        "lastModified": 1683932965,
+        "narHash": "sha256-/Xkv2phYql7BDyBQ4Vv7zAzjp+mLSBEa3ESxL7wOXVQ=",
         "owner": "ValveSoftware",
         "repo": "gamescope",
-        "rev": "941b22f68f8aa37359f6dab5774f6da61747d50a",
+        "rev": "6531d9cdf9f4e360dd293ca24f03a20515c3512a",
         "type": "github"
       },
       "original": {
@@ -69,11 +69,11 @@
     "mesa-git-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1683913982,
-        "narHash": "sha256-UvSYPh2PqAz/5o15qPsVsfTaANK9RA5F/FzAIwEJg5M=",
+        "lastModified": 1683932500,
+        "narHash": "sha256-ByHUX0J6W3H7gKubjDNnfeCkJDa/R2CWucV42VhhWCc=",
         "owner": "chaotic-cx",
         "repo": "mesa-mirror",
-        "rev": "d5cf6f7d2f9f399b08bac00f06be0470b8e0efb6",
+        "rev": "4621a6db5084c4bdaef57900d4306bd4e4bcda3a",
         "type": "github"
       },
       "original": {
@@ -185,11 +185,11 @@
     "yuzu-ea-git-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1683901706,
-        "narHash": "sha256-xMMgFsirVJ6G4gElEENCZgKAq7gjkgOnat11qd16IfY=",
+        "lastModified": 1683948702,
+        "narHash": "sha256-Kh9Mfpy+MIIRpsw1Ek3m2eAkrR69nzQ1vWQau9Qw6Mw=",
         "owner": "pineappleEA",
         "repo": "pineapple-src",
-        "rev": "9dcfde44d5e607b0b825f0823826d7c17eeccfe1",
+        "rev": "20c9a554e53d05ddb50d29dd6a4eb69ee1a19bab",
         "type": "github"
       },
       "original": {
