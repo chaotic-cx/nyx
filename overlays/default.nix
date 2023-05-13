@@ -106,7 +106,7 @@ in
         patches = [ ];
       });
     in
-    base.extend(_: _: { zfs = zfs; zfsStable = zfs; zfsUnstable = zfs; });
+    base.extend (_: _: { zfs = zfs; zfsStable = zfs; zfsUnstable = zfs; });
 
   linuxPackages_hdr = final.linuxPackagesFor final.linux_hdr;
 
