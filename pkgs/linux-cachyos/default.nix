@@ -115,11 +115,12 @@ in
     nativeBuildInputs = [flex bison perl];
 
     preparePhase = ''
-      make defconfig
       cp "${config-src}/linux-cachyos/config" ".config"
     '';
 
     buildPhase = ''
+      make defconfig
+      cp "${config-src}/linux-cachyos/config" ".config"
       patchShebangs scripts/config
       scripts/config ${lib.concatStringsSep " " pkgbuildConfig}
     '';
