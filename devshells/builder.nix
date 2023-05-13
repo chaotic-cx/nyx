@@ -80,6 +80,7 @@ writeShellScriptBin "build-chaotic-nyx" ''
 
   cd "$NYX_WD"
   echo -n "" > push.txt > errors.txt > success.txt > failures.txt > cached.txt > upstream.txt
+  echo "{" > new-failures.nix
 
   function echo_warning() {
     echo -ne "''${Y}WARNING:''${W} "
@@ -134,12 +135,15 @@ writeShellScriptBin "build-chaotic-nyx" ''
       return 0
     else
       echo "$_WHAT" >> failures.txt
+      echo "  \"$_WHAT\" = \"$_DEST\";" >> failures.nix
       echo -e "''${R} ERR''${W}"
       return 1
     fi
   }
 
   ${lib.strings.concatStringsSep "\n" packagesCmds}
+
+  echo "}" > new-failures.nix
 
   if [ -z "$CACHIX_AUTH_TOKEN" ] && [ -z "$CACHIX_SIGNING_KEY" ]; then
     echo_error "No key for cachix -- failing to deploy."
