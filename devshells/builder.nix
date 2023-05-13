@@ -124,20 +124,26 @@ writeShellScriptBin "build-chaotic-nyx" ''
       echo "$_WHAT" >> upstream.txt
       echo -e "''${Y} CACHED-UPSTREAM''${W}"
       return 0
-    elif \
-      ( set -o pipefail;
-        ${nix}/bin/nix build --json $NYX_FLAGS "''${@:3}" |\
-          ${jq}/bin/jq -r '.[].outputs[]' \
-      ) 2>> errors.txt >> push.txt
-    then
-      echo "$_WHAT" >> success.txt
-      echo -e "''${G} OK''${W}"
-      return 0
     else
-      echo "$_WHAT" >> failures.txt
-      echo "  \"$_WHAT\" = \"$_DEST\";" >> failures.nix
-      echo -e "''${R} ERR''${W}"
-      return 1
+      (while true; do echo -n "BUILDING: " && sleep 60; done) &
+      _KEEPALIVE=$!
+      if \
+        ( set -o pipefail;
+          ${nix}/bin/nix build --json $NYX_FLAGS "''${@:3}" |\
+            ${jq}/bin/jq -r '.[].outputs[]' \
+        ) 2>> errors.txt >> push.txt
+      then
+        echo "$_WHAT" >> success.txt
+        echo -e "''${G} OK''${W}"
+        kill $_KEEPALIVE
+        return 0
+      else
+        echo "$_WHAT" >> failures.txt
+        echo "  \"$_WHAT\" = \"$_DEST\";" >> failures.nix
+        echo -e "''${R} ERR''${W}"
+        kill $_KEEPALIVE
+        return 1
+      fi
     fi
   }
 
