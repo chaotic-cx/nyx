@@ -15,6 +15,8 @@ let
     builtins.map (xsx: xsx.drv)
       (lib.lists.filter (xsx: xsx.drv != null) packagesEval);
 
+  brokenOutPaths = builtins.attrValues (import ./failures.nix);
+
   depVar = drv:
     "_dep_${nyxUtils.drvHash drv}";
 
@@ -29,16 +31,20 @@ let
       deps = nyxUtils.internalDeps allPackagesList drv;
       depsCond = lib.strings.concatStrings
         (builtins.map (dep: "[ ${depVarQuoted dep} == '1' ] && ") deps);
+      outPath = builtins.unsafeDiscardStringContext drv.outPath;
     in
-    {
-      cmd = ''
-        ${depsCond}[ -z ${depVarQuoted drv} ] && ${depVar drv}=0 && \
-        build "${key}" "${builtins.unsafeDiscardStringContext drv.outPath}" \
-          ${lib.strings.concatStringsSep " \\\n  " outputs} && \
-            ${depVar drv}=1
-      '';
-      inherit deps drv;
-    };
+    if builtins.elem outPath brokenOutPaths then
+      commentWarn key drv "known to be failing"
+    else
+      {
+        cmd = ''
+          ${depsCond}[ -z ${depVarQuoted drv} ] && ${depVar drv}=0 && \
+          build "${key}" "${outPath}" \
+            ${lib.strings.concatStringsSep " \\\n  " outputs} && \
+              ${depVar drv}=1
+        '';
+        inherit deps drv;
+      };
 
   commentWarn = k: _: message:
     {
@@ -80,6 +86,7 @@ writeShellScriptBin "build-chaotic-nyx" ''
 
   cd "$NYX_WD"
   echo -n "" > push.txt > errors.txt > success.txt > failures.txt > cached.txt > upstream.txt
+  echo "{" > new-failures.nix
 
   function echo_warning() {
     echo -ne "''${Y}WARNING:''${W} "
@@ -123,23 +130,32 @@ writeShellScriptBin "build-chaotic-nyx" ''
       echo "$_WHAT" >> upstream.txt
       echo -e "''${Y} CACHED-UPSTREAM''${W}"
       return 0
-    elif \
-      ( set -o pipefail;
-        ${nix}/bin/nix build --json $NYX_FLAGS "''${@:3}" |\
-          ${jq}/bin/jq -r '.[].outputs[]' \
-      ) 2>> errors.txt >> push.txt
-    then
-      echo "$_WHAT" >> success.txt
-      echo -e "''${G} OK''${W}"
-      return 0
     else
-      echo "$_WHAT" >> failures.txt
-      echo -e "''${R} ERR''${W}"
-      return 1
+      (while true; do echo -ne "\nBUILDING: " && sleep 120; done) &
+      _KEEPALIVE=$!
+      if \
+        ( set -o pipefail;
+          ${nix}/bin/nix build --json $NYX_FLAGS "''${@:3}" |\
+            ${jq}/bin/jq -r '.[].outputs[]' \
+        ) 2>> errors.txt >> push.txt
+      then
+        echo "$_WHAT" >> success.txt
+        echo -e "''${G} OK''${W}"
+        kill $_KEEPALIVE
+        return 0
+      else
+        echo "$_WHAT" >> failures.txt
+        echo "  \"$_WHAT\" = \"$_DEST\";" >> new-failures.nix
+        echo -e "''${R} ERR''${W}"
+        kill $_KEEPALIVE
+        return 1
+      fi
     fi
   }
 
   ${lib.strings.concatStringsSep "\n" packagesCmds}
+
+  echo "}" >> new-failures.nix
 
   if [ -z "$CACHIX_AUTH_TOKEN" ] && [ -z "$CACHIX_SIGNING_KEY" ]; then
     echo_error "No key for cachix -- failing to deploy."
