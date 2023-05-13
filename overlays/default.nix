@@ -90,7 +90,23 @@ in
     ];
   };
 
-  linuxPackages_cachyos = final.linuxPackagesFor final.linux_cachyos;
+  linuxPackages_cachyos =
+    let
+      base = final.linuxPackagesFor final.linux_cachyos;
+    in
+    base // {
+      zfsUnstable = base.zfsUnstable.overrideAttrs (pa: {
+        src =
+          final.fetchFromGitHub {
+            owner = "cachyos";
+            repo = "zfs";
+            rev = "ac18dc77f3703940682aecb442f4e58aa2c14f1a";
+            hash = "sha256-wrMZYENs4hmrHXcSN4kYgntaDDs5IwOMeWWqUKortbw=";
+          };
+        meta = pa.meta // { broken = false; };
+      });
+    };
+
 
   linuxPackages_hdr = final.linuxPackagesFor final.linux_hdr;
 
