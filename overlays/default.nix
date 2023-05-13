@@ -93,9 +93,8 @@ in
   linuxPackages_cachyos =
     let
       base = final.linuxPackagesFor final.linux_cachyos;
-    in
-    base // {
-      zfsUnstable = base.zfsUnstable.overrideAttrs (pa: {
+
+      zfsCachy = base.zfsUnstable.overrideAttrs (pa: {
         src =
           final.fetchFromGitHub {
             owner = "cachyos";
@@ -106,6 +105,11 @@ in
         meta = pa.meta // { broken = false; };
         patches = [];
       });
+    in
+    base // {
+      zfs = zfsCachy;
+      zfsStable = zfsCachy;
+      zfsUnstable = zfsCachy;
     };
 
 
