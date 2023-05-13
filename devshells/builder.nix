@@ -155,7 +155,7 @@ writeShellScriptBin "build-chaotic-nyx" ''
 
   ${lib.strings.concatStringsSep "\n" packagesCmds}
 
-  echo "}" > new-failures.nix
+  echo "}" >> new-failures.nix
 
   if [ -z "$CACHIX_AUTH_TOKEN" ] && [ -z "$CACHIX_SIGNING_KEY" ]; then
     echo_error "No key for cachix -- failing to deploy."
