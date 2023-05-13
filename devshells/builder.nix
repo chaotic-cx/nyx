@@ -139,7 +139,7 @@ writeShellScriptBin "build-chaotic-nyx" ''
         return 0
       else
         echo "$_WHAT" >> failures.txt
-        echo "  \"$_WHAT\" = \"$_DEST\";" >> failures.nix
+        echo "  \"$_WHAT\" = \"$_DEST\";" >> new-failures.nix
         echo -e "''${R} ERR''${W}"
         kill $_KEEPALIVE
         return 1
