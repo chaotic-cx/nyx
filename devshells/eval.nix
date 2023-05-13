@@ -1,15 +1,16 @@
 { all-packages
 , derivationRecursiveFinder
 , lib
+, nyxUtils
 , system
 , writeText
 }:
 let
   evalResult = k: v:
-    "${system}\t${k}\t${builtins.unsafeDiscardStringContext v.outPath}";
+    "${system}\t${k}\t${nyxUtils.drvHash v}\t${builtins.unsafeDiscardStringContext v.outPath}";
 
   warn = k: _: message:
-    "${system}\t${k}\t${message}";
+    "${system}\t${k}\t_\t${message}";
 
   packagesEval = derivationRecursiveFinder.eval warn evalResult all-packages;
 
