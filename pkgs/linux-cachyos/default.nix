@@ -112,7 +112,7 @@ in
   configfile = stdenv.mkDerivation {
     inherit src;
     name = "linux-cachyos-config";
-    nativeBuildInputs = [flex bison perl];
+    nativeBuildInputs = [ flex bison perl ];
 
     preparePhase = ''
       cp "${config-src}/linux-cachyos/config" ".config"
