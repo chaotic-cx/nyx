@@ -34,7 +34,9 @@ let
       outPath = builtins.unsafeDiscardStringContext drv.outPath;
     in
     if builtins.elem outPath brokenOutPaths then
-      commentWarn key drv "known to be failing"
+      doNotBuild ''
+        echo "  \"${key}\" = \"${outPath}\";" >> new-failures.nix
+      ''
     else
       {
         cmd = ''
@@ -47,8 +49,11 @@ let
       };
 
   commentWarn = k: _: message:
+    doNotBuild "# ${message}: ${k}";
+
+  doNotBuild = replacement:
     {
-      cmd = "# ${message}: ${k}";
+      cmd = replacement;
       drv = null;
       deps = [ ];
     };
