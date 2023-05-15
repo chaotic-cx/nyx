@@ -34,7 +34,7 @@ in
 
       extraPackages = with lib; mkOption {
         type = types.listOf types.package;
-        default = [];
+        default = [ ];
         example = literalExpression "with pkgs; [ mesa_git.opencl intel-media-driver intel-ocl vaapiIntel ]";
         description = mdDoc ''
           Additional packages to add to OpenGL drivers.
@@ -46,7 +46,7 @@ in
 
       extraPackages32 = with lib; mkOption {
         type = types.listOf types.package;
-        default = [];
+        default = [ ];
         example = literalExpression "with pkgs.pkgsi686Linux; [ pkgs.mesa32_git.opencl intel-media-driver vaapiIntel ]";
         description = mdDoc ''
           Additional packages to add to 32-bit OpenGL drivers on 64-bit systems.
@@ -67,8 +67,8 @@ in
       enable = mkForce false;
       package = mkForce pkgs.mesa_git.out;
       package32 = mkForce pkgs.mesa32_git.out;
-      extraPackages = mkForce [];
-      extraPackages32 = mkForce [];
+      extraPackages = mkForce [ ];
+      extraPackages32 = mkForce [ ];
       driSupport = mkForce true;
       driSupport32Bit = mkForce has32;
       setLdLibraryPath = mkForce false;
