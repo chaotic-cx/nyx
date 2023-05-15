@@ -99,8 +99,8 @@ nix run github:chaotic-cx/nyx/nyxpkgs-unstable#input-leap_git
 {
   chaotic.appmenu-gtk3-module.enable = true;
   chaotic.mesa-git.enable = true;
-  chaotic.mesa-git.extraPackages = true;
-  chaotic.mesa-git.extraPackages32 = true;
+  chaotic.mesa-git.extraPackages = [ pkgs.mesa_git.opencl ];
+  chaotic.mesa-git.extraPackages32 = [ pkgs.mesa32_git.opencl ];
   chaotic.linux_hdr.specialisation.enable = true;
   chaotic.gamescope = {
     enable = true;
