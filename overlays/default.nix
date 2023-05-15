@@ -63,7 +63,7 @@ in
   gamescope_git = callOverride ../pkgs/gamescope-git { };
 
   input-leap_git = callOverride ../pkgs/input-leap-git {
-    libei = final.libei_0_4;
+    libei = final.libei_0_5;
     inherit (final.libsForQt5.qt5) qttools;
   };
 
