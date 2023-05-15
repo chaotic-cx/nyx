@@ -86,6 +86,6 @@ in
       )
     ];
     environment.sessionVariables.LD_LIBRARY_PATH =
-      ([ "/run/opengl-driver/lib" ] ++ lib.optional has32 "/run/opengl-driver-32/lib");
+      [ "/run/opengl-driver/lib" ] ++ lib.optional has32 "/run/opengl-driver-32/lib";
   };
 }
