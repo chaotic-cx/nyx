@@ -1,6 +1,5 @@
 {
   "linuxPackages_cachyos.apfs" = "/nix/store/zqa0f61shj2ma61i2v325jys1r1bzyq7-apfs-0.3.1-6.3.2-cachyos";
-  "linuxPackages_cachyos.chipsec" = "/nix/store/azgrvvkj3f1l8hz51i09nc7akk43r7xh-chipsec-1.8.1";
   "linuxPackages_cachyos.cryptodev" = "/nix/store/2jwldcrsnrl7mcd2n8cjrv995ma5g1ky-cryptodev-linux-1.12-6.3.2-cachyos";
   "linuxPackages_cachyos.ddcci-driver" = "/nix/store/3977jid1y5jzy4ybkisg0q8va7c9g8h5-ddcci-driver-6.3.2-cachyos-0.4.3";
   "linuxPackages_cachyos.digimend" = "/nix/store/6gd8f0j19xq93nnx89vax4pm8q8jk1d2-digimend-10";
@@ -23,7 +22,6 @@
   "linuxPackages_cachyos.virtualbox" = "/nix/store/cppxp2grqj1dylzha957c927jq1a7vhj-virtualbox-modules-7.0.6-6.3.2-cachyos";
   "linuxPackages_cachyos.virtualboxGuestAdditions" = "/nix/store/3vvamk8wrc0k6fbb91d3ikhqdywvlfhg-VirtualBox-GuestAdditions-7.0.6-6.3.2-cachyos";
   "linuxPackages_cachyos.xone" = "/nix/store/l0vrc7cib9wiz5id5h82x2ddrs9hqnwc-xone-0.3";
-  "linuxPackages_hdr.chipsec" = "/nix/store/fhivfd71v8fma4xs7avwpfqwn80cy6nd-chipsec-1.8.1";
   "linuxPackages_hdr.mba6x_bl" = "/nix/store/2slpnkdhrmkn67mygzs06kkbd1jrhw3x-mba6x_bl-unstable-2016-12-08";
   "linuxPackages_hdr.virtualboxGuestAdditions" = "/nix/store/p0cpjrg81wxbwgyw6azw5iff9p32x577-VirtualBox-GuestAdditions-7.0.6-6.0-unstable-2023-01-17";
 }
