@@ -20,6 +20,8 @@ let
     final = final.pkgsi686Linux;
     prev = prev.pkgsi686Linux;
   } // attrs);
+
+  cachyVersions = import ../pkgs/linux-cachyos/versions.nix;
 in
 {
   inherit nyxUtils;
@@ -81,6 +83,7 @@ in
   libei_1 = final.callPackage ../pkgs/libei { };
 
   linux_cachyos = final.callPackage ../pkgs/linux-cachyos {
+    inherit cachyVersions;
     kernelPatches = with final.kernelPatches; [
       bridge_stp_helper
       request_key_helper
@@ -103,8 +106,7 @@ in
           final.fetchFromGitHub {
             owner = "cachyos";
             repo = "zfs";
-            rev = "ac18dc77f3703940682aecb442f4e58aa2c14f1a";
-            hash = "sha256-wrMZYENs4hmrHXcSN4kYgntaDDs5IwOMeWWqUKortbw=";
+            inherit (cachyVersions.zfs) rev hash;
           };
         meta = pa.meta // { broken = false; };
         patches = [ ];

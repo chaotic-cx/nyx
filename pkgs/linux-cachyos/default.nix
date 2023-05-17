@@ -1,4 +1,5 @@
-{ fetchFromGitHub
+{ cachyVersions
+, fetchFromGitHub
 , fetchurl
 , lib
 , linuxManualConfig
@@ -9,26 +10,24 @@
 , ...
 } @ args:
 let
-  major = "6.3";
-  minor = "2";
+  inherit (cachyVersions.linux) version;
+  major = lib.versions.pad 2 version;
 
   config-src = fetchFromGitHub {
     owner = "CachyOS";
     repo = "linux-cachyos";
-    rev = "2edd239e20f2fb852a0bc962f48c1d394acc0a3d";
-    hash = "sha256-s2EYR77XuWM1O4IaoY7XdffGZTG1qWnJGofBQWn5LGc=";
+    inherit (cachyVersions.config) rev hash;
   };
 
   patches-src = fetchFromGitHub {
     owner = "CachyOS";
     repo = "kernel-patches";
-    rev = "d2b92b14e924b821d9ec8dea3f947f46e061dd88";
-    hash = "sha256-aDhYSryGU/S099EUPcX3O/r/JjIe7BbpkZonBM8ARfg=";
+    inherit (cachyVersions.patches) rev hash;
   };
 
   src = fetchurl {
-    url = "mirror://kernel/linux/kernel/v6.x/linux-${major}.${minor}.tar.xz";
-    sha256 = "thLs8oLKP3mJ/22fOQgoM7fcLVIsuWmgUzTTYU6cUyg=";
+    url = "mirror://kernel/linux/kernel/v6.x/linux-${version}.tar.xz";
+    inherit (cachyVersions.linux) hash;
   };
 
   # There are some configurations setted by the PKGBUILD
@@ -103,10 +102,8 @@ let
 in
 
 (linuxManualConfig rec {
-  inherit stdenv src;
-
-  version = "${major}.${minor}-cachyos";
-  modDirVersion = "${major}.${minor}";
+  inherit stdenv src version;
+  modDirVersion = lib.versions.pad 3 "${version}${cachyVersions.suffix}";
 
   allowImportFromDerivation = true;
   configfile = stdenv.mkDerivation {
