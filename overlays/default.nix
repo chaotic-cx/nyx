@@ -20,6 +20,8 @@ let
     final = final.pkgsi686Linux;
     prev = prev.pkgsi686Linux;
   } // attrs);
+
+  atticPackages = inputs.attic.overlays.default final prev;
 in
 {
   inherit nyxUtils;
@@ -31,6 +33,12 @@ in
   applet-window-title = final.callPackage ../pkgs/applet-window-title { };
 
   appmenu-gtk3-module = final.callPackage ../pkgs/appmenu-gtk3-module { };
+
+  attic_git = atticPackages.attic-client;
+
+  attic-client_git = atticPackages.attic-client;
+
+  attic-server_git = atticPackages.attic-server;
 
   beautyline-icons = final.callPackage ../pkgs/beautyline-icons { };
 

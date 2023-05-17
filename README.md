@@ -51,6 +51,9 @@ In your `configuration.nix` enable the packages and options that you prefer:
   applet-window-appmenu
   applet-window-title
   appmenu-gtk3-module
+  attic_git
+  attic-client_git
+  attic-server_git
   beautyline-icons # Garuda Linux's version
   directx-headers_next
   directx-headers32_next # only x86

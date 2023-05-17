@@ -11,6 +11,8 @@
     # --- PKGS SOURCES ---
     # Please, sort them in alphabetical order
 
+    attic.url = "github:zhaofengli/attic";
+
     input-leap-git-src = {
       url = "github:input-leap/input-leap/master";
       flake = false;
