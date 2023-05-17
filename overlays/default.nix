@@ -63,18 +63,22 @@ in
   gamescope_git = callOverride ../pkgs/gamescope-git { };
 
   input-leap_git = callOverride ../pkgs/input-leap-git {
-    libei = final.libei_0_5;
+    libei = final.libei_1;
     inherit (final.libsForQt5.qt5) qttools;
   };
 
   latencyflex-vulkan = final.callPackage ../pkgs/latencyflex-vulkan { };
 
-  libei = final.libei_0_5;
+  libei = final.libei_1;
   libei_0_4 = final.callPackage ../pkgs/libei {
     libeiVersion = "0.4.1";
     libeiSrcHash = "sha256-wjzzOU/wvs4QeRCQMH56TARONx+LjYFVMHgWWM/XOs4=";
   };
-  libei_0_5 = final.callPackage ../pkgs/libei { };
+  libei_0_5 = final.callPackage ../pkgs/libei {
+    libeiVersion = "0.5";
+    libeiSrcHash = "sha256-2SCQbuRYX6/r5ZcWG9vn1QurYS94nlHp+BXIBDPmTaM=";
+  };
+  libei_1 = final.callPackage ../pkgs/libei { };
 
   linux_cachyos = final.callPackage ../pkgs/linux-cachyos {
     kernelPatches = with final.kernelPatches; [
