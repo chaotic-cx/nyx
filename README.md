@@ -63,6 +63,8 @@ In your `configuration.nix` enable the packages and options that you prefer:
   latencyflex-vulkan
   libei
   libei_0_4
+  libei_0_5
+  libei_1
   linux_cachyos # the default BORE scheduler
   linux_hdr # recommended option: chaotic.linux_hdr.specialisation.enable
   linuxPackages_cachyos # the default BORE scheduler
