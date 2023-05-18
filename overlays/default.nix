@@ -142,6 +142,8 @@ in
       ];
     };
 
+  openmohaa = final.callPackage ../pkgs/openmohaa { };
+
   proton-ge-custom = final.callPackage ../pkgs/proton-ge-custom {
     protonGeTitle = "Proton-GE";
   };
