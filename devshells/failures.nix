@@ -22,6 +22,6 @@
   "linuxPackages_cachyos.virtualbox" = "/nix/store/cppxp2grqj1dylzha957c927jq1a7vhj-virtualbox-modules-7.0.6-6.3.2-cachyos";
   "linuxPackages_cachyos.virtualboxGuestAdditions" = "/nix/store/3vvamk8wrc0k6fbb91d3ikhqdywvlfhg-VirtualBox-GuestAdditions-7.0.6-6.3.2-cachyos";
   "linuxPackages_cachyos.xone" = "/nix/store/l0vrc7cib9wiz5id5h82x2ddrs9hqnwc-xone-0.3";
-  "linuxPackages_hdr.mba6x_bl" = "/nix/store/2slpnkdhrmkn67mygzs06kkbd1jrhw3x-mba6x_bl-unstable-2016-12-08";
-  "linuxPackages_hdr.virtualboxGuestAdditions" = "/nix/store/p0cpjrg81wxbwgyw6azw5iff9p32x577-VirtualBox-GuestAdditions-7.0.6-6.0-unstable-2023-01-17";
+  "linuxPackages_hdr.mba6x_bl" = "/nix/store/hjcsnjn4a9nvzbaxpqrbb2872xv7j67y-mba6x_bl-unstable-2016-12-08";
+  "linuxPackages_hdr.virtualboxGuestAdditions" = "/nix/store/4lhkbswlwiq97af5v4fdvv12pakhkrjp-VirtualBox-GuestAdditions-7.0.6-6.0-unstable-2023-01-17";
 }
