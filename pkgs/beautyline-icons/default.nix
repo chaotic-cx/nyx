@@ -8,13 +8,13 @@
 }:
 stdenvNoCC.mkDerivation rec {
   pname = "BeautyLine";
-  version = "unstable-2023-04-02";
+  version = "unstable-2023-05-18";
 
   src = fetchFromGitLab {
     owner = "garuda-linux/themes-and-settings/artwork";
     repo = pname;
-    rev = "24052efcb887a58721ffef731181af65ee81b3c1";
-    hash = "sha256-6Nt7m/P0WUjoOetWLrh6pgkyg7FSLg1hGURgKgy6zdc=";
+    rev = "76864a0e4190ad82b8f66e4ccc45b9f5002597b8";
+    hash = "sha256-/PK6S32W8kIW753vqMu8ky55i6xiCimX+1UPuju3WjQ=";
   };
 
   nativeBuildInputs = [ jdupes gtk3 ];
