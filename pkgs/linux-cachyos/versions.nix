@@ -3,16 +3,16 @@
   suffix = "-cachyos-1";
 
   # pkgver from config's PKGBUILD
-  linux.version = "6.3.2";
-  linux.hash = "sha256-thLs8oLKP3mJ/22fOQgoM7fcLVIsuWmgUzTTYU6cUyg=";
+  linux.version = "6.3.3";
+  linux.hash = "sha256-iXUhamzugnOQWGdY7WnRl0M2cJjR/F3VaUmHu1KeROU=";
 
   # latest commit from https://github.com/CachyOS/linux-cachyos/commits/master
-  config.rev = "2edd239e20f2fb852a0bc962f48c1d394acc0a3d";
-  config.hash = "sha256-s2EYR77XuWM1O4IaoY7XdffGZTG1qWnJGofBQWn5LGc=";
+  config.rev = "a88746d376aa0bf988aebe8e3d4b49663a8609d6";
+  config.hash = "sha256-l80AjAAqyRV5SkAbKOeuyFa0imcs8vZtExI7eVeN9IE=";
 
   # latest commit from https://github.com/CachyOS/kernel-patches/commits/master/6.3
-  patches.rev = "d2b92b14e924b821d9ec8dea3f947f46e061dd88";
-  patches.hash = "sha256-aDhYSryGU/S099EUPcX3O/r/JjIe7BbpkZonBM8ARfg=";
+  patches.rev = "a1eae52fa8905e90c47a095131609c3f56505a5b";
+  patches.hash = "sha256-TbdSnEZ0zGb+x3O8ulWoQ4cTP+pIb4mAC3YwAhoe2FE=";
 
   # search for git+https://github.com/cachyos/zfs.git in config's PKGBUILD
   zfs.rev = "ac18dc77f3703940682aecb442f4e58aa2c14f1a";
