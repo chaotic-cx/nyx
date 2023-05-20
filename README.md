@@ -203,8 +203,12 @@ nix build --impure --expr \
 
 After running, you'll find all the derivations that changed in the `result` file.
 
-#### Known failures.
+#### Known failures
 
 All the hashes that are known to produce build-time failures are kept in `devshells/failures.nix`.
 
 Our builder produces a `new-failures.nix` that must be used to update this file in every PR.
+
+#### Banished and rejected packages
+
+There are none (so far).

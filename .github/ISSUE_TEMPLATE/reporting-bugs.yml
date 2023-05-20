@@ -1,0 +1,23 @@
+name: "🐛 Reporting bugs"
+description: "Report a package bug"
+labels: ["bug:misc"]
+title: "[Bug] "
+body:
+  - type: textarea
+    attributes:
+      label: "What happens?"
+      description: "This is the place to describe what's happening."
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: "What is expected to happen?"
+      description: "This is the place to describe what's expected."
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: "If possible, please attach logs"
+  - type: textarea
+    attributes:
+      label: "More information"
