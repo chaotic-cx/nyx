@@ -1,0 +1,9 @@
+blank_issues_enabled: false
+contact_links:
+  - name: "Telegram channel"
+    url: "https://t.me/s/chaotic_nyx"
+    about: "News, updates and discussions"
+contact_links:
+  - name: "Telegram group"
+    url: "https://t.me/chaotic_sac"
+    about: "Off-topics group"

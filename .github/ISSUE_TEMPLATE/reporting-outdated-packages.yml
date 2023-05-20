@@ -1,0 +1,32 @@
+name: "👴 Reporting outdated packages"
+description: "Request an outdated package"
+labels: ["request:rebuild-pkg"]
+title: "[Outdated] "
+body:
+  - type: input
+    attributes:
+      label: "Package name"
+      placeholder: "`some-package`"
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: "Latest build"
+      placeholder: "`0.0.0-unstable-2023-02-31-c0ffec0ffe`"
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: "Latest version available"
+      placeholder: "`1.0.0-unstable-2023-31-31-gdeadbeef`"
+    validations:
+      required: true
+  - type: checkboxes
+    attributes:
+      label: "Have you tested if the package builds?"
+      options:
+        - "Yes"
+        - "Yes, and it fails, but can be fixed"
+  - type: textarea
+    attributes:
+      label: "More information"

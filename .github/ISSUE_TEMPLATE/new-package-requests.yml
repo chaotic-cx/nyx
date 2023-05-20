@@ -1,0 +1,64 @@
+name: "👶 New package requests"
+description: "Request a new package"
+labels: ["request:new-pkg"]
+title: "[Request] "
+body:
+  - type: textarea
+    attributes:
+      label: "Link to the package upstream website/repository"
+      placeholder: "[ProjectNameHere](https://github.com/example/example)"
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: "Utility this package has for you"
+      description: "This is the place to describe how you use the package and how it can be helpful."
+  - type: dropdown
+    attributes:
+      label: "Do you consider the package(s) to be useful for every Chaotic-AUR user?"
+      options:
+        - "YES!"
+        - "No, but for a great amount."
+        - "No, but for a few."
+        - "No, it's useful only for me."
+    validations:
+      required: true
+  - type: checkboxes
+    attributes:
+      label: "Do you consider the package to be useful for feature testing/preview?"
+      description: "e.g: mesa_git, mangohud_git"
+      options:
+        - label: "Yes"
+  - type: checkboxes
+    attributes:
+      label: "Are you sure the package isn't available upstream already?"
+      description: "Check it in https://search.nixos.org/packages?channel=unstable"
+      options:
+        - label: "Yes"
+          required: true
+  - type: dropdown
+    attributes:
+      label: "Does the package's license allow redistributing it?"
+      options:
+        - "YES!"
+        - "No clue."
+        - "No, but the author doesn't really care anyways. It's just for bureaucracy."
+    validations:
+      required: true
+  - type: checkboxes
+    attributes:
+      label: "Have you searched the issues to ensure this request is unique?"
+      description: "https://github.com/chaotic-cx/nyx/issues"
+      options:
+        - label: "YES!"
+          required: true
+  - type: checkboxes
+    attributes:
+      label: "Have you read the README to ensure this package is not banned?"
+      description: "https://github.com/chaotic-cx/nyx#banished-and-rejected-packages"
+      options:
+        - label: "YES!"
+          required: true
+  - type: textarea
+    attributes:
+      label: "More information"
