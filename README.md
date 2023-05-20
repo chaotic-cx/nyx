@@ -198,7 +198,7 @@ A='github:chaotic-cx/nyx/branch-a'
 B='github:chaotic-cx/nyx/branch-b'
 
 nix build --impure --expr \
-  "(builtins.getFlake \"$A\").devShells.$machine.comparer.passthru.any \"$B\"
+  "(builtins.getFlake \"$A\").devShells.$machine.comparer.passthru.any \"$B\""
 ```
 
 After running, you'll find all the derivations that changed in the `result` file.
