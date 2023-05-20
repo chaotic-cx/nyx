@@ -4,6 +4,8 @@ Flake-compatible Nixpkgs overlay for bleeding-edge and unreleased packages. The 
 
 From the [Chaotic Linux User Group (LUG)](https://github.com/chaotic-cx), the same one that maintains [Chaotic-AUR](https://github.com/chaotic-aur)! 🧑🏻‍💻
 
+## News
+
 A news channel can be found on Telegram: https://t.me/s/chaotic_nyx
 
 ## How to use it
@@ -90,7 +92,7 @@ In your `configuration.nix` enable the packages and options that you prefer:
 
 ## Running packages
 
-Besides using our module/overlay, you can run packages using:
+Besides using our module/overlay, you can run packages (without installing) using:
 
 ```sh
 nix run github:chaotic-cx/nyx/nyxpkgs-unstable#input-leap_git
@@ -128,6 +130,8 @@ nix run github:chaotic-cx/nyx/nyxpkgs-unstable#input-leap_git
 
 ## Cache
 
+To use our pre-build packages and speed the installation process, add these options to your configuration:
+
 ```nix
 {
   nix.settings = {
@@ -142,6 +146,65 @@ nix run github:chaotic-cx/nyx/nyxpkgs-unstable#input-leap_git
 }
 ```
 
+## Notes
+
+### Our branches
+
 :godmode: Our `nyxpkgs-unstable` branch is the one that's always cached.
 
 :shipit: Sometimes the `main` branch is too, check it through this badge: [![CircleCI](https://dl.circleci.com/status-badge/img/gh/chaotic-cx/nyx/tree/main.svg?style=shield)](https://dl.circleci.com/status-badge/redirect/gh/chaotic-cx/nyx/tree/main)
+
+### Contributions
+
+We do accept third-party authored PRs.
+
+### Upstream to nixpkgs
+
+If you are interested in pushing any of these packages to the upstream nixpkgs, you have our blessing.
+
+If one of our contributors is mentioned in the deveriation's mantainers list (in this repository) please keep it when pushing to nixpkgs. But, please, tag us on the PR so we can participate in the reviewing.
+
+### Forks and partial code-taking
+
+You are free to use our code, or portions of our code, following the MIT license restrictions.
+
+### Suggestions
+
+If you have any suggestion to enhance our packages, modules, or even the CI's codes, let us know through the GitHub repo's issues.
+
+## Maintainence
+
+The code in the `devshells` directory is used to automate our CIs and maintainence processes.
+
+### Build them all
+
+To build all the packages and push their cache usptream, use:
+
+```sh
+nix develop . -c build-chaotic-nyx
+```
+
+This commands will properly skip already-known failures, evaluation failures, building failures, and even skip any chain of failures caused by internal-dependecies. It will also avoid to download what it's already in our cache and in the upstream nixpkgs' cache.
+
+A list of what successfully built, failed to build, hashes of all failures, paths to push to cache and logs will be available at the `/tmp/nix-shell.*/tmp.*/` directory. This directory can be specified with the `NYX_WD` envvar.
+
+### Check for evaluation differerences
+
+You can compare a branch with another like this:
+
+```bash
+machine=$(uname -m)-linux
+A='github:chaotic-cx/nyx/branch-a'
+B='github:chaotic-cx/nyx/branch-b'
+
+nix build --impure --expr \
+  "(builtins.getFlake \"$A\").devShells.$machine.comparer.passthru.any \"$B\"
+```
+
+After running, you'll find all the derivations that changed in the `result` file.
+
+#### Known failures.
+
+All the hashes that are known to produce build-time failures are kept in `devshells/failures.nix`.
+
+Our builder produces a `new-failures.nix` that must be used to update this file in every PR.
