@@ -18,13 +18,13 @@
 
 clangStdenv.mkDerivation (fa: {
   pname = "openmohaa";
-  version = "0.50";
+  version = "0.51";
 
   src = fetchFromGitHub {
     owner = "openmoh";
     repo = "openmohaa";
     rev = fa.version;
-    hash = "sha256-nOJv9nNR2erdQS+MCUMWjZm5VqYzfdpsLievPZmj3ic=";
+    hash = "sha256-OVs0tG48HkdIiCjLSUkLnXdnt5HhkbacmB9sYY/xPd8=";
   };
 
   nativeBuildInputs = [ cmake pkg-config ];
@@ -61,7 +61,7 @@ clangStdenv.mkDerivation (fa: {
 
   meta = with lib; {
     homepage = "https://github.com/openmoh/openmohaa";
-    description = "Open re-implementation of Medal of Honor: Allied Assault ";
+    description = "Open re-implementation of Medal of Honor: Allied Assault";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
     maintainers = with maintainers; [ peedrohlc ];
