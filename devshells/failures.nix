@@ -3,7 +3,7 @@
   "linuxPackages_cachyos.cryptodev" = "/nix/store/a56kszr3hc5n1wp3am6m7ahpx3p6whl8-cryptodev-linux-1.12-6.3.3";
   "linuxPackages_cachyos.ddcci-driver" = "/nix/store/zd0pmx8dbvn5ymp5gmzva2xixw3g4ich-ddcci-driver-6.3.3-0.4.3";
   "linuxPackages_cachyos.digimend" = "/nix/store/ipl87nvwxfpmr9va2whwjrijzv1gc20f-digimend-10";
-  "linuxPackages_cachyos.dpdk" = "/nix/store/5hl4cw1kb5cak4hyamhwq53k54kid716-dpdk-22.11.1-6.3.3";
+  "linuxPackages_cachyos.dpdk" = "/nix/store/lzhrs7yq96cg20qbpf5srvara6rmq6ki-dpdk-22.11.1-6.3.3";
   "linuxPackages_cachyos.ena" = "/nix/store/w6r7llp3jg46qx4k9hgh7piz50b3vakh-ena-2.8.3-6.3.3";
   "linuxPackages_cachyos.evdi" = "/nix/store/4y0r0anllbpnw0xizazv0sqmn0ij1cq0-evdi-unstable-2022-10-13";
   "linuxPackages_cachyos.isgx" = "/nix/store/6xdn2jij9hnwan23ik52ggrghw83jyhg-isgx-2.14-6.3.3";
