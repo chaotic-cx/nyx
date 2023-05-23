@@ -122,7 +122,7 @@ writeShellScriptBin "build-chaotic-nyx" ''
   function build() {
     _WHAT="''${1:- アンノーン}"
     _DEST="''${2:-/dev/null}"
-    echo -n "Building $_WHAT..."
+    echo -n "* $_WHAT..."
     # If NYX_CHANGED_ONLY is set, only build changed derivations
     if [ -f filter.txt ] && ! ${gnugrep}/bin/grep -Pq "^$_WHAT\$" filter.txt; then
       echo -e "''${Y} SKIP''${W}"
@@ -145,14 +145,14 @@ writeShellScriptBin "build-chaotic-nyx" ''
         ) 2>> errors.txt >> push.txt
       then
         echo "$_WHAT" >> success.txt
-        echo -e "''${G} OK''${W}"
         kill $_KEEPALIVE
+        echo -e "''${G} OK''${W}"
         return 0
       else
         echo "$_WHAT" >> failures.txt
         echo "  \"$_WHAT\" = \"$_DEST\";" >> new-failures.nix
-        echo -e "''${R} ERR''${W}"
         kill $_KEEPALIVE
+        echo -e "''${R} ERR''${W}"
         return 1
       fi
     fi
