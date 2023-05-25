@@ -13,8 +13,8 @@
 , python3Packages
 , stdenv
 , systemd
-, libeiVersion ? "0.99.1"
-, libeiSrcHash ? "sha256-r/rkN2d8P30P/IL1YaLWWRbA5s3uVq5Fc/K1vhS31tw="
+, libeiVersion ? "0.99.2"
+, libeiSrcHash ? "sha256-hxWWOvqenHHnzrvRwSwNT1GFVx9NR+Mm1XK9nisF8fA="
 }:
 let
   munit = fetchFromGitHub {
