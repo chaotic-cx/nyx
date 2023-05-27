@@ -98,21 +98,21 @@ in
   };
 
   linuxPackages_cachyos =
-    let
-      base = final.linuxPackagesFor final.linux_cachyos;
-
-      zfs = base.zfsUnstable.overrideAttrs (pa: {
-        src =
-          final.fetchFromGitHub {
-            owner = "cachyos";
-            repo = "zfs";
-            inherit (cachyVersions.zfs) rev hash;
-          };
-        meta = pa.meta // { broken = false; };
-        patches = [ ];
-      });
-    in
-    base.extend (_: _: { inherit zfs; zfsStable = zfs; zfsUnstable = zfs; });
+    (final.linuxPackagesFor final.linux_cachyos).extend (_: prevAttrs:
+      let
+        zfs = prevAttrs.zfsUnstable.overrideAttrs (pa: {
+          src =
+            final.fetchFromGitHub {
+              owner = "cachyos";
+              repo = "zfs";
+              inherit (cachyVersions.zfs) rev hash;
+            };
+          meta = pa.meta // { broken = false; };
+          patches = [ ];
+        });
+      in
+      { inherit zfs; zfsStable = zfs; zfsUnstable = zfs; }
+    );
 
   linuxPackages_hdr = final.linuxPackagesFor final.linux_hdr;
 
