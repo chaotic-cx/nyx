@@ -18,13 +18,16 @@ rec {
         in
         if (builtins.tryEval v).success then
           (if lib.attrsets.isDerivation v then
-            (if (v.meta.broken or true) then
-              warnFn fullKey v "broken"
-            else if (v.meta.unfree or true) then
-              warnFn fullKey v "unfree"
-            else
-              mapFn fullKey v
-            )
+            [
+              (if (v.meta.broken or true) then
+                warnFn fullKey v "broken"
+              else if (v.meta.unfree or true) then
+                warnFn fullKey v "unfree"
+              else
+                mapFn fullKey v
+              )
+            ] ++
+            [ (lib.attrsets.mapAttrsToList (recursive fullKey) (v.passthru or { })) ]
           else if builtins.isAttrs v && (v.recurseForDerivations or true) then
             lib.attrsets.mapAttrsToList (recursive fullKey) v
           else
