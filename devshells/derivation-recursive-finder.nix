@@ -27,7 +27,15 @@ rec {
                 mapFn fullKey v
               )
             ] ++
-            [ (lib.attrsets.mapAttrsToList (recursive fullKey) (v.passthru or { })) ]
+            (if lib.strings.hasInfix ".passthru" fullKey then
+              [ ]
+            else [
+              (lib.attrsets.mapAttrsToList (recursive (join fullKey "passthru"))
+                (builtins.removeAttrs (v.passthru or { })
+                  ([ "tests" "isXen" ] ++ (lib.strings.splitString "." namespace))
+                )
+              )
+            ])
           else if builtins.isAttrs v && (v.recurseForDerivations or true) then
             lib.attrsets.mapAttrsToList (recursive fullKey) v
           else
