@@ -45,6 +45,24 @@ In your `configuration.nix` enable the packages and options that you prefer:
 }
 ```
 
+### Binary Cache
+
+To use our pre-build packages and speed the installation process, add these options to your configuration:
+
+```nix
+{
+  nix.settings = {
+    substituters = [
+      "https://nyx.chaotic.cx"
+    ];
+    trusted-public-keys = [
+      "nyx.chaotic.cx-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
+      "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
+    ];
+  };
+}
+```
+
 ## List of packages
 
 ```nix
@@ -124,24 +142,6 @@ nix run github:chaotic-cx/nyx/nyxpkgs-unstable#input-leap_git
     enable = true;
     volume = "zroot/ROOT/empty";
     snapshot = "start";
-  };
-}
-```
-
-## Cache
-
-To use our pre-build packages and speed the installation process, add these options to your configuration:
-
-```nix
-{
-  nix.settings = {
-    extra-substituters = [
-      "https://nyx.chaotic.cx"
-    ];
-    extra-trusted-public-keys = [
-      "nyx.chaotic.cx-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
-      "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
-    ];
   };
 }
 ```
