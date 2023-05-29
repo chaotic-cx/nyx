@@ -13,7 +13,7 @@ jobs:
       fmt: ${{ steps.check_fmt.outcome }}
     steps:
       - name: Install Nix
-        uses: cachix/install-nix-action@v20
+        uses: cachix/install-nix-action@v21
         with:
           extra_nix_config: "accept-flake-config = true"
           nix_path: "nixpkgs=channel:nixpkgs-unstable"
