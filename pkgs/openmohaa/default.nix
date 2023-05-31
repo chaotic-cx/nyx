@@ -4,45 +4,30 @@
 , pkg-config
 , cmake
 , SDL2
-, openalSoft
 , curl
 , libogg
 , libvorbis
 , libopus
-, freeglut
-, libGL
-, libXext
-, libXxf86dga
-, libXxf86vm
 }:
 
 clangStdenv.mkDerivation (fa: {
   pname = "openmohaa";
-  version = "0.53.2";
+  version = "0.54.0";
 
   src = fetchFromGitHub {
     owner = "openmoh";
     repo = "openmohaa";
     rev = "v${fa.version}";
-    hash = "sha256-x1Mgl/8vc/5HsvM6XiZxRRW/pLJwxVJrIFf43eDJQAQ=";
+    hash = "sha256-2OBbKmjjfo120gr2n5vi3ZxrouHl2knU+NJSRRE6wqU=";
   };
 
   nativeBuildInputs = [ cmake pkg-config ];
   buildInputs = [
-    # server
     SDL2
-    openalSoft
     curl
     libogg
     libvorbis
     libopus
-
-    # client
-    freeglut
-    libGL
-    libXext
-    libXxf86dga
-    libXxf86vm
   ];
 
   cmakeFlags = [
