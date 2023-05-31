@@ -6,8 +6,6 @@
   "linuxPackages_cachyos.isgx" = "/nix/store/5z1v6gbg5m6i3am5akz8h761vkwrdsx6-isgx-2.14-6.3.4";
   "linuxPackages_cachyos.lttng-modules" = "/nix/store/n2xm0jy31h03hz90znr41mq7snp3wyvf-lttng-modules-6.3.4-2.13.8";
   "linuxPackages_cachyos.mba6x_bl" = "/nix/store/xvparavrf6r2zccb1vas1n4lrv7jxzrq-mba6x_bl-unstable-2016-12-08";
-  "linuxPackages_cachyos.qc71_laptop" = "/nix/store/z77gslgl3v4w51vqph4dp2l2j13l2ax2-qc71_laptop-unstable-2022-06-01";
-  "linuxPackages_cachyos.rtl8189fs" = "/nix/store/735x8431b3yxgbsw0qll17kd66cklfdb-rtl8189fs-6.3.4-2022-10-30";
   "linuxPackages_cachyos.sysdig" = "/nix/store/2y1frayfkrb6zxxabxb80b99gy5g6yqp-sysdig-0.31.5";
   "linuxPackages_cachyos.system76-acpi" = "/nix/store/cyr16ka3cl6kxq24phm4ykx57k4k5y50-system76-acpi-module-1.0.2-6.3.4";
   "linuxPackages_cachyos.virtualbox" = "/nix/store/lw61a3psqm2n53ys3c44rz95rjd3mw8b-virtualbox-modules-7.0.6-6.3.4";
