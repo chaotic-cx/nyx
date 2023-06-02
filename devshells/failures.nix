@@ -4,10 +4,8 @@
   "linuxPackages_cachyos.dpdk" = "/nix/store/myscj7mfy8rl2lfpfcpq21ic4fy2g05g-dpdk-22.11.1-6.3.5";
   "linuxPackages_cachyos.evdi" = "/nix/store/1i6f6dss6rg6m3g0jm5pjc5i8c4ivz11-evdi-unstable-2022-10-13";
   "linuxPackages_cachyos.isgx" = "/nix/store/vac3mm66wa7b076br0zgvhldd48wsxb3-isgx-2.14-6.3.5";
-  "linuxPackages_cachyos.jool" = "/nix/store/05r4fr4wa5fs8hbnmppfg7k23ss9p375-jool-4.1.9-6.3.5";
   "linuxPackages_cachyos.lttng-modules" = "/nix/store/kmc34lxap9nl1ks7cbdxpswibqgvgs30-lttng-modules-6.3.5-2.13.8";
   "linuxPackages_cachyos.mba6x_bl" = "/nix/store/gg3zd4zk7ivpq2ij0fxmvsk1cg336x7v-mba6x_bl-unstable-2016-12-08";
-  "linuxPackages_cachyos.nvidia_x11_beta_open" = "/nix/store/1gaschhwsafqvnyd0apvi667zpl4jh5y-nvidia-open-6.3.5-530.41.03";
   "linuxPackages_cachyos.sysdig" = "/nix/store/p2hyjf4mbahswpyqqsn9ycmdj64g8fxa-sysdig-0.31.5";
   "linuxPackages_cachyos.system76-acpi" = "/nix/store/6j770n8sjlcr45jmf44606i4npgvl4hk-system76-acpi-module-1.0.2-6.3.5";
   "linuxPackages_cachyos.virtualbox" = "/nix/store/khilmvls6civ653p9k7c4pi4nxz5szl6-virtualbox-modules-7.0.6-6.3.5";
