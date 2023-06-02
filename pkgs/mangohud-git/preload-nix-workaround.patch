@@ -1,8 +1,8 @@
 diff --git a/bin/mangohud.in b/bin/mangohud.in
-index 49f4ddf..1e56720 100755
+index ab3075e..41ce36e 100755
 --- a/bin/mangohud.in
 +++ b/bin/mangohud.in
-@@ -8,15 +8,17 @@ if [ "$#" -eq 0 ]; then
+@@ -8,10 +8,10 @@ if [ "$#" -eq 0 ]; then
  	exit 1
  fi
  
@@ -15,9 +15,10 @@ index 49f4ddf..1e56720 100755
  	shift
  fi
  
- # Preload using the plain filenames of the libs, the dynamic linker will
- # figure out whether the 32 or 64 bit version should be used
- LD_PRELOAD="${LD_PRELOAD:+$LD_PRELOAD:}${MANGOHUD_LIB_NAME}"
+@@ -26,5 +26,7 @@ case ":${LD_PRELOAD-}:" in
+         LD_PRELOAD="${LD_PRELOAD:+$LD_PRELOAD:}${MANGOHUD_LIB_NAME}"
+ esac
+ 
 +LD_LIBRARY_PATH="@libraryPath@${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
 +XDG_DATA_DIRS="@dataDir@${XDG_DATA_DIRS:+:$XDG_DATA_DIRS}"
  
