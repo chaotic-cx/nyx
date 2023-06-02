@@ -23,5 +23,13 @@ let
 
     imports = builtins.attrValues modulesPerFile;
   };
+
+  defaultWithFollow = { ... }: {
+    config = {
+      nixpkgs.overlays = [ inputs.self.overlays.default ];
+    };
+
+    imports = builtins.attrValues modulesPerFile;
+  };
 in
 modulesPerFile // { inherit default; }
