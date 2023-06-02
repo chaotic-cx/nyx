@@ -9,9 +9,16 @@ let
     zfs-impermanence-on-shutdown = import ./zfs-impermanence-on-shutdown.nix;
   };
 
-  default = { ... }: {
+  default = { pkgs, ... }: {
     config = {
-      nixpkgs.overlays = [ inputs.self.overlays.default ];
+      nixpkgs.overlays = [
+        (_: userPrev:
+          let
+          input = inputs.nixpkgs.legacyPackages.${pkgs.system};
+          ourPackages = inputs.self.overlays.default (input // ourPackages) input;
+          in userPrev // ourPackages
+        )
+      ];
     };
 
     imports = builtins.attrValues modulesPerFile;
