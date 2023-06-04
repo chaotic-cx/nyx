@@ -26,7 +26,7 @@ in
         };
       onTopOf =
         lib.mkOption {
-          type = lib.types.either "flake-nixpkgs" "user-pkgs";
+          type = lib.types.enum [ "flake-nixpkgs" "user-pkgs" ];
           default = "flake-nixpkgs";
           example = "user-pkgs";
           description = ''
@@ -44,9 +44,8 @@ in
       ];
 
     warnings =
-      if (cfg.onTopOf == "user-pkgs" && cacheCfg.enable)
-      then [
+      lib.mkIf (cfg.onTopOf == "user-pkgs" && cacheCfg.enable) [
         ''Chaotic Nyx certainly won't hit cache when using `chaotic.nyx.overlay = "user-pkgs"`.''
-      ] else [ ];
+      ];
   };
 }
