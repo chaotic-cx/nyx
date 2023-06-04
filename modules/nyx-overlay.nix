@@ -6,7 +6,11 @@ let
   onTopOfFlakeInputs =
     _: userPrev:
     let
-      prev = inputs.nixpkgs.legacyPackages.${pkgs.system};
+      nixpkgs = import "${inputs.nixpkgs}" {
+        system = pkgs.system;
+        config = config.nixpkgs.config;
+      };
+      prev = nixpkgs.legacyPackages.${pkgs.system};
       overlayFinal = prev // ourPackages // { callPackage = prev.newScope overlayFinal; };
       ourPackages = inputs.self.overlays.default overlayFinal prev;
     in
