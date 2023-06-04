@@ -73,10 +73,10 @@
       let
         applyOverlay = prev:
           let
-            overlayFinal = prev // final // { callPackage = prev.newScope final; };
-            final = overlays.default overlayFinal prev;
+            overlayFinal = prev // ourPackages // { callPackage = prev.newScope overlayFinal; };
+            ourPackages = overlays.default overlayFinal prev;
           in
-          final;
+          ourPackages;
       in
       {
         x86_64-linux = applyOverlay nixpkgs.legacyPackages.x86_64-linux;
