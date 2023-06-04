@@ -133,9 +133,7 @@ in
     protonGeTitle = "Proton-GE";
   };
 
-  sway-unwrapped_git = callOverride ../pkgs/sway-unwrapped-git {
-    wayland = final.wayland_next;
-  };
+  sway-unwrapped_git = callOverride ../pkgs/sway-unwrapped-git { };
   sway_git = prev.sway.override {
     sway-unwrapped = final.sway-unwrapped_git;
   };
@@ -144,9 +142,7 @@ in
 
   waynergy_git = nyxUtils.gitOverride inputs.waynergy-git-src prev.waynergy;
 
-  wlroots_git = callOverride ../pkgs/wlroots-git {
-    wayland = final.wayland_next;
-  };
+  wlroots_git = callOverride ../pkgs/wlroots-git { };
 
   yuzu-early-access_git = callOverride ../pkgs/yuzu-ea-git { };
 }
