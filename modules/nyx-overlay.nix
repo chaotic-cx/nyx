@@ -4,13 +4,12 @@ let
   cacheCfg = config.chaotic.nyx.cache;
 
   onTopOfFlakeInputs =
-    (_: userPrev:
-      let
-        input = inputs.nixpkgs.legacyPackages.${pkgs.system};
-        ourPackages = inputs.self.overlays.default (input // ourPackages) input;
-      in
-      userPrev // ourPackages
-    );
+    _: userPrev:
+    let
+      input = inputs.nixpkgs.legacyPackages.${pkgs.system};
+      ourPackages = inputs.self.overlays.default (input // ourPackages) input;
+    in
+    userPrev // ourPackages;
 
   onTopOfUserPkgs =
     [ inputs.self.overlays.default ];
