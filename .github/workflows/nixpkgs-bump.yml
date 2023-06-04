@@ -33,7 +33,7 @@ jobs:
           set -e
           git config --global user.name 'Github Actions'
           git config --global user.email 'actions@chaotic.cx'
-          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          git remote set-url origin https://x-access-token:${{ secrets.PAT_CHAOTIC }}@github.com/${{ github.repository }}
           git add flake.lock
           git commit -m "nixpkgs: bump to $(date +%Y%m%d)"
           git push
