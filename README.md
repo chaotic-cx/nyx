@@ -48,7 +48,7 @@ In your `configuration.nix` enable the packages and options that you prefer:
 ### Binary Cache
 
 You'll get the binary cache added to your configuration as soon as you add our default module.
-We do this automatically so we can gracefully update its address and keys without prompting you for manual work.
+We do this automatically, so we can gracefully update the cache's address and keys without prompting you for manual work.
 
 If you dislike this behavior for any reason, you can disable it with `chaotic.nyx.cache.enable = false`.
 
@@ -131,6 +131,8 @@ nix run github:chaotic-cx/nyx/nyxpkgs-unstable#input-leap_git
   chaotic.mesa-git.extraPackages = [ pkgs.mesa_git.opencl ];
   chaotic.mesa-git.extraPackages32 = [ pkgs.mesa32_git.opencl ];
   chaotic.nyx.cache.enable = false;
+  chaotic.nyx.overlay.enable = false;
+  chaotic.nyx.overlay.onTopOf = "user-pkgs";
   chaotic.steam.extraCompatPackages = with pkgs; [ luxtorpeda proton-ge-custom ];
   chaotic.zfs-impermanence-on-shutdown = {
     enable = true;
@@ -165,6 +167,14 @@ You are free to use our code, or portions of our code, following the MIT license
 ### Suggestions
 
 If you have any suggestion to enhance our packages, modules, or even the CI's codes, let us know through the GitHub repo's issues.
+
+#### Building over the user's pkgs
+
+For cache reasons, Chaotic-Nyx now defaults to always use nixpkgs as provider of its dependencies.
+
+If you need to change this behavior, set `chaotic.nyx.onTopOf = "user-pkgs".`. Be warned that you mostly won't be able to benefit from our binary cache after this change.
+
+You can also disable our overlay entirely by configuring `chaotic.nyx.overlay.enable`;
 
 ## Maintainence
 
