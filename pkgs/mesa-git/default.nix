@@ -16,4 +16,4 @@ prev.mesa.overrideAttrs (pa: {
       "disk_cache-include-dri-driver-path-in-cache-key.patch"
       pa.patches
     ) ++ [ ./disk_cache-include-dri-driver-path-in-cache-key.patch ];
-}
+})
