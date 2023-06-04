@@ -47,21 +47,14 @@ In your `configuration.nix` enable the packages and options that you prefer:
 
 ### Binary Cache
 
-To use our pre-build packages and speed the installation process, add these options to your configuration:
+You'll get the binary cache added to your configuration as soon as you add our default module.
+We do this automatically, so we can gracefully update the cache's address and keys without prompting you for manual work.
 
-```nix
-{
-  nix.settings = {
-    substituters = [
-      "https://nyx.chaotic.cx"
-    ];
-    trusted-public-keys = [
-      "nyx.chaotic.cx-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
-      "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
-    ];
-  };
-}
-```
+If you dislike this behavior for any reason, you can disable it with `chaotic.nyx.cache.enable = false`.
+
+**Remember**: If you want to fetch derivations from our cache, you'll need to enable our module and rebuild your system **before** adding these derivations to your configuration.
+
+Commands like `nix run ...`, `nix develop ...`, and others, when using our flake as input, will ask you to add the cache interactively when missing from your user's nix settings.
 
 ## List of packages
 
@@ -121,10 +114,6 @@ nix run github:chaotic-cx/nyx/nyxpkgs-unstable#input-leap_git
 ```nix
 {
   chaotic.appmenu-gtk3-module.enable = true;
-  chaotic.mesa-git.enable = true;
-  chaotic.mesa-git.extraPackages = [ pkgs.mesa_git.opencl ];
-  chaotic.mesa-git.extraPackages32 = [ pkgs.mesa32_git.opencl ];
-  chaotic.linux_hdr.specialisation.enable = true;
   chaotic.gamescope = {
     enable = true;
     package = pkgs.gamescope_git;
@@ -137,6 +126,13 @@ nix run github:chaotic-cx/nyx/nyxpkgs-unstable#input-leap_git
       steamArgs = [ "-tenfoot" "-pipewire-dmabuf" ];
     };
   };
+  chaotic.linux_hdr.specialisation.enable = true;
+  chaotic.mesa-git.enable = true;
+  chaotic.mesa-git.extraPackages = [ pkgs.mesa_git.opencl ];
+  chaotic.mesa-git.extraPackages32 = [ pkgs.mesa32_git.opencl ];
+  chaotic.nyx.cache.enable = false;
+  chaotic.nyx.overlay.enable = false;
+  chaotic.nyx.overlay.onTopOf = "user-pkgs";
   chaotic.steam.extraCompatPackages = with pkgs; [ luxtorpeda proton-ge-custom ];
   chaotic.zfs-impermanence-on-shutdown = {
     enable = true;
@@ -171,6 +167,14 @@ You are free to use our code, or portions of our code, following the MIT license
 ### Suggestions
 
 If you have any suggestion to enhance our packages, modules, or even the CI's codes, let us know through the GitHub repo's issues.
+
+#### Building over the user's pkgs
+
+For cache reasons, Chaotic-Nyx now defaults to always use nixpkgs as provider of its dependencies.
+
+If you need to change this behavior, set `chaotic.nyx.onTopOf = "user-pkgs".`. Be warned that you mostly won't be able to benefit from our binary cache after this change.
+
+You can also disable our overlay entirely by configuring `chaotic.nyx.overlay.enable`;
 
 ## Maintainence
 
