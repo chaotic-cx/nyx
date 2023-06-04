@@ -6,10 +6,11 @@ let
   onTopOfFlakeInputs =
     _: userPrev:
     let
-      input = inputs.nixpkgs.legacyPackages.${pkgs.system};
-      ourPackages = inputs.self.overlays.default (input // ourPackages) input;
+      prev = inputs.nixpkgs.legacyPackages.${pkgs.system};
+      overlayFinal = prev // ourPackages // { callPackage = prev.newScope overlayFinal; };
+      ourPackages = inputs.self.overlays.default overlayFinal prev;
     in
-    userPrev // ourPackages;
+    ourPackages;
 
   onTopOfUserPkgs =
     [ inputs.self.overlays.default ];
