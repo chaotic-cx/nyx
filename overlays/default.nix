@@ -36,16 +36,6 @@ in
 
   beautyline-icons = final.callPackage ../pkgs/beautyline-icons { };
 
-  # Upstream is up-to-date (2023-05-01)
-  directx-headers_next = final.directx-headers;
-
-  # Upstream is up-to-date (2023-05-01)
-  directx-headers32_next =
-    if final.stdenv.hostPlatform.isLinux && final.stdenv.hostPlatform.isx86
-    then
-      final.pkgsi686Linux.directx-headers
-    else throw "No headers32_next for non-x86";
-
   dr460nized-kde-theme = final.callPackage ../pkgs/dr460nized-kde-theme { };
 
   # nixpkgs builds this one, but does not expose it.
@@ -120,16 +110,11 @@ in
 
   mangohud_git = callOverride ../pkgs/mangohud-git { };
 
-  mesa_git = callOverride ../pkgs/mesa-git {
-    directx-headers = final.directx-headers_next;
-  };
+  mesa_git = callOverride ../pkgs/mesa-git { };
   mesa32_git =
     if final.stdenv.hostPlatform.isLinux && final.stdenv.hostPlatform.isx86
     then
-      callOverride32 ../pkgs/mesa-git
-        {
-          directx-headers = final.directx-headers32_next;
-        }
+      callOverride32 ../pkgs/mesa-git { }
     else throw "No mesa32_git for non-x86";
 
   mpv-vapoursynth =
@@ -148,29 +133,16 @@ in
     protonGeTitle = "Proton-GE";
   };
 
-  sway-unwrapped_git = callOverride ../pkgs/sway-unwrapped-git {
-    wayland = final.wayland_next;
-  };
+  sway-unwrapped_git = callOverride ../pkgs/sway-unwrapped-git { };
   sway_git = prev.sway.override {
     sway-unwrapped = final.sway-unwrapped_git;
   };
 
   swaylock-plugin_git = callOverride ../pkgs/swaylock-plugin-git { };
 
-  # Upstream is up-to-date (2023-05-01)
-  vulkan-headers_next = final.vulkan-headers;
-
-  # Upstream is up-to-date (2023-05-01)
-  vulkan-loader_next = final.vulkan-loader;
-
-  # Upstream is up-to-date (2023-05-01)
-  wayland_next = final.wayland;
-
   waynergy_git = nyxUtils.gitOverride inputs.waynergy-git-src prev.waynergy;
 
-  wlroots_git = callOverride ../pkgs/wlroots-git {
-    wayland = final.wayland_next;
-  };
+  wlroots_git = callOverride ../pkgs/wlroots-git { };
 
   yuzu-early-access_git = callOverride ../pkgs/yuzu-ea-git { };
 }
