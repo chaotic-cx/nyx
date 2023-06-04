@@ -7,11 +7,10 @@ let
     _: userPrev:
     let
       prev = inputs.nixpkgs.legacyPackages.${pkgs.system};
-      ourPackages = inputs.self.overlays.default overlayFinal input;
       overlayFinal = prev // ourPackages // { callPackage = prev.newScope overlayFinal; };
-      userFinal = userPrev // ourPackages // { callPackage = userFinal.newScope userFinal; };
+      ourPackages = inputs.self.overlays.default overlayFinal prev;
     in
-    userFinal;
+    ourPackages;
 
   onTopOfUserPkgs =
     [ inputs.self.overlays.default ];
