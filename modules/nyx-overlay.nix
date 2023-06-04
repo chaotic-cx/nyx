@@ -7,8 +7,8 @@ let
     _: userPrev:
     let
       prev = import "${inputs.nixpkgs}" {
-        system = pkgs.system;
-        config = config.nixpkgs.config;
+        inherit (pkgs) system;
+        inherit (config.nixpkgs) config;
       };
       overlayFinal = prev // ourPackages // { callPackage = prev.newScope overlayFinal; };
       ourPackages = inputs.self.overlays.default overlayFinal prev;
