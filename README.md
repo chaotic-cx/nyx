@@ -65,8 +65,6 @@ Commands like `nix run ...`, `nix develop ...`, and others, when using our flake
   applet-window-title
   appmenu-gtk3-module
   beautyline-icons # Garuda Linux's version
-  directx-headers_next
-  directx-headers32_next # only x86
   dr460nized-kde-theme
   droid-sans-mono-nerdfont
   fastfetch
@@ -92,9 +90,6 @@ Commands like `nix run ...`, `nix develop ...`, and others, when using our flake
   sway-unwrapped_git
   sway_git # and -unwrapped_git
   swaylock-plugin_git
-  vulkan-headers_next
-  vulkan-loader_next
-  wayland_next
   waynergy_git
   wlroots_git
   yuzu-early-access_git
