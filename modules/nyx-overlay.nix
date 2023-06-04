@@ -13,7 +13,7 @@ let
     ourPackages;
 
   onTopOfUserPkgs =
-    [ inputs.self.overlays.default ];
+    inputs.self.overlays.default;
 in
 {
   options = {
