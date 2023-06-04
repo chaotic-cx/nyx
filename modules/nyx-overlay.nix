@@ -35,18 +35,18 @@ in
         };
     };
   };
-  config = {
-    nixpkgs.overlays = lib.mkIf cfg.enable (
+  config = lib.mkIf cfg.enable {
+    nixpkgs.overlays =
       if cfg.onTopOf == "flake-nixpkgs" then [
         onTopOfFlakeInputs
       ] else [
         onTopOfUserPkgs
-      ]
-    );
+      ];
 
     warnings =
-      lib.mkIf (cfg.onTopOf == "user-pkgs" && cfg.enable && cacheCfg.enable) [
+      if (cfg.onTopOf == "user-pkgs" && cacheCfg.enable)
+      then [
         ''Chaotic Nyx certainly won't hit cache when using `chaotic.nyx.overlay = "user-pkgs"`.''
-      ];
+      ] else [ ];
   };
 }
