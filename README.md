@@ -72,10 +72,6 @@ Commands like `nix run ...`, `nix develop ...`, and others, when using our flake
   gamescope_git
   input-leap_git
   latencyflex-vulkan
-  libei
-  libei_0_4
-  libei_0_5
-  libei_1
   linux_cachyos # the default BORE scheduler
   linux_hdr # recommended option: chaotic.linux_hdr.specialisation.enable
   linuxPackages_cachyos # the default BORE scheduler

@@ -1,4 +1,4 @@
-{ final, inputs, libei, nyxUtils, prev, qttools, ... }:
+{ final, inputs, nyxUtils, prev, qttools, ... }:
 
 prev.barrier.overrideAttrs (pa: {
   pname = "input-leap";
@@ -8,8 +8,9 @@ prev.barrier.overrideAttrs (pa: {
     pkg-config
     gtest
     ghc_filesystem
-  ]) ++ [ libei ];
+  ]);
   buildInputs = pa.buildInputs ++ [
+    final.libei
     final.libportal
     qttools
   ];
