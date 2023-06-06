@@ -15,8 +15,6 @@ concurrency:
 jobs:
   bump:
     runs-on: ubuntu-latest
-    outputs:
-      should_deploy: ${{ steps.bump.outcome == 'success' }}
     steps:
       - name: Install Nix
         uses: cachix/install-nix-action@v21
@@ -31,9 +29,12 @@ jobs:
         if: steps.bump.outcome == 'success'
         run: |
           set -e
-          git config --global user.name 'Github Actions'
+          git config --global user.name 'Chaotic Github Actions'
           git config --global user.email 'actions@chaotic.cx'
-          git remote set-url origin https://x-access-token:${{ secrets.PAT_CHAOTIC }}@github.com/${{ github.repository }}
           git add flake.lock
           git commit -m "nixpkgs: bump to $(date +%Y%m%d)"
           git push
+      # Call another workflow called deploy.yml
+      - name: Deploy
+        uses: ./.github/workflows/build.yml
+        if: steps.bump.outcome == 'success'

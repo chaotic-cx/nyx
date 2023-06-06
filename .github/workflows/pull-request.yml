@@ -40,7 +40,6 @@ jobs:
     steps:
       - name: Add comment
         if: needs.check-nix-fmt.outputs.fmt == 'failure' && github.event.action == 'opened'
-        continue-on-error: true
         uses: actions/github-script@v6
         with:
           script: |
@@ -52,7 +51,6 @@ jobs:
             })
       - name: Remove cached label
         if: contains(github.event.pull_request.labels.*.name, 'cached')
-        continue-on-error: true
         uses: actions/github-script@v6
         with:
           script: |

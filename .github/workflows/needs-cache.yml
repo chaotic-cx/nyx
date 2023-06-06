@@ -62,7 +62,6 @@ jobs:
           FAILED_BUILDS_COUNT: ${{ needs.build.outputs.FAILED_BUILDS_COUNT }}
           FAILED_BUILDS: ${{ needs.build.outputs.FAILED_BUILDS }}
         with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
             github.rest.issues.removeLabel({
               issue_number: context.issue.number,
