@@ -1,0 +1,119 @@
+name: Build
+on:
+  push:
+    branches:
+      - main
+  workflow_call:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: nyx-main-build
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if already cached
+        id: check
+        if: github.event_name == 'push'
+        continue-on-error: true
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const valid = await github.rest.repos.compareCommits({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              base: 'nyxpkgs-unstable',
+              head: context.sha
+            }).then((response) => response.data.status == "ahead" && response.data.ahead_by == 1)
+
+            // Needs to be ahead by 1 commit exactly, otherwise we don't consider this PR as being potentially cached
+            if (valid) {
+              const PR_NUMBER = context.payload.head_commit.message.match(/(?<=\(#)\d+(?=\)$)/)
+              if (PR_NUMBER) {
+                await github.rest.pulls.get({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  pull_number: PR_NUMBER[0]
+                }).then((response) => {
+                  const OUTPUT = response.data;
+                  const PR_LABELS = OUTPUT.labels.map((label) => label.name)
+                  const BASE_COMMIT = OUTPUT.base.sha
+                  const MERGE_COMMIT = OUTPUT.merge_commit_sha
+                  if (PR_LABELS.includes('cached') && BASE_COMMIT === context.payload.before && MERGE_COMMIT === context.sha) {
+                    // Exit with a non-zero exit code to skip the rest of the job
+                    console.log("Already cached, skipping build.");
+                    process.exit(1)
+                  }
+                }).catch((error) => {
+                  console.log("Github rest API error encountered, assuming not cached.")
+                })
+              }
+            }
+      - name: Install Nix
+        if: (success() && steps.check.outcome != 'failure')
+        uses: cachix/install-nix-action@v21
+        with:
+          extra_nix_config: "accept-flake-config = true"
+      - name: Install Cachix
+        if: (success() && steps.check.outcome != 'failure')
+        uses: cachix/cachix-action@v12
+        with:
+          name: chaotic-nyx
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          skipPush: true
+      # Checkout the main branch
+      - name: Checkout
+        if: (success() && steps.check.outcome != 'failure')
+        uses: actions/checkout@v2
+        with:
+          ref: main
+      - name: Build
+        if: (success() && steps.check.outcome != 'failure')
+        continue-on-error: true
+        id: build
+        run: |
+          nix develop -c build-chaotic-nyx || [ $? -eq 42 ]
+          failed_builds="$(cat ${{ runner.temp }}/failures.txt | sed 's/^/    <li>/; s/$/<\/li>/')"
+          failed_builds_count="$(cat ${{ runner.temp }}/failures.txt | wc -l)"
+          echo "FAILED_BUILDS_COUNT=$failed_builds_count
+          FAILED_BUILDS<<EOF
+          $failed_builds
+          EOF" >> $GITHUB_OUTPUT
+        env:
+          NYX_WD: ${{ runner.temp }}
+          CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
+      - name: Push to nyxpkgs-unstable
+        if: (success() && steps.check.outcome != 'failure')
+        run: git push origin HEAD:nyxpkgs-unstable --force
+      - name: Comment on commit
+        if: (success() && steps.check.outcome != 'failure')
+        uses: actions/github-script@v6
+        with:
+          script: |
+            if (process.env.FAILED_BUILDS_COUNT > 0)
+              github.rest.repos.createCommitComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                commit_sha: context.sha,
+                body: `Failed to build $FAILED_BUILDS_COUNT packages:
+            <details>
+              <summary>${process.env.FAILED_BUILDS_COUNT} packages failed</summary>
+              <ul>
+                ${process.env.FAILED_BUILDS}
+              </ul>
+            </details>`
+              })
+            else
+              github.rest.repos.createCommitComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                commit_sha: context.sha,
+                body: 'All packages were built and cached successfully!'
+              })
+        env:
+          FAILED_BUILDS_COUNT: ${{ steps.build.outputs.FAILED_BUILDS_COUNT }}
+          FAILED_BUILDS: ${{ steps.build.outputs.FAILED_BUILDS }}
