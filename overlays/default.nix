@@ -96,7 +96,13 @@ in
 
   luxtorpeda = final.callPackage ../pkgs/luxtorpeda { };
 
-  mangohud_git = callOverride ../pkgs/mangohud-git { };
+  # You should not need "mangohud32_git" since it's embedded in "mangohud_git"
+  mangohud_git = callOverride ../pkgs/mangohud-git { mangohud32 = final.mangohud32_git; };
+  mangohud32_git =
+    if final.stdenv.hostPlatform.isLinux && final.stdenv.hostPlatform.isx86
+    then
+      callOverride32 ../pkgs/mangohud-git { mangohud32 = final.mangohud32_git; }
+    else throw "No mangohud32_git for non-x86";
 
   mesa_git = callOverride ../pkgs/mesa-git { };
   mesa32_git =
