@@ -91,6 +91,7 @@ jobs:
           FAILED_BUILDS<<EOF
           $failed_builds
           EOF" >> $GITHUB_OUTPUT
+          echo hai!
         env:
           NYX_WD: ${{ runner.temp }}
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
