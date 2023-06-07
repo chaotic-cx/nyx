@@ -1,16 +1,15 @@
 name: Bump nixpkgs
 
 on:
-  # Trigger this workflow every day at midnight
   schedule:
-    - cron: '0 0 * * *'
+    - cron: '0 */3 * * *'
   workflow_dispatch:
 
 permissions:
   contents: write
 
 concurrency:
-  group: nixpkgs-bump
+  group: nyx-main-build
 
 jobs:
   bump:

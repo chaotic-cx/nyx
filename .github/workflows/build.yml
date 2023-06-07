@@ -15,6 +15,7 @@ concurrency:
 jobs:
   build:
     runs-on: nyxbuilder
+    timeout-minutes: 1440
     steps:
       - name: Check if already cached
         id: check
