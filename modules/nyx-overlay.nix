@@ -7,7 +7,9 @@ let
     _: userPrev:
     let
       prev = import "${inputs.nixpkgs}" {
-        inherit (config.nixpkgs) config localSystem crossSystem;
+        inherit (pkgs) config;
+        localSystem = pkgs.stdenv.hostPlatform.system;
+        crossSystem = pkgs.stdenv.targetPlatform.system;
       };
       overlayFinal = prev // ourPackages // { callPackage = prev.newScope overlayFinal; };
       ourPackages = inputs.self.overlays.default overlayFinal prev;
