@@ -8,12 +8,13 @@ on:
 permissions:
   contents: write
 
-concurrency:
-  group: nyx-main-build
-
 jobs:
   bump:
+    concurrency:
+      group: nyx-main-build
     runs-on: ubuntu-latest
+    outputs:
+      success: ${{ steps.bump.outcome == 'success' }}
     steps:
       - name: Install Nix
         uses: cachix/install-nix-action@v21
@@ -33,7 +34,7 @@ jobs:
           git add flake.lock
           git commit -m "nixpkgs: bump to $(date +%Y%m%d)"
           git push
-      # Call another workflow called deploy.yml
-      - name: Deploy
-        uses: ./.github/workflows/build.yml
-        if: steps.bump.outcome == 'success'
+  build:
+    needs: bump
+    if: needs.bump.outputs.success == 'true'
+    uses: ./.github/workflows/build.yml
