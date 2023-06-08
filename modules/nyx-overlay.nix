@@ -39,11 +39,7 @@ in
         };
       flakeNixpkgs.config = lib.mkOption {
         default = pkgs.config;
-        example = lib.literalExpression
-          ''
-            { allowBroken = true; allowUnfree = true; }
-          '';
-        type = options.nixpkgs.config.type;
+        inherit (options.nixpkgs.config) example type;
         description = lib.mdDoc ''
           Matches `nixpkgs.config` from the configuration of the Nix Packages collection.
         '';
