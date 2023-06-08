@@ -1,4 +1,4 @@
-{ inputs }: { config, lib, pkgs, ... }:
+{ inputs }: { config, options, lib, pkgs, ... }:
 let
   cfg = config.chaotic.nyx.overlay;
   cacheCfg = config.chaotic.nyx.cache;
@@ -6,9 +6,23 @@ let
   onTopOfFlakeInputs =
     _: userPrev:
     let
-      prev = import "${inputs.nixpkgs}" {
-        inherit (config.nixpkgs) config localSystem crossSystem;
-      };
+      inherit (pkgs) stdenv;
+      isCross = stdenv.buildPlatform != stdenv.hostPlatform;
+
+      prev =
+        if isCross then
+          import "${inputs.nixpkgs}"
+            {
+              inherit (cfg.flakeNixpkgs) config;
+              localSystem = stdenv.buildPlatform;
+              crossSystem = stdenv.hostPlatform;
+            }
+        else
+          import "${inputs.nixpkgs}" {
+            inherit (cfg.flakeNixpkgs) config;
+            localSystem = stdenv.hostPlatform;
+          };
+
       overlayFinal = prev // ourPackages // { callPackage = prev.newScope overlayFinal; };
       ourPackages = inputs.self.overlays.default overlayFinal prev;
     in
@@ -36,6 +50,13 @@ in
             Build Chaotic-Nyx's packages based on nyx's flake inputs or the system's pkgs.
           '';
         };
+      flakeNixpkgs.config = lib.mkOption {
+        default = pkgs.config;
+        inherit (options.nixpkgs.config) example type;
+        description = lib.mdDoc ''
+          Matches `nixpkgs.config` from the configuration of the Nix Packages collection.
+        '';
+      };
     };
   };
   config = lib.mkIf cfg.enable {
