@@ -2,14 +2,27 @@
 let
   cfg = config.chaotic.nyx.overlay;
   cacheCfg = config.chaotic.nyx.cache;
+  stdenv = pkgs.stdenv;
 
   onTopOfFlakeInputs =
     _: userPrev:
     let
-      prev = import "${inputs.nixpkgs}" {
-        inherit (cfg.flakeNixpkgs) config;
-        inherit (pkgs.stdenv) system;
-      };
+      isCross = stdenv.buildPlatform != stdenv.hostPlatform;
+
+      prev =
+        if isCross then
+          import "${inputs.nixpkgs}"
+            {
+              inherit (cfg.flakeNixpkgs) config;
+              localSystem = stdenv.buildPlatform;
+              crossSystem = stdenv.hostPlatform;
+            }
+        else
+          import "${inputs.nixpkgs}" {
+            inherit (cfg.flakeNixpkgs) config;
+            localSystem = stdenv.hostPlatform;
+          };
+
       overlayFinal = prev // ourPackages // { callPackage = prev.newScope overlayFinal; };
       ourPackages = inputs.self.overlays.default overlayFinal prev;
     in
