@@ -52,11 +52,11 @@
     "mangohud-git-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1686149508,
-        "narHash": "sha256-cSgHshVuVMTEfq+R44B/BEWMtdsCGaS84PNhyeLyZ0s=",
+        "lastModified": 1686239903,
+        "narHash": "sha256-tnp95z9IJt7WXRcliDO11yxktS/LOk2Ce5ya8IgSTLc=",
         "owner": "flightlessmango",
         "repo": "MangoHud",
-        "rev": "5369683ff9e4a56463bc6d959c6c2fcf1c159fad",
+        "rev": "6abc794b42edc1a397448ce4330e8fd164a5c529",
         "type": "github"
       },
       "original": {
@@ -69,11 +69,11 @@
     "mesa-git-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1686167815,
-        "narHash": "sha256-NKpM+RuAOlEKiERDXL6+L4Lszw991GU07FBQRiIDhRw=",
+        "lastModified": 1686244967,
+        "narHash": "sha256-wTIGydmKwuCkfMAKgRh0O5q/DH4ZNrGfTgWKpcWcODc=",
         "owner": "chaotic-cx",
         "repo": "mesa-mirror",
-        "rev": "6dc1ae1759e0648397b6f5c608be32a781cc9c82",
+        "rev": "90b8666ff2f73e691ff34ffa87962a0922950b7d",
         "type": "github"
       },
       "original": {
@@ -168,11 +168,11 @@
     "wlroots-git-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1686132387,
-        "narHash": "sha256-faKiSaQDaoc4W2kGsTGWpi+wI42O4Kib8y7MrPRJr/4=",
+        "lastModified": 1686250066,
+        "narHash": "sha256-E5z44p4V/dY44S7kxoC0luvEBI+wGhaN3rnCn5JjYXI=",
         "ref": "master",
-        "rev": "1b947c08c66c039ce44caeaa35de9f0f455206b8",
-        "revCount": 6364,
+        "rev": "36376e2ddf0d16baae37e6b733f0baf53f82ebb7",
+        "revCount": 6376,
         "type": "git",
         "url": "https://gitlab.freedesktop.org/wlroots/wlroots.git"
       },
@@ -185,11 +185,11 @@
     "yuzu-ea-git-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1686168420,
-        "narHash": "sha256-zWCWent1HwsanqwupdEWwubaD9y9WsXqTRZB1cHPy4k=",
+        "lastModified": 1686248350,
+        "narHash": "sha256-amwWm4ldp1cH4cCnHysL9kHpZlKGFBpNZB59FRCp8Mo=",
         "owner": "pineappleEA",
         "repo": "pineapple-src",
-        "rev": "b237675917f827e2b43725dad32fcdf642b92c5f",
+        "rev": "bf4ed6688ae9abc72a633bad59926813b4f57ae2",
         "type": "github"
       },
       "original": {
