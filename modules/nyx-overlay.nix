@@ -7,9 +7,8 @@ let
     _: userPrev:
     let
       prev = import "${inputs.nixpkgs}" {
-        inherit (pkgs) config;
-        localSystem = pkgs.stdenv.hostPlatform.system;
-        crossSystem = pkgs.stdenv.targetPlatform.system;
+        inherit (cfg.flakeNixpkgs) config;
+        inherit (pkgs.stdenv) system;
       };
       overlayFinal = prev // ourPackages // { callPackage = prev.newScope overlayFinal; };
       ourPackages = inputs.self.overlays.default overlayFinal prev;
@@ -38,6 +37,17 @@ in
             Build Chaotic-Nyx's packages based on nyx's flake inputs or the system's pkgs.
           '';
         };
+      flakeNixpkgs.config = mkOption {
+        default = pkgs.config;
+        example = literalExpression
+          ''
+            { allowBroken = true; allowUnfree = true; }
+          '';
+        type = configType;
+        description = lib.mdDoc ''
+          Matches `nixpkgs.config` from the configuration of the Nix Packages collection.
+        '';
+      };
     };
   };
   config = lib.mkIf cfg.enable {
