@@ -103,6 +103,7 @@ nix run github:chaotic-cx/nyx/nyxpkgs-unstable#input-leap_git
 ## List of options
 
 ```nix
+# None of these are in their default value, showing you what kinda of change is possible.
 {
   chaotic.appmenu-gtk3-module.enable = true;
   chaotic.gamescope = {
@@ -123,7 +124,8 @@ nix run github:chaotic-cx/nyx/nyxpkgs-unstable#input-leap_git
   chaotic.mesa-git.extraPackages32 = [ pkgs.mesa32_git.opencl ];
   chaotic.nyx.cache.enable = false;
   chaotic.nyx.overlay.enable = false;
-  chaotic.nyx.overlay.onTopOf = "user-pkgs";
+  chaotic.nyx.overlay.flakeNixpkgs.config = { allowUnfree = true };
+  chaotic.nyx.overlay.onTopOf = "user-pkgs"; # defaults to "flake-nixpkgs"
   chaotic.steam.extraCompatPackages = with pkgs; [ luxtorpeda proton-ge-custom ];
   chaotic.zfs-impermanence-on-shutdown = {
     enable = true;
