@@ -31,6 +31,11 @@
       flake = false;
     };
 
+    river-git-src = {
+      url = "github:riverwm/river/master";
+      flake = false;
+    };
+
     sway-git-src = {
       url = "github:swaywm/sway/master";
       flake = false;

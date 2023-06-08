@@ -127,6 +127,8 @@ in
     protonGeTitle = "Proton-GE";
   };
 
+  river_git = callOverride ../pkgs/river-git { };
+
   sway-unwrapped_git = callOverride ../pkgs/sway-unwrapped-git { };
   sway_git = prev.sway.override {
     sway-unwrapped = final.sway-unwrapped_git;
