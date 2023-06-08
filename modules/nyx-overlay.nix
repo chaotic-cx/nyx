@@ -2,11 +2,11 @@
 let
   cfg = config.chaotic.nyx.overlay;
   cacheCfg = config.chaotic.nyx.cache;
-  stdenv = pkgs.stdenv;
 
   onTopOfFlakeInputs =
     _: userPrev:
     let
+      inherit (pkgs) stdenv;
       isCross = stdenv.buildPlatform != stdenv.hostPlatform;
 
       prev =
