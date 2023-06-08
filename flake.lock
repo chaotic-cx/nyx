@@ -99,6 +99,23 @@
         "type": "github"
       }
     },
+    "river-git-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1685988087,
+        "narHash": "sha256-5bQolX+X5vf43TLvCOfEtVVC31fjJCyG9qMiHZ22HrA=",
+        "owner": "riverwm",
+        "repo": "river",
+        "rev": "93a567ca945bd1f8a04b6453e59e0dbaeed0fcb3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "riverwm",
+        "ref": "master",
+        "repo": "river",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "compare-to": "compare-to",
@@ -107,6 +124,7 @@
         "mangohud-git-src": "mangohud-git-src",
         "mesa-git-src": "mesa-git-src",
         "nixpkgs": "nixpkgs",
+        "river-git-src": "river-git-src",
         "sway-git-src": "sway-git-src",
         "swaylock-plugin-git-src": "swaylock-plugin-git-src",
         "waynergy-git-src": "waynergy-git-src",

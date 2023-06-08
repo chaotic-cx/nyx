@@ -83,6 +83,7 @@ Commands like `nix run ...`, `nix develop ...`, and others, when using our flake
   mpv-vapoursynth
   openmohaa
   proton-ge-custom # recommended option: chaotic.steam.extraCompatPackages
+  river_git
   sway-unwrapped_git
   sway_git # and -unwrapped_git
   swaylock-plugin_git
