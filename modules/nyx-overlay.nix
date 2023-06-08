@@ -1,4 +1,4 @@
-{ inputs }: { config, lib, pkgs, ... }:
+{ inputs }: { config, options, lib, pkgs, ... }:
 let
   cfg = config.chaotic.nyx.overlay;
   cacheCfg = config.chaotic.nyx.cache;
@@ -37,13 +37,13 @@ in
             Build Chaotic-Nyx's packages based on nyx's flake inputs or the system's pkgs.
           '';
         };
-      flakeNixpkgs.config = mkOption {
+      flakeNixpkgs.config = lib.mkOption {
         default = pkgs.config;
-        example = literalExpression
+        example = lib.literalExpression
           ''
             { allowBroken = true; allowUnfree = true; }
           '';
-        type = configType;
+        type = options.nixpkgs.config.type;
         description = lib.mdDoc ''
           Matches `nixpkgs.config` from the configuration of the Nix Packages collection.
         '';
