@@ -125,7 +125,7 @@ nix run github:chaotic-cx/nyx/nyxpkgs-unstable#input-leap_git
   chaotic.mesa-git.extraPackages32 = [ pkgs.mesa32_git.opencl ];
   chaotic.nyx.cache.enable = false;
   chaotic.nyx.overlay.enable = false;
-  chaotic.nyx.overlay.flakeNixpkgs.config = { allowUnfree = true };
+  chaotic.nyx.overlay.flakeNixpkgs.config = { allowUnfree = true; };
   chaotic.nyx.overlay.onTopOf = "user-pkgs"; # defaults to "flake-nixpkgs"
   chaotic.steam.extraCompatPackages = with pkgs; [ luxtorpeda proton-ge-custom ];
   chaotic.zfs-impermanence-on-shutdown = {
