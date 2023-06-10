@@ -32,7 +32,7 @@
     };
 
     river-git-src = {
-      url = "github:riverwm/river/master";
+      url = "git+https://github.com/riverwm/river?submodules=1";
       flake = false;
     };
 
