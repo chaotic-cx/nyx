@@ -52,11 +52,11 @@
     "mangohud-git-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1686239903,
-        "narHash": "sha256-tnp95z9IJt7WXRcliDO11yxktS/LOk2Ce5ya8IgSTLc=",
+        "lastModified": 1686429769,
+        "narHash": "sha256-x9vyouIhnEVoC2QDygEK3J/kbjbs/mRFrfZ2waqDUMw=",
         "owner": "flightlessmango",
         "repo": "MangoHud",
-        "rev": "6abc794b42edc1a397448ce4330e8fd164a5c529",
+        "rev": "7c2a90c2094273fb1bba1aabb09e5c82c68f48be",
         "type": "github"
       },
       "original": {
@@ -69,11 +69,11 @@
     "mesa-git-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1686328944,
-        "narHash": "sha256-sAtPHvIG98SqRk25tV8AKyyuob9ft0lf5E+oTtylGv0=",
+        "lastModified": 1686464825,
+        "narHash": "sha256-WDVaF6u/fCAfEVbuqf130m6g6dUt2eDTmIRTpQS6KSE=",
         "owner": "chaotic-cx",
         "repo": "mesa-mirror",
-        "rev": "a603413eb8a8ad4e3e5dacd7360100c4225cb9b3",
+        "rev": "19196199a8afbc4b0088b2bec1e3b2e2565ab2be",
         "type": "github"
       },
       "original": {
@@ -204,11 +204,11 @@
     "yuzu-ea-git-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1686323911,
-        "narHash": "sha256-xYEzQ8RrXfhqFjQsA6CrChpeUTU7Eh5yfNc7F6o0KTw=",
+        "lastModified": 1686444930,
+        "narHash": "sha256-c92nMZh5s44Ib8w3NevxU4Qo1vIsZ6KE9+9ERVfaEnU=",
         "owner": "pineappleEA",
         "repo": "pineapple-src",
-        "rev": "67b16878ed4f12dc0c1e9e6b5fd673884ed52257",
+        "rev": "c279c93e48c01836f7e55c76d90dacfe952292c8",
         "type": "github"
       },
       "original": {
