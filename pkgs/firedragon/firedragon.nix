@@ -36,7 +36,6 @@ rec {
     patch -p1 < ${source-firedragon}/common/patches/custom/librewolf-pref-pane.patch
     patch -p1 < ${source-firedragon}/common/patches/custom/privacy-preferences.patch
     patch -p1 < ${source-firedragon}/common/patches/kde-upstream/mozilla-kde.patch
-    patch -p1 < ${source-firedragon}/common/patches/kde-upstream/unity-menubar.patch
 
     cp ${source}/assets/search-config.json services/settings/dumps/main/search-config.json
     sed -i '/MOZ_NORMANDY/ s/True/False/' browser/moz.configure
