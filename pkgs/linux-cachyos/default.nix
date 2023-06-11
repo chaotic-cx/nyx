@@ -30,7 +30,7 @@ let
     inherit (cachyVersions.linux) hash;
   };
 
-  # There are some configurations setted by the PKGBUILD
+  # There are some configurations set by the PKGBUILD
   pkgbuildConfig = [
     # _cachy_config, defaults to "y"
     "-e CACHY"
