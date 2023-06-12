@@ -25,47 +25,64 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const valid = await github.rest.repos.compareCommits({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              base: 'nyxpkgs-unstable',
-              head: context.sha
-            }).then((response) => response.data.status == "ahead" && response.data.ahead_by == 1)
+            try {
+              const valid = await github.rest.repos.compareCommits({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                base: 'nyxpkgs-unstable',
+                head: context.sha
+              }).then((response) => response.data.status == "ahead" && response.data.ahead_by == 1)
 
-            // Needs to be ahead by 1 commit exactly, otherwise we don't consider this PR as being potentially cached
-            if (valid) {
-              // Equivalent for js from perl: '(?<=\(#)\d+(?=\)$)'
-              const PARSED_MESSAGE = context.payload.head_commit.message.split('\n')[0].match(/\(#(\d+)\)$/)
-              const PR_NUMBER = PARSED_MESSAGE ? PARSED_MESSAGE[1] : null
-              if (PR_NUMBER) {
-                await github.rest.pulls.get({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  pull_number: PR_NUMBER
-                }).then((response) => {
+              // Needs to be ahead by 1 commit exactly, otherwise we don't consider this PR as being potentially cached
+              if (valid) {
+                const PARSED_MESSAGE = context.payload.head_commit.message.split('\n')[0].match(/\(#(\d+)\)$/)
+                const PR_NUMBER = PARSED_MESSAGE ? PARSED_MESSAGE[1] : null
+                if (PR_NUMBER) {
+                  const response = await github.rest.pulls.get({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    pull_number: PR_NUMBER
+                  });
                   const OUTPUT = response.data;
                   const PR_LABELS = OUTPUT.labels.map((label) => label.name)
                   const BASE_COMMIT = OUTPUT.base.sha
                   const MERGE_COMMIT = OUTPUT.merge_commit_sha
+
                   if (PR_LABELS.includes('cached') && BASE_COMMIT === context.payload.before && MERGE_COMMIT === context.sha) {
                     // Exit with a non-zero exit code to skip the rest of the job
-                    console.log("Already cached, skipping build.");
-                    core.setOutput("cached", true)
+                    console.log("Potentially cached, verifying if cached...");
+                    // Check if latest non skipped check is successful
+                    const success = await github.rest.checks.listForRef({
+                      owner: context.repo.owner,
+                      repo: context.repo.repo,
+                      ref: context.payload.before,
+                      check_name: 'build',
+                      per_page: 100
+                    }).then((response) => {
+                      const latest = response.data.check_runs.find((check) => check.status == "completed" || check.status == "in_progress");
+                      return latest && latest.conclusion == "success" && latest.status == "completed"
+                    })
+                    if (success) {
+                      console.log("Previous build and PR build was successful, skipping.");
+                      core.setOutput("cached", true)
+                    } else {
+                      console.log("Not cached, building.");
+                    }
                   }
-                }).catch((error) => {
-                  console.log("Github rest API error encountered, assuming not cached.")
-                })
+                }
               }
+            } catch (error) {
+              console.log("Github rest API error encountered, assuming not cached.")
             }
       - name: Install Nix
-        if: (success() && steps.check.outputs.cached != 'true')
+        if: steps.check.outputs.cached != 'true'
         uses: cachix/install-nix-action@v21
         with:
           extra_nix_config: "accept-flake-config = true"
       # Checkout the main branch
       - name: Checkout
         if: (success() && steps.check.outputs.cached != 'true')
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           ref: main
       - name: Build
