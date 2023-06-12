@@ -89,7 +89,12 @@ in
           patches = [ ];
         });
       in
-      { inherit zfs; zfsStable = zfs; zfsUnstable = zfs; }
+      {
+        kernel_configfile = prevAttrs.kernel.configfile;
+        inherit zfs;
+        zfsStable = zfs;
+        zfsUnstable = zfs;
+      }
     );
 
   linuxPackages_hdr = final.linuxPackagesFor final.linux_hdr;
