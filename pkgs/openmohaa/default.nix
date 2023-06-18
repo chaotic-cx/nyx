@@ -12,13 +12,13 @@
 
 clangStdenv.mkDerivation (fa: {
   pname = "openmohaa";
-  version = "0.54.0";
+  version = "0.55.1";
 
   src = fetchFromGitHub {
     owner = "openmoh";
     repo = "openmohaa";
     rev = "v${fa.version}";
-    hash = "sha256-2OBbKmjjfo120gr2n5vi3ZxrouHl2knU+NJSRRE6wqU=";
+    hash = "sha256-pZ9Acx2uVy8SnJD93hVn07/sIjpSuXqroRuQfcWaq2U=";
   };
 
   nativeBuildInputs = [ cmake pkg-config ];
