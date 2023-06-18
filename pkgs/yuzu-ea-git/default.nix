@@ -60,7 +60,7 @@ prev.yuzu-early-access.overrideAttrs (pa: rec {
       "-DTITLE_BAR_FORMAT_RUNNING=yuzu Early Access EA-$_ver | {3}"
     )
 
-    cmakeBuildDir="${cmakeBuildDir:=build}"
+    cmakeBuildDir=''${cmakeBuildDir:=build}
    
     mkdir -p "$cmakeBuildDir/externals/nx_tzdb"
     ln -s ${tzdata} "$cmakeBuildDir/externals/nx_tzdb/${tzdataVer}.zip"
