@@ -20,6 +20,11 @@ let
     rev = "v6.69.1";
     hash = "sha256-yMArB0MmIvdqctr2bstKzREDvb7OnGXGMSCiGaQ3SmY=";
   };
+  tzdataVer = "220816";
+  tzdata = final.fetchurl {
+    url = "https://github.com/lat9nq/tzdb_to_nx/releases/download/${tzdataVer}/${tzdataVer}.zip";
+    hash = "sha256-yv8ykEYPu9upeXovei0u16iqQ7NasH6873KnQy4+KwI=";
+  };
 in
 prev.yuzu-early-access.overrideAttrs (pa: rec {
   src = inputs.yuzu-ea-git-src;
@@ -54,6 +59,11 @@ prev.yuzu-early-access.overrideAttrs (pa: rec {
       "-DTITLE_BAR_FORMAT_IDLE=yuzu Early Access EA-$_ver"
       "-DTITLE_BAR_FORMAT_RUNNING=yuzu Early Access EA-$_ver | {3}"
     )
+
+    cmakeBuildDir=${cmakeBuildDir:=build}
+   
+    mkdir -p "$cmakeBuildDir/externals/nx_tzdb"
+    ln -s ${tzdata} "$cmakeBuildDir/externals/nx_tzdb/${tzdataVer}.zip"
   '';
 
   # Shows released date in version
