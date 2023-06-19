@@ -17,7 +17,7 @@ jobs:
       success: ${{ steps.bump.outcome == 'success' }}
     steps:
       - name: Install Nix
-        uses: cachix/install-nix-action@v21
+        uses: cachix/install-nix-action@v22
         with:
           extra_nix_config: "accept-flake-config = true"
       - uses: actions/checkout@v3
