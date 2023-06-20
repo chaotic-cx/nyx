@@ -25,6 +25,10 @@ let
     url = "https://github.com/lat9nq/tzdb_to_nx/releases/download/${tzdataVer}/${tzdataVer}.zip";
     hash = "sha256-yv8ykEYPu9upeXovei0u16iqQ7NasH6873KnQy4+KwI=";
   };
+  vma = final.fetchurl {
+    url = "https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator/raw/0aa3989b8f382f185fdf646cc83a1d16fa31d6ab/include/vk_mem_alloc.h";
+    hash = "sha256-5lfqRtC6yWGU1cDgH16crSm/Lpy8OEst6FsIwf5VVxo=";
+  };
 in
 prev.yuzu-early-access.overrideAttrs (pa: rec {
   src = inputs.yuzu-ea-git-src;
@@ -42,6 +46,8 @@ prev.yuzu-early-access.overrideAttrs (pa: rec {
     ln -s ${dynarmic} externals/dynarmic
     ln -s ${sirit} externals/sirit
     ln -s ${xbyak} externals/xbyak
+    mkdir -p externals/vma/vma/include
+    ln -s ${vma} externals/vma/vma/include/vk_mem_alloc.h
   '';
 
   preConfigure = ''
