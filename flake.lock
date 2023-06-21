@@ -69,11 +69,11 @@
     "mesa-git-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1687250882,
-        "narHash": "sha256-UzhnlKCUUNBJY4626mhLkmZNgZcBzGvjjHJSfduI2LA=",
+        "lastModified": 1687348658,
+        "narHash": "sha256-cukFcF1KuVS3D19hkMfnPuMLThhiLWZR9LXG4iy/MGo=",
         "owner": "chaotic-cx",
         "repo": "mesa-mirror",
-        "rev": "a2d40c09b72374db5d2dd4115c1ea51b2543f515",
+        "rev": "7cf7ea2500232ac3ccf6ee2ee98a6188a784bfc0",
         "type": "github"
       },
       "original": {
@@ -102,11 +102,11 @@
     "river-git-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1685988087,
-        "narHash": "sha256-5tPFFTgQhvq5ZE/7qHA0dLtqs09v3WiUWpmXFqiIREc=",
+        "lastModified": 1687267589,
+        "narHash": "sha256-v12+HGX3aVCW1QrmHYaYYaX/ZhFpinFGOVRc2pZxKE0=",
         "ref": "refs/heads/master",
-        "rev": "93a567ca945bd1f8a04b6453e59e0dbaeed0fcb3",
-        "revCount": 1034,
+        "rev": "470eb222803a6382fd444e133b675fcc168fbf60",
+        "revCount": 1035,
         "submodules": true,
         "type": "git",
         "url": "https://github.com/riverwm/river"
@@ -187,11 +187,11 @@
     "wlroots-git-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1687251875,
-        "narHash": "sha256-14Lo6rgq1kgu1L7hsRbGcu6GxQ+0IAeTxa/sdsITQAI=",
+        "lastModified": 1687335836,
+        "narHash": "sha256-ESm8ceXsN0XD11AfsuF9Xhjy479Gk4AuMRh2kra0iRI=",
         "ref": "master",
-        "rev": "2ac31fc6305364fc2ab9f9706db825b3df366c6f",
-        "revCount": 6417,
+        "rev": "ecbe48f3bc534768f6958bc8e83383d3f8da5e0e",
+        "revCount": 6421,
         "type": "git",
         "url": "https://gitlab.freedesktop.org/wlroots/wlroots.git"
       },
@@ -204,11 +204,11 @@
     "yuzu-ea-git-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1687139532,
-        "narHash": "sha256-8biGorF5qBJnVyg3iaQhZyy5mOqnqGs2yrsjpkUdcpk=",
+        "lastModified": 1687275879,
+        "narHash": "sha256-rQXWH1NHJD+Nybaxuox1h0VTxdudLim2e/ZBgvnCQaQ=",
         "owner": "pineappleEA",
         "repo": "pineapple-src",
-        "rev": "c57da32a15b789614906d0f5980c51099b1f46a2",
+        "rev": "e69574bd30825de1a479f6bf9972d544af5a8819",
         "type": "github"
       },
       "original": {
