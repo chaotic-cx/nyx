@@ -7,14 +7,15 @@ on:
 
 permissions:
   contents: write
+  actions: write
+
+concurrency:
+  group: nyx-main-bump
+  cancel-in-progress: true
 
 jobs:
   bump:
-    concurrency:
-      group: nyx-main-build
     runs-on: ubuntu-latest
-    outputs:
-      success: ${{ steps.bump.outcome == 'success' }}
     steps:
       - name: Install Nix
         uses: cachix/install-nix-action@v22
@@ -26,6 +27,7 @@ jobs:
         continue-on-error: true
         id: bump
       - name: Commit nixpkgs bump
+        id: commit
         if: steps.bump.outcome == 'success'
         run: |
           set -e
@@ -34,8 +36,34 @@ jobs:
           git add flake.lock
           git commit -m "nixpkgs: bump to $(date +%Y%m%d)"
           git push
-  build:
-    needs: bump
-    if: needs.bump.outputs.success == 'true'
-    uses: ./.github/workflows/build.yml
-    secrets: inherit
+          COMMIT_HASH="$(git rev-parse HEAD)"
+          echo "COMMIT_HASH=$COMMIT_HASH" >> $GITHUB_OUTPUT
+      # Trigger build.yml and make sure no new commits were pushed in the meantime
+      - name: Trigger build.yml workflow
+        if: (success() && steps.bump.outcome == 'success')
+        uses: actions/github-script@v6
+        with:
+          script: |
+            try {
+              var comparison = await github.rest.repos.compareCommits({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                base: process.env.COMMIT_HASH,
+                head: process.env.REF_NAME,
+              });
+              if (comparison.data.status != 'identical') {
+                core.setFailed('Skipping build because unknown commits were pushed');
+                return;
+              }
+              github.rest.actions.createWorkflowDispatch({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                workflow_id: 'build.yml',
+                ref: process.env.REF_NAME,
+              });
+            } catch (error) {
+              core.setFailed(error);
+            }
+        env:
+          COMMIT_HASH: ${{ steps.commit.outputs.COMMIT_HASH }}
+          REF_NAME: ${{ github.ref_name }}

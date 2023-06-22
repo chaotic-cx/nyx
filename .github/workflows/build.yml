@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - main
-  workflow_call:
   workflow_dispatch:
 
 permissions:
@@ -83,8 +82,6 @@ jobs:
       - name: Checkout
         if: (success() && steps.check.outputs.cached != 'true')
         uses: actions/checkout@v3
-        with:
-          ref: main
       - name: Build
         if: (success() && steps.check.outputs.cached != 'true')
         continue-on-error: true
