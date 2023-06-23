@@ -84,7 +84,6 @@ jobs:
         uses: actions/checkout@v3
       - name: Build
         if: (success() && steps.check.outputs.cached != 'true')
-        continue-on-error: true
         id: build
         run: |
           nix develop -c build-chaotic-nyx || [ $? -eq 42 ]
@@ -98,14 +97,23 @@ jobs:
           NYX_WD: ${{ runner.temp }}
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
       - name: Update nyxpkgs-unstable
-        if: (success() && steps.check.outputs.cached != 'true')
+        if: (success() && steps.check.outputs.cached != 'true' && steps.build.outputs.FAILED_BUILDS_COUNT <= 3)
         run: git push origin HEAD:nyxpkgs-unstable --force
       - name: Comment on commit
         if: (success() && steps.check.outputs.cached != 'true')
         uses: actions/github-script@v6
         with:
           script: |
-            if (process.env.FAILED_BUILDS_COUNT > 0)
+            if (process.env.FAILED_BUILDS_COUNT > 0) {
+              var extratext = "";
+              if (process.env.FAILED_BUILDS_COUNT > 3) {
+                core.setFailed("Too many build failures to deploy!")
+                // Check if github actions triggered the event
+                if (process.env.ACTOR == "github-actions[bot]")
+                  extratext = `\nToo many build failures to deploy! Consider adding failed builds to devshells/failures.nix @chaotic-cx/nyxers`
+                else
+                  extratext = `\nToo many build failures to deploy! Consider adding failed builds to devshells/failures.nix @${process.env.ACTOR}`
+              }
               github.rest.repos.createCommitComment({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
@@ -116,9 +124,9 @@ jobs:
               <ul>
                 ${process.env.FAILED_BUILDS}
               </ul>
-            </details>`
+            </details>${extratext}}`
               })
-            else
+            } else
               github.rest.repos.createCommitComment({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
@@ -128,3 +136,11 @@ jobs:
         env:
           FAILED_BUILDS_COUNT: ${{ steps.build.outputs.FAILED_BUILDS_COUNT }}
           FAILED_BUILDS: ${{ steps.build.outputs.FAILED_BUILDS }}
+          ACTOR: ${{ github.actor }}
+      - name: Upload logs
+        if: ((success() || failure()) && steps.build.outcome != 'skipped')
+        uses: actions/upload-artifact@v3
+        with:
+          name: logs
+          path: |
+            ${{ runner.temp }}/*.txt
