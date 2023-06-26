@@ -76,14 +76,11 @@ let
     ];
   };
 
-  gbmBackend = "bleeding";
-  gbm = pkgs.mesa.override ({ inherit gbmBackend; }).gbm;
-
-  methodBackend = fullDriver [ gbm ] // {
+  methodBackend = fullDriver [ pkgs.libgbm_git ] // {
     environment.sessionVariables = {
       LD_LIBRARY_PATH = [ "/run/opengl-driver/lib" ] ++ lib.optional has32 "/run/opengl-driver-32/lib";
       GBM_BACKENDS_PATH = "/run/opengl-driver/lib/gbm";
-      GBM_BACKEND = gbmBackend;
+      GBM_BACKEND = pkgs.libgbm_git.gbmBackend;
     };
   };
 

@@ -115,6 +115,7 @@ in
     then
       callOverride32 ../pkgs/mesa-git { }
     else throw "No mesa32_git for non-x86";
+  libgbm_git = (callOverride ../pkgs/mesa-git { gbmBackend = "bleeding"; }).gbm;
 
   mpv-vapoursynth =
     final.wrapMpv (final.mpv-unwrapped.override { vapoursynthSupport = true; }) {

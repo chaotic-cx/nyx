@@ -1,4 +1,4 @@
-{ final, inputs, nyxUtils, prev, gbmBackend ? "dri"... }:
+{ final, inputs, nyxUtils, prev, gbmBackend ? "dri", ... }:
 
 prev.mesa.overrideAttrs (pa: {
   version = builtins.substring 0 (builtins.stringLength pa.version) inputs.mesa-git-src.rev;
