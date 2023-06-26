@@ -71,24 +71,12 @@ let
     ];
   };
 
-  vendoredGBM = pkgs.callPackage
-    ({ stdenvNoCC, mesa }: stdenvNoCC.mkDerivation {
-      pname = "mesa-libgbm";
-      version = "0.0.0";
-      src = mesa;
-      installPhase = ''
-        mkdir -p $out/lib/gbm
-        ln -s lib/libgbm.so $out/lib/gbm/dri_gbm.so
-      '';
-    })
-    { mesa = pkgs.mesa_git; };
-
   methodBackend = {
     hardware.opengl = with lib; {
       enable = mkForce true;
       package = mkForce pkgs.mesa_git.drivers;
       package32 = mkForce pkgs.mesa32_git.drivers;
-      extraPackages = mkForce (cfg.extraPackages ++ [ vendoredGBM ]);
+      extraPackages = mkForce (cfg.extraPackages ++ [ pkgs.mesa_git.gbm ]);
       extraPackages32 = mkForce cfg.extraPackages32;
       driSupport = mkForce true;
       driSupport32Bit = mkForce has32;
@@ -97,7 +85,7 @@ let
 
     environment.sessionVariables = {
       GBM_BACKENDS_PATH = "/run/opengl-driver/lib/gbm";
-      GBM_BACKEND = "dri";
+      GBM_BACKEND = pkgs.mesa_git.gbmBackend;
     };
   };
 
