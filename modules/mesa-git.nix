@@ -102,11 +102,11 @@ let
   };
 
   chosenMethod =
-    if cfg.method == "LD_LIBRARY_PATH" then
-      methodLD
-    else if cfg.method == "replaceRuntimeDependencies" then
-      methodReplace
-    else methodBackend;
+    lib.mkIf (cfg.method == "LD_LIBRARY_PATH") methodLD
+    //
+    lib.mkIf (cfg.method == "replaceRuntimeDependencies") methodReplace
+    //
+    lib.mkIf (cfg.method == "GBM_BACKENDS_PATH") methodBackend;
 
   common = {
     specialisation.stable-mesa.configuration = {
