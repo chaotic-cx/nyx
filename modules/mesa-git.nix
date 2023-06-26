@@ -46,8 +46,10 @@ let
         )
       ];
 
-      environment.sessionVariables.LD_LIBRARY_PATH =
-        [ "/run/opengl-driver/lib" ] ++ lib.optional has32 "/run/opengl-driver-32/lib";
+      environment.variables = {
+        LD_LIBRARY_PATH = [ "/run/opengl-driver/lib" ] ++ lib.optional has32 "/run/opengl-driver-32/lib";
+        LD_PRELOAD = [ "/run/opengl-driver/lib/libglapi.so.0" ];
+      };
 
       warnings = [
         "The `chaotic.mesa-git.method = \"LD_LIBRARY_PATH\"` is known to cause problems with Steam and apps with wrappers preloading Mesa (e.g., Firefox). A refactor of this module is currently in development."
@@ -87,6 +89,7 @@ let
     environment.variables = {
       GBM_BACKENDS_PATH = "/run/opengl-driver/lib/gbm";
       GBM_BACKEND = pkgs.mesa_git.gbmBackend;
+      LD_PRELOAD = [ "${pkgs.mesa_git}/lib/libglapi.so.0" ]; # TODO: find a better solution
     };
   };
 
