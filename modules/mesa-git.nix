@@ -89,7 +89,7 @@ in
       [ "/run/opengl-driver/lib" ] ++ lib.optional has32 "/run/opengl-driver-32/lib";
 
     warnings = [
-      "Currently implementation of `chaotic.mesa-git` is known to cause problems with Steam, and apps with wrappers preloading mesa (e.g., Firefox). A refactor of it is currently in work."
+      "The current implementation of “chaotic.mesa-git” is known to cause problems with Steam and apps with wrappers preloading Mesa (e.g., Firefox). A refactor of this module is currently in development."
     ];
   };
 }
