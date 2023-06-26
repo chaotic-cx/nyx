@@ -84,7 +84,7 @@ let
       setLdLibraryPath = mkForce false;
     };
 
-    environment.sessionVariables = {
+    environment.variables = {
       GBM_BACKENDS_PATH = "/run/opengl-driver/lib/gbm";
       GBM_BACKEND = pkgs.mesa_git.gbmBackend;
     };
