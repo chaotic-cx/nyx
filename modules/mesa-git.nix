@@ -118,7 +118,11 @@ in
           default = "GBM_BACKENDS_PATH";
           example = "replaceRuntimeDependencies";
           description = ''
-            TODO
+            There are three available methods to replace your video drivers system-wide:
+
+            - GBM_BACKENDS_PATH: The default one that tricks any package linked against nixpkgs' libgbm to load our newer one;
+            - replaceRuntimeDependencies: The second most recommended, which impurely replaces nixpkgs' libgbm with ours in the nix store (requires "--impure");
+            - LD_LIBRARY_PATH: The last one that uses LD_LIBRARY_PATH to point to the newer libgbm (breaks any wrapper adding "mesa" to LD_LIBRARY_PATH).
           '';
         };
 
