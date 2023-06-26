@@ -11,7 +11,6 @@ let
         paths = [
           pkgs.mesa_git.out
           pkgs.mesa_git.drivers
-          pkgs.mesa_git.gbm
         ] ++ cfg.extraPackages ++ extraExtraPackages;
       };
 
@@ -76,11 +75,10 @@ let
     ];
   };
 
-  methodBackend = fullDriver [ pkgs.libgbm_git ] // {
+  methodBackend = fullDriver [ pkgs.mesa_git.gbm ] // {
     environment.sessionVariables = {
-      LD_LIBRARY_PATH = [ "/run/opengl-driver/lib" ] ++ lib.optional has32 "/run/opengl-driver-32/lib";
       GBM_BACKENDS_PATH = "/run/opengl-driver/lib/gbm";
-      GBM_BACKEND = pkgs.libgbm_git.gbmBackend;
+      GBM_BACKEND = pkgs.mesa_git.gbmBackend;
     };
   };
 
@@ -118,7 +116,7 @@ in
             "GBM_BACKENDS_PATH"
           ];
           default = "GBM_BACKENDS_PATH";
-          example = "LD_LIBRARY_PATH";
+          example = "replaceRuntimeDependencies";
           description = ''
             TODO
           '';

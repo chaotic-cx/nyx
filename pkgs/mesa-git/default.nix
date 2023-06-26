@@ -1,4 +1,4 @@
-{ final, inputs, nyxUtils, prev, gbmBackend ? "dri", ... }:
+{ final, inputs, nyxUtils, prev, gbmDriver ? false, gbmBackend ? "dri", ... }:
 
 prev.mesa.overrideAttrs (pa: {
   version = builtins.substring 0 (builtins.stringLength pa.version) inputs.mesa-git-src.rev;
@@ -17,15 +17,19 @@ prev.mesa.overrideAttrs (pa: {
       pa.patches
     ) ++ [ ./disk_cache-include-dri-driver-path-in-cache-key.patch ];
   # expose gbm backend and rename vendor (if necessary)
-  outputs = pa.outputs ++ [ "gbm" ];
+  outputs =
+    if gbmDriver
+    then pa.outputs ++ [ "gbm" ]
+    else pa.outputs;
   postPatch =
     if gbmBackend != "dri" then pa.postPatch + ''
       sed -i"" 's/"dri"/"bleeding"/' src/gbm/backends/dri/gbm_dri.c src/gbm/main/backend.c
     '' else pa.postPatch;
-  postInstall = pa.postInstall + ''
-    mkdir -p $gbm/lib/gbm
-    ln -s $out/lib/libgbm.so $gbm/lib/gbm/${gbmBackend}_gbm.so
-  '';
+  postInstall =
+    if gbmDriver then pa.postInstall + ''
+      mkdir -p $gbm/lib/gbm
+      ln -s $out/lib/libgbm.so $gbm/lib/gbm/${gbmBackend}_gbm.so
+    '' else pa.postInstall;
   passthru = pa.passthru // {
     inherit gbmBackend;
   };
