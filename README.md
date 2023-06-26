@@ -72,9 +72,9 @@ Commands like `nix run ...`, `nix develop ...`, and others, when using our flake
   gamescope_git
   input-leap_git
   latencyflex-vulkan
-  linux_cachyos # the default BORE scheduler
+  linux_cachyos # the default bore-eevdf scheduler
   linux_hdr # recommended option: chaotic.linux_hdr.specialisation.enable
-  linuxPackages_cachyos # the default BORE scheduler
+  linuxPackages_cachyos # bore-eevdf, includes their always-working ZFS module
   linuxPackages_hdr # recommended option: chaotic.linux_hdr.specialisation.enable
   luxtorpeda # recommended option: chaotic.steam.extraCompatPackages
   mangohud_git
