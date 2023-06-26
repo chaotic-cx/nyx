@@ -4,14 +4,14 @@ let
 
   has32 = pkgs.stdenv.hostPlatform.isLinux && pkgs.stdenv.hostPlatform.isx86;
 
-  fullDriver = extraExtraPackages:
+  methodLD =
     let
       package = pkgs.buildEnv {
         name = "opengl-drivers";
         paths = [
           pkgs.mesa_git.out
           pkgs.mesa_git.drivers
-        ] ++ cfg.extraPackages ++ extraExtraPackages;
+        ] ++ cfg.extraPackages;
       };
 
       package32 = pkgs.buildEnv {
@@ -45,10 +45,7 @@ let
             "r /run/opengl-driver-32"
         )
       ];
-    };
 
-  methodLD = fullDriver [ ] //
-    {
       environment.sessionVariables.LD_LIBRARY_PATH =
         [ "/run/opengl-driver/lib" ] ++ lib.optional has32 "/run/opengl-driver-32/lib";
 
@@ -75,7 +72,18 @@ let
     ];
   };
 
-  methodBackend = fullDriver [ pkgs.mesa_git.gbm ] // {
+  methodBackend = {
+    hardware.opengl = with lib; {
+      enable = mkForce true;
+      package = mkForce pkgs.mesa_git.drivers;
+      package32 = mkForce pkgs.mesa32_git.drivers;
+      extraPackages = mkForce (cfg.extraPackages ++ [ pkgs.mesa_git.gbm ]);
+      extraPackages32 = mkForce cfg.extraPackages32;
+      driSupport = mkForce true;
+      driSupport32Bit = mkForce has32;
+      setLdLibraryPath = mkForce false;
+    };
+
     environment.sessionVariables = {
       GBM_BACKENDS_PATH = "/run/opengl-driver/lib/gbm";
       GBM_BACKEND = pkgs.mesa_git.gbmBackend;
