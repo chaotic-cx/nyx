@@ -4,13 +4,14 @@ let
 
   has32 = pkgs.stdenv.hostPlatform.isLinux && pkgs.stdenv.hostPlatform.isx86;
 
-  methodLD =
+  fullDriver =
     let
       package = pkgs.buildEnv {
         name = "opengl-drivers";
         paths = [
           pkgs.mesa_git.out
           pkgs.mesa_git.drivers
+          pkgs.mesa_git.gbm
         ] ++ cfg.extraPackages;
       };
 
@@ -45,11 +46,15 @@ let
             "r /run/opengl-driver-32"
         )
       ];
+    };
+
+  methodLD = fullDriver //
+    {
       environment.sessionVariables.LD_LIBRARY_PATH =
         [ "/run/opengl-driver/lib" ] ++ lib.optional has32 "/run/opengl-driver-32/lib";
 
       warnings = [
-        "The current implementation of `chaotic.mesa-git` is known to cause problems with Steam and apps with wrappers preloading Mesa (e.g., Firefox). A refactor of this module is currently in development."
+        "The `chaotic.mesa-git.method = \"LD_LIBRARY_PATH\"` is known to cause problems with Steam and apps with wrappers preloading Mesa (e.g., Firefox). A refactor of this module is currently in development."
       ];
     };
 
@@ -71,18 +76,7 @@ let
     ];
   };
 
-  methodBackend = {
-    hardware.opengl = with lib; {
-      enable = mkForce true;
-      package = mkForce pkgs.mesa_git.drivers;
-      package32 = mkForce pkgs.mesa32_git.drivers;
-      extraPackages = mkForce (cfg.extraPackages ++ [ pkgs.mesa_git.gbm ]);
-      extraPackages32 = mkForce cfg.extraPackages32;
-      driSupport = mkForce true;
-      driSupport32Bit = mkForce has32;
-      setLdLibraryPath = mkForce false;
-    };
-
+  methodBackend = fullDriver // {
     environment.sessionVariables = {
       GBM_BACKENDS_PATH = "/run/opengl-driver/lib/gbm";
       GBM_BACKEND = pkgs.mesa_git.gbmBackend;
