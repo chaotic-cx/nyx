@@ -71,7 +71,7 @@ let
     ];
   };
 
-  vendoredGBM = runCommand "mesa-libgbm" ''
+  vendoredGBM = pkgs.runCommand "mesa-libgbm" ''
     mkdir -p $out/lib/gbm
     ln -s ${pkgs.mesa_git}/lib/libgbm.so $out/lib/gbm/dri_gbm.so
   '';
