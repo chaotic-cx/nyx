@@ -71,10 +71,18 @@ let
     ];
   };
 
-  vendoredGBM = pkgs.runCommand "mesa-libgbm" ''
-    mkdir -p $out/lib/gbm
-    ln -s ${pkgs.mesa_git}/lib/libgbm.so $out/lib/gbm/dri_gbm.so
-  '';
+  vendoredGBM = pkgs.callPackage
+    ({ stdenvNoCC, mesa }: stdenvNoCC.mkDerivation {
+      pname = "mesa-libgbm";
+      version = "0.0.0";
+      src = mesa;
+      installPhase = ''
+        mkdir -p $out/lib/gbm
+        ln -s lib/libgbm.so $out/lib/gbm/dri_gbm.so
+      '';
+    })
+    { mesa = pkgs.mesa_git; };
+
   methodBackend = {
     hardware.opengl = with lib; {
       enable = mkForce true;
