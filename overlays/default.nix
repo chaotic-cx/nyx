@@ -109,7 +109,7 @@ in
       callOverride32 ../pkgs/mangohud-git { mangohud32 = final.mangohud32_git; }
     else throw "No mangohud32_git for non-x86";
 
-  mesa_git = callOverride ../pkgs/mesa-git { };
+  mesa_git = callOverride ../pkgs/mesa-git { gbmDriver = true; };
   mesa32_git =
     if final.stdenv.hostPlatform.isLinux && final.stdenv.hostPlatform.isx86
     then
