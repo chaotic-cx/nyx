@@ -16,5 +16,5 @@
 
   # search for git+https://github.com/cachyos/zfs.git in config's PKGBUILD
   zfs.rev = "f9a2d94c957d0660ad1f4cfbb0a909eb8e6086df";
-  zfs.hash = "sha256-444f2GBeurx7ckwGCbHkC0detpgNS+Tfh13pF+FrRck=";
+  zfs.hash = "sha256-XCbFDlxowkmKDv71u00+FwBukqmMBsmY7p0BDe+IWWM=";
 }
