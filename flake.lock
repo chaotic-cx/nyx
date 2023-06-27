@@ -204,11 +204,11 @@
     "yuzu-ea-git-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1687810303,
-        "narHash": "sha256-IQh54sKIeUFvCNlt0+VGnvduTBvPrxStyYPzhaRHCh4=",
+        "lastModified": 1687561624,
+        "narHash": "sha256-+QKVwtImzCVEsui6NuGLkjbrVy03f8jmJ/4Bzb3M+Ug=",
         "owner": "pineappleEA",
         "repo": "pineapple-src",
-        "rev": "c9635ec98a795265ca5399f14d85b38156146b3d",
+        "rev": "47d3d8f0dd9985cc6b0dc70404e19964e21cc491",
         "type": "github"
       },
       "original": {
