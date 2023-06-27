@@ -6,7 +6,7 @@
 }:
 
 (prev.sway-unwrapped.override {
-  wlroots_0_16 = final.wlroots_git;
+  wlroots = final.wlroots_git;
 }).overrideAttrs (prevAttrs: rec {
   version = nyxUtils.gitToVersion src;
   src = inputs.sway-git-src;
