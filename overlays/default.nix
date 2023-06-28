@@ -36,6 +36,10 @@ in
 
   beautyline-icons = final.callPackage ../pkgs/beautyline-icons { };
 
+  busybox_appletless = prev.busybox.override {
+    enableAppletSymlinks = false;
+  };
+
   dr460nized-kde-theme = final.callPackage ../pkgs/dr460nized-kde-theme { };
 
   # nixpkgs builds this one, but does not expose it.

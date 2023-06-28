@@ -65,6 +65,7 @@ Commands like `nix run ...`, `nix develop ...`, and others, when using our flake
   applet-window-title
   appmenu-gtk3-module
   beautyline-icons # Garuda Linux's version
+  busybox_appletless
   dr460nized-kde-theme
   droid-sans-mono-nerdfont
   fastfetch
