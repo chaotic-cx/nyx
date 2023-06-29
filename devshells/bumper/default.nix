@@ -31,6 +31,7 @@ writeShellScriptBin "chaotic-nyx-bumper" ''
     ${git} checkout -b "$BRANCH"
     ${git} fetch origin
     ${git} reset --hard origin/main
+    return 0
   }
 
   function bump-flake() {
@@ -41,6 +42,7 @@ writeShellScriptBin "chaotic-nyx-bumper" ''
     CHANGED_CSV=$(join_by ', ' "''${CHANGED[@]}")
     ${git} add -u
     ${git} commit -m "flake-''${NAME}: $CHANGED_CSV"
+    return 0
   }
 
   function bump-packages() {
@@ -51,6 +53,13 @@ writeShellScriptBin "chaotic-nyx-bumper" ''
     ${git} push origin "$BRANCH" -u
   }
 
-  PHASES=''${PHASES:-checkout && bump-flake && bump-packages && push};
+  function default-phases () {
+    checkout
+    bump-flake
+    bump-packages
+    push
+  }
+
+  PHASES=''${PHASES:-default-phases};
   $PHASES
 ''
