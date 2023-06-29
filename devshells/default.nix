@@ -35,6 +35,15 @@ let
           all-packages = final;
           inherit compareToFlakeUrl derivationRecursiveFinder;
         };
+      update-scripts = overlayFinal.callPackage ./bumper/update-scripts.nix
+        {
+          all-packages = final;
+          inherit derivationRecursiveFinder;
+        };
+      bumper = overlayFinal.callPackage ./bumper
+        {
+          inherit update-scripts;
+        };
     in
     {
       default = overlayFinal.mkShell {
@@ -42,6 +51,9 @@ let
       };
       evaluator = overlayFinal.mkShell { env.NYX_EVALUATED = evaluated; };
       comparer = overlayFinal.mkShell { env.NYX_COMPARED = compared; passthru.any = comparer; };
+      updater = overlayFinal.mkShell {
+        buildInputs = [ update-scripts bumper ];
+      };
     };
 in
 {

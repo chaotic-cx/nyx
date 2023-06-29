@@ -7,12 +7,13 @@ rec {
       n
   ;
 
+  # limit: integer
   # warnFn: k -> v -> message -> result
   # mapFn: k -> v -> result
   # root: attrset | derivation
-  eval = warnFn: mapFn: root:
+  evalLimited = limit: warnFn: mapFn: root:
     let
-      recursive = namespace: key: v:
+      recursive = level: namespace: key: v:
         let
           fullKey = join namespace key;
         in
@@ -25,8 +26,10 @@ rec {
             else
               mapFn fullKey v
             )
-          else if builtins.isAttrs v && (v.recurseForDerivations or true) then
-            lib.attrsets.mapAttrsToList (recursive fullKey) v
+          else if (limit == null || level < limit)
+            && builtins.isAttrs v
+            && (v.recurseForDerivations or true) then
+            lib.attrsets.mapAttrsToList (recursive (level + 1) fullKey) v
           else
             warnFn fullKey v "unrelated"
           )
@@ -34,5 +37,7 @@ rec {
           warnFn fullKey v "not evaluating"
       ;
     in
-    recursive "" "" root;
+    recursive 0 "" "" root;
+
+  eval = evalLimited null;
 }

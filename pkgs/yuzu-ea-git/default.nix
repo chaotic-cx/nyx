@@ -77,4 +77,7 @@ prev.yuzu-early-access.overrideAttrs (pa: rec {
 
   # Right now crypto tests don't pass
   doCheck = false;
+
+  # We bump it with flakes
+  passthru = pa.passthru // { updateScript = null; };
 })
