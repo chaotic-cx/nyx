@@ -1,4 +1,4 @@
-{ final, inputs, nyxUtils, prev, ... }:
+{ final, flakes, nyxUtils, prev, ... }:
 
 # yuzu doesn't seem to recognize our mbedtls_2
 let
@@ -31,7 +31,7 @@ let
   };
 in
 prev.yuzu-early-access.overrideAttrs (pa: rec {
-  src = inputs.yuzu-ea-git-src;
+  src = flakes.yuzu-ea-git-src;
   version = nyxUtils.gitToVersion src;
 
   nativeBuildInputs = pa.nativeBuildInputs ++ (with final; [ spirv-headers ]);

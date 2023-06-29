@@ -1,5 +1,5 @@
 { final
-, inputs
+, flakes
 , nyxUtils
 , prev
 , ...
@@ -7,6 +7,6 @@
 
 final.swaylock.overrideAttrs (pa: {
   pname = "swaylock-plugin";
-  version = nyxUtils.gitToVersion inputs.swaylock-plugin-git-src;
-  src = inputs.swaylock-plugin-git-src;
+  version = nyxUtils.gitToVersion flakes.swaylock-plugin-git-src;
+  src = flakes.swaylock-plugin-git-src;
 })

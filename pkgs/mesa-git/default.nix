@@ -1,8 +1,8 @@
-{ final, inputs, nyxUtils, prev, gbmDriver ? false, gbmBackend ? "dri_git", ... }:
+{ final, flakes, nyxUtils, prev, gbmDriver ? false, gbmBackend ? "dri_git", ... }:
 
 prev.mesa.overrideAttrs (pa: {
-  version = builtins.substring 0 (builtins.stringLength pa.version) inputs.mesa-git-src.rev;
-  src = inputs.mesa-git-src;
+  version = builtins.substring 0 (builtins.stringLength pa.version) flakes.mesa-git-src.rev;
+  src = flakes.mesa-git-src;
   buildInputs = pa.buildInputs ++ (with final; [ libunwind lm_sensors ]);
   mesonFlags =
     (builtins.map

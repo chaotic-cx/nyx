@@ -1,4 +1,4 @@
-{ inputs, ... }@fromFlakes:
+{ flakes, ... }@fromFlakes:
 let
   modulesPerFile = {
     appmenu-gtk3-module = import ./appmenu-gtk3-module.nix fromFlakes;

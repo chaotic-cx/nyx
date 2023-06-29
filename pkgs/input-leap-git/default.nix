@@ -1,9 +1,9 @@
-{ final, inputs, nyxUtils, prev, qttools, ... }:
+{ final, flakes, nyxUtils, prev, qttools, ... }:
 
 prev.barrier.overrideAttrs (pa: {
   pname = "input-leap";
-  src = inputs.input-leap-git-src;
-  version = nyxUtils.gitToVersion inputs.input-leap-git-src;
+  src = flakes.input-leap-git-src;
+  version = nyxUtils.gitToVersion flakes.input-leap-git-src;
   nativeBuildInputs = pa.nativeBuildInputs ++ (with final; [
     pkg-config
     gtest

@@ -1,4 +1,4 @@
-{ inputs }: { config, lib, pkgs, ... }:
+{ flakes }: { config, lib, pkgs, ... }:
 let
   cfg = config.chaotic.mesa-git;
 

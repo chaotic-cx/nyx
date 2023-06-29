@@ -9,14 +9,14 @@
 # NOTE:
 # - `*_next` packages will be removed once merged into nixpkgs-unstable.
 
-{ inputs }: final: prev:
+{ flakes }: final: prev:
 let
   nyxUtils = final.callPackage ../shared/utils.nix { };
 
-  callOverride = path: attrs: import path ({ inherit final inputs nyxUtils prev; } // attrs);
+  callOverride = path: attrs: import path ({ inherit final flakes nyxUtils prev; } // attrs);
 
   callOverride32 = path: attrs: import path ({
-    inherit inputs nyxUtils;
+    inherit flakes nyxUtils;
     final = final.pkgsi686Linux;
     prev = prev.pkgsi686Linux;
   } // attrs);
@@ -145,7 +145,7 @@ in
 
   swaylock-plugin_git = callOverride ../pkgs/swaylock-plugin-git { };
 
-  waynergy_git = nyxUtils.gitOverride inputs.waynergy-git-src prev.waynergy;
+  waynergy_git = nyxUtils.gitOverride flakes.waynergy-git-src prev.waynergy;
 
   wlroots_git = callOverride ../pkgs/wlroots-git { };
 

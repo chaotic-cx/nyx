@@ -1,7 +1,7 @@
-{ inputs
-, nixpkgs ? inputs.nixpkgs
+{ flakes
+, nixpkgs ? flakes.nixpkgs
 , packages
-, self ? inputs.self
+, self ? flakes.self
 }:
 
 # The following shells are used to help our maintainers and CI/CDs.
@@ -27,7 +27,7 @@ let
       compared = overlayFinal.callPackage ./comparer.nix
         {
           all-packages = final;
-          compareToFlake = inputs.compare-to;
+          compareToFlake = flakes.compare-to;
           inherit derivationRecursiveFinder;
         };
       comparer = compareToFlakeUrl: overlayFinal.callPackage ./comparer.nix

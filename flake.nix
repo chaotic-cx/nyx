@@ -70,9 +70,9 @@
 
     # The three stars: our overlay, our modules and the packages.
 
-    overlays.default = import ./overlays { inherit inputs; };
+    overlays.default = import ./overlays { flakes = inputs; };
 
-    nixosModules = import ./modules { inherit inputs; };
+    nixosModules = import ./modules { flakes = inputs; };
 
     packages =
       let
@@ -89,7 +89,7 @@
       };
 
     hydraJobs.default = packages;
-    devShells = import ./devshells { inherit inputs packages; };
+    devShells = import ./devshells { inherit packages; flakes = inputs; };
   };
 
   # Allows the user to use our cache when using `nix run <thisFlake>`.
