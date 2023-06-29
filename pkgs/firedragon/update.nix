@@ -6,6 +6,7 @@
 , curl
 , gnupg
 , jq
+, git
 , nix-prefetch-git
 , moreutils
 , runtimeShell
@@ -14,7 +15,7 @@
 
 writeScript "update-librewolf" ''
   #!${runtimeShell}
-  PATH=${lib.makeBinPath [ coreutils curl gnugrep gnupg gnused jq moreutils nix-prefetch-git ]}
+  PATH=${lib.makeBinPath [ coreutils curl gnugrep gnupg gnused jq moreutils git nix-prefetch-git ]}
   set -euo pipefail
 
   latestTag=$(curl https://gitlab.com/api/v4/projects/librewolf-community%2Fbrowser%2Fsource/repository/tags?per_page=1 | jq -r .[0].name)
@@ -44,6 +45,9 @@ writeScript "update-librewolf" ''
     exit 1
   fi
 
+  _OLDHOME=$HOME
+  _OLDGNUPGHOME=''${GNUPGHOME:-}
+
   HOME=$(mktemp -d)
   export GNUPGHOME=$(mktemp -d)
   gpg --receive-keys 14F26682D0916CDD81E37B6D61B7B526D98F0353
@@ -63,4 +67,12 @@ writeScript "update-librewolf" ''
     jq ".firefox.sha512 = \"$ffHash\"" |\
     jq ".packageVersion = \"$lwVersion\"" |\
     sponge $srcJson
+
+  HOME=$_OLDHOME
+  if [ -n "$_OLDGNUPGHOME" ]; then export GNUPGHOME=$_OLDGNUPGHOME
+  else unset GNUPGHOME
+  fi
+
+  git add $srcJson
+  git commit -m "firedragon: $localRev -> $latestTag"
 ''
