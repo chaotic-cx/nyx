@@ -51,12 +51,6 @@ writeShellScriptBin "chaotic-nyx-bumper" ''
     ${git} push origin "$BRANCH" -u
   }
 
-  function build() {
-    NYX_WD=''${NYX_WD:-/tmp/bump-$NAME}
-    mkdir -p "$NYX_WD"
-    ${nix} develop . -c build-chaotic-nyx
-  }
-
-  PHASES=''${PHASES:-checkout && bump-flake && bump-packages && push && build};
+  PHASES=''${PHASES:-checkout && bump-flake && bump-packages && push};
   $PHASES
 ''

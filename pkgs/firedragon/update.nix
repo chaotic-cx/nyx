@@ -20,7 +20,7 @@ writeScript "update-librewolf" ''
   latestTag=$(curl https://gitlab.com/api/v4/projects/librewolf-community%2Fbrowser%2Fsource/repository/tags?per_page=1 | jq -r .[0].name)
   echo "latestTag=$latestTag"
 
-  srcJson=pkgs/applications/networking/browsers/librewolf/src.json
+  srcJson=pkgs/firedragon/src.json
   localRev=$(jq -r .source.rev < $srcJson)
   echo "localRev=$localRev"
 
@@ -57,9 +57,10 @@ writeScript "update-librewolf" ''
   ffHash=$(grep '\.source\.tar\.xz$' "$HOME"/shasums | grep '^[^ ]*' -o)
   echo "ffHash=$ffHash"
 
-  jq ".source.rev = \"$latestTag\"" $srcJson | sponge $srcJson
-  jq ".source.sha256 = \"$srcHash\"" $srcJson | sponge $srcJson
-  jq ".firefox.version = \"$ffVersion\"" $srcJson | sponge $srcJson
-  jq ".firefox.sha512 = \"$ffHash\"" $srcJson | sponge $srcJson
-  jq ".packageVersion = \"$lwVersion\"" $srcJson | sponge $srcJson
+  jq ".source.rev = \"$latestTag\"" $srcJson |\
+    jq ".source.sha256 = \"$srcHash\"" |\
+    jq ".firefox.version = \"$ffVersion\"" |\
+    jq ".firefox.sha512 = \"$ffHash\"" |\
+    jq ".packageVersion = \"$lwVersion\"" |\
+    sponge $srcJson
 ''
