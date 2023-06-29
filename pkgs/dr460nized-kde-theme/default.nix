@@ -7,13 +7,13 @@
 }:
 stdenvNoCC.mkDerivation rec {
   pname = "dr460nized-kde-theme";
-  version = "unstable-2023-05-18";
+  version = "unstable-2023-06-29";
 
   src = fetchFromGitLab {
     owner = "garuda-linux/themes-and-settings/settings";
     repo = "garuda-dr460nized";
-    rev = "1bc10cb58a204927f7d5549ef194e9cf2509f07d";
-    sha256 = "f1qGdskZADzoHZX6XMA4NDSWuj7L1oHjx3xMUKUzUkk=";
+    rev = "a7ae189f525665797387de23616e6de230cf099b";
+    sha256 = "sha256-uRQAFp9h+GB2nAAtV1zNPdkzxYAJjgvtKohSHj6a6W8=";
   };
 
   malefor = fetchurl {
@@ -46,7 +46,7 @@ stdenvNoCC.mkDerivation rec {
     description = "The default Garuda dr460nized theme";
     homepage = "https://gitlab.com/garuda-linux/themes-and-settings/settings/garuda-dr460nized";
     license = licenses.gpl3Only;
-    maintainers = [ "dr460nf1r3" ];
+    maintainers = with lib; [ maintainers.dr460nf1r3 ];
     platforms = platforms.all;
   };
 }
