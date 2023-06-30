@@ -1,8 +1,7 @@
 {
   "linuxPackages_cachyos.ax99100" = "/nix/store/qsc4k40fqh58qihrn7yy3x6vrx344pil-ax99100-1.8.0";
   "linuxPackages_cachyos.ddcci-driver" = "/nix/store/zlz8h29fdz592hjpd0pi1b16v1jf7giv-ddcci-driver-6.4-0.4.3";
-  "linuxPackages_cachyos.dpdk" = "/nix/store/nflc3rrfndk749ngygy4hcqglh8cs6kb-dpdk-22.11.1-6.4";
-  "linuxPackages_cachyos.evdi" = "/nix/store/wqlbky40adny88snck7p8ykygzd07f1b-evdi-unstable-2022-10-13";
+  "linuxPackages_cachyos.dpdk" = "/nix/store/4qviaybhs2gp4jxxwkl8y05n6g3ibhb8-dpdk-22.11.1-6.4";
   "linuxPackages_cachyos.isgx" = "/nix/store/3lxi8n2mjrgyb486ilxvm5jcnj176way-isgx-2.14-6.4";
   "linuxPackages_cachyos.kvmfr" = "/nix/store/wxjqacds912rwqip3a10kzmbi1vplb5p-kvmfr-B6";
   "linuxPackages_cachyos.lttng-modules" = "/nix/store/5vh12gr2fhwhvaig6wmk55qxy5v8kjzr-lttng-modules-6.4-2.13.8";

@@ -5,8 +5,8 @@ let
   dynarmic = final.fetchFromGitHub {
     owner = "merryhime";
     repo = "dynarmic";
-    rev = "6.4.6";
-    hash = "sha256-DIcyI0Sqw+J3Dhqk4MugIXsSZmSS0PaGjSqIfmVuQXc=";
+    rev = "6.4.8";
+    hash = "sha256-lsfwR+ydtn3LWWh0Jfb8+2qJqnRbjoTM18Wb1lfX/8w=";
   };
   sirit = final.fetchFromGitHub {
     owner = "ReinUsesLisp";
@@ -17,8 +17,8 @@ let
   xbyak = final.fetchFromGitHub {
     owner = "herumi";
     repo = "xbyak";
-    rev = "v6.69.1";
-    hash = "sha256-yMArB0MmIvdqctr2bstKzREDvb7OnGXGMSCiGaQ3SmY=";
+    rev = "v6.69.2";
+    hash = "sha256-e61ScPUTv47Ja4ckpDGsblB6iyUqT0fTaR8PoV7ov0U=";
   };
   tzdataVer = "220816";
   tzdata = final.fetchurl {
@@ -46,8 +46,8 @@ prev.yuzu-early-access.overrideAttrs (pa: rec {
     ln -s ${dynarmic} externals/dynarmic
     ln -s ${sirit} externals/sirit
     ln -s ${xbyak} externals/xbyak
-    mkdir -p externals/vma/vma/include
-    ln -s ${vma} externals/vma/vma/include/vk_mem_alloc.h
+    mkdir -p externals/vma/VulkanMemoryAllocator/include
+    ln -s ${vma} externals/vma/VulkanMemoryAllocator/include/vk_mem_alloc.h
   '';
 
   preConfigure = ''
