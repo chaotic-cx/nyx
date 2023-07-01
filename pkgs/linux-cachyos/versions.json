@@ -1,0 +1,24 @@
+{
+  "_suffix": "Matches `Add-extra-version-CachyOS.patch`",
+  "suffix": "-cachyos",
+  "_linux": "pkgver from config's PKGBUILD",
+  "linux": {
+    "version": "6.4.1",
+    "hash": "sha256-DZ2qnxwXb7E7lEf249gOgrSQQ/DTRMJHu/CbTmJb7vM="
+  },
+  "_config": "latest commit from https://github.com/CachyOS/linux-cachyos/commits/master/linux-cachyos",
+  "config": {
+    "rev": "0d068e2692b6d237fcda235fdab90b227d39cc9d",
+    "hash": "sha256-TVcto7EQaW7XGLc0Tci0xSrwSU1kYJvLve+ZQi8/L+8="
+  },
+  "_patches": "latest commit from https://github.com/CachyOS/kernel-patches/commits/master/6.3",
+  "patches": {
+    "rev": "39140af45a00e31693021233c2405c4f5305c1de",
+    "hash": "sha256-xnKtAuVtJUpRzCQbEG29xnw0f34CKdX8liVUciXr00M="
+  },
+  "_zfs": "search for `git+https://github.com/cachyos/zfs.git` in config's PKGBUILD",
+  "zfs": {
+    "rev": "f9a2d94c957d0660ad1f4cfbb0a909eb8e6086df",
+    "hash": "sha256-XCbFDlxowkmKDv71u00+FwBukqmMBsmY7p0BDe+IWWM="
+  }
+}

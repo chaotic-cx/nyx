@@ -1,4 +1,5 @@
 { cachyVersions
+, callPackage
 , fetchFromGitHub
 , fetchurl
 , lib
@@ -8,7 +9,7 @@
 , bison
 , perl
 , ...
-} @ args:
+}:
 let
   inherit (cachyVersions.linux) version;
   major = lib.versions.pad 2 version;
@@ -144,6 +145,7 @@ in
 ).overrideAttrs (pa: {
   # bypasses https://github.com/NixOS/nixpkgs/issues/216529
   passthru = pa.passthru // {
+    inherit cachyVersions;
     features = {
       efiBootStub = true;
       ia32Emulation = true;
@@ -151,5 +153,6 @@ in
       needsCifsUtils = true;
       netfilterRPFilter = true;
     };
+    updateScript = callPackage ./update.nix { };
   };
 })
