@@ -21,7 +21,7 @@ let
     prev = prev.pkgsi686Linux;
   } // attrs);
 
-  cachyVersions = import ../pkgs/linux-cachyos/versions.nix;
+  cachyVersions = final.lib.trivial.importJSON ../pkgs/linux-cachyos/versions.json;
 in
 {
   inherit nyxUtils;
