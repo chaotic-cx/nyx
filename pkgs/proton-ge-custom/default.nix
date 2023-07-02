@@ -1,24 +1,23 @@
-{ stdenv
+{ callPackage
+, stdenv
 , lib
 , fetchurl
 , writeScript
 , protonGeTitle ? null
-, protonGeBase ? "8"
-, protonGeRelease ? "4"
-, protonGeHash ? "sha256-OPwmVxBGaWo51pDJcqvxvZ8qxMH8X0DwZTpwiKbdx/I="
+, protonGeVersions
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   name = "proton-ge-custom";
-  version = "${protonGeBase}.${protonGeRelease}";
+  version = "${protonGeVersions.base}.${protonGeVersions.release}";
 
   src =
     let
-      geVersion = "GE-Proton${protonGeBase}-${protonGeRelease}";
+      geVersion = "GE-Proton${protonGeVersions.base}-${protonGeVersions.release}";
     in
     fetchurl {
       url = "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/${geVersion}/${geVersion}.tar.gz";
-      hash = protonGeHash;
+      inherit (protonGeVersions) hash;
     };
 
   buildCommand = ''
@@ -29,6 +28,8 @@ stdenv.mkDerivation (finalAttrs: {
   + lib.strings.optionalString (protonGeTitle != null) ''
     sed -i -r 's|"GE-Proton.*"|"${protonGeTitle}"|' $out/bin/compatibilitytool.vdf
   '';
+
+  passthru.updateScript = callPackage ./update.nix { };
 
   meta = with lib; {
     description = "Compatibility tool for Steam Play based on Wine and additional components";

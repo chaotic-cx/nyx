@@ -22,6 +22,7 @@ let
   } // attrs);
 
   cachyVersions = final.lib.trivial.importJSON ../pkgs/linux-cachyos/versions.json;
+  protonGeVersions = final.lib.trivial.importJSON ../pkgs/proton-ge-custom/versions.json;
 in
 {
   inherit nyxUtils;
@@ -134,6 +135,7 @@ in
 
   proton-ge-custom = final.callPackage ../pkgs/proton-ge-custom {
     protonGeTitle = "Proton-GE";
+    inherit protonGeVersions;
   };
 
   river_git = callOverride ../pkgs/river-git { };
