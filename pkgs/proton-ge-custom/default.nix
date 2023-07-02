@@ -17,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
     in
     fetchurl {
       url = "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/${geVersion}/${geVersion}.tar.gz";
-      hash = protonGeVersions.hash;
+      inherit (protonGeVersions) hash;
     };
 
   buildCommand = ''
