@@ -25,9 +25,6 @@ in
     maxSilent = 14400; # 4h, double the default of 7200s (c.f. #129212, #129115)
     platforms = lib.platforms.unix;
   };
-  updateScript = callPackage ./update.nix {
-    attrPath = "firedragon-unwrapped";
-  };
 }).override {
   crashreporterSupport = false;
   enableOfficialBranding = false;
