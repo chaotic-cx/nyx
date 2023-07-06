@@ -118,13 +118,13 @@ jobs:
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 commit_sha: context.sha,
-                body: `Failed to build $FAILED_BUILDS_COUNT packages:
+                body: `Failed to build ${process.env.FAILED_BUILDS_COUNT} packages:
             <details>
               <summary>${process.env.FAILED_BUILDS_COUNT} packages failed</summary>
               <ul>
                 ${process.env.FAILED_BUILDS}
               </ul>
-            </details>${extratext}}`
+            </details>${extratext}`
               })
             } else
               github.rest.repos.createCommitComment({
