@@ -7,13 +7,13 @@
 }:
 stdenvNoCC.mkDerivation rec {
   pname = "dr460nized-kde-theme";
-  version = "unstable-2023-06-29";
+  version = "unstable-2023-07-08";
 
   src = fetchFromGitLab {
     owner = "garuda-linux/themes-and-settings/settings";
     repo = "garuda-dr460nized";
-    rev = "a7ae189f525665797387de23616e6de230cf099b";
-    sha256 = "sha256-uRQAFp9h+GB2nAAtV1zNPdkzxYAJjgvtKohSHj6a6W8=";
+    rev = "392c85c11bdb7e00bb1fdcc0c12628274f27a83b";
+    sha256 = "sha256-GB64FFF69mNGjvHXBBSdkgu/Ah3LDf637s58GYlgMh4=";
   };
 
   malefor = fetchurl {
@@ -21,7 +21,7 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-hlt3hyPKqn88JryyqegEglf8Tu8rkPv3iARPIuYYy2Q=";
   };
 
-  buildInputs = [ beautyline-icons sweet-nova ];
+  buildInputs = [ beautyline-icons blurredwallpaper sweet-nova ];
 
   installPhase = ''
     runHook preInstall
