@@ -46,7 +46,7 @@ stdenvNoCC.mkDerivation rec {
     description = "The default Garuda dr460nized theme";
     homepage = "https://gitlab.com/garuda-linux/themes-and-settings/settings/garuda-dr460nized";
     license = licenses.gpl3Only;
-    maintainers = with lib; [ maintainers.dr460nf1r3 ];
+    maintainers = [ maintainers.dr460nf1r3 ];
     platforms = platforms.all;
   };
 }
