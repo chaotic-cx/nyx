@@ -1,6 +1,7 @@
 # Credits going to federicoschonborn, taken from NUR and adapted to -git
 { cmake
 , fetchFromGitHub
+, git
 , lib
 , nyxUtils
 , pkg-config
@@ -60,17 +61,18 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "fastfetch";
-  version = "unstable-2023-06-10";
+  version = "unstable-2023-07-01";
 
   src = fetchFromGitHub {
     owner = "LinusDierheimer";
     repo = "fastfetch";
-    rev = "be60eaf7c8e931de3264efbbe42eb05837ec4fee";
-    hash = "sha256-6q7hr9W3GG9dcgfRT32+6CUYDFcgtGlgn0AuezgbQis=";
+    rev = "1f799d16c99c7b245a23e6328b1312003d5635c0";
+    hash = "sha256-I9HJEfXcFTKtG1PCCFMGJtSXh7mhDyRmm0oW9vi9Tjo=";
   };
 
   nativeBuildInputs = [
     cmake
+    git
     pkg-config
   ];
 
@@ -109,5 +111,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/LinusDierheimer/fastfetch";
     changelog = "https://github.com/LinusDierheimer/fastfetch/blob/dev/CHANGELOG.md";
     license = licenses.mit;
+    maintainers = with maintainers; [ dr460nf1r3 federicoschonborn ];
   };
 })

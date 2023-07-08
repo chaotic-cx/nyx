@@ -42,7 +42,7 @@ stdenvNoCC.mkDerivation rec {
   meta = with lib; {
     description = "BeautyLine icon theme mixed with Sweet icons";
     homepage = "https://gitlab.com/garuda-linux/themes-and-settings/artwork/beautyline";
-    license = lib.licenses.gpl3;
+    license = licenses.gpl3;
     maintainers = [ maintainers.dr460nf1r3 ];
     platforms = platforms.all;
   };

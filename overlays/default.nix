@@ -37,6 +37,8 @@ in
 
   beautyline-icons = final.callPackage ../pkgs/beautyline-icons { };
 
+  blurredwallpaper = final.callPackage ../pkgs/blurredwallpaper { };
+
   busybox_appletless = prev.busybox.override {
     enableAppletSymlinks = false;
   };
