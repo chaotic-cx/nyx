@@ -4,12 +4,12 @@
 }:
 stdenvNoCC.mkDerivation rec {
   pname = "blurredwallpaper";
-  version = "v2.2";
+  version = "2.2";
 
   src = fetchFromGitHub {
     owner = "bouteillerAlan";
     repo = pname;
-    rev = version;
+    rev = "v${version}";
     hash = "sha256-FgEyKVNTSJklYo/B4p0BqK9eYoc/3DU4nDxYdElDyCw=";
   };
 
@@ -24,9 +24,9 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Plasma 5 applet that shows the application title and icon for active window";
-    homepage = "https://github.com/psifidotos/applet-window-title";
-    license = licenses.gpl2Plus;
+    description = "Plasma 5 wallpaper plugin that blurs the wallpaper when a window is active";
+    homepage = "https://github.com/bouteillerAlan/blurredwallpaper";
+    license = licenses.gpl3;
     maintainers = [ maintainers.dr460nf1r3 ];
     platforms = platforms.all;
   };
