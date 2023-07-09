@@ -1,4 +1,4 @@
-# Credits going to federicoschonborn, taken from NUR and adapted to -git
+# Credits going to federicoschonborn, taken from NUR
 { cmake
 , fetchFromGitHub
 , git
@@ -61,13 +61,13 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "fastfetch";
-  version = "unstable-2023-07-01";
+  version = "1.12.2";
 
   src = fetchFromGitHub {
     owner = "LinusDierheimer";
     repo = "fastfetch";
-    rev = "1f799d16c99c7b245a23e6328b1312003d5635c0";
-    hash = "sha256-I9HJEfXcFTKtG1PCCFMGJtSXh7mhDyRmm0oW9vi9Tjo=";
+    rev = finalAttrs.version;
+    hash = "sha256-l9fIm7+dBsOqGoFUYtpYESAjDy3496rDTUDQjbNU4U0=";
   };
 
   nativeBuildInputs = [
@@ -109,7 +109,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "Like neofetch, but much faster because written in C";
     homepage = "https://github.com/LinusDierheimer/fastfetch";
-    changelog = "https://github.com/LinusDierheimer/fastfetch/blob/dev/CHANGELOG.md";
+    changelog = "https://github.com/LinusDierheimer/fastfetch/blob/${finalAttrs.src.rev}/CHANGELOG.md";
     license = licenses.mit;
     maintainers = with maintainers; [ dr460nf1r3 federicoschonborn ];
   };
