@@ -1,5 +1,4 @@
 {
-  "linuxPackages_cachyos.ax99100" = "/nix/store/f234ibavkx4bs6qg6f4gkijqdd2ck2cy-ax99100-1.8.0";
   "linuxPackages_cachyos.ddcci-driver" = "/nix/store/yhy0qlg2w6a9xnqxwrq5x6zda4701cyz-ddcci-driver-6.4.2-0.4.3";
   "linuxPackages_cachyos.dpdk" = "/nix/store/23sn835d6nmwrchsqbbv2n6w6cpg105p-dpdk-22.11.1-6.4.2";
   "linuxPackages_cachyos.isgx" = "/nix/store/ywnvihwnbvg6gginy6glcbhm9rlnqkb0-isgx-2.14-6.4.2";
