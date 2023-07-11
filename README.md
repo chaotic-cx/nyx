@@ -82,6 +82,7 @@ Commands like `nix run ...`, `nix develop ...`, and others, when using our flake
   mesa_git # recommended option: chaotic.mesa-git.enable
   mesa32_git # only x86, recommended option: chaotic.mesa-git.enable
   mpv-vapoursynth
+  nordvpn
   openmohaa
   proton-ge-custom # recommended option: chaotic.steam.extraCompatPackages
   river_git
@@ -124,6 +125,7 @@ nix run github:chaotic-cx/nyx/nyxpkgs-unstable#input-leap_git
   chaotic.mesa-git.enable = true;
   chaotic.mesa-git.extraPackages = [ pkgs.mesa_git.opencl ];
   chaotic.mesa-git.extraPackages32 = [ pkgs.mesa32_git.opencl ];
+  chaotic.nordvpn.enable = false;
   chaotic.nyx.cache.enable = false;
   chaotic.nyx.overlay.enable = false;
   chaotic.nyx.overlay.flakeNixpkgs.config = { allowUnfree = true; };
