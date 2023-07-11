@@ -133,6 +133,8 @@ in
       ];
     };
 
+  nordvpn = final.callPackage ../pkgs/nordvpn { };
+
   openmohaa = final.callPackage ../pkgs/openmohaa { };
 
   proton-ge-custom = final.callPackage ../pkgs/proton-ge-custom {
