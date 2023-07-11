@@ -5,7 +5,7 @@
 }:
 (final.lib.makeScope final.newScope (self:
 {
-  vulkanVersions = self.dontRecurseIntoAttrs vulkanVersions;
+  vulkanVersions = vulkanVersions // { recurseForDerivations = false; };
 
   #gfxreconstruct = (prev.gfxreconstruct.override
   #  { inherit (self) vulkan-loader; }).overrideAttrs (pa: with vulkanVersions; {
