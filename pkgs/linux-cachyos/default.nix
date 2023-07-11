@@ -134,13 +134,12 @@ in
       name = builtins.baseNameOf filename;
       patch = filename;
     })
-    [
+    ([
       "${patches-src}/${major}/all/0001-cachyos-base-all.patch"
       "${patches-src}/${major}/sched/0001-EEVDF.patch"
       "${patches-src}/${major}/sched/0001-bore-eevdf.patch"
       "${patches-src}/${major}/misc/0001-Add-extra-version-CachyOS.patch"
-      "${patches-src}/${major}/misc/0001-AMD-HDR.patch"
-    ];
+    ] ++ lib.optional hdrSupport "${patches-src}/${major}/misc/0001-AMD-HDR.patch");
 
   extraMeta = { maintainers = with lib; [ maintainers.dr460nf1r3 ]; };
 }
