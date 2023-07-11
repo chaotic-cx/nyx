@@ -70,7 +70,7 @@ in
   # nixpkgs builds this one, but does not expose it.
   droid-sans-mono-nerdfont = (final.nerdfonts.override {
     fonts = [ "DroidSansMono" ];
-  }).overrideAttrs (dropUpdateScript);
+  }).overrideAttrs dropUpdateScript;
 
   fastfetch = final.callPackage ../pkgs/fastfetch { };
 
@@ -92,13 +92,13 @@ in
 
   linux_hdr = (final.linux_cachyos.override {
     hdrSupport = true;
-  }).overrideAttrs (dropUpdateScript);
+  }).overrideAttrs dropUpdateScript;
 
   linuxPackages_cachyos =
-    (final.linuxPackagesFor final.linux_cachyos).extend (cachyZFS);
+    (final.linuxPackagesFor final.linux_cachyos).extend cachyZFS;
 
   linuxPackages_hdr =
-    (final.linuxPackagesFor final.linux_hdr).extend (cachyZFS);
+    (final.linuxPackagesFor final.linux_hdr).extend cachyZFS;
 
   luxtorpeda = final.callPackage ../pkgs/luxtorpeda { };
 
