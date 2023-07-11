@@ -23,6 +23,28 @@ let
 
   cachyVersions = final.lib.trivial.importJSON ../pkgs/linux-cachyos/versions.json;
   protonGeVersions = final.lib.trivial.importJSON ../pkgs/proton-ge-custom/versions.json;
+
+  cachyZFS = _: prevAttrs:
+    let
+      zfs = prevAttrs.zfsUnstable.overrideAttrs (pa: {
+        src =
+          final.fetchFromGitHub {
+            owner = "cachyos";
+            repo = "zfs";
+            inherit (cachyVersions.zfs) rev hash;
+          };
+        meta = pa.meta // { broken = false; };
+        patches = [ ];
+      });
+    in
+    {
+      kernel_configfile = prevAttrs.kernel.configfile;
+      inherit zfs;
+      zfsStable = zfs;
+      zfsUnstable = zfs;
+    };
+
+  dropUpdateScript = pa: { passthru = pa.passthru // { updateScript = null; }; };
 in
 {
   inherit nyxUtils;
@@ -48,7 +70,7 @@ in
   # nixpkgs builds this one, but does not expose it.
   droid-sans-mono-nerdfont = (final.nerdfonts.override {
     fonts = [ "DroidSansMono" ];
-  }).overrideAttrs (pa: { passthru = pa.passthru // { updateScript = null; }; });
+  }).overrideAttrs (dropUpdateScript);
 
   fastfetch = final.callPackage ../pkgs/fastfetch { };
 
@@ -68,36 +90,15 @@ in
     ];
   };
 
-  linux_hdr = final.callPackage ../pkgs/linux-hdr {
-    kernelPatches = with final.kernelPatches; [
-      bridge_stp_helper
-      request_key_helper
-    ];
-  };
+  linux_hdr = (final.linux_cachyos.override {
+    hdrSupport = true;
+  }).overrideAttrs (dropUpdateScript);
 
   linuxPackages_cachyos =
-    (final.linuxPackagesFor final.linux_cachyos).extend (_: prevAttrs:
-      let
-        zfs = prevAttrs.zfsUnstable.overrideAttrs (pa: {
-          src =
-            final.fetchFromGitHub {
-              owner = "cachyos";
-              repo = "zfs";
-              inherit (cachyVersions.zfs) rev hash;
-            };
-          meta = pa.meta // { broken = false; };
-          patches = [ ];
-        });
-      in
-      {
-        kernel_configfile = prevAttrs.kernel.configfile;
-        inherit zfs;
-        zfsStable = zfs;
-        zfsUnstable = zfs;
-      }
-    );
+    (final.linuxPackagesFor final.linux_cachyos).extend (cachyZFS);
 
-  linuxPackages_hdr = final.linuxPackagesFor final.linux_hdr;
+  linuxPackages_hdr =
+    (final.linuxPackagesFor final.linux_hdr).extend (cachyZFS);
 
   luxtorpeda = final.callPackage ../pkgs/luxtorpeda { };
 
