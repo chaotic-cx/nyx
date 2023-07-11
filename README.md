@@ -124,7 +124,7 @@ nix run github:chaotic-cx/nyx/nyxpkgs-unstable#input-leap_git
   chaotic.mesa-git.enable = true;
   chaotic.mesa-git.extraPackages = [ pkgs.mesa_git.opencl ];
   chaotic.mesa-git.extraPackages32 = [ pkgs.mesa32_git.opencl ];
-  chaotic.nordvpn.enable = false;
+  chaotic.nordvpn.enable = true;
   chaotic.nyx.cache.enable = false;
   chaotic.nyx.overlay.enable = false;
   chaotic.nyx.overlay.flakeNixpkgs.config = { allowUnfree = true; };
