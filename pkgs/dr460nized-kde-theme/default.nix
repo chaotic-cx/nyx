@@ -1,4 +1,5 @@
 { beautyline-icons
+, blurredwallpaper
 , fetchFromGitLab
 , fetchurl
 , lib
@@ -7,13 +8,13 @@
 }:
 stdenvNoCC.mkDerivation rec {
   pname = "dr460nized-kde-theme";
-  version = "unstable-2023-07-08";
+  version = "unstable-2023-07-11";
 
   src = fetchFromGitLab {
     owner = "garuda-linux/themes-and-settings/settings";
     repo = "garuda-dr460nized";
-    rev = "392c85c11bdb7e00bb1fdcc0c12628274f27a83b";
-    sha256 = "sha256-GB64FFF69mNGjvHXBBSdkgu/Ah3LDf637s58GYlgMh4=";
+    rev = "99c024b7d391df8dca03494493aac5a7ccfb7fcf";
+    sha256 = "sha256-JZegC5zvf75aE1ToFVM2hp0QO5qRNYBpxc+SDrhfHEY=";
   };
 
   malefor = fetchurl {
@@ -21,7 +22,7 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-hlt3hyPKqn88JryyqegEglf8Tu8rkPv3iARPIuYYy2Q=";
   };
 
-  buildInputs = [ beautyline-icons sweet-nova ];
+  buildInputs = [ beautyline-icons blurredwallpaper sweet-nova ];
 
   installPhase = ''
     runHook preInstall
@@ -40,6 +41,11 @@ stdenvNoCC.mkDerivation rec {
         substituteInPlace $file --replace "/usr/bin" "/run/current-system/sw/bin" --replace "/usr/share" "/run/current-system/sw/share"
       fi
     done
+
+    substituteInPlace usr/share/plasma/{look-and-feel/Dr460nized/contents/layouts/org.kde.plasma.desktop-layout.js,layout-templates/org.garuda.desktop.defaultDock/contents/layout.js} \
+      --replace "applications:garuda-welcome.desktop," "" \
+      --replace "applications:snapper-tools.desktop," "" \
+      --replace ",applications:octopi.desktop" ""
   '';
 
   meta = with lib; {
