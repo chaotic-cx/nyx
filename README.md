@@ -108,18 +108,6 @@ nix run github:chaotic-cx/nyx/nyxpkgs-unstable#input-leap_git
 # None of these are in their default value, showing you what kinda of change is possible.
 {
   chaotic.appmenu-gtk3-module.enable = true;
-  chaotic.gamescope = {
-    enable = true;
-    package = pkgs.gamescope_git;
-    args = [ "--rt" "--prefer-vk-device 8086:9bc4" ];
-    env = { "__GLX_VENDOR_LIBRARY_NAME" = "nvidia"; };
-    session = {
-      enable = true;
-      args = [ "--rt" ];
-      env = { };
-      steamArgs = [ "-tenfoot" "-pipewire-dmabuf" ];
-    };
-  };
   chaotic.linux_hdr.specialisation.enable = true;
   chaotic.mesa-git.enable = true;
   chaotic.mesa-git.extraPackages = [ pkgs.mesa_git.opencl ];

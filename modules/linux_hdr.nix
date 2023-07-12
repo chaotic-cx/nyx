@@ -22,7 +22,10 @@ in
             DXVK_HDR = "1";
             ENABLE_GAMESCOPE_WSI = "1";
           };
-        chaotic.gamescope.session.args = [ "--hdr-enabled" ];
+        programs.steam.gamescopeSession = {
+          enable = true; # HDR can't be used with other WM right now...
+          args = [ "--hdr-enabled" ];
+        };
       };
     };
   };
