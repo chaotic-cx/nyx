@@ -74,6 +74,13 @@ in
 
   fastfetch = final.callPackage ../pkgs/fastfetch { };
 
+  firedragon-unwrapped = final.callPackage ../pkgs/firedragon { };
+
+  firedragon = final.wrapFirefox final.firedragon-unwrapped {
+    inherit (final.firedragon-unwrapped) extraPrefsFiles extraPoliciesFiles;
+    libName = "firedragon";
+  };
+
   gamescope_git = callOverride ../pkgs/gamescope-git { };
 
   input-leap_git = callOverride ../pkgs/input-leap-git {
