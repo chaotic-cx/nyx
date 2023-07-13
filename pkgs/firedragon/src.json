@@ -1,0 +1,15 @@
+{
+  "packageVersion": "115.0.2",
+  "source": {
+    "rev": "3e78e16106589cc543064438762736acc19f4228",
+    "hash": "sha256-Vorg65BRRFklYbDOuqmbV/f1cBuD9ZBGV7kzioC5TiQ="
+  },
+  "firedragon": {
+    "rev": "b98e171354862b5dd4b37f27c62da5e0a0c9f582",
+    "hash": "sha256-GacRgEOKaFE2kljZJHWtjYNYuZTs9j3DGVTm9Nm1K9E="
+  },
+  "firefox": {
+    "version": "115.0.2",
+    "hash": "sha256-ayhEEkwTtL2dl6x/WEDz6Ve3YxZZWR876hrJqJvuFlQ="
+  }
+}

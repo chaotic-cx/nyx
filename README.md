@@ -69,6 +69,7 @@ Commands like `nix run ...`, `nix develop ...`, and others, when using our flake
   dr460nized-kde-theme
   droid-sans-mono-nerdfont
   fastfetch
+  firedragon # and -unwrapped
   gamescope_git
   input-leap_git
   latencyflex-vulkan
