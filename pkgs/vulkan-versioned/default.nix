@@ -1,4 +1,5 @@
 { final
+, nyxUtils
 , prev
 , vulkanVersions ? import ./latest.nix
 , ...
@@ -7,18 +8,17 @@
 {
   vulkanVersions = vulkanVersions // { recurseForDerivations = false; };
 
-  #gfxreconstruct = (prev.gfxreconstruct.override
-  #  { inherit (self) vulkan-loader; }).overrideAttrs (pa: with vulkanVersions; {
-  #  nativeBuildInputs = pa.nativeBuildInputs ++ [ self.vulkan-headers ];
-  #  version = gfxreconstructVersion;
-  #  src = final.fetchFromGitHub {
-  #    owner = "LunarG";
-  #    repo = "gfxreconstruct";
-  #    rev = gfxreconstructRev;
-  #    hash = gfxreconstructHash;
-  #  };
-  #  meta = pa.meta // { broken = gfxreconstructVersion == "1.0.0"; };
-  #});
+  gfxreconstruct = (prev.gfxreconstruct.override
+    { inherit (self) vulkan-loader; }).overrideAttrs (pa: with vulkanVersions; {
+    version = gfxreconstructVersion;
+    src = final.fetchFromGitHub {
+      owner = "LunarG";
+      repo = "gfxreconstruct";
+      rev = gfxreconstructRev;
+      hash = gfxreconstructHash;
+      fetchSubmodules = true;
+    };
+  });
 
   glslang = (prev.glslang.override
     { inherit (self) spirv-headers spirv-tools; }).overrideAttrs (pa: with vulkanVersions; {
@@ -64,6 +64,7 @@
   vulkan-extension-layer = (prev.vulkan-extension-layer.override
     { inherit (self) vulkan-headers; }).overrideAttrs (pa: with vulkanVersions; {
     nativeBuildInputs = pa.nativeBuildInputs ++ [ final.pkg-config ];
+    buildInputs = pa.buildInputs ++ (with final; [ xorg.libxcb xorg.libX11 xorg.libXrandr wayland ]);
     version = vulkanExtensionLayerVersion;
     src = final.fetchFromGitHub {
       owner = "KhronosGroup";
@@ -103,27 +104,40 @@
       hash = vulkanToolsHash;
     };
   });
-  #vulkan-tools-lunarg = (prev.vulkan-tools-lunarg.override
-  #  { inherit (self) vulkan-headers vulkan-loader vulkan-validation-layers; }).overrideAttrs (pa: with vulkanVersions; {
-  #  nativeBuildInputs = pa.nativeBuildInputs ++ [ final.xorg.libXau ];
-  #  version = vulkanToolsLunarGVersion;
-  #  src = final.fetchFromGitHub {
-  #    owner = "LunarG";
-  #    repo = "VulkanTools";
-  #    rev = vulkanToolsLunarGRev;
-  #    hash = vulkanToolsLunarGHash;
-  #    fetchSubmodules = true;
-  #  };
-  #});
-  #vulkan-validation-layers = (prev.vulkan-validation-layers.override
-  #  { inherit (self) vulkan-headers spirv-headers; }).overrideAttrs (pa: with vulkanVersions; {
-  #  version = vulkanValidationLayersVersion;
-  #  src = final.fetchFromGitHub {
-  #    owner = "KhronosGroup";
-  #    repo = "Vulkan-ValidationLayers";
-  #    rev = vulkanValidationLayersRev;
-  #    hash = vulkanValidationLayersHash;
-  #  };
-  #  meta = pa.meta // { broken = vulkanValidationLayersVersion == "1.3.256" && vulkanHeadersVersion == "1.3.257"; };
-  #});
+
+  vulkan-tools-lunarg =
+    # Can't be used with downgraded "vulkan-validation-layers"
+    if self.vulkan-validation-layers.version != vulkanVersions.vulkanValidationLayersVersion then
+      prev.vulkan-tools-lunarg
+    else
+      (prev.vulkan-tools-lunarg.override
+        { inherit (self) vulkan-headers vulkan-loader vulkan-validation-layers; }).overrideAttrs (pa: with vulkanVersions; {
+        nativeBuildInputs = pa.nativeBuildInputs ++ [ final.xorg.libXau ];
+        buildInputs = pa.buildInputs ++ [ final.jsoncpp ];
+        version = vulkanToolsLunarGVersion;
+        src = final.fetchFromGitHub {
+          owner = "LunarG";
+          repo = "VulkanTools";
+          rev = vulkanToolsLunarGRev;
+          hash = vulkanToolsLunarGHash;
+          fetchSubmodules = true;
+        };
+        patches = nyxUtils.removeByBaseName "skip-qnx-extension.patch" pa.patches;
+      });
+
+  vulkan-validation-layers =
+    # Broken with current spirv-headers
+    if vulkanVersions.spirvHeadersVersion == "1.3.250.1" then
+      prev.vulkan-validation-layers
+    else
+      (prev.vulkan-validation-layers.override
+        { inherit (self) vulkan-headers spirv-headers; }).overrideAttrs (pa: with vulkanVersions; {
+        version = vulkanValidationLayersVersion;
+        src = final.fetchFromGitHub {
+          owner = "KhronosGroup";
+          repo = "Vulkan-ValidationLayers";
+          rev = vulkanValidationLayersRev;
+          hash = vulkanValidationLayersHash;
+        };
+      });
 }))
