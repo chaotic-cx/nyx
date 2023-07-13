@@ -2,7 +2,7 @@
 rec {
   gfxreconstructVersion = "1.0.0";
   gfxreconstructRev = "v${gfxreconstructVersion}";
-  gfxreconstructHash = "sha256-EVwO0ov0zZ+sPq4RBunLCzuGaYPA2y1hKpFC/mcoFGM=";
+  gfxreconstructHash = "sha256-dOmkNKURYgphbDHOmzcWf9PsIKMkPyN7ve579BE7fR0=";
 
   glslangVersion = "1.3.250.1";
   glslangRev = "sdk-${spirvCrossVersion}";
@@ -25,23 +25,23 @@ rec {
   vulkanHeadersRev = "v${vulkanHeadersVersion}";
   vulkanHeadersHash = "sha256-TBluDNKMvQiB7KQGnyv7YIRF8qPbKocc8Lqbcza6IRI=";
 
-  vulkanLoaderVersion = "1.3.256";
+  vulkanLoaderVersion = "1.3.257";
   vulkanLoaderRev = "v${vulkanLoaderVersion}";
-  vulkanLoaderHash = "sha256-sMmdeHSh7wXT4jRQuO5RNiaT4wItpQBcxXBD0qNSQQY=";
+  vulkanLoaderHash = "sha256-RSCym/a2O8t+FvckqSg41U6ET9eXFQuRh8d4F144D2c=";
 
-  vulkanToolsVersion = "1.3.255";
+  vulkanToolsVersion = "1.3.257";
   vulkanToolsRev = "v${vulkanToolsVersion}";
-  vulkanToolsHash = "sha256-z972ohH0ol8J5PbdlQqXDrs2ogCnN0pZH7k7wFUMlGw=";
+  vulkanToolsHash = "sha256-eUihRn6czFiDYyyXcXKDqmPDq+0czVdVqmclpg/Lzhg=";
 
-  vulkanToolsLunarGVersion = "1.3.250.1";
-  vulkanToolsLunarGRev = "sdk-${vulkanToolsLunarGVersion}";
-  vulkanToolsLunarGHash = "sha256-eNTGrf4DbFA9mJ5jHbP+2Im+wU1zfjz7RCrcEPqC0sg=";
+  vulkanToolsLunarGVersion = "1.3.257";
+  vulkanToolsLunarGRev = "v${vulkanToolsLunarGVersion}";
+  vulkanToolsLunarGHash = "sha256-I3H47DCxVlbHjl+2plmqIJdgnpXfnGESJgrsZ8CcmD0=";
 
-  vulkanExtensionLayerVersion = "1.3.255";
+  vulkanExtensionLayerVersion = "1.3.257";
   vulkanExtensionLayerRev = "v${vulkanExtensionLayerVersion}";
-  vulkanExtensionLayerHash = "sha256-k0bRfFNNdC0yFzZo2+n+fu5zZ8Zcra6Do+M/KYBUYj4=";
+  vulkanExtensionLayerHash = "sha256-VEaQNkCBqawgz88Yu+aos6LskEbh99bSmuo6g9UnNPg=";
 
-  vulkanValidationLayersVersion = "1.3.256";
+  vulkanValidationLayersVersion = "1.3.257";
   vulkanValidationLayersRev = "v${vulkanValidationLayersVersion}";
-  vulkanValidationLayersHash = "sha256-sEtfbl8ELSE0862Sc/kbteYYz8mY55dxAHZy0q8hcww=";
+  vulkanValidationLayersHash = "sha256-YsFhSgL/2YPq0Cbs9rFWzUf17UCfwrqLnhx7AmNNR1M=";
 }
