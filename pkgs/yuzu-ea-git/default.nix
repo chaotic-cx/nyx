@@ -29,20 +29,27 @@ let
     url = "https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator/raw/0aa3989b8f382f185fdf646cc83a1d16fa31d6ab/include/vk_mem_alloc.h";
     hash = "sha256-5lfqRtC6yWGU1cDgH16crSm/Lpy8OEst6FsIwf5VVxo=";
   };
+
+  inherit (final.vulkanPackages_latest) glslang vulkan-headers vulkan-loader spirv-headers;
+  base = prev.yuzu-early-access.override
+    { inherit glslang vulkan-headers vulkan-loader; };
 in
-prev.yuzu-early-access.overrideAttrs (pa: rec {
+base.overrideAttrs (pa: rec {
   src = flakes.yuzu-ea-git-src;
   version = nyxUtils.gitToVersion src;
 
-  nativeBuildInputs = pa.nativeBuildInputs ++ (with final; [ spirv-headers ]);
+  # We need to have these headers ahead, otherwise they cause an ordering issue in CMAKE_INCLUDE_PATH,
+  # where qtbase propagated input appears first.
+  nativeBuildInputs = [ vulkan-headers glslang spirv-headers ] ++ pa.nativeBuildInputs;
 
   cmakeFlags = pa.cmakeFlags ++ [
     "-DSIRIT_USE_SYSTEM_SPIRV_HEADERS=ON"
   ];
 
   postPatch = (pa.postPatch or "") + ''
-    rm -r externals/{dynarmic,mbedtls,sirit,xbyak}
+    rm -r externals/{cpp-httplib,dynarmic,mbedtls,sirit,xbyak}
     cp --no-preserve=mode -r ${final.mbedtls_2.src} externals/mbedtls
+    ln -s ${final.httplib.src} externals/cpp-httplib
     ln -s ${dynarmic} externals/dynarmic
     ln -s ${sirit} externals/sirit
     ln -s ${xbyak} externals/xbyak
