@@ -64,6 +64,7 @@
   vulkan-extension-layer = (prev.vulkan-extension-layer.override
     { inherit (self) vulkan-headers; }).overrideAttrs (pa: with vulkanVersions; {
     nativeBuildInputs = pa.nativeBuildInputs ++ [ final.pkg-config ];
+    buildInputs = pa.buildInputs ++ (with final; [ xorg.libxcb xorg.libX11 xorg.libXrandr wayland ]);
     version = vulkanExtensionLayerVersion;
     src = final.fetchFromGitHub {
       owner = "KhronosGroup";
