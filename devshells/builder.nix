@@ -23,7 +23,7 @@ let
   depVarQuoted = drv:
     "\"$_dep_${nyxUtils.drvHash drv}\"";
 
-  evalCommand = key: drv:
+  derivationMap = key: drv:
     let
       derivation = "$NYX_SOURCE#${key}";
       fullTag = output: "\"${nyxRecursionHelper.join derivation output}\"";
@@ -60,7 +60,7 @@ let
 
   packagesEval =
     lib.lists.flatten
-      (nyxRecursionHelper.derivations commentWarn evalCommand allPackages);
+      (nyxRecursionHelper.derivations commentWarn derivationMap allPackages);
 
   depFirstSorter = pkgA: pkgB:
     if pkgA.drv == null || pkgB.drv == null then
