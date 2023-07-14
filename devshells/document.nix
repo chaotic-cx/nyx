@@ -46,22 +46,31 @@ let
 
   optionMap = k: v:
     let
+      htmlify = builtins.replaceStrings [ "\n" " " ] [ "<br/>" "&nbsp;" ];
       prettify = src:
-        builtins.replaceStrings [ "\n" " " ] [ "<br/>" "&nbsp;" ]
-          (lib.generators.toPretty { multiline = true; } src);
-      example =
-        if (v.example or null) == null then "-"
+        htmlify (lib.generators.toPretty { multiline = true; } src);
+      exampleValue =
+        if (v.example or null) == null then ""
         else if (v.example._type or null) == "literalExpression"
-        then v.example.text
-        else prettify v.example
-      ;
+        then htmlify v.example.text
+        else prettify v.example;
+      example =
+        if (builtins.stringLength exampleValue > 0) then
+          "<br/><b>Example:</b> <code>${exampleValue}</code><br/>"
+        else "";
+      typeDescription =
+        if v.type.name == "enum" then
+          "<br/><b>Enum:</b> <code>${v.type.description}</code><br/>"
+        else "";
     in
     ''
       <tr>
         <td><code>${k}</code></td>
-        <td>${v.description}</td>
         <td><code>${prettify v.default}</code></td>
-        <td><code>${example}</code></td>
+        <td>${htmlify v.description}
+          ${typeDescription}
+          ${example}
+        </td>
       </tr>
     '';
 
@@ -69,6 +78,7 @@ let
     ''
       <tr>
         <td><code>${k}</code></td>
+        <td><code>-</code></td>
         <td>(${message})</td>
       </tr>
     '';
@@ -80,7 +90,7 @@ let
 in
 writeText "chaotic-documented.html" ''
   <!DOCTYPE html><html>
-  <head>
+  <head lang="en">
     <meta charset="UTF-8" />
     <title>Chaotic-Nyx - Nix flake for bleeding-edge and unreleased packages.</title>
     <link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
@@ -109,9 +119,8 @@ writeText "chaotic-documented.html" ''
     <table id="options" class="noscript-table" border="1">
       <thead>
         <th>Key</th>
-        <th>Description</th>
         <th>Default</th>
-        <th>Example</th>
+        <th>Description</th>
       </thead>
       <tbody>${lib.strings.concatStrings optionsEvalFlat}</tbody>
     </table>
@@ -131,7 +140,8 @@ writeText "chaotic-documented.html" ''
       new Grid({
         from: document.getElementById("options"),
         search: true,
-        sort: true
+        sort: true,
+        style: { table: { 'overflow-wrap': 'break-word' } }
       }).render(document.getElementById("js-options"));
     </script>
   </body></html>

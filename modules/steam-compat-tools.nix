@@ -21,8 +21,7 @@ in
       '';
       description = lib.mdDoc ''
         Extra packages to be used as compatibility tools for Steam on Linux. Packages will be included
-        in the `STEAM_EXTRA_COMPAT_TOOLS_PATHS` environmental variable. For more information see
-        <https://github.com/ValveSoftware/steam-for-linux/issues/6310">.
+        in the `STEAM_EXTRA_COMPAT_TOOLS_PATHS` environmental variable.
       '';
     };
   };
