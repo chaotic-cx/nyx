@@ -21,8 +21,8 @@ let
     in
     ''
       <tr>
-        <td>${k}</td>
-        <td>${v.version or "-"}</td>
+        <td><code>${k}</code></td>
+        <td><code>${v.version or "-"}</code></td>
         <td>${description}<br/>${homepage}</td>
       </tr>
     '';
@@ -31,8 +31,8 @@ let
     if message == "unfree" then derivationMap k v
     else ''
       <tr>
-        <td>${k}</td>
-        <td>-</td>
+        <td><code>${k}</code></td>
+        <td><code>-</code></td>
         <td>${v._description or "(${message})"}</td>
       </tr>
     '';
@@ -58,7 +58,7 @@ let
     in
     ''
       <tr>
-        <td>${k}</td>
+        <td><code>${k}</code></td>
         <td>${v.description}</td>
         <td><code>${prettify v.default}</code></td>
         <td><code>${example}</code></td>
@@ -68,7 +68,7 @@ let
   optionWarn = k: _: message:
     ''
       <tr>
-        <td>${k}</td>
+        <td><code>${k}</code></td>
         <td>(${message})</td>
       </tr>
     '';
