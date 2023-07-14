@@ -11,7 +11,8 @@
 
 { flakes }: final: prev:
 let
-  nyxUtils = final.callPackage ../shared/utils.nix { };
+  nyxUtils = final.callPackage ../shared/utils.nix { } //
+    { _description = "Pack of functions that are useful for Chaotic-Nyx and might become useful for you too"; };
 
   callOverride = path: attrs: import path ({ inherit final flakes nyxUtils prev; } // attrs);
 
@@ -102,10 +103,12 @@ in
   }).overrideAttrs dropUpdateScript;
 
   linuxPackages_cachyos =
-    (final.linuxPackagesFor final.linux_cachyos).extend cachyZFS;
+    (final.linuxPackagesFor final.linux_cachyos).extend cachyZFS //
+    { _description = "Kernel modules for linux_cachyos"; };
 
   linuxPackages_hdr =
-    (final.linuxPackagesFor final.linux_hdr).extend cachyZFS;
+    (final.linuxPackagesFor final.linux_hdr).extend cachyZFS //
+    { _description = "Kernel modules for linux_hdr"; };
 
   luxtorpeda = final.callPackage ../pkgs/luxtorpeda { };
 
@@ -152,7 +155,8 @@ in
 
   swaylock-plugin_git = callOverride ../pkgs/swaylock-plugin-git { };
 
-  vulkanPackages_latest = callOverride ../pkgs/vulkan-versioned { };
+  vulkanPackages_latest = callOverride ../pkgs/vulkan-versioned { } //
+    { _description = "Latest versions of vulkan-*, spirv-*, glslang, and gfxreconstruct (in a scope)"; };
 
   waynergy_git = nyxUtils.gitOverride flakes.waynergy-git-src prev.waynergy;
 

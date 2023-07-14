@@ -89,7 +89,7 @@
       };
 
     hydraJobs.default = packages;
-    devShells = import ./devshells { inherit packages; flakes = inputs; };
+    devShells = import ./devshells { inherit packages nixosModules; flakes = inputs; };
   };
 
   # Allows the user to use our cache when using `nix run <thisFlake>`.

@@ -1,4 +1,5 @@
 { flakes
+, nixosModules
 , nixpkgs ? flakes.nixpkgs
 , packages
 , self ? flakes.self
@@ -10,35 +11,42 @@ let
     let
       overlayFinal = prev // final // { callPackage = prev.newScope final; };
 
-      derivationRecursiveFinder = overlayFinal.callPackage ./derivation-recursive-finder.nix { };
+      nyxRecursionHelper = overlayFinal.callPackage ../shared/recursion-helper.nix { };
 
       builder = overlayFinal.callPackage ./builder.nix
         {
-          all-packages = final;
+          allPackages = final;
           flakeSelf = self;
-          inherit derivationRecursiveFinder;
+          inherit nyxRecursionHelper;
           inherit (overlayFinal) nyxUtils;
+        };
+      documentation = overlayFinal.callPackage ./document.nix
+        {
+          allPackages = final;
+          defaultModule = nixosModules.default;
+          inherit nyxRecursionHelper;
+          inherit (nixpkgs.lib) nixosSystem;
         };
       evaluated = overlayFinal.callPackage ./eval.nix
         {
-          all-packages = final;
-          inherit derivationRecursiveFinder;
+          allPackages = final;
+          inherit nyxRecursionHelper;
         };
       compared = overlayFinal.callPackage ./comparer.nix
         {
-          all-packages = final;
+          allPackages = final;
           compareToFlake = flakes.compare-to;
-          inherit derivationRecursiveFinder;
+          inherit nyxRecursionHelper;
         };
       comparer = compareToFlakeUrl: overlayFinal.callPackage ./comparer.nix
         {
-          all-packages = final;
-          inherit compareToFlakeUrl derivationRecursiveFinder;
+          allPackages = final;
+          inherit compareToFlakeUrl nyxRecursionHelper;
         };
       update-scripts = overlayFinal.callPackage ./bumper/update-scripts.nix
         {
-          all-packages = final;
-          inherit derivationRecursiveFinder;
+          allPackages = final;
+          inherit nyxRecursionHelper;
         };
       bumper = overlayFinal.callPackage ./bumper
         {
@@ -49,8 +57,19 @@ let
       default = overlayFinal.mkShell {
         buildInputs = [ builder ];
       };
-      evaluator = overlayFinal.mkShell { env.NYX_EVALUATED = evaluated; };
-      comparer = overlayFinal.mkShell { env.NYX_COMPARED = compared; passthru.any = comparer; };
+      document = overlayFinal.mkShell {
+        env.NYX_DOCUMENTATION = documentation;
+        shellHook = "echo $NYX_DOCUMENTATION";
+      };
+      evaluator = overlayFinal.mkShell {
+        env.NYX_EVALUATED = evaluated;
+        shellHook = "echo $NYX_EVALUATED";
+      };
+      comparer = overlayFinal.mkShell {
+        passthru.any = comparer;
+        env.NYX_COMPARED = compared;
+        shellHook = "echo $NYX_COMPARED";
+      };
       updater = overlayFinal.mkShell {
         buildInputs = [ update-scripts bumper ];
       };

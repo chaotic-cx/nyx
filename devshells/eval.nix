@@ -1,5 +1,5 @@
-{ all-packages
-, derivationRecursiveFinder
+{ allPackages
+, nyxRecursionHelper
 , lib
 , nyxUtils
 , system
@@ -12,7 +12,7 @@ let
   warn = k: _: message:
     "${system}\t${k}\t_\t${message}";
 
-  packagesEval = derivationRecursiveFinder.eval warn evalResult all-packages;
+  packagesEval = nyxRecursionHelper.derivations warn evalResult allPackages;
 
   packagesEvalSorted =
     lib.lists.naturalSort (lib.lists.flatten packagesEval);
