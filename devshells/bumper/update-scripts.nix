@@ -1,4 +1,4 @@
-{ all-packages
+{ allPackages
 , derivationRecursiveFinder
 , lib
 , writeShellScriptBin
@@ -14,7 +14,7 @@ let
 
   skip = _: _: _: null;
 
-  packagesEval = derivationRecursiveFinder.evalLimited 1 skip evalResult all-packages;
+  packagesEval = derivationRecursiveFinder.evalLimited 1 skip evalResult allPackages;
 
   packagesEvalSorted =
     builtins.filter (f: f != null) (lib.lists.flatten packagesEval);

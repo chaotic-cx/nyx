@@ -1,4 +1,5 @@
 { flakes
+, nixosModules
 , nixpkgs ? flakes.nixpkgs
 , packages
 , self ? flakes.self
@@ -14,35 +15,36 @@ let
 
       builder = overlayFinal.callPackage ./builder.nix
         {
-          all-packages = final;
+          allPackages = final;
           flakeSelf = self;
           inherit derivationRecursiveFinder;
           inherit (overlayFinal) nyxUtils;
         };
       documentation = overlayFinal.callPackage ./document.nix
         {
-          all-packages = final;
+          allPackages = final;
+          defaultModule = nixosModules.default;
           inherit derivationRecursiveFinder;
         };
       evaluated = overlayFinal.callPackage ./eval.nix
         {
-          all-packages = final;
+          allPackages = final;
           inherit derivationRecursiveFinder;
         };
       compared = overlayFinal.callPackage ./comparer.nix
         {
-          all-packages = final;
+          allPackages = final;
           compareToFlake = flakes.compare-to;
           inherit derivationRecursiveFinder;
         };
       comparer = compareToFlakeUrl: overlayFinal.callPackage ./comparer.nix
         {
-          all-packages = final;
+          allPackages = final;
           inherit compareToFlakeUrl derivationRecursiveFinder;
         };
       update-scripts = overlayFinal.callPackage ./bumper/update-scripts.nix
         {
-          all-packages = final;
+          allPackages = final;
           inherit derivationRecursiveFinder;
         };
       bumper = overlayFinal.callPackage ./bumper

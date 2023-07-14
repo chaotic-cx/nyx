@@ -1,5 +1,5 @@
 # The smallest and KISSer continuos-deploy I was able to create.
-{ all-packages
+{ allPackages
 , cachix
 , derivationRecursiveFinder
 , flakeSelf
@@ -60,7 +60,7 @@ let
 
   packagesEval =
     lib.lists.flatten
-      (derivationRecursiveFinder.eval commentWarn evalCommand all-packages);
+      (derivationRecursiveFinder.eval commentWarn evalCommand allPackages);
 
   depFirstSorter = pkgA: pkgB:
     if pkgA.drv == null || pkgB.drv == null then

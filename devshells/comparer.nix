@@ -1,4 +1,4 @@
-{ all-packages
+{ allPackages
 , compareTo ? compareToFlake.packages.${system}
 , compareToFlake ? (builtins.getFlake compareToFlakeUrl)
 , compareToFlakeUrl ? "github.com/chaotic-cx/nix-empty-flake"
@@ -23,7 +23,7 @@ let
     ({ name, value }:
       value != (compareToEvalSet.${name} or null)
     )
-    (packagesEval all-packages);
+    (packagesEval allPackages);
 
   onlyNewPackagesNames = lib.attrsets.catAttrs "name" onlyNewPackages;
 in

@@ -1,4 +1,5 @@
-{ all-packages
+{ allPackages
+, defaultModule
 , derivationRecursiveFinder
 , lib
 , nyxUtils
@@ -35,7 +36,7 @@ let
       </tr>
     '';
 
-  packagesEval = derivationRecursiveFinder.evalLimited 1 warn evalResult all-packages;
+  packagesEval = derivationRecursiveFinder.evalLimited 1 warn evalResult allPackages;
 
   packagesEvalFlat =
     lib.lists.flatten packagesEval;
