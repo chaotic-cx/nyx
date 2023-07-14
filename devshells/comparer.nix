@@ -2,7 +2,7 @@
 , compareTo ? compareToFlake.packages.${system}
 , compareToFlake ? (builtins.getFlake compareToFlakeUrl)
 , compareToFlakeUrl ? "github.com/chaotic-cx/nix-empty-flake"
-, derivationRecursiveFinder
+, nyxRecursionHelper
 , lib
 , system
 , writeText
@@ -15,7 +15,7 @@ let
     { name = k; value = message; };
 
   packagesEval = packages:
-    lib.lists.flatten (derivationRecursiveFinder.eval warn evalResult packages);
+    lib.lists.flatten (nyxRecursionHelper.eval warn evalResult packages);
 
   compareToEvalSet = builtins.listToAttrs (packagesEval compareTo);
 

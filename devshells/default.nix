@@ -11,41 +11,41 @@ let
     let
       overlayFinal = prev // final // { callPackage = prev.newScope final; };
 
-      derivationRecursiveFinder = overlayFinal.callPackage ./derivation-recursive-finder.nix { };
+      nyxRecursionHelper = overlayFinal.callPackage ../shared/recursion-helper.nix { };
 
       builder = overlayFinal.callPackage ./builder.nix
         {
           allPackages = final;
           flakeSelf = self;
-          inherit derivationRecursiveFinder;
+          inherit nyxRecursionHelper;
           inherit (overlayFinal) nyxUtils;
         };
       documentation = overlayFinal.callPackage ./document.nix
         {
           allPackages = final;
           defaultModule = nixosModules.default;
-          inherit derivationRecursiveFinder;
+          inherit nyxRecursionHelper;
         };
       evaluated = overlayFinal.callPackage ./eval.nix
         {
           allPackages = final;
-          inherit derivationRecursiveFinder;
+          inherit nyxRecursionHelper;
         };
       compared = overlayFinal.callPackage ./comparer.nix
         {
           allPackages = final;
           compareToFlake = flakes.compare-to;
-          inherit derivationRecursiveFinder;
+          inherit nyxRecursionHelper;
         };
       comparer = compareToFlakeUrl: overlayFinal.callPackage ./comparer.nix
         {
           allPackages = final;
-          inherit compareToFlakeUrl derivationRecursiveFinder;
+          inherit compareToFlakeUrl nyxRecursionHelper;
         };
       update-scripts = overlayFinal.callPackage ./bumper/update-scripts.nix
         {
           allPackages = final;
-          inherit derivationRecursiveFinder;
+          inherit nyxRecursionHelper;
         };
       bumper = overlayFinal.callPackage ./bumper
         {

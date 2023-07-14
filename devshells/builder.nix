@@ -1,7 +1,7 @@
 # The smallest and KISSer continuos-deploy I was able to create.
 { allPackages
 , cachix
-, derivationRecursiveFinder
+, nyxRecursionHelper
 , flakeSelf
 , gnugrep
 , jq
@@ -26,7 +26,7 @@ let
   evalCommand = key: drv:
     let
       derivation = "$NYX_SOURCE#${key}";
-      fullTag = output: "\"${derivationRecursiveFinder.join derivation output}\"";
+      fullTag = output: "\"${nyxRecursionHelper.join derivation output}\"";
       outputs = map fullTag drv.outputs;
       deps = nyxUtils.internalDeps allPackagesList drv;
       depsCond = lib.strings.concatStrings
@@ -60,7 +60,7 @@ let
 
   packagesEval =
     lib.lists.flatten
-      (derivationRecursiveFinder.eval commentWarn evalCommand allPackages);
+      (nyxRecursionHelper.eval commentWarn evalCommand allPackages);
 
   depFirstSorter = pkgA: pkgB:
     if pkgA.drv == null || pkgB.drv == null then

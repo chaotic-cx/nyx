@@ -1,5 +1,5 @@
 { allPackages
-, derivationRecursiveFinder
+, nyxRecursionHelper
 , lib
 , writeShellScriptBin
 }:
@@ -14,7 +14,7 @@ let
 
   skip = _: _: _: null;
 
-  packagesEval = derivationRecursiveFinder.evalLimited 1 skip evalResult allPackages;
+  packagesEval = nyxRecursionHelper.evalLimited 1 skip evalResult allPackages;
 
   packagesEvalSorted =
     builtins.filter (f: f != null) (lib.lists.flatten packagesEval);

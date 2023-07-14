@@ -1,6 +1,6 @@
 { allPackages
 , defaultModule
-, derivationRecursiveFinder
+, nyxRecursionHelper
 , lib
 , nyxUtils
 , system
@@ -36,10 +36,14 @@ let
       </tr>
     '';
 
-  packagesEval = derivationRecursiveFinder.evalLimited 1 warn evalResult allPackages;
+  packagesEval = nyxRecursionHelper.evalLimited 1 warn evalResult allPackages;
 
   packagesEvalFlat =
     lib.lists.flatten packagesEval;
+
+  loadedModule = lib.nixosSystem { modules = [ defaultModule ]; system = "x86_64-linux"; };
+
+  chaoticOptions = loadedModule.options.chaotic;
 in
 writeText "chaotic-documented.html" ''
   <!DOCTYPE html><html>
