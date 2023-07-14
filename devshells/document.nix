@@ -105,6 +105,7 @@ writeText "chaotic-documented.html" ''
     <noscript><style>.noscript-table { display: table; }</style></noscript>
   </head><body>
     <h1>Chaotic-Nyx</h1>
+    This page only contains information about packages and options. For instructions and details about this project, check the project's <a href="https://github.com/chaotic-cx/nyx#readme">README</a>.
     <h2>Packages</h2>
     <table id="packages" class="noscript-table" border="1">
       <thead>
