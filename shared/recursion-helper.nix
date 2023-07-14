@@ -11,7 +11,7 @@ rec {
   # warnFn: k -> v -> message -> result
   # mapFn: k -> v -> result
   # root: attrset | derivation
-  evalLimited = limit: warnFn: mapFn: root:
+  derivationsLimited = limit: warnFn: mapFn: root:
     let
       recursive = level: namespace: key: v:
         let
@@ -39,5 +39,5 @@ rec {
     in
     recursive 0 "" "" root;
 
-  eval = evalLimited null;
+  derivations = derivationsLimited null;
 }

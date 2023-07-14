@@ -12,7 +12,7 @@ let
   warn = k: _: message:
     "${system}\t${k}\t_\t${message}";
 
-  packagesEval = nyxRecursionHelper.eval warn evalResult allPackages;
+  packagesEval = nyxRecursionHelper.derivations warn evalResult allPackages;
 
   packagesEvalSorted =
     lib.lists.naturalSort (lib.lists.flatten packagesEval);

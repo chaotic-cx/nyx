@@ -15,7 +15,7 @@ let
     { name = k; value = message; };
 
   packagesEval = packages:
-    lib.lists.flatten (nyxRecursionHelper.eval warn evalResult packages);
+    lib.lists.flatten (nyxRecursionHelper.derivations warn evalResult packages);
 
   compareToEvalSet = builtins.listToAttrs (packagesEval compareTo);
 

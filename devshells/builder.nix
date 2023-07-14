@@ -60,7 +60,7 @@ let
 
   packagesEval =
     lib.lists.flatten
-      (nyxRecursionHelper.eval commentWarn evalCommand allPackages);
+      (nyxRecursionHelper.derivations commentWarn evalCommand allPackages);
 
   depFirstSorter = pkgA: pkgB:
     if pkgA.drv == null || pkgB.drv == null then

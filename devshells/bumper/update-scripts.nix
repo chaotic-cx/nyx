@@ -14,7 +14,7 @@ let
 
   skip = _: _: _: null;
 
-  packagesEval = nyxRecursionHelper.evalLimited 1 skip evalResult allPackages;
+  packagesEval = nyxRecursionHelper.derivationsLimited 1 skip evalResult allPackages;
 
   packagesEvalSorted =
     builtins.filter (f: f != null) (lib.lists.flatten packagesEval);

@@ -36,7 +36,7 @@ let
       </tr>
     '';
 
-  packagesEval = nyxRecursionHelper.evalLimited 1 warn evalResult allPackages;
+  packagesEval = nyxRecursionHelper.derivationsLimited 1 warn evalResult allPackages;
 
   packagesEvalFlat =
     lib.lists.flatten packagesEval;
