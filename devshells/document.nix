@@ -1,13 +1,14 @@
 { allPackages
 , defaultModule
-, nyxRecursionHelper
 , lib
+, nixosSystem
+, nyxRecursionHelper
 , nyxUtils
 , system
 , writeText
 }:
 let
-  evalResult = k: v:
+  derivationMap = k: v:
     let
       description =
         if (builtins.stringLength (v.meta.longDescription or "") > 0) then
@@ -26,8 +27,8 @@ let
       </tr>
     '';
 
-  warn = k: v: message:
-    if message == "unfree" then evalResult k v
+  derivationWarn = k: v: message:
+    if message == "unfree" then derivationMap k v
     else ''
       <tr>
         <td>${k}</td>
@@ -36,14 +37,46 @@ let
       </tr>
     '';
 
-  packagesEval = nyxRecursionHelper.derivationsLimited 1 warn evalResult allPackages;
+  packagesEval = nyxRecursionHelper.derivationsLimited 1 derivationWarn derivationMap allPackages;
 
   packagesEvalFlat =
     lib.lists.flatten packagesEval;
 
-  loadedModule = lib.nixosSystem { modules = [ defaultModule ]; system = "x86_64-linux"; };
+  loadedModule = nixosSystem { modules = [ defaultModule ]; system = "x86_64-linux"; };
 
-  chaoticOptions = loadedModule.options.chaotic;
+  optionMap = k: v:
+    let
+      prettify = src:
+        builtins.replaceStrings [ "\n" " " ] [ "<br/>" "&nbsp;" ]
+          (lib.generators.toPretty { multiline = true; } src);
+      example =
+        if (v.example or null) == null then "-"
+        else if (v.example._type or null) == "literalExpression"
+        then v.example.text
+        else prettify v.example
+      ;
+    in
+    ''
+      <tr>
+        <td>${k}</td>
+        <td>${v.description}</td>
+        <td><code>${prettify v.default}</code></td>
+        <td><code>${example}</code></td>
+      </tr>
+    '';
+
+  optionWarn = k: _: message:
+    ''
+      <tr>
+        <td>${k}</td>
+        <td>(${message})</td>
+      </tr>
+    '';
+
+  optionsEval = nyxRecursionHelper.options optionWarn optionMap loadedModule.options.chaotic;
+
+  optionsEvalFlat =
+    lib.lists.flatten optionsEval;
 in
 writeText "chaotic-documented.html" ''
   <!DOCTYPE html><html>
@@ -72,6 +105,17 @@ writeText "chaotic-documented.html" ''
       <tbody>${lib.strings.concatStrings packagesEvalFlat}</tbody>
     </table>
     <div id="js-packages"></div>
+    <h2>Options</h2>
+    <table id="options" class="noscript-table" border="1">
+      <thead>
+        <th>Key</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Example</th>
+      </thead>
+      <tbody>${lib.strings.concatStrings optionsEvalFlat}</tbody>
+    </table>
+    <div id="js-options"></div>
     <script type="module">
       import {
         Grid,
@@ -83,6 +127,12 @@ writeText "chaotic-documented.html" ''
         search: true,
         sort: true
       }).render(document.getElementById("js-packages"));
+
+      new Grid({
+        from: document.getElementById("options"),
+        search: true,
+        sort: true
+      }).render(document.getElementById("js-options"));
     </script>
   </body></html>
 ''

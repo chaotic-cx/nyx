@@ -40,4 +40,28 @@ rec {
     recursive 0 "" "" root;
 
   derivations = derivationsLimited null;
+
+  # warnFn: k -> v -> message -> result
+  # mapFn: k -> v -> result
+  # root: module.options
+  options = warnFn: mapFn: root:
+    let
+      recursive = namespace: key: v:
+        let
+          fullKey = join namespace key;
+        in
+        if (builtins.tryEval v).success then
+          (if lib.options.isOption v then
+            mapFn fullKey v
+          else if builtins.isAttrs v
+            && (v.recurseForDerivations or true) then
+            lib.attrsets.mapAttrsToList (recursive fullKey) v
+          else
+            warnFn fullKey v "not an option"
+          )
+        else
+          warnFn fullKey v "eval broken"
+      ;
+    in
+    recursive "" "" root;
 }

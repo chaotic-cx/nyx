@@ -25,6 +25,7 @@ let
           allPackages = final;
           defaultModule = nixosModules.default;
           inherit nyxRecursionHelper;
+          inherit (nixpkgs.lib) nixosSystem;
         };
       evaluated = overlayFinal.callPackage ./eval.nix
         {
