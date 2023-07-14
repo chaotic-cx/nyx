@@ -20,7 +20,7 @@ rec {
         if (builtins.tryEval v).success then
           (if lib.attrsets.isDerivation v then
             (if (v.meta.broken or true) then
-              warnFn fullKey v "broken"
+              warnFn fullKey v "marked broken"
             else if (v.meta.unfree or true) then
               warnFn fullKey v "unfree"
             else
@@ -31,10 +31,10 @@ rec {
             && (v.recurseForDerivations or true) then
             lib.attrsets.mapAttrsToList (recursive (level + 1) fullKey) v
           else
-            warnFn fullKey v "unrelated"
+            warnFn fullKey v "not a derivation"
           )
         else
-          warnFn fullKey v "not evaluating"
+          warnFn fullKey v "eval broken"
       ;
     in
     recursive 0 "" "" root;

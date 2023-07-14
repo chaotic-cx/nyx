@@ -19,6 +19,11 @@ let
           inherit derivationRecursiveFinder;
           inherit (overlayFinal) nyxUtils;
         };
+      documentation = overlayFinal.callPackage ./document.nix
+        {
+          all-packages = final;
+          inherit derivationRecursiveFinder;
+        };
       evaluated = overlayFinal.callPackage ./eval.nix
         {
           all-packages = final;
@@ -49,8 +54,19 @@ let
       default = overlayFinal.mkShell {
         buildInputs = [ builder ];
       };
-      evaluator = overlayFinal.mkShell { env.NYX_EVALUATED = evaluated; };
-      comparer = overlayFinal.mkShell { env.NYX_COMPARED = compared; passthru.any = comparer; };
+      document = overlayFinal.mkShell {
+        env.NYX_DOCUMENTATION = documentation;
+        shellHook = "echo $NYX_DOCUMENTATION";
+      };
+      evaluator = overlayFinal.mkShell {
+        env.NYX_EVALUATED = evaluated;
+        shellHook = "echo $NYX_EVALUATED";
+      };
+      comparer = overlayFinal.mkShell {
+        passthru.any = comparer;
+        env.NYX_COMPARED = compared;
+        shellHook = "echo $NYX_COMPARED";
+      };
       updater = overlayFinal.mkShell {
         buildInputs = [ update-scripts bumper ];
       };
