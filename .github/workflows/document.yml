@@ -6,16 +6,21 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
 
 concurrency:
   group: nyx-main-document
   cancel-in-progress: true
 
 jobs:
-  build:
+  deploy:
     runs-on: nyxbuilder
     timeout-minutes: 120
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Install Nix
         if: steps.check.outputs.cached != 'true'
