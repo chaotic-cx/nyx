@@ -56,75 +56,16 @@ If you dislike this behavior for any reason, you can disable it with `chaotic.ny
 
 Commands like `nix run ...`, `nix develop ...`, and others, when using our flake as input, will ask you to add the cache interactively when missing from your user's nix settings.
 
-## List of packages
+## Lists of options and packages
 
-```nix
-[
-  ananicy-cpp-rules
-  applet-window-appmenu
-  applet-window-title
-  appmenu-gtk3-module
-  beautyline-icons # Garuda Linux's version
-  busybox_appletless
-  dr460nized-kde-theme
-  droid-sans-mono-nerdfont
-  fastfetch
-  firedragon # and -unwrapped
-  gamescope_git
-  input-leap_git
-  latencyflex-vulkan
-  linux_cachyos # the default bore-eevdf scheduler
-  linux_hdr # recommended option: chaotic.linux_hdr.specialisation.enable
-  linuxPackages_cachyos # bore-eevdf, includes their always-working ZFS module
-  linuxPackages_hdr # recommended option: chaotic.linux_hdr.specialisation.enable
-  luxtorpeda # recommended option: chaotic.steam.extraCompatPackages
-  mangohud_git
-  mesa_git # recommended option: chaotic.mesa-git.enable
-  mesa32_git # only x86, recommended option: chaotic.mesa-git.enable
-  mpv-vapoursynth
-  nordvpn
-  openmohaa
-  proton-ge-custom # recommended option: chaotic.steam.extraCompatPackages
-  river_git
-  sway-unwrapped_git
-  sway_git # and -unwrapped_git
-  swaylock-plugin_git
-  waynergy_git
-  wlroots_git
-  yuzu-early-access_git
-]
-```
+An always up-to-date list of all our options and packages is available at: [List page](https://chaotic-cx.github.io/nyx/).
 
 ## Running packages
 
-Besides using our module/overlay, you can run packages (without installing) using:
+Besides using our module/overlay, you can run packages (without installing them) using:
 
 ```sh
 nix run github:chaotic-cx/nyx/nyxpkgs-unstable#input-leap_git
-```
-
-## List of options
-
-```nix
-# None of these are in their default value, showing you what kinda of change is possible.
-{
-  chaotic.appmenu-gtk3-module.enable = true;
-  chaotic.linux_hdr.specialisation.enable = true;
-  chaotic.mesa-git.enable = true;
-  chaotic.mesa-git.extraPackages = [ pkgs.mesa_git.opencl ];
-  chaotic.mesa-git.extraPackages32 = [ pkgs.mesa32_git.opencl ];
-  chaotic.nordvpn.enable = true;
-  chaotic.nyx.cache.enable = false;
-  chaotic.nyx.overlay.enable = false;
-  chaotic.nyx.overlay.flakeNixpkgs.config = { allowUnfree = true; };
-  chaotic.nyx.overlay.onTopOf = "user-pkgs"; # defaults to "flake-nixpkgs"
-  chaotic.steam.extraCompatPackages = with pkgs; [ luxtorpeda proton-ge-custom ];
-  chaotic.zfs-impermanence-on-shutdown = {
-    enable = true;
-    volume = "zroot/ROOT/empty";
-    snapshot = "start";
-  };
-}
 ```
 
 ## Notes
