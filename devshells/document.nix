@@ -92,8 +92,12 @@ writeText "chaotic-documented.html" ''
   <!DOCTYPE html><html>
   <head lang="en">
     <meta charset="UTF-8" />
-    <title>Chaotic-Nyx - Nix flake for bleeding-edge and unreleased packages.</title>
+    <title>List of packages and options - Chaotic-Nyx</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" property="og:description"
+      content="Documentation of all our packages and options." />
+    <meta property="og:title"
+      content="Chaotic-AUR - Nix flake for bleeding-edge and unreleased packages." />
     <link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <style>
@@ -106,7 +110,8 @@ writeText "chaotic-documented.html" ''
     <noscript><style>.noscript-table { display: table; }</style></noscript>
   </head><body>
     <h1>Chaotic-Nyx</h1>
-    <p>This page only contains information about packages and options. For instructions and details about this project, check the project's <a href="https://github.com/chaotic-cx/nyx#readme">README</a>.</p>
+    <p>This page only contains information about packages and options.</p>
+    <p>For instructions, support and details about this project, check the project's <a href="https://github.com/chaotic-cx/nyx#readme">README</a>.</p>
     <h2>Packages</h2>
     <table id="packages" class="noscript-table" border="1">
       <thead>
