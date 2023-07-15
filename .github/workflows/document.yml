@@ -1,0 +1,39 @@
+name: Deploy Documentation
+on:
+  push:
+    branches:
+      - nyxpkgs-unstable
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: nyx-main-document
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: nyxbuilder
+    timeout-minutes: 120
+    steps:
+      - name: Install Nix
+        if: steps.check.outputs.cached != 'true'
+        uses: cachix/install-nix-action@v22
+        with:
+          extra_nix_config: "accept-flake-config = true"
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Build
+        id: build
+        run: |
+          mkdir result
+          nix develop .#document -c 'true' | \
+            xargs -i@ cp @ result/index.html
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: 'result'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
