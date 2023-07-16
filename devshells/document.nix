@@ -97,7 +97,7 @@ writeText "chaotic-documented.html" ''
     <meta name="description" property="og:description"
       content="Documentation of all our packages and options." />
     <meta property="og:title"
-      content="Chaotic-AUR - Nix flake for bleeding-edge and unreleased packages." />
+      content="Chaotic-Nyx - Nix flake for bleeding-edge and unreleased packages." />
     <link rel="icon" href="https://avatars.githubusercontent.com/u/130499842?v=4" type="image/jpeg" />
     <link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
