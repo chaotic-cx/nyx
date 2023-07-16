@@ -15,7 +15,7 @@ body:
       description: "This is the place to describe how you use the package and how it can be helpful."
   - type: dropdown
     attributes:
-      label: "Do you consider the package(s) to be useful for every Chaotic-AUR user?"
+      label: "Do you consider the package(s) to be useful for every Chaotic-Nyx user?"
       options:
         - "YES!"
         - "No, but for a great amount."
