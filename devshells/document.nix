@@ -65,7 +65,7 @@ let
     in
     ''
       <tr>
-        <td><code>${k}</code></td>
+        <td><code>chaotic.${k}</code></td>
         <td><code>${prettify v.default}</code></td>
         <td>${htmlify v.description}
           ${typeDescription}
