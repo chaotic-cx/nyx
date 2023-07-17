@@ -77,7 +77,7 @@ let
   optionWarn = k: _: message:
     ''
       <tr>
-        <td><code>${k}</code></td>
+        <td><code>chaotic.${k}</code></td>
         <td><code>-</code></td>
         <td>(${message})</td>
       </tr>

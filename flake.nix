@@ -90,6 +90,12 @@
 
     hydraJobs.default = packages;
     devShells = import ./devshells { inherit packages nixosModules; flakes = inputs; };
+
+    _debug.x86_64-linux =
+      nixpkgs.lib.nixosSystem {
+        modules = [ nixosModules.default ];
+        system = "x86_64-linux";
+      };
   };
 
   # Allows the user to use our cache when using `nix run <thisFlake>`.
