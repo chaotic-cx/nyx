@@ -12,8 +12,8 @@ in
         '';
       };
   };
-  config = {
-    environment.sessionVariables = lib.mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
+    environment.sessionVariables = {
       XDG_DATA_DIRS = [ "${pkgs.appmenu-gtk3-module}/share/gsettings-schemas/appmenu-gtk3-module-0.7.6" ];
     };
 
