@@ -17,8 +17,8 @@ let
   xbyak = final.fetchFromGitHub {
     owner = "herumi";
     repo = "xbyak";
-    rev = "v6.69.2";
-    hash = "sha256-e61ScPUTv47Ja4ckpDGsblB6iyUqT0fTaR8PoV7ov0U=";
+    rev = "v6.70";
+    hash = "sha256-y2GOR6yKIx7W5peFf5FzXlF2iJUfDE/RnMWjO/h/Ruk=";
   };
   tzdataVer = "220816";
   tzdata = final.fetchurl {
