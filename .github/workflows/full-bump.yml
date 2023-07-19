@@ -1,0 +1,35 @@
+name: Bump all packages
+on:
+  schedule:
+    - cron: '20 4 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# It's better for it to conflict with other builds and bumps
+concurrency:
+  group:
+    - nyx-main-build
+    - nyx-main-bump
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: nyxbuilder
+    timeout-minutes: 1440
+    steps:
+      - name: Install Nix
+        if: steps.check.outputs.cached != 'true'
+        uses: cachix/install-nix-action@v22
+        with:
+          extra_nix_config: "accept-flake-config = true"
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Cleanup impurities
+        run: |
+          if [ -e /homeless-shelter ]; then
+            mv /homeless-shelter /homeless-shelter.$(date +%Y%m%d%H%S)
+          fi
+      - name: Wiggle, wiggle, wiggle
+        run: nix develop .#updater -c 'chaotic-nyx-bumper'
