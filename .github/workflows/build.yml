@@ -149,5 +149,6 @@ jobs:
           name: logs
           path: |
             ${{ runner.temp }}/*.txt
-      - name: Update documentation
-        uses: ./.github/workflows/document.yml
+  docs:
+    needs: build
+    uses: ./.github/workflows/document.yml
