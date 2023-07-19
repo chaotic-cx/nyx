@@ -1,4 +1,5 @@
 { coreutils
+, gh
 , git
 , gnused
 , nix
@@ -12,6 +13,7 @@ let
   date = "${p.coreutils}/bin/date";
   grep = "${p.ripgrep}/bin/rg";
   sed = "${p.gnused}/bin/sed";
+  gh = "${p.gh}/bin/gh";
 in
 writeShellScriptBin "chaotic-nyx-bumper" ''
   #!/usr/bin/env bash
@@ -53,11 +55,19 @@ writeShellScriptBin "chaotic-nyx-bumper" ''
     ${git} push origin "$BRANCH" -u
   }
 
+  function create-pr() {
+    [ -z "''${GITHUB_TOKEN:-}" ] && return 0
+    ${gh} pr create -B main -H "$BRANCH" \
+      --title "Bump $NAME" \
+      --body 'Bump our packages since we do this daily.'
+  }
+
   function default-phases () {
     checkout
     bump-flake
     bump-packages
     push
+    create-pr
   }
 
   PHASES=''${PHASES:-default-phases};
