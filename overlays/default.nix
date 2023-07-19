@@ -98,17 +98,9 @@ in
     ];
   };
 
-  linux_hdr = (final.linux_cachyos.override {
-    hdrSupport = true;
-  }).overrideAttrs dropUpdateScript;
-
   linuxPackages_cachyos =
     (final.linuxPackagesFor final.linux_cachyos).extend cachyZFS //
     { _description = "Kernel modules for linux_cachyos"; };
-
-  linuxPackages_hdr =
-    (final.linuxPackagesFor final.linux_hdr).extend cachyZFS //
-    { _description = "Kernel modules for linux_hdr"; };
 
   luxtorpeda = final.callPackage ../pkgs/luxtorpeda { };
 

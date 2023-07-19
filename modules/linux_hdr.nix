@@ -8,7 +8,7 @@ in
       lib.mkOption {
         default = false;
         description = ''
-          Adds an specialisation for booting with linux_hdr.
+          Adds an specialisation for booting with AMD-HDR (re-uses chaotic#linux_cachyos adding extra envvars).
         '';
       };
   };
@@ -16,7 +16,7 @@ in
     specialisation.hdr = lib.mkIf cfg.linux_hdr.specialisation.enable {
       configuration = {
         system.nixos.tags = [ "hdr" ];
-        boot.kernelPackages = lib.mkForce pkgs.linuxPackages_hdr;
+        boot.kernelPackages = lib.mkForce pkgs.linuxPackages_cachyos;
         environment.variables =
           {
             DXVK_HDR = "1";
