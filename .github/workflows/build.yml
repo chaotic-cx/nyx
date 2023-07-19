@@ -7,6 +7,9 @@ on:
 
 permissions:
   contents: write
+  # requirements for docs:
+  pages: write
+  id-token: write
 
 concurrency:
   group: nyx-main-build
