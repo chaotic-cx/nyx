@@ -6,12 +6,11 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
 
 # It's better for it to conflict with other builds and bumps
 concurrency:
-  group:
-    - nyx-main-build
-    - nyx-main-bump
+  group: nyx-main-bump
   cancel-in-progress: true
 
 jobs:
@@ -31,5 +30,12 @@ jobs:
           if [ -e /homeless-shelter ]; then
             mv /homeless-shelter /homeless-shelter.$(date +%Y%m%d%H%S)
           fi
+      - name: Bat-signal
+        run: |
+          set -e
+          git config --global user.name 'Chaotic Github Actions'
+          git config --global user.email 'actions@chaotic.cx'
       - name: Wiggle, wiggle, wiggle
-        run: nix develop .#updater -c 'chaotic-nyx-bumper'
+        run: nix develop --impure .#updater -c 'chaotic-nyx-bumper'
+        env:
+          GH_TOKEN: ${{ github.token }}

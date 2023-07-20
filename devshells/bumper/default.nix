@@ -56,7 +56,6 @@ writeShellScriptBin "chaotic-nyx-bumper" ''
   }
 
   function create-pr() {
-    [ -z "''${GITHUB_TOKEN:-}" ] && return 0
     ${gh} pr create -B main -H "$BRANCH" \
       --title "Bump $NAME" \
       --body 'Bump our packages since we do this daily.'
