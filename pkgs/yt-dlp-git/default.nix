@@ -16,21 +16,21 @@ let
   datedVersion = "${year}.${month}.${day}";
 in
 (final.python311Packages.toPythonApplication prev.python311Packages.yt-dlp).overrideAttrs (pa: rec {
-    version = nyxUtils.gitToVersion flakes.yt-dlp-git-src;
-    name = "${pa.pname}-${version}";
-    src = flakes.yt-dlp-git-src;
-    postPatch = (pa.postPatch or "") + ''
-      echo "
-__version__ = '${datedVersion}'
+  version = nyxUtils.gitToVersion flakes.yt-dlp-git-src;
+  name = "${pa.pname}-${version}";
+  src = flakes.yt-dlp-git-src;
+  postPatch = (pa.postPatch or "") + ''
+          echo "
+    __version__ = '${datedVersion}'
 
-RELEASE_GIT_HEAD = '${flakes.yt-dlp-git-src.rev}'
+    RELEASE_GIT_HEAD = '${flakes.yt-dlp-git-src.rev}'
 
-VARIANT = None
+    VARIANT = None
 
-UPDATE_HINT = None
+    UPDATE_HINT = None
 
-CHANNEL = 'chaotic-nyx'
-      " > yt_dlp/version.py
-    '';
-  }
+    CHANNEL = 'chaotic-nyx'
+          " > yt_dlp/version.py
+  '';
+}
 )
