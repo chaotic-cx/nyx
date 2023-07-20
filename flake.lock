@@ -52,11 +52,11 @@
     "mangohud-git-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1689719228,
-        "narHash": "sha256-q6w7tOYEf8C7V0rgHxsBOwyD+gg+AgKbm5jIuicZVc0=",
+        "lastModified": 1689791145,
+        "narHash": "sha256-1Lne2Lq5hQyoCK9ywrC0aRRg7HPLnrbUK93eUl6rSOs=",
         "owner": "flightlessmango",
         "repo": "MangoHud",
-        "rev": "a05d576b4b92281d8a48bfe383a909e7006beffc",
+        "rev": "1182bcfbec58234979e107de88453c93f9b09523",
         "type": "github"
       },
       "original": {
@@ -69,11 +69,11 @@
     "mesa-git-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1689785639,
-        "narHash": "sha256-ailAcZjGylcLHuSHQkSoeeAo+Z2uVk8dDrnCzdV4JnQ=",
+        "lastModified": 1689851290,
+        "narHash": "sha256-f1jy8dDzYhVz0UMgVnjM0hzEZd4BqsSObXIoJTc90Oo=",
         "owner": "chaotic-cx",
         "repo": "mesa-mirror",
-        "rev": "2661e975dcac47c26bd13a158b7860bf384ffaab",
+        "rev": "95c9d3db32bd581adb52c7736801fd5f27d0332d",
         "type": "github"
       },
       "original": {
@@ -136,11 +136,11 @@
     "sway-git-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1689751713,
-        "narHash": "sha256-SR85FXdhXTwcAePPmmgu7KwNnsprmzHpylNpusROeJg=",
+        "lastModified": 1689834989,
+        "narHash": "sha256-QQOVim0U8uiAstPy9HMRBAl4McyvAdXoO44jCRlzVIQ=",
         "owner": "swaywm",
         "repo": "sway",
-        "rev": "ee4637b086aed256c7698b9f68786e6de5d8da00",
+        "rev": "c3e6390073167bae8245d7fac9b455f9f06a5333",
         "type": "github"
       },
       "original": {
