@@ -154,5 +154,7 @@ in
 
   wlroots_git = callOverride ../pkgs/wlroots-git { };
 
+  yt-dlp_git = callOverride ../pkgs/yt-dlp-git { };
+
   yuzu-early-access_git = callOverride ../pkgs/yuzu-ea-git { };
 }

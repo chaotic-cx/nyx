@@ -56,6 +56,11 @@
       flake = false;
     };
 
+    yt-dlp-git-src = {
+      url = "github:yt-dlp/yt-dlp/master";
+      flake = false;
+    };
+
     yuzu-ea-git-src = {
       url = "github:pineappleEA/pineapple-src/main";
       flake = false;

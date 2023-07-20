@@ -130,6 +130,7 @@
         "swaylock-plugin-git-src": "swaylock-plugin-git-src",
         "waynergy-git-src": "waynergy-git-src",
         "wlroots-git-src": "wlroots-git-src",
+        "yt-dlp-git-src": "yt-dlp-git-src",
         "yuzu-ea-git-src": "yuzu-ea-git-src"
       }
     },
@@ -199,6 +200,23 @@
         "ref": "master",
         "type": "git",
         "url": "https://gitlab.freedesktop.org/wlroots/wlroots.git"
+      }
+    },
+    "yt-dlp-git-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1689883792,
+        "narHash": "sha256-6w2nKRMh107BAIEErZSAa6CzZUNbL7Jj5RXKzZEoM+I=",
+        "owner": "yt-dlp",
+        "repo": "yt-dlp",
+        "rev": "9b16762f48914de9ac914601769c76668e433325",
+        "type": "github"
+      },
+      "original": {
+        "owner": "yt-dlp",
+        "ref": "master",
+        "repo": "yt-dlp",
+        "type": "github"
       }
     },
     "yuzu-ea-git-src": {
