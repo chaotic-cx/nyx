@@ -24,6 +24,7 @@ let
 
   cachyVersions = final.lib.trivial.importJSON ../pkgs/linux-cachyos/versions.json;
   protonGeVersions = final.lib.trivial.importJSON ../pkgs/proton-ge-custom/versions.json;
+  vulkanLatestVersions = final.lib.trivial.importJSON ../pkgs/vulkan-versioned/latest.json;
 
   cachyZFS = _: prevAttrs:
     let
@@ -150,7 +151,7 @@ in
 
   swaylock-plugin_git = callOverride ../pkgs/swaylock-plugin-git { };
 
-  vulkanPackages_latest = callOverride ../pkgs/vulkan-versioned { } //
+  vulkanPackages_latest = callOverride ../pkgs/vulkan-versioned { vulkanVersions = vulkanLatestVersions; } //
     { _description = "Latest versions of vulkan-*, spirv-*, glslang, and gfxreconstruct (in a scope)"; };
 
   waynergy_git = nyxUtils.gitOverride flakes.waynergy-git-src prev.waynergy;
