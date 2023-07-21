@@ -25,9 +25,12 @@ let
     url = "https://github.com/lat9nq/tzdb_to_nx/releases/download/${tzdataVer}/${tzdataVer}.zip";
     hash = "sha256-yv8ykEYPu9upeXovei0u16iqQ7NasH6873KnQy4+KwI=";
   };
-  vma = final.fetchurl {
-    url = "https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator/raw/0aa3989b8f382f185fdf646cc83a1d16fa31d6ab/include/vk_mem_alloc.h";
-    hash = "sha256-5lfqRtC6yWGU1cDgH16crSm/Lpy8OEst6FsIwf5VVxo=";
+  vma = final.fetchFromGitHub {
+    owner = "GPUOpen-LibrariesAndSDKs";
+    repo = "VulkanMemoryAllocator";
+    # Needs to be a revision with 3d23bb07e375ecabad0ad2e53599861be77310e3
+    rev = "6eb62e1515072827db992c2befd80b71b2d04329";
+    hash = "sha256-rqJSatXjytuF0A4XddG9U6V70BqLeo7gxo9PcTEr8lU=";
   };
 
   inherit (final.vulkanPackages_latest) glslang vulkan-headers vulkan-loader spirv-headers;
@@ -53,8 +56,7 @@ base.overrideAttrs (pa: rec {
     ln -s ${dynarmic} externals/dynarmic
     ln -s ${sirit} externals/sirit
     ln -s ${xbyak} externals/xbyak
-    mkdir -p externals/vma/VulkanMemoryAllocator/include
-    ln -s ${vma} externals/vma/VulkanMemoryAllocator/include/vk_mem_alloc.h
+    ln -s ${vma} externals/VulkanMemoryAllocator
   '';
 
   preConfigure = ''
