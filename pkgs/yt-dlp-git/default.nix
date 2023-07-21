@@ -32,5 +32,6 @@ in
     CHANNEL = 'chaotic-nyx'
           " > yt_dlp/version.py
   '';
-}
-)
+
+  passthru = pa.passthru // { updateScript = null; };
+})
