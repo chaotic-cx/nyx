@@ -48,7 +48,11 @@ let
 
   dropUpdateScript = pa: { passthru = pa.passthru // { updateScript = null; }; };
 
-  dropAttrsUpdateScript = builtins.mapAttrs (_: dropUpdateScript);
+  dropAttrsUpdateScript = builtins.mapAttrs (_: v:
+    if (v.passthru.updateScript or null) != null then
+      v.overrideAttrs dropUpdateScript
+    else v
+  );
 in
 {
   inherit nyxUtils;
@@ -101,10 +105,9 @@ in
     ];
   };
 
-  linuxPackages_cachyos = dropAttrsUpdateScript (
-    (final.linuxPackagesFor final.linux_cachyos).extend cachyZFS //
-    { _description = "Kernel modules for linux_cachyos"; }
-  );
+  linuxPackages_cachyos = (dropAttrsUpdateScript
+    ((final.linuxPackagesFor final.linux_cachyos).extend cachyZFS)
+  ) // { _description = "Kernel modules for linux_cachyos"; };
 
   luxtorpeda = final.callPackage ../pkgs/luxtorpeda { };
 
