@@ -1,13 +1,13 @@
 diff --git a/bin/mangohud.in b/bin/mangohud.in
-index ab3075e..41ce36e 100755
+index b1a396c..4f0e64d 100755
 --- a/bin/mangohud.in
 +++ b/bin/mangohud.in
 @@ -8,10 +8,10 @@ if [ "$#" -eq 0 ]; then
  	exit 1
  fi
  
--MANGOHUD_LIB_NAME="@ld_libdir_mangohud@libMangoHud.so"
-+MANGOHUD_LIB_NAME="libMangoHud.so"
+-MANGOHUD_LIB_NAME="@ld_libdir_mangohud@libMangoHud_opengl.so"
++MANGOHUD_LIB_NAME="libMangoHud_opengl.so"
  
  if [ "$1" = "--dlsym" ]; then
 -	MANGOHUD_LIB_NAME="@ld_libdir_mangohud@libMangoHud_dlsym.so:${MANGOHUD_LIB_NAME}"
