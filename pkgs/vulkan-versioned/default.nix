@@ -48,7 +48,14 @@ final.lib.makeScope final.newScope (self:
     extraInput = { inherit (self) spirv-headers spirv-tools; };
     owner = "KhronosGroup";
     repo = "glslang";
-    extraAttrs = _: { patches = [ ]; };
+    extraAttrs = pa: {
+      patches = [ ];
+      postInstall = pa.postInstall + ''
+        pushd $out/bin
+        ln -s glslang glslangValidator
+        popd
+      '';
+    };
   };
 
   spirv-cross = genericOverride {
