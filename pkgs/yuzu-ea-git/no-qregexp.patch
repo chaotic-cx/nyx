@@ -1,0 +1,27 @@
+diff --git a/src/yuzu/configuration/shared_widget.cpp b/src/yuzu/configuration/shared_widget.cpp
+index cf33bce2b..7a30a443a 100755
+--- a/src/yuzu/configuration/shared_widget.cpp
++++ b/src/yuzu/configuration/shared_widget.cpp
+@@ -23,7 +23,6 @@
+ #include <QLineEdit>
+ #include <QObject>
+ #include <QPushButton>
+-#include <QRegExp>
+ #include <QSizePolicy>
+ #include <QSlider>
+ #include <QSpinBox>
+@@ -295,14 +294,10 @@ QWidget* Widget::CreateHexEdit(std::function<std::string()>& serializer,
+         return QString::fromStdString(fmt::format("{:08x}", std::stoul(input)));
+     };
+ 
+-    QRegExpValidator* regex =
+-        new QRegExpValidator{QRegExp{QStringLiteral("^[0-9a-fA-F]{0,8}$")}, line_edit};
+-
+     const QString default_val = to_hex(setting.ToString());
+ 
+     line_edit->setText(default_val);
+     line_edit->setMaxLength(8);
+-    line_edit->setValidator(regex);
+ 
+     auto hex_to_dec = [this]() -> std::string {
+         return std::to_string(std::stoul(line_edit->text().toStdString(), nullptr, 16));
