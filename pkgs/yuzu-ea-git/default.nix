@@ -49,6 +49,8 @@ base.overrideAttrs (pa: rec {
     "-DSIRIT_USE_SYSTEM_SPIRV_HEADERS=ON"
   ];
 
+  patches = [ ./no-qregexp.patch ] ++ (pa.patches or [ ]);
+
   postPatch = (pa.postPatch or "") + ''
     rm -r externals/{cpp-httplib,dynarmic,mbedtls,sirit,xbyak}
     cp --no-preserve=mode -r ${final.mbedtls_2.src} externals/mbedtls
