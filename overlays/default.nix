@@ -24,6 +24,7 @@ let
 
   cachyVersions = final.lib.trivial.importJSON ../pkgs/linux-cachyos/versions.json;
   protonGeVersions = final.lib.trivial.importJSON ../pkgs/proton-ge-custom/versions.json;
+  vulkanLatestVersions = final.lib.trivial.importJSON ../pkgs/vulkan-versioned/latest.json;
 
   cachyZFS = _: prevAttrs:
     let
@@ -46,6 +47,12 @@ let
     };
 
   dropUpdateScript = pa: { passthru = pa.passthru // { updateScript = null; }; };
+
+  dropAttrsUpdateScript = builtins.mapAttrs (_: v:
+    if (v.passthru.updateScript or null) != null then
+      v.overrideAttrs dropUpdateScript
+    else v
+  );
 in
 {
   inherit nyxUtils;
@@ -98,9 +105,9 @@ in
     ];
   };
 
-  linuxPackages_cachyos =
-    (final.linuxPackagesFor final.linux_cachyos).extend cachyZFS //
-    { _description = "Kernel modules for linux_cachyos"; };
+  linuxPackages_cachyos = (dropAttrsUpdateScript
+    ((final.linuxPackagesFor final.linux_cachyos).extend cachyZFS)
+  ) // { _description = "Kernel modules for linux_cachyos"; };
 
   luxtorpeda = final.callPackage ../pkgs/luxtorpeda { };
 
@@ -147,7 +154,7 @@ in
 
   swaylock-plugin_git = callOverride ../pkgs/swaylock-plugin-git { };
 
-  vulkanPackages_latest = callOverride ../pkgs/vulkan-versioned { } //
+  vulkanPackages_latest = callOverride ../pkgs/vulkan-versioned { vulkanVersions = vulkanLatestVersions; } //
     { _description = "Latest versions of vulkan-*, spirv-*, glslang, and gfxreconstruct (in a scope)"; };
 
   waynergy_git = nyxUtils.gitOverride flakes.waynergy-git-src prev.waynergy;
