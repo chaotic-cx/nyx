@@ -65,7 +65,7 @@ An always up-to-date list of all our options and packages is available at: [List
 Besides using our module/overlay, you can run packages (without installing them) using:
 
 ```sh
-nix run github:chaotic-cx/nyx/nyxpkgs-unstable#input-leap_git
+nix run github:chaotic-cx/nyx/nyxpkgs-unstable#yuzu-early-access_git
 ```
 
 ## Notes
