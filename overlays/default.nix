@@ -11,6 +11,8 @@
 
 { flakes }: final: prev:
 let
+  inherit (final.lib.trivial) importJSON;
+
   nyxUtils = final.callPackage ../shared/utils.nix { } //
     { _description = "Pack of functions that are useful for Chaotic-Nyx and might become useful for you too"; };
 
@@ -22,9 +24,7 @@ let
     prev = prev.pkgsi686Linux;
   } // attrs);
 
-  cachyVersions = final.lib.trivial.importJSON ../pkgs/linux-cachyos/versions.json;
-  protonGeVersions = final.lib.trivial.importJSON ../pkgs/proton-ge-custom/versions.json;
-  vulkanLatestVersions = final.lib.trivial.importJSON ../pkgs/vulkan-versioned/latest.json;
+  cachyVersions = importJSON ../pkgs/linux-cachyos/versions.json;
 
   cachyZFS = _: prevAttrs:
     let
@@ -138,11 +138,13 @@ in
 
   nordvpn = final.callPackage ../pkgs/nordvpn { };
 
-  openmohaa = final.callPackage ../pkgs/openmohaa { };
+  openmohaa = final.callPackage ../pkgs/openmohaa {
+    openmohaaVersion = importJSON ../pkgs/openmohaa/version.json;
+  };
 
   proton-ge-custom = final.callPackage ../pkgs/proton-ge-custom {
     protonGeTitle = "Proton-GE";
-    inherit protonGeVersions;
+    protonGeVersions = importJSON ../pkgs/proton-ge-custom/versions.json;
   };
 
   river_git = callOverride ../pkgs/river-git { };
@@ -154,7 +156,10 @@ in
 
   swaylock-plugin_git = callOverride ../pkgs/swaylock-plugin-git { };
 
-  vulkanPackages_latest = callOverride ../pkgs/vulkan-versioned { vulkanVersions = vulkanLatestVersions; } //
+  vulkanPackages_latest =
+    callOverride ../pkgs/vulkan-versioned
+      { vulkanVersions = importJSON ../pkgs/vulkan-versioned/latest.json; }
+    //
     { _description = "Latest versions of vulkan-*, spirv-*, glslang, and gfxreconstruct (in a scope)"; };
 
   waynergy_git = nyxUtils.gitOverride flakes.waynergy-git-src prev.waynergy;
