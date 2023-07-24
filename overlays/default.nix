@@ -138,7 +138,9 @@ in
 
   nordvpn = final.callPackage ../pkgs/nordvpn { };
 
-  openmohaa = final.callPackage ../pkgs/openmohaa { };
+  openmohaa = final.callPackage ../pkgs/openmohaa {
+    openmohaaVersion = importJSON ../pkgs/openmohaa/version.json;
+  };
 
   proton-ge-custom = final.callPackage ../pkgs/proton-ge-custom {
     protonGeTitle = "Proton-GE";

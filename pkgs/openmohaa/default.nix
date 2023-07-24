@@ -1,4 +1,5 @@
 { lib
+, callPackage
 , clangStdenv
 , fetchFromGitHub
 , pkg-config
@@ -8,17 +9,18 @@
 , libogg
 , libvorbis
 , libopus
+, openmohaaVersion
 }:
 
-clangStdenv.mkDerivation (fa: {
+clangStdenv.mkDerivation {
   pname = "openmohaa";
-  version = "0.55.2";
+  inherit (openmohaaVersion) version;
 
   src = fetchFromGitHub {
     owner = "openmoh";
     repo = "openmohaa";
-    rev = "v${fa.version}";
-    hash = "sha256-w7zs2G6eRIDDsiSfXlYmkUbZ6zst974ZoNED3rKmcso=";
+    rev = "v${openmohaaVersion.version}";
+    inherit (openmohaaVersion) hash;
   };
 
   nativeBuildInputs = [ cmake pkg-config ];
@@ -44,6 +46,8 @@ clangStdenv.mkDerivation (fa: {
 
   enableParallelBuilding = true;
 
+  passthru.updateScript = callPackage ./update.nix { };
+
   meta = with lib; {
     homepage = "https://github.com/openmoh/openmohaa";
     description = "Open re-implementation of Medal of Honor: Allied Assault ";
@@ -51,4 +55,4 @@ clangStdenv.mkDerivation (fa: {
     platforms = platforms.linux;
     maintainers = with maintainers; [ peedrohlc ];
   };
-})
+}
