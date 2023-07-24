@@ -188,11 +188,11 @@
     "wlroots-git-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1690160419,
-        "narHash": "sha256-1AJtaI2YlgK1c0D7QsaOeD86esdN3+OXH+bC2AFvmc8=",
+        "lastModified": 1689958574,
+        "narHash": "sha256-35/po0RF0xTwSyjkUbYOALsc4WNJo2sVnmqk6PoxtnI=",
         "ref": "master",
-        "rev": "04e4e06986d1aad35d3ab097f3f473b799a576e2",
-        "revCount": 6515,
+        "rev": "63f5851b6fdc630355510c44e875119c4755208d",
+        "revCount": 6512,
         "type": "git",
         "url": "https://gitlab.freedesktop.org/wlroots/wlroots.git"
       },
