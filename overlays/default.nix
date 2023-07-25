@@ -109,7 +109,9 @@ in
     ((final.linuxPackagesFor final.linux_cachyos).extend cachyZFS)
   ) // { _description = "Kernel modules for linux_cachyos"; };
 
-  luxtorpeda = final.callPackage ../pkgs/luxtorpeda { };
+  luxtorpeda = final.callPackage ../pkgs/luxtorpeda {
+    luxtorpedaVersion = importJSON ../pkgs/luxtorpeda/version.json;
+  };
 
   # You should not need "mangohud32_git" since it's embedded in "mangohud_git"
   mangohud_git = callOverride ../pkgs/mangohud-git { mangohud32 = final.mangohud32_git; };
