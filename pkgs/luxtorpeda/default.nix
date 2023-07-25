@@ -1,16 +1,17 @@
-{ stdenv
+{ callPackage
+, stdenv
 , lib
 , fetchurl
 , writeScript
+, luxtorpedaVersion
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation {
   name = "luxtorpeda";
-  version = "63";
+  inherit (luxtorpedaVersion) version;
 
   src = fetchurl {
-    url = "https://github.com/luxtorpeda-dev/luxtorpeda/releases/download/v${finalAttrs.version}/luxtorpeda-${finalAttrs.version}.tar.xz";
-    sha256 = "sha256-aUJa9k/GolIN6lWBjdKyaK0yOhWOinmaGn/x8It8Mhg=";
+    inherit (luxtorpedaVersion) url hash;
   };
 
   buildCommand = ''
@@ -18,11 +19,14 @@ stdenv.mkDerivation (finalAttrs: {
     tar -C $out/bin --strip=1 -x -f $src
   '';
 
+  passthru.updateScript = callPackage ./update.nix { };
+
   meta = with lib; {
     description = "Steam Play compatibility tool to run games using native Linux engines";
     homepage = "https://github.com/luxtorpeda-dev/luxtorpeda";
+    changelog = "https://github.com/luxtorpeda-dev/luxtorpeda/releases/tag/v${luxtorpedaVersion.version}";
     license = licenses.gpl2Plus;
     platforms = [ "x86_64-linux" ];
     maintainers = with maintainers; [ pedrohlc ];
   };
-})
+}
