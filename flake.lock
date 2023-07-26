@@ -18,11 +18,11 @@
     "gamescope-git-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1690264318,
-        "narHash": "sha256-F96m5/HQ+Xhx8PMVRjF8vPZcBiIFAGJLFCqWusWGNbU=",
+        "lastModified": 1690360179,
+        "narHash": "sha256-MEOMVWJ7tvFAqW8te89sKHMdw+Eh0MSFHx5WJGE2v3g=",
         "owner": "ValveSoftware",
         "repo": "gamescope",
-        "rev": "318fd75952302fb8f121c0fc9a788f38c96a9dba",
+        "rev": "e0c9e75e7f86aad80644c289bacdef2d91c599bb",
         "type": "github"
       },
       "original": {
@@ -69,11 +69,11 @@
     "mesa-git-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1690328042,
-        "narHash": "sha256-cLjrQvXr8Aeyk1O0waG48M62GqjHJ7SsDOMrbuAbb74=",
+        "lastModified": 1690372877,
+        "narHash": "sha256-ikMwjNQwVpJptIEyKnBeYdlhj0vba1iuC6pgHUAup5U=",
         "owner": "chaotic-cx",
         "repo": "mesa-mirror",
-        "rev": "87109c3e1b114948b9ae8180f46f59881de1e70a",
+        "rev": "7b29ae557ab9e86d75952c580afd87b6cb985373",
         "type": "github"
       },
       "original": {
@@ -188,11 +188,11 @@
     "wlroots-git-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1690165843,
-        "narHash": "sha256-gv5kjss6REeQG0BmvK2gTx7jHLRdCnP25po6It6I6N8=",
+        "lastModified": 1690350934,
+        "narHash": "sha256-0FGXpdWEUAL9xOUcUgPoCxb8LlriDHVascgbV9h5W+A=",
         "ref": "master",
-        "rev": "e8d545a9770a2473db32e0a0bfa757b05d2af4f3",
-        "revCount": 6516,
+        "rev": "2f859f5becfc8853842eb975b54c19936a704105",
+        "revCount": 6517,
         "type": "git",
         "url": "https://gitlab.freedesktop.org/wlroots/wlroots.git"
       },
