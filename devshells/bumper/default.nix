@@ -26,7 +26,8 @@ writeShellScriptBin "chaotic-nyx-bumper" ''
     fi
   }
 
-  NAME=''${NAME:-$(${date} '+%Y%m%d')-''${BN:-1}}
+  BUMPN=''${BUMPN:-1}
+  NAME=''${NAME:-$(${date} '+%Y%m%d')-$BUMPN}
   BRANCH=''${BRANCH:-bump/$NAME}
 
   function checkout() {
