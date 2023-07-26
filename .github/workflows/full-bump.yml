@@ -1,8 +1,13 @@
 name: Bump all packages
 on:
   schedule:
-    - cron: '20 4 * * *'
+    - cron: '15 10 * * *'
   workflow_dispatch:
+    inputs:
+      bumpNumber:
+        description: Increase for each bump in the same day
+        required: false
+        type: number
 
 permissions:
   contents: write
@@ -39,3 +44,4 @@ jobs:
         run: nix develop --impure .#updater -c 'chaotic-nyx-bumper'
         env:
           GH_TOKEN: ${{ github.token }}
+          BUMPN: ${{ inputs.bumpNumber }}
