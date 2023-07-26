@@ -38,7 +38,7 @@ writeShellScript "update-cachyos" ''
     exit 0
   fi
 
-  latestSha256=$(nix-prefetch-url --type sha256 "mirror://kernel/linux/kernel/v6.x/linux-''${latestVer}.tar.xz")
+  latestSha256=$(nix-prefetch-url --type sha256 "https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-''${latestVer}.tar.xz")
   latestHash=$(nix-hash --to-sri --type sha256 $latestSha256)
 
   configRepo=$(nix-prefetch-git --quiet 'https://github.com/CachyOS/linux-cachyos.git')
