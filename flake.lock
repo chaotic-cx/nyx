@@ -52,11 +52,11 @@
     "mangohud-git-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1690291689,
-        "narHash": "sha256-4/9R7HkbIWekzslgR/Mj2Op1YW/9p+NDi+ysH1nbETU=",
+        "lastModified": 1690485357,
+        "narHash": "sha256-gT2BtQBl+17bDXt1gZq+5pVBpSXlYvPzyD6vUehT2Dw=",
         "owner": "flightlessmango",
         "repo": "MangoHud",
-        "rev": "f92eb8bce031232b182b698be1a2415dff46e85c",
+        "rev": "05d3a6db046fbd3aaeb94c2c30b638105ae0c13f",
         "type": "github"
       },
       "original": {
@@ -69,11 +69,11 @@
     "mesa-git-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1690433599,
-        "narHash": "sha256-cbQfoSpOK9qtDGKLpc+cCHqMhS/r1qFuiPOeJPl/wgQ=",
+        "lastModified": 1690532500,
+        "narHash": "sha256-0qSmxtMvxX9ACc8pE0Qkf3LOBL/kNOKHHn/pcx5cw/8=",
         "owner": "chaotic-cx",
         "repo": "mesa-mirror",
-        "rev": "86a5e942dd055029ac4c03fb6d6e787df8cdc39c",
+        "rev": "0d75fc8e423a3feec265f276d09d8234cd263b34",
         "type": "github"
       },
       "original": {
@@ -188,11 +188,11 @@
     "wlroots-git-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1690445209,
-        "narHash": "sha256-egIfIBuugY5TTL1uyNFdQwzbdERM5zyOFqaghi4IrNE=",
+        "lastModified": 1690510486,
+        "narHash": "sha256-d7jjb/vH1n7Y6pI5KvwhTEsryqCh7lOt0wldIWmg2z4=",
         "ref": "master",
-        "rev": "061f5fafbd65f71525900c3fcda45af0c2fbec00",
-        "revCount": 6522,
+        "rev": "60ca6f17eb190cfdb3ba9863cdd8a4f7b00f3e64",
+        "revCount": 6523,
         "type": "git",
         "url": "https://gitlab.freedesktop.org/wlroots/wlroots.git"
       },
@@ -205,11 +205,11 @@
     "yt-dlp-git-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1690226332,
-        "narHash": "sha256-08gVLG0JW5Neft0zWH/L4ADMtbJYKq01HZ22G78tzR8=",
+        "lastModified": 1690469762,
+        "narHash": "sha256-npt5k3wHzJFM0VCTSgyhccMzwlK7chgMe3/cAvl811c=",
         "owner": "yt-dlp",
         "repo": "yt-dlp",
-        "rev": "95abea9a03289da1384e5bda3d590223ccc0a238",
+        "rev": "bbeacff7fcaa3b521066088a5ccbf34ef5070d1d",
         "type": "github"
       },
       "original": {
