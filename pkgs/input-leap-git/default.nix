@@ -22,4 +22,8 @@ prev.barrier.overrideAttrs (pa: {
   postFixup = ''
     substituteInPlace "$out/share/applications/input-leap.desktop" --replace "Exec=input-leap" "Exec=$out/bin/input-leap"
   '';
+  meta = pa.meta // {
+    description = "Input-leap is KVM software forked from Symless's synergy 1.9 codebase.";
+    homepage = "https://github.com/input-leap/input-leap";
+  };
 })

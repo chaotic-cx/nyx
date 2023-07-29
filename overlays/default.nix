@@ -11,21 +11,28 @@
 
 { flakes }: final: prev:
 let
+  # Required to load version files.
   inherit (final.lib.trivial) importJSON;
 
+  # Our utilities/helpers.
   nyxUtils = final.callPackage ../shared/utils.nix { } //
     { _description = "Pack of functions that are useful for Chaotic-Nyx and might become useful for you too"; };
+  inherit (nyxUtils) dropAttrsUpdateScript dropUpdateScript multiOverride multiOverrides overrideDescription;
 
+  # Helps when calling .nix that will override packages.
   callOverride = path: attrs: import path ({ inherit final flakes nyxUtils prev; } // attrs);
 
+  # Helps when calling .nix that will override i686-packages.
   callOverride32 = path: attrs: import path ({
     inherit flakes nyxUtils;
     final = final.pkgsi686Linux;
     prev = prev.pkgsi686Linux;
   } // attrs);
 
+  # CachyOS repeating stuff.
   cachyVersions = importJSON ../pkgs/linux-cachyos/versions.json;
 
+  # CachyOS repeating stuff.
   cachyZFS = _: prevAttrs:
     let
       zfs = prevAttrs.zfsUnstable.overrideAttrs (pa: {
@@ -45,14 +52,6 @@ let
       zfsStable = zfs;
       zfsUnstable = zfs;
     };
-
-  dropUpdateScript = pa: { passthru = pa.passthru // { updateScript = null; }; };
-
-  dropAttrsUpdateScript = builtins.mapAttrs (_: v:
-    if (v.passthru.updateScript or null) != null then
-      v.overrideAttrs dropUpdateScript
-    else v
-  );
 in
 {
   inherit nyxUtils;
@@ -69,16 +68,20 @@ in
 
   blurredwallpaper = final.callPackage ../pkgs/blurredwallpaper { };
 
-  busybox_appletless = prev.busybox.override {
-    enableAppletSymlinks = false;
-  };
+  busybox_appletless = multiOverride
+    prev.busybox
+    { enableAppletSymlinks = false; }
+    (overrideDescription (old: old + " (without applets' symlinks)"));
 
   dr460nized-kde-theme = final.callPackage ../pkgs/dr460nized-kde-theme { };
 
-  # nixpkgs builds this one, but does not expose it.
-  droid-sans-mono-nerdfont = (final.nerdfonts.override {
-    fonts = [ "DroidSansMono" ];
-  }).overrideAttrs dropUpdateScript;
+  droid-sans-mono-nerdfont = multiOverrides
+    final.nerdfonts
+    { fonts = [ "DroidSansMono" ]; }
+    [
+      dropUpdateScript
+      (overrideDescription (_: "Provides \"DroidSansM Nerd Font\" font family."))
+    ];
 
   fastfetch = final.callPackage ../pkgs/fastfetch { };
 
@@ -128,15 +131,17 @@ in
       callOverride32 ../pkgs/mesa-git { }
     else throw "No mesa32_git for non-x86";
 
-  mpv-vapoursynth =
-    final.wrapMpv (final.mpv-unwrapped.override { vapoursynthSupport = true; }) {
+  mpv-vapoursynth = (final.wrapMpv
+    (final.mpv-unwrapped.override { vapoursynthSupport = true; })
+    {
       extraMakeWrapperArgs = [
         "--prefix"
         "LD_LIBRARY_PATH"
         ":"
         "${final.vapoursynth-mvtools}/lib/vapoursynth"
       ];
-    };
+    }
+  ).overrideAttrs (overrideDescription (old: old + " (includes vapoursynth)"));
 
   nordvpn = final.callPackage ../pkgs/nordvpn { };
 

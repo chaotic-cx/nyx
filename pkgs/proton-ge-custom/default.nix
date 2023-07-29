@@ -7,7 +7,7 @@
 , protonGeVersions
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation {
   name = "proton-ge-custom";
   version = "${protonGeVersions.base}.${protonGeVersions.release}";
 
@@ -38,4 +38,4 @@ stdenv.mkDerivation (finalAttrs: {
     platforms = [ "x86_64-linux" ];
     maintainers = with maintainers; [ pedrohlc shawn8901 ];
   };
-})
+}

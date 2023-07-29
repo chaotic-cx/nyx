@@ -3,7 +3,8 @@
 , prev
 , ...
 }:
-prev.river.overrideAttrs (prevAttrs: rec {
+
+prev.river.overrideAttrs (_: rec {
   version = nyxUtils.gitToVersion src;
   src = flakes.river-git-src;
 })
