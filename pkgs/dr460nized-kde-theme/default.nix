@@ -8,13 +8,13 @@
 }:
 stdenvNoCC.mkDerivation rec {
   pname = "dr460nized-kde-theme";
-  version = "unstable-2023-07-11";
+  version = "unstable-2023-07-29";
 
   src = fetchFromGitLab {
     owner = "garuda-linux/themes-and-settings/settings";
     repo = "garuda-dr460nized";
-    rev = "99c024b7d391df8dca03494493aac5a7ccfb7fcf";
-    sha256 = "sha256-JZegC5zvf75aE1ToFVM2hp0QO5qRNYBpxc+SDrhfHEY=";
+    rev = "c491df60ddabf7025082e3226cb0db02996f701a";
+    sha256 = "sha256-GzHu6o/C7+3UMJz1Wgfap/KQvsUbjoaLzGu/4f1kFCU=";
   };
 
   malefor = fetchurl {
