@@ -10,6 +10,8 @@ A news channel can be found on Telegram: https://t.me/s/chaotic_nyx
 
 ## How to use it
 
+### NixOS
+
 We recommend integrating this repo using Flakes:
 
 ```nix
@@ -42,6 +44,46 @@ In your `configuration.nix` enable the packages and options that you prefer:
 {
   environment.systemPackages = [ pkgs.input-leap-git ];
   chaotic.mesa-git.enable = true;
+}
+```
+
+### Home Manager
+
+We recommend integrating this repo using Flakes:
+
+```nix
+{
+  description = "My configuration";
+
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
+
+  outputs = { nixpkgs, chaotic, ... }: {
+    homeConfigurations = {
+      hostname = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        modules = [
+          ./home-manager/default.nix
+          chaotic.homeManagerModules.default # OUR DEFAULT MODULE
+        ];
+      };
+    };
+  };
+}
+```
+
+In your `home-manager/default.nix` enable the packages:
+
+```nix
+{ pkgs, ... }:
+{
+  home.packages = [ pkgs.input-leap-git ];
 }
 ```
 

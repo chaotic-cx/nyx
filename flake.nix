@@ -77,7 +77,7 @@
 
     overlays.default = import ./overlays { flakes = inputs; };
 
-    nixosModules = import ./modules { flakes = inputs; };
+    nixosModules = import ./nixos { flakes = inputs; };
 
     packages =
       let
