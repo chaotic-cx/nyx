@@ -56,8 +56,14 @@ rec {
       outputMaps;
 
   # Helps when overriding.
-  overrideDescription = descriptionMap: pa:
-    { meta = pa.meta // { description = descriptionMap pa.meta.description; }; };
+  overrideDescription = descriptionMap: pa: {
+    meta = (rejectAttr "longDescription" pa.meta) // {
+      description = descriptionMap pa.meta.description;
+    };
+  };
+
+  # Helps removing attrs.
+  rejectAttr = x: lib.attrsets.filterAttrs (n: _: n != x);
 
   # Helps when dropping patches.
   removeByBaseName = baseName:
