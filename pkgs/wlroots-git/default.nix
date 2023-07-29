@@ -6,11 +6,10 @@
 , ...
 }:
 
-(prev.wlroots_0_16.override {
-  inherit enableXWayland;
-}).overrideAttrs (pa: {
-  version = nyxUtils.gitToVersion flakes.wlroots-git-src;
-  src = flakes.wlroots-git-src // { meta.homepage = "https://gitlab.freedesktop.org/wlroots/wlroots/"; inherit (flakes.wlroots-git-src) rev; };
-  buildInputs = pa.buildInputs ++ (with final; [ hwdata libdisplay-info ]);
-  postPatch = "";
-})
+nyxUtils.multiOverride prev.wlroots_0_16 { inherit enableXWayland; }
+  (pa: {
+    version = nyxUtils.gitToVersion flakes.wlroots-git-src;
+    src = flakes.wlroots-git-src // { meta.homepage = "https://gitlab.freedesktop.org/wlroots/wlroots/"; inherit (flakes.wlroots-git-src) rev; };
+    buildInputs = pa.buildInputs ++ (with final; [ hwdata libdisplay-info ]);
+    postPatch = "";
+  })

@@ -32,6 +32,26 @@
         "type": "github"
       }
     },
+    "home-manager": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1690652600,
+        "narHash": "sha256-Dy09g7mezToVwtFPyY25fAx1hzqNXv73/QmY5/qyR44=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "f58889c07efa8e1328fdf93dc1796ec2a5c47f38",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
     "input-leap-git-src": {
       "flake": false,
       "locked": {
@@ -121,6 +141,7 @@
       "inputs": {
         "compare-to": "compare-to",
         "gamescope-git-src": "gamescope-git-src",
+        "home-manager": "home-manager",
         "input-leap-git-src": "input-leap-git-src",
         "mangohud-git-src": "mangohud-git-src",
         "mesa-git-src": "mesa-git-src",
