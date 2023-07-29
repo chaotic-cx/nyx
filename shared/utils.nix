@@ -45,15 +45,12 @@ rec {
     });
 
   # Helps when overriding both inputs and outputs attrs.
-  multiOverride = prev: newInputs: outputMap:
-    (prev.override newInputs).overrideAttrs outputMap;
+  multiOverride = prev: newInputs: (prev.override newInputs).overrideAttrs;
 
   # Helps when overriding both inputs and outputs attrs, multiple times.
-  multiOverrides = prev: newInputs: outputMaps:
-    lib.lists.foldl
-      (accu: item: accu.overrideAttrs item)
-      (prev.override newInputs)
-      outputMaps;
+  multiOverrides = prev: newInputs: lib.lists.foldl
+    (accu: accu.overrideAttrs)
+    (prev.override newInputs);
 
   # Helps when overriding.
   overrideDescription = descriptionMap: pa: {
