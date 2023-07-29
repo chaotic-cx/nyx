@@ -50,17 +50,14 @@ rec {
         let
           fullKey = join namespace key;
         in
-        if (builtins.tryEval v).success then
-          (if lib.options.isOption v then
-            mapFn fullKey v
-          else if builtins.isAttrs v
-            && (v.recurseForDerivations or true) then
-            lib.attrsets.mapAttrsToList (recursive fullKey) v
-          else
-            warnFn fullKey v "not an option"
-          )
+        (if lib.options.isOption v then
+          mapFn fullKey v
+        else if builtins.isAttrs v
+          && (v.recurseForDerivations or true) then
+          lib.attrsets.mapAttrsToList (recursive fullKey) v
         else
-          warnFn fullKey v "eval broken"
+          warnFn fullKey v "not an option"
+        )
       ;
     in
     recursive "" "" root;

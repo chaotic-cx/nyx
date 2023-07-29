@@ -1,9 +1,12 @@
 { allPackages
-, defaultModule
+, homeManagerConfiguration
+, homeManagerModule
 , lib
+, nixosModule
 , nixosSystem
 , nyxRecursionHelper
 , nyxUtils
+, pkgs
 , system
 , writeText
 }:
@@ -42,7 +45,22 @@ let
   packagesEvalFlat =
     lib.lists.flatten packagesEval;
 
-  loadedModule = nixosSystem { modules = [ defaultModule ]; system = "x86_64-linux"; };
+  loadedNixOSModule = nixosSystem {
+    modules = [ nixosModule ];
+    system = "x86_64-linux";
+  };
+  loadedHomeManagerModule = homeManagerConfiguration {
+    modules = [
+      {
+        home.stateVersion = "23.11";
+        home.username = "player";
+        home.homeDirectory = "/tmp";
+        nix.package = pkgs.nix;
+      }
+      homeManagerModule
+    ];
+    inherit pkgs;
+  };
 
   optionMap = k: v:
     let
@@ -83,10 +101,15 @@ let
       </tr>
     '';
 
-  optionsEval = nyxRecursionHelper.options optionWarn optionMap loadedModule.options.chaotic;
+  nixosEval = nyxRecursionHelper.options optionWarn optionMap loadedNixOSModule.options.chaotic;
 
-  optionsEvalFlat =
-    lib.lists.flatten optionsEval;
+  nixosEvalFlat =
+    lib.lists.flatten nixosEval;
+
+  homeManagerEval = nyxRecursionHelper.options optionWarn optionMap loadedHomeManagerModule.options.chaotic;
+
+  homeManagerEvalFlat =
+    lib.lists.flatten homeManagerEval;
 in
 writeText "chaotic-documented.html" ''
   <!DOCTYPE html><html>
@@ -123,16 +146,26 @@ writeText "chaotic-documented.html" ''
       <tbody>${lib.strings.concatStrings packagesEvalFlat}</tbody>
     </table>
     <div id="js-packages"></div>
-    <h2>Options</h2>
-    <table id="options" class="noscript-table" border="1">
+    <h2>NixOS Options</h2>
+    <table id="nixos" class="noscript-table" border="1">
       <thead>
         <th>Key</th>
         <th>Default</th>
         <th>Description</th>
       </thead>
-      <tbody>${lib.strings.concatStrings optionsEvalFlat}</tbody>
+      <tbody>${lib.strings.concatStrings nixosEvalFlat}</tbody>
     </table>
-    <div id="js-options"></div>
+    <div id="js-nixos"></div>
+    <h2>Home-Manager Options</h2>
+    <table id="home-manager" class="noscript-table" border="1">
+      <thead>
+        <th>Key</th>
+        <th>Default</th>
+        <th>Description</th>
+      </thead>
+      <tbody>${lib.strings.concatStrings homeManagerEvalFlat}</tbody>
+    </table>
+    <div id="js-home-manager"></div>
     <script type="module">
       import {
         Grid,
@@ -146,11 +179,18 @@ writeText "chaotic-documented.html" ''
       }).render(document.getElementById("js-packages"));
 
       new Grid({
-        from: document.getElementById("options"),
+        from: document.getElementById("nixos"),
         search: true,
         sort: true,
         style: { table: { 'overflow-wrap': 'break-word' } }
-      }).render(document.getElementById("js-options"));
+      }).render(document.getElementById("js-nixos"));
+
+      new Grid({
+        from: document.getElementById("home-manager"),
+        search: true,
+        sort: true,
+        style: { table: { 'overflow-wrap': 'break-word' } }
+      }).render(document.getElementById("js-home-manager"));
     </script>
   </body></html>
 ''

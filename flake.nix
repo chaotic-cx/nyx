@@ -8,6 +8,11 @@
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # --- PKGS SOURCES ---
     # Please, sort them in alphabetical order
 
@@ -95,7 +100,7 @@
       };
 
     hydraJobs.default = packages;
-    devShells = import ./devshells { inherit packages nixosModules; flakes = inputs; };
+    devShells = import ./devshells { inherit packages homeManagerModules nixosModules; flakes = inputs; };
 
     _debug.x86_64-linux =
       nixpkgs.lib.nixosSystem {
