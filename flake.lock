@@ -89,11 +89,11 @@
     "mesa-git-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1690584899,
-        "narHash": "sha256-hefUY68fqS2BDo13vAOux7jNGv6XGXLoA6QEg3TAdnU=",
+        "lastModified": 1690657300,
+        "narHash": "sha256-PKiex0oWqLCxqq8e2WgYJk41TZRWe2SqWuj9AZ9CfV0=",
         "owner": "chaotic-cx",
         "repo": "mesa-mirror",
-        "rev": "5df97c27dc8cafbeb27a4ca084e83328a4d1a276",
+        "rev": "8d7f682bdbaee2cd7185203770bfc3f0e07ee427",
         "type": "github"
       },
       "original": {
@@ -226,11 +226,11 @@
     "yt-dlp-git-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1690647256,
-        "narHash": "sha256-18bJE4rfWh3uTldEKyZImsUnuEIl0Wud/tVQakW07g0=",
+        "lastModified": 1690673826,
+        "narHash": "sha256-lxvClHSIUN/wc7Q4zVIwM9sabYIzOFkHobW4FZRXhrs=",
         "owner": "yt-dlp",
         "repo": "yt-dlp",
-        "rev": "b09bd0c19648f60c59fb980cd454cb0069959fb9",
+        "rev": "6014355c6142f68e20c8374e3787e5b5820f19e2",
         "type": "github"
       },
       "original": {
