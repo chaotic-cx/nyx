@@ -39,11 +39,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1690652600,
-        "narHash": "sha256-Dy09g7mezToVwtFPyY25fAx1hzqNXv73/QmY5/qyR44=",
+        "lastModified": 1690790567,
+        "narHash": "sha256-fymHCZFy+qjrNh+EZDHYEEtbZw1TvjtxtCBPBSWU7CM=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "f58889c07efa8e1328fdf93dc1796ec2a5c47f38",
+        "rev": "729ab77f9e998e0989fa30140ecc91e738bc0cb1",
         "type": "github"
       },
       "original": {
@@ -55,11 +55,11 @@
     "input-leap-git-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1686513090,
-        "narHash": "sha256-unmEdtGHGNmKkVeWtGpepogJCd5yE0WS9jK4WII1DXk=",
+        "lastModified": 1690732292,
+        "narHash": "sha256-eECX0oSUnRVi5sm870lLRX0li8ZJ9QlyTjrdEkUfNd8=",
         "owner": "input-leap",
         "repo": "input-leap",
-        "rev": "6446288aa619133f287cf3166bc924a99d073ea2",
+        "rev": "fa1bfd993804e4225dd02aeb2e21ec32ed3c598a",
         "type": "github"
       },
       "original": {
@@ -72,11 +72,11 @@
     "mangohud-git-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1690553574,
-        "narHash": "sha256-v/sr/yD7c5mbP1utFZdFko1U6W8taUIyvj4ZIf2ywYI=",
+        "lastModified": 1690734469,
+        "narHash": "sha256-cIODNmjtdJ5rPzjoK/BNoAbTGjTTh0l8ljpKBJ6D1H4=",
         "owner": "flightlessmango",
         "repo": "MangoHud",
-        "rev": "e60b625fd025518128f3cfae08e815a7f9d9642c",
+        "rev": "cd92cedeca8b85bbc99731d46daa245e6f9d0c19",
         "type": "github"
       },
       "original": {
@@ -89,11 +89,11 @@
     "mesa-git-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1690657300,
-        "narHash": "sha256-PKiex0oWqLCxqq8e2WgYJk41TZRWe2SqWuj9AZ9CfV0=",
+        "lastModified": 1690789040,
+        "narHash": "sha256-DGWiYrEXi5eWSDdkGvKjL/skm4Jghyv/odgIysGMwTU=",
         "owner": "chaotic-cx",
         "repo": "mesa-mirror",
-        "rev": "8d7f682bdbaee2cd7185203770bfc3f0e07ee427",
+        "rev": "618fc13db78b4b8a270daf8fe719910906e49922",
         "type": "github"
       },
       "original": {
@@ -158,11 +158,11 @@
     "sway-git-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1690190911,
-        "narHash": "sha256-wV24FHJ+ZB95OSWEYF0UzZ9qA8NDBvFUONFdOfnXEEs=",
+        "lastModified": 1690792451,
+        "narHash": "sha256-6eqCWcs7s10F+XLjugYLjy4DHYZKuqYyV4ro/XKcXIU=",
         "owner": "swaywm",
         "repo": "sway",
-        "rev": "6bd11ad0dfb11f8cf7e0ab5330cd2488851c5614",
+        "rev": "df8aad9c5ab70ad646ec1742cc57473c6908a1be",
         "type": "github"
       },
       "original": {
