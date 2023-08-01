@@ -89,11 +89,11 @@
     "mesa-git-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1690878724,
-        "narHash": "sha256-qBPK2U/E4/wNw6Z33dUqZ5EKQ7S91wVHi8Kwj7zXn8E=",
+        "lastModified": 1690892875,
+        "narHash": "sha256-wGCzmIDpJ3osESE8nb7RydwHRkTgwD0K35nuWa+5hPo=",
         "owner": "chaotic-cx",
         "repo": "mesa-mirror",
-        "rev": "5fc5123f63cd9646546e7c1cf13a99c69a807502",
+        "rev": "388bf84c07a3c9796377cb7c0b4a6463c2976755",
         "type": "github"
       },
       "original": {
