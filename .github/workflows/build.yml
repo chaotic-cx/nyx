@@ -19,6 +19,8 @@ jobs:
   build:
     runs-on: nyxbuilder
     timeout-minutes: 1440
+    outputs:
+      pushed: ${{ steps.push.outcome == 'success' }}
     steps:
       - name: Check if already cached
         id: check
@@ -85,15 +87,14 @@ jobs:
       - name: Checkout
         if: (success() && steps.check.outputs.cached != 'true')
         uses: actions/checkout@v3
-      - name: Cleanup impurities
-        run: |
-          if [ -e /homeless-shelter ]; then
-            mv /homeless-shelter /homeless-shelter.$(date +%Y%m%d%H%S)
-          fi
       - name: Build
         if: (success() && steps.check.outputs.cached != 'true')
         id: build
         run: |
+          # Clean up impurities
+          if [ -e /homeless-shelter ]; then
+            mv /homeless-shelter /homeless-shelter.$(date +%Y%m%d%H%S)
+          fi
           nix develop -c build-chaotic-nyx || [ $? -eq 42 ]
           failed_builds="$(cat ${{ runner.temp }}/failures.txt | sed 's/^/    <li>/; s/$/<\/li>/')"
           failed_builds_count="$(cat ${{ runner.temp }}/failures.txt | wc -l)"
@@ -105,7 +106,8 @@ jobs:
           NYX_WD: ${{ runner.temp }}
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
       - name: Update nyxpkgs-unstable
-        if: (success() && steps.check.outputs.cached != 'true' && steps.build.outputs.FAILED_BUILDS_COUNT <= 3)
+        if: (success() && (steps.check.outputs.cached == 'true' || steps.build.outputs.FAILED_BUILDS_COUNT <= 3))
+        id: push
         run: git push origin HEAD:nyxpkgs-unstable --force
       - name: Comment on commit
         if: (success() && steps.check.outputs.cached != 'true')
@@ -155,3 +157,4 @@ jobs:
   docs:
     needs: build
     uses: ./.github/workflows/document.yml
+    if: needs.build.outputs.pushed == 'true'
