@@ -4,6 +4,7 @@ let
     appmenu-gtk3-module = import ./appmenu-gtk3-module.nix fromFlakes;
     linux_hdr = import ./linux_hdr.nix fromFlakes;
     mesa_git = import ./mesa-git.nix fromFlakes;
+    nordvpn = import ./nordvpn.nix;
     nyx-cache = import ./nyx-cache.nix fromFlakes;
     nyx-overlay = import ./nyx-overlay.nix fromFlakes;
     steam-compat-tools = import ./steam-compat-tools.nix;
