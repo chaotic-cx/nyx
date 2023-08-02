@@ -1,4 +1,4 @@
-{ final, flakes, nyxUtils, prev, gbmDriver ? false, gbmBackend ? "dri_git", meson, ... }:
+{ final, flakes, nyxUtils, prev, gbmDriver ? false, gbmBackend ? "dri_git", meson ? final.meson, ... }:
 
 nyxUtils.multiOverride prev.mesa { inherit meson; } (pa: {
   version = builtins.substring 0 (builtins.stringLength pa.version) flakes.mesa-git-src.rev;
