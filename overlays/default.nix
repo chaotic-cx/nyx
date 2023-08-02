@@ -124,12 +124,19 @@ in
       callOverride32 ../pkgs/mangohud-git { mangohud32 = final.mangohud32_git; }
     else throw "No mangohud32_git for non-x86";
 
-  mesa_git = callOverride ../pkgs/mesa-git { gbmDriver = true; };
+  mesa_git = callOverride ../pkgs/mesa-git {
+    gbmDriver = true;
+    meson = final.meson_next;
+  };
   mesa32_git =
     if final.stdenv.hostPlatform.isLinux && final.stdenv.hostPlatform.isx86
     then
       callOverride32 ../pkgs/mesa-git { }
     else throw "No mesa32_git for non-x86";
+
+  # Applies be https://github.com/NixOS/nixpkgs/pull/243966
+  # since it's a few cycles late.
+  meson_next = callOverride ../pkgs/meson-next { };
 
   mpv-vapoursynth = (final.wrapMpv
     (final.mpv-unwrapped.override { vapoursynthSupport = true; })
