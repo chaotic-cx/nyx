@@ -110,6 +110,52 @@ let
 
   homeManagerEvalFlat =
     lib.lists.flatten homeManagerEval;
+
+  tables = {
+    t1-packages = {
+      title = "Packages";
+      headers = [ "Name" "Version" "Description" ];
+      rows = packagesEvalFlat;
+      overflow = false;
+    };
+    t2-nixos = {
+      title = "NixOS Options";
+      headers = [ "Key" "Default" "Description" ];
+      rows = nixosEvalFlat;
+    };
+    t3-home-manager = {
+      title = "Home-Manager Options";
+      headers = [ "Key" "Default" "Description" ];
+      rows = homeManagerEvalFlat;
+    };
+  };
+
+  renderHeader = x: "<th>${x}</th>";
+  renderHeaders = xs:
+    lib.strings.concatStrings (lib.lists.map renderHeader xs);
+
+  renderTable = id: { title, headers, rows, ... }: ''
+    <h2>${title}</h2>
+    <table id="${id}" class="noscript-table" border="1">
+      <thead>${renderHeaders headers}</thead>
+      <tbody>${lib.strings.concatStrings rows}</tbody>
+    </table>
+    <div id="js-${id}"></div>
+  '';
+  renderTables = xs:
+    lib.strings.concatStrings (lib.attrsets.mapAttrsToList renderTable xs);
+
+  renderGrid = id: { overflow ? false, ... }: ''
+    new Grid({
+      from: document.getElementById("${id}"),
+      search: true,
+      sort: true ${if overflow then
+        ", style: { table: { 'overflow-wrap': 'break-word' } }"
+      else ""}
+    }).render(document.getElementById("js-${id}"));
+  '';
+  renderGrids = xs:
+    lib.strings.concatStrings (lib.attrsets.mapAttrsToList renderGrid xs);
 in
 writeText "chaotic-documented.html" ''
   <!DOCTYPE html><html>
@@ -136,61 +182,14 @@ writeText "chaotic-documented.html" ''
     <h1>Chaotic-Nyx</h1>
     <p>This page only contains information about packages and options.</p>
     <p>For instructions, support and details about this project, check the project's <a href="https://github.com/chaotic-cx/nyx#readme">README</a>.</p>
-    <h2>Packages</h2>
-    <table id="packages" class="noscript-table" border="1">
-      <thead>
-        <th>Name</th>
-        <th>Version</th>
-        <th>Description</th>
-      </thead>
-      <tbody>${lib.strings.concatStrings packagesEvalFlat}</tbody>
-    </table>
-    <div id="js-packages"></div>
-    <h2>NixOS Options</h2>
-    <table id="nixos" class="noscript-table" border="1">
-      <thead>
-        <th>Key</th>
-        <th>Default</th>
-        <th>Description</th>
-      </thead>
-      <tbody>${lib.strings.concatStrings nixosEvalFlat}</tbody>
-    </table>
-    <div id="js-nixos"></div>
-    <h2>Home-Manager Options</h2>
-    <table id="home-manager" class="noscript-table" border="1">
-      <thead>
-        <th>Key</th>
-        <th>Default</th>
-        <th>Description</th>
-      </thead>
-      <tbody>${lib.strings.concatStrings homeManagerEvalFlat}</tbody>
-    </table>
-    <div id="js-home-manager"></div>
+    ${renderTables tables}
     <script type="module">
       import {
         Grid,
         html
       } from "https://unpkg.com/gridjs?module";
 
-      new Grid({
-        from: document.getElementById("packages"),
-        search: true,
-        sort: true
-      }).render(document.getElementById("js-packages"));
-
-      new Grid({
-        from: document.getElementById("nixos"),
-        search: true,
-        sort: true,
-        style: { table: { 'overflow-wrap': 'break-word' } }
-      }).render(document.getElementById("js-nixos"));
-
-      new Grid({
-        from: document.getElementById("home-manager"),
-        search: true,
-        sort: true,
-        style: { table: { 'overflow-wrap': 'break-word' } }
-      }).render(document.getElementById("js-home-manager"));
+      ${renderGrids tables}
     </script>
   </body></html>
 ''
