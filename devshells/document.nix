@@ -135,7 +135,7 @@ let
     lib.strings.concatStrings (lib.lists.map renderHeader xs);
 
   renderTable = id: { title, headers, rows, ... }: ''
-    <h2>${title}</h2>
+    <h2 id="t-${id}">${title}</h2>
     <table id="${id}" class="noscript-table" border="1">
       <thead>${renderHeaders headers}</thead>
       <tbody>${lib.strings.concatStrings rows}</tbody>
@@ -156,6 +156,11 @@ let
   '';
   renderGrids = xs:
     lib.strings.concatStrings (lib.attrsets.mapAttrsToList renderGrid xs);
+
+  renderIndexElem = id: { title, ...}:
+    "<li><a href=\"#t-${id}\">${title}</a></li>";
+  renderIndex = xs:
+    lib.strings.concatStrings (lib.attrsets.mapAttrsToList renderIndexElem xs);
 in
 writeText "chaotic-documented.html" ''
   <!DOCTYPE html><html style="font-size: 12px;">
@@ -183,6 +188,8 @@ writeText "chaotic-documented.html" ''
     <h1>Chaotic-Nyx</h1>
     <p>This page only contains information about packages and options.</p>
     <p>For instructions, support and details about this project, check the project's <a href="https://github.com/chaotic-cx/nyx#readme">README</a>.</p>
+    <h2>Index</h2>
+    <ul>${renderIndex tables}</ul>
     ${renderTables tables}
     <script type="module">
       import {
