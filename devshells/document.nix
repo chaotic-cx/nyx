@@ -158,7 +158,7 @@ let
     lib.strings.concatStrings (lib.attrsets.mapAttrsToList renderGrid xs);
 in
 writeText "chaotic-documented.html" ''
-  <!DOCTYPE html><html>
+  <!DOCTYPE html><html style="font-size: 12px;">
   <head lang="en">
     <meta charset="UTF-8" />
     <title>List of packages and options - Chaotic-Nyx</title>
@@ -176,9 +176,10 @@ writeText "chaotic-documented.html" ''
       @supports (font-variation-settings: normal) {
         :root { font-family: 'Inter var', sans-serif; }
       }
+      body .gridjs-search, body .gridjs-search-input { width: 100%; }
     </style>
     <noscript><style>.noscript-table { display: table; }</style></noscript>
-  </head><body>
+  </head><body><div style="max-width: 1100px; margin: 0 auto">
     <h1>Chaotic-Nyx</h1>
     <p>This page only contains information about packages and options.</p>
     <p>For instructions, support and details about this project, check the project's <a href="https://github.com/chaotic-cx/nyx#readme">README</a>.</p>
@@ -191,5 +192,5 @@ writeText "chaotic-documented.html" ''
 
       ${renderGrids tables}
     </script>
-  </body></html>
+  </div></body></html>
 ''
