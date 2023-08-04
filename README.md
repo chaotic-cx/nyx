@@ -91,7 +91,7 @@
 }
 </code></pre>
 
-<p>In your <code>home-manager/default.nix</code> add a `nix.package`, and enable the desired packages:</p>
+<p>In your <code>home-manager/default.nix</code> add a <code>nix.package</code>, and enable the desired packages:</p>
 
 <pre lang="nix"><code>
 { pkgs, ... }:
@@ -154,9 +154,9 @@ nix run github:chaotic-cx/nyx/nyxpkgs-unstable#yuzu-early-access_git
 
 <p>For cache reasons, Chaotic-Nyx now defaults to always use nixpkgs as provider of its dependencies.</p>
 
-<p>If you need to change this behavior, set <code>chaotic.nyx.onTopOf = "user-pkgs".</code>. Be warned that you mostly won't be able to benefit from our binary cache after this change.</p>
+<p>If you need to change this behavior, set <code>chaotic.nyx.onTopOf = "user-pkgs";</code>. Be warned that you mostly won't be able to benefit from our binary cache after this change.</p>
 
-<p>You can also disable our overlay entirely by configuring <code>chaotic.nyx.overlay.enable</code>;</p>
+<p>You can also disable our overlay entirely by configuring <code>chaotic.nyx.overlay.enable = false;</code>.</p>
 
 <h2 id="Maintainence">Maintainence</h2>
 
