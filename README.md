@@ -109,7 +109,7 @@ We do this automatically, so we can gracefully update the cache's address and ke
 
 <h2 id="Lists of options and packages">Lists of options and packages</h2>
 
-<!-- cut here --><p>An always up-to-date list of all our options and packages is available at: <a href="https://chaotic-cx.github.io/nyx/">List page</a>.</p><!-- cut here -->
+<!-- cut here --><p>An always up-to-date list of all our options and packages is available at: <a href="https://chaotic-cx.github.io/nyx/#Lists%20of%20options%20and%20packages">List page</a>.</p><!-- cut here -->
 
 <h2 id="Running packages">Running packages</h2>
 
