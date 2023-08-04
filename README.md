@@ -2,7 +2,7 @@
 
 <p>Flake-compatible Nixpkgs overlay for bleeding-edge and unreleased packages. The first child of chaos.</p>
 
-<p>From the <a href="https://github.com/chaotic-cx">Chaotic Linux User Group (LUG)</a>, the same one that maintains <a href="https://github.com/chaotic-aur">Chaotic-AUR</a>! 🧑🏻‍💻</p>
+<p>From the <a href="https://github.com/chaotic-cx">Chaotic Linux User Group (LUG)</a>, the same one that maintains <a href="https://aur.chaotic.cx">Chaotic-AUR</a>! 🧑🏻‍💻</p>
 
 <p>The official source-code repository is available <a href="https://github.com/chaotic-cx/nyx">as "chaotic-cx/nyx" at GitHub</a>.</p>
 
@@ -60,6 +60,8 @@
 
 <h3>Home Manager</h3>
 
+<p>This method is for home-manager setups <strong>without NixOS</strong>.</p>
+
 <p>We recommend integrating this repo using Flakes:</p>
 
 <pre lang="nix"><code>
@@ -89,11 +91,12 @@
 }
 </code></pre>
 
-<p>In your <code>home-manager/default.nix</code> enable the packages:</p>
+<p>In your <code>home-manager/default.nix</code> add a `nix.package`, and enable the desired packages:</p>
 
 <pre lang="nix"><code>
 { pkgs, ... }:
 {
+  nix.package = pkgs.nix;
   home.packages = [ pkgs.input-leap-git ];
 }
 </code></pre>
@@ -111,7 +114,7 @@ We do this automatically, so we can gracefully update the cache's address and ke
 
 <h2 id="Lists of options and packages">Lists of options and packages</h2>
 
-<!-- cut here --><p>An always up-to-date list of all our options and packages is available at: <a href="https://chaotic-cx.github.io/nyx/#Lists%20of%20options%20and%20packages">List page</a>.</p><!-- cut here -->
+<!-- cut here --><p>An always up-to-date list of all our options and packages is available at: <a href="https://www.nyx.chaotic.cx/#Lists%20of%20options%20and%20packages">List page</a>.</p><!-- cut here -->
 
 <h2 id="Running packages">Running packages</h2>
 
