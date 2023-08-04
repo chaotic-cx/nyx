@@ -157,7 +157,7 @@ let
   renderGrids = xs:
     lib.strings.concatStrings (lib.attrsets.mapAttrsToList renderGrid xs);
 
-  renderIndexElem = id: { title, ...}:
+  renderIndexElem = id: { title, ... }:
     "<li><a href=\"#t-${id}\">${title}</a></li>";
   renderIndex = xs:
     lib.strings.concatStrings (lib.attrsets.mapAttrsToList renderIndexElem xs);
