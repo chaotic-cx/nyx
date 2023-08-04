@@ -1,20 +1,29 @@
-# Chaotic's Nyx ❄️
+<h1>Chaotic's Nyx ❄️</h1>
 
-Flake-compatible Nixpkgs overlay for bleeding-edge and unreleased packages. The first child of chaos.
+<p>Flake-compatible Nixpkgs overlay for bleeding-edge and unreleased packages. The first child of chaos.</p>
 
-From the [Chaotic Linux User Group (LUG)](https://github.com/chaotic-cx), the same one that maintains [Chaotic-AUR](https://github.com/chaotic-aur)! 🧑🏻‍💻
+<p>From the <a href="https://github.com/chaotic-cx">Chaotic Linux User Group (LUG)</a>, the same one that maintains <a href="https://github.com/chaotic-aur">Chaotic-AUR</a>! 🧑🏻‍💻</p>
 
-## News
+<ul>
+  <li><a href="#News">News</a></li>
+  <li><a href="#How to use it">How to use it</a></li>
+  <li><a href="#Lists of options and packages">Lists of options and packages</a></li>
+  <li><a href="#Running packages">Running packages</a></li>
+  <li><a href="#Notes">Notes</a></li>
+  <li><a href="#Maintainence">Maintainence</a></li>
+</ul>
 
-A news channel can be found on Telegram: https://t.me/s/chaotic_nyx
+<h2 id="News">News</h2>
 
-## How to use it
+<p>A news channel can be found <a href="https://t.me/s/chaotic_nyx">on Telegram</a>.</p>
 
-### NixOS
+<h2 id="How to use it">How to use it</h2>
 
-We recommend integrating this repo using Flakes:
+<h3>NixOS</h3>
 
-```nix
+<p>We recommend integrating this repo using Flakes:</p>
+
+<pre lang="nix"><code>
 {
   description = "My configuration";
 
@@ -35,23 +44,23 @@ We recommend integrating this repo using Flakes:
     };
   };
 }
-```
+</code></pre>
 
-In your `configuration.nix` enable the packages and options that you prefer:
+<p>In your <code>configuration.nix</code> enable the packages and options that you prefer:</p>
 
-```nix
+<pre lang="nix"><code>
 { pkgs, ... }:
 {
   environment.systemPackages = [ pkgs.input-leap-git ];
   chaotic.mesa-git.enable = true;
 }
-```
+</code></pre>
 
-### Home Manager
+<h3>Home Manager</h3>
 
-We recommend integrating this repo using Flakes:
+<p>We recommend integrating this repo using Flakes:</p>
 
-```nix
+<pre lang="nix"><code>
 {
   description = "My configuration";
 
@@ -76,111 +85,111 @@ We recommend integrating this repo using Flakes:
     };
   };
 }
-```
+</code></pre>
 
-In your `home-manager/default.nix` enable the packages:
+<p>In your <code>home-manager/default.nix</code> enable the packages:</p>
 
-```nix
+<pre lang="nix"><code>
 { pkgs, ... }:
 {
   home.packages = [ pkgs.input-leap-git ];
 }
-```
+</code></pre>
 
-### Binary Cache
+<h3>Binary Cache</h3>
 
-You'll get the binary cache added to your configuration as soon as you add our default module.
-We do this automatically, so we can gracefully update the cache's address and keys without prompting you for manual work.
+<p>You'll get the binary cache added to your configuration as soon as you add our default module.
+We do this automatically, so we can gracefully update the cache's address and keys without prompting you for manual work.</p>
 
-If you dislike this behavior for any reason, you can disable it with `chaotic.nyx.cache.enable = false`.
+<p>If you dislike this behavior for any reason, you can disable it with <code>chaotic.nyx.cache.enable = false</code>.</p>
 
-**Remember**: If you want to fetch derivations from our cache, you'll need to enable our module and rebuild your system **before** adding these derivations to your configuration.
+<p><strong>Remember</strong>: If you want to fetch derivations from our cache, you'll need to enable our module and rebuild your system <strong>before</strong> adding these derivations to your configuration.</p>
 
-Commands like `nix run ...`, `nix develop ...`, and others, when using our flake as input, will ask you to add the cache interactively when missing from your user's nix settings.
+<p>Commands like <code>nix run ...</code>, <code>nix develop ...</code>, and others, when using our flake as input, will ask you to add the cache interactively when missing from your user's nix settings.</p>
 
-## Lists of options and packages
+<h2 id="Lists of options and packages">Lists of options and packages</h2>
 
-An always up-to-date list of all our options and packages is available at: [List page](https://chaotic-cx.github.io/nyx/).
+<!-- cut here --><p>An always up-to-date list of all our options and packages is available at: <a href="https://chaotic-cx.github.io/nyx/#Lists%20of%20options%20and%20packages">List page</a>.</p><!-- cut here -->
 
-## Running packages
+<h2 id="Running packages">Running packages</h2>
 
-Besides using our module/overlay, you can run packages (without installing them) using:
+<p>Besides using our module/overlay, you can run packages (without installing them) using:</p>
 
-```sh
+<pre lang="sh"><code>
 nix run github:chaotic-cx/nyx/nyxpkgs-unstable#yuzu-early-access_git
-```
+</code></pre>
 
-## Notes
+<h2 id="Notes">Notes</h2>
 
-### Our branches
+<h3>Our branches</h3>
 
-:godmode: Our `nyxpkgs-unstable` branch is the one that's always cached.
+<p>:godmode: Our <code>nyxpkgs-unstable</code> branch is the one that's always cached.</p>
 
-:shipit: Sometimes the `main` branch is too, check it through this badge: ![Cache Badge](https://github.com/chaotic-cx/nyx/actions/workflows/build.yml/badge.svg)
+<p>:shipit: Sometimes the <code>main</code> branch is too, check it through this badge: <img alt="Cache Badge" src="https://github.com/chaotic-cx/nyx/actions/workflows/build.yml/badge.png"></p>
 
-### Contributions
+<h3>Contributions</h3>
 
-We do accept third-party authored PRs.
+<p>We do accept third-party authored PRs.</p>
 
-### Upstream to nixpkgs
+<h3>Upstream to nixpkgs</h3>
 
-If you are interested in pushing any of these packages to the upstream nixpkgs, you have our blessing.
+<p>If you are interested in pushing any of these packages to the upstream nixpkgs, you have our blessing.</p>
 
-If one of our contributors is mentioned in the deveriation's mantainers list (in this repository) please keep it when pushing to nixpkgs. But, please, tag us on the PR so we can participate in the reviewing.
+<p>If one of our contributors is mentioned in the deveriation's mantainers list (in this repository) please keep it when pushing to nixpkgs. But, please, tag us on the PR so we can participate in the reviewing.</p>
 
-### Forks and partial code-taking
+<h3>Forks and partial code-taking</h3>
 
-You are free to use our code, or portions of our code, following the MIT license restrictions.
+<p>You are free to use our code, or portions of our code, following the MIT license restrictions.</p>
 
-### Suggestions
+<h3>Suggestions</h3>
 
-If you have any suggestion to enhance our packages, modules, or even the CI's codes, let us know through the GitHub repo's issues.
+<p>If you have any suggestion to enhance our packages, modules, or even the CI's codes, let us know through the GitHub repo's issues.</p>
 
-#### Building over the user's pkgs
+<h4>Building over the user's pkgs</h4>
 
-For cache reasons, Chaotic-Nyx now defaults to always use nixpkgs as provider of its dependencies.
+<p>For cache reasons, Chaotic-Nyx now defaults to always use nixpkgs as provider of its dependencies.</p>
 
-If you need to change this behavior, set `chaotic.nyx.onTopOf = "user-pkgs".`. Be warned that you mostly won't be able to benefit from our binary cache after this change.
+<p>If you need to change this behavior, set <code>chaotic.nyx.onTopOf = "user-pkgs".</code>. Be warned that you mostly won't be able to benefit from our binary cache after this change.</p>
 
-You can also disable our overlay entirely by configuring `chaotic.nyx.overlay.enable`;
+<p>You can also disable our overlay entirely by configuring <code>chaotic.nyx.overlay.enable</code>;</p>
 
-## Maintainence
+<h2 id="Maintainence">Maintainence</h2>
 
-The code in the `devshells` directory is used to automate our CIs and maintainence processes.
+<p>The code in the <code>devshells</code> directory is used to automate our CIs and maintainence processes.</p>
 
-### Build them all
+<h3>Build them all</h3>
 
-To build all the packages and push their cache usptream, use:
+<p>To build all the packages and push their cache usptream, use:</p>
 
-```sh
+<pre lang="sh"><code>
 nix develop . -c build-chaotic-nyx
-```
+</code></pre>
 
-This commands will properly skip already-known failures, evaluation failures, building failures, and even skip any chain of failures caused by internal-dependecies. It will also avoid to download what it's already in our cache and in the upstream nixpkgs' cache.
+<p>This commands will properly skip already-known failures, evaluation failures, building failures, and even skip any chain of failures caused by internal-dependecies. It will also avoid to download what it's already in our cache and in the upstream nixpkgs' cache.</p>
 
-A list of what successfully built, failed to build, hashes of all failures, paths to push to cache and logs will be available at the `/tmp/nix-shell.*/tmp.*/` directory. This directory can be specified with the `NYX_WD` envvar.
+<p>A list of what successfully built, failed to build, hashes of all failures, paths to push to cache and logs will be available at the <code>/tmp/nix-shell.*/tmp.*/</code> directory. This directory can be specified with the <code>NYX_WD</code> envvar.</p>
 
-### Check for evaluation differerences
+<h3>Check for evaluation differerences</h3>
 
-You can compare a branch with another like this:
+<p>You can compare a branch with another like this:</p>
 
-```bash
+<pre lang="bash"><code>
 machine=$(uname -m)-linux
 A='github:chaotic-cx/nyx/branch-a'
 B='github:chaotic-cx/nyx/branch-b'
 
 nix build --impure --expr \
   "(builtins.getFlake \"$A\").devShells.$machine.comparer.passthru.any \"$B\""
-```
+</code></pre>
 
-After running, you'll find all the derivations that changed in the `result` file.
+<p>After running, you'll find all the derivations that changed in the <code>result</code> file.</p>
 
-#### Known failures
+<h4>Known failures</h4>
 
-All the hashes that are known to produce build-time failures are kept in `devshells/failures.nix`.
+<p>All the hashes that are known to produce build-time failures are kept in <code>devshells/failures.nix</code>.</p>
 
-Our builder produces a `new-failures.nix` that must be used to update this file in every PR.
+<p>Our builder produces a <code>new-failures.nix</code> that must be used to update this file in every PR.</p>
 
-#### Banished and rejected packages
+<h4>Banished and rejected packages</h4>
 
-There are none (so far).
+<p>There are none (so far).</p>

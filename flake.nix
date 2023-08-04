@@ -82,8 +82,8 @@
 
     overlays.default = import ./overlays { flakes = inputs; };
 
-    nixosModules = import ./nixos { flakes = inputs; };
-    homeManagerModules = import ./home-manager { flakes = inputs; };
+    nixosModules = import ./modules/nixos { flakes = inputs; };
+    homeManagerModules = import ./modules/home-manager { flakes = inputs; };
 
     packages =
       let

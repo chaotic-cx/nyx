@@ -1,8 +1,8 @@
 { flakes, ... }@fromFlakes:
 let
   modulesPerFile = {
-    nyx-cache = import ../nixos/nyx-cache.nix fromFlakes;
-    nyx-overlay = import ../nixos/nyx-overlay.nix fromFlakes;
+    nyx-cache = import ../common/nyx-cache.nix fromFlakes;
+    nyx-overlay = import ../common/nyx-overlay.nix fromFlakes;
   };
 
   default = { ... }: {
