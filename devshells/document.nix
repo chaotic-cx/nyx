@@ -135,7 +135,7 @@ let
     lib.strings.concatStrings (lib.lists.map renderHeader xs);
 
   renderTable = id: { title, headers, rows, ... }: ''
-    <h2 id="t-${id}">${title}</h2>
+    <h3 id="t-${id}">${title}</h2>
     <table id="${id}" class="noscript-table" border="1">
       <thead>${renderHeaders headers}</thead>
       <tbody>${lib.strings.concatStrings rows}</tbody>
@@ -161,6 +161,9 @@ let
     "<li><a href=\"#t-${id}\">${title}</a></li>";
   renderIndex = xs:
     lib.strings.concatStrings (lib.attrsets.mapAttrsToList renderIndexElem xs);
+
+  readme =
+    lib.strings.splitString "<!-- cut here -->" (builtins.readFile ../README.md);
 in
 writeText "chaotic-documented.html" ''
   <!DOCTYPE html><html style="font-size: 12px;">
@@ -185,12 +188,10 @@ writeText "chaotic-documented.html" ''
     </style>
     <noscript><style>.noscript-table { display: table; }</style></noscript>
   </head><body><div style="max-width: 1100px; margin: 0 auto">
-    <h1>Chaotic-Nyx</h1>
-    <p>This page only contains information about packages and options.</p>
-    <p>For instructions, support and details about this project, check the project's <a href="https://github.com/chaotic-cx/nyx#readme">README</a>.</p>
-    <h2>Index</h2>
+    ${builtins.head readme}
     <ul>${renderIndex tables}</ul>
     ${renderTables tables}
+    ${lib.lists.last readme}
     <script type="module">
       import {
         Grid,
