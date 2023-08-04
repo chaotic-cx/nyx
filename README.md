@@ -4,6 +4,8 @@
 
 <p>From the <a href="https://github.com/chaotic-cx">Chaotic Linux User Group (LUG)</a>, the same one that maintains <a href="https://github.com/chaotic-aur">Chaotic-AUR</a>! 🧑🏻‍💻</p>
 
+<p>The official source-code repository is available <a href="https://github.com/chaotic-cx/nyx">as "chaotic-cx/nyx" at GitHub</a>.</p>
+
 <ul>
   <li><a href="#News">News</a></li>
   <li><a href="#How to use it">How to use it</a></li>
@@ -125,7 +127,7 @@ nix run github:chaotic-cx/nyx/nyxpkgs-unstable#yuzu-early-access_git
 
 <p>:godmode: Our <code>nyxpkgs-unstable</code> branch is the one that's always cached.</p>
 
-<p>:shipit: Sometimes the <code>main</code> branch is too, check it through this badge: <img alt="Cache Badge" src="https://github.com/chaotic-cx/nyx/actions/workflows/build.yml/badge.png"></p>
+<p>:shipit: The <code>main</code> branch is the primary target for contribution.</p>
 
 <h3>Contributions</h3>
 

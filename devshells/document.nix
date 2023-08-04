@@ -169,12 +169,11 @@ writeText "chaotic-documented.html" ''
   <!DOCTYPE html><html style="font-size: 12px;">
   <head lang="en">
     <meta charset="UTF-8" />
-    <title>List of packages and options - Chaotic-Nyx</title>
+    <title>Chaotic-Nyx</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" property="og:description"
-      content="Documentation of all our packages and options." />
-    <meta property="og:title"
-      content="Chaotic-Nyx - Nix flake for bleeding-edge and unreleased packages." />
+      content="Nix flake for bleeding-edge and unreleased packages." />
+    <meta property="og:title" content="Chaotic-Nyx" />
     <link rel="icon" href="https://avatars.githubusercontent.com/u/130499842?v=4" type="image/jpeg" />
     <link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
