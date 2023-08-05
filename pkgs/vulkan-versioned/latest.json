@@ -27,14 +27,14 @@
     "badTag": "v2023.4.rc1"
   },
   "vulkanHeaders": {
-    "version": "1.3.260",
+    "version": "1.3.261",
     "rev": "v#{version}",
-    "hash": "sha256-1cHVNts1R5CJatrH1MFjMbHDv0FAZb4lvPxHmRhkFwo="
+    "hash": "sha256-zKHew7SGUq1C3XGp/HrCle6KyqB4cziPcTYVqAr814s="
   },
   "vulkanLoader": {
-    "version": "1.3.260",
+    "version": "1.3.261",
     "rev": "v#{version}",
-    "hash": "sha256-WLWSfbmXuJhgWisRD5vJfqfKJoUy+GP84Zf22ro1nCs="
+    "hash": "sha256-5QCVHfvjE98EnL2Dr7g9fdrJAg+np1Q6hgqcuZCWReQ="
   },
   "vulkanTools": {
     "version": "1.3.260",
