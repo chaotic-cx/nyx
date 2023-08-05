@@ -41,8 +41,7 @@ writeShellScript "update-openmohaa" ''
   latestHash=$(nix-prefetch-git --quiet \
       --rev "$latestTag" \
       "https://github.com/openmoh/openmohaa.git" |\
-    jq -r .sha256 |\
-    xargs nix-hash --to-sri --type sha256 \
+    jq -r .hash \
   )
 
   jq --arg version "$latestVersion" \

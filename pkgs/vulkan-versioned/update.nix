@@ -77,8 +77,7 @@ writeShellScript "update-vulkan-package" ''
       --rev "$latestTag" \
       "https://github.com/$repo.git" \
       ${if packageToUpdate.fetchSubmodules then "--fetch-submodules" else ""} |\
-    jq -r .sha256 |\
-    xargs nix-hash --to-sri --type sha256 \
+    jq -r .hash \
   )
 
   ARGS+=('--arg' "''${key}Hash" "$latestHash")

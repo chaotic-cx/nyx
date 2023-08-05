@@ -43,16 +43,16 @@ writeShellScript "update-cachyos" ''
 
   configRepo=$(nix-prefetch-git --quiet 'https://github.com/CachyOS/linux-cachyos.git')
   configRev=$(echo "$configRepo" | jq -r .rev)
-  configHash=$(echo "$configRepo" | jq -r .sha256 | xargs nix-hash --to-sri --type sha256)
+  configHash=$(echo "$configRepo" | jq -r .hash)
   configPath=$(echo "$configRepo" | jq -r .path)
 
   patchesRepo=$(nix-prefetch-git --quiet 'https://github.com/CachyOS/kernel-patches.git')
   patchesRev=$(echo "$patchesRepo" | jq -r .rev)
-  patchesHash=$(echo "$patchesRepo" | jq -r .sha256 | xargs nix-hash --to-sri --type sha256)
+  patchesHash=$(echo "$patchesRepo" | jq -r .hash)
 
   zfsRev=$(grep -Po '(?<=zfs.git#commit=)([^"]+)' $configPath/linux-cachyos/PKGBUILD)
   zfsRepo=$(nix-prefetch-git --quiet 'https://github.com/CachyOS/zfs.git' --rev $zfsRev)
-  zfsHash=$(echo "$zfsRepo" | jq -r .sha256 | xargs nix-hash --to-sri --type sha256)
+  zfsHash=$(echo "$zfsRepo" | jq -r .hash)
 
   jq \
     --arg latestVer "$latestVer" --arg latestHash "$latestHash" \
