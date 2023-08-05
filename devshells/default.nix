@@ -27,7 +27,7 @@ let
           allPackages = final;
           homeManagerModule = homeManagerModules.default;
           nixosModule = nixosModules.default;
-          inherit nyxRecursionHelper;
+          inherit nixpkgs nyxRecursionHelper self;
           inherit (nixpkgs.lib) nixosSystem;
           inherit (home-manager.lib) homeManagerConfiguration;
         };

@@ -25,8 +25,6 @@ jobs:
         uses: cachix/install-nix-action@v22
         with:
           extra_nix_config: "accept-flake-config = true"
-      - name: Checkout
-        uses: actions/checkout@v3
       - name: Build
         id: build
         run: |
@@ -34,7 +32,7 @@ jobs:
             mv /homeless-shelter /homeless-shelter.$(date +%Y%m%d%H%S)
           fi
           mkdir result
-          nix develop .#document -c 'true' | \
+          nix develop "github:chaotic-cx/nyx/${GITHUB_SHA}#document" -c 'true' | \
             xargs -i@ cp @ result/index.html
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2

@@ -4,9 +4,11 @@
 , lib
 , nixosModule
 , nixosSystem
+, nixpkgs
 , nyxRecursionHelper
 , nyxUtils
 , pkgs
+, self
 , system
 , writeText
 }:
@@ -188,9 +190,12 @@ writeText "chaotic-documented.html" ''
     <noscript><style>.noscript-table { display: table; }</style></noscript>
   </head><body><div style="max-width: 1100px; margin: 0 auto">
     ${builtins.head readme}
+    <p>Built and cached against <a href="https://github.com/NixOS/nixpkgs/tree/${nixpkgs.rev}" target="_blank"><code>github:nixos/nixpkgs/${nixpkgs.rev}</code></a> from <code>${nixpkgs.lastModifiedDate}Z</code>.</p>
     <ul>${renderIndex tables}</ul>
     ${renderTables tables}
     ${lib.lists.last readme}
+    <h2>About this page</h2>
+    <p>Generated for <a href="https://github.com/chaotic-cx/nyx/tree/${self.rev or "nyxpkgs-unstable"}"><code>github:chaotic-cx/nyx/${self.rev or "nyxpkgs-unstable"}</code></a> from <code>${self.lastModifiedDate}Z</code>.</p>
     <script type="module">
       import {
         Grid,
