@@ -22,13 +22,13 @@ let
 in
 stdenv.mkDerivation {
   pname = "latencyflex-vulkan";
-  version = "unstable-2023-04-16";
+  version = "unstable-2023-07-03";
 
   src = fetchFromGitHub {
     owner = "ishitatsuyuki";
     repo = "LatencyFleX";
-    rev = "73bcb07a20db14ba2d6fbb7a6076e4c2a6cbcc8d";
-    hash = "sha256-/rVfpKZFh+1wEJcQzF4E03Cn+bhQKVTM7QblZRDWFZ8=";
+    rev = "3bc9636f94a3220ce55edb642077349e396a7d6a";
+    hash = "sha256-Ic7jTdXVKFZQ+L5F+qSRmvNnXIMMQX70mawAjuvIwm8=";
     fetchSubmodules = true;
   };
 
