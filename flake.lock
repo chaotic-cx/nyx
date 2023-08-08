@@ -55,11 +55,11 @@
     "input-leap-git-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1690732292,
-        "narHash": "sha256-eECX0oSUnRVi5sm870lLRX0li8ZJ9QlyTjrdEkUfNd8=",
+        "lastModified": 1691444785,
+        "narHash": "sha256-wk7mhR3a80j0EGTq8dyfLfSr5gFdHLXf8t5YmWd3uTU=",
         "owner": "input-leap",
         "repo": "input-leap",
-        "rev": "fa1bfd993804e4225dd02aeb2e21ec32ed3c598a",
+        "rev": "ad3c0e32672cc1916173ac5539bf80104d12c9f8",
         "type": "github"
       },
       "original": {
@@ -89,11 +89,11 @@
     "mesa-git-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1691398977,
-        "narHash": "sha256-Xd/eH2bhitvO7slUqzvfHlQ91N6JxcGkKYwDwDQOJNI=",
+        "lastModified": 1691488244,
+        "narHash": "sha256-dBn1tIKqv7LurpR2CiMPtEKIEZpsdojrzojfRiuHtJU=",
         "owner": "chaotic-cx",
         "repo": "mesa-mirror",
-        "rev": "f5074adeb52eaf4bd34f1f7534d52ce16800e200",
+        "rev": "9acbb197fbf02fed2bc17f2e2c9ee3061986baa2",
         "type": "github"
       },
       "original": {
@@ -175,11 +175,11 @@
     "swaylock-plugin-git-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1683632809,
-        "narHash": "sha256-Be+jfpVohSQS1Yjaex1wjymEyzGbZA7RD0VF053+Frs=",
+        "lastModified": 1691448257,
+        "narHash": "sha256-OZ8ntacCZw3OwFWBOUQbn7R/ptMRcX+eLvgEcW6ERBQ=",
         "owner": "mstoeckl",
         "repo": "swaylock-plugin",
-        "rev": "9a0df2abe87d0dc899c28d87f0f59883c6477b61",
+        "rev": "6d488952e37cf730c449970c808b2b286266bf57",
         "type": "github"
       },
       "original": {
@@ -243,11 +243,11 @@
     "yuzu-ea-git-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1691343700,
-        "narHash": "sha256-O0Yc8Ly7wGrzSReWMJcXX07G2bMsMcKVRABRxNo/Zsc=",
+        "lastModified": 1691429770,
+        "narHash": "sha256-otGPwStqeut7rN+g/mw/eCOQ9wMJ/8vLGxj42zhG3/E=",
         "owner": "pineappleEA",
         "repo": "pineapple-src",
-        "rev": "6ed2ee848db501854ada77afff6cd4f7f5e3ad14",
+        "rev": "b7ef3f672f6c07852ea7218d6710561c58c7b02e",
         "type": "github"
       },
       "original": {
