@@ -1,5 +1,22 @@
 {
   "nodes": {
+    "bytecode-viewer-git-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1689899870,
+        "narHash": "sha256-DBggGJDJp2P0jJVhyW+lxT+16PXoN9CY4bQzVZPE5wQ=",
+        "owner": "Konloch",
+        "repo": "bytecode-viewer",
+        "rev": "eda6416609c2f2833b17608f6d58f3cd7c574cd9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Konloch",
+        "ref": "master",
+        "repo": "bytecode-viewer",
+        "type": "github"
+      }
+    },
     "compare-to": {
       "locked": {
         "lastModified": 1682262834,
@@ -139,6 +156,7 @@
     },
     "root": {
       "inputs": {
+        "bytecode-viewer-git-src": "bytecode-viewer-git-src",
         "compare-to": "compare-to",
         "gamescope-git-src": "gamescope-git-src",
         "home-manager": "home-manager",
