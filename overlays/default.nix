@@ -73,6 +73,10 @@ in
     { enableAppletSymlinks = false; }
     (overrideDescription (old: old + " (without applets' symlinks)"));
 
+  bytecode-viewer_git = final.callPackage ../pkgs/bytecode-viewer {
+    inherit (flakes) bytecode-viewer-git-src;
+  };
+
   dr460nized-kde-theme = final.callPackage ../pkgs/dr460nized-kde-theme { };
 
   droid-sans-mono-nerdfont = multiOverrides

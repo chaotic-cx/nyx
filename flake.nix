@@ -16,6 +16,11 @@
     # --- PKGS SOURCES ---
     # Please, sort them in alphabetical order
 
+    bytecode-viewer-git-src = {
+      url = "github:Konloch/bytecode-viewer/master";
+      flake = false;
+    };
+
     input-leap-git-src = {
       url = "github:input-leap/input-leap/master";
       flake = false;
