@@ -117,19 +117,23 @@ final.lib.makeScope final.newScope (self:
   };
 
   vulkan-tools-lunarg =
-    genericOverride {
-      origin = prev.vulkan-tools-lunarg;
-      extraInput = { inherit (self) vulkan-headers vulkan-loader vulkan-validation-layers; };
-      key = "vulkanToolsLunarG";
-      owner = "LunarG";
-      repo = "VulkanTools";
-      fetchSubmodules = true;
-      extraAttrs = pa: {
-        nativeBuildInputs = pa.nativeBuildInputs ++ [ final.xorg.libXau ];
-        buildInputs = pa.buildInputs ++ [ final.jsoncpp ];
-        patches = nyxUtils.removeByBaseName "skip-qnx-extension.patch" pa.patches;
+    # Can't be used with downgraded "vulkan-validation-layers"
+    if self.vulkan-validation-layers.version != vulkanVersions.vulkanValidationLayers.version then
+      prev.vulkan-tools-lunarg
+    else
+      genericOverride {
+        origin = prev.vulkan-tools-lunarg;
+        extraInput = { inherit (self) vulkan-headers vulkan-loader vulkan-validation-layers; };
+        key = "vulkanToolsLunarG";
+        owner = "LunarG";
+        repo = "VulkanTools";
+        fetchSubmodules = true;
+        extraAttrs = pa: {
+          nativeBuildInputs = pa.nativeBuildInputs ++ [ final.xorg.libXau ];
+          buildInputs = pa.buildInputs ++ [ final.jsoncpp ];
+          patches = nyxUtils.removeByBaseName "skip-qnx-extension.patch" pa.patches;
+        };
       };
-    };
 
   vulkan-utility-libraries =
     genericOverride {
@@ -140,14 +144,18 @@ final.lib.makeScope final.newScope (self:
     };
 
   vulkan-validation-layers =
-    genericOverride {
-      origin = prev.vulkan-validation-layers;
-      extraInput = { inherit (self) vulkan-headers spirv-headers; };
-      key = "vulkanValidationLayers";
-      owner = "KhronosGroup";
-      repo = "Vulkan-ValidationLayers";
-      extraAttrs = pa: {
-        nativeBuildInputs = pa.nativeBuildInputs ++ [ self.vulkan-utility-libraries ];
+    # Broken with current spirv-headers
+    if vulkanVersions.spirvHeaders.version == "1.3.250.1" then
+      prev.vulkan-validation-layers
+    else
+      genericOverride {
+        origin = prev.vulkan-validation-layers;
+        extraInput = { inherit (self) vulkan-headers spirv-headers; };
+        key = "vulkanValidationLayers";
+        owner = "KhronosGroup";
+        repo = "Vulkan-ValidationLayers";
+        extraAttrs = pa: {
+          nativeBuildInputs = pa.nativeBuildInputs ++ [ self.vulkan-utility-libraries ];
+        };
       };
-    };
 })
