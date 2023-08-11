@@ -135,6 +135,14 @@ final.lib.makeScope final.newScope (self:
         };
       };
 
+  vulkan-utility-libraries =
+    genericOverride {
+      origin = final.callPackage ./utility-libraries.nix { };
+      key = "vulkanUtilityLibraries";
+      owner = "KhronosGroup";
+      repo = "Vulkan-Utility-Libraries";
+    };
+
   vulkan-validation-layers =
     # Broken with current spirv-headers
     if vulkanVersions.spirvHeaders.version == "1.3.250.1" then
@@ -146,5 +154,8 @@ final.lib.makeScope final.newScope (self:
         key = "vulkanValidationLayers";
         owner = "KhronosGroup";
         repo = "Vulkan-ValidationLayers";
+        extraAttrs = pa: {
+          nativeBuildInputs = pa.nativeBuildInputs ++ [ self.vulkan-utility-libraries ];
+        };
       };
 })
