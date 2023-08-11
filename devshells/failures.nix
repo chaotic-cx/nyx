@@ -1,8 +1,8 @@
 {
-  "linuxPackages_cachyos.ddcci-driver" = "/nix/store/3dsbpdanw2gy7jby7bl7s5gy38i4w3s5-ddcci-driver-6.4.9-0.4.3";
-  "linuxPackages_cachyos.dpdk" = "/nix/store/rks4xvc653gb3q0ql37nixjfnlrcl970-dpdk-22.11.1-6.4.9";
-  "linuxPackages_cachyos.isgx" = "/nix/store/32fj9zgg5rc1jzkzvikli08hwn94yl2p-isgx-2.14-6.4.9";
-  "linuxPackages_cachyos.mba6x_bl" = "/nix/store/4p3ssrv7969alvlv9v2w7ga155naijzq-mba6x_bl-unstable-2017-12-30";
-  "linuxPackages_cachyos.mbp2018-bridge-drv" = "/nix/store/a968hgp0m2hw3jzanf5zfqqgxfs60vny-mbp2018-bridge-drv-2020-01-31";
-  "linuxPackages_cachyos.system76-acpi" = "/nix/store/hrd1rgy3k1n9ifa0i7ip94qr8q5d68j0-system76-acpi-module-1.0.2-6.4.9";
+  "linuxPackages_cachyos.ddcci-driver" = "/nix/store/q68bxy7xkll2yhdzbpd7840xqypcqwav-ddcci-driver-6.4.10-0.4.3";
+  "linuxPackages_cachyos.dpdk" = "/nix/store/1v5sm68a6qmgfvplyrcxc6x7n9rr2wg1-dpdk-22.11.1-6.4.10";
+  "linuxPackages_cachyos.isgx" = "/nix/store/1pqdkjhmxbri5s3f5vxdgbx33lddp2vy-isgx-2.14-6.4.10";
+  "linuxPackages_cachyos.mba6x_bl" = "/nix/store/g73d1hpwalvjpy777880mhd71q7p87ah-mba6x_bl-unstable-2017-12-30";
+  "linuxPackages_cachyos.mbp2018-bridge-drv" = "/nix/store/pckqq76vcyh3hhzzih83rbhfif7rpg4z-mbp2018-bridge-drv-2020-01-31";
+  "linuxPackages_cachyos.system76-acpi" = "/nix/store/gb06jx9a8bh2l3varwp1rfklkw6vlclz-system76-acpi-module-1.0.2-6.4.10";
 }
