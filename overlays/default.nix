@@ -174,11 +174,8 @@ in
 
   swaylock-plugin_git = callOverride ../pkgs/swaylock-plugin-git { };
 
-  vulkanPackages_latest =
-    callOverride ../pkgs/vulkan-versioned
-      { vulkanVersions = importJSON ../pkgs/vulkan-versioned/latest.json; }
-    //
-    { _description = "Latest versions of vulkan-*, spirv-*, glslang, and gfxreconstruct (in a scope)"; };
+  vulkanPackages_latest = callOverride ../pkgs/vulkan-versioned
+    { vulkanVersions = importJSON ../pkgs/vulkan-versioned/latest.json; };
 
   waynergy_git = nyxUtils.gitOverride flakes.waynergy-git-src prev.waynergy;
 

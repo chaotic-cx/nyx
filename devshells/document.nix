@@ -34,6 +34,7 @@ let
 
   derivationWarn = k: v: message:
     if message == "unfree" then derivationMap k v
+    else if message == "not a derivation" && ((v._description or null) == null) then null
     else ''
       <tr>
         <td><code>${k}</code></td>
@@ -42,10 +43,10 @@ let
       </tr>
     '';
 
-  packagesEval = nyxRecursionHelper.derivationsLimited 1 derivationWarn derivationMap allPackages;
+  packagesEval = nyxRecursionHelper.derivationsLimited false derivationWarn derivationMap allPackages;
 
   packagesEvalFlat =
-    lib.lists.flatten packagesEval;
+    lib.lists.remove null (lib.lists.flatten packagesEval);
 
   loadedNixOSModule = nixosSystem {
     modules = [ nixosModule ];

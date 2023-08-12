@@ -7,7 +7,7 @@ rec {
       n
   ;
 
-  # limit: integer
+  # limit: integer | false
   # warnFn: k -> v -> message -> result
   # mapFn: k -> v -> result
   # root: attrset | derivation
@@ -26,9 +26,9 @@ rec {
             else
               mapFn fullKey v
             )
-          else if (limit == null || level < limit)
+          else if (limit == null || limit == false || level < limit)
             && builtins.isAttrs v
-            && (v.recurseForDerivations or true) then
+            && (v.recurseForDerivations or (limit != false || level == 0)) then
             lib.attrsets.mapAttrsToList (recursive (level + 1) fullKey) v
           else
             warnFn fullKey v "not a derivation"
