@@ -81,6 +81,7 @@ writeShellScriptBin "build-chaotic-nyx" ''
   R='\033[0;31m'
   G='\033[0;32m'
   Y='\033[1;33m'
+  C='\033[1;36m'
   W='\033[0m'
 
   TMPDIR="''${NYX_TEMP:-''${TMPDIR}}"
@@ -136,7 +137,7 @@ writeShellScriptBin "build-chaotic-nyx" ''
       echo -e "''${Y} CACHED-UPSTREAM''${W}"
       return 0
     else
-      (while true; do echo -ne "\n* $_WHAT..." && sleep 120; done) &
+      (while true; do echo -ne "''${C} BUILDING''${W}\n* $_WHAT..." && sleep 120; done) &
       _KEEPALIVE=$!
       if \
         ( set -o pipefail;
