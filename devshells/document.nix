@@ -43,7 +43,7 @@ let
       </tr>
     '';
 
-  packagesEval = nyxRecursionHelper.derivationsLimited false derivationWarn derivationMap allPackages;
+  packagesEval = nyxRecursionHelper.derivationsLimited "explicit" derivationWarn derivationMap allPackages;
 
   packagesEvalFlat =
     lib.lists.remove null (lib.lists.flatten packagesEval);
