@@ -56,11 +56,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1691672736,
-        "narHash": "sha256-HNPA/dKHerA0p4OsToEcW/DtTSXBcK5gFRsy/yPgV/Y=",
+        "lastModified": 1691856649,
+        "narHash": "sha256-1/KYCwNyOPpUoyno9Yj3zMHITQaW+wPzVlJFPOPPCo4=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "6e1eff9aac0e8d84bda7f2d60ba6108eea9b7e79",
+        "rev": "406d34d919e9e8b831b531782cf5ef6995188566",
         "type": "github"
       },
       "original": {
@@ -106,11 +106,11 @@
     "mesa-git-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1691824588,
-        "narHash": "sha256-84R+VKLUyQSk/ZXF3cQNM/YN7englPxbIhcLOpSRcAI=",
+        "lastModified": 1691848172,
+        "narHash": "sha256-/nc8owFqG8J3y79IzmBLmHmSjC9/l/UCBYQwKZ1GTwQ=",
         "owner": "chaotic-cx",
         "repo": "mesa-mirror",
-        "rev": "95856898393782a14da6062bfce3ee92d88497d6",
+        "rev": "7cc2f23d535151072d077426693d1de8f0254eeb",
         "type": "github"
       },
       "original": {
