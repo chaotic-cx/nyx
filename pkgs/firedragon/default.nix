@@ -15,6 +15,8 @@ in
   src = firedragon-src.firefox;
   inherit (firedragon-src) extraConfigureFlags extraPatches extraPostPatch extraPassthru;
 
+  updateScript = callPackage ./update.nix { };
+
   meta = {
     badPlatforms = lib.platforms.darwin;
     broken = stdenv.buildPlatform.is32bit; # since Firefox 60, build on 32-bit platforms fails with "out of memory".
