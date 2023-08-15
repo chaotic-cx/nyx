@@ -56,6 +56,10 @@ in
 {
   inherit nyxUtils;
 
+  alacritty_git = callOverride ../pkgs/alacritty-git {
+    alacrittyVersion = importJSON ../pkgs/alacritty-git/version.json;
+  };
+
   ananicy-cpp-rules = final.callPackage ../pkgs/ananicy-cpp-rules { };
 
   applet-window-appmenu = final.libsForQt5.callPackage ../pkgs/applet-window-appmenu { };
