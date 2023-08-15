@@ -16,4 +16,5 @@ prev.alacritty.overrideAttrs (pa: rec {
       [ "extra/alacritty.man" "extra/alacritty-msg.man" "install -Dm 644 alacritty.yml $out/share/doc/alacritty.yml" ]
       [ "extra/alacritty.*" "extra/alacritty-msg.*" "" ]
       pa.postInstall;
+  passthru = pa.passthru // { updateScript = final.callPackage ./update.nix { }; };
 })
