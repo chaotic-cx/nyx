@@ -116,14 +116,12 @@ jobs:
           script: |
             if (process.env.FAILED_BUILDS_COUNT > 0) {
               var extratext = "";
-              if (process.env.FAILED_BUILDS_COUNT > 3) {
-                core.setFailed("Too many build failures to deploy!")
-                // Check if github actions triggered the event
-                if (process.env.ACTOR == "github-actions[bot]")
-                  extratext = `\nToo many build failures to deploy! Consider adding failed builds to devshells/failures.nix @chaotic-cx/nyxers`
-                else
-                  extratext = `\nToo many build failures to deploy! Consider adding failed builds to devshells/failures.nix @${process.env.ACTOR}`
-              }
+              core.setFailed("Build failures found!")
+              // Check if github actions triggered the event
+              if (process.env.ACTOR == "github-actions[bot]")
+                extratext = `\nToo many build failures to deploy! Consider adding failed builds to devshells/failures.nix @chaotic-cx/nyxers`
+              else
+                extratext = `\nToo many build failures to deploy! Consider adding failed builds to devshells/failures.nix @${process.env.ACTOR}`
               github.rest.repos.createCommitComment({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
