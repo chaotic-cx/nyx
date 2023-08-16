@@ -119,9 +119,9 @@ jobs:
               core.setFailed("Build failures found!")
               // Check if github actions triggered the event
               if (process.env.ACTOR == "github-actions[bot]")
-                extratext = `\nToo many build failures to deploy! Consider adding failed builds to devshells/failures.nix @chaotic-cx/nyxers`
+                extratext = `\nNew build failures found! Consider adding failed builds to devshells/failures.nix @chaotic-cx/nyxers`
               else
-                extratext = `\nToo many build failures to deploy! Consider adding failed builds to devshells/failures.nix @${process.env.ACTOR}`
+                extratext = `\nNew build failures found! Consider adding failed builds to devshells/failures.nix @${process.env.ACTOR}`
               github.rest.repos.createCommitComment({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
