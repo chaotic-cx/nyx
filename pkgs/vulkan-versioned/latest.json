@@ -54,7 +54,7 @@
   "vulkanUtilityLibraries": {
     "version": "1.3.261",
     "rev": "v#{version}",
-    "hash": "sha256-cE/h/muoK94gWuhyLJ7Ong12dMnLYWzYoeTGMa9FOGM="
+    "hash": "sha256-szkBKNcxTHMYhhHFWr5WjD91Vf/AyZaGymvlDU9ff7s="
   },
   "vulkanValidationLayers": {
     "version": "1.3.261",

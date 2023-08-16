@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     owner = "KhronosGroup";
     repo = "Vulkan-Utility-Libraries";
     rev = "v${version}";
-    hash = "sha256-cE/h/muoK94gWuhyLJ7Ong12dMnLYWzYoeTGMa9FOGM=";
+    hash = "sha256-szkBKNcxTHMYhhHFWr5WjD91Vf/AyZaGymvlDU9ff7s=";
   };
 
   nativeBuildInputs = [ cmake vulkan-headers ];
