@@ -51,6 +51,13 @@ let
         LD_PRELOAD = [ "/run/opengl-driver/lib/libglapi.so.0" ];
       };
 
+    systemd.services.display-manager.serviceConfig.Environment =
+      builtins.map lib.strings.escapeShellArg
+        [
+          "LD_LIBRARY_PATH=${config.environment.variables.LD_LIBRARY_PATH}"
+          "LD_PRELOAD=${config.environment.variables.LD_PRELOAD}"
+        ];
+
       warnings = [
         "The `chaotic.mesa-git.method = \"LD_LIBRARY_PATH\"` is known to cause problems with Steam and apps with wrappers preloading Mesa (e.g., Firefox). A refactor of this module is currently in development."
       ];
@@ -91,6 +98,14 @@ let
       GBM_BACKEND = pkgs.mesa_git.gbmBackend;
       LD_PRELOAD = [ "${pkgs.mesa_git}/lib/libglapi.so.0" ]; # TODO: find a better solution
     };
+
+    systemd.services.display-manager.serviceConfig.Environment =
+      builtins.map lib.strings.escapeShellArg
+        [
+          "GBM_BACKENDS_PATH=${config.environment.variables.GBM_BACKENDS_PATH}"
+          "GBM_BACKEND=${config.environment.variables.GBM_BACKEND}"
+          "LD_PRELOAD=${config.environment.variables.LD_PRELOAD}"
+        ];
   };
 
   chosenMethod =
