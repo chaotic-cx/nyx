@@ -188,4 +188,6 @@ in
   yt-dlp_git = callOverride ../pkgs/yt-dlp-git { };
 
   yuzu-early-access_git = callOverride ../pkgs/yuzu-ea-git { };
+
+  yyjson = final.callPackage ../pkgs/yyjson { };
 }
