@@ -8,7 +8,7 @@ concurrency:
 
 jobs:
   check-nix-fmt:
-    runs-on: ubuntu-latest
+    runs-on: nyxbuilder
     outputs:
       fmt: ${{ steps.check_fmt.outcome }}
     steps:

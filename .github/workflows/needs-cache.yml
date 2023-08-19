@@ -13,7 +13,7 @@ jobs:
     outputs:
       FAILED_BUILDS_COUNT: ${{ steps.upload.outputs.FAILED_BUILDS_COUNT }}
       FAILED_BUILDS: ${{ steps.upload.outputs.FAILED_BUILDS }}
-    runs-on: ubuntu-latest
+    runs-on: nyxbuilder
     steps:
       - name: Install Nix
         uses: cachix/install-nix-action@v22
