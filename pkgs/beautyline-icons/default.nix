@@ -44,6 +44,4 @@ stdenvNoCC.mkDerivation rec {
     maintainers = [ maintainers.dr460nf1r3 ];
     platforms = platforms.all;
   };
-
-  updateScript = null;
 }

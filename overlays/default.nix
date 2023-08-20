@@ -61,7 +61,7 @@ in
   };
 
   ananicy-cpp-rules = final.callPackage ../pkgs/ananicy-cpp-rules {
-    ananicy-cpp-rules-git-src = flakes.ananicy-cpp-rules-git-src;
+    inherit (flakes) ananicy-cpp-rules-git-src;
   };
 
   applet-window-appmenu = final.libsForQt5.callPackage ../pkgs/applet-window-appmenu { };
@@ -71,7 +71,7 @@ in
   appmenu-gtk3-module = final.callPackage ../pkgs/appmenu-gtk3-module { };
 
   beautyline-icons = final.callPackage ../pkgs/beautyline-icons {
-    beautyline-icons-git-src = flakes.beautyline-icons-git-src;
+    inherit (flakes) beautyline-icons-git-src;
   };
 
   blurredwallpaper = final.callPackage ../pkgs/blurredwallpaper { };
@@ -86,7 +86,7 @@ in
   };
 
   dr460nized-kde-theme = final.callPackage ../pkgs/dr460nized-kde-theme {
-    dr460nized-kde-theme-git-src = flakes.dr460nized-kde-theme-git-src;
+    inherit (flakes) dr460nized-kde-theme-git-src;
   };
 
   droid-sans-mono-nerdfont = multiOverrides
