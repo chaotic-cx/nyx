@@ -1,5 +1,22 @@
 {
   "nodes": {
+    "ananicy-cpp-rules-git-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1692041536,
+        "narHash": "sha256-KlhViyT1RDtqROvRSiSK25hUaNidyFyk4eaLFIiwPhE=",
+        "owner": "CachyOS",
+        "repo": "ananicy-rules",
+        "rev": "5003fd756a3c6310a62db7c3f89d5413207d25a9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "CachyOS",
+        "ref": "master",
+        "repo": "ananicy-rules",
+        "type": "github"
+      }
+    },
     "bytecode-viewer-git-src": {
       "flake": false,
       "locked": {
@@ -156,6 +173,7 @@
     },
     "root": {
       "inputs": {
+        "ananicy-cpp-rules-git-src": "ananicy-cpp-rules-git-src",
         "bytecode-viewer-git-src": "bytecode-viewer-git-src",
         "compare-to": "compare-to",
         "gamescope-git-src": "gamescope-git-src",

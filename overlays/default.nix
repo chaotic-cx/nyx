@@ -60,7 +60,9 @@ in
     alacrittyVersion = importJSON ../pkgs/alacritty-git/version.json;
   };
 
-  ananicy-cpp-rules = final.callPackage ../pkgs/ananicy-cpp-rules { };
+  ananicy-cpp-rules = final.callPackage ../pkgs/ananicy-cpp-rules {
+    ananicy-cpp-rules-git-src = flakes.ananicy-cpp-rules-git-src;
+  };
 
   applet-window-appmenu = final.libsForQt5.callPackage ../pkgs/applet-window-appmenu { };
 

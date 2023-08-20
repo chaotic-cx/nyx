@@ -16,6 +16,11 @@
     # --- PKGS SOURCES ---
     # Please, sort them in alphabetical order
 
+    ananicy-cpp-rules-git-src = {
+      url = "github:CachyOS/ananicy-rules/master";
+      flake = false;
+    };
+
     bytecode-viewer-git-src = {
       url = "github:Konloch/bytecode-viewer/master";
       flake = false;
