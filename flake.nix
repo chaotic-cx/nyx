@@ -16,8 +16,23 @@
     # --- PKGS SOURCES ---
     # Please, sort them in alphabetical order
 
+    ananicy-cpp-rules-git-src = {
+      url = "github:CachyOS/ananicy-rules/master";
+      flake = false;
+    };
+
+    beautyline-icons-git-src = {
+      url = "gitlab:garuda-linux%2Fthemes-and-settings%2Fartwork/beautyline";
+      flake = false;
+    };
+
     bytecode-viewer-git-src = {
       url = "github:Konloch/bytecode-viewer/master";
+      flake = false;
+    };
+
+    dr460nized-kde-theme-git-src = {
+      url = "gitlab:garuda-linux%2Fthemes-and-settings%2Fsettings/garuda-dr460nized/master";
       flake = false;
     };
 

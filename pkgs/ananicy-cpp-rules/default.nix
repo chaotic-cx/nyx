@@ -1,17 +1,17 @@
-{ fetchFromGitHub
+{ ananicy-cpp-rules-git-src
 , lib
+, nyxUtils
 , stdenvNoCC
+, ...
 }:
+let
+  src = ananicy-cpp-rules-git-src;
+in
 stdenvNoCC.mkDerivation {
   pname = "ananicy-cpp-rules";
-  version = "unstable-2023-03-31";
 
-  src = fetchFromGitHub {
-    owner = "CachyOS";
-    repo = "ananicy-rules";
-    rev = "973c537e7b7e89e8ce8e699e5a8c651c0fc778fa";
-    hash = "sha256-qOMi9QXgs9QUocquzozrAFuuW/UZ3qp3VOgw0a2fx34=";
-  };
+  inherit src;
+  version = nyxUtils.gitToVersion src;
 
   installPhase = ''
     runHook preInstall

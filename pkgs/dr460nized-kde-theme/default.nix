@@ -1,21 +1,17 @@
 { beautyline-icons
 , blurredwallpaper
-, fetchFromGitLab
+, dr460nized-kde-theme-git-src
 , fetchurl
 , lib
+, nyxUtils
 , stdenvNoCC
 , sweet-nova
 }:
 stdenvNoCC.mkDerivation rec {
   pname = "dr460nized-kde-theme";
-  version = "unstable-2023-07-29";
 
-  src = fetchFromGitLab {
-    owner = "garuda-linux/themes-and-settings/settings";
-    repo = "garuda-dr460nized";
-    rev = "c491df60ddabf7025082e3226cb0db02996f701a";
-    sha256 = "sha256-GzHu6o/C7+3UMJz1Wgfap/KQvsUbjoaLzGu/4f1kFCU=";
-  };
+  src = dr460nized-kde-theme-git-src;
+  version = nyxUtils.gitToVersion src;
 
   malefor = fetchurl {
     url = "https://gitlab.com/garuda-linux/themes-and-settings/artwork/garuda-wallpapers/-/raw/master/src/garuda-wallpapers/Malefor.jpg";

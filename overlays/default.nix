@@ -60,7 +60,9 @@ in
     alacrittyVersion = importJSON ../pkgs/alacritty-git/version.json;
   };
 
-  ananicy-cpp-rules = final.callPackage ../pkgs/ananicy-cpp-rules { };
+  ananicy-cpp-rules = final.callPackage ../pkgs/ananicy-cpp-rules {
+    inherit (flakes) ananicy-cpp-rules-git-src;
+  };
 
   applet-window-appmenu = final.libsForQt5.callPackage ../pkgs/applet-window-appmenu { };
 
@@ -68,7 +70,9 @@ in
 
   appmenu-gtk3-module = final.callPackage ../pkgs/appmenu-gtk3-module { };
 
-  beautyline-icons = final.callPackage ../pkgs/beautyline-icons { };
+  beautyline-icons = final.callPackage ../pkgs/beautyline-icons {
+    inherit (flakes) beautyline-icons-git-src;
+  };
 
   blurredwallpaper = final.callPackage ../pkgs/blurredwallpaper { };
 
@@ -81,7 +85,9 @@ in
     inherit (flakes) bytecode-viewer-git-src;
   };
 
-  dr460nized-kde-theme = final.callPackage ../pkgs/dr460nized-kde-theme { };
+  dr460nized-kde-theme = final.callPackage ../pkgs/dr460nized-kde-theme {
+    inherit (flakes) dr460nized-kde-theme-git-src;
+  };
 
   droid-sans-mono-nerdfont = multiOverrides
     final.nerdfonts

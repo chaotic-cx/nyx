@@ -1,21 +1,19 @@
-{ fetchFromGitLab
+{ beautyline-icons-git-src
 , gnome-icon-theme
 , gtk3
 , hicolor-icon-theme
 , jdupes
 , lib
+, nyxUtils
 , stdenvNoCC
+, ...
 }:
-stdenvNoCC.mkDerivation rec {
-  pname = "BeautyLine";
-  version = "unstable-2023-06-03";
 
-  src = fetchFromGitLab {
-    owner = "garuda-linux/themes-and-settings/artwork";
-    repo = pname;
-    rev = "6ed423161e252d597ca7180bf16ce3d8c38e8af1";
-    hash = "sha256-v4gAWBckba6s/ZHKNhLkho9WM8ylGmLxkVjX3Y7QEJE=";
-  };
+stdenvNoCC.mkDerivation rec {
+  pname = "beautyline-icons";
+
+  src = beautyline-icons-git-src;
+  version = nyxUtils.gitToVersion src;
 
   nativeBuildInputs = [ jdupes gtk3 ];
 
