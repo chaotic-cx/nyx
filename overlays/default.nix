@@ -70,7 +70,9 @@ in
 
   appmenu-gtk3-module = final.callPackage ../pkgs/appmenu-gtk3-module { };
 
-  beautyline-icons = final.callPackage ../pkgs/beautyline-icons { };
+  beautyline-icons = final.callPackage ../pkgs/beautyline-icons {
+    beautyline-icons-git-src = flakes.beautyline-icons-git-src;
+  };
 
   blurredwallpaper = final.callPackage ../pkgs/blurredwallpaper { };
 

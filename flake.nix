@@ -21,6 +21,11 @@
       flake = false;
     };
 
+    beautyline-icons-git-src = {
+      url = "gitlab:garuda-linux%2Fthemes-and-settings%2Fartwork/beautyline";
+      flake = false;
+    };
+
     bytecode-viewer-git-src = {
       url = "github:Konloch/bytecode-viewer/master";
       flake = false;

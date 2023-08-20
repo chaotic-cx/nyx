@@ -17,6 +17,22 @@
         "type": "github"
       }
     },
+    "beautyline-icons-git-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1690177682,
+        "narHash": "sha256-xl4zuO0Q2qXcEre56wpXsZ1lEQSYPoDpPD+z0VsHQ1o=",
+        "owner": "garuda-linux%2Fthemes-and-settings%2Fartwork",
+        "repo": "beautyline",
+        "rev": "aaef8bbd156266b23f3152f65af992d499f5a995",
+        "type": "gitlab"
+      },
+      "original": {
+        "owner": "garuda-linux%2Fthemes-and-settings%2Fartwork",
+        "repo": "beautyline",
+        "type": "gitlab"
+      }
+    },
     "bytecode-viewer-git-src": {
       "flake": false,
       "locked": {
@@ -174,6 +190,7 @@
     "root": {
       "inputs": {
         "ananicy-cpp-rules-git-src": "ananicy-cpp-rules-git-src",
+        "beautyline-icons-git-src": "beautyline-icons-git-src",
         "bytecode-viewer-git-src": "bytecode-viewer-git-src",
         "compare-to": "compare-to",
         "gamescope-git-src": "gamescope-git-src",
