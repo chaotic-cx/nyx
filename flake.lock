@@ -65,6 +65,23 @@
         "type": "github"
       }
     },
+    "dr460nized-kde-theme-git-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1690307599,
+        "narHash": "sha256-GzHu6o/C7+3UMJz1Wgfap/KQvsUbjoaLzGu/4f1kFCU=",
+        "owner": "garuda-linux%2Fthemes-and-settings%2Fsettings",
+        "repo": "garuda-dr460nized",
+        "rev": "c491df60ddabf7025082e3226cb0db02996f701a",
+        "type": "gitlab"
+      },
+      "original": {
+        "owner": "garuda-linux%2Fthemes-and-settings%2Fsettings",
+        "ref": "master",
+        "repo": "garuda-dr460nized",
+        "type": "gitlab"
+      }
+    },
     "gamescope-git-src": {
       "flake": false,
       "locked": {
@@ -193,6 +210,7 @@
         "beautyline-icons-git-src": "beautyline-icons-git-src",
         "bytecode-viewer-git-src": "bytecode-viewer-git-src",
         "compare-to": "compare-to",
+        "dr460nized-kde-theme-git-src": "dr460nized-kde-theme-git-src",
         "gamescope-git-src": "gamescope-git-src",
         "home-manager": "home-manager",
         "input-leap-git-src": "input-leap-git-src",

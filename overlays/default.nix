@@ -85,7 +85,9 @@ in
     inherit (flakes) bytecode-viewer-git-src;
   };
 
-  dr460nized-kde-theme = final.callPackage ../pkgs/dr460nized-kde-theme { };
+  dr460nized-kde-theme = final.callPackage ../pkgs/dr460nized-kde-theme {
+    dr460nized-kde-theme-git-src = flakes.dr460nized-kde-theme-git-src;
+  };
 
   droid-sans-mono-nerdfont = multiOverrides
     final.nerdfonts

@@ -31,6 +31,11 @@
       flake = false;
     };
 
+    dr460nized-kde-theme-git-src = {
+      url = "gitlab:garuda-linux%2Fthemes-and-settings%2Fsettings/garuda-dr460nized/master";
+      flake = false;
+    };
+
     input-leap-git-src = {
       url = "github:input-leap/input-leap/master";
       flake = false;
