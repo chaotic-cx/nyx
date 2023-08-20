@@ -36,6 +36,8 @@ jobs:
           name: chaotic-nyx
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
           skipPush: true
+        env:
+          USER: root
       - name: Upload to cachix
         id: upload
         run: |
