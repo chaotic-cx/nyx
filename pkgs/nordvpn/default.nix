@@ -17,15 +17,14 @@
 
 let
   pname = "nordvpn";
-  version = "3.16.3";
+  version = "3.16.5";
 
   nordVPNBase = stdenv.mkDerivation {
     inherit pname version;
 
     src = fetchurl {
-      url =
-        "https://repo.nordvpn.com/deb/nordvpn/debian/pool/main/nordvpn_${version}_amd64.deb";
-      hash = "sha256-d9Ai4WkR13vMDzz8ncl3BwlRqE9ogqqoLVDZQf1UJIE=";
+      url = "https://repo.nordvpn.com/deb/nordvpn/debian/pool/main/nordvpn_${version}_amd64.deb";
+      hash = "sha256-d2FXgmW/Tyz18EzQ912HNuMEjq0iW8L4WY8N4EzLBwQ=";
     };
 
     buildInputs = [ libxml2 libidn2 ];
