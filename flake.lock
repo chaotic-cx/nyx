@@ -297,11 +297,11 @@
     "yt-dlp-git-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1692037744,
-        "narHash": "sha256-lbyurwKj+lPY70bdpMVN8lGogWZHOWYbgo227GvsUI8=",
+        "lastModified": 1692549357,
+        "narHash": "sha256-eEBoPeSg9k7cD3aq7xmTTs1Ki3u1LSlhKZkpx9y8ZZg=",
         "owner": "yt-dlp",
         "repo": "yt-dlp",
-        "rev": "876b70c8edf4c0147f180bd981fbc4d625cbfb9c",
+        "rev": "ed711897814f3ee0b1822e4205e74133467e8f1c",
         "type": "github"
       },
       "original": {
