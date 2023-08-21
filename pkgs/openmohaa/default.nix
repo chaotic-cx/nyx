@@ -5,7 +5,9 @@
 , pkg-config
 , cmake
 , SDL2
+, bison
 , curl
+, flex
 , libogg
 , libvorbis
 , libopus
@@ -23,7 +25,7 @@ clangStdenv.mkDerivation {
     inherit (openmohaaVersion) hash;
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [ cmake pkg-config bison flex ];
   buildInputs = [
     SDL2
     curl
