@@ -7,4 +7,5 @@
   "linuxPackages_cachyos.system76-acpi" = "/nix/store/l4n6bhmzg2j9sg47cridmwwn9lw7k5x1-system76-acpi-module-1.0.2-6.4.11";
   "linuxPackages_cachyos.virtualbox" = "/nix/store/ngk3x0r6qi9fm19i4ys5dj916y716m20-virtualbox-modules-7.0.10-6.4.11";
   "linuxPackages_cachyos.vmware" = "/nix/store/hd27fnqgarsz1i1rrfjpkdr4fzkz62z8-vmware-modules-17.0.0-6.4.11";
+  "openmohaa" = "/nix/store/5k2s28wxvg2wifm03z95q0g8jd88wyhi-openmohaa-0.58.1";
 }
