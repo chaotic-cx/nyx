@@ -63,6 +63,12 @@ final.lib.makeScope final.newScope (self:
     key = "spirvCross";
     owner = "KhronosGroup";
     repo = "SPIRV-Cross";
+    extraAttrs = pa: {
+      postPatch = ''
+        substituteInPlace pkg-config/spirv-cross-c.pc.in \
+          --replace '=''${prefix}/@' '=@'
+      '' + (pa.postPatch or "");
+    };
   };
 
   spirv-headers = genericOverride {
@@ -117,23 +123,23 @@ final.lib.makeScope final.newScope (self:
   };
 
   vulkan-tools-lunarg =
-    # Can't be used with downgraded "vulkan-validation-layers"
-    if self.vulkan-validation-layers.version != vulkanVersions.vulkanValidationLayers.version then
-      prev.vulkan-tools-lunarg
-    else
-      genericOverride {
-        origin = prev.vulkan-tools-lunarg;
-        extraInput = { inherit (self) vulkan-headers vulkan-loader vulkan-validation-layers; };
-        key = "vulkanToolsLunarG";
-        owner = "LunarG";
-        repo = "VulkanTools";
-        fetchSubmodules = true;
-        extraAttrs = pa: {
-          nativeBuildInputs = pa.nativeBuildInputs ++ [ final.xorg.libXau ];
-          buildInputs = pa.buildInputs ++ [ final.jsoncpp ];
-          patches = nyxUtils.removeByBaseName "skip-qnx-extension.patch" pa.patches;
-        };
+    genericOverride {
+      origin = prev.vulkan-tools-lunarg;
+      extraInput = { inherit (self) vulkan-headers vulkan-loader vulkan-validation-layers; };
+      key = "vulkanToolsLunarG";
+      owner = "LunarG";
+      repo = "VulkanTools";
+      fetchSubmodules = true;
+      extraAttrs = pa: {
+        nativeBuildInputs = pa.nativeBuildInputs ++ [ final.xorg.libXau ];
+        buildInputs = pa.buildInputs ++ [ final.jsoncpp ];
+        patches = nyxUtils.removeByBaseName "skip-qnx-extension.patch" pa.patches;
+        postPatch = ''
+          substituteInPlace via/CMakeLists.txt \
+            --replace 'jsoncpp_static' 'jsoncpp'
+        '' + (pa.postPatch or "");
       };
+    };
 
   vulkan-utility-libraries =
     genericOverride {
@@ -144,18 +150,17 @@ final.lib.makeScope final.newScope (self:
     };
 
   vulkan-validation-layers =
-    # Broken with current spirv-headers
-    if vulkanVersions.spirvHeaders.version == "1.3.250.1" then
-      prev.vulkan-validation-layers
-    else
-      genericOverride {
-        origin = prev.vulkan-validation-layers;
-        extraInput = { inherit (self) vulkan-headers spirv-headers; };
-        key = "vulkanValidationLayers";
-        owner = "KhronosGroup";
-        repo = "Vulkan-ValidationLayers";
-        extraAttrs = pa: {
-          nativeBuildInputs = pa.nativeBuildInputs ++ [ self.vulkan-utility-libraries ];
-        };
+    genericOverride {
+      origin = prev.vulkan-validation-layers;
+      extraInput = { inherit (self) glslang vulkan-headers spirv-headers; };
+      key = "vulkanValidationLayers";
+      owner = "KhronosGroup";
+      repo = "Vulkan-ValidationLayers";
+      extraAttrs = pa: {
+        nativeBuildInputs = pa.nativeBuildInputs ++ [ self.vulkan-utility-libraries ];
+        cmakeFlags = nyxUtils.replaceStartingWith
+          "-DSPIRV_HEADERS_INSTALL_DIR=" "${self.spirv-headers}"
+          pa.cmakeFlags;
       };
+    };
 })
