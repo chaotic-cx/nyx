@@ -71,6 +71,14 @@ rec {
     !(lib.attrsets.isDerivation x) || (x.url or null) != url
   );
 
+  # Helps updating flags
+  replaceStartingWith = prefix: newSuffix: builtins.map (x:
+    if lib.strings.hasPrefix prefix x then
+      prefix + newSuffix
+    else
+      x
+  );
+
   # Like `lib.fakeHash`, but beautier.
   unreachableHash = "sha256-2342234223422342234223422342234223422342069=";
 

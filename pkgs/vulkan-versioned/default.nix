@@ -148,6 +148,9 @@ final.lib.makeScope final.newScope (self:
       repo = "Vulkan-ValidationLayers";
       extraAttrs = pa: {
         nativeBuildInputs = pa.nativeBuildInputs ++ [ self.vulkan-utility-libraries ];
+        cmakeFlags = nyxUtils.replaceStartingWith
+          "-DSPIRV_HEADERS_INSTALL_DIR=" "${self.spirv-headers}"
+          pa.cmakeFlags;
       };
     };
 })
