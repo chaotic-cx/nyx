@@ -63,6 +63,12 @@ final.lib.makeScope final.newScope (self:
     key = "spirvCross";
     owner = "KhronosGroup";
     repo = "SPIRV-Cross";
+    extraAttrs = pa: {
+      postPatch = ''
+        substituteInPlace pkg-config/spirv-cross-c.pc.in \
+          --replace '=''${prefix}/@' '=@'
+      '' + (pa.postPatch or "");
+    };
   };
 
   spirv-headers = genericOverride {
