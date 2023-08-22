@@ -134,6 +134,10 @@ final.lib.makeScope final.newScope (self:
         nativeBuildInputs = pa.nativeBuildInputs ++ [ final.xorg.libXau ];
         buildInputs = pa.buildInputs ++ [ final.jsoncpp ];
         patches = nyxUtils.removeByBaseName "skip-qnx-extension.patch" pa.patches;
+        postPatch = ''
+          substituteInPlace via/CMakeLists.txt \
+            --replace 'jsoncpp_static' 'jsoncpp'
+        '' + (pa.postPatch or "");
       };
     };
 
