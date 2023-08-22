@@ -10,7 +10,7 @@
 }:
 
 stdenvNoCC.mkDerivation rec {
-  pname = "beautyline-icons";
+  pname = "BeautyLine";
 
   src = beautyline-icons-git-src;
   version = nyxUtils.gitToVersion src;
