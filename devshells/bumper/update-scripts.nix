@@ -12,7 +12,7 @@ let
         "${v.updateScript} # ${k}"
     else null;
 
-  skip = _k: _v: _m: null;
+  skip = _k: _v: _message: null;
 
   packagesEval = nyxRecursionHelper.derivationsLimited 2 skip evalResult allPackages;
 

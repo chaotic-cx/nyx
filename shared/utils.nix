@@ -63,7 +63,7 @@ rec {
   };
 
   # Helps removing attrs.
-  rejectAttr = x: lib.attrsets.filterAttrs (n: _: n != x);
+  rejectAttr = x: lib.attrsets.filterAttrs (k: _v: k != x);
 
   # Helps when dropping patches.
   removeByBaseName = baseName:
