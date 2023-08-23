@@ -1,7 +1,7 @@
-{ flakes, ... }@fromFlakes:
+fromFlakes:
 let
   modulesPerFile = {
-    nyx-cache = import ../common/nyx-cache.nix fromFlakes;
+    nyx-cache = import ../common/nyx-cache.nix;
     nyx-overlay = import ../common/nyx-overlay.nix fromFlakes;
   };
 

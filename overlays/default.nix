@@ -15,8 +15,7 @@ let
   inherit (final.lib.trivial) importJSON;
 
   # Our utilities/helpers.
-  nyxUtils = final.callPackage ../shared/utils.nix { } //
-    { _description = "Pack of functions that are useful for Chaotic-Nyx and might become useful for you too"; };
+  nyxUtils = import ../shared/utils.nix { inherit (final) lib; };
   inherit (nyxUtils) dropAttrsUpdateScript dropUpdateScript multiOverride multiOverrides overrideDescription;
 
   # Helps when calling .nix that will override packages.
@@ -33,16 +32,16 @@ let
   cachyVersions = importJSON ../pkgs/linux-cachyos/versions.json;
 
   # CachyOS repeating stuff.
-  cachyZFS = _: prevAttrs:
+  cachyZFS = _finalAttrs: prevAttrs:
     let
-      zfs = prevAttrs.zfsUnstable.overrideAttrs (pa: {
+      zfs = prevAttrs.zfsUnstable.overrideAttrs (prevAttrs: {
         src =
           final.fetchFromGitHub {
             owner = "cachyos";
             repo = "zfs";
             inherit (cachyVersions.zfs) rev hash;
           };
-        meta = pa.meta // { broken = false; };
+        meta = prevAttrs.meta // { broken = false; };
         patches = [ ];
       });
     in
@@ -94,7 +93,7 @@ in
     { fonts = [ "DroidSansMono" ]; }
     [
       dropUpdateScript
-      (overrideDescription (_: "Provides \"DroidSansM Nerd Font\" font family."))
+      (overrideDescription (_prevDesc: "Provides \"DroidSansM Nerd Font\" font family."))
     ];
 
   fastfetch = final.callPackage ../pkgs/fastfetch { };

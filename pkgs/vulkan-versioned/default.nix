@@ -14,7 +14,7 @@ let
     , extraInput ? null
     , extraAttrs ? null
     }:
-    (if extraInput == null then origin else origin.override extraInput).overrideAttrs (pa:
+    (if extraInput == null then origin else origin.override extraInput).overrideAttrs (prevAttrs:
       with vulkanVersions.${key}; {
         inherit version;
         src = final.fetchFromGitHub {
@@ -23,12 +23,12 @@ let
             [ "#{version}" ] [ version ]
             rev;
         };
-        passthru = (pa.passthru or { }) // {
+        passthru = (prevAttrs.passthru or { }) // {
           updateScript = final.callPackage ./update.nix {
             packageToUpdate = { inherit key owner repo fetchSubmodules; };
           };
         };
-      } // (if extraAttrs == null then { } else (extraAttrs pa)));
+      } // (if extraAttrs == null then { } else (extraAttrs prevAttrs)));
 in
 final.lib.makeScope final.newScope (self:
 {
@@ -48,9 +48,9 @@ final.lib.makeScope final.newScope (self:
     extraInput = { inherit (self) spirv-headers spirv-tools; };
     owner = "KhronosGroup";
     repo = "glslang";
-    extraAttrs = pa: {
+    extraAttrs = prevAttrs: {
       patches = [ ];
-      postInstall = pa.postInstall + ''
+      postInstall = prevAttrs.postInstall + ''
         pushd $out/bin
         ln -s glslang glslangValidator
         popd
@@ -63,11 +63,11 @@ final.lib.makeScope final.newScope (self:
     key = "spirvCross";
     owner = "KhronosGroup";
     repo = "SPIRV-Cross";
-    extraAttrs = pa: {
+    extraAttrs = prevAttrs: {
       postPatch = ''
         substituteInPlace pkg-config/spirv-cross-c.pc.in \
           --replace '=''${prefix}/@' '=@'
-      '' + (pa.postPatch or "");
+      '' + (prevAttrs.postPatch or "");
     };
   };
 
@@ -92,9 +92,9 @@ final.lib.makeScope final.newScope (self:
     key = "vulkanExtensionLayer";
     owner = "KhronosGroup";
     repo = "Vulkan-ExtensionLayer";
-    extraAttrs = pa: {
-      nativeBuildInputs = pa.nativeBuildInputs ++ [ final.pkg-config ];
-      buildInputs = pa.buildInputs ++ (with final; [ xorg.libxcb xorg.libX11 xorg.libXrandr wayland ]);
+    extraAttrs = prevAttrs: {
+      nativeBuildInputs = prevAttrs.nativeBuildInputs ++ [ final.pkg-config ];
+      buildInputs = prevAttrs.buildInputs ++ (with final; [ xorg.libxcb xorg.libX11 xorg.libXrandr wayland ]);
     };
   };
 
@@ -111,7 +111,7 @@ final.lib.makeScope final.newScope (self:
     key = "vulkanLoader";
     owner = "KhronosGroup";
     repo = "Vulkan-Loader";
-    extraAttrs = pa: { meta = pa.meta // { broken = false; }; };
+    extraAttrs = prevAttrs: { meta = prevAttrs.meta // { broken = false; }; };
   };
 
   vulkan-tools = genericOverride {
@@ -130,14 +130,14 @@ final.lib.makeScope final.newScope (self:
       owner = "LunarG";
       repo = "VulkanTools";
       fetchSubmodules = true;
-      extraAttrs = pa: {
-        nativeBuildInputs = pa.nativeBuildInputs ++ [ final.xorg.libXau ];
-        buildInputs = pa.buildInputs ++ [ final.jsoncpp ];
-        patches = nyxUtils.removeByBaseName "skip-qnx-extension.patch" pa.patches;
+      extraAttrs = prevAttrs: {
+        nativeBuildInputs = prevAttrs.nativeBuildInputs ++ [ final.xorg.libXau ];
+        buildInputs = prevAttrs.buildInputs ++ [ final.jsoncpp ];
+        patches = nyxUtils.removeByBaseName "skip-qnx-extension.patch" prevAttrs.patches;
         postPatch = ''
           substituteInPlace via/CMakeLists.txt \
             --replace 'jsoncpp_static' 'jsoncpp'
-        '' + (pa.postPatch or "");
+        '' + (prevAttrs.postPatch or "");
       };
     };
 
@@ -156,11 +156,11 @@ final.lib.makeScope final.newScope (self:
       key = "vulkanValidationLayers";
       owner = "KhronosGroup";
       repo = "Vulkan-ValidationLayers";
-      extraAttrs = pa: {
-        nativeBuildInputs = pa.nativeBuildInputs ++ [ self.vulkan-utility-libraries ];
+      extraAttrs = prevAttrs: {
+        nativeBuildInputs = prevAttrs.nativeBuildInputs ++ [ self.vulkan-utility-libraries ];
         cmakeFlags = nyxUtils.replaceStartingWith
           "-DSPIRV_HEADERS_INSTALL_DIR=" "${self.spirv-headers}"
-          pa.cmakeFlags;
+          prevAttrs.cmakeFlags;
       };
     };
 })

@@ -48,7 +48,7 @@ let
         inherit deps drv;
       };
 
-  commentWarn = k: _: message:
+  commentWarn = k: _v: message:
     doNotBuild "# ${message}: ${k}";
 
   doNotBuild = replacement:
@@ -74,7 +74,7 @@ let
   packagesCmds =
     builtins.map (pkg: pkg.cmd) packagesEvalSorted.result;
 in
-writeShellScriptBin "build-chaotic-nyx" ''
+writeShellScriptBin "chaotic-nyx-build" ''
   NYX_SOURCE="''${NYX_SOURCE:-${flakeSelf}}"
   NYX_FLAGS="''${NYX_FLAGS:---accept-flake-config --no-link}"
   NYX_WD="''${NYX_WD:-$(mktemp -d)}"

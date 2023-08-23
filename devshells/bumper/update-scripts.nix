@@ -12,12 +12,12 @@ let
         "${v.updateScript} # ${k}"
     else null;
 
-  skip = _: _: _: null;
+  skip = _k: _v: _message: null;
 
   packagesEval = nyxRecursionHelper.derivationsLimited 2 skip evalResult allPackages;
 
   packagesEvalSorted =
-    builtins.filter (f: f != null) (lib.lists.flatten packagesEval);
+    builtins.filter (x: x != null) (lib.lists.flatten packagesEval);
 in
 writeShellScriptBin "chaotic-nyx-update-scripts"
   (lib.strings.concatStringsSep "\n" packagesEvalSorted)

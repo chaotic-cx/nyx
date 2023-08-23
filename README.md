@@ -167,7 +167,7 @@ nix run github:chaotic-cx/nyx/nyxpkgs-unstable#yuzu-early-access_git
 <p>To build all the packages and push their cache usptream, use:</p>
 
 <pre lang="sh"><code>
-nix develop . -c build-chaotic-nyx
+nix develop . -c chaotic-nyx-build
 </code></pre>
 
 <p>This commands will properly skip already-known failures, evaluation failures, building failures, and even skip any chain of failures caused by internal-dependecies. It will also avoid to download what it's already in our cache and in the upstream nixpkgs' cache.</p>

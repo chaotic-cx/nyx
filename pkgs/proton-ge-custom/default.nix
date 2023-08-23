@@ -2,7 +2,6 @@
 , stdenv
 , lib
 , fetchurl
-, writeScript
 , protonGeTitle ? null
 , protonGeVersions
 }:

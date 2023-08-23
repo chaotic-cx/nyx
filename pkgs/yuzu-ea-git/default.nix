@@ -37,21 +37,21 @@ let
   base = prev.yuzu-early-access.override
     { inherit glslang vulkan-headers vulkan-loader; };
 in
-base.overrideAttrs (pa: rec {
+base.overrideAttrs (prevAttrs: rec {
   src = flakes.yuzu-ea-git-src;
   version = nyxUtils.gitToVersion src;
 
   # We need to have these headers ahead, otherwise they cause an ordering issue in CMAKE_INCLUDE_PATH,
   # where qtbase propagated input appears first.
-  nativeBuildInputs = [ vulkan-headers glslang spirv-headers ] ++ pa.nativeBuildInputs;
+  nativeBuildInputs = [ vulkan-headers glslang spirv-headers ] ++ prevAttrs.nativeBuildInputs;
 
-  cmakeFlags = pa.cmakeFlags ++ [
+  cmakeFlags = prevAttrs.cmakeFlags ++ [
     "-DSIRIT_USE_SYSTEM_SPIRV_HEADERS=ON"
   ];
 
-  patches = nyxUtils.removeByBaseName "vulkan_version.patch" (pa.patches or [ ]);
+  patches = nyxUtils.removeByBaseName "vulkan_version.patch" (prevAttrs.patches or [ ]);
 
-  postPatch = (pa.postPatch or "") + ''
+  postPatch = (prevAttrs.postPatch or "") + ''
     rm -r externals/{cpp-httplib,dynarmic,mbedtls,sirit,xbyak}
     cp --no-preserve=mode -r ${final.mbedtls_2.src} externals/mbedtls
     ln -s ${final.httplib.src} externals/cpp-httplib
@@ -90,5 +90,5 @@ base.overrideAttrs (pa: rec {
   doCheck = false;
 
   # We bump it with flakes
-  passthru = pa.passthru // { updateScript = null; };
+  passthru = prevAttrs.passthru // { updateScript = null; };
 })

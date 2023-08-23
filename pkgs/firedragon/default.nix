@@ -1,7 +1,6 @@
 { buildMozillaMach
 , callPackage
 , lib
-, nixosTests
 , stdenv
 }:
 let

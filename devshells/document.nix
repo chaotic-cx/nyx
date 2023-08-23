@@ -6,7 +6,6 @@
 , nixosSystem
 , nixpkgs
 , nyxRecursionHelper
-, nyxUtils
 , pkgs
 , self
 , system
@@ -95,7 +94,7 @@ let
       </tr>
     '';
 
-  optionWarn = k: _: message:
+  optionWarn = k: _v: message:
     ''
       <tr>
         <td><code>chaotic.${k}</code></td>

@@ -3,7 +3,6 @@
 { lib
 , stdenv
 , fetchFromGitHub
-, fetchpatch
 , cmake
 , darwin
 , ninja

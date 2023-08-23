@@ -1,4 +1,4 @@
-{ flakes }: { config, lib, ... }:
+{ config, lib, ... }:
 let
   cfg = config.chaotic.nyx.cache;
 in

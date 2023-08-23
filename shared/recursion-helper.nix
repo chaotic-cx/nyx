@@ -1,10 +1,10 @@
 { lib }:
 rec {
-  join = namespace: n:
+  join = namespace: current:
     if namespace != "" then
-      "${namespace}.${n}"
+      "${namespace}.${current}"
     else
-      n
+      current
   ;
 
   # limit: integer | "explicit"

@@ -11,7 +11,7 @@ let
   evalResult = k: v:
     { name = k; value = builtins.unsafeDiscardStringContext v.outPath; };
 
-  warn = k: _: message:
+  warn = k: _v: message:
     { name = k; value = message; };
 
   packagesEval = packages:
