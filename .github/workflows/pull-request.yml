@@ -7,10 +7,10 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
 
 jobs:
-  check-nix-fmt:
+  lint:
     runs-on: nyxbuilder
     outputs:
-      fmt: ${{ steps.check_fmt.outcome }}
+      fmt: ${{ steps.linter.outcome }}
     steps:
       - name: Install Nix
         uses: cachix/install-nix-action@v22
@@ -21,25 +21,19 @@ jobs:
         uses: actions/checkout@v3
         with:
           ref: ${{ github.event.pull_request.head.sha }}
-      - name: Check nixpkgs-fmt
-        run: |
-          nix run nixpkgs#nixpkgs-fmt -- --check ${{ github.workspace }}
-        id: check_fmt
-        working-directory: ${{ runner.temp }}
-      - name: Check statix
-        run: |
-          nix run nixpkgs#statix -- check ${{ github.workspace }}
-        id: check_statix
-        working-directory: ${{ runner.temp }}
+      - name: Run linter
+        run: nix develop .#linter -c 'chaotic-nyx-lint'
+        id: linter
+        working-directory: ${{ github.workspace }}
   organize:
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
-    needs: check-nix-fmt
-    if: (!cancelled() && (contains(github.event.pull_request.labels.*.name, 'cached') || (needs.check-nix-fmt.outputs.fmt == 'failure' && github.event.action == 'opened')))
+    needs: lint
+    if: (!cancelled() && (contains(github.event.pull_request.labels.*.name, 'cached') || (needs.lint.outputs.fmt == 'failure' && github.event.action == 'opened')))
     steps:
       - name: Add comment
-        if: needs.check-nix-fmt.outputs.fmt == 'failure' && github.event.action == 'opened'
+        if: needs.lint.outputs.fmt == 'failure' && github.event.action == 'opened'
         uses: actions/github-script@v6
         with:
           script: |
