@@ -4,7 +4,6 @@
 , findutils
 , gnugrep
 , curl
-, gnupg
 , jq
 , git
 , nix

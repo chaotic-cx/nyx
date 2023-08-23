@@ -6,7 +6,6 @@
 , nixosSystem
 , nixpkgs
 , nyxRecursionHelper
-, nyxUtils
 , pkgs
 , self
 , system

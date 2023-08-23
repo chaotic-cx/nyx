@@ -1,4 +1,4 @@
-{ final, flakes, nyxUtils, prev, alacrittyVersion, ... }:
+{ final, prev, alacrittyVersion, ... }:
 
 prev.alacritty.overrideAttrs (pa: rec {
   inherit (alacrittyVersion) version;

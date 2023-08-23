@@ -1,4 +1,4 @@
-{ flakes, ... }@fromFlakes:
+{ ... }@fromFlakes:
 let
   modulesPerFile = {
     nyx-cache = import ../common/nyx-cache.nix fromFlakes;

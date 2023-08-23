@@ -1,7 +1,6 @@
 { final
 , flakes
 , nyxUtils
-, prev
 , ...
 }:
 

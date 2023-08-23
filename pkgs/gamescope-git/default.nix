@@ -1,6 +1,6 @@
-{ final, flakes, nyxUtils, prev, ... }:
+{ flakes, nyxUtils, prev, ... }:
 
-prev.gamescope.overrideAttrs (pa: {
+prev.gamescope.overrideAttrs (_pa: {
   version = nyxUtils.gitToVersion flakes.gamescope-git-src;
   src = flakes.gamescope-git-src;
 })

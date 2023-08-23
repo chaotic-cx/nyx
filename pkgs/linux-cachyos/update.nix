@@ -4,14 +4,13 @@
 , findutils
 , gnugrep
 , curl
-, gnupg
 , jq
 , git
 , nix
 , nix-prefetch-git
 , moreutils
 , ...
-}@p:
+}:
 let
   path = lib.makeBinPath [
     coreutils

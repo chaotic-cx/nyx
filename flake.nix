@@ -92,7 +92,7 @@
     };
   };
 
-  outputs = { nixpkgs, self, ... }@inputs: rec {
+  outputs = { nixpkgs, ... }@inputs: rec {
     # I would prefer if we had something stricter, with attribute alphabetical
     # sorting, and optimized for git's diffing. But this is the closer we have.
     formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;

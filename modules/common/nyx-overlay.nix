@@ -4,7 +4,7 @@ let
   cacheCfg = config.chaotic.nyx.cache;
 
   onTopOfFlakeInputs =
-    _: userPrev:
+    _: _userPrev:
     let
       inherit (pkgs) stdenv;
       isCross = stdenv.buildPlatform != stdenv.hostPlatform;

@@ -1,8 +1,5 @@
 { coreutils
-, gh
-, git
 , gnused
-, nix
 , ripgrep
 , update-scripts
 , writeShellScriptBin
