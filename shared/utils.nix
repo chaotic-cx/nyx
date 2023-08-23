@@ -4,10 +4,10 @@ rec {
   _description = "Pack of functions that are useful for Chaotic-Nyx and might become useful for you too";
 
   # When `removeByBaseName` and `removeByURL` can't help, use this to drop patches.
-  dropN = n: list: lib.lists.take (builtins.length list - n) list;
+  dropN = qty: list: lib.lists.take (builtins.length list - qty) list;
 
   # Helps when batch-overriding.
-  dropAttrsUpdateScript = builtins.mapAttrs (_: v:
+  dropAttrsUpdateScript = builtins.mapAttrs (_k: v:
     if (v.passthru.updateScript or null) != null then
       v.overrideAttrs dropUpdateScript
     else v
@@ -42,7 +42,7 @@ rec {
 
   # Helps when converting flakes to src.
   gitOverride = src: drv:
-    drv.overrideAttrs (_: {
+    drv.overrideAttrs (_prevAttrs: {
       version = gitToVersion src;
       inherit src;
     });

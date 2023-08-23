@@ -17,7 +17,7 @@ let
   packagesEval = nyxRecursionHelper.derivationsLimited 2 skip evalResult allPackages;
 
   packagesEvalSorted =
-    builtins.filter (f: f != null) (lib.lists.flatten packagesEval);
+    builtins.filter (x: x != null) (lib.lists.flatten packagesEval);
 in
 writeShellScriptBin "chaotic-nyx-update-scripts"
   (lib.strings.concatStringsSep "\n" packagesEvalSorted)

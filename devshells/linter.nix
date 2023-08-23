@@ -19,12 +19,9 @@ writeShellScriptBin "chaotic-nyx-lint" ''
   ${Statix} check .
   ${Deadnix} --fail .
 
-  echo "Searching ugly code..."
-  _SHORT_FILES=$(${Find} . -type f -name '*.nix' | (xargs ${Rg} -P '[^\w"@\(](?!url|src|drv|xs|id|_?[kvxn])([a-zA-Z_][a-zA-Z]{0,2}):' || true))
+  _SHORT_FILES=$(${Find} . -type f -name '*.nix' | (xargs ${Rg} -P '[^\w"@](?!xs|id|_?[kvx])(_?[a-zA-Z_][a-zA-Z]?):' || true))
   if [[ -n "$_SHORT_FILES" ]]; then
-    echo "Lambda parameters can't have three letters or less (except: url, src, drv, x, xs, id, k, v, n):"
+    echo "Lambda parameters can't have two letters or less (except: x, xs, id, k, v):"
     echo "$_SHORT_FILES"
   fi
-
-  echo 'Finished'
 ''
