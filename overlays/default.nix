@@ -93,7 +93,7 @@ in
     { fonts = [ "DroidSansMono" ]; }
     [
       dropUpdateScript
-      (overrideDescription (_: "Provides \"DroidSansM Nerd Font\" font family."))
+      (overrideDescription (_prevDesc: "Provides \"DroidSansM Nerd Font\" font family."))
     ];
 
   fastfetch = final.callPackage ../pkgs/fastfetch { };

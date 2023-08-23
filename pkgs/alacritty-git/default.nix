@@ -7,7 +7,7 @@ prev.alacritty.overrideAttrs (prevAttrs: rec {
     owner = "alacritty";
     repo = "alacritty";
   };
-  cargoDeps = pa.cargoDeps.overrideAttrs (_: {
+  cargoDeps = pa.cargoDeps.overrideAttrs (_prevAttrs: {
     inherit src;
     outputHash = alacrittyVersion.cargoHash;
   });
