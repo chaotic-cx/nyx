@@ -56,6 +56,7 @@ let
         {
           inherit update-scripts;
         };
+      linter = overlayFinal.callPackage ./linter.nix { };
     in
     {
       default = overlayFinal.mkShell {
@@ -76,6 +77,9 @@ let
       };
       updater = overlayFinal.mkShell {
         buildInputs = [ update-scripts bumper ];
+      };
+      linter = overlayFinal.mkShell {
+        buildInputs = [ linter ];
       };
     };
 in
