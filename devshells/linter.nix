@@ -15,13 +15,8 @@ in
 writeShellScriptBin "chaotic-nyx-lint" ''
   set -euo pipefail
 
-  echo "Running nixpkgs-fmt..."
   ${Fmt} --check .
-
-  echo "Running statix..."
-  ${Statix} check
-
-  echo "Running deadnix..."
+  ${Statix} check .
   ${Deadnix} --fail .
 
   echo "Searching ugly code..."
