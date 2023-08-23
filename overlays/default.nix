@@ -15,8 +15,7 @@ let
   inherit (final.lib.trivial) importJSON;
 
   # Our utilities/helpers.
-  nyxUtils = final.callPackage ../shared/utils.nix { } //
-    { _description = "Pack of functions that are useful for Chaotic-Nyx and might become useful for you too"; };
+  nyxUtils = import ../shared/utils.nix { inherit (final) lib; };
   inherit (nyxUtils) dropAttrsUpdateScript dropUpdateScript multiOverride multiOverrides overrideDescription;
 
   # Helps when calling .nix that will override packages.

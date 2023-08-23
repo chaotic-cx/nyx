@@ -1,5 +1,8 @@
-{ lib, callPackage }:
+{ lib }:
 rec {
+  # For viewing in our documentation page.
+  _description = "Pack of functions that are useful for Chaotic-Nyx and might become useful for you too";
+
   # When `removeByBaseName` and `removeByURL` can't help, use this to drop patches.
   dropN = n: list: lib.lists.take (builtins.length list - n) list;
 
