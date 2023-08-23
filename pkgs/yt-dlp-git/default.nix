@@ -17,9 +17,9 @@ let
 in
 (final.python311Packages.toPythonApplication prev.python311Packages.yt-dlp).overrideAttrs (prevAttrs: rec {
   version = nyxUtils.gitToVersion flakes.yt-dlp-git-src;
-  name = "${pa.pname}-${version}";
+  name = "${prevAttrs.pname}-${version}";
   src = flakes.yt-dlp-git-src;
-  postPatch = (pa.postPatch or "") + ''
+  postPatch = (prevAttrs.postPatch or "") + ''
           echo "
     __version__ = '${datedVersion}'
 
@@ -33,5 +33,5 @@ in
           " > yt_dlp/version.py
   '';
 
-  passthru = pa.passthru // { updateScript = null; };
+  passthru = prevAttrs.passthru // { updateScript = null; };
 })

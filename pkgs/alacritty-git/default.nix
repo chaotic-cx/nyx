@@ -7,7 +7,7 @@ prev.alacritty.overrideAttrs (prevAttrs: rec {
     owner = "alacritty";
     repo = "alacritty";
   };
-  cargoDeps = pa.cargoDeps.overrideAttrs (_prevAttrs: {
+  cargoDeps = prevAttrs.cargoDeps.overrideAttrs (_prevAttrs: {
     inherit src;
     outputHash = alacrittyVersion.cargoHash;
   });
@@ -15,6 +15,6 @@ prev.alacritty.overrideAttrs (prevAttrs: rec {
     builtins.replaceStrings
       [ "extra/alacritty.man" "extra/alacritty-msg.man" "install -Dm 644 alacritty.yml $out/share/doc/alacritty.yml" ]
       [ "extra/alacritty.*" "extra/alacritty-msg.*" "" ]
-      pa.postInstall;
-  passthru = pa.passthru // { updateScript = final.callPackage ./update.nix { }; };
+      prevAttrs.postInstall;
+  passthru = prevAttrs.passthru // { updateScript = final.callPackage ./update.nix { }; };
 })

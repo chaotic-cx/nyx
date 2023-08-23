@@ -15,7 +15,7 @@ rec {
 
   # Helps when overriding.
   dropUpdateScript = prevAttrs:
-    { passthru = pa.passthru // { updateScript = null; }; };
+    { passthru = prevAttrs.passthru // { updateScript = null; }; };
 
   # NOTE: Don't use in your system's configuration, this helps in the repo's infra.
   # Checks if a derivation is in a list.
@@ -57,8 +57,8 @@ rec {
 
   # Helps when overriding.
   overrideDescription = descriptionMap: prevAttrs: {
-    meta = (rejectAttr "longDescription" pa.meta) // {
-      description = descriptionMap pa.meta.description;
+    meta = (rejectAttr "longDescription" prevAttrs.meta) // {
+      description = descriptionMap prevAttrs.meta.description;
     };
   };
 

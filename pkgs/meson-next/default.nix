@@ -8,5 +8,5 @@ prev.meson.overrideAttrs (prevAttrs: rec {
     rev = "refs/tags/${version}";
     hash = "sha256-bJAmkE+sL9DqKpcjZdBf4/z9lz+m/o0Z87hlAwbVbTY=";
   };
-  patches = nyxUtils.removeByBaseName "darwin-case-sensitive-fs.patch" pa.patches;
+  patches = nyxUtils.removeByBaseName "darwin-case-sensitive-fs.patch" prevAttrs.patches;
 })

@@ -41,7 +41,7 @@ let
             repo = "zfs";
             inherit (cachyVersions.zfs) rev hash;
           };
-        meta = pa.meta // { broken = false; };
+        meta = prevAttrs.meta // { broken = false; };
         patches = [ ];
       });
     in
