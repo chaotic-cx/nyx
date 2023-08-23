@@ -14,7 +14,7 @@ rec {
   );
 
   # Helps when overriding.
-  dropUpdateScript = pa:
+  dropUpdateScript = prevAttrs:
     { passthru = pa.passthru // { updateScript = null; }; };
 
   # NOTE: Don't use in your system's configuration, this helps in the repo's infra.
@@ -56,7 +56,7 @@ rec {
     (prev.override newInputs);
 
   # Helps when overriding.
-  overrideDescription = descriptionMap: pa: {
+  overrideDescription = descriptionMap: prevAttrs: {
     meta = (rejectAttr "longDescription" pa.meta) // {
       description = descriptionMap pa.meta.description;
     };

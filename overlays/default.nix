@@ -32,9 +32,9 @@ let
   cachyVersions = importJSON ../pkgs/linux-cachyos/versions.json;
 
   # CachyOS repeating stuff.
-  cachyZFS = _: prevAttrs:
+  cachyZFS = _finalAttrs: prevAttrs:
     let
-      zfs = prevAttrs.zfsUnstable.overrideAttrs (pa: {
+      zfs = prevAttrs.zfsUnstable.overrideAttrs (prevAttrs: {
         src =
           final.fetchFromGitHub {
             owner = "cachyos";

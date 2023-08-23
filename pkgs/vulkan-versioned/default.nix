@@ -14,7 +14,7 @@ let
     , extraInput ? null
     , extraAttrs ? null
     }:
-    (if extraInput == null then origin else origin.override extraInput).overrideAttrs (pa:
+    (if extraInput == null then origin else origin.override extraInput).overrideAttrs (prevAttrs:
       with vulkanVersions.${key}; {
         inherit version;
         src = final.fetchFromGitHub {
@@ -48,7 +48,7 @@ final.lib.makeScope final.newScope (self:
     extraInput = { inherit (self) spirv-headers spirv-tools; };
     owner = "KhronosGroup";
     repo = "glslang";
-    extraAttrs = pa: {
+    extraAttrs = prevAttrs: {
       patches = [ ];
       postInstall = pa.postInstall + ''
         pushd $out/bin
@@ -63,7 +63,7 @@ final.lib.makeScope final.newScope (self:
     key = "spirvCross";
     owner = "KhronosGroup";
     repo = "SPIRV-Cross";
-    extraAttrs = pa: {
+    extraAttrs = prevAttrs: {
       postPatch = ''
         substituteInPlace pkg-config/spirv-cross-c.pc.in \
           --replace '=''${prefix}/@' '=@'
@@ -92,7 +92,7 @@ final.lib.makeScope final.newScope (self:
     key = "vulkanExtensionLayer";
     owner = "KhronosGroup";
     repo = "Vulkan-ExtensionLayer";
-    extraAttrs = pa: {
+    extraAttrs = prevAttrs: {
       nativeBuildInputs = pa.nativeBuildInputs ++ [ final.pkg-config ];
       buildInputs = pa.buildInputs ++ (with final; [ xorg.libxcb xorg.libX11 xorg.libXrandr wayland ]);
     };
@@ -111,7 +111,7 @@ final.lib.makeScope final.newScope (self:
     key = "vulkanLoader";
     owner = "KhronosGroup";
     repo = "Vulkan-Loader";
-    extraAttrs = pa: { meta = pa.meta // { broken = false; }; };
+    extraAttrs = prevAttrs: { meta = pa.meta // { broken = false; }; };
   };
 
   vulkan-tools = genericOverride {
@@ -130,7 +130,7 @@ final.lib.makeScope final.newScope (self:
       owner = "LunarG";
       repo = "VulkanTools";
       fetchSubmodules = true;
-      extraAttrs = pa: {
+      extraAttrs = prevAttrs: {
         nativeBuildInputs = pa.nativeBuildInputs ++ [ final.xorg.libXau ];
         buildInputs = pa.buildInputs ++ [ final.jsoncpp ];
         patches = nyxUtils.removeByBaseName "skip-qnx-extension.patch" pa.patches;
@@ -156,7 +156,7 @@ final.lib.makeScope final.newScope (self:
       key = "vulkanValidationLayers";
       owner = "KhronosGroup";
       repo = "Vulkan-ValidationLayers";
-      extraAttrs = pa: {
+      extraAttrs = prevAttrs: {
         nativeBuildInputs = pa.nativeBuildInputs ++ [ self.vulkan-utility-libraries ];
         cmakeFlags = nyxUtils.replaceStartingWith
           "-DSPIRV_HEADERS_INSTALL_DIR=" "${self.spirv-headers}"

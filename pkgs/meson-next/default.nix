@@ -1,6 +1,6 @@
 { final, prev, nyxUtils, ... }:
 
-prev.meson.overrideAttrs (pa: rec {
+prev.meson.overrideAttrs (prevAttrs: rec {
   version = "1.2.0";
   src = final.fetchFromGitHub {
     owner = "mesonbuild";

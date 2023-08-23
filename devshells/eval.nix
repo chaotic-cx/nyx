@@ -9,7 +9,7 @@ let
   evalResult = k: v:
     "${system}\t${k}\t${nyxUtils.drvHash v}\t${builtins.unsafeDiscardStringContext v.outPath}";
 
-  warn = k: _: message:
+  warn = k: _v: message:
     "${system}\t${k}\t_\t${message}";
 
   packagesEval = nyxRecursionHelper.derivations warn evalResult allPackages;

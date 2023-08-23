@@ -48,7 +48,7 @@ let
         inherit deps drv;
       };
 
-  commentWarn = k: _: message:
+  commentWarn = k: _v: message:
     doNotBuild "# ${message}: ${k}";
 
   doNotBuild = replacement:

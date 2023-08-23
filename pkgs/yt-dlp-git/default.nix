@@ -15,7 +15,7 @@ let
     builtins.substring 6 2 date;
   datedVersion = "${year}.${month}.${day}";
 in
-(final.python311Packages.toPythonApplication prev.python311Packages.yt-dlp).overrideAttrs (pa: rec {
+(final.python311Packages.toPythonApplication prev.python311Packages.yt-dlp).overrideAttrs (prevAttrs: rec {
   version = nyxUtils.gitToVersion flakes.yt-dlp-git-src;
   name = "${pa.pname}-${version}";
   src = flakes.yt-dlp-git-src;

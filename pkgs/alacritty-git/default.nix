@@ -1,6 +1,6 @@
 { final, prev, alacrittyVersion, ... }:
 
-prev.alacritty.overrideAttrs (pa: rec {
+prev.alacritty.overrideAttrs (prevAttrs: rec {
   inherit (alacrittyVersion) version;
   src = final.fetchFromGitHub {
     inherit (alacrittyVersion) rev hash;

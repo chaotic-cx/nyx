@@ -37,7 +37,7 @@ let
   base = prev.yuzu-early-access.override
     { inherit glslang vulkan-headers vulkan-loader; };
 in
-base.overrideAttrs (pa: rec {
+base.overrideAttrs (prevAttrs: rec {
   src = flakes.yuzu-ea-git-src;
   version = nyxUtils.gitToVersion src;
 

@@ -1,6 +1,6 @@
 { final, flakes, nyxUtils, ... }:
 
-final.input-leap.overrideAttrs (pa: {
+final.input-leap.overrideAttrs (prevAttrs: {
   src = flakes.input-leap-git-src;
   version = nyxUtils.gitToVersion flakes.input-leap-git-src;
   nativeBuildInputs = pa.nativeBuildInputs ++ (with final; [
