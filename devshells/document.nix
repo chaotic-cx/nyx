@@ -175,7 +175,10 @@ writeText "chaotic-documented.html" ''
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" property="og:description"
       content="Nix flake for bleeding-edge and unreleased packages." />
+    <meta property="og:url" content="https://www.nyx.chaotic.cx" />
+    <meta property="og:type" content="website" />
     <meta property="og:title" content="Chaotic-Nyx" />
+    <meta property="og:image" content="https://gist.githubusercontent.com/PedroHLC/f6eaa9dfcf190e18b753e98fd265c8d3/raw/nix-frog-with-capes-web.svg" />
     <link rel="icon" href="https://avatars.githubusercontent.com/u/130499842?v=4" type="image/jpeg" />
     <link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
