@@ -186,6 +186,8 @@ writeText "chaotic-documented.html" ''
         :root { font-family: 'Inter var', sans-serif; }
       }
       body .gridjs-search, body .gridjs-search-input { width: 100%; }
+      pre { overflow: auto; }
+      img { max-width: 100%; }
     </style>
     <noscript><style>.noscript-table { display: table; }</style></noscript>
   </head><body><div style="max-width: 1100px; margin: 0 auto">
