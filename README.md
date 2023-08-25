@@ -1,4 +1,6 @@
-<h1>Chaotic's Nyx ❄️</h1>
+<h1>Chaotic's Nyx</h1>
+
+<img alt="Six frogs with capes, aligned like the NixOS logo, with intercalated shades of green" src="https://gist.githubusercontent.com/PedroHLC/f6eaa9dfcf190e18b753e98fd265c8d3/raw/nix-frog-with-capes-web.svg" />
 
 <p>Flake-compatible Nixpkgs overlay for bleeding-edge and unreleased packages. The first child of chaos.</p>
 
