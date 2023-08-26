@@ -18,6 +18,13 @@ nyxUtils.multiOverride prev.mesa { inherit meson; } (prevAttrs: {
     ) ++ [
       ./disk_cache-include-dri-driver-path-in-cache-key.patch
       ./gbm-backend.patch
+      (# temporary workaround, please remove it later
+        # issue: https://gitlab.freedesktop.org/mesa/mesa/-/issues/9692
+        # pr: https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/24888
+        final.fetchurl {
+          url = "https://gitlab.freedesktop.org/derekf/mesa/-/commit/e7f24cca359e2b57bb619593478ae2498e27146c.patch";
+          hash = "sha256-u4uLDgjnMTlAjrlPUoyDx9ZVgw+Yjv6+r/vm2kyDjWk=";
+        })
     ];
   # expose gbm backend and rename vendor (if necessary)
   outputs =
