@@ -4,58 +4,6 @@ let
 
   has32 = pkgs.stdenv.hostPlatform.isLinux && pkgs.stdenv.hostPlatform.isx86;
 
-  methodLD =
-    let
-      package = pkgs.buildEnv {
-        name = "opengl-drivers";
-        paths = [
-          pkgs.mesa_git.out
-          pkgs.mesa_git.drivers
-        ] ++ cfg.extraPackages;
-      };
-
-      package32 = pkgs.buildEnv {
-        name = "opengl-drivers-32bit";
-        paths = [
-          pkgs.mesa32_git.out
-          pkgs.mesa32_git.drivers
-        ] ++ cfg.extraPackages32;
-      };
-    in
-    {
-      hardware.opengl = with lib; {
-        enable = mkForce false;
-        package = mkForce pkgs.mesa_git.out;
-        package32 = mkForce pkgs.mesa32_git.out;
-        extraPackages = mkForce [ ];
-        extraPackages32 = mkForce [ ];
-        driSupport = mkForce true;
-        driSupport32Bit = mkForce has32;
-        setLdLibraryPath = mkForce false;
-      };
-
-      systemd.tmpfiles.rules = [
-        "L+ /run/opengl-driver - - - - ${package}"
-        (
-          if pkgs.stdenv.isi686 then
-            "L+ /run/opengl-driver-32 - - - - opengl-driver"
-          else if has32 then
-            "L+ /run/opengl-driver-32 - - - - ${package32}"
-          else
-            "r /run/opengl-driver-32"
-        )
-      ];
-
-      environment.variables = {
-        LD_LIBRARY_PATH = [ "/run/opengl-driver/lib" ] ++ lib.optional has32 "/run/opengl-driver-32/lib";
-        LD_PRELOAD = [ "/run/opengl-driver/lib/libglapi.so.0" ];
-      };
-
-      warnings = [
-        "The `chaotic.mesa-git.method = \"LD_LIBRARY_PATH\"` is known to cause problems with Steam and apps with wrappers preloading Mesa (e.g., Firefox). A refactor of this module is currently in development."
-      ];
-    };
-
   methodReplace = {
     hardware.opengl = with lib; {
       enable = mkForce true;
@@ -86,7 +34,7 @@ let
       setLdLibraryPath = mkForce false;
     };
 
-    environment.variables = {
+    environment.sessionVariables = {
       GBM_BACKENDS_PATH = "/run/opengl-driver/lib/gbm";
       GBM_BACKEND = pkgs.mesa_git.gbmBackend;
       LD_PRELOAD = [ "${pkgs.mesa_git}/lib/libglapi.so.0" ]; # TODO: find a better solution
@@ -94,8 +42,6 @@ let
   };
 
   chosenMethod =
-    lib.mkIf (cfg.method == "LD_LIBRARY_PATH") methodLD
-    //
     lib.mkIf (cfg.method == "replaceRuntimeDependencies") methodReplace
     //
     lib.mkIf (cfg.method == "GBM_BACKENDS_PATH") methodBackend;
@@ -122,7 +68,6 @@ in
       method =
         lib.mkOption {
           type = lib.types.enum [
-            "LD_LIBRARY_PATH"
             "replaceRuntimeDependencies"
             "GBM_BACKENDS_PATH"
           ];
@@ -133,7 +78,6 @@ in
 
             - GBM_BACKENDS_PATH: The default one that tricks any package linked against nixpkgs' libgbm to load our newer one;
             - replaceRuntimeDependencies: The second most recommended, which impurely replaces nixpkgs' libgbm with ours in the nix store (requires "--impure");
-            - LD_LIBRARY_PATH: The last one that uses LD_LIBRARY_PATH to point to the newer libgbm (breaks any wrapper adding "mesa" to LD_LIBRARY_PATH).
           '';
         };
 
