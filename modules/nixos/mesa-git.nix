@@ -22,7 +22,13 @@ let
     ];
   };
 
-  methodBackend = {
+  methodBackend =
+  let
+    variables = {
+      GBM_BACKENDS_PATH = "/run/opengl-driver/lib/gbm";
+      GBM_BACKEND = pkgs.mesa_git.gbmBackend;
+    };
+  in {
     hardware.opengl = with lib; {
       enable = mkForce true;
       package = mkForce pkgs.mesa_git.drivers;
@@ -34,9 +40,9 @@ let
       setLdLibraryPath = mkForce false;
     };
 
-    environment.sessionVariables = {
-      GBM_BACKENDS_PATH = "/run/opengl-driver/lib/gbm";
-      GBM_BACKEND = pkgs.mesa_git.gbmBackend;
+    systemd.services.display-manager.environment = variables;
+
+    environment.sessionVariables = variables // {
       LD_PRELOAD = [ "${pkgs.mesa_git}/lib/libglapi.so.0" ]; # TODO: find a better solution
     };
   };
