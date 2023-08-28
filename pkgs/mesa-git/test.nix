@@ -27,7 +27,9 @@ import "${nixpkgs}/nixos/tests/make-test-python.nix" ({ pkgs, ... }: {
     };
 
     environment.systemPackages = with pkgs; [
-      vulkan-tools mesa-demos alacritty
+      vulkan-tools
+      mesa-demos
+      alacritty
     ];
 
     services.xserver = {
