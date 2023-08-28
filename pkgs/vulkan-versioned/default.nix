@@ -1,5 +1,4 @@
 { final
-, nyxUtils
 , prev
 , vulkanVersions
 , ...

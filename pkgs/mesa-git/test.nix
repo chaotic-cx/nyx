@@ -44,7 +44,7 @@ import "${nixpkgs}/nixos/tests/make-test-python.nix" ({ pkgs, ... }: {
   };
 
   # TODO: TODO
-  testScript = _:
+  testScript =
     ''
       start_all()
     '';
