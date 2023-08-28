@@ -1,3 +1,4 @@
-.env
-result
-result-*
+/.env
+/.nixos-test-history
+/result
+/result-*
