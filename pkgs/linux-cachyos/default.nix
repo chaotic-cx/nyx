@@ -27,7 +27,9 @@ let
   };
 
   src = fetchurl {
-    url = "mirror://kernel/linux/kernel/v6.x/linux-${version}.tar.xz";
+    url = "mirror://kernel/linux/kernel/v6.x/linux-${
+      if version == "${major}.0" then major else version
+    }.tar.xz";
     inherit (cachyVersions.linux) hash;
   };
 
@@ -135,7 +137,7 @@ in
     })
     [
       "${patches-src}/${major}/all/0001-cachyos-base-all.patch"
-      "${patches-src}/${major}/sched/0001-EEVDF.patch"
+      "${patches-src}/${major}/sched/0001-EEVDF-cachy.patch"
       "${patches-src}/${major}/sched/0001-bore-eevdf.patch"
       "${patches-src}/${major}/misc/0001-Add-extra-version-CachyOS.patch"
     ];

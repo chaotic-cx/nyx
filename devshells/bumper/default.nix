@@ -41,7 +41,7 @@ writeShellScriptBin "chaotic-nyx-bumper" ''
     ${Nix} flake update
     CHANGED=()
     readarray -t CHANGED < <(${Git} diff | ${Grep} -Po '(?<=^     ")([^"]+)(?=": {$)' | ${Sed} 's/-src$//;s/-git$//')
-    [ -z "$CHANGED" ] && return 0
+    [[ "''${#CHANGED[@]}" -lt 1 ]] && return 0
     CHANGED_CSV=$(join_by ', ' "''${CHANGED[@]}")
     ${Git} add -u
     ${Git} commit -m "flake-''${NAME}: $CHANGED_CSV"
