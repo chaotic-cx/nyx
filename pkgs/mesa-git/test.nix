@@ -1,8 +1,8 @@
 { nixpkgs
 , chaotic
-, testingDM ? "sddm"
-, testingDE ? "plasma5"
-, testingSession ? "plasma"
+, testingDM ? "gdm" # "sddm"
+, testingDE ? "gnome" # "plasma5"
+, testingSession ? "gnome" # "plasma"
 }:
 
 import "${nixpkgs}/nixos/tests/make-test-python.nix" ({ pkgs, ... }: {
@@ -16,15 +16,12 @@ import "${nixpkgs}/nixos/tests/make-test-python.nix" ({ pkgs, ... }: {
     ];
     chaotic.mesa-git.enable = true;
 
-    virtualisation = {
-      resolution = { x = 800; y = 1280; };
-      qemu.options = [
-        "-m 16G"
-        "-vga none"
-        "-device virtio-vga-gl,xres=800,yres=1280"
-        "-display gtk,gl=on"
-      ];
-    };
+    virtualisation.qemu.options = [
+      "-m 16G"
+      "-vga none"
+      "-device virtio-vga-gl"
+      "-display gtk,gl=on"
+    ];
 
     environment.systemPackages = with pkgs; [
       vulkan-tools
