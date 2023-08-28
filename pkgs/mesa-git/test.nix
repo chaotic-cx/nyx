@@ -43,10 +43,8 @@ import "${nixpkgs}/nixos/tests/make-test-python.nix" ({ pkgs, ... }: {
     };
   };
 
-  testScript = { nodes, ... }:
-    let
-      user = nodes.machine.users.users.alice;
-    in
+  # TODO: TODO
+  testScript = _:
     ''
       start_all()
     '';
