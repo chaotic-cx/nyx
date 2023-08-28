@@ -14,10 +14,9 @@ nyxUtils.multiOverride prev.mesa { inherit meson; } (prevAttrs: {
   src = flakes.mesa-git-src;
   buildInputs = prevAttrs.buildInputs ++ (with final; [ libunwind lm_sensors ]);
   mesonFlags =
-    (builtins.map
+    builtins.map
       (builtins.replaceStrings [ "virtio-experimental" ] [ "virtio" ])
-      prevAttrs.mesonFlags
-    );
+      prevAttrs.mesonFlags;
   patches =
     (nyxUtils.removeByBaseName
       "disk_cache-include-dri-driver-path-in-cache-key.patch"
