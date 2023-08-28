@@ -22,24 +22,31 @@ let
     ];
   };
 
-  methodBackend = {
-    hardware.opengl = with lib; {
-      enable = mkForce true;
-      package = mkForce pkgs.mesa_git.drivers;
-      package32 = mkForce pkgs.mesa32_git.drivers;
-      extraPackages = mkForce (cfg.extraPackages ++ [ pkgs.mesa_git.gbm ]);
-      extraPackages32 = mkForce cfg.extraPackages32;
-      driSupport = mkForce true;
-      driSupport32Bit = mkForce has32;
-      setLdLibraryPath = mkForce false;
-    };
+  methodBackend =
+    let
+      variables = {
+        GBM_BACKENDS_PATH = "/run/opengl-driver/lib/gbm";
+        GBM_BACKEND = pkgs.mesa_git.gbmBackend;
+      };
+    in
+    {
+      hardware.opengl = with lib; {
+        enable = mkForce true;
+        package = mkForce pkgs.mesa_git.drivers;
+        package32 = mkForce pkgs.mesa32_git.drivers;
+        extraPackages = mkForce (cfg.extraPackages ++ [ pkgs.mesa_git.gbm ]);
+        extraPackages32 = mkForce cfg.extraPackages32;
+        driSupport = mkForce true;
+        driSupport32Bit = mkForce has32;
+        setLdLibraryPath = mkForce false;
+      };
 
-    environment.sessionVariables = {
-      GBM_BACKENDS_PATH = "/run/opengl-driver/lib/gbm";
-      GBM_BACKEND = pkgs.mesa_git.gbmBackend;
-      LD_PRELOAD = [ "${pkgs.mesa_git}/lib/libglapi.so.0" ]; # TODO: find a better solution
+      systemd.services.display-manager.environment = variables;
+
+      environment.sessionVariables = variables // {
+        LD_PRELOAD = [ "${pkgs.mesa_git}/lib/libglapi.so.0" ]; # TODO: find a better solution
+      };
     };
-  };
 
   chosenMethod =
     lib.mkIf (cfg.method == "replaceRuntimeDependencies") methodReplace

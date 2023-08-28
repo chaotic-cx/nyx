@@ -1,16 +1,22 @@
-{ final, flakes, nyxUtils, prev, gbmDriver ? false, gbmBackend ? "dri_git", meson ? final.meson, ... }:
+{ final
+, flakes
+, nyxUtils
+, prev
+, gbmDriver ? false
+, gbmBackend ? "dri_git"
+, meson ? final.meson
+, mesaTestAttrs ? final
+, ...
+}:
 
 nyxUtils.multiOverride prev.mesa { inherit meson; } (prevAttrs: {
   version = builtins.substring 0 (builtins.stringLength prevAttrs.version) flakes.mesa-git-src.rev;
   src = flakes.mesa-git-src;
   buildInputs = prevAttrs.buildInputs ++ (with final; [ libunwind lm_sensors ]);
   mesonFlags =
-    (builtins.map
+    builtins.map
       (builtins.replaceStrings [ "virtio-experimental" ] [ "virtio" ])
-      prevAttrs.mesonFlags
-    ) ++ [
-      "-Dandroid-libbacktrace=disabled"
-    ];
+      prevAttrs.mesonFlags;
   patches =
     (nyxUtils.removeByBaseName
       "disk_cache-include-dri-driver-path-in-cache-key.patch"
@@ -47,5 +53,11 @@ nyxUtils.multiOverride prev.mesa { inherit meson; } (prevAttrs: {
     '' else prevAttrs.postInstall;
   passthru = prevAttrs.passthru // {
     inherit gbmBackend;
+    tests.smoke-test = import ./test.nix
+      {
+        inherit (flakes) nixpkgs;
+        chaotic = flakes.self;
+      }
+      mesaTestAttrs;
   };
 })
