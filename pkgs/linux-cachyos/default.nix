@@ -27,7 +27,9 @@ let
   };
 
   src = fetchurl {
-    url = "mirror://kernel/linux/kernel/v6.x/linux-${version}.tar.xz";
+    url = "mirror://kernel/linux/kernel/v6.x/linux-${
+      if version == "${major}.0" then major else version
+    }.tar.xz";
     inherit (cachyVersions.linux) hash;
   };
 
