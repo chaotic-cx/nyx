@@ -1,8 +1,9 @@
 { nixpkgs
 , chaotic
-, testingDM ? "gdm" # "sddm"
-, testingDE ? "gnome" # "plasma5"
-, testingSession ? "gnome" # "plasma"
+, testingDM ? "gdm" # "sddm" | "gdm"
+, testingDE ? "gnome" # "plasma5" | "gnome"
+, testingSession ? "gnome" # "gnome" | "plasma" | "plasmawayland"
+, testingWithAutoLogin ? true
 }:
 
 import "${nixpkgs}/nixos/tests/make-test-python.nix" ({ pkgs, ... }: {
@@ -34,7 +35,7 @@ import "${nixpkgs}/nixos/tests/make-test-python.nix" ({ pkgs, ... }: {
       displayManager = {
         "${testingDM}".enable = true;
         autoLogin = {
-          enable = true;
+          enable = testingWithAutoLogin;
           user = "alice";
         };
         defaultSession = testingSession;

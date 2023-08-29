@@ -41,10 +41,12 @@ let
         setLdLibraryPath = mkForce false;
       };
 
-      systemd.services.display-manager.environment = variables;
+      systemd.services.display-manager.environment = variables // {
+        LD_PRELOAD = "${pkgs.mesa_git}/lib/libglapi.so.0"; # Required for SDDM
+      };
 
       environment.sessionVariables = variables // {
-        LD_PRELOAD = [ "${pkgs.mesa_git}/lib/libglapi.so.0" ]; # TODO: find a better solution
+        LD_PRELOAD = [ "${pkgs.mesa_git}/lib/libglapi.so.0" ]; # Required for browser's gltest
       };
     };
 
