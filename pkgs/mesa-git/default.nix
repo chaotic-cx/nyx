@@ -26,11 +26,6 @@ nyxUtils.multiOverride prev.mesa { inherit meson; } (prevAttrs: {
       ./gbm-backend.patch
       # issue: https://gitlab.freedesktop.org/mesa/mesa/-/issues/9692
       # temporary workaround, please remove it later
-      (# From: https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/24885
-        final.fetchurl {
-          url = "https://gitlab.freedesktop.org/emersion/mesa/-/commit/63003b7bf9cb258042f1ffec98e46c59d29bf0fc.patch";
-          hash = "sha256-6GPYh7nsvFhW7OymvJyJsLgKgEsJV0kbtbmzmsHZjoo=";
-        })
       (# From: https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/24888
         final.fetchurl {
           url = "https://gitlab.freedesktop.org/derekf/mesa/-/commit/e7f24cca359e2b57bb619593478ae2498e27146c.patch";
