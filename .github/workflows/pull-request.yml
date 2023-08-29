@@ -8,7 +8,8 @@ concurrency:
 
 jobs:
   lint:
-    runs-on: nyxbuilder
+    # Never ever ever run this on self-hosted runners
+    runs-on: ubuntu-latest # Did you read the disclaimer?
     outputs:
       fmt: ${{ steps.linter.outcome }}
     steps:
@@ -26,7 +27,8 @@ jobs:
         id: linter
         working-directory: ${{ github.workspace }}
   organize:
-    runs-on: ubuntu-latest
+    # Never ever ever run this on self-hosted runners
+    runs-on: ubuntu-latest # Did you read the disclaimer?
     permissions:
       pull-requests: write
     needs: lint

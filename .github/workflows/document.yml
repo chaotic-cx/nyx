@@ -14,7 +14,7 @@ concurrency:
 
 jobs:
   deploy:
-    runs-on: nyxbuilder
+    runs-on: ubuntu-latest
     timeout-minutes: 120
     environment:
       name: github-pages
@@ -28,9 +28,6 @@ jobs:
       - name: Build
         id: build
         run: |
-          if [ -e /homeless-shelter ]; then
-            mv /homeless-shelter /homeless-shelter.$(date +%Y%m%d%H%S)
-          fi
           mkdir result
           nix develop "github:chaotic-cx/nyx/${GITHUB_SHA}#document" -c 'true' | \
             xargs -i@ cp @ result/index.html

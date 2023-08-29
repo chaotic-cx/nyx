@@ -15,7 +15,7 @@ concurrency:
 
 jobs:
   bump:
-    runs-on: nyxbuilder
+    runs-on: ubuntu-latest
     steps:
       - name: Install Nix
         uses: cachix/install-nix-action@v22

@@ -30,11 +30,6 @@ jobs:
           extra_nix_config: "accept-flake-config = true"
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Cleanup impurities
-        run: |
-          if [ -e /homeless-shelter ]; then
-            mv /homeless-shelter /homeless-shelter.$(date +%Y%m%d%H%S)
-          fi
       - name: Bat-signal
         run: |
           set -e

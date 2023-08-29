@@ -15,16 +15,10 @@ jobs:
       FAILED_BUILDS: ${{ steps.upload.outputs.FAILED_BUILDS }}
     runs-on: nyxbuilder
     steps:
-      - name: Install Nix
-        uses: cachix/install-nix-action@v22
-        with:
-          extra_nix_config: "accept-flake-config = true"
       - name: Checkout code
         uses: actions/checkout@v3
         with:
           ref: ${{ github.event.pull_request.head.sha }}
-      - name: Run GH actions cleanup
-        run: sudo rm -rf /usr/share /usr/local /opt || true # https://github.com/easimon/maximize-build-space
       - name: Build packages
         run: nix develop -c chaotic-nyx-build && exit 1 || [ $? -eq 23 ]
         env:
