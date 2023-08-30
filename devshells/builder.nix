@@ -128,7 +128,7 @@ writeShellScriptBin "chaotic-nyx-build" ''
     if [ -f filter.txt ] && ! ${gnugrep}/bin/grep -Pq "^$_WHAT\$" filter.txt; then
       echo -e "''${Y} SKIP''${W}"
       return 0
-    elif cached 'https://chaotic-nyx.cachix.org' "$_DEST"; then
+    elif [ -z "''${NYX_REFRESH:-}" ] && cached 'https://chaotic-nyx.cachix.org' "$_DEST"; then
       echo "$_WHAT" >> cached.txt
       echo -e "''${Y} CACHED''${W}"
       return 0
