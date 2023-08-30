@@ -11,6 +11,11 @@
 , writeShellScriptBin
 }:
 let
+  Jq = "${jq}/bin/jq";
+  Nix = "${nix}/bin/nix";
+  Grep = "${gnugrep}/bin/grep";
+  Cachix = "${cachix}/bin/cachix";
+
   allPackagesList =
     builtins.map (xsx: xsx.drv)
       (lib.lists.filter (xsx: xsx.drv != null) packagesEval);
@@ -112,11 +117,11 @@ writeShellScriptBin "chaotic-nyx-build" ''
   # Check if $1 is in the cache
   function cached() {
     set -e
-    ${nix}/bin/nix path-info "$2" --store "$1" >/dev/null 2>/dev/null
+    ${Nix} path-info "$2" --store "$1" >/dev/null 2>/dev/null
   }
 
   if [ -n "''${NYX_CHANGED_ONLY:-}" ]; then
-    _DIFF=$(${nix}/bin/nix build --no-link --print-out-paths --impure --expr "(builtins.getFlake \"$NYX_SOURCE\").devShells.$(uname -m)-linux.comparer.passthru.any \"$NYX_CHANGED_ONLY\"" || exit 13)
+    _DIFF=$(${Nix} build --no-link --print-out-paths --impure --expr "(builtins.getFlake \"$NYX_SOURCE\").devShells.$(uname -m)-linux.comparer.passthru.any \"$NYX_CHANGED_ONLY\"" || exit 13)
 
     ln -s "$_DIFF" filter.txt
   fi
@@ -127,7 +132,7 @@ writeShellScriptBin "chaotic-nyx-build" ''
     _FULL=("''${@:3}")
     echo -n "* $_WHAT..."
     # If NYX_CHANGED_ONLY is set, only build changed derivations
-    if [ -f filter.txt ] && ! ${gnugrep}/bin/grep -Pq "^$_WHAT\$" filter.txt; then
+    if [ -f filter.txt ] && ! ${Grep} -Pq "^$_WHAT\$" filter.txt; then
       echo -e "''${Y} SKIP''${W}"
       return 0
     elif [ -z "''${NYX_REFRESH:-}" ] && cached 'https://chaotic-nyx.cachix.org' "$_DEST"; then
@@ -144,8 +149,8 @@ writeShellScriptBin "chaotic-nyx-build" ''
       _KEEPALIVE=$!
       if \
         ( set -o pipefail;
-          ${nix}/bin/nix build --json $NYX_FLAGS "''${_FULL[@]}" |\
-            ${jq}/bin/jq -r '.[].outputs[]' \
+          ${Nix} build --json $NYX_FLAGS "''${_FULL[@]}" |\
+            ${Jq} -r '.[].outputs[]' \
         ) 2>> errors.txt >> push.txt
       then
         echo "$_WHAT" >> success.txt
@@ -176,7 +181,7 @@ writeShellScriptBin "chaotic-nyx-build" ''
     sleep 10
 
     echo "Pushing to cache..."
-    cat push.txt | ${cachix}/bin/cachix push chaotic-nyx \
+    cat push.txt | ${Cachix} push chaotic-nyx \
       --compression-method zstd
 
   else
