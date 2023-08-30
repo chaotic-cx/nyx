@@ -1,6 +1,6 @@
 {
   "gfxreconstruct": {
-    "version": "1.3.261.0",
+    "version": "1.3.261.1",
     "rev": "sdk-#{version}",
     "hash": "sha256-Tji6Xrw1gZlSfXl2UhvbPQWLb7zswFUEnCMRPfsHhuk="
   },
