@@ -1,6 +1,7 @@
 # The smallest and KISSer continuos-deploy I was able to create.
 { allPackages
 , cachix
+, coreutils-full
 , nyxRecursionHelper
 , flakeSelf
 , gnugrep
@@ -80,6 +81,8 @@ let
     builtins.map (pkg: pkg.cmd) packagesEvalSorted.result;
 in
 writeShellScriptBin "chaotic-nyx-build" ''
+  PATH="${coreutils-full}/bin"
+
   NYX_SOURCE="''${NYX_SOURCE:-${flakeSelf}}"
   NYX_FLAGS="''${NYX_FLAGS:---accept-flake-config --no-link}"
   NYX_WD="''${NYX_WD:-$(mktemp -d)}"
