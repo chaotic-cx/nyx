@@ -93,6 +93,7 @@ writeShellScriptBin "chaotic-nyx-build" ''
   cd "$NYX_WD"
   echo -n "" > push.txt > errors.txt > success.txt > failures.txt > cached.txt > upstream.txt
   echo "{" > new-failures.nix
+  echo "{chaotic ? builtins.getFlake \"$NYX_SOURCE\", system ? builtins.currentSystem}: with chaotic.packages.''${system}; [" > new-success.nix
 
   function echo_warning() {
     echo -ne "''${Y}WARNING:''${W} "
@@ -123,6 +124,7 @@ writeShellScriptBin "chaotic-nyx-build" ''
   function build() {
     _WHAT="''${1:- アンノーン}"
     _DEST="''${2:-/dev/null}"
+    _FULL=("''${@:3}")
     echo -n "* $_WHAT..."
     # If NYX_CHANGED_ONLY is set, only build changed derivations
     if [ -f filter.txt ] && ! ${gnugrep}/bin/grep -Pq "^$_WHAT\$" filter.txt; then
@@ -131,6 +133,7 @@ writeShellScriptBin "chaotic-nyx-build" ''
     elif [ -z "''${NYX_REFRESH:-}" ] && cached 'https://chaotic-nyx.cachix.org' "$_DEST"; then
       echo "$_WHAT" >> cached.txt
       echo -e "''${Y} CACHED''${W}"
+      echo "  ''${_FULL[@]#*\#}" >> new-success.nix
       return 0
     elif cached 'https://cache.nixos.org' "$_DEST"; then
       echo "$_WHAT" >> upstream.txt
@@ -141,13 +144,14 @@ writeShellScriptBin "chaotic-nyx-build" ''
       _KEEPALIVE=$!
       if \
         ( set -o pipefail;
-          ${nix}/bin/nix build --json $NYX_FLAGS "''${@:3}" |\
+          ${nix}/bin/nix build --json $NYX_FLAGS "''${_FULL[@]}" |\
             ${jq}/bin/jq -r '.[].outputs[]' \
         ) 2>> errors.txt >> push.txt
       then
         echo "$_WHAT" >> success.txt
         kill $_KEEPALIVE
         echo -e "''${G} OK''${W}"
+        echo "''${@:3#*\#}" >> new-success.nix
         return 0
       else
         echo "$_WHAT" >> failures.txt
@@ -162,6 +166,7 @@ writeShellScriptBin "chaotic-nyx-build" ''
   ${lib.strings.concatStringsSep "\n" packagesCmds}
 
   echo "}" >> new-failures.nix
+  echo "]" >> new-success.nix
 
   if [ -z "$CACHIX_AUTH_TOKEN" ] && [ -z "$CACHIX_SIGNING_KEY" ]; then
     echo_error "No key for cachix -- failing to deploy."
