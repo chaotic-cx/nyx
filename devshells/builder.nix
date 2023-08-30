@@ -93,7 +93,7 @@ writeShellScriptBin "chaotic-nyx-build" ''
   cd "$NYX_WD"
   echo -n "" > push.txt > errors.txt > success.txt > failures.txt > cached.txt > upstream.txt
   echo "{" > new-failures.nix
-  echo "{chaotic ? builtins.getFlake \"$NYX_SOURCE\", system ? builtins.currentSystem}: with chaotic.packages.''${system}; [" > new-success.nix
+  echo "{chaotic ? builtins.getFlake \"$NYX_SOURCE\", system ? builtins.currentSystem}: with chaotic.packages.\''${system}; [" > new-success.nix
 
   function echo_warning() {
     echo -ne "''${Y}WARNING:''${W} "
