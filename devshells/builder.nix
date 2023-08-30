@@ -1,6 +1,7 @@
 # The smallest and KISSer continuos-deploy I was able to create.
 { allPackages
 , cachix
+, coreutils-full
 , nyxRecursionHelper
 , flakeSelf
 , gnugrep
@@ -11,6 +12,11 @@
 , writeShellScriptBin
 }:
 let
+  Jq = "${jq}/bin/jq";
+  Nix = "${nix}/bin/nix";
+  Grep = "${gnugrep}/bin/grep";
+  Cachix = "${cachix}/bin/cachix";
+
   allPackagesList =
     builtins.map (xsx: xsx.drv)
       (lib.lists.filter (xsx: xsx.drv != null) packagesEval);
@@ -75,6 +81,8 @@ let
     builtins.map (pkg: pkg.cmd) packagesEvalSorted.result;
 in
 writeShellScriptBin "chaotic-nyx-build" ''
+  PATH="${coreutils-full}/bin"
+
   NYX_SOURCE="''${NYX_SOURCE:-${flakeSelf}}"
   NYX_FLAGS="''${NYX_FLAGS:---accept-flake-config --no-link}"
   NYX_WD="''${NYX_WD:-$(mktemp -d)}"
@@ -93,6 +101,7 @@ writeShellScriptBin "chaotic-nyx-build" ''
   cd "$NYX_WD"
   echo -n "" > push.txt > errors.txt > success.txt > failures.txt > cached.txt > upstream.txt
   echo "{" > new-failures.nix
+  echo "{chaotic ? builtins.getFlake \"$NYX_SOURCE\", system ? builtins.currentSystem}: with chaotic.packages.\''${system}; [" > new-success.nix
 
   function echo_warning() {
     echo -ne "''${Y}WARNING:''${W} "
@@ -111,11 +120,11 @@ writeShellScriptBin "chaotic-nyx-build" ''
   # Check if $1 is in the cache
   function cached() {
     set -e
-    ${nix}/bin/nix path-info "$2" --store "$1" >/dev/null 2>/dev/null
+    ${Nix} path-info "$2" --store "$1" >/dev/null 2>/dev/null
   }
 
   if [ -n "''${NYX_CHANGED_ONLY:-}" ]; then
-    _DIFF=$(${nix}/bin/nix build --no-link --print-out-paths --impure --expr "(builtins.getFlake \"$NYX_SOURCE\").devShells.$(uname -m)-linux.comparer.passthru.any \"$NYX_CHANGED_ONLY\"" || exit 13)
+    _DIFF=$(${Nix} build --no-link --print-out-paths --impure --expr "(builtins.getFlake \"$NYX_SOURCE\").devShells.$(uname -m)-linux.comparer.passthru.any \"$NYX_CHANGED_ONLY\"" || exit 13)
 
     ln -s "$_DIFF" filter.txt
   fi
@@ -123,14 +132,16 @@ writeShellScriptBin "chaotic-nyx-build" ''
   function build() {
     _WHAT="''${1:- アンノーン}"
     _DEST="''${2:-/dev/null}"
+    _FULL=("''${@:3}")
     echo -n "* $_WHAT..."
     # If NYX_CHANGED_ONLY is set, only build changed derivations
-    if [ -f filter.txt ] && ! ${gnugrep}/bin/grep -Pq "^$_WHAT\$" filter.txt; then
+    if [ -f filter.txt ] && ! ${Grep} -Pq "^$_WHAT\$" filter.txt; then
       echo -e "''${Y} SKIP''${W}"
       return 0
-    elif cached 'https://chaotic-nyx.cachix.org' "$_DEST"; then
+    elif [ -z "''${NYX_REFRESH:-}" ] && cached 'https://chaotic-nyx.cachix.org' "$_DEST"; then
       echo "$_WHAT" >> cached.txt
       echo -e "''${Y} CACHED''${W}"
+      echo "  ''${_FULL[@]#*\#}" >> new-success.nix
       return 0
     elif cached 'https://cache.nixos.org' "$_DEST"; then
       echo "$_WHAT" >> upstream.txt
@@ -141,13 +152,14 @@ writeShellScriptBin "chaotic-nyx-build" ''
       _KEEPALIVE=$!
       if \
         ( set -o pipefail;
-          ${nix}/bin/nix build --json $NYX_FLAGS "''${@:3}" |\
-            ${jq}/bin/jq -r '.[].outputs[]' \
+          ${Nix} build --json $NYX_FLAGS "''${_FULL[@]}" |\
+            ${Jq} -r '.[].outputs[]' \
         ) 2>> errors.txt >> push.txt
       then
         echo "$_WHAT" >> success.txt
         kill $_KEEPALIVE
         echo -e "''${G} OK''${W}"
+        echo "''${@:3#*\#}" >> new-success.nix
         return 0
       else
         echo "$_WHAT" >> failures.txt
@@ -162,17 +174,33 @@ writeShellScriptBin "chaotic-nyx-build" ''
   ${lib.strings.concatStringsSep "\n" packagesCmds}
 
   echo "}" >> new-failures.nix
+  echo "]" >> new-success.nix
+
+  if [ -n "''${NYX_PIN:-}" ]; then
+    echo "Building pin file..."
+    ${Nix} build -L --out-link pin.txt --impure --expr 'with import <nixpkgs> {}; writeText "pin.txt" (builtins.concatStringsSep "\n" (import ./new-success.nix { }))'
+  fi
 
   if [ -z "$CACHIX_AUTH_TOKEN" ] && [ -z "$CACHIX_SIGNING_KEY" ]; then
     echo_error "No key for cachix -- failing to deploy."
     exit 23
-  elif [ -s push.txt ]; then
+  elif [ -n "''${NYX_RESYNC:-}" ] || [ -s push.txt ]; then
     # Let nix digest store paths first
     sleep 10
 
     echo "Pushing to cache..."
-    cat push.txt | ${cachix}/bin/cachix push chaotic-nyx \
+    cat push.txt | ${Cachix} push chaotic-nyx \
       --compression-method zstd
+
+    if [ -e pin.txt ]; then
+      _DT=$(TZ=UTC date +%y%m%d%H%S)
+      readlink pin.txt | ${Cachix} push chaotic-nyx \
+        --compression-method zstd
+      ${Cachix} -v pin chaotic-nyx \
+        "v''${_DT::2}.''${_DT:2:4}.''${_DT:6:4}" \
+        "$(readlink pin.txt)" \
+        --keep-revisions 2
+    fi
 
   else
     echo_error "Nothing to push."
