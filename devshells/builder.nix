@@ -8,6 +8,7 @@
 , jq
 , lib
 , nix
+, nixpkgs
 , nyxUtils
 , writeShellScriptBin
 }:
@@ -178,7 +179,7 @@ writeShellScriptBin "chaotic-nyx-build" ''
 
   if [ -n "''${NYX_PIN:-}" ]; then
     echo "Building pin file..."
-    ${Nix} build -L --out-link pin.txt --impure --expr 'with import <nixpkgs> {}; writeText "pin.txt" (builtins.concatStringsSep "\n" (import ./new-success.nix { }))'
+    ${Nix} build -L --out-link pin.txt --impure --expr 'with import "${nixpkgs}" {}; writeText "pin.txt" (builtins.concatStringsSep "\n" (import ./new-success.nix { }))'
   fi
 
   if [ -z "$CACHIX_AUTH_TOKEN" ] && [ -z "$CACHIX_SIGNING_KEY" ]; then

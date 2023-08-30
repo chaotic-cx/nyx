@@ -20,6 +20,7 @@ let
           allPackages = final;
           flakeSelf = self;
           inherit nyxRecursionHelper;
+          inherit (flakes) nixpkgs;
           inherit (overlayFinal) nyxUtils;
         };
       documentation = overlayFinal.callPackage ./document.nix
