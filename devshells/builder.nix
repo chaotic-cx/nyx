@@ -160,7 +160,7 @@ writeShellScriptBin "chaotic-nyx-build" ''
         echo "$_WHAT" >> success.txt
         kill $_KEEPALIVE
         echo -e "''${G} OK''${W}"
-        echo "''${@:3#*\#}" >> new-success.nix
+        echo "''${_FULL[@]#*\#}" >> new-success.nix
         return 0
       else
         echo "$_WHAT" >> failures.txt
