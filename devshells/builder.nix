@@ -194,7 +194,7 @@ writeShellScriptBin "chaotic-nyx-build" ''
 
     if [ -e pin.txt ]; then
       _DT=$(TZ=UTC date +%y%m%d%H%S)
-      cat pin.txt | ${Cachix} push chaotic-nyx \
+      readlink pin.txt | ${Cachix} push chaotic-nyx \
         --compression-method zstd
       ${Cachix} -v pin chaotic-nyx \
         "v''${_DT::2}.''${_DT:2:4}.''${_DT:6:4}" \
