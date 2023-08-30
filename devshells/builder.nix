@@ -192,6 +192,16 @@ writeShellScriptBin "chaotic-nyx-build" ''
     cat push.txt | ${Cachix} push chaotic-nyx \
       --compression-method zstd
 
+    if [ -e pin.txt ]; then
+      _DT=$(TZ=UTC date +%y%m%d%H%S)
+      cat pin.txt | ${Cachix} push chaotic-nyx \
+        --compression-method zstd
+      ${Cachix} -v pin chaotic-nyx \
+        "v''${_DT::2}.''${_DT:2:4}.''${_DT:6:4}" \
+        "$(readlink pin.txt)" \
+        --keep-revisions 2
+    fi
+
   else
     echo_error "Nothing to push."
     exit 42
