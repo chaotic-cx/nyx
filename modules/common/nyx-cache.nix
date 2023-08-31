@@ -14,7 +14,7 @@ in
   };
   config = {
     nix.settings = lib.mkIf cfg.enable {
-      substituters = [ "https://nyx.chaotic.cx" ];
+      substituters = [ "https://nyx.chaotic.cx/" ];
       trusted-public-keys = [
         "nyx.chaotic.cx-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
         "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
