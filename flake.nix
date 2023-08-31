@@ -131,7 +131,7 @@
 
   # Allows the user to use our cache when using `nix run <thisFlake>`.
   nixConfig = {
-    extra-substituters = [ "https://nyx.chaotic.cx" ];
+    extra-substituters = [ "https://nyx.chaotic.cx/" ];
     extra-trusted-public-keys = [
       "nyx.chaotic.cx-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
       "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
