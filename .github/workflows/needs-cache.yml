@@ -22,13 +22,14 @@ jobs:
             accept-flake-config = true
             sandbox-fallback = false
           install_options: --daemon
-      - name: Configure sandboxing
-        run: |
-          sed -i -e '/^build-users-group =/d' -e 's/max-jobs =.*/max-jobs = 8/g' /etc/nix/nix.conf
       - name: Checkout code
         uses: actions/checkout@v3
         with:
           ref: ${{ github.event.pull_request.head.sha }}
+      - name: Configure sandboxing
+        run: |
+          sed -i -e '/^build-users-group =/d' -e 's/max-jobs =.*/max-jobs = 8/g' /etc/nix/nix.conf
+          nix eval .#_debug.nixConfig --json | jq -r 'to_entries[] | "\(.key) = \(.value | join(" "))"' >> /etc/nix/nix.conf
       - name: Build packages
         run: nix develop -c chaotic-nyx-build && exit 1 || [ $? -eq 23 ]
         env:

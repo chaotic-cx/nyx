@@ -86,20 +86,19 @@ jobs:
             accept-flake-config = true
             sandbox-fallback = false
           install_options: --daemon
-      - name: Configure sandboxing
-        if: (success() && steps.check.outputs.cached != 'true')
-        run: |
-          sed -i -e '/^build-users-group =/d' -e 's/max-jobs =.*/max-jobs = 8/g' /etc/nix/nix.conf
-          cat /etc/nix/nix.conf
       # Checkout the main branch
       - name: Checkout
         if: (success() && steps.check.outputs.cached != 'true')
         uses: actions/checkout@v3
+      - name: Configure sandboxing
+        run: |
+          sed -i -e '/^build-users-group =/d' -e 's/max-jobs =.*/max-jobs = 8/g' /etc/nix/nix.conf
+          nix eval .#_debug.nixConfig --json | jq -r 'to_entries[] | "\(.key) = \(.value | join(" "))"' >> /etc/nix/nix.conf
       - name: Build
         if: (success() && steps.check.outputs.cached != 'true')
         id: build
         run: |
-          nix --accept-flake-config develop -c chaotic-nyx-build
+          nix develop -c chaotic-nyx-build
           failed_builds="$(cat ${{ runner.temp }}/failures.txt | sed 's/^/    <li>/; s/$/<\/li>/')"
           failed_builds_count="$(cat ${{ runner.temp }}/failures.txt | wc -l)"
           echo "FAILED_BUILDS_COUNT=$failed_builds_count
@@ -108,6 +107,7 @@ jobs:
           EOF" >> $GITHUB_OUTPUT
         env:
           NYX_RESYNC: "1"
+          NYX_PIN: "1"
           NYX_WD: ${{ runner.temp }}
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
       - name: Update nyxpkgs-unstable

@@ -199,9 +199,8 @@ writeShellScriptBin "chaotic-nyx-build" ''
       readlink pin.txt | ${Cachix} push chaotic-nyx \
         --compression-method zstd
       ${Cachix} -v pin chaotic-nyx \
-        "v''${_DT::2}.''${_DT:2:4}.''${_DT:6:4}" \
-        "$(readlink pin.txt)" \
-        --keep-revisions 2
+        "nyxpkgs-unstable" \
+        "$(readlink pin.txt)"
     fi
 
   else
