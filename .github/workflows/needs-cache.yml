@@ -15,6 +15,16 @@ jobs:
       FAILED_BUILDS: ${{ steps.upload.outputs.FAILED_BUILDS }}
     runs-on: nyxbuilder
     steps:
+      - name: Install Nix
+        uses: cachix/install-nix-action@v22
+        with:
+          extra_nix_config: |
+            accept-flake-config = true
+            sandbox-fallback = false
+          install_options: --daemon
+      - name: Configure sandboxing
+        run: |
+          sed -i -e '/^build-users-group =/d' -e 's/max-jobs =.*/max-jobs = 8/g' /etc/nix/nix.conf
       - name: Checkout code
         uses: actions/checkout@v3
         with:

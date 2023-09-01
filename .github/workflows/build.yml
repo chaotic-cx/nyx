@@ -78,6 +78,19 @@ jobs:
             } catch (error) {
               console.log("Github rest API error encountered, assuming not cached.")
             }
+      - name: Install Nix
+        if: (success() && steps.check.outputs.cached != 'true')
+        uses: cachix/install-nix-action@v22
+        with:
+          extra_nix_config: |
+            accept-flake-config = true
+            sandbox-fallback = false
+          install_options: --daemon
+      - name: Configure sandboxing
+        if: (success() && steps.check.outputs.cached != 'true')
+        run: |
+          sed -i -e '/^build-users-group =/d' -e 's/max-jobs =.*/max-jobs = 8/g' /etc/nix/nix.conf
+          cat /etc/nix/nix.conf
       # Checkout the main branch
       - name: Checkout
         if: (success() && steps.check.outputs.cached != 'true')
