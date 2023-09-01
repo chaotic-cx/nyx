@@ -37,8 +37,7 @@ jobs:
       - name: Upload to cachix
         id: upload
         run: |
-          cd "${{ runner.temp }}"
-          cat push.txt | nix run --inputs-from . nixpkgs#cachix push chaotic-nyx \
+          cat "${{ runner.temp }}/push.txt" | nix run --inputs-from . nixpkgs#cachix -- push chaotic-nyx \
             --compression-method zstd
           failed_builds="$(cat ${{ runner.temp }}/failures.txt | sed 's/^/    <li>/; s/$/<\/li>/')"
           failed_builds_count="$(cat ${{ runner.temp }}/failures.txt | wc -l)"

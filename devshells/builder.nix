@@ -6,6 +6,7 @@
 , flakeSelf
 , gnugrep
 , jq
+, git
 , lib
 , nix
 , nixpkgs
@@ -82,7 +83,7 @@ let
     builtins.map (pkg: pkg.cmd) packagesEvalSorted.result;
 in
 writeShellScriptBin "chaotic-nyx-build" ''
-  PATH="${coreutils-full}/bin"
+  PATH="${coreutils-full}/bin:${git}/bin"
 
   NYX_SOURCE="''${NYX_SOURCE:-${flakeSelf}}"
   NYX_FLAGS="''${NYX_FLAGS:---accept-flake-config --no-link}"
