@@ -98,7 +98,7 @@ jobs:
         if: (success() && steps.check.outputs.cached != 'true')
         id: build
         run: |
-          nix develop -c chaotic-nyx-build
+          nix develop -c chaotic-nyx-build || [ $? -eq 42 ]
           failed_builds="$(cat ${{ runner.temp }}/failures.txt | sed 's/^/    <li>/; s/$/<\/li>/')"
           failed_builds_count="$(cat ${{ runner.temp }}/failures.txt | wc -l)"
           echo "FAILED_BUILDS_COUNT=$failed_builds_count
