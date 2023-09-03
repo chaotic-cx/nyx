@@ -16,6 +16,7 @@
 let
   Jq = "${jq}/bin/jq";
   Nix = "${nix}/bin/nix";
+  Git = "${git}/bin/git";
   Grep = "${gnugrep}/bin/grep";
   Cachix = "${cachix}/bin/cachix";
 
@@ -31,27 +32,40 @@ let
   depVarQuoted = drv:
     "\"$_dep_${nyxUtils.drvHash drv}\"";
 
+  allOutPaths = drv:
+    let
+      elem = x: "\"${builtins.unsafeDiscardStringContext drv.${x}.outPath}\"";
+      xs = map elem drv.outputs;
+    in
+    lib.strings.concatStringsSep "\\\n  " xs;
+
+  allOutFlakeKey = key: drv:
+    let
+      derivation = "${key}";
+      fullTag = output: "\"${nyxRecursionHelper.join key output}\"";
+      taggedOutputs = map fullTag drv.outputs;
+    in
+    lib.strings.concatStringsSep " \\\n  " taggedOutputs;
+
   derivationMap = key: drv:
     let
-      derivation = "$NYX_SOURCE#${key}";
-      fullTag = output: "\"${nyxRecursionHelper.join derivation output}\"";
-      outputs = map fullTag drv.outputs;
       deps = nyxUtils.internalDeps allPackagesList drv;
       depsCond = lib.strings.concatStrings
         (builtins.map (dep: "[ ${depVarQuoted dep} == '1' ] && ") deps);
-      outPath = builtins.unsafeDiscardStringContext drv.outPath;
+      mainOutPath = builtins.unsafeDiscardStringContext drv.outPath;
+      thisVar = depVar drv;
     in
-    if builtins.elem outPath brokenOutPaths then
+    if builtins.elem mainOutPath brokenOutPaths then
       doNotBuild ''
-        echo "  \"${key}\" = \"${outPath}\";" >> new-failures.nix
+        echo "  \"${key}\" = \"${mainOutPath}\";" >> new-failures.nix
       ''
     else
       {
         cmd = ''
-          ${depsCond}[ -z ${depVarQuoted drv} ] && ${depVar drv}=0 && \
-          build "${key}" "${outPath}" \
-            ${lib.strings.concatStringsSep " \\\n  " outputs} && \
-              ${depVar drv}=1
+          _ALL_OUT_KEYS=(${allOutFlakeKey key drv})
+          _ALL_OUT_PATHS=(${allOutPaths drv})
+          ${depsCond}[ -z ${depVarQuoted drv} ] && ${thisVar}=0 && \
+          build "${key}" "${mainOutPath}" && ${thisVar}=1
         '';
         inherit deps drv;
       };
@@ -83,28 +97,35 @@ let
     builtins.map (pkg: pkg.cmd) packagesEvalSorted.result;
 in
 writeShellScriptBin "chaotic-nyx-build" ''
+  # Cleanup PATH for reproducibility.
+  # But, Cachix needs git in PATH.
   PATH="${coreutils-full}/bin:${git}/bin"
 
+  # Options
   NYX_SOURCE="''${NYX_SOURCE:-${flakeSelf}}"
   NYX_FLAGS="''${NYX_FLAGS:---accept-flake-config --no-link}"
   NYX_WD="''${NYX_WD:-$(mktemp -d)}"
+
+  # Colors
   R='\033[0;31m'
   G='\033[0;32m'
   Y='\033[1;33m'
   C='\033[1;36m'
   W='\033[0m'
 
+  # Derivate temporary paths
   TMPDIR="''${NYX_TEMP:-''${TMPDIR}}"
   NIX_BUILD_TOP="''${NYX_TEMP:-''${NIX_BUILD_TOP}}"
   TMP="''${NYX_TEMP:-''${TMP}}"
   TEMP="''${NYX_TEMP:-''${TEMP}}"
   TEMPDIR="''${NYX_TEMP:-''${TEMPDIR}}"
 
+  # Create empty logs and artifacts
   cd "$NYX_WD"
   echo -n "" > push.txt > errors.txt > success.txt > failures.txt > cached.txt > upstream.txt
   echo "{" > new-failures.nix
-  echo "{chaotic ? builtins.getFlake \"$NYX_SOURCE\", system ? builtins.currentSystem}: with chaotic.packages.\''${system}; [" > new-success.nix
 
+  # Echo helpers
   function echo_warning() {
     echo -ne "''${Y}WARNING:''${W} "
     echo "$@"
@@ -115,6 +136,7 @@ writeShellScriptBin "chaotic-nyx-build" ''
     echo "$@" 1>&2
   }
 
+  # Warn if we don't have automated cachix
   if [ -z "$CACHIX_AUTH_TOKEN" ] && [ -z "$CACHIX_SIGNING_KEY" ]; then
     echo_warning "No key for cachix -- building anyway."
   fi
@@ -125,27 +147,36 @@ writeShellScriptBin "chaotic-nyx-build" ''
     ${Nix} path-info "$2" --store "$1" >/dev/null 2>/dev/null
   }
 
+  # Creates list of what to build when only building what changed
   if [ -n "''${NYX_CHANGED_ONLY:-}" ]; then
     _DIFF=$(${Nix} build --no-link --print-out-paths --impure --expr "(builtins.getFlake \"$NYX_SOURCE\").devShells.$(uname -m)-linux.comparer.passthru.any \"$NYX_CHANGED_ONLY\"" || exit 13)
 
     ln -s "$_DIFF" filter.txt
   fi
 
+  # Helper to zip-merge _ALL_OUT_KEYS and _ALL_OUT_PATHS
+  function zip_path() {
+    for (( i=0; i<''${#_ALL_OUT_KEYS[*]}; ++i)); do
+      echo "''${_ALL_OUT_KEYS[$i]}" "''${_ALL_OUT_PATHS[$i]}"
+    done
+  }
+
+  # Per-derivation build function
   function build() {
     _WHAT="''${1:- アンノーン}"
-    _DEST="''${2:-/dev/null}"
-    _FULL=("''${@:3}")
+    _MAIN_OUT_PATH="''${2:-/dev/null}"
+    _FULL_TARGETS=("$NYX_SOURCE#''${_ALL_OUT_KEYS[@]}")
     echo -n "* $_WHAT..."
     # If NYX_CHANGED_ONLY is set, only build changed derivations
     if [ -f filter.txt ] && ! ${Grep} -Pq "^$_WHAT\$" filter.txt; then
       echo -e "''${Y} SKIP''${W}"
       return 0
-    elif [ -z "''${NYX_REFRESH:-}" ] && cached 'https://chaotic-nyx.cachix.org' "$_DEST"; then
+    elif [ -z "''${NYX_REFRESH:-}" ] && cached 'https://chaotic-nyx.cachix.org' "$_MAIN_OUT_PATH"; then
       echo "$_WHAT" >> cached.txt
       echo -e "''${Y} CACHED''${W}"
-      echo "  ''${_FULL[@]#*\#}" >> new-success.nix
+      zip_path >> full-pin.txt
       return 0
-    elif cached 'https://cache.nixos.org' "$_DEST"; then
+    elif cached 'https://cache.nixos.org' "$_MAIN_OUT_PATH"; then
       echo "$_WHAT" >> upstream.txt
       echo -e "''${Y} CACHED-UPSTREAM''${W}"
       return 0
@@ -154,18 +185,18 @@ writeShellScriptBin "chaotic-nyx-build" ''
       _KEEPALIVE=$!
       if \
         ( set -o pipefail;
-          ${Nix} build --json $NYX_FLAGS "''${_FULL[@]}" |\
+          ${Nix} build --json $NYX_FLAGS "''${_FULL_TARGETS[@]}" |\
             ${Jq} -r '.[].outputs[]' \
         ) 2>> errors.txt >> push.txt
       then
         echo "$_WHAT" >> success.txt
         kill $_KEEPALIVE
         echo -e "''${G} OK''${W}"
-        echo "''${_FULL[@]#*\#}" >> new-success.nix
+        zip_path | tee -a to-pin.txt >> full-pin.txt
         return 0
       else
         echo "$_WHAT" >> failures.txt
-        echo "  \"$_WHAT\" = \"$_DEST\";" >> new-failures.nix
+        echo "  \"$_WHAT\" = \"$_MAIN_OUT_PATH\";" >> new-failures.nix
         kill $_KEEPALIVE
         echo -e "''${R} ERR''${W}"
         return 1
@@ -173,16 +204,13 @@ writeShellScriptBin "chaotic-nyx-build" ''
     fi
   }
 
+  # Main list of functions
   ${lib.strings.concatStringsSep "\n" packagesCmds}
 
+  # Write EOF of the artifacts
   echo "}" >> new-failures.nix
-  echo "]" >> new-success.nix
 
-  if [ -n "''${NYX_PIN:-}" ]; then
-    echo "Building pin file..."
-    ${Nix} build -L --out-link pin.txt --impure --expr 'with import "${nixpkgs}" {}; writeText "pin.txt" (builtins.concatStringsSep "\n" (import ./new-success.nix { }))'
-  fi
-
+  # Push logic
   if [ -z "$CACHIX_AUTH_TOKEN" ] && [ -z "$CACHIX_SIGNING_KEY" ]; then
     echo_error "No key for cachix -- failing to deploy."
     exit 23
@@ -190,23 +218,28 @@ writeShellScriptBin "chaotic-nyx-build" ''
     # Let nix digest store paths first
     sleep 10
 
-    echo "Pushing to cache..."
+    # Push all new deriations with compression
     cat push.txt | ${Cachix} push chaotic-nyx \
       --compression-method zstd
 
-    if [ -e pin.txt ]; then
-      _DT=$(TZ=UTC date +%y%m%d%H%S)
-      readlink pin.txt | ${Cachix} push chaotic-nyx \
-        --compression-method zstd
-      ${Cachix} -v pin chaotic-nyx \
-        "nyxpkgs-unstable" \
-        "$(readlink pin.txt)"
+    # Pin packages
+    if [ -e to-pin.txt ]; then
+      cat to-pin.txt | xargs -n 2 \
+        ${Cachix} -v pin chaotic-nyx
     fi
 
+    # Tag with a list of derivations for future GC work
+    if [ -e full-pin.txt ]; then
+      _DT=$(TZ=UTC date +%y%m%d%H%S)
+      _TAG="v''${_DT::2}.''${_DT:2:4}.''${_DT:6:4}"
+      ${Git} tag -a "$_TAG" -F full-pin.txt
+      ${Git} push origin "$_TAG"
+    fi
   else
     echo_error "Nothing to push."
     exit 42
   fi
 
+  # Useless exit but informative when running with "bash -x"
   exit 0
 ''

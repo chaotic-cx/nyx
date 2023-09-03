@@ -15,7 +15,7 @@ let
 
       nyxRecursionHelper = overlayFinal.callPackage ../shared/recursion-helper.nix { };
 
-      builder = overlayFinal.callPackage ./builder.nix
+      builder = overlayFinal.callPackage ./builder
         {
           allPackages = final;
           flakeSelf = self;
