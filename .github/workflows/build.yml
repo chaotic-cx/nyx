@@ -106,8 +106,6 @@ jobs:
           $failed_builds
           EOF" >> $GITHUB_OUTPUT
         env:
-          NYX_RESYNC: "1"
-          NYX_PIN: "1"
           NYX_WD: ${{ runner.temp }}
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
       - name: Update nyxpkgs-unstable

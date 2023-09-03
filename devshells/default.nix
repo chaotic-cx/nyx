@@ -15,12 +15,11 @@ let
 
       nyxRecursionHelper = overlayFinal.callPackage ../shared/recursion-helper.nix { };
 
-      builder = overlayFinal.callPackage ./builder.nix
+      builder = overlayFinal.callPackage ./builder
         {
           allPackages = final;
           flakeSelf = self;
           inherit nyxRecursionHelper;
-          inherit (flakes) nixpkgs;
           inherit (overlayFinal) nyxUtils;
         };
       documentation = overlayFinal.callPackage ./document.nix
