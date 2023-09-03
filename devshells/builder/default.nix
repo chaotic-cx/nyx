@@ -10,7 +10,6 @@
 , git
 , lib
 , nix
-, nixpkgs
 , nyxUtils
 , writeShellScriptBin
 }:
@@ -42,7 +41,6 @@ let
 
   allOutFlakeKey = key: drv:
     let
-      derivation = "${key}";
       fullTag = output: "\"${nyxRecursionHelper.join key output}\"";
       taggedOutputs = map fullTag drv.outputs;
     in
