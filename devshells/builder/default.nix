@@ -165,7 +165,7 @@ writeShellScriptBin "chaotic-nyx-build" ''
   function build() {
     _WHAT="''${1:- アンノーン}"
     _MAIN_OUT_PATH="''${2:-/dev/null}"
-    _FULL_TARGETS=("$NYX_SOURCE#''${_ALL_OUT_KEYS[@]}")
+    _FULL_TARGETS=("''${_ALL_OUT_KEYS[@]/#/$NYX_SOURCE\#}")
     echo -n "* $_WHAT..."
     # If NYX_CHANGED_ONLY is set, only build changed derivations
     if [ -f filter.txt ] && ! ${Grep} -Pq "^$_WHAT\$" filter.txt; then
