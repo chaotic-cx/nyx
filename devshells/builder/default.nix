@@ -17,7 +17,6 @@
 let
   Jq = "${jq}/bin/jq";
   Nix = "${nix}/bin/nix";
-  Git = "${git}/bin/git";
   Grep = "${gnugrep}/bin/grep";
   Cachix = "${cachix}/bin/cachix";
   Xargs = "${findutils}/bin/xargs";
@@ -228,14 +227,6 @@ writeShellScriptBin "chaotic-nyx-build" ''
     if [ -e to-pin.txt ]; then
       cat to-pin.txt | ${Xargs} -n 2 \
         ${Cachix} -v pin chaotic-nyx
-    fi
-
-    # Tag with a list of derivations for future GC work
-    if [ -e full-pin.txt ]; then
-      _DT=$(TZ=UTC date +%y%m%d%H%S)
-      _TAG="v''${_DT::2}.''${_DT:2:4}.''${_DT:6:4}"
-      ${Git} tag -a "$_TAG" -F full-pin.txt
-      ${Git} push origin "$_TAG"
     fi
   else
     echo_error "Nothing to push."
