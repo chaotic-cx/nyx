@@ -4,6 +4,7 @@
 , coreutils-full
 , nyxRecursionHelper
 , flakeSelf
+, findutils
 , gnugrep
 , jq
 , git
@@ -19,6 +20,7 @@ let
   Git = "${git}/bin/git";
   Grep = "${gnugrep}/bin/grep";
   Cachix = "${cachix}/bin/cachix";
+  Xargs = "${findutils}/bin/xargs";
 
   allPackagesList =
     builtins.map (xsx: xsx.drv)
@@ -224,7 +226,7 @@ writeShellScriptBin "chaotic-nyx-build" ''
 
     # Pin packages
     if [ -e to-pin.txt ]; then
-      cat to-pin.txt | xargs -n 2 \
+      cat to-pin.txt | ${Xargs} -n 2 \
         ${Cachix} -v pin chaotic-nyx
     fi
 
