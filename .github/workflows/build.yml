@@ -89,7 +89,7 @@ jobs:
       # Checkout the main branch
       - name: Checkout
         if: (success() && steps.check.outputs.cached != 'true')
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Configure sandboxing
         run: |
           sed -i -e '/^build-users-group =/d' -e 's/max-jobs =.*/max-jobs = 8/g' /etc/nix/nix.conf
