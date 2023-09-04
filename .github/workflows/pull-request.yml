@@ -19,7 +19,7 @@ jobs:
           extra_nix_config: "accept-flake-config = true"
           nix_path: "nixpkgs=channel:nixpkgs-unstable"
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
       - name: Run linter

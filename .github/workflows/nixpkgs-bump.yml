@@ -21,7 +21,7 @@ jobs:
         uses: cachix/install-nix-action@v22
         with:
           extra_nix_config: "accept-flake-config = true"
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Update nixpkgs flake
         run: nix flake lock --update-input nixpkgs || exit 1; git diff --exit-code flake.lock && exit 1 || exit 0
         continue-on-error: true
