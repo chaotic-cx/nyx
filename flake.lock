@@ -106,11 +106,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1693713564,
-        "narHash": "sha256-00w2uwb4O6Y1e2W5LG5UFyl1ZN3KFG7aoRdYEvT/BqA=",
+        "lastModified": 1693895999,
+        "narHash": "sha256-yN1XVFltQxiwle833KCqWkZNfBuRLWkXyEnOD+ljoYY=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "8e49b883890ccb52c059abb152b00a416342ec1c",
+        "rev": "3c0e381fef63e4fbc6c3292c9e9cbcf479c01794",
         "type": "github"
       },
       "original": {
@@ -156,11 +156,11 @@
     "mesa-git-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1693809100,
-        "narHash": "sha256-rO8ghvM3ID1ln9gluCXcfkVUisYfcc3bFGlSWqmnCIg=",
+        "lastModified": 1693919730,
+        "narHash": "sha256-D1WVgrjnNMeO5Ke9NFmQXk5z6yoqSAmMjq+oAc3Xt2Y=",
         "owner": "chaotic-cx",
         "repo": "mesa-mirror",
-        "rev": "083e7d3a92f362b2a901a1758adbc2e15c0eddef",
+        "rev": "c4506b5af5ed548a854f554644c1071ee753c4ec",
         "type": "github"
       },
       "original": {
@@ -189,11 +189,11 @@
     "river-git-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1689030700,
-        "narHash": "sha256-E3Xtv7JeCmafiNmpuS5VuLgh1TDAbibPtMo6A9Pz6EQ=",
+        "lastModified": 1693909542,
+        "narHash": "sha256-7cYLP2FID/DW4A06/Ujtqp2LE7NlHwaymQLiIA8xrMk=",
         "ref": "refs/heads/master",
-        "rev": "c16628c7f57c51d50f2d10a96c265fb0afaddb02",
-        "revCount": 1041,
+        "rev": "7f30c655c75568ae331ed0243578d91870f3f9c6",
+        "revCount": 1047,
         "submodules": true,
         "type": "git",
         "url": "https://github.com/riverwm/river"
@@ -297,11 +297,11 @@
     "yt-dlp-git-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1693665611,
-        "narHash": "sha256-e6dZO4UIvmJhApMAAePecsZIQedNu+xEUmMVO6H4FTo=",
+        "lastModified": 1693896854,
+        "narHash": "sha256-zkNMUcH6Sn7u7sWnsWaVZbs5ovyou8BnQ9GcYdTJJCQ=",
         "owner": "yt-dlp",
         "repo": "yt-dlp",
-        "rev": "2301b5c1b77a65abbb46b72f91e1e4666fd5d985",
+        "rev": "c6ef553792ed48462f9fd0e78143bef6b1a71c2e",
         "type": "github"
       },
       "original": {
