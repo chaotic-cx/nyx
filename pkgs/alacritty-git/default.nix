@@ -11,6 +11,7 @@ gitOverride {
       repo = "alacritty";
     } // finalArgs);
   fetchLatestRev = src: final.callPackage ../../shared/github-rev-fetcher.nix { inherit src; ref = "master"; };
+
   postOverrides = [
     (prevAttrs: {
       postInstall =

@@ -32,7 +32,7 @@ let
       common = {
         inherit (current) version;
         inherit src;
-        passthru = prevAttrs.passthru
+        passthru = (prevAttrs.passthru or { })
           // { inherit updateScript; };
       };
 

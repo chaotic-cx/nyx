@@ -19,7 +19,7 @@ let
   inherit (nyxUtils) dropAttrsUpdateScript dropUpdateScript multiOverride multiOverrides overrideDescription;
 
   # Helps when calling .nix that will override packages.
-  callOverride = path: attrs: import path ({ inherit final flakes nyxUtils prev; } // attrs);
+  callOverride = path: attrs: import path ({ inherit final flakes nyxUtils prev gitOverride; } // attrs);
 
   # Helps when calling .nix that will override i686-packages.
   callOverride32 = path: attrs: import path ({
@@ -60,7 +60,7 @@ in
 
   nyx-generic-git-update = final.callPackage ../pkgs/nyx-generic-git-update { };
 
-  alacritty_git = callOverride ../pkgs/alacritty-git { inherit gitOverride; };
+  alacritty_git = callOverride ../pkgs/alacritty-git { };
 
   ananicy-cpp-rules = final.callPackage ../pkgs/ananicy-cpp-rules {
     inherit (flakes) ananicy-cpp-rules-git-src;
