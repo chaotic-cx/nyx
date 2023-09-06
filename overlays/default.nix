@@ -80,7 +80,7 @@ in
     { enableAppletSymlinks = false; }
     (overrideDescription (old: old + " (without applets' symlinks)"));
 
-  bytecode-viewer_git = final.callPackage ../pkgs/bytecode-viewer {
+  bytecode-viewer_git = final.callPackage ../pkgs/bytecode-viewer-git {
     inherit (flakes) bytecode-viewer-git-src;
   };
 
