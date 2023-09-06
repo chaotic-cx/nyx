@@ -55,6 +55,7 @@ writeShellScriptBin "nyx-generic-update" ''
 
   JQ_ARGS=(
     --arg version "$_LATEST_VERSION"
+    --arg date "$_LATEST_DATE"
     --arg rev "$_LATEST_REV"
     --arg hash "$_LATEST_HASH"
   )
@@ -63,6 +64,7 @@ writeShellScriptBin "nyx-generic-update" ''
     '.rev = $rev'
     '| .version = $version'
     '| .hash = $hash'
+    '| .lastModifiedDate = $date'
   )
 
   if [ $HAS_CARGO -eq 1 ]; then
