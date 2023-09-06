@@ -83,9 +83,7 @@ in
     { enableAppletSymlinks = false; }
     (overrideDescription (old: old + " (without applets' symlinks)"));
 
-  bytecode-viewer_git = final.callPackage ../pkgs/bytecode-viewer-git {
-    inherit (flakes) bytecode-viewer-git-src;
-  };
+  bytecode-viewer_git = final.callPackage ../pkgs/bytecode-viewer-git { };
 
   dr460nized-kde-theme = final.callPackage ../pkgs/dr460nized-kde-theme {
     inherit (flakes) dr460nized-kde-theme-git-src;

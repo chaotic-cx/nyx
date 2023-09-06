@@ -1,7 +1,7 @@
 { pname
 , nyxKey
 , versionPath
-, hasCargo
+, hasCargo ? false
 , gitUrl
 , fetchLatestRev
   # from nyx:
