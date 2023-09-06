@@ -1,7 +1,7 @@
 { writeShellScript
 , curl
 , jq
-# parameters:
+  # parameters:
 , src
 , ref
 }:

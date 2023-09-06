@@ -51,15 +51,16 @@ let
       zfsStable = zfs;
       zfsUnstable = zfs;
     };
+
+  # Magic helper for _git packages.
+  gitOverride = import ../shared/git-override.nix { inherit (final) lib callPackage; };
 in
 {
   inherit nyxUtils;
 
   nyx-generic-git-update = final.callPackage ../pkgs/nyx-generic-git-update { };
 
-  alacritty_git = callOverride ../pkgs/alacritty-git {
-    alacrittyVersion = importJSON ../pkgs/alacritty-git/version.json;
-  };
+  alacritty_git = callOverride ../pkgs/alacritty-git { inherit gitOverride; };
 
   ananicy-cpp-rules = final.callPackage ../pkgs/ananicy-cpp-rules {
     inherit (flakes) ananicy-cpp-rules-git-src;
