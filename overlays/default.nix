@@ -55,6 +55,8 @@ in
 {
   inherit nyxUtils;
 
+  nyx-generic-git-update = final.callPackage ../pkgs/nyx-generic-git-update { };
+
   alacritty_git = callOverride ../pkgs/alacritty-git {
     alacrittyVersion = importJSON ../pkgs/alacritty-git/version.json;
   };
