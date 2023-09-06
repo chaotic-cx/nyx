@@ -1,4 +1,4 @@
-{
+rec {
   description = "Flake-compatible nixpkgs-overlay for bleeding-edge and unreleased packages. The first child of Chaos. ";
 
   inputs = {
@@ -122,17 +122,13 @@
     hydraJobs.default = packages;
     devShells = import ./devshells { inherit packages homeManagerModules nixosModules; flakes = inputs; };
 
-    _debug.x86_64-linux =
-      nixpkgs.lib.nixosSystem {
-        modules = [ nixosModules.default ];
-        system = "x86_64-linux";
-      };
-    _debug.nixConfig = {
-      extra-substituters = [ "https://nyx.chaotic.cx/" ];
-      extra-trusted-public-keys = [
-        "nyx.chaotic.cx-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
-        "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
-      ];
+    _dev = {
+      x86_64-linux =
+        nixpkgs.lib.nixosSystem {
+          modules = [ nixosModules.default ];
+          system = "x86_64-linux";
+        };
+      inherit nixConfig;
     };
   };
 

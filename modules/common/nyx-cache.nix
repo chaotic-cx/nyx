@@ -13,6 +13,15 @@ in
       };
   };
   config = {
-    nix.settings = lib.mkIf cfg.enable flakes.self._debug.nixConfig;
+    nix.settings = lib.mkIf cfg.enable
+      rec {
+        # For Non-NixOS
+        inherit (flakes.self._dev.nixConfig)
+          extra-substituters
+          extra-trusted-public-keys;
+        # For NixOS
+        substituters = extra-substituters;
+        trusted-public-keys = extra-trusted-public-keys;
+      };
   };
 }
