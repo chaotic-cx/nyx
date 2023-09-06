@@ -23,7 +23,9 @@ let
             localSystem = stdenv.hostPlatform;
           };
 
-      overlayFinal = prev // ourPackages // { callPackage = prev.newScope overlayFinal; };
+      # NOTE: "prev" overrides "ourPackages", since we don't want to
+      # replace anything in nixpkgs, but only add new packages to it.
+      overlayFinal = ourPackages // prev // { callPackage = prev.newScope overlayFinal; };
       ourPackages = flakes.self.overlays.default overlayFinal prev;
     in
     ourPackages;
