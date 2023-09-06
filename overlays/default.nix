@@ -23,7 +23,7 @@ let
 
   # Helps when calling .nix that will override i686-packages.
   callOverride32 = path: attrs: import path ({
-    inherit flakes nyxUtils;
+    inherit flakes nyxUtils gitOverride;
     final = final.pkgsi686Linux;
     prev = prev.pkgsi686Linux;
   } // attrs);
