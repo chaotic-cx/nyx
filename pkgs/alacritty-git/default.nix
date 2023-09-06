@@ -25,8 +25,7 @@ prev.alacritty.overrideAttrs (prevAttrs: rec {
           versionPath = "pkgs/alacritty-git/version.json";
           hasCargo = true;
           gitUrl = src.gitRepoUrl;
-          fetchLatestRev =
-            "${final.curl}/bin/curl -s https://api.github.com/repos/alacritty/alacritty/commits/master | ${final.jq}/bin/jq -r .sha";
+          fetchLatestRev = final.callPackage ../../shared/github-rev-fetcher.nix { inherit src; ref = "master"; };
         };
     };
 })
