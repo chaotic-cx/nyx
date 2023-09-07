@@ -14,18 +14,22 @@
 , preOverrides ? [ ]
 , postOverrides ? [ ]
 , withUpdateScript ? true
+, hasSubmodules ? false
 }:
 
 let
   main = prevAttrs:
     let
-      src = fetcher prevAttrs { inherit (current) rev hash; };
+      src = fetcher prevAttrs {
+        inherit (current) rev hash;
+        fetchSubmodules = hasSubmodules;
+      };
 
       hasCargo = (prevAttrs ? cargoDeps);
 
       updateScript = callPackage ./git-update.nix {
         inherit (prevAttrs) pname;
-        inherit nyxKey hasCargo;
+        inherit nyxKey hasCargo hasSubmodules;
         versionPath = versionNyxPath;
         fetchLatestRev = fetchLatestRev src;
         gitUrl = src.gitRepoUrl;
