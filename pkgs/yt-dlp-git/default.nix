@@ -26,7 +26,9 @@ gitOverride
       repo = "yt-dlp";
     } // finalArgs);
   fetchLatestRev = src: final.callPackage ../../shared/github-rev-fetcher.nix { inherit src; ref = "master"; };
+  withLastModifiedDate = true;
   inherit current;
+
   postOverrides = [
     (prevAttrs: {
       name = "${prevAttrs.pname}-${current.version}";

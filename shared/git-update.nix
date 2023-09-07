@@ -3,6 +3,8 @@
 , versionPath
 , hasCargo ? false
 , hasSubmodules ? false
+, withLastModifiedDate ? false
+, withLastModified ? false
 , gitUrl
 , fetchLatestRev
   # from nyx:
@@ -18,6 +20,8 @@ writeShellScript "update-${pname}-git" ''
 
   HAS_CARGO=${if hasCargo then "1" else "0"} \
   HAS_SUBMODULES=${if hasSubmodules then "1" else "0"} \
+  WITH_LAST_DATE=${if withLastModifiedDate then "1" else "0"} \
+  WITH_LAST_STAMP=${if withLastModified then "1" else "0"} \
     exec "${nyx-generic-git-update}/bin/nyx-generic-update" \
     "${pname}" "${nyxKey}" "${versionPath}" \
     "${gitUrl}" "$_LATEST_REV"

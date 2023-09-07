@@ -14,6 +14,8 @@
 , preOverrides ? [ ]
 , postOverrides ? [ ]
 , withUpdateScript ? true
+, withLastModified ? false
+, withLastModifiedDate ? false
 , hasSubmodules ? false
 }:
 
@@ -29,7 +31,7 @@ let
 
       updateScript = callPackage ./git-update.nix {
         inherit (prevAttrs) pname;
-        inherit nyxKey hasCargo hasSubmodules;
+        inherit nyxKey hasCargo hasSubmodules withLastModified withLastModifiedDate;
         versionPath = versionNyxPath;
         fetchLatestRev = fetchLatestRev src;
         gitUrl = src.gitRepoUrl;

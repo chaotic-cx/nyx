@@ -32,6 +32,8 @@ writeShellScriptBin "nyx-generic-update" ''
   # Options
   HAS_CARGO="''${HAS_CARGO:-0}"
   HAS_SUBMODULES="''${HAS_SUBMODULES:-0}"
+  WITH_LAST_DATE="''${WITH_LAST_DATE:-0}"
+  WITH_LAST_STAMP="''${WITH_LAST_STAMP:-0}"
   _PNAME="$1"
   _NYX_KEY="$2"
   _VERSION_JSON="$3"
@@ -49,13 +51,12 @@ writeShellScriptBin "nyx-generic-update" ''
 
   _LATEST_GIT=$(nix-prefetch-git "''${_NIX_PREFETCH_ARGS[@]}" --rev "$_LATEST_REV" "$_GIT_URL")
 
-  _LATEST_DATE=$(TZ=UTC date -u --date=$(echo $_LATEST_GIT | jq -r .date) '+%Y%m%d%H%M%S')
   _LATEST_HASH=$(echo $_LATEST_GIT | jq -r .hash)
+  _LATEST_DATE=$(date -u --date=$(echo $_LATEST_GIT | jq -r .date) '+%Y%m%d%H%M%S')
   _LATEST_VERSION="unstable-''${_LATEST_DATE}-''${_LATEST_REV:0:7}"
 
   JQ_ARGS=(
     --arg version "$_LATEST_VERSION"
-    --arg date "$_LATEST_DATE"
     --arg rev "$_LATEST_REV"
     --arg hash "$_LATEST_HASH"
   )
@@ -64,16 +65,22 @@ writeShellScriptBin "nyx-generic-update" ''
     '.rev = $rev'
     '| .version = $version'
     '| .hash = $hash'
-    '| .lastModifiedDate = $date'
   )
 
+  if [ $WITH_LAST_DATE -eq 1 ]; then
+    JQ_ARGS+=(--arg date "$_LATEST_DATE")
+    JQ_OPS+=('| .lastModifiedDate = $date')
+  fi
+
+  if [ $WITH_LAST_STAMP -eq 1 ]; then
+    _LATEST_STAMP=$(date -u --date=$(echo $_LATEST_GIT | jq -r .date) '+%s')
+    JQ_ARGS+=(--arg stamp "$_LATEST_STAMP")
+    JQ_OPS+=('| .lastModified = $stamp')
+  fi
+
   if [ $HAS_CARGO -eq 1 ]; then
-    JQ_ARGS+=(
-      --arg cargo '${nyxUtils.unreachableHash}' \
-    )
-    JQ_OPS+=(
-      '| .cargoHash = $cargo'
-    )
+    JQ_ARGS+=(--arg cargo '${nyxUtils.unreachableHash}')
+    JQ_OPS+=('| .cargoHash = $cargo')
   fi
 
   jq "''${JQ_ARGS[@]}" \

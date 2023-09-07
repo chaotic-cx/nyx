@@ -48,6 +48,7 @@ gitOverride {
       repo = "pineapple-src";
     } // finalArgs);
   fetchLatestRev = src: final.callPackage ../../shared/github-rev-fetcher.nix { inherit src; ref = "main"; };
+  withLastModified = true;
   inherit current;
 
   postOverrides = [
