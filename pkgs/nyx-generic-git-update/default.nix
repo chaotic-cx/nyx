@@ -42,12 +42,12 @@ writeShellScriptBin "nyx-generic-update" ''
   [ "$_LOCAL_REV" == "$_LATEST_REV" ] && exit 0
   _LOCAL_VER=$(jq -r .version "$_VERSION_JSON")
 
-  _NIX_PREFETCH_ARGS=(--quiet --rev)
+  _NIX_PREFETCH_ARGS=(--quiet)
   if [ $HAS_SUBMODULES -eq 1 ]; then
     _NIX_PREFETCH_ARGS+=(--fetch-submodules)
   fi
 
-  _LATEST_GIT=$(nix-prefetch-git "''${_NIX_PREFETCH_ARGS[@]}" "$_LATEST_REV" "$_GIT_URL")
+  _LATEST_GIT=$(nix-prefetch-git "''${_NIX_PREFETCH_ARGS[@]}" --rev "$_LATEST_REV" "$_GIT_URL")
 
   _LATEST_DATE=$(TZ=UTC date -u --date=$(echo $_LATEST_GIT | jq -r .date) '+%Y%m%d%H%M%S')
   _LATEST_HASH=$(echo $_LATEST_GIT | jq -r .hash)
