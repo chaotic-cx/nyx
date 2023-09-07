@@ -4,14 +4,16 @@
 }:
 { nyxKey
 , versionNyxPath
-, versionLocalPath
+, versionLocalPath ? null
 , prev
 , fetcher
 , fetchLatestRev
 , current ? importJSON versionLocalPath
+, version ? current.version
 , newInputs ? null
 , preOverrides ? [ ]
 , postOverrides ? [ ]
+, withUpdateScript ? true
 }:
 
 let
@@ -30,10 +32,13 @@ let
       };
 
       common = {
-        inherit (current) version;
-        inherit src;
-        passthru = (prevAttrs.passthru or { })
-          // { inherit updateScript; };
+        inherit version src;
+        passthru = (prevAttrs.passthru or { }) // {
+          updateScript =
+            if withUpdateScript
+            then updateScript
+            else null;
+        };
       };
 
       whenCargo =

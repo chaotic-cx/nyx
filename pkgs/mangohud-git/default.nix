@@ -2,7 +2,7 @@
 
 gitOverride {
   newInputs = { inherit mangohud32; };
-  nyxKey = "mangohud_git";
+  nyxKey = if final.stdenv.is32bit then "mangohud32_git" else "mangohud_git";
   versionNyxPath = "pkgs/mangohud-git/version.json";
   versionLocalPath = ./version.json;
   prev = prev.mangohud;
@@ -12,6 +12,7 @@ gitOverride {
       repo = "MangoHud";
     } // finalArgs);
   fetchLatestRev = src: final.callPackage ../../shared/github-rev-fetcher.nix { inherit src; ref = "master"; };
+  withUpdateScript = !final.stdenv.is32bit;
 
   postOverrides = [
     (prevAttrs: {
