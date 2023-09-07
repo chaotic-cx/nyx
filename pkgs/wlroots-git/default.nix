@@ -1,15 +1,31 @@
 { enableXWayland ? true
 , final
-, flakes
-, nyxUtils
 , prev
+, gitOverride
 , ...
 }:
 
-nyxUtils.multiOverride prev.wlroots_0_16 { inherit enableXWayland; }
-  (prevAttrs: {
-    version = nyxUtils.gitToVersion flakes.wlroots-git-src;
-    src = flakes.wlroots-git-src // { meta.homepage = "https://gitlab.freedesktop.org/wlroots/wlroots/"; inherit (flakes.wlroots-git-src) rev; };
-    buildInputs = prevAttrs.buildInputs ++ (with final; [ hwdata libdisplay-info ]);
-    postPatch = "";
-  })
+let
+  src = {
+    domain = "gitlab.freedesktop.org";
+    owner = "wlroots";
+    repo = "wlroots";
+  };
+in
+gitOverride {
+  newInputs = { inherit enableXWayland; };
+  nyxKey = "wlroots_git";
+  versionNyxPath = "pkgs/wlroots-git/version.json";
+  versionLocalPath = ./version.json;
+  prev = prev.wlroots_0_16;
+  fetcher =
+    _prevAttrs: finalArgs: final.fetchFromGitLab (src // finalArgs);
+  fetchLatestRev = _src: final.callPackage ../../shared/gitlab-rev-fetcher.nix { inherit src; ref = "master"; };
+
+  postOverrides = [
+    (prevAttrs: {
+      buildInputs = prevAttrs.buildInputs ++ (with final; [ hwdata libdisplay-info ]);
+      postPatch = "";
+    })
+  ];
+}
