@@ -180,7 +180,7 @@ in
   vulkanPackages_latest = callOverride ../pkgs/vulkan-versioned
     { vulkanVersions = importJSON ../pkgs/vulkan-versioned/latest.json; };
 
-  waynergy_git = nyxUtils.gitOverride flakes.waynergy-git-src prev.waynergy;
+  waynergy_git = callOverride ../pkgs/waynergy-git { };
 
   wlroots_git = callOverride ../pkgs/wlroots-git { };
 
