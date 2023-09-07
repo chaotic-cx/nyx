@@ -8,7 +8,8 @@
 }:
 
 let
-  inherit (src) group owner repo;
+  inherit (src) owner repo;
+  group = src.group or null;
   slug = lib.concatStringsSep "/" ((lib.optional (group != null) group) ++ [ owner repo ]);
   escapedSlug = lib.replaceStrings [ "." "/" ] [ "%2E" "%2F" ] slug;
 in
