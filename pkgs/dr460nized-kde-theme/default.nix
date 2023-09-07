@@ -4,7 +4,6 @@
 , fetchFromGitLab
 , fetchurl
 , lib
-, nyxUtils
 , stdenvNoCC
 , sweet-nova
 }:

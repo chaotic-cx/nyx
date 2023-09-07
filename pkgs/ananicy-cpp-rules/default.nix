@@ -1,5 +1,4 @@
 { lib
-, nyxUtils
 , stdenvNoCC
 , callPackage
 , fetchFromGitHub

@@ -25,7 +25,7 @@ let
         fetchSubmodules = hasSubmodules;
       };
 
-      hasCargo = (prevAttrs ? cargoDeps);
+      hasCargo = prevAttrs ? cargoDeps;
 
       updateScript = callPackage ./git-update.nix {
         inherit (prevAttrs) pname;

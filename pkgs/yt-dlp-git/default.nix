@@ -1,6 +1,5 @@
 { final
 , gitOverride
-, nyxUtils
 , prev
 , ...
 }:

@@ -5,7 +5,6 @@
 , hicolor-icon-theme
 , jdupes
 , lib
-, nyxUtils
 , stdenvNoCC
 , ...
 }:
