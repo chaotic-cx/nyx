@@ -1,17 +1,28 @@
 { beautyline-icons
 , blurredwallpaper
-, dr460nized-kde-theme-git-src
+, callPackage
+, fetchFromGitLab
 , fetchurl
 , lib
 , nyxUtils
 , stdenvNoCC
 , sweet-nova
 }:
+
+let
+  current = lib.trivial.importJSON ./version.json;
+  srcMeta = {
+    inherit (current) rev hash;
+    group = "garuda-linux";
+    owner = "themes-and-settings/settings";
+    repo = "garuda-dr460nized";
+  };
+in
 stdenvNoCC.mkDerivation rec {
   pname = "dr460nized-kde-theme";
+  inherit (current) version;
 
-  src = dr460nized-kde-theme-git-src;
-  version = nyxUtils.gitToVersion src;
+  src = fetchFromGitLab srcMeta;
 
   malefor = fetchurl {
     url = "https://gitlab.com/garuda-linux/themes-and-settings/artwork/garuda-wallpapers/-/raw/master/src/garuda-wallpapers/Malefor.jpg";
@@ -43,6 +54,14 @@ stdenvNoCC.mkDerivation rec {
       --replace "applications:snapper-tools.desktop," "" \
       --replace ",applications:octopi.desktop" ""
   '';
+
+  passthru.updateScript = callPackage ../../shared/git-update.nix {
+    inherit pname;
+    nyxKey = "dr460nized-kde-theme";
+    versionPath = "pkgs/dr460nized-kde-theme/version.json";
+    fetchLatestRev = callPackage ../../shared/gitlab-rev-fetcher.nix { src = srcMeta; ref = "master"; };
+    gitUrl = src.gitRepoUrl;
+  };
 
   meta = with lib; {
     description = "The default Garuda dr460nized theme";

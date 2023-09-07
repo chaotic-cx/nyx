@@ -1,4 +1,5 @@
-{ beautyline-icons-git-src
+{ callPackage
+, fetchFromGitLab
 , gnome-icon-theme
 , gtk3
 , hicolor-icon-theme
@@ -9,11 +10,20 @@
 , ...
 }:
 
+let
+  current = lib.trivial.importJSON ./version.json;
+  srcMeta = {
+    inherit (current) rev hash;
+    group = "garuda-linux";
+    owner = "themes-and-settings/artwork";
+    repo = "beautyline";
+  };
+in
 stdenvNoCC.mkDerivation rec {
   pname = "BeautyLine";
+  inherit (current) version;
 
-  src = beautyline-icons-git-src;
-  version = nyxUtils.gitToVersion src;
+  src = fetchFromGitLab srcMeta;
 
   nativeBuildInputs = [ jdupes gtk3 ];
 
@@ -36,6 +46,14 @@ stdenvNoCC.mkDerivation rec {
     jdupes --link-soft --recurse $out/share
     runHook postInstall
   '';
+
+  passthru.updateScript = callPackage ../../shared/git-update.nix {
+    inherit pname;
+    nyxKey = "beautyline-icons";
+    versionPath = "pkgs/beautyline-icons/version.json";
+    fetchLatestRev = callPackage ../../shared/gitlab-rev-fetcher.nix { src = srcMeta; ref = "master"; };
+    gitUrl = src.gitRepoUrl;
+  };
 
   meta = with lib; {
     description = "BeautyLine icon theme mixed with Sweet icons";

@@ -3,7 +3,6 @@
 let
   current = lib.trivial.importJSON ./version.json;
 in
-
 maven.buildMavenPackage rec {
   pname = "bytecode-viewer";
   inherit (current) version;
