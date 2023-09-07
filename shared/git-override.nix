@@ -50,7 +50,7 @@ let
       whenCargo =
         lib.attrsets.optionalAttrs hasCargo {
           cargoDeps = prevAttrs.cargoDeps.overrideAttrs (_cargoPrevAttrs: {
-            inherit (prevAttrs) src;
+            inherit src;
             outputHash = current.cargoHash;
           });
         };

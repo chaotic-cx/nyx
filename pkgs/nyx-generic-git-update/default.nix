@@ -88,7 +88,7 @@ writeShellScriptBin "nyx-generic-update" ''
     "$_VERSION_JSON" | sponge "$_VERSION_JSON"
 
   if [ $HAS_CARGO -eq 1 ]; then
-    _LATEST_CARGO_HASH=$((nix build .#''${_NYX_KEY}.cargoDeps 2>&1 || true) | awk '/got/{print $2}')
+    _LATEST_CARGO_HASH=$((nix build .#''${_NYX_KEY} 2>&1 || true) | awk '/got/{print $2}')
     jq --arg cargo "$_LATEST_CARGO_HASH" \
       '.cargoHash = $cargo' \
       "$_VERSION_JSON" | sponge "$_VERSION_JSON"
