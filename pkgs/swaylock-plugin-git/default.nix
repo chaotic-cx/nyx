@@ -1,11 +1,14 @@
-{ final
-, flakes
-, nyxUtils
-, ...
-}:
+{ final, prev, gitOverride, ... }:
 
-final.swaylock.overrideAttrs (_prevAttrs: {
-  pname = "swaylock-plugin";
-  version = nyxUtils.gitToVersion flakes.swaylock-plugin-git-src;
-  src = flakes.swaylock-plugin-git-src;
-})
+gitOverride {
+  nyxKey = "swaylock-plugin_git";
+  versionNyxPath = "pkgs/swaylock-plugin-git/version.json";
+  versionLocalPath = ./version.json;
+  prev = prev.swaylock;
+  fetcher =
+    _prevAttrs: finalArgs: final.fetchFromGitHub ({
+      owner = "mstoeckl";
+      repo = "swaylock-plugin";
+    } // finalArgs);
+  fetchLatestRev = src: final.callPackage ../../shared/github-rev-fetcher.nix { inherit src; ref = "main"; };
+}

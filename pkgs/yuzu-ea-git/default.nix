@@ -1,7 +1,8 @@
-{ final, flakes, nyxUtils, prev, ... }:
+{ final, gitOverride, nyxUtils, prev, ... }:
 
 # yuzu doesn't seem to recognize our mbedtls_2
 let
+  current = final.lib.trivial.importJSON ./version.json;
   dynarmic = final.fetchFromGitHub {
     owner = "merryhime";
     repo = "dynarmic";
@@ -34,61 +35,70 @@ let
   };
 
   inherit (final.vulkanPackages_latest) glslang vulkan-headers vulkan-loader spirv-headers;
-  base = prev.yuzu-early-access.override
-    { inherit glslang vulkan-headers vulkan-loader; };
 in
-base.overrideAttrs (prevAttrs: rec {
-  src = flakes.yuzu-ea-git-src;
-  version = nyxUtils.gitToVersion src;
 
-  # We need to have these headers ahead, otherwise they cause an ordering issue in CMAKE_INCLUDE_PATH,
-  # where qtbase propagated input appears first.
-  nativeBuildInputs = [ vulkan-headers glslang spirv-headers ] ++ prevAttrs.nativeBuildInputs;
+gitOverride {
+  newInputs = { inherit glslang vulkan-headers vulkan-loader; };
+  nyxKey = "yuzu-early-access_git";
+  versionNyxPath = "pkgs/yuzu-ea-git/version.json";
+  prev = prev.yuzu-early-access;
+  fetcher =
+    _prevAttrs: finalArgs: final.fetchFromGitHub ({
+      owner = "pineappleEA";
+      repo = "pineapple-src";
+    } // finalArgs);
+  fetchLatestRev = src: final.callPackage ../../shared/github-rev-fetcher.nix { inherit src; ref = "main"; };
+  inherit current;
 
-  cmakeFlags = prevAttrs.cmakeFlags ++ [
-    "-DSIRIT_USE_SYSTEM_SPIRV_HEADERS=ON"
-  ];
+  postOverrides = [
+    (prevAttrs: rec {
+      # We need to have these headers ahead, otherwise they cause an ordering issue in CMAKE_INCLUDE_PATH,
+      # where qtbase propagated input appears first.
+      nativeBuildInputs = [ vulkan-headers glslang spirv-headers ] ++ prevAttrs.nativeBuildInputs;
 
-  patches = nyxUtils.removeByBaseName "vulkan_version.patch" (prevAttrs.patches or [ ]);
+      cmakeFlags = prevAttrs.cmakeFlags ++ [
+        "-DSIRIT_USE_SYSTEM_SPIRV_HEADERS=ON"
+      ];
 
-  postPatch = (prevAttrs.postPatch or "") + ''
-    rm -r externals/{cpp-httplib,dynarmic,mbedtls,sirit,xbyak}
-    cp --no-preserve=mode -r ${final.mbedtls_2.src} externals/mbedtls
-    ln -s ${final.httplib.src} externals/cpp-httplib
-    ln -s ${dynarmic} externals/dynarmic
-    ln -s ${sirit} externals/sirit
-    ln -s ${xbyak} externals/xbyak
-    ln -s ${vma} externals/VulkanMemoryAllocator
-  '';
+      patches = nyxUtils.removeByBaseName "vulkan_version.patch" (prevAttrs.patches or [ ]);
 
-  preConfigure = ''
-    pushd externals/mbedtls
-    perl scripts/config.pl set MBEDTLS_THREADING_C
-    perl scripts/config.pl set MBEDTLS_THREADING_PTHREAD
-    perl scripts/config.pl set MBEDTLS_CMAC_C
-    popd
+      postPatch = (prevAttrs.postPatch or "") + ''
+        rm -r externals/{cpp-httplib,dynarmic,mbedtls,sirit,xbyak}
+        cp --no-preserve=mode -r ${final.mbedtls_2.src} externals/mbedtls
+        ln -s ${final.httplib.src} externals/cpp-httplib
+        ln -s ${dynarmic} externals/dynarmic
+        ln -s ${sirit} externals/sirit
+        ln -s ${xbyak} externals/xbyak
+        ln -s ${vma} externals/VulkanMemoryAllocator
+      '';
 
-    _ver=$(grep -Po '(?<=for early-access )([^.]*)' "${src}/README.md")
+      preConfigure = ''
+        pushd externals/mbedtls
+        perl scripts/config.pl set MBEDTLS_THREADING_C
+        perl scripts/config.pl set MBEDTLS_THREADING_PTHREAD
+        perl scripts/config.pl set MBEDTLS_CMAC_C
+        popd
 
-    # See https://github.com/NixOS/nixpkgs/issues/114044, setting this through cmakeFlags does not work.
-    # These will fix version "formatting"
-    cmakeFlagsArray+=(
-      "-DTITLE_BAR_FORMAT_IDLE=yuzu Early Access EA-$_ver"
-      "-DTITLE_BAR_FORMAT_RUNNING=yuzu Early Access EA-$_ver | {3}"
-    )
+        _ver=$(grep -Po '(?<=for early-access )([^.]*)' "${prevAttrs.src}/README.md")
 
-    cmakeBuildDir=''${cmakeBuildDir:=build}
+        # See https://github.com/NixOS/nixpkgs/issues/114044, setting this through cmakeFlags does not work.
+        # These will fix version "formatting"
+        cmakeFlagsArray+=(
+          "-DTITLE_BAR_FORMAT_IDLE=yuzu Early Access EA-$_ver"
+          "-DTITLE_BAR_FORMAT_RUNNING=yuzu Early Access EA-$_ver | {3}"
+        )
+
+        cmakeBuildDir=''${cmakeBuildDir:=build}
    
-    mkdir -p "$cmakeBuildDir/externals/nx_tzdb"
-    ln -s ${tzdata} "$cmakeBuildDir/externals/nx_tzdb/${tzdataVer}.zip"
-  '';
+        mkdir -p "$cmakeBuildDir/externals/nx_tzdb"
+        ln -s ${tzdata} "$cmakeBuildDir/externals/nx_tzdb/${tzdataVer}.zip"
+      '';
 
-  # Shows released date in version
-  env.SOURCE_DATE_EPOCH = src.lastModified;
+      # Shows released date in version
+      env.SOURCE_DATE_EPOCH = current.lastModified;
 
-  # Right now crypto tests don't pass
-  doCheck = false;
-
-  # We bump it with flakes
-  passthru = prevAttrs.passthru // { updateScript = null; };
-})
+      # Right now crypto tests don't pass
+      doCheck = false;
+    })
+  ];
+}

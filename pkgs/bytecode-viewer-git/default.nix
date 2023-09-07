@@ -1,10 +1,17 @@
-{ lib, bytecode-viewer-git-src, jre, nyxUtils, makeWrapper, maven }:
+{ lib, callPackage, fetchFromGitHub, jre, makeWrapper, maven }:
 
+let
+  current = lib.trivial.importJSON ./version.json;
+in
 maven.buildMavenPackage rec {
   pname = "bytecode-viewer";
-  version = nyxUtils.gitToVersion bytecode-viewer-git-src;
+  inherit (current) version;
 
-  src = bytecode-viewer-git-src;
+  src = fetchFromGitHub {
+    inherit (current) rev hash;
+    owner = "Konloch";
+    repo = "bytecode-viewer";
+  };
 
   mvnHash = "sha256-VHepIRJGTj6gPKtsDgOHXTtw2dklwi2mALTaWzto/S4=";
 
@@ -17,6 +24,14 @@ maven.buildMavenPackage rec {
     makeWrapper ${jre}/bin/java $out/bin/bytecode-viewer \
       --add-flags "-jar $out/lib/bytecode-viewer/bytecode-viewer.jar"
   '';
+
+  passthru.updateScript = callPackage ../../shared/git-update.nix {
+    inherit pname;
+    nyxKey = "bytecode-viewer_git";
+    versionPath = "pkgs/bytecode-viewer-git/version.json";
+    fetchLatestRev = callPackage ../../shared/github-rev-fetcher.nix { inherit src; ref = "master"; };
+    gitUrl = src.gitRepoUrl;
+  };
 
   meta = with lib; {
     description = "An advanced yet user friendly Java reverse engineering suite";

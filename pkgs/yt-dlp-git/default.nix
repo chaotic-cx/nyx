@@ -1,12 +1,12 @@
 { final
-, flakes
-, nyxUtils
+, gitOverride
 , prev
 , ...
 }:
 
 let
-  date = flakes.yt-dlp-git-src.lastModifiedDate;
+  current = final.lib.trivial.importJSON ./version.json;
+  date = current.lastModifiedDate;
   year =
     builtins.substring 0 4 date;
   month =
@@ -15,23 +15,34 @@ let
     builtins.substring 6 2 date;
   datedVersion = "${year}.${month}.${day}";
 in
-(final.python311Packages.toPythonApplication prev.python311Packages.yt-dlp).overrideAttrs (prevAttrs: rec {
-  version = nyxUtils.gitToVersion flakes.yt-dlp-git-src;
-  name = "${prevAttrs.pname}-${version}";
-  src = flakes.yt-dlp-git-src;
-  postPatch = (prevAttrs.postPatch or "") + ''
-          echo "
-    __version__ = '${datedVersion}'
+gitOverride
+{
+  nyxKey = "yt-dlp_git";
+  versionNyxPath = "pkgs/yt-dlp-git/version.json";
+  prev = final.python311Packages.toPythonApplication prev.python311Packages.yt-dlp;
+  fetcher =
+    _prevAttrs: finalArgs: final.fetchFromGitHub ({
+      owner = "yt-dlp";
+      repo = "yt-dlp";
+    } // finalArgs);
+  fetchLatestRev = src: final.callPackage ../../shared/github-rev-fetcher.nix { inherit src; ref = "master"; };
+  inherit current;
+  postOverrides = [
+    (prevAttrs: {
+      name = "${prevAttrs.pname}-${current.version}";
+      postPatch = (prevAttrs.postPatch or "") + ''
+              echo "
+        __version__ = '${datedVersion}'
 
-    RELEASE_GIT_HEAD = '${flakes.yt-dlp-git-src.rev}'
+        RELEASE_GIT_HEAD = '${current.rev}'
 
-    VARIANT = None
+        VARIANT = None
 
-    UPDATE_HINT = None
+        UPDATE_HINT = None
 
-    CHANNEL = 'chaotic-nyx'
-          " > yt_dlp/version.py
-  '';
-
-  passthru = prevAttrs.passthru // { updateScript = null; };
-})
+        CHANNEL = 'chaotic-nyx'
+              " > yt_dlp/version.py
+      '';
+    })
+  ];
+}

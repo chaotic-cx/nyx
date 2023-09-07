@@ -19,11 +19,11 @@ let
   inherit (nyxUtils) dropAttrsUpdateScript dropUpdateScript multiOverride multiOverrides overrideDescription;
 
   # Helps when calling .nix that will override packages.
-  callOverride = path: attrs: import path ({ inherit final flakes nyxUtils prev; } // attrs);
+  callOverride = path: attrs: import path ({ inherit final flakes nyxUtils prev gitOverride; } // attrs);
 
   # Helps when calling .nix that will override i686-packages.
   callOverride32 = path: attrs: import path ({
-    inherit flakes nyxUtils;
+    inherit flakes nyxUtils gitOverride;
     final = final.pkgsi686Linux;
     prev = prev.pkgsi686Linux;
   } // attrs);
@@ -51,17 +51,18 @@ let
       zfsStable = zfs;
       zfsUnstable = zfs;
     };
+
+  # Magic helper for _git packages.
+  gitOverride = import ../shared/git-override.nix { inherit (final) lib callPackage; };
 in
 {
   inherit nyxUtils;
 
-  alacritty_git = callOverride ../pkgs/alacritty-git {
-    alacrittyVersion = importJSON ../pkgs/alacritty-git/version.json;
-  };
+  nyx-generic-git-update = final.callPackage ../pkgs/nyx-generic-git-update { };
 
-  ananicy-cpp-rules = final.callPackage ../pkgs/ananicy-cpp-rules {
-    inherit (flakes) ananicy-cpp-rules-git-src;
-  };
+  alacritty_git = callOverride ../pkgs/alacritty-git { };
+
+  ananicy-cpp-rules = final.callPackage ../pkgs/ananicy-cpp-rules { };
 
   applet-window-appmenu = final.libsForQt5.callPackage ../pkgs/applet-window-appmenu { };
 
@@ -69,9 +70,7 @@ in
 
   appmenu-gtk3-module = final.callPackage ../pkgs/appmenu-gtk3-module { };
 
-  beautyline-icons = final.callPackage ../pkgs/beautyline-icons {
-    inherit (flakes) beautyline-icons-git-src;
-  };
+  beautyline-icons = final.callPackage ../pkgs/beautyline-icons { };
 
   blurredwallpaper = final.callPackage ../pkgs/blurredwallpaper { };
 
@@ -80,13 +79,9 @@ in
     { enableAppletSymlinks = false; }
     (overrideDescription (old: old + " (without applets' symlinks)"));
 
-  bytecode-viewer_git = final.callPackage ../pkgs/bytecode-viewer {
-    inherit (flakes) bytecode-viewer-git-src;
-  };
+  bytecode-viewer_git = final.callPackage ../pkgs/bytecode-viewer-git { };
 
-  dr460nized-kde-theme = final.callPackage ../pkgs/dr460nized-kde-theme {
-    inherit (flakes) dr460nized-kde-theme-git-src;
-  };
+  dr460nized-kde-theme = final.callPackage ../pkgs/dr460nized-kde-theme { };
 
   droid-sans-mono-nerdfont = multiOverrides
     final.nerdfonts
@@ -179,7 +174,7 @@ in
   vulkanPackages_latest = callOverride ../pkgs/vulkan-versioned
     { vulkanVersions = importJSON ../pkgs/vulkan-versioned/latest.json; };
 
-  waynergy_git = nyxUtils.gitOverride flakes.waynergy-git-src prev.waynergy;
+  waynergy_git = callOverride ../pkgs/waynergy-git { };
 
   wlroots_git = callOverride ../pkgs/wlroots-git { };
 
