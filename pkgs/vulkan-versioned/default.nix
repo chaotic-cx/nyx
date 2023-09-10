@@ -77,6 +77,7 @@ final.lib.makeScope final.newScope (self:
     key = "vulkanExtensionLayer";
     owner = "KhronosGroup";
     repo = "Vulkan-ExtensionLayer";
+    extraAttrs = prevAttrs: { buildInputs = prevAttrs.buildInputs ++ [ self.vulkan-utility-libraries ]; };
   };
 
   vulkan-headers = genericOverride {
@@ -116,6 +117,7 @@ final.lib.makeScope final.newScope (self:
   vulkan-utility-libraries =
     genericOverride {
       origin = prev.vulkan-utility-libraries;
+      extraInput = { inherit (self) vulkan-headers; };
       key = "vulkanUtilityLibraries";
       owner = "KhronosGroup";
       repo = "Vulkan-Utility-Libraries";

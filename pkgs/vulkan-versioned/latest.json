@@ -29,7 +29,7 @@
   "vulkanHeaders": {
     "version": "1.3.264",
     "rev": "v#{version}",
-    "hash": "sha256-Q+MdjimrYbXerJs8EZPRESOn3wytSYLqCQMPHft0eWI="
+    "hash": "sha256-t1fFYU1pROCSgWQBdFJU47OW88RVE7uBYY8aorZ6em0="
   },
   "vulkanLoader": {
     "version": "1.3.263",
