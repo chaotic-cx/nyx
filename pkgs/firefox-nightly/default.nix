@@ -33,10 +33,10 @@ let
         mainProgram = "firefox";
       };
 
-      # updateScript = callPackage ./update.nix { };
+      updateScript = callPackage ./update.nix { };
     };
 
-  noKey = prev: {
+  noKey = _prevAttrs: {
     env.MOZ_REQUIRE_SIGNING = "";
   };
 in
