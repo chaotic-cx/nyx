@@ -98,6 +98,9 @@ in
     libName = "firedragon";
   };
 
+  firefox-unwrapped_nightly = final.callPackage ../pkgs/firefox-nightly { };
+  firefox_nightly = final.wrapFirefox final.firefox-unwrapped_nightly { };
+
   gamescope_git = callOverride ../pkgs/gamescope-git { };
 
   input-leap_git = callOverride ../pkgs/input-leap-git {
@@ -152,6 +155,8 @@ in
   ).overrideAttrs (overrideDescription (old: old + " (includes vapoursynth)"));
 
   nordvpn = final.callPackage ../pkgs/nordvpn { };
+
+  nss_git = callOverride ../pkgs/nss-git { };
 
   openmohaa = final.callPackage ../pkgs/openmohaa {
     openmohaaVersion = importJSON ../pkgs/openmohaa/version.json;
