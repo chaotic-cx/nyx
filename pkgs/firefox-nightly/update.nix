@@ -2,6 +2,7 @@
 , lib
 , coreutils
 , curl
+, git
 , jq
 , moreutils
 , nix
@@ -10,6 +11,7 @@ let
   path = lib.makeBinPath [
     coreutils
     curl
+    git
     jq
     moreutils # sponge
     nix # nix-prefetch-url, nix-hash
@@ -48,6 +50,6 @@ writeShellScriptBin "firefox-nightly-update" ''
     "$VERSION_JSON" | sponge "$VERSION_JSON"
 
   git add $VERSION_JSON
-  git commit -m "firefox-nightly: $_LOCAL_VER -> $_LATEST_VER"
+  git commit -m "firefox-nightly: $_LOCAL_VER-''${_LOCAL_REV:9} -> $_LATEST_VER-''${_LATEST_REV:9}"
 ''
 
