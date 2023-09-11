@@ -12,7 +12,7 @@ gitOverride {
     } // finalArgs);
   fetchLatestRev = src: final.callPackage ../../shared/github-rev-fetcher.nix { inherit src; ref = "master"; };
   postOverrides = [
-    (prevAttrs: {
+    (_prevAttrs: {
       # they could have used "sourceRoot"...
       postUnpack = ''
         mkdir _nss
