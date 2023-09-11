@@ -50,6 +50,6 @@ writeShellScriptBin "firefox-nightly-update" ''
     "$VERSION_JSON" | sponge "$VERSION_JSON"
 
   git add $VERSION_JSON
-  git commit -m "firefox-nightly: $_LOCAL_VER-''${_LOCAL_REV:9} -> $_LATEST_VER-''${_LATEST_REV:9}"
+  git commit -m "firefox_nightly: $_LOCAL_VER-''${_LOCAL_REV:9} -> $_LATEST_VER-''${_LATEST_REV:9}"
 ''
 
