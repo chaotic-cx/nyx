@@ -54,10 +54,12 @@ let
   loadedHomeManagerModule = homeManagerConfiguration {
     modules = [
       {
-        home.stateVersion = "23.11";
-        home.username = "player";
-        home.homeDirectory = "/tmp";
         nix.package = pkgs.nix;
+        home = {
+          stateVersion = "23.11";
+          username = "player";
+          homeDirectory = "/tmp";
+        };
       }
       homeManagerModule
     ];
