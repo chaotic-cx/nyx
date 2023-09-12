@@ -1,6 +1,19 @@
 { config, lib, pkgs, ... }:
 let
   cfg = config.chaotic;
+
+  gamescopeWSI =
+    pkgs.stdenvNoCC.mkDerivation {
+      pname = "VkLayer_FROG_gamescope_wsi";
+      version = config.programs.gamescope.package.version;
+      dontUnpack = true;
+      dontConfigure = true;
+      dontBuild = true;
+      installPhase = ''
+        mkdir -p $out/share
+        cp -r ${config.programs.gamescope.package}/share/vulkan $out/share/vulkan
+      '';
+    };
 in
 {
   options = {
@@ -26,6 +39,8 @@ in
           enable = true; # HDR can't be used with other WM right now...
           args = [ "--hdr-enabled" ];
         };
+        chaotic.mesa-git.extraPackages = [ gamescopeWSI ];
+        hardware.opengl.extraPackages = [ gamescopeWSI ];
       };
     };
   };
