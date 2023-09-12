@@ -57,9 +57,9 @@
     "hash": "sha256-FUqKJcyx3eg0PQ0g5hYXceRdb7F3BCkxxJ6cWy7Sur8="
   },
   "vulkanValidationLayers": {
-    "version": "1.3.261.1",
-    "rev": "sdk-#{version}",
-    "hash": "sha256-RuRNOJIMG1Tsm6TA2ltOkqm0E4OkeeDIH07TS/b4HGQ=",
+    "version": "1.3.264",
+    "rev": "v#{version}",
+    "hash": "sha256-6SeQjq+06kVjzke5ceAsKScGsgpdFqiMJWYfInnOJG4=",
     "badTag": "v1.3.263"
   }
 }
