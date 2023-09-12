@@ -5,7 +5,7 @@ let
   gamescopeWSI =
     pkgs.stdenvNoCC.mkDerivation {
       pname = "VkLayer_FROG_gamescope_wsi";
-      version = config.programs.gamescope.package.version;
+      inherit (config.programs.gamescope.package) version;
       dontUnpack = true;
       dontConfigure = true;
       dontBuild = true;
