@@ -43,6 +43,7 @@ gitOverride {
             prevAttrs.patches
           )
         ) ++ [
+          ./opencl.patch
           ./disk_cache-include-dri-driver-path-in-cache-key.patch
           ./gbm-backend.patch
         ];

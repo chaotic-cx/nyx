@@ -1,4 +1,4 @@
-{ writeShellScriptBin
+{ writeShellScript
 , lib
 , coreutils
 , curl
@@ -17,7 +17,7 @@ let
     nix # nix-prefetch-url, nix-hash
   ];
 in
-writeShellScriptBin "firefox-nightly-update" ''
+writeShellScript "firefox-nightly-update" ''
   set -euo pipefail
 
   PATH=${path}
@@ -50,6 +50,6 @@ writeShellScriptBin "firefox-nightly-update" ''
     "$VERSION_JSON" | sponge "$VERSION_JSON"
 
   git add $VERSION_JSON
-  git commit -m "firefox_nightly: $_LOCAL_VER-''${_LOCAL_REV:9} -> $_LATEST_VER-''${_LATEST_REV:9}"
+  git commit -m "firefox_nightly: $_LOCAL_VER-''${_LOCAL_REV::9} -> $_LATEST_VER-''${_LATEST_REV::9}"
 ''
 
