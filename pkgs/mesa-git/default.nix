@@ -38,7 +38,10 @@ gitOverride {
       patches =
         (nyxUtils.removeByBaseName
           "disk_cache-include-dri-driver-path-in-cache-key.patch"
-          prevAttrs.patches
+          (nyxUtils.removeByBaseName
+            "opencl.patch"
+            prevAttrs.patches
+          )
         ) ++ [
           ./disk_cache-include-dri-driver-path-in-cache-key.patch
           ./gbm-backend.patch
