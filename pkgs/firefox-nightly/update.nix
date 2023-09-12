@@ -1,4 +1,4 @@
-{ writeShellScriptBin
+{ writeShellScript
 , lib
 , coreutils
 , curl
@@ -17,7 +17,7 @@ let
     nix # nix-prefetch-url, nix-hash
   ];
 in
-writeShellScriptBin "firefox-nightly-update" ''
+writeShellScript "firefox-nightly-update" ''
   set -euo pipefail
 
   PATH=${path}
