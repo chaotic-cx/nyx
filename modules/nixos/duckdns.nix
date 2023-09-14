@@ -3,7 +3,6 @@ let
   inherit (config.meta) username;
   inherit (config.users.users.${username}) group;
   cfg = config.chaotic.duckdns;
-  fullDomain = "${cfg.domain}.duckdns.org";
 in
 {
   options.chaotic.duckdns = {
@@ -12,7 +11,7 @@ in
     domain = lib.mkOption {
       # TODO: accept a list of strings
       type = lib.types.str;
-      description = "Domain to be updated";
+      description = "Full domain to be updated, including the TLD.";
     };
     environmentFile = lib.mkOption {
       type = lib.types.path;
@@ -43,8 +42,9 @@ in
       wants = [ "network-online.target" ];
       path = with pkgs; [ curl ];
       script = ''
-        readonly curl_out="$(echo \
-        url="https://www.duckdns.org/update?domains=${cfg.domain}&token=$DUCKDNS_TOKEN&ip=&ipv6" \
+        readonly curl_out="$(printf \
+        'url="https://www.duckdns.org/update?domains=%s&token=%s&ip="' \
+        '${cfg.domain}' "$DUCKDNS_TOKEN" \
         | curl --silent --config -)"
 
         echo "DuckDNS response: $curl_out"
@@ -86,7 +86,7 @@ in
 
     security.acme = lib.mkIf cfg.enableCerts {
       acceptTerms = true;
-      certs.${fullDomain} = {
+      certs.${cfg.domain} = {
         inherit group;
         email = "thiagokokada@gmail.com";
         dnsProvider = "duckdns";
@@ -94,10 +94,10 @@ in
       };
     };
 
-    systemd.services."acme-${fullDomain}-generate-pfx" = lib.mkIf cfg.enableCerts {
+    systemd.services."acme-${cfg.domain}-generate-pfx" = lib.mkIf cfg.enableCerts {
       description = "ACME generate PFX files";
-      after = [ "acme-${fullDomain}.service" ];
-      wants = [ "acme-${fullDomain}.service" ];
+      after = [ "acme-${cfg.domain}.service" ];
+      wants = [ "acme-${cfg.domain}.service" ];
       wantedBy = [ "multi-user.target" ];
       path = with pkgs; [
         coreutils
@@ -105,7 +105,7 @@ in
       ];
       script = ''
         readonly filename='bundle.pfx'
-        cd /var/lib/acme/${lib.escapeShellArg fullDomain}
+        cd /var/lib/acme/${lib.escapeShellArg cfg.domain}
         openssl pkcs12 -export -out "$filename" -inkey key.pem -in cert.pem -passout pass:
         chmod 640 "$filename"
       '';
