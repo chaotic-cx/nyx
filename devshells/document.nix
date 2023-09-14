@@ -88,7 +88,7 @@ let
     ''
       <tr>
         <td><code>chaotic.${k}</code></td>
-        <td><code>${prettify v.default}</code></td>
+        <td><code>${prettify (v.default or "N/A")}</code></td>
         <td>${htmlify v.description}
           ${typeDescription}
           ${example}

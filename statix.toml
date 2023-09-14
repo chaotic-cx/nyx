@@ -1,3 +1,5 @@
-disabled = []
+disabled = [
+  'repeated_keys'
+]
 nix_version = '2.15'
 ignore = ['.direnv']
