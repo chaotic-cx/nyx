@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 let
   inherit (config.meta) username;
-  group = config.users.users.${username}.group;
+  inherit (config.users.users.${username}) group;
   cfg = config.chaotic.duckdns;
   fullDomain = "${cfg.domain}.duckdns.org";
 in
