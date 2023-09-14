@@ -2,6 +2,7 @@ fromFlakes:
 let
   modulesPerFile = {
     appmenu-gtk3-module = import ./appmenu-gtk3-module.nix;
+    duckdns = import ./duckdns.nix;
     linux_hdr = import ./linux_hdr.nix;
     mesa_git = import ./mesa-git.nix;
     nordvpn = import ./nordvpn.nix;

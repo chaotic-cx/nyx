@@ -2,11 +2,11 @@
 let
   inherit (config.meta) username;
   group = config.users.users.${username}.group;
-  cfg = config.nixos.server.duckdns-updater;
+  cfg = config.chaotic.duckdns;
   fullDomain = "${cfg.domain}.duckdns.org";
 in
 {
-  options.nixos.server.duckdns-updater = {
+  options.chaotic.duckdns = {
     enable = lib.mkEnableOption "DuckDNS config";
     enableCerts = lib.mkEnableOption "generate HTTPS cert via ACME/Let's Encrypt";
     domain = lib.mkOption {
