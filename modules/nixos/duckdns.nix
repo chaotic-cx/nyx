@@ -91,49 +91,11 @@ in
         email = "thiagokokada@gmail.com";
         dnsProvider = "duckdns";
         credentialsFile = cfg.environmentFile;
-      };
-    };
-
-    systemd.services."acme-${cfg.domain}-generate-pfx" = lib.mkIf cfg.enableCerts {
-      description = "ACME generate PFX files";
-      after = [ "acme-${cfg.domain}.service" ];
-      wants = [ "acme-${cfg.domain}.service" ];
-      wantedBy = [ "multi-user.target" ];
-      path = with pkgs; [
-        coreutils
-        (lib.getBin openssl)
-      ];
-      script = ''
-        readonly filename='bundle.pfx'
-        cd /var/lib/acme/${lib.escapeShellArg cfg.domain}
-        openssl pkcs12 -export -out "$filename" -inkey key.pem -in cert.pem -passout pass:
-        chmod 640 "$filename"
-      '';
-      serviceConfig = {
-        User = "acme";
-        Group = group;
-        UMask = "0022";
-        StateDirectoryMode = "750";
-        ProtectSystem = "strict";
-        PrivateTmp = true;
-        LockPersonality = true;
-        MemoryDenyWriteExecute = true;
-        NoNewPrivileges = true;
-        PrivateDevices = true;
-        ProtectClock = true;
-        ProtectHome = true;
-        ProtectHostname = true;
-        ProtectControlGroups = true;
-        ProtectKernelLogs = true;
-        ProtectKernelModules = true;
-        ProtectKernelTunables = true;
-        RestrictAddressFamilies = [ ];
-        ReadWritePaths = [ "/var/lib/acme" ];
-        RestrictNamespaces = true;
-        RestrictRealtime = true;
-        RestrictSUIDSGID = true;
-        SystemCallArchitectures = "native";
-        SystemCallFilter = [ "@system-service" ];
+        postRun = ''
+          ${lib.getBin pkgs.openssl}/bin/openssl pkcs12 -export -out bundle.pfx -inkey key.pem -in cert.pem -passout pass:
+          chown 'acme:${group}' bundle.pfx
+          chmod 640 bundle.pfx
+        '';
       };
     };
   };
