@@ -93,7 +93,7 @@ in
       acceptTerms = true;
       certs.${cfg.domain} = {
         inherit group;
-        email = "thiagokokada@gmail.com";
+        email = config.security.acme.defaults.email;
         dnsProvider = "duckdns";
         credentialsFile = cfg.environmentFile;
         postRun = ''
