@@ -12,5 +12,5 @@ gitOverride {
     } // finalArgs);
   fetchLatestRev = src: final.callPackage ../../shared/github-rev-fetcher.nix { inherit src; ref = "master"; };
   hasSubmodules = true;
-  postOverrides = [(_prevAttrs: { postUnpack = ""; })]; # erase wlroots replacement since we're fetching submodules.
+  postOverrides = [ (_prevAttrs: { postUnpack = ""; }) ]; # erase wlroots replacement since we're fetching submodules.
 }

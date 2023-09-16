@@ -30,14 +30,13 @@ in
       configuration = {
         system.nixos.tags = [ "hdr" ];
         boot.kernelPackages = lib.mkForce pkgs.linuxPackages_cachyos;
-        environment.variables =
-          {
-            DXVK_HDR = "1";
-            ENABLE_GAMESCOPE_WSI = "1";
-          };
         programs.steam.gamescopeSession = {
           enable = true; # HDR can't be used with other WM right now...
           args = [ "--hdr-enabled" ];
+          env = {
+            DXVK_HDR = "1";
+            ENABLE_GAMESCOPE_WSI = "1";
+          };
         };
         chaotic.mesa-git.extraPackages = [ gamescopeWSI ];
         hardware.opengl.extraPackages = [ gamescopeWSI ];
