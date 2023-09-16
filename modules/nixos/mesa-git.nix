@@ -50,11 +50,6 @@ let
       };
     };
 
-  chosenMethod =
-    lib.mkIf (cfg.method == "replaceRuntimeDependencies") methodReplace
-    //
-    lib.mkIf (cfg.method == "GBM_BACKENDS_PATH") methodBackend;
-
   common = {
     specialisation.stable-mesa.configuration = {
       system.nixos.tags = [ "stable-mesa" ];
@@ -108,7 +103,7 @@ in
         '';
       };
 
-      extraPackages32 = with lib; mkOption {
+      extraPackages32 = mkOption {
         type = types.listOf types.package;
         default = [ ];
         example = literalExpression "with pkgs.pkgsi686Linux; [ pkgs.mesa32_git.opencl intel-media-driver vaapiIntel ]";
@@ -121,5 +116,9 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable (common // chosenMethod);
+  config = lib.mkIf cfg.enable (lib.mkMerge [
+    common
+    (lib.mkIf (cfg.method == "replaceRuntimeDependencies") methodReplace)
+    (lib.mkIf (cfg.method == "GBM_BACKENDS_PATH") methodBackend)
+  ]);
 }
