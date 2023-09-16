@@ -42,7 +42,7 @@ rec {
       };
 
     hydraJobs.default = packages;
-    devShells = import ./devshells { inherit packages homeManagerModules nixosModules; flakes = inputs; };
+    devShells = import ./devshells { inherit packages homeManagerModules; flakes = inputs; };
 
     _dev = {
       x86_64-linux =

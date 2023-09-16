@@ -1,5 +1,4 @@
 { flakes
-, nixosModules
 , homeManagerModules
 , nixpkgs ? flakes.nixpkgs
 , home-manager ? flakes.home-manager

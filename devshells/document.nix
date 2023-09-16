@@ -6,7 +6,6 @@
 , nyxRecursionHelper
 , pkgs
 , self
-, system
 , writeText
 }:
 let
