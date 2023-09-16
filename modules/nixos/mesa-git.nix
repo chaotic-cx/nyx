@@ -63,10 +63,12 @@ let
   };
 in
 {
-  options = {
+  options = with lib; {
     chaotic.mesa-git = {
-      enable = lib.mkOption {
+      enable = mkOption {
         default = false;
+        example = true;
+        type = types.bool;
         description = ''
           Whether to use latest Mesa drivers.
 
@@ -75,8 +77,8 @@ in
       };
 
       method =
-        lib.mkOption {
-          type = lib.types.enum [
+        mkOption {
+          type = types.enum [
             "replaceRuntimeDependencies"
             "GBM_BACKENDS_PATH"
           ];
@@ -85,12 +87,16 @@ in
           description = ''
             There are three available methods to replace your video drivers system-wide:
 
-            - GBM_BACKENDS_PATH: The default one that tricks any package linked against nixpkgs' libgbm to load our newer one;
-            - replaceRuntimeDependencies: The second most recommended, which impurely replaces nixpkgs' libgbm with ours in the nix store (requires "--impure");
+            - GBM_BACKENDS_PATH:
+              The default one that tricks any package linked against nixpkgs' libgbm to
+              load our newer one;
+            - replaceRuntimeDependencies:
+              The second most recommended, which impurely replaces nixpkgs' libgbm with
+              ours in the nix store (requires "--impure");
           '';
         };
 
-      extraPackages = with lib; mkOption {
+      extraPackages = mkOption {
         type = types.listOf types.package;
         default = [ ];
         example = literalExpression "with pkgs; [ mesa_git.opencl intel-media-driver intel-ocl vaapiIntel ]";

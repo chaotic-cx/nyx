@@ -3,10 +3,12 @@ let
   cfg = config.chaotic.appmenu-gtk3-module;
 in
 {
-  options = {
+  options = with lib; {
     chaotic.appmenu-gtk3-module.enable =
-      lib.mkOption {
+      mkOption {
         default = false;
+        example = true;
+        type = types.bool;
         description = ''
           Sets the proper environment variable to use appmenu-gtk3-module.
         '';

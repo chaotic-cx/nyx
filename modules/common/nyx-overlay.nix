@@ -34,28 +34,31 @@ let
     flakes.self.overlays.default;
 in
 {
-  options = {
+  options = with lib; {
     chaotic.nyx.overlay = {
       enable =
-        lib.mkOption {
+        mkOption {
           default = true;
+          example = false;
+          type = types.bool;
           description = ''
             Whether to add Chaotic-Nyx's overlay to system's pkgs.
           '';
         };
       onTopOf =
-        lib.mkOption {
-          type = lib.types.enum [ "flake-nixpkgs" "user-pkgs" ];
+        mkOption {
+          type = types.enum [ "flake-nixpkgs" "user-pkgs" ];
           default = "flake-nixpkgs";
           example = "user-pkgs";
           description = ''
             Build Chaotic-Nyx's packages based on nyx's flake flakes or the system's pkgs.
           '';
         };
-      flakeNixpkgs.config = lib.mkOption {
+      flakeNixpkgs.config = mkOption {
         default = pkgs.config;
+        defaultText = literalExpression "pkgs.config";
         inherit (options.nixpkgs.config) example type;
-        description = lib.mdDoc ''
+        description = mdDoc ''
           Matches `nixpkgs.config` from the configuration of the Nix Packages collection.
         '';
       };
