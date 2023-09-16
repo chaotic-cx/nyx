@@ -1,23 +1,23 @@
 { config, lib, pkgs, ... }:
 let
   cfg = config.chaotic.hdr;
+  gamescopeCfg = config.programs.gamescope;
 
   gamescopeWSI =
     # We can drop this after https://github.com/NixOS/nixpkgs/pull/255293
     pkgs.stdenvNoCC.mkDerivation {
       pname = "VkLayer_FROG_gamescope_wsi";
-      inherit (config.programs.gamescope.package) version;
+      inherit (gamescopeCfg.package) version;
       dontUnpack = true;
       dontConfigure = true;
       dontBuild = true;
       installPhase = ''
         mkdir -p $out/share
-        cp -r ${config.programs.gamescope.package}/share/vulkan $out/share/vulkan
+        cp -r ${gamescopeCfg.package}/share/vulkan $out/share/vulkan
       '';
     };
 
   configuration = strength: {
-    system.nixos.tags = [ "hdr" ];
     boot.kernelPackages = strength cfg.kernelPackages;
     programs.steam.gamescopeSession = {
       enable = true; # HDR can't be used with other WM right now...
@@ -29,6 +29,14 @@ let
     };
     chaotic.mesa-git.extraPackages = [ gamescopeWSI ];
     hardware.opengl.extraPackages = [ gamescopeWSI ];
+  };
+
+  sysConfig = lib.mkIf (!cfg.specialisation.enable) (configuration (x: x));
+
+  specConfig = lib.mkIf cfg.specialisation.enable {
+    specialisation.hdr.configuration = configuration lib.mkForce // {
+      system.nixos.tags = [ "hdr" ];
+    };
   };
 in
 {
@@ -57,7 +65,5 @@ in
         '';
       };
   };
-  #config = lib.mkIf cfg.enable (if cfg.specialisation.enable then {
-  #  specialisation.hdr.configuration = configuration lib.mkForce;
-  #} else configuration (x: x));
+  config = lib.mkIf cfg.enable (lib.mkMerge [ sysConfig specConfig ]);
 }
