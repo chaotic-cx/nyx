@@ -3,10 +3,12 @@ let
   cfg = config.chaotic.nyx.cache;
 in
 {
-  options = {
+  options = with lib; {
     chaotic.nyx.cache.enable =
-      lib.mkOption {
+      mkOption {
         default = true;
+        example = false;
+        type = types.bool;
         description = ''
           Whether to add Chaotic-Nyx's binary cache to settings.
         '';

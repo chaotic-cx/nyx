@@ -11,7 +11,6 @@ in
     extraCompatPackages = mkOption {
       type = with types; listOf package;
       default = [ ];
-      defaultText = literalExpression "[]";
       example = literalExpression ''
         with pkgs; [
           luxtorpeda
