@@ -71,6 +71,16 @@ in
         '';
       };
 
+      fallbackSpecialisation = mkOption {
+        default = true;
+        example = false;
+        type = types.bool;
+        description = ''
+          Whether to add a specialisation with stable Mesa.
+          Recommended.
+        '';
+      };
+
       method =
         mkOption {
           type = types.enum [
@@ -117,7 +127,7 @@ in
   };
 
   config = lib.mkIf cfg.enable (lib.mkMerge [
-    common
+    (lib.mkIf cfg.fallbackSpecialisation common)
     (lib.mkIf (cfg.method == "replaceRuntimeDependencies") methodReplace)
     (lib.mkIf (cfg.method == "GBM_BACKENDS_PATH") methodBackend)
   ]);
