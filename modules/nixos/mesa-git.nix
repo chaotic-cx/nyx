@@ -50,11 +50,6 @@ let
       };
     };
 
-  chosenMethod =
-    lib.mkIf (cfg.method == "replaceRuntimeDependencies") methodReplace
-    //
-    lib.mkIf (cfg.method == "GBM_BACKENDS_PATH") methodBackend;
-
   common = {
     specialisation.stable-mesa.configuration = {
       system.nixos.tags = [ "stable-mesa" ];
@@ -73,6 +68,16 @@ in
           Whether to use latest Mesa drivers.
 
           WARNING: It will break NVIDIA's libgbm, don't use with NVIDIA Optimus setups.
+        '';
+      };
+
+      fallbackSpecialisation = mkOption {
+        default = true;
+        example = false;
+        type = types.bool;
+        description = ''
+          Whether to add a specialisation with stable Mesa.
+          Recommended.
         '';
       };
 
@@ -108,7 +113,7 @@ in
         '';
       };
 
-      extraPackages32 = with lib; mkOption {
+      extraPackages32 = mkOption {
         type = types.listOf types.package;
         default = [ ];
         example = literalExpression "with pkgs.pkgsi686Linux; [ pkgs.mesa32_git.opencl intel-media-driver vaapiIntel ]";
@@ -121,5 +126,9 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable (common // chosenMethod);
+  config = lib.mkIf cfg.enable (lib.mkMerge [
+    (lib.mkIf cfg.fallbackSpecialisation common)
+    (lib.mkIf (cfg.method == "replaceRuntimeDependencies") methodReplace)
+    (lib.mkIf (cfg.method == "GBM_BACKENDS_PATH") methodBackend)
+  ]);
 }

@@ -1,5 +1,4 @@
 { flakes
-, nixosModules
 , homeManagerModules
 , nixpkgs ? flakes.nixpkgs
 , home-manager ? flakes.home-manager
@@ -26,9 +25,7 @@ let
         {
           allPackages = final;
           homeManagerModule = homeManagerModules.default;
-          nixosModule = nixosModules.default;
           inherit nixpkgs nyxRecursionHelper self;
-          inherit (nixpkgs.lib) nixosSystem;
           inherit (home-manager.lib) homeManagerConfiguration;
         };
       evaluated = overlayFinal.callPackage ./eval.nix

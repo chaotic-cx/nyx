@@ -2,13 +2,10 @@
 , homeManagerConfiguration
 , homeManagerModule
 , lib
-, nixosModule
-, nixosSystem
 , nixpkgs
 , nyxRecursionHelper
 , pkgs
 , self
-, system
 , writeText
 }:
 let
@@ -47,10 +44,7 @@ let
   packagesEvalFlat =
     lib.lists.remove null (lib.lists.flatten packagesEval);
 
-  loadedNixOSModule = nixosSystem {
-    modules = [ nixosModule ];
-    system = "x86_64-linux";
-  };
+  loadedNixOSModule = self._dev.x86_64-linux;
   loadedHomeManagerModule = homeManagerConfiguration {
     modules = [
       {
