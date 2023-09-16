@@ -69,13 +69,10 @@ let
   optionMap = k: v:
     let
       htmlify = builtins.replaceStrings [ "\n" " " ] [ "<br/>" "&nbsp;" ];
-      prettify = src:
-        htmlify (lib.generators.toPretty { multiline = true; } src);
+      prettify = src: htmlify (lib.options.renderOptionValue src).text;
       exampleValue =
-        if (v.example or null) == null then ""
-        else if (v.example._type or null) == "literalExpression"
-        then htmlify v.example.text
-        else prettify v.example;
+        if v ? example then prettify v.example
+        else "";
       example =
         if (builtins.stringLength exampleValue > 0) then
           "<br/><b>Example:</b> <code>${exampleValue}</code><br/>"
@@ -84,11 +81,15 @@ let
         if v.type.name == "enum" then
           "<br/><b>Enum:</b> <code>${v.type.description}</code><br/>"
         else "";
+      prettyDefault =
+        if v ? defaultText then prettify v.defaultText
+        else if v ? default then prettify v.default
+        else "N/A";
     in
     ''
       <tr>
         <td><code>chaotic.${k}</code></td>
-        <td><code>${prettify (v.default or "N/A")}</code></td>
+        <td><code>${prettyDefault}</code></td>
         <td>${htmlify v.description}
           ${typeDescription}
           ${example}
