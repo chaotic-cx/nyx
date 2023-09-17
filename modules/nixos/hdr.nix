@@ -19,8 +19,8 @@ let
 
   configuration = strength: {
     boot.kernelPackages = strength cfg.kernelPackages;
-    programs.steam.gamescopeSession = {
-      enable = true; # HDR can't be used with other WM right now...
+    programs.steam.gamescopeSession.enable = true; # HDR can only be used with headless Gamescope right now...
+    programs.gamescope = {
       args = [ "--hdr-enabled" ];
       env = {
         DXVK_HDR = "1";
