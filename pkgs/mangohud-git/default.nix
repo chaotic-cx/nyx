@@ -1,7 +1,7 @@
-{ final, prev, gitOverride, nyxUtils, mangohud32, ... }:
+{ final, prev, gitOverride, nyxUtils, mangohud32_git, ... }:
 
 gitOverride {
-  newInputs = { inherit mangohud32; };
+  newInputs = { mangohud32 = mangohud32_git; };
   nyxKey = if final.stdenv.is32bit then "mangohud32_git" else "mangohud_git";
   versionNyxPath = "pkgs/mangohud-git/version.json";
   versionLocalPath = ./version.json;

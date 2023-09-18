@@ -126,11 +126,11 @@ in
   };
 
   # You should not need "mangohud32_git" since it's embedded in "mangohud_git"
-  mangohud_git = callOverride ../pkgs/mangohud-git { mangohud32 = final.mangohud32_git; };
+  mangohud_git = callOverride ../pkgs/mangohud-git { inherit (final) mangohud32_git; };
   mangohud32_git =
     if final.stdenv.hostPlatform.isLinux && final.stdenv.hostPlatform.isx86
     then
-      callOverride32 ../pkgs/mangohud-git { mangohud32 = final.mangohud32_git; }
+      callOverride32 ../pkgs/mangohud-git { inherit (final) mangohud32_git; }
     else throw "No mangohud32_git for non-x86";
 
   mesa_git = callOverride ../pkgs/mesa-git {
@@ -175,6 +175,14 @@ in
   };
 
   swaylock-plugin_git = callOverride ../pkgs/swaylock-plugin-git { };
+
+  # You should not need "mangohud32_git" since it's embedded in "mangohud_git"
+  vkshade_git = callOverride ../pkgs/vkshade-git { inherit (final) vkshade32_git; };
+  vkshade32_git =
+    if final.stdenv.hostPlatform.isLinux && final.stdenv.hostPlatform.isx86
+    then
+      callOverride32 ../pkgs/vkshade-git { inherit (final) vkshade32_git; }
+    else throw "No vkshade32_git for non-x86";
 
   vulkanPackages_latest = callOverride ../pkgs/vulkan-versioned
     { vulkanVersions = importJSON ../pkgs/vulkan-versioned/latest.json; };
