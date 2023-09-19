@@ -3,11 +3,15 @@ let
   inherit (config.meta) username;
   inherit (config.users.users.${username}) group;
   cfg = config.chaotic.duckdns;
+  httpPort = 80;
 in
 {
   options.chaotic.duckdns = {
     enable = lib.mkEnableOption "DuckDNS config";
-    enableCerts = lib.mkEnableOption "generate HTTPS cert via ACME/Let's Encrypt";
+    certs = {
+      enable = lib.mkEnableOption "generate HTTPS cert via ACME/Let's Encrypt";
+      useHttpServer = lib.mkEnableOption "use Lego's built-in HTTP server instead a request to DuckDNS";
+    };
     domain = lib.mkOption {
       # TODO: accept a list of strings
       type = lib.types.str;
@@ -89,12 +93,13 @@ in
       };
     };
 
-    security.acme = lib.mkIf cfg.enableCerts {
+    security.acme = lib.mkIf cfg.certs.enable {
       acceptTerms = true;
       certs.${cfg.domain} = {
         inherit group;
-        dnsProvider = "duckdns";
-        credentialsFile = cfg.environmentFile;
+        dnsProvider = lib.mkIf (!cfg.certs.useHttpServer) "duckdns";
+        credentialsFile = lib.mkIf (!cfg.certs.useHttpServer) cfg.environmentFile;
+        listenHTTP = lib.mkIf cfg.certs.useHttpServer ":${toString httpPort}"; # any other port needs to be proxied
         postRun = ''
           ${lib.getBin pkgs.openssl}/bin/openssl pkcs12 -export -out bundle.pfx -inkey key.pem -in cert.pem -passout pass:
           chown 'acme:${group}' bundle.pfx
@@ -102,5 +107,12 @@ in
         '';
       };
     };
+
+    systemd.services."acme-${cfg.domain}" = {
+      after = lib.mkIf (cfg.certs.enable && cfg.certs.useHttpServer) [ "duckdns-updater.service" ];
+    };
+
+    networking.firewall.allowedTCPPorts =
+      lib.mkIf (cfg.certs.enable && cfg.certs.useHttpServer) [ httpPort ];
   };
 }
