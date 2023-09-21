@@ -11,16 +11,16 @@
 <ul>
   <li><a href="#news">News</a></li>
   <li>
-    <a href="#how-to">How to use it</a><br/>
+    <a href="#how-to-use-it">How to use it</a><br/>
     <ul>
-      <li><a href="#how-to-nixos">On NixOS</a><br/></li>
-      <li><a href="#how-to-hm">On Home-Manager</a><br/></li>
-      <li><a href="#how-to-run">Running packages (without installing)</a><br/></li>
-      <li><a href="#how-to-cache">Binary cache notes</a><br/></li>
-      <li><a href="#how-to-flakehub">FlakeHub notes</a><br/></li>
+      <li><a href="#on-nixos">On NixOS</a><br/></li>
+      <li><a href="#on-home-manager">On Home-Manager</a><br/></li>
+      <li><a href="#running-packages-without-installing">Running packages (without installing)</a><br/></li>
+      <li><a href="#binary-cache-notes">Binary Cache notes</a><br/></li>
+      <li><a href="#flakehub-notes">FlakeHub notes</a><br/></li>
     </ul>
   </li>
-  <li><a href="#lists">Lists of options and packages</a></li>
+  <li><a href="#lists-of-options-and-packages">Lists of options and packages</a></li>
   <li><a href="#notes">Notes</a></li>
   <li><a href="#maintainence">Maintainence</a></li>
 </ul>
@@ -29,9 +29,9 @@
 
 <p>A news channel can be found <a href="https://t.me/s/chaotic_nyx">on Telegram</a>.</p>
 
-<h2 id="how-to">How to use it</h2>
+<h2 id="how-to-use-it">How to use it</h2>
 
-<h3 id="how-to-nixos">NixOS</h3>
+<h3 id="on-nixos">On NixOS</h3>
 
 <p>We recommend integrating this repo using Flakes:</p>
 
@@ -68,7 +68,7 @@
 }
 </code></pre>
 
-<h3 id="how-to-hm">Home Manager</h3>
+<h3 id="on-home-manager">On Home-Manager</h3>
 
 <p>This method is for home-manager setups <strong>without NixOS</strong>.</p>
 
@@ -111,7 +111,7 @@
 }
 </code></pre>
 
-<h3 id="how-to-run">Running packages (without installing)</h2>
+<h3 id="running-packages-without-installing">Running packages (without installing)</h2>
 
 <p>Besides using our module/overlay, you can run packages (without installing them) using:</p>
 
@@ -119,7 +119,7 @@
 nix run github:chaotic-cx/nyx/nyxpkgs-unstable#yuzu-early-access_git
 </code></pre>
 
-<h3 id="how-to-cache">Binary Cache</h3>
+<h3 id="binary-cache-notes">Binary Cache notes</h3>
 
 <p>You'll get the binary cache added to your configuration as soon as you add our default module.
 We do this automatically, so we can gracefully update the cache's address and keys without prompting you for manual work.</p>
@@ -130,7 +130,7 @@ We do this automatically, so we can gracefully update the cache's address and ke
 
 <p>Commands like <code>nix run ...</code>, <code>nix develop ...</code>, and others, when using our flake as input, will ask you to add the cache interactively when missing from your user's nix settings.</p>
 
-<h3 id="how-to-flakehub">FlakeHub notes</h3>
+<h3 id="flakehub-notes">FlakeHub notes</h3>
 
 <a href="https://flakehub.com/flake/chaotic-cx/nyx"><img alt="FlakeHub" src="https://img.shields.io/endpoint?url=https://flakehub.com/f/chaotic-cx/nyx/badge" />
 
@@ -144,7 +144,7 @@ We do this automatically, so we can gracefully update the cache's address and ke
 
 <p>Then follow one of the guides above.</p>
 
-<h2 id="lists">Lists of options and packages</h2>
+<h2 id="lists-of-options-and-packages">Lists of options and packages</h2>
 
 <!-- cut here --><p>An always up-to-date list of all our options and packages is available at: <a href="https://www.nyx.chaotic.cx/#lists">List page</a>.</p><!-- cut here -->
 
