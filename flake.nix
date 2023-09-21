@@ -3,11 +3,9 @@ rec {
 
   inputs = {
     # --- UTILITIES ---
-
     compare-to.url = "github:chaotic-cx/nix-empty-flake";
-
+    flake-schemas.url = "github:DeterminateSystems/flake-schemas";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -20,8 +18,10 @@ rec {
     formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
     formatter.aarch64-linux = nixpkgs.legacyPackages.aarch64-linux.nixpkgs-fmt;
 
-    # The three stars: our overlay, our modules and the packages.
+    # To fix `nix show` and FlakeHub
+    schemas = import ./maintenance/schemas { flakes = inputs; };
 
+    # The three stars: our overlay, our modules and the packages.
     overlays.default = import ./overlays { flakes = inputs; };
 
     nixosModules = import ./modules/nixos { flakes = inputs; };
@@ -41,7 +41,8 @@ rec {
         aarch64-linux = applyOverlay nixpkgs.legacyPackages.aarch64-linux;
       };
 
-    devShells = import ./devshells { inherit packages homeManagerModules; flakes = inputs; };
+    # Dev stuff.
+    devShells = import ./maintenance/dev-shells { flakes = inputs; };
 
     _dev = {
       x86_64-linux =

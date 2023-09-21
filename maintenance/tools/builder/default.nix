@@ -24,7 +24,7 @@ let
     builtins.map (xsx: xsx.drv)
       (lib.lists.filter (xsx: xsx.drv != null) packagesEval);
 
-  brokenOutPaths = builtins.attrValues (import ./failures.nix);
+  brokenOutPaths = builtins.attrValues (import ../../failures.nix);
 
   depVar = drv:
     "_dep_${nyxUtils.drvHash drv}";

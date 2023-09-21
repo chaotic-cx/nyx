@@ -154,6 +154,8 @@ in
     }
   ).overrideAttrs (overrideDescription (old: old + " (includes vapoursynth)"));
 
+  nix-flake-schemas_git = callOverride ../pkgs/nix-flake-schemas-git { };
+
   nordvpn = final.callPackage ../pkgs/nordvpn { };
 
   nss_git = callOverride ../pkgs/nss-git { };
