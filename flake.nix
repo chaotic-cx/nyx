@@ -4,7 +4,7 @@ rec {
   inputs = {
     # --- UTILITIES ---
     compare-to.url = "github:chaotic-cx/nix-empty-flake";
-    flake-schemas.url = github:DeterminateSystems/flake-schemas;
+    flake-schemas.url = "github:DeterminateSystems/flake-schemas";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager";

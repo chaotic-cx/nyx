@@ -2,7 +2,7 @@
 let
   mkPackages = final: prev:
     let
-      lib = prev.lib;
+      inherit (prev) lib;
 
       overlayFinal = prev // final // { callPackage = prev.newScope final; };
 
