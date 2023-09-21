@@ -162,7 +162,7 @@ let
     lib.strings.concatStrings (lib.attrsets.mapAttrsToList renderIndexElem xs);
 
   readme =
-    lib.strings.splitString "<!-- cut here -->" (builtins.readFile ../README.md);
+    lib.strings.splitString "<!-- cut here -->" (builtins.readFile ../../../README.md);
 in
 writeText "chaotic-documented.html" ''
   <!DOCTYPE html><html style="font-size: 12px;">

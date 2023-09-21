@@ -15,46 +15,46 @@ let
 
       nyxRecursionHelper = overlayFinal.callPackage ../../shared/recursion-helper.nix { };
 
-      builder = overlayFinal.callPackage ../builder
+      builder = overlayFinal.callPackage ../tools/builder
         {
           allPackages = final;
           flakeSelf = self;
           inherit nyxRecursionHelper;
           inherit (overlayFinal) nyxUtils;
         };
-      documentation = overlayFinal.callPackage ../document.nix
+      documentation = overlayFinal.callPackage ../tools/document
         {
           allPackages = final;
           homeManagerModule = homeManagerModules.default;
           inherit nixpkgs nyxRecursionHelper self nyxosConfiguration;
           inherit (home-manager.lib) homeManagerConfiguration;
         };
-      evaluated = overlayFinal.callPackage ../eval.nix
+      evaluated = overlayFinal.callPackage ../tools/eval
         {
           allPackages = final;
           inherit nyxRecursionHelper;
         };
-      compared = overlayFinal.callPackage ../comparer.nix
+      compared = overlayFinal.callPackage ../tools/comparer
         {
           allPackages = final;
           compareToFlake = flakes.compare-to;
           inherit nyxRecursionHelper;
         };
-      comparer = compareToFlakeUrl: overlayFinal.callPackage ../comparer.nix
+      comparer = compareToFlakeUrl: overlayFinal.callPackage ../tools/comparer
         {
           allPackages = final;
           inherit compareToFlakeUrl nyxRecursionHelper;
         };
-      update-scripts = overlayFinal.callPackage ../bumper/update-scripts.nix
+      update-scripts = overlayFinal.callPackage ../tools/bumper/update-scripts
         {
           allPackages = final;
           inherit nyxRecursionHelper;
         };
-      bumper = overlayFinal.callPackage ../bumper
+      bumper = overlayFinal.callPackage ../tools/bumper
         {
           inherit update-scripts;
         };
-      linter = overlayFinal.callPackage ../linter.nix { };
+      linter = overlayFinal.callPackage ../tools/linter { };
     in
     {
       default = overlayFinal.mkShell {
