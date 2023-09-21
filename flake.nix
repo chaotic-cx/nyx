@@ -41,7 +41,6 @@ rec {
         aarch64-linux = applyOverlay nixpkgs.legacyPackages.aarch64-linux;
       };
 
-    hydraJobs.default = packages;
     devShells = import ./devshells { inherit packages homeManagerModules; flakes = inputs; };
 
     _dev = {
