@@ -24,7 +24,7 @@ let
     nix
   ];
 in
-writeShellScriptBin "nyx-generic-update" ''
+(writeShellScriptBin "nyx-generic-update" ''
   set -euo pipefail
 
   PATH=${path}
@@ -96,5 +96,7 @@ writeShellScriptBin "nyx-generic-update" ''
 
   git add $_VERSION_JSON
   git commit -m "''${_NYX_KEY}: ''${_LOCAL_VER:9} -> ''${_LATEST_VERSION:9}"
-''
+'').overrideAttrs (_prevAttrs: {
+  meta = _prevAttrs.meta // { description = "Generic update-script for bleeding-edge GIT Nix derivations."; };
+})
 
