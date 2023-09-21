@@ -12,8 +12,16 @@ jobs:
       id-token: "write"
       contents: "read"
     steps:
-      - uses: "actions/checkout@v3"
-      - uses: "DeterminateSystems/nix-installer-action@main"
+      - name: Install Nix
+        uses: cachix/install-nix-action@v23
+        with:
+          extra_nix_config: |
+            accept-flake-config = true
+            sandbox-fallback = false
+          install_options: --daemon
+      - uses: "actions/checkout@v4"
+      - name: Update Nix
+        run : nix profile install .#nix-flake-schemas_git
       - uses: "DeterminateSystems/flakehub-push@main"
         with:
           name: "chaotic-cx/nyx"
