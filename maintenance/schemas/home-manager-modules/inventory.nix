@@ -4,17 +4,10 @@
 , lib ? pkgs.lib
 }: output:
 let
+  shared = import ../shared/options.nix;
+  inherit (shared) optionMap optionWarn;
+
   nyxRecursionHelper = pkgs.callPackage ../../../shared/recursion-helper.nix { };
-
-  optionMap = k: v:
-    {
-      name = "chaotic.${k}";
-      value.what =
-        builtins.replaceStrings [ "\n" "\t" ] [ " " " " ] v.description;
-    };
-
-  optionWarn = k: _v: message:
-    { name = "chaotic.${k}"; value.what = "(${message})"; };
 
   loadedHomeManagerModule = homeManagerConfiguration {
     modules = [

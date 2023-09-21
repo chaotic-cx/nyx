@@ -11,18 +11,32 @@
     doc = ''
       Pre-prepared values for CI/CD.
     '';
-    inventory = _output: { what = "Pre-prepared values for CI/CD."; };
+    inventory = _output: {
+      shortDescription = "Pre-prepared values for CI/CD.";
+      what = "attrset";
+      evalChecks.isDerivation = false;
+    };
   };
   formatter = {
     version = 1;
     doc = ''
       Auto-format tool.
     '';
-    inventory = _output: {
-      children = {
-        x86_64-linux = { what = "Auto-format tool"; forSystems = [ "x86_64-linux" ]; };
-        aarch64-linux = { what = "Auto-format tool"; forSystems = [ "aarch64-linux" ]; };
-      };
+    inventory = output: {
+      children =
+        let
+          forSystem = sys: {
+            forSystems = [ sys ];
+            shortDescription = "Auto-format tool";
+            evalChecks.isDerivation = true;
+            derivation = output.${sys};
+            what = "package";
+          };
+        in
+        {
+          x86_64-linux = forSystem "x86_64-linux";
+          aarch64-linux = forSystem "aarch64-linux";
+        };
     };
   };
   homeManagerModules = {

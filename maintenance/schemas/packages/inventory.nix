@@ -9,14 +9,27 @@ let
       nyxRecursionHelper = overlayFinal.callPackage ../../../shared/recursion-helper.nix { };
 
       derivationMap = k: v:
-        { name = k; value.what = v.meta.description or "N/A"; };
+        {
+          name = k;
+          value = {
+            what = "package";
+            forSystems = [ v.system ];
+            shortDescription = v.meta.description or "N/A";
+            derivation = v;
+            evalChecks.isDerivation = true;
+          };
+        };
 
       derivationWarn = k: v: message:
         if message == "unfree" then derivationMap k v
         else if message == "not a derivation" && ((v._description or null) == null) then null
         else {
           name = k;
-          value.what = v._description or "(${message})";
+          value = {
+            what = message;
+            shortDescription = v._description or "N/A";
+            evalChecks.isDerivation = false;
+          };
         };
 
       packagesEval = nyxRecursionHelper.derivationsLimited "explicit" derivationWarn derivationMap final;
