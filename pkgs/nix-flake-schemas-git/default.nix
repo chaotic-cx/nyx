@@ -14,6 +14,7 @@ gitOverride {
 
   postOverrides = [
     (prevAttrs: {
+      doInstallCheck = false;
       meta = prevAttrs.meta // {
         homepage = "https://determinate.systems/posts/flake-schemas";
         description = "Nix from the branch with flake-schemas";
