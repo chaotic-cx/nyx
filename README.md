@@ -9,21 +9,29 @@
 <p>The official source-code repository is available <a href="https://github.com/chaotic-cx/nyx">as "chaotic-cx/nyx" at GitHub</a>.</p>
 
 <ul>
-  <li><a href="#News">News</a></li>
-  <li><a href="#How to use it">How to use it</a></li>
-  <li><a href="#Lists of options and packages">Lists of options and packages</a></li>
-  <li><a href="#Running packages">Running packages</a></li>
-  <li><a href="#Notes">Notes</a></li>
-  <li><a href="#Maintainence">Maintainence</a></li>
+  <li><a href="#news">News</a></li>
+  <li>
+    <a href="#how-to">How to use it</a><br/>
+    <ul>
+      <li><a href="#how-to-nixos">On NixOS</a><br/></li>
+      <li><a href="#how-to-hm">On Home-Manager</a><br/></li>
+      <li><a href="#how-to-run">Running packages (without installing)</a><br/></li>
+      <li><a href="#how-to-cache">Binary cache notes</a><br/></li>
+      <li><a href="#how-to-flakehub">FlakeHub notes</a><br/></li>
+    </ul>
+  </li>
+  <li><a href="#lists">Lists of options and packages</a></li>
+  <li><a href="#notes">Notes</a></li>
+  <li><a href="#maintainence">Maintainence</a></li>
 </ul>
 
-<h2 id="News">News</h2>
+<h2 id="news">News</h2>
 
 <p>A news channel can be found <a href="https://t.me/s/chaotic_nyx">on Telegram</a>.</p>
 
-<h2 id="How to use it">How to use it</h2>
+<h2 id="how-to">How to use it</h2>
 
-<h3>NixOS</h3>
+<h3 id="how-to-nixos">NixOS</h3>
 
 <p>We recommend integrating this repo using Flakes:</p>
 
@@ -60,7 +68,7 @@
 }
 </code></pre>
 
-<h3>Home Manager</h3>
+<h3 id="how-to-hm">Home Manager</h3>
 
 <p>This method is for home-manager setups <strong>without NixOS</strong>.</p>
 
@@ -103,7 +111,15 @@
 }
 </code></pre>
 
-<h3>Binary Cache</h3>
+<h3 id="how-to-run">Running packages (without installing)</h2>
+
+<p>Besides using our module/overlay, you can run packages (without installing them) using:</p>
+
+<pre lang="sh"><code>
+nix run github:chaotic-cx/nyx/nyxpkgs-unstable#yuzu-early-access_git
+</code></pre>
+
+<h3 id="how-to-cache">Binary Cache</h3>
 
 <p>You'll get the binary cache added to your configuration as soon as you add our default module.
 We do this automatically, so we can gracefully update the cache's address and keys without prompting you for manual work.</p>
@@ -114,19 +130,25 @@ We do this automatically, so we can gracefully update the cache's address and ke
 
 <p>Commands like <code>nix run ...</code>, <code>nix develop ...</code>, and others, when using our flake as input, will ask you to add the cache interactively when missing from your user's nix settings.</p>
 
-<h2 id="Lists of options and packages">Lists of options and packages</h2>
+<h3 id="how-to-flakehub">FlakeHub notes</h3>
 
-<!-- cut here --><p>An always up-to-date list of all our options and packages is available at: <a href="https://www.nyx.chaotic.cx/#Lists%20of%20options%20and%20packages">List page</a>.</p><!-- cut here -->
+<a href="https://flakehub.com/flake/chaotic-cx/nyx"><img alt="FlakeHub" src="https://img.shields.io/endpoint?url=https://flakehub.com/f/chaotic-cx/nyx/badge" />
 
-<h2 id="Running packages">Running packages</h2>
+<p>Add chaotic to your <code>flake.nix</code>, make sure to use the rolling <code>*.tar.gz</code> to keep using the latest packages:</p>
 
-<p>Besides using our module/overlay, you can run packages (without installing them) using:</p>
-
-<pre lang="sh"><code>
-nix run github:chaotic-cx/nyx/nyxpkgs-unstable#yuzu-early-access_git
+<pre lang="nix"><code>
+{
+  inputs.chaotic.url = "https://flakehub.com/f/chaotic-cx/nyx/*.tar.gz";
+}
 </code></pre>
 
-<h2 id="Notes">Notes</h2>
+<p>Then follow one of the guides above.</p>
+
+<h2 id="lists">Lists of options and packages</h2>
+
+<!-- cut here --><p>An always up-to-date list of all our options and packages is available at: <a href="https://www.nyx.chaotic.cx/#lists">List page</a>.</p><!-- cut here -->
+
+<h2 id="notes">Notes</h2>
 
 <h3>Our branches</h3>
 
@@ -160,7 +182,7 @@ nix run github:chaotic-cx/nyx/nyxpkgs-unstable#yuzu-early-access_git
 
 <p>You can also disable our overlay entirely by configuring <code>chaotic.nyx.overlay.enable = false;</code>.</p>
 
-<h2 id="Maintainence">Maintainence</h2>
+<h2 id="maintainence">Maintainence</h2>
 
 <p>The code in the <code>devshells</code> directory is used to automate our CIs and maintainence processes.</p>
 
