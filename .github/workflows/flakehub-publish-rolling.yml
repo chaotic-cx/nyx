@@ -19,3 +19,4 @@ jobs:
           name: "chaotic-cx/nyx"
           rolling: true
           visibility: "public"
+          flakehub-push-branch: "main"
