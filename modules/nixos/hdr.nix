@@ -3,20 +3,6 @@ let
   cfg = config.chaotic.hdr;
   gamescopeCfg = config.programs.gamescope;
 
-  gamescopeWSI =
-    # We can drop this after https://github.com/NixOS/nixpkgs/pull/255293
-    pkgs.stdenvNoCC.mkDerivation {
-      pname = "VkLayer_FROG_gamescope_wsi";
-      inherit (gamescopeCfg.package) version;
-      dontUnpack = true;
-      dontConfigure = true;
-      dontBuild = true;
-      installPhase = ''
-        mkdir -p $out/share
-        cp -r ${gamescopeCfg.package}/share/vulkan $out/share/vulkan
-      '';
-    };
-
   configuration = strength: {
     boot.kernelPackages = strength cfg.kernelPackages;
     programs.steam.gamescopeSession.enable = true; # HDR can only be used with headless Gamescope right now...
@@ -27,8 +13,7 @@ let
         ENABLE_GAMESCOPE_WSI = "1";
       };
     };
-    chaotic.mesa-git.extraPackages = [ gamescopeWSI ];
-    hardware.opengl.extraPackages = [ gamescopeWSI ];
+    environment.systemPackages = [ gamescopeCfg.package.lib ];
   };
 
   sysConfig = lib.mkIf (!cfg.specialisation.enable) (configuration (x: x));
