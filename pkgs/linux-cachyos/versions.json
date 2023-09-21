@@ -11,10 +11,10 @@
     "rev": "d7ac193470e6e8e321cf57a8bd3d51aa7ad83f5e",
     "hash": "sha256-OsixMm5SSnmv4WGI4zCxVaZzUikXpegNB9bSeu9S1Dg="
   },
-  "_patches": "latest commit from https://github.com/CachyOS/kernel-patches/commits/master/6.3",
+  "_patches": "latest commit from https://github.com/CachyOS/kernel-patches/commits/master/x.y",
   "patches": {
-    "rev": "f7727fbf482cf0d5ff8148fb74e22059d45de937",
-    "hash": "sha256-1/12FFRAbecCh++FGKyoCr1INaqN3m5mO70pZ6WcDKw="
+    "rev": "85706a81f72dd3bb928e6b9a9fe6c823bed2e091",
+    "hash": "sha256-bm7oDJHvXG9b1+G1t5UVw0+6Zw5X9nL1rOP2OSl+teA="
   },
   "_zfs": "search for `git+https://github.com/cachyos/zfs.git` in config's PKGBUILD",
   "zfs": {
