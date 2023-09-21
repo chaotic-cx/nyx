@@ -3,6 +3,7 @@
 , homeManagerModule
 , lib
 , nixpkgs
+, nyxosConfiguration
 , nyxRecursionHelper
 , pkgs
 , self
@@ -44,7 +45,6 @@ let
   packagesEvalFlat =
     lib.lists.remove null (lib.lists.flatten packagesEval);
 
-  loadedNixOSModule = self._dev.x86_64-linux;
   loadedHomeManagerModule = homeManagerConfiguration {
     modules = [
       {
@@ -100,7 +100,7 @@ let
       </tr>
     '';
 
-  nixosEval = nyxRecursionHelper.options optionWarn optionMap loadedNixOSModule.options.chaotic;
+  nixosEval = nyxRecursionHelper.options optionWarn optionMap nyxosConfiguration.options.chaotic;
 
   nixosEvalFlat =
     lib.lists.flatten nixosEval;
