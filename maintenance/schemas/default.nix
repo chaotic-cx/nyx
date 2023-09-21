@@ -18,4 +18,16 @@
     '';
     inventory = _output: { what = "stuff for CI/CD"; };
   };
+  formatter = {
+    version = 1;
+    doc = ''
+      Auto-format tool.
+    '';
+    inventory = _output: {
+      children = {
+        x86_64-linux = { what = "Auto-format tool"; forSystems = [ "x86_64-linux" ]; };
+        aarch64-linux = { what = "Auto-format tool"; forSystems = [ "aarch64-linux" ]; };
+      };
+    };
+  };
 }
