@@ -45,7 +45,7 @@ let
           allPackages = final;
           inherit compareToFlakeUrl nyxRecursionHelper;
         };
-      update-scripts = overlayFinal.callPackage ../tools/bumper/update-scripts
+      update-scripts = overlayFinal.callPackage ../tools/bumper/update-scripts.nix
         {
           allPackages = final;
           inherit nyxRecursionHelper;
