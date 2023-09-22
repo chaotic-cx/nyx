@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - "nyxpkgs-unstable"
+  workflow_call:
   workflow_dispatch:
 
 jobs:

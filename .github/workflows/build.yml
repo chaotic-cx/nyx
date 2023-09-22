@@ -159,3 +159,7 @@ jobs:
     needs: build
     uses: ./.github/workflows/document.yml
     if: needs.build.outputs.pushed == 'true'
+  fh:
+    needs: docs
+    uses: ./.github/workflows/flakehub-publish-rolling.yml
+    if: needs.build.outputs.pushed == 'true'
