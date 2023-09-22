@@ -103,6 +103,10 @@ in
 
   gamescope_git = callOverride ../pkgs/gamescope-git { };
 
+  # Used by telegram-desktop_git
+  glib_git = callOverride ../pkgs/glib-git { };
+  glibmm_git = callOverride ../pkgs/glibmm-git { inherit (final) glib_git; };
+
   input-leap_git = callOverride ../pkgs/input-leap-git {
     inherit (final.libsForQt5.qt5) qttools;
   };
@@ -177,6 +181,9 @@ in
   };
 
   swaylock-plugin_git = callOverride ../pkgs/swaylock-plugin-git { };
+
+  telegram-desktop_git = callOverride ../pkgs/telegram-desktop-git { inherit (final) tg-owt_git glibmm_git; };
+  tg-owt_git = callOverride ../pkgs/tg-owt-git { inherit (final) glib_git; };
 
   # You should not need "mangohud32_git" since it's embedded in "mangohud_git"
   vkshade_git = callOverride ../pkgs/vkshade-git { inherit (final) vkshade32_git; };
