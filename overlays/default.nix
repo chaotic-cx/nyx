@@ -182,7 +182,7 @@ in
 
   swaylock-plugin_git = callOverride ../pkgs/swaylock-plugin-git { };
 
-  telegram-desktop_git = callOverride ../pkgs/telegram-desktop-git { inherit (final) tg-owt_git glibmm_git; };
+  telegram-desktop_git = callOverride ../pkgs/telegram-desktop-git { inherit (final) tg-owt_git glib_git glibmm_git; };
   tg-owt_git = callOverride ../pkgs/tg-owt-git { inherit (final) glib_git; };
 
   # You should not need "mangohud32_git" since it's embedded in "mangohud_git"

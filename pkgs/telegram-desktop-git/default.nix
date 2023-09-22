@@ -1,4 +1,4 @@
-{ final, prev, gitOverride, tg-owt_git, glibmm_git, ... }:
+{ final, prev, gitOverride, tg-owt_git, glib_git, glibmm_git, ... }:
 
 gitOverride {
   newInputs = {
@@ -24,4 +24,14 @@ gitOverride {
     } // finalArgs);
   fetchLatestRev = src: final.callPackage ../../shared/github-rev-fetcher.nix { inherit src; ref = "dev"; };
   hasSubmodules = true;
+
+  postOverrides = [
+    (prevAttrs: {
+      postFixup = ''
+        qtWrapperArgs+=(
+          --prefix LD_LIBRARY_PATH : "${glib_git.out}/lib"
+        )
+      '' + prevAttrs.postFixup;
+    })
+  ];
 }
