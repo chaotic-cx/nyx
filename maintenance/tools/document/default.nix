@@ -192,7 +192,7 @@ writeText "chaotic-documented.html" ''
     <noscript><style>.noscript-table { display: table; }</style></noscript>
   </head><body><div style="max-width: 1100px; margin: 0 auto">
     ${builtins.head readme}
-    <p>Built and cached against <a href="https://github.com/NixOS/nixpkgs/tree/${nixpkgs.rev}" target="_blank"><code>github:nixos/nixpkgs/${nixpkgs.rev}</code></a> from <code>${nixpkgs.lastModifiedDate}Z</code>.</p>
+    <p>Built and cached against <a href="https://github.com/NixOS/nixpkgs/tree/${nixpkgs.rev}" target="_blank"><code>github:nixos/nixpkgs/${nixpkgs.rev}</code></a> (version <code>0.1.${toString nixpkgs.revCount}</code>).</p>
     <ul>${renderIndex tables}</ul>
     ${renderTables tables}
     ${lib.lists.last readme}
