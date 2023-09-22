@@ -8,6 +8,8 @@
 
 <p>The official source-code repository is available <a href="https://github.com/chaotic-cx/nyx">as "chaotic-cx/nyx" at GitHub</a>.</p>
 
+<strong>PLEASE AVOID POSTING ISSUES IN NIXOS' MATRIX, DISCOURSE, DISCORD, ETC. USE <a href="https://github.com/chaotic-cx/nyx/issues">OUR REPO'S ISSUES</a> OR <a href="https://t.me/chaotic_nyx_sac" target="_blank">TELEGRAM GROUP</a> INSTEAD.</strong>
+
 <ul>
   <li><a href="#news">News</a></li>
   <li>
