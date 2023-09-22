@@ -1,7 +1,7 @@
-{ final, prev, gitOverride, vkshade32_git, ... }:
+{ final, prev, gitOverride, ... }:
 
 gitOverride {
-  newInputs = { vkbasalt32 = vkshade32_git; };
+  newInputs = { vkbasalt32 = final.vkshade32_git; };
   nyxKey = if final.stdenv.is32bit then "vkshade32_git" else "vkshade_git";
   versionNyxPath = "pkgs/vkshade-git/version.json";
   versionLocalPath = ./version.json;
