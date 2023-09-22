@@ -2,6 +2,7 @@
 
 gitOverride {
   newInputs = {
+    # I hope I don't go to robot-hell bc of this:
     callPackage = file: args:
       let
         realCall = final.callPackage file args;
