@@ -71,7 +71,7 @@ let
 
   commentWarn = key: _v: message:
     doNotBuild ''
-      echo "  \"${key}\" = \"${message}\";" >> eval-failures.nix
+      echo "${key}: ${message}" >> eval-failures.txt
     '';
 
   doNotBuild = replacement:
@@ -123,8 +123,8 @@ writeShellScriptBin "chaotic-nyx-build" ''
 
   # Create empty logs and artifacts
   cd "$NYX_WD"
-  touch push.txt errors.txt success.txt failures.txt cached.txt upstream.txt
-  echo "{" | tee new-failures.nix > eval-failures.nix
+  touch push.txt errors.txt success.txt failures.txt cached.txt upstream.txt eval-failures.txt
+  echo "{" > new-failures.nix
 
   # Echo helpers
   function echo_warning() {
@@ -209,7 +209,7 @@ writeShellScriptBin "chaotic-nyx-build" ''
   ${lib.strings.concatStringsSep "\n" packagesCmds}
 
   # Write EOF of the artifacts
-  echo "}" | tee -a new-failures.nix >> eval-failures.nix
+  echo "}" >> new-failures.nix
 
   # Push logic
   if [ -z "$CACHIX_AUTH_TOKEN" ] && [ -z "$CACHIX_SIGNING_KEY" ]; then
