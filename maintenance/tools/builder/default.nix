@@ -69,8 +69,10 @@ let
         inherit deps drv;
       };
 
-  commentWarn = k: _v: message:
-    doNotBuild "# ${message}: ${k}";
+  commentWarn = key: _v: message:
+    doNotBuild ''
+      echo "${key}: ${message}" >> eval-failures.txt
+    '';
 
   doNotBuild = replacement:
     {
@@ -121,7 +123,7 @@ writeShellScriptBin "chaotic-nyx-build" ''
 
   # Create empty logs and artifacts
   cd "$NYX_WD"
-  echo -n "" > push.txt > errors.txt > success.txt > failures.txt > cached.txt > upstream.txt
+  touch push.txt errors.txt success.txt failures.txt cached.txt upstream.txt eval-failures.txt
   echo "{" > new-failures.nix
 
   # Echo helpers
