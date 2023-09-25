@@ -148,6 +148,7 @@ jobs:
               })
         env:
           FAILED_BUILDS_COUNT: ${{ steps.build.outputs.FAILED_BUILDS_COUNT }}
+          UNBUILDABLE_COUNT: ${{ steps.build.outputs.UNBUILDABLE_COUNT }}
           FAILED_BUILDS: ${{ steps.build.outputs.FAILED_BUILDS }}
           ACTOR: ${{ github.actor }}
       - name: Upload logs
