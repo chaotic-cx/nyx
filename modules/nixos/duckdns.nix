@@ -8,6 +8,14 @@ in
 {
   options.chaotic.duckdns = {
     enable = lib.mkEnableOption "DuckDNS config";
+    ipv6 = {
+      enable = lib.mkEnableOption "enable IPv6";
+      device = lib.mkOption {
+        type = lib.types.str;
+        description = "Device to get IPv6.";
+        default = "eth0";
+      };
+    };
     certs = {
       enable = lib.mkEnableOption "generate HTTPS cert via ACME/Let's Encrypt";
       useHttpServer = lib.mkEnableOption "use Lego's built-in HTTP server instead a request to DuckDNS";
@@ -44,11 +52,19 @@ in
       wantedBy = [ "multi-user.target" ];
       after = [ "network-online.target" ];
       wants = [ "network-online.target" ];
-      path = with pkgs; [ curl ];
-      script = ''
+      path = with pkgs; [ curl iproute2 ];
+      script = lib.optionalString cfg.ipv6.enable ''
+        readonly ipv6addr="$(ip addr show dev '${cfg.ipv6.device}' | \
+        sed -e's/^.*inet6 \([^ ]*\)\/.*$/\1/;t;d' | \
+        grep -v '^fd' | \
+        grep -v '^fe80' | \
+        head -1)"
+
+        echo "Got IPv6: $ipv6addr"
+      '' + ''
         readonly curl_out="$(printf \
-        'url="https://www.duckdns.org/update?domains=%s&token=%s&ip="' \
-        '${cfg.domain}' "$DUCKDNS_TOKEN" \
+        'url="https://www.duckdns.org/update?domains=%s&token=%s&ip=&ipv6=%s"' \
+        '${cfg.domain}' "$DUCKDNS_TOKEN" "''${ipv6addr:-}" \
         | curl --silent --config -)"
 
         echo "DuckDNS response: $curl_out"
@@ -77,7 +93,8 @@ in
         ProtectKernelTunables = true;
         ProtectProc = "invisible";
         ProtectSystem = "strict";
-        RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" ];
+        RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" ]
+          ++ lib.optionals (cfg.ipv6.enable) [ "AF_NETLINK" ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         SystemCallArchitectures = "native";
