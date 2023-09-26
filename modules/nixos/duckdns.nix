@@ -104,6 +104,8 @@ in
     };
 
     systemd.timers.duckdns-updater = {
+      description = "DuckDNS updater timer";
+      wantedBy = [ "timers.target" ];
       timerConfig = {
         OnCalendar = cfg.onCalendar;
         Persistent = true;
