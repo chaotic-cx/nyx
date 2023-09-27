@@ -1,6 +1,6 @@
 {
   "linuxPackages_cachyos.cryptodev" = "/nix/store/h985khwbj12d6v1lnc8nfxh4pf9hzq0r-cryptodev-linux-1.13-6.5.5";
-  "linuxPackages_cachyos.dpdk" = "/nix/store/ibl3yf39rm9w73qj37jli0y2rzmvjf0p-dpdk-22.11.1-6.5.5";
+  "linuxPackages_cachyos.dpdk" = "/nix/store/1gwc93sm0460plz8irni01jcfjh9fky8-dpdk-22.11.1-6.5.5";
   "linuxPackages_cachyos.isgx" = "/nix/store/mkmcsfncbdbd9hc5ff7pyl66j62fcvjh-isgx-2.14-6.5.5";
   "linuxPackages_cachyos.kvdo" = "/nix/store/mq3wpr5ncj2hvhnhmvj5hyjl1gkbkjlq-kvdo-8.2.1.6";
   "linuxPackages_cachyos.mba6x_bl" = "/nix/store/s3kagspy1m68spxngzvminkbap2n4lvp-mba6x_bl-unstable-2017-12-30";
