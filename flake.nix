@@ -10,15 +10,15 @@ rec {
       url = "https://flakehub.com/f/nix-community/home-manager/0.1.0.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    systems.url = "github:nix-systems/default";
+    systems.url = "github:nix-systems/default-linux";
     yafas = {
-      url = "https://flakehub.com/f/UbiqueLambda/yafas/0.1.3.tar.gz";
+      url = "https://flakehub.com/f/UbiqueLambda/yafas/0.1.0.tar.gz";
       inputs.systems.follows = "systems";
       inputs.flake-schemas.follows = "flake-schemas";
     };
   };
 
-  outputs = { nixpkgs, yafas, ... }@inputs: yafas.withLinux nixpkgs
+  outputs = { nixpkgs, yafas, ... }@inputs: yafas.withAllSystems nixpkgs
     (universals: { pkgs, ... }: with universals; {
       # Just exposes the packages created by the overlay.
       packages =
