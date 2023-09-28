@@ -69,7 +69,6 @@
     },
     "systems": {
       "locked": {
-        "lastModified": 1681028828,
         "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
         "owner": "nix-systems",
         "repo": "default",
@@ -92,7 +91,6 @@
         ]
       },
       "locked": {
-        "lastModified": 1695923771,
         "narHash": "sha256-I0XKO9vk43lOAqp8N+Alo5i9TW/F2FI+zenai2Q3Vqk=",
         "rev": "081a69e0552d1a886881f8d075cf0075222c1eb5",
         "revCount": 3,
