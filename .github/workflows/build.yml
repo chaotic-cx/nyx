@@ -4,6 +4,12 @@ on:
     branches:
       - main
   workflow_dispatch:
+    inputs:
+      nixpkgs-bump:
+        description: Set to true if this build was triggered by a nixpkgs bump
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: write
@@ -113,7 +119,18 @@ jobs:
       - name: Update nyxpkgs-unstable
         if: (success() && (steps.check.outputs.cached == 'true' || steps.build.outputs.FAILED_BUILDS_COUNT <= 3))
         id: push
-        run: git push origin HEAD:nyxpkgs-unstable --force
+        run: |
+          git push origin HEAD:nyxpkgs-unstable --force
+          if [ "$BUMP" = "true" ]; then
+            curl -X POST \
+              -F token="$GNS_CI_TOKEN" \
+              -F "ref=main" \
+              -F "variables[UPDATE]=true" \
+              https://gitlab.com/api/v4/projects/45677880/trigger/pipeline || true
+          fi
+        env:
+          GNS_CI_TOKEN: ${{ secrets.GNS_CI_TOKEN }}
+          BUMP: ${{ inputs.nixpkgs-bump }}
       - name: Comment on commit
         if: (success() && steps.check.outputs.cached != 'true')
         uses: actions/github-script@v6
