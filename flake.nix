@@ -10,49 +10,48 @@ rec {
       url = "https://flakehub.com/f/nix-community/home-manager/0.1.0.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-  };
-
-  outputs = { nixpkgs, ... }@inputs: rec {
-    # I would prefer if we had something stricter, with attribute alphabetical
-    # sorting, and optimized for git's diffing. But this is the closer we have.
-    formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
-    formatter.aarch64-linux = nixpkgs.legacyPackages.aarch64-linux.nixpkgs-fmt;
-
-    # To fix `nix show` and FlakeHub
-    schemas = import ./maintenance/schemas { flakes = inputs; };
-
-    # The three stars: our overlay, our modules and the packages.
-    overlays.default = import ./overlays { flakes = inputs; };
-
-    nixosModules = import ./modules/nixos { flakes = inputs; };
-    homeManagerModules = import ./modules/home-manager { flakes = inputs; };
-
-    packages =
-      let
-        applyOverlay = prev:
-          let
-            overlayFinal = prev // ourPackages // { callPackage = prev.newScope overlayFinal; };
-            ourPackages = overlays.default overlayFinal prev;
-          in
-          ourPackages;
-      in
-      {
-        x86_64-linux = applyOverlay nixpkgs.legacyPackages.x86_64-linux;
-        aarch64-linux = applyOverlay nixpkgs.legacyPackages.aarch64-linux;
-      };
-
-    # Dev stuff.
-    devShells = import ./maintenance/dev-shells { flakes = inputs; };
-
-    _dev = {
-      x86_64-linux =
-        nixpkgs.lib.nixosSystem {
-          modules = [ nixosModules.default ];
-          system = "x86_64-linux";
-        };
-      inherit nixConfig;
+    systems.url = "github:nix-systems/default";
+    yafas = {
+      url = "https://flakehub.com/f/UbiqueLambda/yafas/0.1.3.tar.gz";
+      inputs.systems.follows = "systems";
+      inputs.flake-schemas.follows = "flake-schemas";
     };
   };
+
+  outputs = { nixpkgs, yafas, ... }@inputs: yafas.withLinux nixpkgs
+    (universals: { pkgs, ... }: with universals; {
+      # Just exposes the packages created by the overlay.
+      packages =
+        let
+          overlayFinal = pkgs // ourPackages // { callPackage = pkgs.newScope overlayFinal; };
+          ourPackages = overlays.default overlayFinal pkgs;
+        in
+        ourPackages;
+
+      # I would prefer if we had something stricter, with attribute alphabetical
+      # sorting, and optimized for git's diffing. But this is the closer we have.
+      formatter = pkgs.nixpkgs-fmt;
+    })
+    rec {
+      # To fix `nix show` and FlakeHub
+      schemas = import ./maintenance/schemas { flakes = inputs; };
+
+      # The stars: our overlay and our modules.
+      overlays.default = import ./overlays { flakes = inputs; };
+      nixosModules = import ./modules/nixos { flakes = inputs; };
+      homeManagerModules = import ./modules/home-manager { flakes = inputs; };
+
+      # Dev stuff.
+      devShells = import ./maintenance/dev-shells { flakes = inputs; };
+      _dev = {
+        x86_64-linux =
+          nixpkgs.lib.nixosSystem {
+            modules = [ nixosModules.default ];
+            system = "x86_64-linux";
+          };
+        inherit nixConfig;
+      };
+    };
 
   # Allows the user to use our cache when using `nix run <thisFlake>`.
   nixConfig = {
