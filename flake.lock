@@ -33,11 +33,11 @@
         ]
       },
       "locked": {
-        "narHash": "sha256-LTNAbTQ96xSj17xBfsFrFS9i56U2BMLpD0BduhrsVkU=",
-        "rev": "0f4e5b4999fd6a42ece5da8a3a2439a50e48e486",
-        "revCount": 3035,
+        "narHash": "sha256-z9DItQvCasu7sexaz1GZ+uOymDRpuEehFwRKToCooJ8=",
+        "rev": "9d4cdf8cc4da54beb5d2e927af7a259bb4a00645",
+        "revCount": 3037,
         "type": "tarball",
-        "url": "https://api.flakehub.com/f/pinned/nix-community/home-manager/0.1.3035%2Brev-0f4e5b4999fd6a42ece5da8a3a2439a50e48e486/018ad28d-7d5e-7e9c-ac9d-72ba62472e18/source.tar.gz"
+        "url": "https://api.flakehub.com/f/pinned/nix-community/home-manager/0.1.3037%2Brev-9d4cdf8cc4da54beb5d2e927af7a259bb4a00645/018adf6d-3977-7d50-8ca7-f6e1aef0e9c6/source.tar.gz"
       },
       "original": {
         "type": "tarball",
@@ -69,6 +69,7 @@
     },
     "systems": {
       "locked": {
+        "lastModified": 1689347949,
         "narHash": "sha256-12tWmuL2zgBgZkdoB6qXZsgJEH9LR3oUgpaQq2RbI80=",
         "owner": "nix-systems",
         "repo": "default-linux",
