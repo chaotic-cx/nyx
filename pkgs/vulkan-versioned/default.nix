@@ -107,7 +107,7 @@ final.lib.makeScope final.newScope (self:
   vulkan-tools-lunarg =
     genericOverride {
       origin = prev.vulkan-tools-lunarg;
-      extraInput = { inherit (self) vulkan-headers vulkan-loader vulkan-validation-layers; };
+      extraInput = { inherit (self) vulkan-validation-layers; }; # broken: vulkan-headers vulkan-loader
       key = "vulkanToolsLunarG";
       owner = "LunarG";
       repo = "VulkanTools";
