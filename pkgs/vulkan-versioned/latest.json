@@ -32,14 +32,14 @@
     "hash": "sha256-GAl5xC7PCGsVHHUhLkIuwj2zlTCgyNWaBjk6I0qDkhQ="
   },
   "vulkanLoader": {
-    "version": "1.3.266",
+    "version": "1.3.265",
     "rev": "v#{version}",
-    "hash": "sha256-6iJxI1SwOjN26dyVs6JSYWODZbA25G/M2ZabGLCGRIo="
+    "hash": "sha256-fXEvwkLVhbQWThv4eXFOi1Hy0QkAxN6cL3fDl8AdgiI="
   },
   "vulkanTools": {
-    "version": "1.3.266",
+    "version": "1.3.265",
     "rev": "v#{version}",
-    "hash": "sha256-26UVhzpyCP1qQvQNhmqnLiyokcaBnpX06nefMpy62qU="
+    "hash": "sha256-q77kwK+1M9SmjtOUMLQj/BBt4ezq8yonalOjAoehZlw="
   },
   "vulkanToolsLunarG": {
     "version": "1.3.261.1",
