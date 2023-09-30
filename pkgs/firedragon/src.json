@@ -1,15 +1,15 @@
 {
-  "packageVersion": "117.0.1",
+  "packageVersion": "118.0",
   "source": {
-    "rev": "df767bc6d514fcea09b5c3204c95cd34df999c49",
-    "hash": "sha256-Xw5EW9jzgB4TaqUwaEh3DNpGAvcA+vRTcBUuGeY3Fy0="
+    "rev": "5ce6564218937801d17be09f87c9b5a1efbd98a2",
+    "hash": "sha256-ZOJoCEJfDvGPZK7dESRgoYnHcgfi6z5W4icpGlyMuPE="
   },
   "firedragon": {
     "rev": "fa88f9376b86ab120857152d5b6add743960c0ec",
     "hash": "sha256-4c9o/OJb5R9HabW4O8BcvSt+m6eyPWy85YFPx9h0aBA="
   },
   "firefox": {
-    "version": "117.0.1",
-    "hash": "sha256-fqQgO1z55Z+ABDWX4skCApF1T8q3hKM3WGtfXhNwxBY="
+    "version": "118.0",
+    "hash": "sha256-0PmWEWriNNx71Z4Nd93v4mgXnXUA0WqUiDCcgmVHyXw"
   }
 }

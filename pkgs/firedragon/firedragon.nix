@@ -22,7 +22,6 @@ rec {
     mkdir -p temp
     cp ${source}/assets/patches.txt temp
     sed -i 's&patches/librewolf-pref-pane.patch&&g' temp/patches.txt
-    sed -i -e 's&^$&patches/unity_kde/firefox-kde.patch&' temp/patches.txt
     sed -i 's&patches/ui-patches/privacy-preferences.patch&&g' temp/patches.txt
     sed -i '/^$/d' temp/patches.txt
 
@@ -35,7 +34,6 @@ rec {
     patch -p1 < ${source-firedragon}/common/patches/custom/add_firedragon_svg.patch
     patch -p1 < ${source-firedragon}/common/patches/custom/librewolf-pref-pane.patch
     patch -p1 < ${source-firedragon}/common/patches/custom/privacy-preferences.patch
-    patch -p1 < ${source-firedragon}/common/patches/kde-upstream/mozilla-kde.patch
 
     cp ${source}/assets/search-config.json services/settings/dumps/main/search-config.json
     sed -i '/MOZ_NORMANDY/ s/True/False/' browser/moz.configure
