@@ -5,6 +5,7 @@
   "linuxPackages_cachyos.kvdo" = "/nix/store/vnjzilphpk8pv4djpbh6wbmfszsvg8k0-kvdo-8.2.1.6";
   "linuxPackages_cachyos.mba6x_bl" = "/nix/store/cqjz4brifzvgprmzb132wbajawr35zrj-mba6x_bl-unstable-2017-12-30";
   "linuxPackages_cachyos.mbp2018-bridge-drv" = "/nix/store/cwb0nqz972knv6fr38mps4bir0bfhw2d-mbp2018-bridge-drv-2020-01-31";
+  "linuxPackages_cachyos.nvidia_dc" = "/nix/store/rdmaclk48m7p3r6ysgd1gvkg940p9i3x-nvidia-dc-520.61.05-6.5.5";
   "linuxPackages_cachyos.openafs" = "/nix/store/6l1pnbi5q5bjfb1k73qjvi0c6w4d713l-openafs-1.8.10-6.5.5-cachyos";
   "linuxPackages_cachyos.system76-acpi" = "/nix/store/pcsc4pf7ghj7zxkclq4gncl46imckvv7-system76-acpi-module-1.0.2-6.5.5";
   "linuxPackages_cachyos.virtio_vmmci" = "/nix/store/8d0lajiirnra6i4n9msz2sxrzp7n42b9-virtio_vmmci";
