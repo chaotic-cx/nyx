@@ -2,9 +2,8 @@ rec {
   description = "Nix flake for \"too much bleeding-edge\" and unreleased packages (e.g., mesa_git, linux_cachyos, firefox_nightly, sway_git, gamescope_git). And experimental modules (e.g., HDR, duckdns).";
 
   inputs = {
-    # --- UTILITIES ---
-    compare-to.url = "https://flakehub.com/f/chaotic-cx/nix-empty-flake/0.1.2.tar.gz"; # pinned
-    flake-schemas.url = "https://flakehub.com/f/DeterminateSystems/flake-schemas/0.1.1.tar.gz"; # pinned
+    compare-to.url = "https://flakehub.com/f/chaotic-cx/nix-empty-flake/0.1.2.tar.gz"; # pinned, used when comparing changes between commits
+    flake-schemas.url = "https://flakehub.com/f/DeterminateSystems/flake-schemas/0.1.1.tar.gz"; # pinned, used by "schemas" output
     nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1.0.tar.gz";
     home-manager = {
       url = "https://flakehub.com/f/nix-community/home-manager/0.1.0.tar.gz";
