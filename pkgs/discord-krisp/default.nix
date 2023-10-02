@@ -10,7 +10,7 @@ let
   '';
   binaryName = "Discord";
 in
-prev.discord.overrideAttrs (_: previousAttrs: {
+prev.discord.overrideAttrs (previousAttrs: {
   postInstall = previousAttrs.postInstall + ''
     wrapProgramShell $out/opt/${binaryName}/${binaryName} \
     --run "${patch-krisp}"
