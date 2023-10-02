@@ -1,6 +1,7 @@
 { final
 , prev
 , vulkanVersions
+, nyxUtils
 , ...
 }:
 let
@@ -102,6 +103,10 @@ final.lib.makeScope final.newScope (self:
     key = "vulkanTools";
     owner = "KhronosGroup";
     repo = "Vulkan-Tools";
+    extraAttrs = prevAttrs: {
+      patches = [ ./use-nix-moltenvk.patch ] ++
+        (nyxUtils.removeByBaseName "use-nix-moltenvk.patch" prevAttrs.patches);
+    };
   };
 
   vulkan-tools-lunarg =
