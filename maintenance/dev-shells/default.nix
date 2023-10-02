@@ -2,9 +2,9 @@
 , homeManagerModules ? self.homeManagerModules
 , nixpkgs ? flakes.nixpkgs
 , home-manager ? flakes.home-manager
-, packages ? self.packages
+, packages ? self._dev.packages
 , self ? flakes.self
-, nyxosConfiguration ? self._dev.x86_64-linux
+, nyxosConfiguration ? self._dev.system.x86_64-linux
 }:
 
 # The following shells are used to help our maintainers and CI/CDs.

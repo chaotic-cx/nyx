@@ -12,6 +12,7 @@
 , nix
 , nyxUtils
 , writeShellScriptBin
+, hostPlatform
 }:
 let
   Jq = "${jq}/bin/jq";
@@ -166,7 +167,7 @@ writeShellScriptBin "chaotic-nyx-build" ''
   function build() {
     _WHAT="''${1:- アンノーン}"
     _MAIN_OUT_PATH="''${2:-/dev/null}"
-    _FULL_TARGETS=("''${_ALL_OUT_KEYS[@]/#/$NYX_SOURCE\#}")
+    _FULL_TARGETS=("''${_ALL_OUT_KEYS[@]/#/$NYX_SOURCE\#_dev.packages.${hostPlatform.system}.}")
     echo -n "* $_WHAT..."
     # If NYX_CHANGED_ONLY is set, only build changed derivations
     if [ -f filter.txt ] && ! ${Grep} -Pq "^$_WHAT\$" filter.txt; then

@@ -55,7 +55,7 @@
       The `nixosModules` flake output contains the modules and options we support for NixOS setups.
     '';
     inventory = import ./nixos-modules/inventory.nix {
-      nyxosConfiguration = self._dev.${baseSystem};
+      nyxosConfiguration = self._dev.system.${baseSystem};
       pkgs = nixpkgs.legacyPackages.${baseSystem};
     };
   };

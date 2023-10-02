@@ -21,7 +21,9 @@ rec {
           (if lib.attrsets.isDerivation v then
             (if (v.meta.broken or true) then
               warnFn fullKey v "marked broken"
-            else if (v.meta.unfree or true) then
+            # In case we get issues with custom licenses at a later date or we need to remove nvidia.acceptLicense
+            # else if (v.meta.unfree or true && !(v.meta.license == lib.licenses.unfreeRedistributable && (!(v ? src) || (builtins.tryEval v.src).success))) then
+            else if (v.meta.unfree or true && !(v.meta.nyx.bypassLicense or false) && v.meta.license != lib.licenses.unfreeRedistributable) then
               warnFn fullKey v "unfree"
             else
               mapFn fullKey v
