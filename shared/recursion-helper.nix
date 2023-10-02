@@ -21,7 +21,7 @@ rec {
           (if lib.attrsets.isDerivation v then
             (if (v.meta.broken or true) then
               warnFn fullKey v "marked broken"
-            else if (v.meta.unfree or true && v.meta.license != lib.licenses.unfreeRedistributable) then
+            else if (v.meta.unfree or true && !(v.meta.nyx.bypassLicense or false) && v.meta.license != lib.licenses.unfreeRedistributable) then
               warnFn fullKey v "unfree"
             else
               mapFn fullKey v

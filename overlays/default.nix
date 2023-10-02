@@ -81,6 +81,8 @@ in
 
   bytecode-viewer_git = final.callPackage ../pkgs/bytecode-viewer-git { };
 
+  discord-krisp = callOverride ../pkgs/discord-krisp { };
+
   dr460nized-kde-theme = final.callPackage ../pkgs/dr460nized-kde-theme { };
 
   droid-sans-mono-nerdfont = multiOverrides
