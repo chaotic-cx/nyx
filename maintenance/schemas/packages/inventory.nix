@@ -1,12 +1,10 @@
 { nixpkgs }: output:
 let
-  mkPackages = final: prev:
+  mkPackages = nyxPkgs:
     let
-      inherit (prev) lib;
+      inherit (nixpkgs) lib;
 
-      overlayFinal = prev // final // { callPackage = prev.newScope final; };
-
-      nyxRecursionHelper = overlayFinal.callPackage ../../../shared/recursion-helper.nix { };
+      nyxRecursionHelper = import ../../../shared/recursion-helper.nix { inherit lib; };
 
       derivationMap = k: v:
         {
@@ -32,7 +30,7 @@ let
           };
         };
 
-      packagesEval = nyxRecursionHelper.derivationsLimited "explicit" derivationWarn derivationMap final;
+      packagesEval = nyxRecursionHelper.derivationsLimited "explicit" derivationWarn derivationMap nyxPkgs;
 
       packagesEvalFlat =
         lib.lists.remove null (lib.lists.flatten packagesEval);
@@ -44,8 +42,7 @@ in
   children = {
     x86_64-linux.forSystems = [ "x86_64-linux" ];
     x86_64-linux.children =
-      mkPackages output.x86_64-linux
-        nixpkgs.legacyPackages.x86_64-linux;
+      mkPackages output.x86_64-linux;
     aarch64-linux = {
       forSystems = [ "aarch64-linux" ];
       what = "broken";

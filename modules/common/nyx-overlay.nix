@@ -22,13 +22,8 @@ let
             inherit (cfg.flakeNixpkgs) config;
             localSystem = stdenv.hostPlatform;
           };
-
-      # NOTE: "prev" overrides "ourPackages", since we don't want to
-      # replace anything in nixpkgs, but only add new packages to it.
-      overlayFinal = ourPackages // prev // { callPackage = prev.newScope overlayFinal; };
-      ourPackages = flakes.self.overlays.default overlayFinal prev;
     in
-    ourPackages;
+    flakes.self.utils.applyOverlay { pkgs = prev; };
 
   onTopOfUserPkgs =
     flakes.self.overlays.default;

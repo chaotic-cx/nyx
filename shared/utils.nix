@@ -1,7 +1,16 @@
-{ lib }:
+{ lib, nyxOverlay }:
 rec {
   # For viewing in our documentation page.
   _description = "Pack of functions that are useful for Chaotic-Nyx and might become useful for you too";
+
+  # All the ways I found to overlay in nixpkgs
+  applyOverlay = { replace ? false, merge ? false, overlay ? nyxOverlay, nyxPkgs ? null, pkgs }:
+    let
+      fullPackages = if replace then pkgs // ourPackages else ourPackages // pkgs;
+      overlayFinal = fullPackages // { callPackage = pkgs.newScope overlayFinal; };
+      ourPackages = if nyxPkgs != null then nyxPkgs else overlay overlayFinal pkgs;
+    in
+    if merge then overlayFinal else ourPackages;
 
   # When `removeByBaseName` and `removeByURL` can't help, use this to drop patches.
   dropN = qty: list: lib.lists.take (builtins.length list - qty) list;

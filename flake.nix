@@ -20,13 +20,8 @@ rec {
 
   outputs = { nixpkgs, yafas, ... }@inputs: yafas.withAllSystems nixpkgs
     (universals: { pkgs, ... }: with universals; {
-      # Just exposes the packages created by the overlay.
-      packages =
-        let
-          overlayFinal = pkgs // ourPackages // { callPackage = pkgs.newScope overlayFinal; };
-          ourPackages = overlays.default overlayFinal pkgs;
-        in
-        ourPackages;
+      # Exposes the packages created by the overlay.
+      packages = utils.applyOverlay { inherit pkgs; };
 
       # I would prefer if we had something stricter, with attribute alphabetical
       # sorting, and optimized for git's diffing. But this is the closer we have.
@@ -37,20 +32,14 @@ rec {
       schemas = import ./maintenance/schemas { flakes = inputs; };
 
       # The stars: our overlay and our modules.
-      overlays.default = import ./overlays { flakes = inputs; };
+      overlays.default = import ./overlays { flakes = inputs; selfOverlay = overlays.default; };
       nixosModules = import ./modules/nixos { flakes = inputs; };
       homeManagerModules = import ./modules/home-manager { flakes = inputs; };
 
       # Dev stuff.
+      utils = import ./shared/utils.nix { nyxOverlay = overlays.default; inherit (nixpkgs) lib; };
       devShells = import ./maintenance/dev-shells { flakes = inputs; };
-      _dev = {
-        x86_64-linux =
-          nixpkgs.lib.nixosSystem {
-            modules = [ nixosModules.default ];
-            system = "x86_64-linux";
-          };
-        inherit nixConfig;
-      };
+      _dev = import ./maintenance/dev { flakes = inputs; inherit nixConfig utils; };
     };
 
   # Allows the user to use our cache when using `nix run <thisFlake>`.

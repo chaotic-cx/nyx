@@ -9,13 +9,13 @@
 # NOTE:
 # - `*_next` packages will be removed once merged into nixpkgs-unstable.
 
-{ flakes }: final: prev:
+{ flakes, selfOverlay }: final: prev:
 let
   # Required to load version files.
   inherit (final.lib.trivial) importJSON;
 
   # Our utilities/helpers.
-  nyxUtils = import ../shared/utils.nix { inherit (final) lib; };
+  nyxUtils = import ../shared/utils.nix { inherit (final) lib; nyxOverlay = selfOverlay; };
   inherit (nyxUtils) dropAttrsUpdateScript dropUpdateScript multiOverride multiOverrides overrideDescription;
 
   # Helps when calling .nix that will override packages.

@@ -55,7 +55,7 @@
       The `nixosModules` flake output contains the modules and options we support for NixOS setups.
     '';
     inventory = import ./nixos-modules/inventory.nix {
-      nyxosConfiguration = self._dev.${baseSystem};
+      nyxosConfiguration = self._dev.system.${baseSystem};
       pkgs = nixpkgs.legacyPackages.${baseSystem};
     };
   };
@@ -65,5 +65,19 @@
       The `packages` flake output contains packages that can be added to a shell using `nix shell`.
     '';
     inventory = import ./packages/inventory.nix { inherit nixpkgs; };
+  };
+  utils = {
+    version = 1;
+    doc = ''
+      Pack of functions that are useful for Chaotic-Nyx and might become useful for you too.
+    '';
+    inventory = output: {
+      children = builtins.mapAttrs
+        (_name: _value: {
+          what = "lamdda";
+          evalChecks.isDerivation = false;
+        })
+        (builtins.removeAttrs output [ "_description" ]);
+    };
   };
 }
