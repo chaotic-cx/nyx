@@ -36,7 +36,6 @@ rec {
   drvHash = drv:
     builtins.substring 0 32 (builtins.baseNameOf (builtins.unsafeDiscardStringContext drv.drvPath));
 
-
   # NOTE: Don't use in your system's configuration, this helps in the repo's infra.
   # Finds dependencies in a derivation that are also present in a attrset filled with derivations.
   internalDeps = packages: drv:
