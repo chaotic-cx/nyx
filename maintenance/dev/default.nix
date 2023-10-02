@@ -1,4 +1,4 @@
-{ flakes, nixConfig, getPackages, self ? flakes.self }: flakes.yafas.withAllSystems { }
+{ flakes, nixConfig, utils, self ? flakes.self }: flakes.yafas.withAllSystems { }
   (universals: { system, ... }:
   let
     pkgs = import flakes.nixpkgs {
@@ -10,7 +10,7 @@
     };
   in
   with universals; {
-    packages = getPackages pkgs;
+    packages = utils.applyOverlay { inherit pkgs; };
     nixpkgs = pkgs;
     system = flakes.nixpkgs.lib.nixosSystem {
       modules = [ self.nixosModules.default ];

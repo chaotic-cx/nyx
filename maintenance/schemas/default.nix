@@ -66,4 +66,18 @@
     '';
     inventory = import ./packages/inventory.nix { inherit nixpkgs; };
   };
+  utils = {
+    version = 1;
+    doc = ''
+      Pack of functions that are useful for Chaotic-Nyx and might become useful for you too.
+    '';
+    inventory = output: {
+      children = builtins.mapAttrs
+        (name: value: {
+          what = "lamdda";
+          evalChecks.isDerivation = false;
+        })
+        (builtins.removeAttrs output [ "_description" ]);
+    };
+  };
 }
