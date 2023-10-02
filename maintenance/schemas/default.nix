@@ -73,7 +73,7 @@
     '';
     inventory = output: {
       children = builtins.mapAttrs
-        (name: value: {
+        (_name: _value: {
           what = "lamdda";
           evalChecks.isDerivation = false;
         })

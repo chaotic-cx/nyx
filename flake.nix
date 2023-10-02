@@ -18,7 +18,7 @@ rec {
     };
   };
 
-  outputs = { self, nixpkgs, yafas, ... }@inputs: yafas.withAllSystems nixpkgs
+  outputs = { nixpkgs, yafas, ... }@inputs: yafas.withAllSystems nixpkgs
     (universals: { pkgs, ... }: with universals; {
       # Exposes the packages created by the overlay.
       packages = utils.applyOverlay { inherit pkgs; };
@@ -37,7 +37,7 @@ rec {
       homeManagerModules = import ./modules/home-manager { flakes = inputs; };
 
       # Dev stuff.
-      utils = import ./shared/utils.nix { lib = nixpkgs.lib; nyxOverlay = overlays.default; };
+      utils = import ./shared/utils.nix { nyxOverlay = overlays.default; inherit (nixpkgs) lib; };
       devShells = import ./maintenance/dev-shells { flakes = inputs; };
       _dev = import ./maintenance/dev { flakes = inputs; inherit nixConfig utils; };
     };

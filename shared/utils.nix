@@ -4,11 +4,11 @@ rec {
   _description = "Pack of functions that are useful for Chaotic-Nyx and might become useful for you too";
 
   # All the ways I found to overlay in nixpkgs
-  applyOverlay = { replace ? false, merge ? false, overlay ? nyxOverlay, pkgs }:
+  applyOverlay = { replace ? false, merge ? false, overlay ? nyxOverlay, nyxPkgs ? null, pkgs }:
     let
-      fullPacakges = if replace then ourPackages // pkgs else pkgs // ourPackages;
-      overlayFinal = pkgs // ourPackages // { callPackage = pkgs.newScope overlayFinal; };
-      ourPackages = overlay overlayFinal pkgs;
+      fullPackages = if replace then pkgs // ourPackages else ourPackages // pkgs;
+      overlayFinal = fullPackages // { callPackage = pkgs.newScope overlayFinal; };
+      ourPackages = if nyxPkgs != null then nyxPkgs else overlay overlayFinal pkgs;
     in
     if merge then overlayFinal else ourPackages;
 

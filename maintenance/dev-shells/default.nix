@@ -5,78 +5,80 @@
 , packages ? self._dev.packages
 , self ? flakes.self
 , nyxosConfiguration ? self._dev.system.x86_64-linux
+, applyOverlay ? self.utils.applyOverlay
 }:
 
 # The following shells are used to help our maintainers and CI/CDs.
 let
-  mkShells = final: prev:
+  mkShells = nyxPkgs: nixPkgs:
     let
-      overlayFinal = prev // final // { callPackage = prev.newScope final; };
+      pkgs = applyOverlay { inherit nyxPkgs; pkgs = nixPkgs; replace = true; merge = true; };
+      inherit (pkgs) callPackage mkShell;
 
-      nyxRecursionHelper = overlayFinal.callPackage ../../shared/recursion-helper.nix { };
+      nyxRecursionHelper = callPackage ../../shared/recursion-helper.nix { };
 
-      builder = overlayFinal.callPackage ../tools/builder
+      builder = callPackage ../tools/builder
         {
-          allPackages = final;
+          allPackages = nyxPkgs;
           flakeSelf = self;
           inherit nyxRecursionHelper;
-          inherit (overlayFinal) nyxUtils;
+          inherit (pkgs) nyxUtils;
         };
-      documentation = overlayFinal.callPackage ../tools/document
+      documentation = callPackage ../tools/document
         {
-          allPackages = final;
+          allPackages = nyxPkgs;
           homeManagerModule = homeManagerModules.default;
           inherit nixpkgs nyxRecursionHelper self nyxosConfiguration;
           inherit (home-manager.lib) homeManagerConfiguration;
         };
-      evaluated = overlayFinal.callPackage ../tools/eval
+      evaluated = callPackage ../tools/eval
         {
-          allPackages = final;
+          allPackages = nyxPkgs;
           inherit nyxRecursionHelper;
         };
-      compared = overlayFinal.callPackage ../tools/comparer
+      compared = callPackage ../tools/comparer
         {
-          allPackages = final;
+          allPackages = nyxPkgs;
           compareToFlake = flakes.compare-to;
           inherit nyxRecursionHelper;
         };
-      comparer = compareToFlakeUrl: overlayFinal.callPackage ../tools/comparer
+      comparer = compareToFlakeUrl: callPackage ../tools/comparer
         {
-          allPackages = final;
+          allPackages = nyxPkgs;
           inherit compareToFlakeUrl nyxRecursionHelper;
         };
-      update-scripts = overlayFinal.callPackage ../tools/bumper/update-scripts.nix
+      update-scripts = callPackage ../tools/bumper/update-scripts.nix
         {
-          allPackages = final;
+          allPackages = nyxPkgs;
           inherit nyxRecursionHelper;
         };
-      bumper = overlayFinal.callPackage ../tools/bumper
+      bumper = callPackage ../tools/bumper
         {
           inherit update-scripts;
         };
-      linter = overlayFinal.callPackage ../tools/linter { };
+      linter = callPackage ../tools/linter { };
     in
     {
-      default = overlayFinal.mkShell {
+      default = mkShell {
         buildInputs = [ builder ];
       };
-      document = overlayFinal.mkShell {
+      document = mkShell {
         env.NYX_DOCUMENTATION = documentation;
         shellHook = "echo $NYX_DOCUMENTATION";
       };
-      evaluator = overlayFinal.mkShell {
+      evaluator = mkShell {
         env.NYX_EVALUATED = evaluated;
         shellHook = "echo $NYX_EVALUATED";
       };
-      comparer = overlayFinal.mkShell {
+      comparer = mkShell {
         passthru.any = comparer;
         env.NYX_COMPARED = compared;
         shellHook = "echo $NYX_COMPARED";
       };
-      updater = overlayFinal.mkShell {
+      updater = mkShell {
         buildInputs = [ update-scripts bumper ];
       };
-      linter = overlayFinal.mkShell {
+      linter = mkShell {
         buildInputs = [ linter ];
       };
     };
