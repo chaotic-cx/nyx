@@ -117,7 +117,7 @@ jobs:
           NYX_WD: ${{ runner.temp }}
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
       - name: Update nyxpkgs-unstable
-        if: (success() && (steps.check.outputs.cached == 'true' || steps.build.outputs.FAILED_BUILDS_COUNT <= 3))
+        if: (success() && (steps.check.outputs.cached == 'true' || steps.build.outputs.FAILED_BUILDS_COUNT == 0))
         id: push
         run: |
           git push origin HEAD:nyxpkgs-unstable --force
