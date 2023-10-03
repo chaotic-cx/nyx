@@ -1,5 +1,5 @@
 {
-  "packageVersion": "118.0",
+  "packageVersion": "118.0.1",
   "source": {
     "rev": "5ce6564218937801d17be09f87c9b5a1efbd98a2",
     "hash": "sha256-ZOJoCEJfDvGPZK7dESRgoYnHcgfi6z5W4icpGlyMuPE="
@@ -9,7 +9,7 @@
     "hash": "sha256-4c9o/OJb5R9HabW4O8BcvSt+m6eyPWy85YFPx9h0aBA="
   },
   "firefox": {
-    "version": "118.0",
-    "hash": "sha256-0PmWEWriNNx71Z4Nd93v4mgXnXUA0WqUiDCcgmVHyXw"
+    "version": "118.0.1",
+    "hash": "sha256-o/TaVtE2BdYVp0DHOeNQQmFknQQLxHOuLtYJM215/ZU="
   }
 }
