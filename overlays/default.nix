@@ -122,10 +122,7 @@ in
   };
   linux_cachyos = final.callPackage ../pkgs/linux-cachyos {
     inherit cachyVersions;
-    cachyConfig =
-      if prev.system == "x86_64-linux" then
-        import ../pkgs/linux-cachyos/config-x86_64-linux.nix
-      else import ../pkgs/linux-cachyos/config-aarch64-linux.nix;
+    cachyConfig = import ../pkgs/linux-cachyos/config-x86_64-linux.nix;
   };
 
   linuxPackages_cachyos = (dropAttrsUpdateScript

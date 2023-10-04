@@ -62,4 +62,8 @@ in
     };
     updateScript = callPackage ./update.nix { };
   };
+  meta = prevAttrs.meta // {
+    # at the time of this writing, they don't have config files for aarch64
+    broken = stdenv.system == "aarch64-linux";
+  };
 })
