@@ -1,4 +1,5 @@
 { cachyVersions
+, cachyTaste
 , fetchFromGitHub
 , fetchurl
 , lib
@@ -100,12 +101,12 @@ stdenv.mkDerivation {
   nativeBuildInputs = [ flex bison perl ];
 
   preparePhase = ''
-    cp "${config-src}/linux-cachyos/config" ".config"
+    cp "${config-src}/${cachyTaste}/config" ".config"
   '';
 
   buildPhase = ''
     make defconfig
-    cp "${config-src}/linux-cachyos/config" ".config"
+    cp "${config-src}/${cachyTaste}/config" ".config"
     patchShebangs scripts/config
     scripts/config ${lib.concatStringsSep " " pkgbuildConfig}
   '';

@@ -63,10 +63,11 @@ writeShellScript "update-cachyos" ''
      .zfs.rev = \$zfsRev | .zfs.hash = \$zfsHash" \
     "$srcJson" | sponge "$srcJson"
 
-  cp $(nix build '.#packages.x86_64-linux.linux_cachyos-configfile_nix' --no-link --print-out-paths) \
+  cp $(nix build '.#packages.x86_64-linux.linux_cachyos.cachyFlavor.baked' --no-link --print-out-paths) \
     pkgs/linux-cachyos/config-x86_64-linux.nix
-  # cp $(nix build .#packages.aarch64-linux.linux_cachyos-configfile_nix --no-link --print-out-paths) \
-  #   pkgs/linux-cachyos/config-aarch64-linux.nix
+
+  cp $(nix build '.#packages.x86_64-linux.linux-hardened_cachyos.cachyFlavor.baked' --no-link --print-out-paths) \
+    pkgs/linux-cachyos/config-x86_64-linux-hardened.nix
 
   git add $srcJson
   git commit -m "linux_cachyos: $localVer -> $latestVer"
