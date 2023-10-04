@@ -46,6 +46,7 @@ let
       });
     in
     {
+      kernel_configfile = prevAttrs.kernel.configfile;
       inherit zfs;
       zfsStable = zfs;
       zfsUnstable = zfs;
@@ -114,21 +115,45 @@ in
 
   latencyflex-vulkan = final.callPackage ../pkgs/latencyflex-vulkan { };
 
-  linux_cachyos-configfile_raw = final.callPackage ../pkgs/linux-cachyos/configfile-raw.nix {
-    inherit cachyVersions;
-  };
-  linux_cachyos-configfile_nix = final.callPackage ../pkgs/linux-cachyos/configfile-bake.nix {
-    configfile = final.linux_cachyos-configfile_raw;
-  };
   linux_cachyos = final.callPackage ../pkgs/linux-cachyos {
     inherit cachyVersions;
-    cachyConfig = import ../pkgs/linux-cachyos/config-x86_64-linux.nix;
+    cachyFlavor = rec {
+      taste = "linux-cachyos";
+      configfile = final.callPackage ../pkgs/linux-cachyos/configfile-raw.nix {
+        inherit cachyVersions;
+        cachyTaste = taste;
+      };
+      config = import ../pkgs/linux-cachyos/config-x86_64-linux.nix;
+      baked = final.callPackage ../pkgs/linux-cachyos/configfile-bake.nix {
+        inherit configfile;
+      };
+    };
+    kernelPatches = [ ]; # feel free to override.
+  };
+
+  linux-hardened_cachyos = final.callPackage ../pkgs/linux-cachyos {
+    inherit cachyVersions;
+    cachyFlavor = rec {
+      taste = "linux-cachyos-hardened";
+      configfile = final.callPackage ../pkgs/linux-cachyos/configfile-raw.nix {
+        inherit cachyVersions;
+        cachyTaste = taste;
+      };
+      config = import ../pkgs/linux-cachyos/config-x86_64-linux-hardened.nix;
+      baked = final.callPackage ../pkgs/linux-cachyos/configfile-bake.nix {
+        inherit configfile;
+      };
+    };
     kernelPatches = [ ]; # feel free to override.
   };
 
   linuxPackages_cachyos = (dropAttrsUpdateScript
     ((final.linuxPackagesFor final.linux_cachyos).extend cachyZFS)
   ) // { _description = "Kernel modules for linux_cachyos"; };
+
+  linuxPackages-hardened_cachyos = (dropAttrsUpdateScript
+    ((final.linuxPackagesFor final.linux-hardened_cachyos).extend cachyZFS)
+  ) // { _description = "Kernel modules for linux-hardened_cachyos"; };
 
   luxtorpeda = final.callPackage ../pkgs/luxtorpeda {
     luxtorpedaVersion = importJSON ../pkgs/luxtorpeda/version.json;
