@@ -46,7 +46,6 @@ let
       });
     in
     {
-      kernel_configfile = prevAttrs.kernel.configfile;
       inherit zfs;
       zfsStable = zfs;
       zfsUnstable = zfs;
@@ -115,7 +114,7 @@ in
 
   latencyflex-vulkan = final.callPackage ../pkgs/latencyflex-vulkan { };
 
-  linux_cachyos-configfile = final.callPackage ../pkgs/linux-cachyos/configfile.nix {
+  linux_cachyos-configfile = final.callPackage ../pkgs/linux-cachyos/configfile-raw.nix {
     inherit cachyVersions;
   };
   linux_cachyos = final.callPackage ../pkgs/linux-cachyos {

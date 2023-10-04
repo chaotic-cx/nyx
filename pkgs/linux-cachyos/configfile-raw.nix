@@ -1,5 +1,6 @@
 { cachyVersions
 , fetchFromGitHub
+, fetchurl
 , lib
 , stdenv
 , flex
@@ -8,10 +9,20 @@
 , ...
 }:
 let
+  inherit (cachyVersions.linux) version;
+  major = lib.versions.pad 2 version;
+
   config-src = fetchFromGitHub {
     owner = "CachyOS";
     repo = "linux-cachyos";
     inherit (cachyVersions.config) rev hash;
+  };
+
+  src = fetchurl {
+    url = "mirror://kernel/linux/kernel/v6.x/linux-${
+      if version == "${major}.0" then major else version
+    }.tar.xz";
+    inherit (cachyVersions.linux) hash;
   };
 
   # There are some configurations set by the PKGBUILD

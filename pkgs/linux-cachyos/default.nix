@@ -30,7 +30,7 @@ in
   inherit stdenv src version;
   modDirVersion = lib.versions.pad 3 "${version}${cachyVersions.suffix}";
 
-  allowImportFromDerivation = false;
+  allowImportFromDerivation = true;
   configfile = linux_cachyos-configfile;
 
   kernelPatches = builtins.map
@@ -46,7 +46,7 @@ in
       "${patches-src}/${major}/misc/0001-bcachefs.patch"
     ];
 
-  extraMeta = { maintainers = with lib; [ maintainers.dr460nf1r3 ]; };
+  extraMeta = { maintainers = with lib.maintainers; [ dr460nf1r3 pedrohlc ]; };
 }
 ).overrideAttrs (prevAttrs: {
   # bypasses https://github.com/NixOS/nixpkgs/issues/216529
