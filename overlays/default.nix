@@ -114,8 +114,11 @@ in
 
   latencyflex-vulkan = final.callPackage ../pkgs/latencyflex-vulkan { };
 
-  linux_cachyos-configfile = final.callPackage ../pkgs/linux-cachyos/configfile-raw.nix {
+  linux_cachyos-configfile_raw = final.callPackage ../pkgs/linux-cachyos/configfile-raw.nix {
     inherit cachyVersions;
+  };
+  linux_cachyos-configfile_nix = final.callPackage ../pkgs/linux-cachyos/configfile-bake.nix {
+    configfile = final.linux_cachyos-configfile_raw;
   };
   linux_cachyos = final.callPackage ../pkgs/linux-cachyos {
     inherit cachyVersions;

@@ -6,7 +6,6 @@
 , flex
 , bison
 , perl
-, ...
 }:
 let
   inherit (cachyVersions.linux) version;

@@ -6,7 +6,6 @@
 , lib
 , linuxManualConfig
 , stdenv
-, ...
 }:
 let
   inherit (cachyVersions.linux) version;
