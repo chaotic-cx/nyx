@@ -123,6 +123,7 @@ in
   linux_cachyos = final.callPackage ../pkgs/linux-cachyos {
     inherit cachyVersions;
     cachyConfig = import ../pkgs/linux-cachyos/config-x86_64-linux.nix;
+    kernelPatches = [ ]; # feel free to override.
   };
 
   linuxPackages_cachyos = (dropAttrsUpdateScript
