@@ -1,5 +1,5 @@
 { runCommand, configfile }:
-# taken from
+# taken from <nixpkgs>/pkgs/os-specific/linux/kernel/manual-config.nix
 runCommand "config.nix" { } ''
   echo "{" > "$out"
   while IFS='=' read key val; do
