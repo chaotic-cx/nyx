@@ -1,5 +1,6 @@
 { cachyVersions
-, linux_cachyos-configfile
+, cachyConfig
+, linux_cachyos-configfile_raw
 , callPackage
 , fetchFromGitHub
 , fetchurl
@@ -29,8 +30,9 @@ in
   inherit stdenv src version;
   modDirVersion = lib.versions.pad 3 "${version}${cachyVersions.suffix}";
 
-  allowImportFromDerivation = true;
-  configfile = linux_cachyos-configfile;
+  config = cachyConfig;
+  configfile = linux_cachyos-configfile_raw;
+  allowImportFromDerivation = false;
 
   kernelPatches = builtins.map
     (filename: {
@@ -49,8 +51,8 @@ in
 }
 ).overrideAttrs (prevAttrs: {
   # bypasses https://github.com/NixOS/nixpkgs/issues/216529
-  passthru = prevAttrs.passthru // {
-    inherit cachyVersions;
+   passthru = prevAttrs.passthru // {
+     inherit cachyVersions;
     features = {
       efiBootStub = true;
       ia32Emulation = true;

@@ -1,4 +1,5 @@
-{ writeShellScript
+{ stdenvNoCC
+, writeShellScript
 , lib
 , coreutils
 , findutils
@@ -64,7 +65,10 @@ writeShellScript "update-cachyos" ''
      .zfs.rev = \$zfsRev | .zfs.hash = \$zfsHash" \
     "$srcJson" | sponge "$srcJson"
 
-  cp $(nix build .#linux_cachyos-configfile_nix --no-link --print-out-paths) pkgs/linux-cachyos/config.nix
+  cp $(nix build '.#packages.x86_64-linux.linux_cachyos-configfile_nix' --no-link --print-out-paths) \
+    pkgs/linux-cachyos/config-x86_64-linux.nix
+  cp $(nix build .#packages.aarch64-linux.linux_cachyos-configfile_nix --no-link --print-out-paths) \
+    pkgs/linux-cachyos/config-aarch64-linux.nix
 
   git add $srcJson
   git commit -m "linux_cachyos: $localVer -> $latestVer"

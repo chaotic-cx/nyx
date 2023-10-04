@@ -122,10 +122,10 @@ in
   };
   linux_cachyos = final.callPackage ../pkgs/linux-cachyos {
     inherit cachyVersions;
-    kernelPatches = with final.kernelPatches; [
-      bridge_stp_helper
-      request_key_helper
-    ];
+    cachyConfig =
+      if final.system == "x86_64-linux" then
+        import ../pkgs/linux-cachyos/config-x86_64-linux.nix
+      else import ../pkgs/linux-cachyos/config-aarch64-linux.nix;
   };
 
   linuxPackages_cachyos = (dropAttrsUpdateScript
