@@ -51,8 +51,8 @@ in
 }
 ).overrideAttrs (prevAttrs: {
   # bypasses https://github.com/NixOS/nixpkgs/issues/216529
-   passthru = prevAttrs.passthru // {
-     inherit cachyVersions;
+  passthru = prevAttrs.passthru // {
+    inherit cachyVersions;
     features = {
       efiBootStub = true;
       ia32Emulation = true;

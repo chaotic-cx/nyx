@@ -1,5 +1,4 @@
-{ stdenvNoCC
-, writeShellScript
+{ writeShellScript
 , lib
 , coreutils
 , findutils
@@ -10,7 +9,6 @@
 , nix
 , nix-prefetch-git
 , moreutils
-, ...
 }:
 let
   path = lib.makeBinPath [
