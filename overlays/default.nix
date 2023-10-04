@@ -123,7 +123,7 @@ in
   linux_cachyos = final.callPackage ../pkgs/linux-cachyos {
     inherit cachyVersions;
     cachyConfig =
-      if final.system == "x86_64-linux" then
+      if prev.system == "x86_64-linux" then
         import ../pkgs/linux-cachyos/config-x86_64-linux.nix
       else import ../pkgs/linux-cachyos/config-aarch64-linux.nix;
   };

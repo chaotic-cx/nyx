@@ -45,6 +45,11 @@ in
       mkPackages output.x86_64-linux;
     aarch64-linux.forSystems = [ "aarch64-linux" ];
     aarch64-linux.children =
-      mkPackages output.aarch64-linux;
+      let
+        # When on aarch64 we don't need to expose *32 packages
+        remove32 = attrs:
+          builtins.removeAttrs attrs [ "mangohud32_git" "mesa32_git" "vkshade32_git" ];
+      in
+      mkPackages (remove32 output.aarch64-linux);
   };
 }
