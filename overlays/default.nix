@@ -46,7 +46,6 @@ let
       });
     in
     {
-      kernel_configfile = prevAttrs.kernel.configfile;
       inherit zfs;
       zfsStable = zfs;
       zfsUnstable = zfs;
@@ -115,12 +114,15 @@ in
 
   latencyflex-vulkan = final.callPackage ../pkgs/latencyflex-vulkan { };
 
+  linux_cachyos-configfile_raw = final.callPackage ../pkgs/linux-cachyos/configfile-raw.nix {
+    inherit cachyVersions;
+  };
+  linux_cachyos-configfile_nix = final.callPackage ../pkgs/linux-cachyos/configfile-bake.nix {
+    configfile = final.linux_cachyos-configfile_raw;
+  };
   linux_cachyos = final.callPackage ../pkgs/linux-cachyos {
     inherit cachyVersions;
-    kernelPatches = with final.kernelPatches; [
-      bridge_stp_helper
-      request_key_helper
-    ];
+    cachyConfig = import ../pkgs/linux-cachyos/config-x86_64-linux.nix;
   };
 
   linuxPackages_cachyos = (dropAttrsUpdateScript

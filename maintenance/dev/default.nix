@@ -13,8 +13,8 @@
     packages = utils.applyOverlay { inherit pkgs; };
     nixpkgs = pkgs;
     system = flakes.nixpkgs.lib.nixosSystem {
+      inherit system;
       modules = [ self.nixosModules.default ];
-      system = "x86_64-linux";
     };
   })
 {

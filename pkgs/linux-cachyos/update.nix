@@ -9,7 +9,6 @@
 , nix
 , nix-prefetch-git
 , moreutils
-, ...
 }:
 let
   path = lib.makeBinPath [
@@ -63,6 +62,11 @@ writeShellScript "update-cachyos" ''
      .patches.rev = \$patchesRev | .patches.hash = \$patchesHash |\
      .zfs.rev = \$zfsRev | .zfs.hash = \$zfsHash" \
     "$srcJson" | sponge "$srcJson"
+
+  cp $(nix build '.#packages.x86_64-linux.linux_cachyos-configfile_nix' --no-link --print-out-paths) \
+    pkgs/linux-cachyos/config-x86_64-linux.nix
+  # cp $(nix build .#packages.aarch64-linux.linux_cachyos-configfile_nix --no-link --print-out-paths) \
+  #   pkgs/linux-cachyos/config-aarch64-linux.nix
 
   git add $srcJson
   git commit -m "linux_cachyos: $localVer -> $latestVer"
