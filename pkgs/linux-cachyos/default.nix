@@ -7,7 +7,10 @@
 , lib
 , linuxManualConfig
 , stdenv
-, kernelPatches
+  # Weird injections
+, kernelPatches ? [ ]
+, features ? null
+, randstructSeed ? ""
 }@inputs:
 let
   inherit (cachyVersions.linux) version;
@@ -27,7 +30,7 @@ let
   };
 in
 (linuxManualConfig {
-  inherit stdenv src version;
+  inherit stdenv src version features randstructSeed;
   modDirVersion = lib.versions.pad 3 "${version}${cachyVersions.suffix}";
 
   config = cachyConfig;
