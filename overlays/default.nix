@@ -93,7 +93,7 @@ in
       (overrideDescription (_prevDesc: "Provides \"DroidSansM Nerd Font\" font family."))
     ];
 
-  extra-cmake-modules_git = final.qt6.callPackage ../pkgs/extra-cmake-modules-git { };
+  extra-cmake-modules_git = callOverride ../pkgs/extra-cmake-modules-git/latest.nix { };
 
   firedragon-unwrapped = final.callPackage ../pkgs/firedragon { };
 
