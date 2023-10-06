@@ -1,4 +1,4 @@
-{ final, prev, gitOverride, nyxUtils, mangohud32_git, ... }:
+{ final, prev, gitOverride, nyxUtils, ... }:
 
 let
   # Derived from subprojects/imgui.wrap
@@ -32,7 +32,7 @@ let
   };
 in
 gitOverride {
-  newInputs = { mangohud32 = mangohud32_git; };
+  newInputs = with final; { mangohud32 = mangohud32_git; };
   nyxKey = if final.stdenv.is32bit then "mangohud32_git" else "mangohud_git";
   versionNyxPath = "pkgs/mangohud-git/version.json";
   versionLocalPath = ./version.json;

@@ -1,20 +1,10 @@
-{ final
-, prev
-, gitOverride
-, tg-owt_git
-, glib_git
-, glibmm_git
-, kf6coreaddons_git
-, ...
-}:
+{ final, prev, gitOverride, ... }:
 
 gitOverride {
-  newInputs = {
+  newInputs = with final; {
     # I hope I don't go to robot-hell bc of this:
     callPackage = file: args:
-      let
-        realCall = final.callPackage file args;
-      in
+      let realCall = callPackage file args; in
       if builtins.baseNameOf file == "tg_owt.nix" then
         tg-owt_git
       else
@@ -35,7 +25,7 @@ gitOverride {
 
   postOverrides = [
     (prevAttrs: {
-      buildInputs = prevAttrs.buildInputs ++ [ kf6coreaddons_git ];
+      buildInputs = prevAttrs.buildInputs ++ (with final; [ kf6coreaddons_git ]);
       postPatch = prevAttrs.postPatch + ''
         (cd Telegram/ThirdParty/libprisma && \
           patch -p1 < ${final.fetchpatch {
@@ -46,7 +36,7 @@ gitOverride {
       '';
       postFixup = ''
         qtWrapperArgs+=(
-          --prefix LD_LIBRARY_PATH : "${glib_git.out}/lib"
+          --prefix LD_LIBRARY_PATH : "${final.glib_git.out}/lib"
         )
       '' + prevAttrs.postFixup;
     })

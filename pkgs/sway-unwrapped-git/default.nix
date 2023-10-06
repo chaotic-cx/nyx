@@ -1,7 +1,10 @@
 { final, prev, gitOverride, nyxUtils, ... }:
 
 gitOverride {
-  newInputs = { wlroots = final.wlroots_git; };
+  newInputs = with final; {
+    wlroots = wlroots_git;
+    wayland-protocols = wayland-protocols_git;
+  };
   nyxKey = "sway-unwrapped_git";
   versionNyxPath = "pkgs/sway-unwrapped-git/version.json";
   versionLocalPath = ./version.json;

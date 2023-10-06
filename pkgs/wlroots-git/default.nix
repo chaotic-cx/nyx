@@ -13,7 +13,10 @@ let
   };
 in
 gitOverride {
-  newInputs = { inherit enableXWayland; };
+  newInputs = with final; {
+    inherit enableXWayland;
+    wayland-protocols = wayland-protocols_git;
+  };
   nyxKey = "wlroots_git";
   versionNyxPath = "pkgs/wlroots-git/version.json";
   versionLocalPath = ./version.json;
