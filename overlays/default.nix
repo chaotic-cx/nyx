@@ -115,9 +115,7 @@ in
     inherit (final.libsForQt5.qt5) qttools;
   };
 
-  kf6coreaddons_git = final.qt6.callPackage ../pkgs/kcoreaddons-git {
-    extra-cmake-modules = final.extra-cmake-modules_git;
-  };
+  kf6coreaddons_git = callOverride ../pkgs/kf6coreaddons-git/latest.nix { };
 
   latencyflex-vulkan = final.callPackage ../pkgs/latencyflex-vulkan { };
 
