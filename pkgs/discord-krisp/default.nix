@@ -17,5 +17,5 @@ prev.discord.overrideAttrs (previousAttrs: {
   '';
   meta = {
     nyx.bypassLicense = true;
-  };
+  } // previousAttrs.meta;
 })

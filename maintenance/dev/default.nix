@@ -4,7 +4,7 @@
     pkgs = import flakes.nixpkgs {
       inherit system;
       config = {
-        allowlistedLicenses = [ flakes.nixpkgs.lib.licenses.unfreeRedistributable ];
+        allowUnfree = true;
         nvidia.acceptLicense = true;
       };
     };
