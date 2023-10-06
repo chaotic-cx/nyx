@@ -1,4 +1,12 @@
-{ final, prev, gitOverride, tg-owt_git, glib_git, glibmm_git, ... }:
+{ final
+, prev
+, gitOverride
+, tg-owt_git
+, glib_git
+, glibmm_git
+, kf6coreaddons_git
+, ...
+}:
 
 gitOverride {
   newInputs = {
@@ -27,6 +35,7 @@ gitOverride {
 
   postOverrides = [
     (prevAttrs: {
+      buildInputs = prevAttrs.buildInputs ++ [ kf6coreaddons_git final.openssl ];
       postFixup = ''
         qtWrapperArgs+=(
           --prefix LD_LIBRARY_PATH : "${glib_git.out}/lib"

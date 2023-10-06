@@ -93,6 +93,8 @@ in
       (overrideDescription (_prevDesc: "Provides \"DroidSansM Nerd Font\" font family."))
     ];
 
+  extra-cmake-modules_git = final.qt6.callPackage ../pkgs/extra-cmake-modules-git { };
+
   firedragon-unwrapped = final.callPackage ../pkgs/firedragon { };
 
   firedragon = final.wrapFirefox final.firedragon-unwrapped {
@@ -111,6 +113,10 @@ in
 
   input-leap_git = callOverride ../pkgs/input-leap-git {
     inherit (final.libsForQt5.qt5) qttools;
+  };
+
+  kf6coreaddons_git = final.qt6.callPackage ../pkgs/kcoreaddons-git {
+    extra-cmake-modules = final.extra-cmake-modules_git;
   };
 
   latencyflex-vulkan = final.callPackage ../pkgs/latencyflex-vulkan { };
@@ -212,7 +218,9 @@ in
 
   swaylock-plugin_git = callOverride ../pkgs/swaylock-plugin-git { };
 
-  telegram-desktop_git = callOverride ../pkgs/telegram-desktop-git { inherit (final) tg-owt_git glib_git glibmm_git; };
+  telegram-desktop_git = callOverride ../pkgs/telegram-desktop-git {
+    inherit (final) tg-owt_git glib_git glibmm_git kf6coreaddons_git;
+  };
   tg-owt_git = callOverride ../pkgs/tg-owt-git { inherit (final) glib_git; };
 
   # You should not need "mangohud32_git" since it's embedded in "mangohud_git"
