@@ -201,6 +201,7 @@ in
   openmohaa = final.callPackage ../pkgs/openmohaa {
     openmohaaVersion = importJSON ../pkgs/openmohaa/version.json;
   };
+  openmohaa_git = callOverride ../pkgs/openmohaa-git { };
 
   proton-ge-custom = final.callPackage ../pkgs/proton-ge-custom {
     protonGeTitle = "Proton-GE";
