@@ -20,7 +20,7 @@ stdenv.mkDerivation {
 
   propagatedBuildInputs = [ cmake pkg-config ];
 
-  setupHook = extra-cmake-modules.setupHook;
+  inherit (extra-cmake-modules) setupHook;
 
   meta = with lib; {
     description = "Extra modules and scripts for CMake.";
