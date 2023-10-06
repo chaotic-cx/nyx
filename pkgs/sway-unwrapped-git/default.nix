@@ -3,7 +3,9 @@
 gitOverride {
   newInputs = with final; {
     wlroots = wlroots_git;
+    wayland = wayland_git;
     wayland-protocols = wayland-protocols_git;
+    wayland-scanner = wayland-scanner_git;
   };
   nyxKey = "sway-unwrapped_git";
   versionNyxPath = "pkgs/sway-unwrapped-git/version.json";

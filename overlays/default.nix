@@ -219,10 +219,10 @@ in
   swaylock-plugin_git = callOverride ../pkgs/swaylock-plugin-git { };
 
   telegram-desktop_git = callOverride ../pkgs/telegram-desktop-git { };
-  tg-owt_git = callOverride ../pkgs/tg-owt-git {  };
+  tg-owt_git = callOverride ../pkgs/tg-owt-git { };
 
   # You should not need "mangohud32_git" since it's embedded in "mangohud_git"
-  vkshade_git = callOverride ../pkgs/vkshade-git {  };
+  vkshade_git = callOverride ../pkgs/vkshade-git { };
   vkshade32_git =
     if final.stdenv.hostPlatform.isLinux && final.stdenv.hostPlatform.isx86
     then
@@ -232,7 +232,9 @@ in
   vulkanPackages_latest = callOverride ../pkgs/vulkan-versioned
     { vulkanVersions = importJSON ../pkgs/vulkan-versioned/latest.json; };
 
+  wayland_git = callOverride ../pkgs/wayland-git { };
   wayland-protocols_git = callOverride ../pkgs/wayland-protocols-git { };
+  wayland-scanner_git = final.wayland_git.bin;
 
   waynergy_git = callOverride ../pkgs/waynergy-git { };
 
