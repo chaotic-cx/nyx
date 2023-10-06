@@ -1,7 +1,7 @@
-{ final, prev, gitOverride, glib_git, ... }:
+{ final, prev, gitOverride, ... }:
 
 gitOverride {
-  newInputs = { glib = glib_git; };
+  newInputs = with final; { glib = glib_git; };
   nyxKey = "tg-owt_git";
   versionNyxPath = "pkgs/tg-owt-git/version.json";
   versionLocalPath = ./version.json;

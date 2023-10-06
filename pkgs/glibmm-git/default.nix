@@ -1,4 +1,4 @@
-{ prev, final, gitOverride, glib_git, ... }:
+{ prev, final, gitOverride, ... }:
 
 let
   srcMeta = {
@@ -8,7 +8,7 @@ let
   };
 in
 gitOverride {
-  newInputs = { glib = glib_git; };
+  newInputs = with final; { glib = glib_git; };
   nyxKey = "glibmm_git";
   versionNyxPath = "pkgs/glibmm-git/version.json";
   versionLocalPath = ./version.json;

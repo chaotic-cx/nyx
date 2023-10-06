@@ -93,6 +93,8 @@ in
       (overrideDescription (_prevDesc: "Provides \"DroidSansM Nerd Font\" font family."))
     ];
 
+  extra-cmake-modules_git = callOverride ../pkgs/extra-cmake-modules-git/latest.nix { };
+
   firedragon-unwrapped = final.callPackage ../pkgs/firedragon { };
 
   firedragon = final.wrapFirefox final.firedragon-unwrapped {
@@ -107,11 +109,13 @@ in
 
   # Used by telegram-desktop_git
   glib_git = callOverride ../pkgs/glib-git { };
-  glibmm_git = callOverride ../pkgs/glibmm-git { inherit (final) glib_git; };
+  glibmm_git = callOverride ../pkgs/glibmm-git { };
 
   input-leap_git = callOverride ../pkgs/input-leap-git {
     inherit (final.libsForQt5.qt5) qttools;
   };
+
+  kf6coreaddons_git = callOverride ../pkgs/kf6coreaddons-git/latest.nix { };
 
   latencyflex-vulkan = final.callPackage ../pkgs/latencyflex-vulkan { };
 
@@ -160,11 +164,11 @@ in
   };
 
   # You should not need "mangohud32_git" since it's embedded in "mangohud_git"
-  mangohud_git = callOverride ../pkgs/mangohud-git { inherit (final) mangohud32_git; };
+  mangohud_git = callOverride ../pkgs/mangohud-git { };
   mangohud32_git =
     if final.stdenv.hostPlatform.isLinux && final.stdenv.hostPlatform.isx86
     then
-      callOverride32 ../pkgs/mangohud-git { inherit (final) mangohud32_git; }
+      callOverride32 ../pkgs/mangohud-git { }
     else throw "No mangohud32_git for non-x86";
 
   mesa_git = callOverride ../pkgs/mesa-git {
@@ -212,19 +216,23 @@ in
 
   swaylock-plugin_git = callOverride ../pkgs/swaylock-plugin-git { };
 
-  telegram-desktop_git = callOverride ../pkgs/telegram-desktop-git { inherit (final) tg-owt_git glib_git glibmm_git; };
-  tg-owt_git = callOverride ../pkgs/tg-owt-git { inherit (final) glib_git; };
+  telegram-desktop_git = callOverride ../pkgs/telegram-desktop-git { };
+  tg-owt_git = callOverride ../pkgs/tg-owt-git { };
 
   # You should not need "mangohud32_git" since it's embedded in "mangohud_git"
-  vkshade_git = callOverride ../pkgs/vkshade-git { inherit (final) vkshade32_git; };
+  vkshade_git = callOverride ../pkgs/vkshade-git { };
   vkshade32_git =
     if final.stdenv.hostPlatform.isLinux && final.stdenv.hostPlatform.isx86
     then
-      callOverride32 ../pkgs/vkshade-git { inherit (final) vkshade32_git; }
+      callOverride32 ../pkgs/vkshade-git { }
     else throw "No vkshade32_git for non-x86";
 
   vulkanPackages_latest = callOverride ../pkgs/vulkan-versioned
     { vulkanVersions = importJSON ../pkgs/vulkan-versioned/latest.json; };
+
+  wayland_git = callOverride ../pkgs/wayland-git { };
+  wayland-protocols_git = callOverride ../pkgs/wayland-protocols-git { };
+  wayland-scanner_git = final.wayland_git.bin;
 
   waynergy_git = callOverride ../pkgs/waynergy-git { };
 
