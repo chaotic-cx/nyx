@@ -35,7 +35,15 @@ gitOverride {
 
   postOverrides = [
     (prevAttrs: {
-      buildInputs = prevAttrs.buildInputs ++ [ kf6coreaddons_git final.openssl ];
+      buildInputs = prevAttrs.buildInputs ++ [ kf6coreaddons_git ];
+      postPatch = prevAttrs.postPatch + ''
+        (cd Telegram/ThirdParty/libprisma && \
+          patch -p1 < ${final.fetchpatch {
+            url = "https://github.com/desktop-app/libprisma/commit/b9a1ed1a1918b700eb3d140f5047f4f7533421c2.patch";
+            hash = "sha256-3mFQipw7ZH8Usj/38bnXtmVNaGuXrI4VRs8FQ7wbUoI=";
+          }} \
+        )
+      '';
       postFixup = ''
         qtWrapperArgs+=(
           --prefix LD_LIBRARY_PATH : "${glib_git.out}/lib"
