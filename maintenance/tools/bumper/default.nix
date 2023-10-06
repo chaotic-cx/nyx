@@ -71,5 +71,5 @@ writeShellScriptBin "chaotic-nyx-bumper" ''
   }
 
   PHASES=''${PHASES:-default-phases};
-  $PHASES
+  for phase in $PHASES; do $phase; done
 ''

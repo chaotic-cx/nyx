@@ -115,10 +115,19 @@ writeShellScriptBin "chaotic-nyx-build" ''
   source ${./lib.sh}
 
   # Build jobs
-  prepare
-  ${lib.strings.concatStringsSep "\n" packagesCmds}
-  finish
-  deploy
+  function build-jobs() {
+    ${lib.strings.concatStringsSep "\n" packagesCmds}
+  }
+
+  # Phases system
+  function default-phases () {
+    prepare
+    build-jobs
+    finish
+    deploy
+  }
+  PHASES=''${PHASES:-default-phases};
+  for phase in $PHASES; do $phase; done
 
   # Useless exit but informative when running with "bash -x"
   exit 0
