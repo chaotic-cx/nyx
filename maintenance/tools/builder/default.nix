@@ -111,17 +111,14 @@ writeShellScriptBin "chaotic-nyx-build" ''
   NYX_SOURCE="''${NYX_SOURCE:-${flakeSelf}}"
   NYX_TARGET="''${NYX_TARGET:-${hostPlatform.system}}"
 
-  # Prepare to build
-  source ${./prepare.sh}
+  # All the required functions
+  source ${./lib.sh}
 
   # Build jobs
+  prepare
   ${lib.strings.concatStringsSep "\n" packagesCmds}
-
-  # Finish it
-  source ${./finish.sh}
-
-  # Push logic
-  source ${./deploy.sh}
+  finish
+  deploy
 
   # Useless exit but informative when running with "bash -x"
   exit 0

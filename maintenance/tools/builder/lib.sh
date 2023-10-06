@@ -16,11 +16,6 @@ Y='\033[1;33m'
 C='\033[1;36m'
 W='\033[0m'
 
-# Create empty logs and artifacts
-cd "$NYX_WD"
-touch push.txt errors.txt success.txt failures.txt cached.txt upstream.txt eval-failures.txt
-echo "{" > new-failures.nix
-
 # Echo helpers
 function echo_warning() {
   echo -ne "${Y}WARNING:${W} "
@@ -32,23 +27,31 @@ function echo_error() {
   echo "$@" 1>&2
 }
 
-# Warn if we don't have automated cachix
-if [ -z "$CACHIX_AUTH_TOKEN" ] && [ -z "$CACHIX_SIGNING_KEY" ]; then
-  echo_warning "No key for cachix -- building anyway."
-fi
+# That's how we start
+function prepare() {
+  # Create empty logs and artifacts
+  cd "$NYX_WD"
+  touch push.txt errors.txt success.txt failures.txt cached.txt upstream.txt eval-failures.txt
+  echo "{" > new-failures.nix
+
+  # Warn if we don't have automated cachix
+  if [ -z "$CACHIX_AUTH_TOKEN" ] && [ -z "$CACHIX_SIGNING_KEY" ]; then
+    echo_warning "No key for cachix -- building anyway."
+  fi
+
+  # Creates list of what to build when only building what changed
+  if [ -n "${NYX_CHANGED_ONLY:-}" ]; then
+    _DIFF=$(nix build --no-link --print-out-paths --impure --expr "(builtins.getFlake \"$NYX_SOURCE\").devShells.${NYX_TARGET}-linux.comparer.passthru.any \"$NYX_CHANGED_ONLY\"" || exit 13)
+
+    ln -s "$_DIFF" filter.txt
+  fi
+}
 
 # Check if $1 is in the cache
 function cached() {
   set -e
   nix path-info "$2" --store "$1" >/dev/null 2>/dev/null
 }
-
-# Creates list of what to build when only building what changed
-if [ -n "${NYX_CHANGED_ONLY:-}" ]; then
-  _DIFF=$(nix build --no-link --print-out-paths --impure --expr "(builtins.getFlake \"$NYX_SOURCE\").devShells.${NYX_TARGET}-linux.comparer.passthru.any \"$NYX_CHANGED_ONLY\"" || exit 13)
-
-  ln -s "$_DIFF" filter.txt
-fi
 
 # Helper to zip-merge _ALL_OUT_KEYS and _ALL_OUT_PATHS
 function zip_path() {
@@ -97,5 +100,35 @@ function build() {
       echo -e "${R} ERR${W}"
       return 1
     fi
+  fi
+}
+
+# Run when building finishes, before deploying
+function finish() {
+  # Write EOF of the artifacts
+  echo "}" >> new-failures.nix
+}
+
+# Push logic
+function deploy() {
+  if [ -z "$CACHIX_AUTH_TOKEN" ] && [ -z "$CACHIX_SIGNING_KEY" ]; then
+    echo_error "No key for cachix -- failing to deploy."
+    exit 23
+  elif [ -n "''${NYX_RESYNC:-}" ] || [ -s push.txt ]; then
+    # Let nix digest store paths first
+    sleep 10
+
+    # Push all new deriations with compression
+    cat push.txt | cachix push chaotic-nyx \
+      --compression-method zstd
+
+    # Pin packages
+    if [ -e to-pin.txt ]; then
+      cat to-pin.txt | xargs -n 2 \
+        cachix -v pin chaotic-nyx
+    fi
+  else
+    echo_error "Nothing to push."
+    exit 42
   fi
 }
