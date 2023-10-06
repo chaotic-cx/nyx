@@ -1,0 +1,10 @@
+image:
+  name: curlimages/curl
+
+exec:
+  stage: deploy
+  script:
+    - |
+        curl -H "Accept: application/vnd.github+json" -H "Authorization: token $GITHUB_PAT" --request POST --data '{"event_type": "nixpkgs-update"}' https://api.github.com/repos/chaotic-cx/nyx/dispatches
+  only:
+    variables: [$CI_PIPELINE_SOURCE == "trigger"]
