@@ -2,8 +2,11 @@ name: Bump nixpkgs
 
 on:
   schedule:
-    - cron: '0 */3 * * *'
+    - cron: '47 6 * * *'
   workflow_dispatch:
+  repository_dispatch:
+    types: [nixpkgs-update]
+
 
 permissions:
   contents: write
