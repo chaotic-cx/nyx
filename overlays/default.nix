@@ -9,7 +9,8 @@
 # NOTE:
 # - `*_next` packages will be removed once merged into nixpkgs-unstable.
 
-{ flakes, selfOverlay }: final: prev:
+{ flakes, self ? flakes.self, selfOverlay ? self.overlays.default }:
+final: prev:
 let
   # Required to load version files.
   inherit (final.lib.trivial) importJSON;
@@ -53,7 +54,12 @@ let
     };
 
   # Magic helper for _git packages.
-  gitOverride = import ../shared/git-override.nix { inherit (final) lib callPackage; };
+  gitOverride = import ../shared/git-override.nix {
+    inherit (final) lib callPackage fetchFromGitHub fetchFromGitLab;
+    nyx = self;
+    fetchRevFromGitHub = final.callPackage ../shared/github-rev-fetcher.nix { };
+    fetchRevFromGitLab = final.callPackage ../shared/gitlab-rev-fetcher.nix { };
+  };
 in
 {
   inherit nyxUtils;
@@ -171,9 +177,7 @@ in
       callOverride32 ../pkgs/mangohud-git { }
     else throw "No mangohud32_git for non-x86";
 
-  mesa_git = callOverride ../pkgs/mesa-git {
-    gbmDriver = true;
-  };
+  mesa_git = callOverride ../pkgs/mesa-git { gbmDriver = true; };
   mesa32_git =
     if final.stdenv.hostPlatform.isLinux && final.stdenv.hostPlatform.isx86
     then
