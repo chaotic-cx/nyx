@@ -94,7 +94,11 @@ final.lib.makeScope final.newScope (self:
     key = "vulkanLoader";
     owner = "KhronosGroup";
     repo = "Vulkan-Loader";
-    extraAttrs = prevAttrs: { meta = prevAttrs.meta // { broken = false; }; };
+    extraAttrs = prevAttrs: {
+      meta = prevAttrs.meta // { broken = false; };
+      patches = [ ./fix-pkgconfig.patch ] ++
+        (nyxUtils.removeByBaseName "fix-pkgconfig.patch" prevAttrs.patches);
+    };
   };
 
   vulkan-tools = genericOverride {
