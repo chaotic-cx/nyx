@@ -31,7 +31,7 @@ rec {
       schemas = import ./maintenance/schemas { flakes = inputs; };
 
       # The stars: our overlay and our modules.
-      overlays.default = import ./overlays { flakes = inputs; selfOverlay = overlays.default; };
+      overlays.default = import ./overlays { flakes = inputs; };
       nixosModules = import ./modules/nixos { flakes = inputs; };
       homeManagerModules = import ./modules/home-manager { flakes = inputs; };
 

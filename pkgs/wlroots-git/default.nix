@@ -5,13 +5,6 @@
 , ...
 }:
 
-let
-  src = {
-    domain = "gitlab.freedesktop.org";
-    owner = "wlroots";
-    repo = "wlroots";
-  };
-in
 gitOverride {
   newInputs = with final; {
     inherit enableXWayland;
@@ -19,18 +12,21 @@ gitOverride {
     wayland-protocols = wayland-protocols_git;
     wayland-scanner = wayland-scanner_git;
   };
-  nyxKey = "wlroots_git";
-  versionNyxPath = "pkgs/wlroots-git/version.json";
-  versionLocalPath = ./version.json;
-  prev = prev.wlroots_0_16;
-  fetcher =
-    _prevAttrs: finalArgs: final.fetchFromGitLab (src // finalArgs);
-  fetchLatestRev = _src: final.callPackage ../../shared/gitlab-rev-fetcher.nix { inherit src; ref = "master"; };
 
-  postOverrides = [
-    (prevAttrs: {
-      buildInputs = prevAttrs.buildInputs ++ (with final; [ hwdata libdisplay-info ]);
-      postPatch = "";
-    })
-  ];
+  nyxKey = "wlroots_git";
+  prev = prev.wlroots_0_16;
+
+  versionNyxPath = "pkgs/wlroots-git/version.json";
+  fetcher = "fetchFromGitLab";
+  fetcherData = {
+    domain = "gitlab.freedesktop.org";
+    owner = "wlroots";
+    repo = "wlroots";
+  };
+  ref = "master";
+
+  postOverride = prevAttrs: {
+    buildInputs = prevAttrs.buildInputs ++ (with final; [ hwdata libdisplay-info ]);
+    postPatch = "";
+  };
 }
