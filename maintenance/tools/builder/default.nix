@@ -117,6 +117,8 @@ writeShellScriptBin "chaotic-nyx-build" ''
   # Build jobs
   function build-jobs() {
     ${lib.strings.concatStringsSep "\n" packagesCmds}
+
+    return 0
   }
 
   # Phases system
