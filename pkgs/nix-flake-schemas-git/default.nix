@@ -1,4 +1,4 @@
-{ final, prev, gitOverride, ... }:
+{ prev, gitOverride, ... }:
 
 gitOverride {
   nyxKey = "nix-flake-schemas_git";

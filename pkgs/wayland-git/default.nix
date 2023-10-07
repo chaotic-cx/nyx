@@ -14,7 +14,7 @@ gitOverride {
     repo = "wayland";
   };
 
-  postOverride = prevAttrs: {
+  postOverride = _prevAttrs: {
     patches = [ ];
   };
 }

@@ -1,4 +1,4 @@
-{ final, prev, gitOverride, ... }:
+{ prev, gitOverride, ... }:
 
 gitOverride {
   nyxKey = "wayland-protocols_git";
