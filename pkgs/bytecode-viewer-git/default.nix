@@ -29,7 +29,7 @@ maven.buildMavenPackage rec {
     inherit pname;
     nyxKey = "bytecode-viewer_git";
     versionPath = "pkgs/bytecode-viewer-git/version.json";
-    fetchLatestRev = callPackage ../../shared/github-rev-fetcher.nix { inherit src; ref = "master"; };
+    fetchLatestRev = callPackage ../../shared/github-rev-fetcher.nix { } "master" src;
     gitUrl = src.gitRepoUrl;
   };
 

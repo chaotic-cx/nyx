@@ -29,7 +29,7 @@ stdenvNoCC.mkDerivation rec {
     inherit pname;
     nyxKey = "ananicy-cpp-rules";
     versionPath = "pkgs/ananicy-cpp-rules/version.json";
-    fetchLatestRev = callPackage ../../shared/github-rev-fetcher.nix { inherit src; ref = "master"; };
+    fetchLatestRev = callPackage ../../shared/github-rev-fetcher.nix { } "master" src;
     gitUrl = src.gitRepoUrl;
   };
 

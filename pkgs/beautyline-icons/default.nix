@@ -50,7 +50,7 @@ stdenvNoCC.mkDerivation rec {
     inherit pname;
     nyxKey = "beautyline-icons";
     versionPath = "pkgs/beautyline-icons/version.json";
-    fetchLatestRev = callPackage ../../shared/gitlab-rev-fetcher.nix { src = srcMeta; ref = "master"; };
+    fetchLatestRev = callPackage ../../shared/gitlab-rev-fetcher.nix { } "master" srcMeta;
     gitUrl = src.gitRepoUrl;
   };
 
