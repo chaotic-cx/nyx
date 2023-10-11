@@ -6,9 +6,7 @@ gitOverride {
     wayland = wayland_git;
     wayland-scanner = wayland-scanner_git;
     wayland-protocols = wayland-protocols_git;
-    vulkan-loader = vulkanPackages_latest.vulkan-loader;
-    vulkan-headers = vulkanPackages_latest.vulkan-headers;
-    glslang = vulkanPackages_latest.glslang;
+    inherit (vulkanPackages_latest) vulkan-loader vulkan-headers glslang;
   };
 
   nyxKey = "gamescope_git";
