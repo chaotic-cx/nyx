@@ -18,7 +18,7 @@ function bump-flake() {
   readarray -t CHANGED < <(git diff | rg -Po '(?<=^     ")([^"]+)(?=": {$)' | sed 's/-src$//;s/-git$//')
   [[ "${#CHANGED[@]}" -lt 1 ]] && return 0
   CHANGED_CSV=$(join_by ', ' "${CHANGED[@]}")
-  git add -u
+  git add flake.lock
   git commit -m "flake-${NYX_NAME}: $CHANGED_CSV"
   return 0
 }
