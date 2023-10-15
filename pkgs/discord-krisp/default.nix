@@ -15,6 +15,7 @@ prev.discord.overrideAttrs (previousAttrs: {
     wrapProgramShell $out/opt/${binaryName}/${binaryName} \
     --run "${patch-krisp}"
   '';
+  passthru = removeAttrs previousAttrs.passthru [ "updateScript" ];
   meta = {
     nyx.bypassLicense = true;
   } // previousAttrs.meta;

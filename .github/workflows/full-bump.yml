@@ -15,12 +15,12 @@ permissions:
 
 # It's better for it to conflict with other builds and bumps
 concurrency:
-  group: nyx-main-bump
+  group: nyx-main-build
   cancel-in-progress: true
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: nyxbuilder
     timeout-minutes: 1440
     steps:
       - name: Install Nix
@@ -39,4 +39,4 @@ jobs:
         run: nix develop --impure .#updater -c 'chaotic-nyx-bumper'
         env:
           GH_TOKEN: ${{ github.token }}
-          BUMPN: ${{ inputs.bumpNumber }}
+          NYX_BUMPN: ${{ inputs.bumpNumber }}
