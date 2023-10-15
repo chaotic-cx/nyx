@@ -41,7 +41,7 @@ function prepare() {
 
   # Creates list of what to build when only building what changed
   if [ -n "${NYX_CHANGED_ONLY:-}" ]; then
-    _DIFF=$(NIXPKGS_ALLOW_UNFREE=1 nix build --no-link --print-out-paths --impure \
+    _DIFF=$(nix build --no-link --print-out-paths --impure \
       --expr "(builtins.getFlake \"$NYX_SOURCE\").devShells.${NYX_TARGET}.comparer.passthru.any \"$NYX_CHANGED_ONLY\"" \
       || exit 13)
 
