@@ -1,10 +1,3 @@
-function join_by { # https://stackoverflow.com/a/17841619
-  local d=${1-} f=${2-}
-  if shift 2; then
-    printf %s "$f" "${@/#/$d}"
-  fi
-}
-
 function checkout() {
   git checkout -b "$NYX_BRANCH"
   #git fetch origin
@@ -33,14 +26,16 @@ function bump-package() {
     $script || return 0
   done
 
-  if [ "$_PREV" != $(git rev-parse HEAD) ]; then
+  _CURR=$(git rev-parse HEAD)
+  if [ "$_PREV" != "$_CURR" ]; then
     echo "# Building $1"
     if NYX_CHANGED_ONLY="git+file:$PWD?rev=$_PREV" \
         PHASES='prepare build-jobs no-fail' \
         nix develop --impure -c 'chaotic-nyx-build'; \
     then return 0
     elif [ $? -eq 43 ]; then
-      git revert --no-commit "${_PREV}..HEAD"
+      echo "## Failed, reverting ${_PREV}..${_CURR}"
+      git revert --no-commit "${_PREV}..${_CURR}"
       git commit -m "Bumping \"$1\" failed"
     else
       echo "## Exited with $nixReturn"
