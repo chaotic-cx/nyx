@@ -4,6 +4,7 @@
 , git
 , gnused
 , nix
+, openssh
 , ripgrep
 , writeShellScriptBin
 , allPackages
@@ -20,6 +21,7 @@ let
     ripgrep
     gnused
     gh
+    openssh
   ];
 
   evalResult = k: v:
