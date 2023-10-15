@@ -20,7 +20,7 @@ concurrency:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: nyxbuilder
     timeout-minutes: 1440
     steps:
       - name: Install Nix
