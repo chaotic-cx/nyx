@@ -36,8 +36,8 @@ function bump-package() {
     echo "Building $1"
     if ! (NYX_CHANGED_ONLY="git+file:$PWD?rev=$_PREV" \
         PHASES='prepare build-jobs no-fail' \
-        nix develop --impure -c 'chaotic-nyx-build' \
-        2>&1 1>/dev/null) && [ $? -eq 43 ]; then
+        nix develop --impure -c 'chaotic-nyx-build') \
+        && [ $? -eq 43 ]; then
       git revert --no-commit "${_PREV}..HEAD"
       git commit -m "Bumping \"$1\" failed"
     fi

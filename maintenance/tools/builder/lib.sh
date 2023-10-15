@@ -67,12 +67,12 @@ function build() {
   _WHAT="${1:- アンノーン}"
   _MAIN_OUT_PATH="${2:-/dev/null}"
   _FULL_TARGETS=("${_ALL_OUT_KEYS[@]/#/$NYX_SOURCE\#_dev.packages.${NYX_TARGET}.}")
-  echo -n "* $_WHAT..."
   # If NYX_CHANGED_ONLY is set, only build changed derivations
   if [ -f filter.txt ] && ! grep -Pq "^$_WHAT\$" filter.txt; then
-    echo -e "${Y} SKIP${W}"
     return 0
-  elif [ -z "${NYX_REFRESH:-}" ] && cached 'https://chaotic-nyx.cachix.org' "$_MAIN_OUT_PATH"; then
+  fi
+  echo -n "* $_WHAT..."
+  if [ -z "${NYX_REFRESH:-}" ] && cached 'https://chaotic-nyx.cachix.org' "$_MAIN_OUT_PATH"; then
     echo "$_WHAT" >> cached.txt
     echo -e "${Y} CACHED${W}"
     zip_path >> full-pin.txt
