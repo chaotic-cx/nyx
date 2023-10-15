@@ -39,4 +39,4 @@ jobs:
         run: nix develop --impure .#updater -c 'chaotic-nyx-bumper'
         env:
           GH_TOKEN: ${{ github.token }}
-          BUMPN: ${{ inputs.bumpNumber }}
+          NYX_BUMPN: ${{ inputs.bumpNumber }}
