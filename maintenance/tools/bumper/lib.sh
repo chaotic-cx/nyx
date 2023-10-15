@@ -38,7 +38,7 @@ function bump-package() {
       git revert --no-commit "${_PREV}..${_CURR}"
       git commit -m "Bumping \"$1\" failed"
     else
-      echo "## Exited with $nixReturn"
+      echo "## Exited with $?"
     fi
   fi
 
