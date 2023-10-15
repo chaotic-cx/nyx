@@ -23,6 +23,16 @@ function bump-flake() {
   return 0
 }
 
+function bump-package() {
+  echo "Bumping $1"
+
+  for script in "${@:2}"; do
+    $script || return 0
+  done
+
+  return 0
+}
+
 function push() {
   git push origin "$NYX_BRANCH" -u
 }

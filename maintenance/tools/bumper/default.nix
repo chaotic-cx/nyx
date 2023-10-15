@@ -10,7 +10,7 @@
 , nyxRecursionHelper
 }:
 let
-  inherit (lib.strings) concatStringsSep;
+  inherit (lib.strings) concatStringsSep escapeShellArg;
   inherit (lib.lists) flatten;
 
   path = lib.makeBinPath [
@@ -24,10 +24,12 @@ let
 
   evalResult = k: v:
     if ((v.updateScript or null) != null) then
+      "bump-package ${escapeShellArg k} " + (
       if (builtins.isList v.updateScript) then
-        "${concatStringsSep " && " v.updateScript} # ${k}"
+        concatStringsSep " " (map escapeShellArg v.updateScript)
       else
-        "${v.updateScript} # ${k}"
+        escapeShellArg v.updateScript
+      )
     else null;
 
   skip = _k: _v: _message: null;
