@@ -37,9 +37,11 @@ function bump-package() {
     if ! (NYX_CHANGED_ONLY="git+file:$PWD?rev=$_PREV" \
         PHASES='prepare build-jobs no-fail' \
         nix develop --impure -c 'chaotic-nyx-build') \
-        && [ $? -eq 43 ]; then
+        && nixReturn=$? && [ $nixReturn -eq 43 ]; then
       git revert --no-commit "${_PREV}..HEAD"
       git commit -m "Bumping \"$1\" failed"
+    else
+      echo "Exited with $nixReturn"
     fi
   fi
 
