@@ -1,7 +1,7 @@
 function checkout() {
   git checkout -b "$NYX_BRANCH"
-  #git fetch origin
-  #git reset --hard origin/main
+  git fetch origin
+  git reset --hard origin/main
   return 0
 }
 

@@ -53,7 +53,7 @@ writeShellScriptBin "chaotic-nyx-bumper" ''
   NYX_BRANCH=''${NYX_BRANCH:-bump/$NYX_NAME}
 
   function bump-packages() {
-    bump-package 'glib_git' '/nix/store/dbc0hvsq26yk9nza05xb4kwlg6ca0rl1-update-glib-git'
+    ${concatStringsSep "\n  " packagesEvalSorted}
   }
 
   function default-phases () {
@@ -61,8 +61,8 @@ writeShellScriptBin "chaotic-nyx-bumper" ''
     bump-packages
     bump-flake
     push
-    #create-pr
-    #deploy-cache
+    create-pr
+    deploy-cache
   }
 
   PHASES=''${PHASES:-default-phases};
