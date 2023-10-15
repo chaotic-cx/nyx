@@ -13,18 +13,19 @@ function checkout() {
 }
 
 function bump-flake() {
-  local CHANGED=() CHANGED_CSV
   nix flake update
-  readarray -t CHANGED < <(git diff | rg -Po '(?<=^     ")([^"]+)(?=": {$)' | sed 's/-src$//;s/-git$//')
-  [[ "${#CHANGED[@]}" -lt 1 ]] && return 0
-  CHANGED_CSV=$(join_by ', ' "${CHANGED[@]}")
-  git add flake.lock
-  git commit -m "flake-${NYX_NAME}: $CHANGED_CSV"
-  return 0
+  if git diff --quiet --exit-code; then
+    return 0;
+  elif [ $? -eq 1 ]; then
+    echo 1;
+    git add flake.lock
+    git commit -m "flake: bump ${NYX_NAME}"
+    return 0
+  fi
 }
 
 function bump-package() {
-  echo "Bumping $1"
+  echo "# Bumping $1"
 
   _PREV=$(git rev-parse HEAD)
 
@@ -33,15 +34,16 @@ function bump-package() {
   done
 
   if [ "$_PREV" != $(git rev-parse HEAD) ]; then
-    echo "Building $1"
-    if ! (NYX_CHANGED_ONLY="git+file:$PWD?rev=$_PREV" \
+    echo "# Building $1"
+    if NYX_CHANGED_ONLY="git+file:$PWD?rev=$_PREV" \
         PHASES='prepare build-jobs no-fail' \
-        nix develop --impure -c 'chaotic-nyx-build') \
-        && nixReturn=$? && [ $nixReturn -eq 43 ]; then
+        nix develop --impure -c 'chaotic-nyx-build'; \
+    then return 0
+    elif [ $? -eq 43 ]; then
       git revert --no-commit "${_PREV}..HEAD"
       git commit -m "Bumping \"$1\" failed"
     else
-      echo "Exited with $nixReturn"
+      echo "## Exited with $nixReturn"
     fi
   fi
 
