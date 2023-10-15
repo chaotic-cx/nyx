@@ -15,7 +15,7 @@ permissions:
 
 # It's better for it to conflict with other builds and bumps
 concurrency:
-  group: nyx-main-bump
+  group: nyx-main-build
   cancel-in-progress: true
 
 jobs:

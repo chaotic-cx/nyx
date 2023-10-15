@@ -25,10 +25,10 @@ let
   evalResult = k: v:
     if ((v.updateScript or null) != null) then
       "bump-package ${escapeShellArg k} " + (
-      if (builtins.isList v.updateScript) then
-        concatStringsSep " " (map escapeShellArg v.updateScript)
-      else
-        escapeShellArg v.updateScript
+        if (builtins.isList v.updateScript) then
+          concatStringsSep " " (map escapeShellArg v.updateScript)
+        else
+          escapeShellArg v.updateScript
       )
     else null;
 
@@ -60,10 +60,11 @@ writeShellScriptBin "chaotic-nyx-bumper" ''
 
   function default-phases () {
     checkout
-    bump-flake
     bump-packages
+    bump-flake
     push
     create-pr
+    deploy-cache
   }
 
   PHASES=''${PHASES:-default-phases};

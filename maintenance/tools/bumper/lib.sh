@@ -26,9 +26,22 @@ function bump-flake() {
 function bump-package() {
   echo "Bumping $1"
 
+  _PREV=$(git rev-parse HEAD)
+
   for script in "${@:2}"; do
     $script || return 0
   done
+
+  if [ "$_PREV" != $(git rev-parse HEAD) ]; then
+    echo "Building $1"
+    if ! (NYX_CHANGED_ONLY="git+file:$PWD?rev=$_PREV" \
+        PHASES='prepare build-jobs no-fail' \
+        nix develop --impure -c 'chaotic-nyx-build' \
+        2>&1 1>/dev/null) && [ $? -eq 43 ]; then
+      git revert --no-commit "${_PREV}..HEAD"
+      git commit -m "Bumping \"$1\" failed"
+    fi
+  fi
 
   return 0
 }
@@ -41,4 +54,8 @@ function create-pr() {
   gh pr create -B main -H "$NYX_BRANCH" \
     --title "Bump $NYX_NAME" \
     --body 'Bump our packages since we do this daily.'
+}
+
+function deploy-cache() {
+  nix develop -c 'chaotic-nyx-build' || [ $? -eq 42 ]
 }

@@ -41,7 +41,9 @@ function prepare() {
 
   # Creates list of what to build when only building what changed
   if [ -n "${NYX_CHANGED_ONLY:-}" ]; then
-    _DIFF=$(nix build --no-link --print-out-paths --impure --expr "(builtins.getFlake \"$NYX_SOURCE\").devShells.${NYX_TARGET}-linux.comparer.passthru.any \"$NYX_CHANGED_ONLY\"" || exit 13)
+    _DIFF=$(NIXPKGS_ALLOW_UNFREE=1 nix build --no-link --print-out-paths --impure \
+      --expr "(builtins.getFlake \"$NYX_SOURCE\").devShells.${NYX_TARGET}.comparer.passthru.any \"$NYX_CHANGED_ONLY\"" \
+      || exit 13)
 
     ln -s "$_DIFF" filter.txt
   fi
@@ -107,6 +109,15 @@ function build() {
 function finish() {
   # Write EOF of the artifacts
   echo "}" >> new-failures.nix
+}
+
+# When you need to exit on failures
+function no-fail() {
+  if [ ! $(cat failures.txt | wc -l) -eq 0 ]; then
+    exit 43
+  fi
+
+  return 0
 }
 
 # Push logic
