@@ -5,10 +5,14 @@
 , gnused
 , nix
 , ripgrep
-, update-scripts
 , writeShellScriptBin
+, allPackages
+, nyxRecursionHelper
 }:
 let
+  inherit (lib.strings) concatStringsSep;
+  inherit (lib.lists) flatten;
+
   path = lib.makeBinPath [
     coreutils
     git
@@ -17,6 +21,21 @@ let
     gnused
     gh
   ];
+
+  evalResult = k: v:
+    if ((v.updateScript or null) != null) then
+      if (builtins.isList v.updateScript) then
+        "${concatStringsSep " && " v.updateScript} # ${k}"
+      else
+        "${v.updateScript} # ${k}"
+    else null;
+
+  skip = _k: _v: _message: null;
+
+  packagesEval = nyxRecursionHelper.derivationsLimited 2 skip evalResult allPackages;
+
+  packagesEvalSorted =
+    builtins.filter (x: x != null) (flatten packagesEval);
 in
 writeShellScriptBin "chaotic-nyx-bumper" ''
   #!/usr/bin/env bash
@@ -34,7 +53,7 @@ writeShellScriptBin "chaotic-nyx-bumper" ''
   NYX_BRANCH=''${NYX_BRANCH:-bump/$NYX_NAME}
 
   function bump-packages() {
-    (${update-scripts}/bin/chaotic-nyx-update-scripts) || true
+    ${concatStringsSep "\n  " packagesEvalSorted}
   }
 
   function default-phases () {

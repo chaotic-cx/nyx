@@ -47,14 +47,10 @@ let
           allPackages = nyxPkgs;
           inherit compareToFlakeUrl nyxRecursionHelper;
         };
-      update-scripts = callPackage ../tools/bumper/update-scripts.nix
+      bumper = callPackage ../tools/bumper
         {
           allPackages = nyxPkgs;
           inherit nyxRecursionHelper;
-        };
-      bumper = callPackage ../tools/bumper
-        {
-          inherit update-scripts;
         };
       linter = callPackage ../tools/linter { };
     in
@@ -76,7 +72,7 @@ let
         shellHook = "echo $NYX_COMPARED";
       };
       updater = mkShell {
-        buildInputs = [ update-scripts bumper ];
+        buildInputs = [ bumper ];
       };
       linter = mkShell {
         buildInputs = [ linter ];
