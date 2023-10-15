@@ -24,7 +24,7 @@ rec {
 
   # Helps when overriding.
   dropUpdateScript = prevAttrs:
-    { passthru = prevAttrs.passthru // { updateScript = null; }; };
+    { passthru = removeAttrs prevAttrs.passthru [ "updateScript" ]; };
 
   # NOTE: Don't use in your system's configuration, this helps in the repo's infra.
   # Checks if a derivation is in a list.
