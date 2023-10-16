@@ -2,9 +2,8 @@
 , coreutils
 , gh
 , git
-, gnused
 , nix
-, ripgrep
+, openssh
 , writeShellScriptBin
 , allPackages
 , nyxRecursionHelper
@@ -17,9 +16,8 @@ let
     coreutils
     git
     nix
-    ripgrep
-    gnused
     gh
+    openssh
   ];
 
   evalResult = k: v:
