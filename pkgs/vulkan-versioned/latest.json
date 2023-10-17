@@ -48,9 +48,9 @@
     "hash": "sha256-PoOSSu5oLQN1jkTOwJO+23OynjFGTZwqzWedjgVJyGA="
   },
   "vulkanExtensionLayer": {
-    "version": "1.3.267",
+    "version": "1.3.268",
     "rev": "v#{version}",
-    "hash": "sha256-+l3J5Xj/17B+Y8br6TQZ1m2EV2byueHv1qw/+k/4EUs=",
+    "hash": "sha256-BqAutiLF5/JdyfHUEU9GsvG9EXhDJ0gfNQ8U1+58wtQ=",
     "badTag": "v1.3.263"
   },
   "vulkanUtilityLibraries": {
