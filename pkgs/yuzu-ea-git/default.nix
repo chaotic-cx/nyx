@@ -20,10 +20,10 @@ let
     rev = "v6.70";
     hash = "sha256-y2GOR6yKIx7W5peFf5FzXlF2iJUfDE/RnMWjO/h/Ruk=";
   };
-  tzdataVer = "220816";
+  tzdataVer = "221202";
   tzdata = final.fetchurl {
     url = "https://github.com/lat9nq/tzdb_to_nx/releases/download/${tzdataVer}/${tzdataVer}.zip";
-    hash = "sha256-yv8ykEYPu9upeXovei0u16iqQ7NasH6873KnQy4+KwI=";
+    hash = "sha256-mRzW+iIwrU1zsxHmf+0RArU8BShAoEMvCz+McXFFK3c=";
   };
   vma = final.fetchFromGitHub {
     owner = "GPUOpen-LibrariesAndSDKs";
