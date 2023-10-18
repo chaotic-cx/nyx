@@ -1,8 +1,8 @@
 diff --git a/bin/mangohud.in b/bin/mangohud.in
-index b1a396c..4f0e64d 100755
+index 71f28a4..cef5e03 100755
 --- a/bin/mangohud.in
 +++ b/bin/mangohud.in
-@@ -8,10 +8,10 @@ if [ "$#" -eq 0 ]; then
+@@ -8,13 +8,13 @@ if [ "$#" -eq 0 ]; then
  	exit 1
  fi
  
@@ -10,12 +10,16 @@ index b1a396c..4f0e64d 100755
 +MANGOHUD_LIB_NAME="libMangoHud_opengl.so"
  
  if [ "$1" = "--dlsym" ]; then
--	MANGOHUD_LIB_NAME="@ld_libdir_mangohud@libMangoHud_dlsym.so:${MANGOHUD_LIB_NAME}"
-+	MANGOHUD_LIB_NAME="libMangoHud_dlsym.so:${MANGOHUD_LIB_NAME}"
- 	shift
+-    MANGOHUD_LIB_NAME="@ld_libdir_mangohud@libMangoHud_dlsym.so:${MANGOHUD_LIB_NAME}"
++    MANGOHUD_LIB_NAME="libMangoHud_dlsym.so:${MANGOHUD_LIB_NAME}"
+     shift  # shift will only be executed if $1 is "--dlsym"
+ elif [ "$MANGOHUD_DLSYM" = "1" ]; then
+-    MANGOHUD_LIB_NAME="@ld_libdir_mangohud@libMangoHud_dlsym.so:${MANGOHUD_LIB_NAME}"
++    MANGOHUD_LIB_NAME="libMangoHud_dlsym.so:${MANGOHUD_LIB_NAME}"
  fi
  
-@@ -26,5 +26,7 @@ case ":${LD_PRELOAD-}:" in
+ if [ "$1" = "--version" ]; then
+@@ -33,5 +33,7 @@ case ":${LD_PRELOAD-}:" in
          LD_PRELOAD="${LD_PRELOAD:+$LD_PRELOAD:}${MANGOHUD_LIB_NAME}"
  esac
  
