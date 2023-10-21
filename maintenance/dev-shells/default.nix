@@ -17,12 +17,16 @@ let
 
       nyxRecursionHelper = callPackage ../../shared/recursion-helper.nix { };
 
+      # 2.18 is a mess
+      pinnedNix = pkgs.nixVersions.nix_2_17;
+
       builder = callPackage ../tools/builder
         {
           allPackages = nyxPkgs;
           flakeSelf = self;
           inherit nyxRecursionHelper;
           inherit (pkgs) nyxUtils;
+          nix = pinnedNix;
         };
       documentation = callPackage ../tools/document
         {
@@ -51,6 +55,7 @@ let
         {
           allPackages = nyxPkgs;
           inherit nyxRecursionHelper;
+          nix = pinnedNix;
         };
       linter = callPackage ../tools/linter { };
     in
