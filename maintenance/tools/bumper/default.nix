@@ -62,7 +62,6 @@ writeShellScriptBin "chaotic-nyx-bumper" ''
     bump-flake
     push
     create-pr
-    deploy-cache
   }
 
   PHASES=''${PHASES:-default-phases};
