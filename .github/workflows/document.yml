@@ -25,6 +25,7 @@ jobs:
         uses: cachix/install-nix-action@v23
         with:
           extra_nix_config: "accept-flake-config = true"
+          install_url: https://releases.nixos.org/nix/nix-2.18.1/install
       - name: Build
         id: build
         run: |

@@ -18,6 +18,7 @@ jobs:
         with:
           extra_nix_config: "accept-flake-config = true"
           nix_path: "nixpkgs=channel:nixpkgs-unstable"
+          install_url: https://releases.nixos.org/nix/nix-2.18.1/install
       - name: Checkout code
         uses: actions/checkout@v4
         with:
