@@ -7,7 +7,7 @@ gitOverride {
   versionNyxPath = "pkgs/nix-flake-schemas-git/version.json";
   fetcher = "fetchFromGitHub";
   fetcherData = {
-    owner = "DeterminateSystems";
+    owner = "PedroHLC";
     repo = "nix";
   };
   ref = "flake-schemas";
