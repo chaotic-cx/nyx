@@ -1,6 +1,7 @@
 { cachyVersions
 , cachyFlavor
 , callPackage
+, nyxUtils
 , fetchFromGitHub
 , fetchurl
 , lib
@@ -65,6 +66,7 @@ in
       needsCifsUtils = true;
       netfilterRPFilter = true;
     };
-    updateScript = callPackage ./update.nix { };
-  };
+  } // nyxUtils.optionalAttr "updateScript"
+    (cachyFlavor.taste == "linux-cachyos")
+    (callPackage ./update.nix { });
 })

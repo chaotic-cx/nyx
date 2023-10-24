@@ -63,6 +63,10 @@ rec {
     (accu: accu.overrideAttrs)
     (prev.override newInputs);
 
+  # Single-value optional attr
+  optionalAttr = key: pred: value:
+    if pred then { "${key}" = value; } else { };
+
   # Helps when overriding.
   overrideDescription = descriptionMap: prevAttrs: {
     meta = (rejectAttr "longDescription" prevAttrs.meta) // {
