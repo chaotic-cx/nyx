@@ -16,9 +16,9 @@
     "hash": "sha256-UIk5hihUPjXNzEeO2laS4dUef/rEExxXAZjMcftx+3A="
   },
   "spirvHeaders": {
-    "version": "1.3.261.1",
-    "rev": "sdk-#{version}",
-    "hash": "sha256-P/ZD53Xa4Fk9+N/bW5HhsfA+LjUnCbBsQDHvXesKu5M="
+    "version": "ulkan-sdk-1.3.268.0",
+    "rev": "v#{version}",
+    "hash": "sha256-uOnSTih14bUPtrJgp7vVb3/UfdKsF6jFQqjlFeJ81AI="
   },
   "spirvTools": {
     "version": "1.3.261.0",
