@@ -1,8 +1,8 @@
 {
   "gfxreconstruct": {
-    "version": "1.3.261.1",
-    "rev": "sdk-#{version}",
-    "hash": "sha256-Tji6Xrw1gZlSfXl2UhvbPQWLb7zswFUEnCMRPfsHhuk="
+    "version": "ulkan-sdk-1.3.268.0",
+    "rev": "v#{version}",
+    "hash": "sha256-MFTjzH8jj0q9AsMxWITT+HdGnPGRW0rfnSLfupjaQ34="
   },
   "glslang": {
     "version": "13.1.1",
