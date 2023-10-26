@@ -26,19 +26,21 @@ function bump-package() {
     $script || return 0
   done
 
-  _CURR=$(git rev-parse HEAD)
-  if [ "$_PREV" != "$_CURR" ]; then
-    echo "# Building $1"
-    if NYX_CHANGED_ONLY="git+file:$PWD?rev=$_PREV" \
-        PHASES='prepare build-jobs no-fail' \
-        nix develop --impure -c 'chaotic-nyx-build'; \
-    then return 0
-    elif [ $? -eq 43 ]; then
-      echo "## Failed, reverting ${_PREV}..${_CURR}"
-      git revert --no-commit "${_PREV}..${_CURR}"
-      git commit -m "Bumping \"$1\" failed"
-    else
-      echo "## Exited with $?"
+  if [ "${NYX_BUMP_REVERT:-1}" != '0' ]; then
+    _CURR=$(git rev-parse HEAD)
+    if [ "$_PREV" != "$_CURR" ]; then
+      echo "# Building $1"
+      if NYX_CHANGED_ONLY="git+file:$PWD?rev=$_PREV" \
+          PHASES='prepare build-jobs no-fail' \
+          nix develop --impure -c 'chaotic-nyx-build'; \
+      then return 0
+      elif [ $? -eq 43 ]; then
+        echo "## Failed, reverting ${_PREV}..${_CURR}"
+        git revert --no-commit "${_PREV}..${_CURR}"
+        git commit -m "Bumping \"$1\" failed"
+      else
+        echo "## Exited with $?"
+      fi
     fi
   fi
 
