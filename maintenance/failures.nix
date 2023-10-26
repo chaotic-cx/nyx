@@ -21,4 +21,5 @@
   "linuxPackages_cachyos.system76-acpi" = "/nix/store/nlr20hrp5lfrpqm5yn2jycn69f9s3627-system76-acpi-module-1.0.2-6.5.9";
   "linuxPackages_cachyos.virtio_vmmci" = "/nix/store/j3v2zflibnkrkhw57wpdkxpjpk0hh7yl-virtio_vmmci";
   "linuxPackages_cachyos.virtualboxGuestAdditions" = "/nix/store/m839ybk9m4lmld65pncc2jnyak1h6j2p-VirtualBox-GuestAdditions-7.0.10-6.5.9";
+  "vulkanPackages_latest.vulkan-validation-layers" = "/nix/store/isns0frkbj9qs52fvjgjxvwgmqg0gv45-vulkan-validation-layers-1.3.261.1";
 }
