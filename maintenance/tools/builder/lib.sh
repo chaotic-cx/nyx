@@ -136,7 +136,7 @@ function deploy() {
     # Pin packages
     if [ -e to-pin.txt ]; then
       cat to-pin.txt | xargs -n 2 \
-        cachix -v pin chaotic-nyx
+        cachix -v pin chaotic-nyx --keep-revisions 2
     fi
   else
     echo_error "Nothing to push."
