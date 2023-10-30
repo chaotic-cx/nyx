@@ -44,7 +44,7 @@ jobs:
               push chaotic-nyx --compression-method zstd
           [ -e "${{ runner.temp }}/to-pin.txt" ] && \
             (cat "${{ runner.temp }}/to-pin.txt" | xargs -n 2 \
-              nix run --inputs-from . nixpkgs#cachix -- -v pin chaotic-nyx)
+              nix run --inputs-from . nixpkgs#cachix -- -v pin chaotic-nyx --keep-revisions 7)
           failed_builds="$(cat ${{ runner.temp }}/failures.txt | sed 's/^/    <li>/; s/$/<\/li>/')"
           failed_builds_count="$(cat ${{ runner.temp }}/failures.txt | wc -l)"
           echo "FAILED_BUILDS_COUNT=$failed_builds_count
