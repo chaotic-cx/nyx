@@ -184,7 +184,7 @@ jobs:
     needs: docs
     uses: ./.github/workflows/flakehub-publish-rolling.yml
     if: needs.build.outputs.pushed == 'true'
-  flakestry:
-    needs: docs
-    uses: ./.github/workflows/flakestry-publish-rolling.yml
-    if: needs.build.outputs.pushed == 'true'
+  # flakestry:
+  #   needs: docs
+  #   uses: ./.github/workflows/flakestry-publish-rolling.yml
+  #   if: needs.build.outputs.pushed == 'true'
