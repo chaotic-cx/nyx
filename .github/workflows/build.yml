@@ -180,7 +180,11 @@ jobs:
     needs: build
     uses: ./.github/workflows/document.yml
     if: needs.build.outputs.pushed == 'true'
-  fh:
+  flakehub:
     needs: docs
     uses: ./.github/workflows/flakehub-publish-rolling.yml
+    if: needs.build.outputs.pushed == 'true'
+  flakestry:
+    needs: docs
+    uses: ./.github/workflows/flakestry-publish-rolling.yml
     if: needs.build.outputs.pushed == 'true'
