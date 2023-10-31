@@ -1,4 +1,4 @@
-name: "Publish a flake to flakestry"
+name: "Publish into Flakestry"
 on:
   push:
     branches:
@@ -13,6 +13,10 @@ jobs:
       id-token: "write"
       contents: "read"
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: nyxpkgs-unstable
       - name: Retrieve commit count
         run: echo "COMMITS=$(git rev-list --count nyxpkgs-unstable)" >> $GITHUB_ENV
       - uses: flakestry/flakestry-publish@main
