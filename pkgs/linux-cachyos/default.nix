@@ -43,8 +43,7 @@ in
     })
     [
       "${patches-src}/${major}/all/0001-cachyos-base-all.patch"
-      "${patches-src}/${major}/sched/0001-EEVDF-cachy.patch"
-      "${patches-src}/${major}/sched/0001-bore-eevdf.patch"
+      "${patches-src}/${major}/sched/0001-bore-cachy.patch"
       "${patches-src}/${major}/misc/0001-Add-extra-version-CachyOS.patch"
       "${patches-src}/${major}/misc/0001-bcachefs.patch"
     ];

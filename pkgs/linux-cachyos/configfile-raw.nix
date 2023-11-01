@@ -33,23 +33,29 @@ let
     # _cpusched, defaults to "cachyos"
     "-e SCHED_BORE"
 
+    # _nr_cpus, defaults to empty, which later set this
+    "--set-val NR_CPUS 320"
+
+    # _per_gov, defaults to empty [but PERSONAL CHANGE to "y"]
+    "-d CPU_FREQ_DEFAULT_GOV_SCHEDUTIL"
+    "-e CPU_FREQ_DEFAULT_GOV_PERFORMANCE"
+
+    # _tcp_bbr3, defaults to "y"
+    "-m TCP_CONG_CUBIC"
+    "-d DEFAULT_CUBIC"
+    "-e TCP_CONG_BBR"
+    "-e DEFAULT_BBR"
+    "--set-str DEFAULT_TCP_CONG bbr"
+    "-m NET_SCH_FQ_CODEL"
+    "-e NET_SCH_FQ"
+    "-d DEFAULT_FQ_CODEL"
+    "-e DEFAULT_FQ"
+    "--set-str DEFAULT_NET_SCH fq"
+
     # _HZ_ticks, defaults to "500"
     "-d HZ_300"
     "--set-val HZ 500"
     "-e HZ_500"
-
-    # _nr_cpus, defaults to empty, which later set this
-    "--set-val NR_CPUS 320"
-
-    # _mq_deadline_disable, defaults to "y"
-    "-d MQ_IOSCHED_DEADLINE"
-
-    # _mq_deadline_disable, defaults to "y"
-    "-d MQ_IOSCHED_KYBER"
-
-    # _per_gov, defaults to "y"
-    "-d CPU_FREQ_DEFAULT_GOV_SCHEDUTIL"
-    "-e CPU_FREQ_DEFAULT_GOV_PERFORMANCE"
 
     # _tickrate defaults to "full"
     "-d HZ_PERIODIC"
@@ -74,13 +80,6 @@ let
     "-d CC_OPTIMIZE_FOR_PERFORMANCE"
     "-e CC_OPTIMIZE_FOR_PERFORMANCE_O3"
 
-    # _tcp_bbr2, defaults to "y"
-    "-m TCP_CONG_CUBIC"
-    "-d DEFAULT_CUBIC"
-    "-e TCP_CONG_BBR2"
-    "-e DEFAULT_BBR2"
-    "--set-val DEFAULT_TCP_CONG bbr2"
-
     # _lru_config, defaults to "standard"
     "-e LRU_GEN"
     "-e LRU_GEN_ENABLED"
@@ -93,6 +92,8 @@ let
     # _hugepage, defaults to "always"
     "-d TRANSPARENT_HUGEPAGE_MADVISE"
     "-e TRANSPARENT_HUGEPAGE_ALWAYS"
+
+    #_use_auto_optimization, defaults to "y" [but GENERIC to ""]
   ];
 in
 stdenv.mkDerivation {
