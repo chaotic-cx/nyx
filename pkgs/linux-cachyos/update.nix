@@ -69,7 +69,7 @@ writeShellScript "update-cachyos" ''
   cat "$(nix build '.#packages.x86_64-linux.linux-hardened_cachyos.cachyFlavor.baked' --no-link --print-out-paths)" \
     > pkgs/linux-cachyos/config-x86_64-linux-hardened.nix
 
-  git add $srcJson
+  git add $srcJson pkgs/linux-cachyos/config-*.nix
   git commit -m "linux_cachyos: $localVer -> $latestVer"
 ''
 
