@@ -1,0 +1,2469 @@
+From 2099d31d1a9fb969b7d781d64d4ed48a17ddd4db Mon Sep 17 00:00:00 2001
+From: Andrea Feletto <andrea@andreafeletto.com>
+Date: Fri, 3 Mar 2023 23:01:23 +0100
+Subject: [PATCH 1/7] WIP
+
+---
+ include/remotedesktop.h                       |   6 +
+ include/remotedesktop_common.h                |  35 ++
+ include/wlr_virtual_pointer.h                 |  15 +
+ include/xdpw.h                                |   6 +
+ meson.build                                   |   2 +
+ protocols/meson.build                         |   2 +
+ protocols/virtual-keyboard-unstable-v1.xml    | 113 +++++
+ protocols/wlr-virtual-pointer-unstable-v1.xml | 152 ++++++
+ src/core/main.c                               |   8 +
+ src/remotedesktop/remotedesktop.c             | 433 ++++++++++++++++++
+ src/remotedesktop/wlr_virtual_pointer.c       |  62 +++
+ wlr.portal                                    |   2 +-
+ 12 files changed, 835 insertions(+), 1 deletion(-)
+ create mode 100644 include/remotedesktop.h
+ create mode 100644 include/remotedesktop_common.h
+ create mode 100644 include/wlr_virtual_pointer.h
+ create mode 100644 protocols/virtual-keyboard-unstable-v1.xml
+ create mode 100644 protocols/wlr-virtual-pointer-unstable-v1.xml
+ create mode 100644 src/remotedesktop/remotedesktop.c
+ create mode 100644 src/remotedesktop/wlr_virtual_pointer.c
+
+diff --git a/include/remotedesktop.h b/include/remotedesktop.h
+new file mode 100644
+index 00000000..9fe8cc06
+--- /dev/null
++++ b/include/remotedesktop.h
+@@ -0,0 +1,6 @@
++#ifndef REMOTE_DESKTOP_H
++#define REMOTE_DESKTOP_H
++
++#include "remotedesktop_common.h"
++
++#endif
+diff --git a/include/remotedesktop_common.h b/include/remotedesktop_common.h
+new file mode 100644
+index 00000000..59ee3449
+--- /dev/null
++++ b/include/remotedesktop_common.h
+@@ -0,0 +1,35 @@
++#ifndef REMOTEDESKTOP_COMMON_H
++#define REMOTEDESKTOP_COMMON_H
++
++#include <stdbool.h>
++#include <time.h>
++
++#include "wlr-virtual-pointer-unstable-v1-client-protocol.h"
++#include <wayland-client-protocol.h>
++
++#define XDP_REMOTE_PROTO_VER 1
++
++struct xdpw_remotedesktop_context {
++	// xdpw
++	struct xdpw_state *state;
++
++	// wlroots
++	struct wl_registry *registry;
++	struct zwlr_virtual_pointer_manager_v1 *virtual_pointer_manager;
++
++	// sessions
++	struct wl_list remotedesktop_instances;
++};
++
++struct xdpw_remotedesktop_session_data {
++	struct zwlr_virtual_pointer_v1 *virtual_pointer;
++	struct timespec t_start;
++};
++
++enum device_types {
++  KEYBOARD = 1,
++  POINTER = 2,
++	TOUCHSCREEN = 4,
++};
++
++#endif
+diff --git a/include/wlr_virtual_pointer.h b/include/wlr_virtual_pointer.h
+new file mode 100644
+index 00000000..e42f7bd1
+--- /dev/null
++++ b/include/wlr_virtual_pointer.h
+@@ -0,0 +1,15 @@
++#ifndef WLR_VIRTUAL_POINTER_H
++#define WLR_VIRTUAL_POINTER_H
++
++#define VIRTUAL_POINTER_VERSION 2
++#define VIRTUAL_POINTER_VERSION_MIN 1
++
++#include "remotedesktop_common.h"
++
++struct xdpw_state;
++
++int xdpw_wlr_virtual_pointer_init(struct xdpw_state *state);
++
++void xdpw_wlr_virtual_pointer_finish(struct xdpw_remotedesktop_context *ctx);
++
++#endif
+diff --git a/include/xdpw.h b/include/xdpw.h
+index 3b956910..098a683f 100644
+--- a/include/xdpw.h
++++ b/include/xdpw.h
+@@ -12,6 +12,7 @@
+ 
+ #include "screencast_common.h"
+ #include "screenshot_common.h"
++#include "remotedesktop_common.h"
+ #include "config.h"
+ 
+ struct xdpw_state {
+@@ -24,6 +25,9 @@ struct xdpw_state {
+ 	uint32_t screencast_cursor_modes; // bitfield of enum cursor_modes
+ 	uint32_t screencast_version;
+ 	uint32_t screenshot_version;
++	struct xdpw_remotedesktop_context remotedesktop;
++	uint32_t remotedesktop_version;
++	uint32_t remotedesktop_available_device_types;
+ 	struct xdpw_config *config;
+ 	int timer_poll_fd;
+ 	struct wl_list timers;
+@@ -39,6 +43,7 @@ struct xdpw_session {
+ 	sd_bus_slot *slot;
+ 	char *session_handle;
+ 	struct xdpw_screencast_session_data screencast_data;
++	struct xdpw_remotedesktop_session_data remotedesktop_data;
+ };
+ 
+ typedef void (*xdpw_event_loop_timer_func_t)(void *data);
+@@ -59,6 +64,7 @@ enum {
+ 
+ int xdpw_screenshot_init(struct xdpw_state *state);
+ int xdpw_screencast_init(struct xdpw_state *state);
++int xdpw_remotedesktop_init(struct xdpw_state *state);
+ 
+ struct xdpw_request *xdpw_request_create(sd_bus *bus, const char *object_path);
+ void xdpw_request_destroy(struct xdpw_request *req);
+diff --git a/meson.build b/meson.build
+index e6e93468..c5aa205f 100644
+--- a/meson.build
++++ b/meson.build
+@@ -77,6 +77,8 @@ xdpw_files = files([
+ 	'src/screencast/wlr_screencast.c',
+ 	'src/screencast/pipewire_screencast.c',
+ 	'src/screencast/fps_limit.c',
++	'src/remotedesktop/remotedesktop.c',
++	'src/remotedesktop/wlr_virtual_pointer.c',
+ ])
+ 
+ executable(
+diff --git a/protocols/meson.build b/protocols/meson.build
+index f4a76ae2..79ed2c6b 100644
+--- a/protocols/meson.build
++++ b/protocols/meson.build
+@@ -13,7 +13,9 @@ endif
+ client_protocols = [
+ 	wl_protocol_dir / 'unstable/linux-dmabuf/linux-dmabuf-unstable-v1.xml',
+ 	wl_protocol_dir / 'unstable/xdg-output/xdg-output-unstable-v1.xml',
++	'virtual-keyboard-unstable-v1.xml',
+ 	'wlr-screencopy-unstable-v1.xml',
++	'wlr-virtual-pointer-unstable-v1.xml',
+ ]
+ 
+ wl_proto_files = []
+diff --git a/protocols/virtual-keyboard-unstable-v1.xml b/protocols/virtual-keyboard-unstable-v1.xml
+new file mode 100644
+index 00000000..5095c91b
+--- /dev/null
++++ b/protocols/virtual-keyboard-unstable-v1.xml
+@@ -0,0 +1,113 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<protocol name="virtual_keyboard_unstable_v1">
++  <copyright>
++    Copyright © 2008-2011  Kristian Høgsberg
++    Copyright © 2010-2013  Intel Corporation
++    Copyright © 2012-2013  Collabora, Ltd.
++    Copyright © 2018       Purism SPC
++
++    Permission is hereby granted, free of charge, to any person obtaining a
++    copy of this software and associated documentation files (the "Software"),
++    to deal in the Software without restriction, including without limitation
++    the rights to use, copy, modify, merge, publish, distribute, sublicense,
++    and/or sell copies of the Software, and to permit persons to whom the
++    Software is furnished to do so, subject to the following conditions:
++
++    The above copyright notice and this permission notice (including the next
++    paragraph) shall be included in all copies or substantial portions of the
++    Software.
++
++    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++    THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
++    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
++    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
++    DEALINGS IN THE SOFTWARE.
++  </copyright>
++
++  <interface name="zwp_virtual_keyboard_v1" version="1">
++    <description summary="virtual keyboard">
++      The virtual keyboard provides an application with requests which emulate
++      the behaviour of a physical keyboard.
++
++      This interface can be used by clients on its own to provide raw input
++      events, or it can accompany the input method protocol.
++    </description>
++
++    <request name="keymap">
++      <description summary="keyboard mapping">
++        Provide a file descriptor to the compositor which can be
++        memory-mapped to provide a keyboard mapping description.
++
++        Format carries a value from the keymap_format enumeration.
++      </description>
++      <arg name="format" type="uint" summary="keymap format"/>
++      <arg name="fd" type="fd" summary="keymap file descriptor"/>
++      <arg name="size" type="uint" summary="keymap size, in bytes"/>
++    </request>
++
++    <enum name="error">
++      <entry name="no_keymap" value="0" summary="No keymap was set"/>
++    </enum>
++
++    <request name="key">
++      <description summary="key event">
++        A key was pressed or released.
++        The time argument is a timestamp with millisecond granularity, with an
++        undefined base. All requests regarding a single object must share the
++        same clock.
++
++        Keymap must be set before issuing this request.
++
++        State carries a value from the key_state enumeration.
++      </description>
++      <arg name="time" type="uint" summary="timestamp with millisecond granularity"/>
++      <arg name="key" type="uint" summary="key that produced the event"/>
++      <arg name="state" type="uint" summary="physical state of the key"/>
++    </request>
++
++    <request name="modifiers">
++      <description summary="modifier and group state">
++        Notifies the compositor that the modifier and/or group state has
++        changed, and it should update state.
++
++        The client should use wl_keyboard.modifiers event to synchronize its
++        internal state with seat state.
++
++        Keymap must be set before issuing this request.
++      </description>
++      <arg name="mods_depressed" type="uint" summary="depressed modifiers"/>
++      <arg name="mods_latched" type="uint" summary="latched modifiers"/>
++      <arg name="mods_locked" type="uint" summary="locked modifiers"/>
++      <arg name="group" type="uint" summary="keyboard layout"/>
++    </request>
++
++    <request name="destroy" type="destructor" since="1">
++      <description summary="destroy the virtual keyboard keyboard object"/>
++    </request>
++  </interface>
++
++  <interface name="zwp_virtual_keyboard_manager_v1" version="1">
++    <description summary="virtual keyboard manager">
++      A virtual keyboard manager allows an application to provide keyboard
++      input events as if they came from a physical keyboard.
++    </description>
++
++    <enum name="error">
++      <entry name="unauthorized" value="0" summary="client not authorized to use the interface"/>
++    </enum>
++
++    <request name="create_virtual_keyboard">
++      <description summary="Create a new virtual keyboard">
++        Creates a new virtual keyboard associated to a seat.
++
++        If the compositor enables a keyboard to perform arbitrary actions, it
++        should present an error when an untrusted client requests a new
++        keyboard.
++      </description>
++      <arg name="seat" type="object" interface="wl_seat"/>
++      <arg name="id" type="new_id" interface="zwp_virtual_keyboard_v1"/>
++    </request>
++  </interface>
++</protocol>
+diff --git a/protocols/wlr-virtual-pointer-unstable-v1.xml b/protocols/wlr-virtual-pointer-unstable-v1.xml
+new file mode 100644
+index 00000000..ea243e7c
+--- /dev/null
++++ b/protocols/wlr-virtual-pointer-unstable-v1.xml
+@@ -0,0 +1,152 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<protocol name="wlr_virtual_pointer_unstable_v1">
++  <copyright>
++    Copyright © 2019 Josef Gajdusek
++
++    Permission is hereby granted, free of charge, to any person obtaining a
++    copy of this software and associated documentation files (the "Software"),
++    to deal in the Software without restriction, including without limitation
++    the rights to use, copy, modify, merge, publish, distribute, sublicense,
++    and/or sell copies of the Software, and to permit persons to whom the
++    Software is furnished to do so, subject to the following conditions:
++
++    The above copyright notice and this permission notice (including the next
++    paragraph) shall be included in all copies or substantial portions of the
++    Software.
++
++    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++    THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
++    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
++    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
++    DEALINGS IN THE SOFTWARE.
++  </copyright>
++
++  <interface name="zwlr_virtual_pointer_v1" version="2">
++    <description summary="virtual pointer">
++      This protocol allows clients to emulate a physical pointer device. The
++      requests are mostly mirror opposites of those specified in wl_pointer.
++    </description>
++
++    <enum name="error">
++      <entry name="invalid_axis" value="0"
++        summary="client sent invalid axis enumeration value" />
++      <entry name="invalid_axis_source" value="1"
++        summary="client sent invalid axis source enumeration value" />
++    </enum>
++
++    <request name="motion">
++      <description summary="pointer relative motion event">
++        The pointer has moved by a relative amount to the previous request.
++
++        Values are in the global compositor space.
++      </description>
++      <arg name="time" type="uint" summary="timestamp with millisecond granularity"/>
++      <arg name="dx" type="fixed" summary="displacement on the x-axis"/>
++      <arg name="dy" type="fixed" summary="displacement on the y-axis"/>
++    </request>
++
++    <request name="motion_absolute">
++      <description summary="pointer absolute motion event">
++        The pointer has moved in an absolute coordinate frame.
++
++        Value of x can range from 0 to x_extent, value of y can range from 0
++        to y_extent.
++      </description>
++      <arg name="time" type="uint" summary="timestamp with millisecond granularity"/>
++      <arg name="x" type="uint" summary="position on the x-axis"/>
++      <arg name="y" type="uint" summary="position on the y-axis"/>
++      <arg name="x_extent" type="uint" summary="extent of the x-axis"/>
++      <arg name="y_extent" type="uint" summary="extent of the y-axis"/>
++    </request>
++
++    <request name="button">
++      <description summary="button event">
++        A button was pressed or released.
++      </description>
++      <arg name="time" type="uint" summary="timestamp with millisecond granularity"/>
++      <arg name="button" type="uint" summary="button that produced the event"/>
++      <arg name="state" type="uint" enum="wl_pointer.button_state" summary="physical state of the button"/>
++    </request>
++
++    <request name="axis">
++      <description summary="axis event">
++        Scroll and other axis requests.
++      </description>
++      <arg name="time" type="uint" summary="timestamp with millisecond granularity"/>
++      <arg name="axis" type="uint" enum="wl_pointer.axis" summary="axis type"/>
++      <arg name="value" type="fixed" summary="length of vector in touchpad coordinates"/>
++    </request>
++
++    <request name="frame">
++      <description summary="end of a pointer event sequence">
++        Indicates the set of events that logically belong together.
++      </description>
++    </request>
++
++    <request name="axis_source">
++      <description summary="axis source event">
++        Source information for scroll and other axis.
++      </description>
++      <arg name="axis_source" type="uint" enum="wl_pointer.axis_source" summary="source of the axis event"/>
++    </request>
++
++    <request name="axis_stop">
++      <description summary="axis stop event">
++        Stop notification for scroll and other axes.
++      </description>
++      <arg name="time" type="uint" summary="timestamp with millisecond granularity"/>
++      <arg name="axis" type="uint" enum="wl_pointer.axis" summary="the axis stopped with this event"/>
++    </request>
++
++    <request name="axis_discrete">
++      <description summary="axis click event">
++        Discrete step information for scroll and other axes.
++
++        This event allows the client to extend data normally sent using the axis
++        event with discrete value.
++      </description>
++      <arg name="time" type="uint" summary="timestamp with millisecond granularity"/>
++      <arg name="axis" type="uint" enum="wl_pointer.axis" summary="axis type"/>
++      <arg name="value" type="fixed" summary="length of vector in touchpad coordinates"/>
++      <arg name="discrete" type="int" summary="number of steps"/>
++    </request>
++
++    <request name="destroy" type="destructor" since="1">
++      <description summary="destroy the virtual pointer object"/>
++    </request>
++  </interface>
++
++  <interface name="zwlr_virtual_pointer_manager_v1" version="2">
++    <description summary="virtual pointer manager">
++      This object allows clients to create individual virtual pointer objects.
++    </description>
++
++    <request name="create_virtual_pointer">
++      <description summary="Create a new virtual pointer">
++        Creates a new virtual pointer. The optional seat is a suggestion to the
++        compositor.
++      </description>
++      <arg name="seat" type="object" interface="wl_seat" allow-null="true"/>
++      <arg name="id" type="new_id" interface="zwlr_virtual_pointer_v1"/>
++    </request>
++
++    <request name="destroy" type="destructor" since="1">
++      <description summary="destroy the virtual pointer manager"/>
++    </request>
++
++    <!-- Version 2 additions -->
++    <request name="create_virtual_pointer_with_output" since="2">
++      <description summary="Create a new virtual pointer">
++        Creates a new virtual pointer. The seat and the output arguments are
++        optional. If the seat argument is set, the compositor should assign the
++        input device to the requested seat. If the output argument is set, the
++        compositor should map the input device to the requested output.
++      </description>
++      <arg name="seat" type="object" interface="wl_seat" allow-null="true"/>
++      <arg name="output" type="object" interface="wl_output" allow-null="true"/>
++      <arg name="id" type="new_id" interface="zwlr_virtual_pointer_v1"/>
++    </request>
++  </interface>
++</protocol>
+diff --git a/src/core/main.c b/src/core/main.c
+index 935a3d70..f81a7e29 100644
+--- a/src/core/main.c
++++ b/src/core/main.c
+@@ -120,6 +120,8 @@ int main(int argc, char *argv[]) {
+ 		.screencast_cursor_modes = HIDDEN | EMBEDDED,
+ 		.screencast_version = XDP_CAST_PROTO_VER,
+ 		.screenshot_version = XDP_SHOT_PROTO_VER,
++		.remotedesktop_available_device_types = POINTER,
++		.remotedesktop_version = XDP_REMOTE_PROTO_VER,
+ 		.config = &config,
+ 	};
+ 
+@@ -137,6 +139,12 @@ int main(int argc, char *argv[]) {
+ 		goto error;
+ 	}
+ 
++	ret = xdpw_remotedesktop_init(&state);
++	if (ret < 0) {
++		logprint(ERROR, "xdpw: failed to initialize remotedesktop");
++		goto error;
++	}
++
+ 	uint64_t flags = SD_BUS_NAME_ALLOW_REPLACEMENT;
+ 	if (replace) {
+ 		flags |= SD_BUS_NAME_REPLACE_EXISTING;
+diff --git a/src/remotedesktop/remotedesktop.c b/src/remotedesktop/remotedesktop.c
+new file mode 100644
+index 00000000..c76304c0
+--- /dev/null
++++ b/src/remotedesktop/remotedesktop.c
+@@ -0,0 +1,433 @@
++#include "remotedesktop.h"
++
++#include <time.h>
++
++#include "wlr_virtual_pointer.h"
++#include "xdpw.h"
++
++static const char object_path[] = "/org/freedesktop/portal/desktop";
++static const char interface_name[] = "org.freedesktop.impl.portal.RemoteDesktop";
++
++static uint32_t get_timestamp_ms(struct xdpw_remotedesktop_session_data *remote) {
++	struct timespec *t_start, t_stop;
++
++	t_start = &remote->t_start;
++	clock_gettime(CLOCK_REALTIME, &t_stop);
++
++	return 1000 * (t_stop.tv_sec - t_start->tv_sec) +
++		(t_stop.tv_nsec - t_start->tv_nsec) / 1000000;
++}
++
++static int method_remotedesktop_create_session(sd_bus_message *msg, void *data,
++		sd_bus_error *ret_error) {
++	struct xdpw_state *state = data;
++
++	int ret = 0;
++	char *request_handle, *session_handle, *app_id, *key;
++	struct xdpw_request *req;
++	struct xdpw_session *sess;
++
++	logprint(DEBUG, "remotedesktop: dbus: create session: method invoked");
++
++	ret = sd_bus_message_read(msg, "oos", &request_handle, &session_handle, &app_id);
++	if (ret < 0) {
++		return ret;
++	}
++
++	logprint(DEBUG, "remotedesktop: dbus: create session: request_handle: %s", request_handle);
++	logprint(DEBUG, "remotedesktop: dbus: create session: session_handle: %s", session_handle);
++	logprint(DEBUG, "remotedesktop: dbus: create session: app_id: %s", app_id);
++
++	ret = sd_bus_message_enter_container(msg, 'a', "{sv}");
++	if (ret < 0) {
++		return ret;
++	}
++	while ((ret = sd_bus_message_enter_container(msg, 'e', "sv")) > 0) {
++		ret = sd_bus_message_read(msg, "s", &key);
++		if (ret < 0) {
++			return ret;
++		}
++
++		if (strcmp(key, "session_handle_token") == 0) {
++			char *token;
++			sd_bus_message_read(msg, "v", "s", &token);
++			logprint(DEBUG, "remotedesktop: dbus: create session: session handle token: %s", token);
++		} else {
++			logprint(WARN, "remotedesktop: dbus: create session: unknown option: %s", key);
++			sd_bus_message_skip(msg, "v");
++		}
++
++		ret = sd_bus_message_exit_container(msg);
++		if (ret < 0) {
++			return ret;
++		}
++	}
++	if (ret < 0) {
++		return ret;
++	}
++
++	ret = sd_bus_message_exit_container(msg);
++	if (ret < 0) {
++		return ret;
++	}
++
++	req = xdpw_request_create(
++		sd_bus_message_get_bus(msg), request_handle);
++	if (req == NULL) {
++		return -ENOMEM;
++	}
++
++	sess = xdpw_session_create(state,
++		sd_bus_message_get_bus(msg), strdup(session_handle));
++	if (sess == NULL) {
++		return -ENOMEM;
++	}
++
++	ret = sd_bus_reply_method_return(msg, "ua{sv}", PORTAL_RESPONSE_SUCCESS, 0);
++	if (ret < 0) {
++		return ret;
++	}
++	return 0;
++}
++
++static int method_remotedesktop_select_devices(sd_bus_message *msg, void *data,
++		sd_bus_error *ret_error) {
++	struct xdpw_state *state = data;
++
++	int ret = 0;
++	char *request_handle, *session_handle, *app_id, *key;
++	struct xdpw_session *sess;
++
++	logprint(DEBUG, "remotedesktop: dbus: select devices: method invoked");
++
++	ret = sd_bus_message_read(msg, "oos", &request_handle, &session_handle, &app_id);
++	if (ret < 0) {
++		return ret;
++	}
++
++	logprint(DEBUG, "remotedesktop: dbus: select devices: request_handle: %s", request_handle);
++	logprint(DEBUG, "remotedesktop: dbus: select devices: session_handle: %s", session_handle);
++	logprint(DEBUG, "remotedesktop: dbus: select devices: app_id: %s", app_id);
++
++	wl_list_for_each_reverse(sess, &state->xdpw_sessions, link) {
++		if (strcmp(sess->session_handle, session_handle) == 0) {
++			break;
++		}
++	}
++	if (!sess) {
++		logprint(WARN, "remotedesktop: dbus: select devices: session not found");
++		return -1;
++	}
++	logprint(DEBUG, "remotedesktop: dbus: select devices: session found");
++
++	ret = sd_bus_message_enter_container(msg, 'a', "{sv}");
++	if (ret < 0) {
++		return ret;
++	}
++	while ((ret = sd_bus_message_enter_container(msg, 'e', "sv")) > 0) {
++		ret = sd_bus_message_read(msg, "s", &key);
++		if (ret < 0) {
++			return ret;
++		}
++
++		if (strcmp(key, "types") == 0) {
++			uint32_t types;
++			ret = sd_bus_message_read(msg, "v", "u", &types);
++			if (ret < 0) {
++				return ret;
++			}
++			logprint(DEBUG, "remotedesktop: dbus: select devices: option types: %x", types);
++		} else {
++			logprint(WARN, "remotedesktop: dbus: select devices: unknown option: %s", key);
++			sd_bus_message_skip(msg, "v");
++		}
++
++		ret = sd_bus_message_exit_container(msg);
++		if (ret < 0) {
++			return ret;
++		}
++	}
++	if (ret < 0) {
++		return ret;
++	}
++	ret = sd_bus_message_exit_container(msg);
++	if (ret < 0) {
++		return ret;
++	}
++
++	ret = sd_bus_reply_method_return(msg, "ua{sv}", PORTAL_RESPONSE_SUCCESS, 0);
++	if (ret < 0) {
++		return ret;
++	}
++	return 0;
++}
++
++static int method_remotedesktop_start(sd_bus_message *msg, void *data, sd_bus_error *ret_error) {
++	struct xdpw_state *state = data;
++
++	int ret = 0;
++	char *request_handle, *session_handle, *app_id, *parent_window, *key;
++	struct xdpw_session *sess;
++	struct xdpw_remotedesktop_session_data *remote;
++
++	logprint(DEBUG, "remotedesktop: dbus: start: method invoked");
++
++	ret = sd_bus_message_read(msg, "oos", &request_handle, &session_handle, &app_id);
++	if (ret < 0) {
++		return ret;
++	}
++
++	logprint(DEBUG, "remotedesktop: dbus: start: request_handle: %s", request_handle);
++	logprint(DEBUG, "remotedesktop: dbus: start: session_handle: %s", session_handle);
++	logprint(DEBUG, "remotedesktop: dbus: start: app_id: %s", app_id);
++
++	wl_list_for_each_reverse(sess, &state->xdpw_sessions, link) {
++		if (strcmp(sess->session_handle, session_handle) == 0) {
++			break;
++		}
++	}
++	if (!sess) {
++		logprint(WARN, "remotedesktop: dbus: start: session not found");
++		return -1;
++	}
++	logprint(DEBUG, "remotedesktop: dbus: start: session found");
++
++	remote = &sess->remotedesktop_data;
++	remote->virtual_pointer = zwlr_virtual_pointer_manager_v1_create_virtual_pointer(
++		state->remotedesktop.virtual_pointer_manager, NULL);
++	clock_gettime(CLOCK_REALTIME, &remote->t_start);
++
++	ret = sd_bus_message_read(msg, "s", &parent_window);
++	if (ret < 0) {
++		return ret;
++	}
++	logprint(DEBUG, "remotedesktop: dbus: start: parent window: %s", parent_window);
++
++	ret = sd_bus_message_enter_container(msg, 'a', "{sv}");
++	if (ret < 0) {
++		return ret;
++	}
++	while ((ret = sd_bus_message_enter_container(msg, 'e', "sv")) > 0) {
++		ret = sd_bus_message_read(msg, "s", &key);
++		if (ret < 0) {
++			return ret;
++		}
++
++		logprint(WARN, "remotedesktop: dbus: start: unknown option: %s", key);
++		sd_bus_message_skip(msg, "v");
++
++		ret = sd_bus_message_exit_container(msg);
++		if (ret < 0) {
++			return ret;
++		}
++	}
++	if (ret < 0) {
++		return ret;
++	}
++	ret = sd_bus_message_exit_container(msg);
++	if (ret < 0) {
++		return ret;
++	}
++
++	ret = sd_bus_reply_method_return(msg, "ua{sv}", PORTAL_RESPONSE_SUCCESS,
++		1, "devices", "u", POINTER | KEYBOARD);
++	if (ret < 0) {
++		return ret;
++	}
++
++	return 0;
++}
++
++static int method_remotedesktop_notify_pointer_motion(sd_bus_message *msg,
++		void *data, sd_bus_error *ret_error) {
++	struct xdpw_state *state = data;
++
++	int ret = 0;
++	char *session_handle;
++	struct xdpw_session *sess;
++	double dx = 0, dy = 0;
++
++	logprint(DEBUG, "remotedesktop: dbus: npm: method invoked");
++
++	ret = sd_bus_message_read(msg, "o", &session_handle);
++	if (ret < 0) {
++		return ret;
++	}
++	logprint(DEBUG, "remotedesktop: dbus: npm: session_handle: %s", session_handle);
++
++	wl_list_for_each_reverse(sess, &state->xdpw_sessions, link) {
++		if (strcmp(sess->session_handle, session_handle) == 0) {
++			break;
++		}
++	}
++	if (!sess) {
++		logprint(WARN, "remotedesktop: dbus: npm: session not found");
++		return -1;
++	}
++	logprint(DEBUG, "remotedesktop: dbus: npm: session found");
++
++	ret = sd_bus_message_skip(msg, "a{sv}");
++	if (ret < 0) {
++		return ret;
++	}
++	ret = sd_bus_message_read(msg, "d", &dx);
++	if (ret < 0) {
++		return ret;
++	}
++	ret = sd_bus_message_read(msg, "d", &dy);
++	if (ret < 0) {
++		return ret;
++	}
++
++	zwlr_virtual_pointer_v1_motion(sess->remotedesktop_data.virtual_pointer,
++		get_timestamp_ms(&sess->remotedesktop_data),
++		wl_fixed_from_double(dx), wl_fixed_from_double(dy));
++
++	return 0;
++}
++
++static int method_remotedesktop_notify_pointer_motion_absolute(
++		sd_bus_message *msg, void *data, sd_bus_error *ret_error) {
++	struct xdpw_state *state = data;
++
++	int ret = 0;
++	char *session_handle;
++	struct xdpw_session *sess;
++	double x = 0, y = 0;
++
++	logprint(DEBUG, "remotedesktop: dbus: npma: method invoked");
++
++	ret = sd_bus_message_read(msg, "o", &session_handle);
++	if (ret < 0) {
++		return ret;
++	}
++	logprint(DEBUG, "remotedesktop: dbus: npma: session_handle: %s", session_handle);
++
++	wl_list_for_each_reverse(sess, &state->xdpw_sessions, link) {
++		if (strcmp(sess->session_handle, session_handle) == 0) {
++			break;
++		}
++	}
++	if (!sess) {
++		logprint(WARN, "remotedesktop: dbus: npma: session not found");
++		return -1;
++	}
++	logprint(DEBUG, "remotedesktop: dbus: npma: session found");
++
++	ret = sd_bus_message_skip(msg, "a{sv}");
++	if (ret < 0) {
++		return ret;
++	}
++	ret = sd_bus_message_read(msg, "d", &x);
++	if (ret < 0) {
++		return ret;
++	}
++	ret = sd_bus_message_read(msg, "d", &y);
++	if (ret < 0) {
++		return ret;
++	}
++
++	// zwlr_virtual_pointer_v1_motion_absolute(sess->remotedesktop_data.virtual_pointer,
++	// 	get_timestamp_ms(&sess->remotedesktop_data),
++	// 	wl_fixed_from_double(x), wl_fixed_from_double(y));
++
++	return 0;
++}
++
++static int method_remotedesktop_notify_pointer_button(sd_bus_message *msg,
++		void *data, sd_bus_error *ret_error) {
++	return 0;
++}
++
++static int method_remotedesktop_notify_pointer_axis(sd_bus_message *msg,
++		void *data, sd_bus_error *ret_error) {
++	return 0;
++}
++
++static int method_remotedesktop_notify_pointer_axis_discrete(
++		sd_bus_message *msg, void *data, sd_bus_error *ret_error) {
++	return 0;
++}
++
++static int method_remotedesktop_notify_keyboard_keycode(
++		sd_bus_message *msg, void *data, sd_bus_error *ret_error) {
++	return 0;
++}
++
++static int method_remotedesktop_notify_keyboard_keysym(
++		sd_bus_message *msg, void *data, sd_bus_error *ret_error) {
++	return 0;
++}
++
++static int method_remotedesktop_notify_touch_down(
++		sd_bus_message *msg, void *data, sd_bus_error *ret_error) {
++	return 0;
++}
++
++static int method_remotedesktop_notify_touch_motion(
++		sd_bus_message *msg, void *data, sd_bus_error *ret_error) {
++	return 0;
++}
++
++static int method_remotedesktop_notify_touch_up(
++		sd_bus_message *msg, void *data, sd_bus_error *ret_error) {
++	return 0;
++}
++
++static const sd_bus_vtable remotedesktop_vtable[] = {
++	SD_BUS_VTABLE_START(0),
++	SD_BUS_METHOD("CreateSession", "oosa{sv}", "ua{sv}",
++		method_remotedesktop_create_session, SD_BUS_VTABLE_UNPRIVILEGED),
++	SD_BUS_METHOD("SelectDevices", "oosa{sv}", "ua{sv}",
++		method_remotedesktop_select_devices, SD_BUS_VTABLE_UNPRIVILEGED),
++	SD_BUS_METHOD("Start", "oossa{sv}", "ua{sv}",
++		method_remotedesktop_start, SD_BUS_VTABLE_UNPRIVILEGED),
++	SD_BUS_METHOD("NotifyPointerMotion", "oa{sv}dd", NULL,
++		method_remotedesktop_notify_pointer_motion, SD_BUS_VTABLE_UNPRIVILEGED),
++	SD_BUS_METHOD("NotifyPointerMotionAbsolute", "oa{sv}udd", NULL,
++		method_remotedesktop_notify_pointer_motion_absolute, SD_BUS_VTABLE_UNPRIVILEGED),
++	SD_BUS_METHOD("NotifyPointerButton", "oa{sv}iu", NULL,
++		method_remotedesktop_notify_pointer_button, SD_BUS_VTABLE_UNPRIVILEGED),
++	SD_BUS_METHOD("NotifyPointerAxis", "oa{sv}dd", NULL,
++		method_remotedesktop_notify_pointer_axis, SD_BUS_VTABLE_UNPRIVILEGED),
++	SD_BUS_METHOD("NotifyPointerAxisDiscrete", "oa{sv}ui", NULL,
++		method_remotedesktop_notify_pointer_axis_discrete, SD_BUS_VTABLE_UNPRIVILEGED),
++	SD_BUS_METHOD("NotifyKeyboardKeycode", "oa{sv}iu", NULL,
++		method_remotedesktop_notify_keyboard_keycode, SD_BUS_VTABLE_UNPRIVILEGED),
++	SD_BUS_METHOD("NotifyKeyboardKeysym", "oa{sv}iu", NULL,
++		method_remotedesktop_notify_keyboard_keysym, SD_BUS_VTABLE_UNPRIVILEGED),
++	SD_BUS_METHOD("NotifyTouchDown", "oa{sv}uudd", NULL,
++		method_remotedesktop_notify_touch_down, SD_BUS_VTABLE_UNPRIVILEGED),
++	SD_BUS_METHOD("NotifyTouchMotion", "oa{sv}uudd", NULL,
++		method_remotedesktop_notify_touch_motion, SD_BUS_VTABLE_UNPRIVILEGED),
++	SD_BUS_METHOD("NotifyTouchUp", "oa{sv}u", NULL,
++		method_remotedesktop_notify_touch_up, SD_BUS_VTABLE_UNPRIVILEGED),
++	SD_BUS_PROPERTY("AvailableDeviceTypes", "u", NULL,
++		offsetof(struct xdpw_state, remotedesktop_available_device_types),
++		SD_BUS_VTABLE_PROPERTY_CONST),
++	SD_BUS_PROPERTY("version", "u", NULL,
++		offsetof(struct xdpw_state, remotedesktop_version),
++		SD_BUS_VTABLE_PROPERTY_CONST),
++	SD_BUS_VTABLE_END
++};
++
++int xdpw_remotedesktop_init(struct xdpw_state *state) {
++	sd_bus_slot *slot = NULL;
++
++	state->remotedesktop = (struct xdpw_remotedesktop_context) { 0 };
++	state->remotedesktop.state = state;
++
++	int err;
++	err = xdpw_wlr_virtual_pointer_init(state);
++	if (err) {
++		goto fail_virtual_pointer;
++	}
++
++	return sd_bus_add_object_vtable(state->bus, &slot, object_path,
++		interface_name, remotedesktop_vtable, state);
++
++fail_virtual_pointer:
++	xdpw_wlr_virtual_pointer_finish(&state->remotedesktop);
++
++	return err;
++}
+diff --git a/src/remotedesktop/wlr_virtual_pointer.c b/src/remotedesktop/wlr_virtual_pointer.c
+new file mode 100644
+index 00000000..06bc71e6
+--- /dev/null
++++ b/src/remotedesktop/wlr_virtual_pointer.c
+@@ -0,0 +1,62 @@
++#include "wlr_virtual_pointer.h"
++
++#include "wlr-virtual-pointer-unstable-v1-client-protocol.h"
++
++#include "remotedesktop.h"
++#include "xdpw.h"
++#include "logger.h"
++
++static void wlr_registry_handle_add(void *data, struct wl_registry *reg,
++		uint32_t id, const char *interface, uint32_t ver) {
++	struct xdpw_remotedesktop_context *ctx = data;
++
++	logprint(DEBUG, "wlroots: interface to register %s  (Version: %u)",
++		interface, ver);
++
++	if (!strcmp(interface, zwlr_virtual_pointer_manager_v1_interface.name)) {
++		uint32_t version = ver;
++		if (VIRTUAL_POINTER_VERSION < ver) {
++			version = VIRTUAL_POINTER_VERSION;
++		} else if (ver < VIRTUAL_POINTER_VERSION_MIN) {
++			version = VIRTUAL_POINTER_VERSION_MIN;
++		}
++		logprint(DEBUG,
++			"wlroots: |-- registered to interface %s (Version %u)",
++			interface, version);
++		ctx->virtual_pointer_manager = wl_registry_bind(reg, id,
++			&zwlr_virtual_pointer_manager_v1_interface, version);
++	}
++}
++
++static const struct wl_registry_listener wlr_registry_listener = {
++	.global = wlr_registry_handle_add,
++	.global_remove = NULL,
++};
++
++int xdpw_wlr_virtual_pointer_init(struct xdpw_state *state) {
++	struct xdpw_remotedesktop_context *ctx = &state->remotedesktop;
++
++	// retrieve registry
++	ctx->registry = wl_display_get_registry(state->wl_display);
++	wl_registry_add_listener(ctx->registry, &wlr_registry_listener, ctx);
++
++	wl_display_roundtrip(state->wl_display);
++
++	logprint(DEBUG, "wayland: registry listeners run");
++	wl_display_roundtrip(state->wl_display);
++
++	// make sure our wlroots supports virtual-pointer protocol
++	if (!ctx->virtual_pointer_manager) {
++		logprint(ERROR, "Compositor doesn't support %s!",
++			zwlr_virtual_pointer_manager_v1_interface.name);
++		return -1;
++	}
++
++	return 0;
++}
++
++void xdpw_wlr_virtual_pointer_finish(struct xdpw_remotedesktop_context *ctx) {
++	if (ctx->virtual_pointer_manager) {
++		zwlr_virtual_pointer_manager_v1_destroy(ctx->virtual_pointer_manager);
++	}
++}
+diff --git a/wlr.portal b/wlr.portal
+index aa63335b..087c0086 100644
+--- a/wlr.portal
++++ b/wlr.portal
+@@ -1,4 +1,4 @@
+ [portal]
+ DBusName=org.freedesktop.impl.portal.desktop.wlr
+-Interfaces=org.freedesktop.impl.portal.Screenshot;org.freedesktop.impl.portal.ScreenCast;
++Interfaces=org.freedesktop.impl.portal.Screenshot;org.freedesktop.impl.portal.ScreenCast;org.freedesktop.impl.portal.RemoteDesktop;
+ UseIn=wlroots;sway;Wayfire;river;phosh;Hyprland;
+
+From 01904498df4d60fb3b23ceb9c684a6e292d2d028 Mon Sep 17 00:00:00 2001
+From: Andrea Feletto <andrea@andreafeletto.com>
+Date: Fri, 10 Mar 2023 13:58:45 +0100
+Subject: [PATCH 2/7] remotedesktop: add config options
+
+---
+ include/config.h  |  7 +++++++
+ src/core/config.c | 20 ++++++++++++++++++++
+ 2 files changed, 27 insertions(+)
+
+diff --git a/include/config.h b/include/config.h
+index f856dc1a..098cbe9a 100644
+--- a/include/config.h
++++ b/include/config.h
+@@ -14,8 +14,15 @@ struct config_screencast {
+ 	bool force_mod_linear;
+ };
+ 
++struct config_remotedesktop {
++	bool allow_keyboard;
++	bool allow_pointer;
++	bool allow_touchscreen;
++};
++
+ struct xdpw_config {
+ 	struct config_screencast screencast_conf;
++	struct config_remotedesktop remotedesktop_conf;
+ };
+ 
+ void print_config(enum LOGLEVEL loglevel, struct xdpw_config *config);
+diff --git a/src/core/config.c b/src/core/config.c
+index 693cc89e..dfdae23b 100644
+--- a/src/core/config.c
++++ b/src/core/config.c
+@@ -85,6 +85,20 @@ static int handle_ini_screencast(struct config_screencast *screencast_conf, cons
+ 	return 1;
+ }
+ 
++static int handle_ini_remotedesktop(struct config_remotedesktop *conf, const char *key, const char *value) {
++	if (strcmp(key, "allow_keyboard") == 0) {
++		parse_bool(&conf->allow_keyboard, value);
++	} else if (strcmp(key, "allow_pointer") == 0) {
++		parse_bool(&conf->allow_pointer, value);
++	} else if (strcmp(key, "allow_touchscreen") == 0) {
++		parse_bool(&conf->allow_touchscreen, value);
++	} else {
++		logprint(TRACE, "config: skipping invalid key in config file");
++		return 0;
++	}
++	return 1;
++}
++
+ static int handle_ini_config(void *data, const char* section, const char *key, const char *value) {
+ 	struct xdpw_config *config = (struct xdpw_config*)data;
+ 	logprint(TRACE, "config: parsing setction %s, key %s, value %s", section, key, value);
+@@ -92,6 +106,9 @@ static int handle_ini_config(void *data, const char* section, const char *key, c
+ 	if (strcmp(section, "screencast") == 0) {
+ 		return handle_ini_screencast(&config->screencast_conf, key, value);
+ 	}
++	if (strcmp(section, "remotedesktop") == 0) {
++		return handle_ini_remotedesktop(&config->remotedesktop_conf, key, value);
++	}
+ 
+ 	logprint(TRACE, "config: skipping invalid key in config file");
+ 	return 0;
+@@ -100,6 +117,9 @@ static int handle_ini_config(void *data, const char* section, const char *key, c
+ static void default_config(struct xdpw_config *config) {
+ 	config->screencast_conf.max_fps = 0;
+ 	config->screencast_conf.chooser_type = XDPW_CHOOSER_DEFAULT;
++	config->remotedesktop_conf.allow_keyboard = true;
++	config->remotedesktop_conf.allow_pointer= true;
++	config->remotedesktop_conf.allow_touchscreen= true;
+ }
+ 
+ static bool file_exists(const char *path) {
+
+From 3f25a01b1717c5e2cdd73db9d7b066db36f9bc56 Mon Sep 17 00:00:00 2001
+From: David96 <david@hameipe.de>
+Date: Sun, 12 Mar 2023 10:48:02 +0100
+Subject: [PATCH 3/7] remotedesktop: implement button event
+
+---
+ include/remotedesktop_common.h    |  1 +
+ src/remotedesktop/remotedesktop.c | 79 +++++++++++++++++++++++++++----
+ 2 files changed, 70 insertions(+), 10 deletions(-)
+
+diff --git a/include/remotedesktop_common.h b/include/remotedesktop_common.h
+index 59ee3449..28d5d8f8 100644
+--- a/include/remotedesktop_common.h
++++ b/include/remotedesktop_common.h
+@@ -6,6 +6,7 @@
+ 
+ #include "wlr-virtual-pointer-unstable-v1-client-protocol.h"
+ #include <wayland-client-protocol.h>
++#include <wayland-util.h>
+ 
+ #define XDP_REMOTE_PROTO_VER 1
+ 
+diff --git a/src/remotedesktop/remotedesktop.c b/src/remotedesktop/remotedesktop.c
+index c76304c0..c1d233ef 100644
+--- a/src/remotedesktop/remotedesktop.c
++++ b/src/remotedesktop/remotedesktop.c
+@@ -90,6 +90,16 @@ static int method_remotedesktop_create_session(sd_bus_message *msg, void *data,
+ 	return 0;
+ }
+ 
++static struct xdpw_session *get_session_from_handle(struct xdpw_state *state, char *session_handle) {
++	struct xdpw_session *sess;
++	wl_list_for_each_reverse(sess, &state->xdpw_sessions, link) {
++		if (strcmp(sess->session_handle, session_handle) == 0) {
++			return sess;
++		}
++	}
++	return NULL;
++}
++
+ static int method_remotedesktop_select_devices(sd_bus_message *msg, void *data,
+ 		sd_bus_error *ret_error) {
+ 	struct xdpw_state *state = data;
+@@ -109,11 +119,7 @@ static int method_remotedesktop_select_devices(sd_bus_message *msg, void *data,
+ 	logprint(DEBUG, "remotedesktop: dbus: select devices: session_handle: %s", session_handle);
+ 	logprint(DEBUG, "remotedesktop: dbus: select devices: app_id: %s", app_id);
+ 
+-	wl_list_for_each_reverse(sess, &state->xdpw_sessions, link) {
+-		if (strcmp(sess->session_handle, session_handle) == 0) {
+-			break;
+-		}
+-	}
++	sess = get_session_from_handle(state, session_handle);
+ 	if (!sess) {
+ 		logprint(WARN, "remotedesktop: dbus: select devices: session not found");
+ 		return -1;
+@@ -181,11 +187,7 @@ static int method_remotedesktop_start(sd_bus_message *msg, void *data, sd_bus_er
+ 	logprint(DEBUG, "remotedesktop: dbus: start: session_handle: %s", session_handle);
+ 	logprint(DEBUG, "remotedesktop: dbus: start: app_id: %s", app_id);
+ 
+-	wl_list_for_each_reverse(sess, &state->xdpw_sessions, link) {
+-		if (strcmp(sess->session_handle, session_handle) == 0) {
+-			break;
+-		}
+-	}
++	sess = get_session_from_handle(state, session_handle);
+ 	if (!sess) {
+ 		logprint(WARN, "remotedesktop: dbus: start: session not found");
+ 		return -1;
+@@ -336,6 +338,63 @@ static int method_remotedesktop_notify_pointer_motion_absolute(
+ 
+ static int method_remotedesktop_notify_pointer_button(sd_bus_message *msg,
+ 		void *data, sd_bus_error *ret_error) {
++	struct xdpw_state *state = data;
++
++	int ret = 0;
++	char *session_handle;
++	struct xdpw_session *sess;
++	int32_t button;
++	uint32_t btn_state;
++
++	logprint(DEBUG, "remotedesktop: dbus: npm: method invoked");
++
++	ret = sd_bus_message_read(msg, "o", &session_handle);
++	if (ret < 0) {
++		return ret;
++	}
++	logprint(DEBUG, "remotedesktop: dbus: npm: session_handle: %s", session_handle);
++
++	wl_list_for_each_reverse(sess, &state->xdpw_sessions, link) {
++		if (strcmp(sess->session_handle, session_handle) == 0) {
++			break;
++		}
++	}
++	if (!sess) {
++		logprint(WARN, "remotedesktop: dbus: npm: session not found");
++		return -1;
++	}
++	logprint(DEBUG, "remotedesktop: dbus: npm: session found");
++
++	ret = sd_bus_message_skip(msg, "a{sv}");
++	if (ret < 0) {
++		return ret;
++	}
++	ret = sd_bus_message_read(msg, "i", &button);
++	if (ret < 0) {
++		return ret;
++	}
++	ret = sd_bus_message_read(msg, "u", &btn_state);
++	if (ret < 0) {
++		return ret;
++	}
++	// wl_pointer.button_state and the button state enum defined in the RemoteDesktop protocol
++	// are identical, so this is not strictly necessary, just felt cleaner to me.
++	enum wl_pointer_button_state wl_btn_state;
++	switch (btn_state) {
++		case 0:
++			wl_btn_state = WL_POINTER_BUTTON_STATE_RELEASED;
++			break;
++		case 1:
++			wl_btn_state = WL_POINTER_BUTTON_STATE_PRESSED;
++			break;
++		default:
++			logprint(WARN, "remotedesktop: received invalid button state");
++			return -1;
++	};
++
++	zwlr_virtual_pointer_v1_button(sess->remotedesktop_data.virtual_pointer,
++			get_timestamp_ms(&sess->remotedesktop_data),
++			button, wl_btn_state);
+ 	return 0;
+ }
+ 
+
+From b6b3b2bce9a003664a3a2e3edb6bd5b8a98f090e Mon Sep 17 00:00:00 2001
+From: Andrea Feletto <andrea@andreafeletto.com>
+Date: Sat, 25 Mar 2023 11:15:51 +0100
+Subject: [PATCH 4/7] remotedesktop: add axis events
+
+---
+ src/remotedesktop/remotedesktop.c | 244 ++++++++++++++++++++++--------
+ 1 file changed, 177 insertions(+), 67 deletions(-)
+
+diff --git a/src/remotedesktop/remotedesktop.c b/src/remotedesktop/remotedesktop.c
+index c1d233ef..51f4ddb8 100644
+--- a/src/remotedesktop/remotedesktop.c
++++ b/src/remotedesktop/remotedesktop.c
+@@ -18,6 +18,16 @@ static uint32_t get_timestamp_ms(struct xdpw_remotedesktop_session_data *remote)
+ 		(t_stop.tv_nsec - t_start->tv_nsec) / 1000000;
+ }
+ 
++static struct xdpw_session *get_session_from_handle(struct xdpw_state *state, char *session_handle) {
++	struct xdpw_session *sess;
++	wl_list_for_each_reverse(sess, &state->xdpw_sessions, link) {
++		if (strcmp(sess->session_handle, session_handle) == 0) {
++			return sess;
++		}
++	}
++	return NULL;
++}
++
+ static int method_remotedesktop_create_session(sd_bus_message *msg, void *data,
+ 		sd_bus_error *ret_error) {
+ 	struct xdpw_state *state = data;
+@@ -27,16 +37,16 @@ static int method_remotedesktop_create_session(sd_bus_message *msg, void *data,
+ 	struct xdpw_request *req;
+ 	struct xdpw_session *sess;
+ 
+-	logprint(DEBUG, "remotedesktop: dbus: create session: method invoked");
++	logprint(DEBUG, "remotedesktop: create session: method invoked");
+ 
+ 	ret = sd_bus_message_read(msg, "oos", &request_handle, &session_handle, &app_id);
+ 	if (ret < 0) {
+ 		return ret;
+ 	}
+ 
+-	logprint(DEBUG, "remotedesktop: dbus: create session: request_handle: %s", request_handle);
+-	logprint(DEBUG, "remotedesktop: dbus: create session: session_handle: %s", session_handle);
+-	logprint(DEBUG, "remotedesktop: dbus: create session: app_id: %s", app_id);
++	logprint(DEBUG, "remotedesktop: create session: request_handle: %s", request_handle);
++	logprint(DEBUG, "remotedesktop: create session: session_handle: %s", session_handle);
++	logprint(DEBUG, "remotedesktop: create session: app_id: %s", app_id);
+ 
+ 	ret = sd_bus_message_enter_container(msg, 'a', "{sv}");
+ 	if (ret < 0) {
+@@ -51,9 +61,9 @@ static int method_remotedesktop_create_session(sd_bus_message *msg, void *data,
+ 		if (strcmp(key, "session_handle_token") == 0) {
+ 			char *token;
+ 			sd_bus_message_read(msg, "v", "s", &token);
+-			logprint(DEBUG, "remotedesktop: dbus: create session: session handle token: %s", token);
++			logprint(DEBUG, "remotedesktop: create session: session handle token: %s", token);
+ 		} else {
+-			logprint(WARN, "remotedesktop: dbus: create session: unknown option: %s", key);
++			logprint(WARN, "remotedesktop: create session: unknown option: %s", key);
+ 			sd_bus_message_skip(msg, "v");
+ 		}
+ 
+@@ -71,14 +81,12 @@ static int method_remotedesktop_create_session(sd_bus_message *msg, void *data,
+ 		return ret;
+ 	}
+ 
+-	req = xdpw_request_create(
+-		sd_bus_message_get_bus(msg), request_handle);
++	req = xdpw_request_create(sd_bus_message_get_bus(msg), request_handle);
+ 	if (req == NULL) {
+ 		return -ENOMEM;
+ 	}
+ 
+-	sess = xdpw_session_create(state,
+-		sd_bus_message_get_bus(msg), strdup(session_handle));
++	sess = xdpw_session_create(state, sd_bus_message_get_bus(msg), strdup(session_handle));
+ 	if (sess == NULL) {
+ 		return -ENOMEM;
+ 	}
+@@ -90,16 +98,6 @@ static int method_remotedesktop_create_session(sd_bus_message *msg, void *data,
+ 	return 0;
+ }
+ 
+-static struct xdpw_session *get_session_from_handle(struct xdpw_state *state, char *session_handle) {
+-	struct xdpw_session *sess;
+-	wl_list_for_each_reverse(sess, &state->xdpw_sessions, link) {
+-		if (strcmp(sess->session_handle, session_handle) == 0) {
+-			return sess;
+-		}
+-	}
+-	return NULL;
+-}
+-
+ static int method_remotedesktop_select_devices(sd_bus_message *msg, void *data,
+ 		sd_bus_error *ret_error) {
+ 	struct xdpw_state *state = data;
+@@ -108,23 +106,23 @@ static int method_remotedesktop_select_devices(sd_bus_message *msg, void *data,
+ 	char *request_handle, *session_handle, *app_id, *key;
+ 	struct xdpw_session *sess;
+ 
+-	logprint(DEBUG, "remotedesktop: dbus: select devices: method invoked");
++	logprint(DEBUG, "remotedesktop: select devices: method invoked");
+ 
+ 	ret = sd_bus_message_read(msg, "oos", &request_handle, &session_handle, &app_id);
+ 	if (ret < 0) {
+ 		return ret;
+ 	}
+ 
+-	logprint(DEBUG, "remotedesktop: dbus: select devices: request_handle: %s", request_handle);
+-	logprint(DEBUG, "remotedesktop: dbus: select devices: session_handle: %s", session_handle);
+-	logprint(DEBUG, "remotedesktop: dbus: select devices: app_id: %s", app_id);
++	logprint(DEBUG, "remotedesktop: select devices: request_handle: %s", request_handle);
++	logprint(DEBUG, "remotedesktop: select devices: session_handle: %s", session_handle);
++	logprint(DEBUG, "remotedesktop: select devices: app_id: %s", app_id);
+ 
+ 	sess = get_session_from_handle(state, session_handle);
+ 	if (!sess) {
+-		logprint(WARN, "remotedesktop: dbus: select devices: session not found");
++		logprint(WARN, "remotedesktop: select devices: session not found");
+ 		return -1;
+ 	}
+-	logprint(DEBUG, "remotedesktop: dbus: select devices: session found");
++	logprint(DEBUG, "remotedesktop: select devices: session found");
+ 
+ 	ret = sd_bus_message_enter_container(msg, 'a', "{sv}");
+ 	if (ret < 0) {
+@@ -142,9 +140,9 @@ static int method_remotedesktop_select_devices(sd_bus_message *msg, void *data,
+ 			if (ret < 0) {
+ 				return ret;
+ 			}
+-			logprint(DEBUG, "remotedesktop: dbus: select devices: option types: %x", types);
++			logprint(DEBUG, "remotedesktop: select devices: option types: %x", types);
+ 		} else {
+-			logprint(WARN, "remotedesktop: dbus: select devices: unknown option: %s", key);
++			logprint(WARN, "remotedesktop: select devices: unknown option: %s", key);
+ 			sd_bus_message_skip(msg, "v");
+ 		}
+ 
+@@ -176,23 +174,23 @@ static int method_remotedesktop_start(sd_bus_message *msg, void *data, sd_bus_er
+ 	struct xdpw_session *sess;
+ 	struct xdpw_remotedesktop_session_data *remote;
+ 
+-	logprint(DEBUG, "remotedesktop: dbus: start: method invoked");
++	logprint(DEBUG, "remotedesktop: start: method invoked");
+ 
+ 	ret = sd_bus_message_read(msg, "oos", &request_handle, &session_handle, &app_id);
+ 	if (ret < 0) {
+ 		return ret;
+ 	}
+ 
+-	logprint(DEBUG, "remotedesktop: dbus: start: request_handle: %s", request_handle);
+-	logprint(DEBUG, "remotedesktop: dbus: start: session_handle: %s", session_handle);
+-	logprint(DEBUG, "remotedesktop: dbus: start: app_id: %s", app_id);
++	logprint(DEBUG, "remotedesktop: start: request_handle: %s", request_handle);
++	logprint(DEBUG, "remotedesktop: start: session_handle: %s", session_handle);
++	logprint(DEBUG, "remotedesktop: start: app_id: %s", app_id);
+ 
+ 	sess = get_session_from_handle(state, session_handle);
+ 	if (!sess) {
+-		logprint(WARN, "remotedesktop: dbus: start: session not found");
++		logprint(WARN, "remotedesktop: start: session not found");
+ 		return -1;
+ 	}
+-	logprint(DEBUG, "remotedesktop: dbus: start: session found");
++	logprint(DEBUG, "remotedesktop: start: session found");
+ 
+ 	remote = &sess->remotedesktop_data;
+ 	remote->virtual_pointer = zwlr_virtual_pointer_manager_v1_create_virtual_pointer(
+@@ -203,7 +201,7 @@ static int method_remotedesktop_start(sd_bus_message *msg, void *data, sd_bus_er
+ 	if (ret < 0) {
+ 		return ret;
+ 	}
+-	logprint(DEBUG, "remotedesktop: dbus: start: parent window: %s", parent_window);
++	logprint(DEBUG, "remotedesktop: start: parent window: %s", parent_window);
+ 
+ 	ret = sd_bus_message_enter_container(msg, 'a', "{sv}");
+ 	if (ret < 0) {
+@@ -215,7 +213,7 @@ static int method_remotedesktop_start(sd_bus_message *msg, void *data, sd_bus_er
+ 			return ret;
+ 		}
+ 
+-		logprint(WARN, "remotedesktop: dbus: start: unknown option: %s", key);
++		logprint(WARN, "remotedesktop: start: unknown option: %s", key);
+ 		sd_bus_message_skip(msg, "v");
+ 
+ 		ret = sd_bus_message_exit_container(msg);
+@@ -249,13 +247,13 @@ static int method_remotedesktop_notify_pointer_motion(sd_bus_message *msg,
+ 	struct xdpw_session *sess;
+ 	double dx = 0, dy = 0;
+ 
+-	logprint(DEBUG, "remotedesktop: dbus: npm: method invoked");
++	logprint(DEBUG, "remotedesktop: npm: method invoked");
+ 
+ 	ret = sd_bus_message_read(msg, "o", &session_handle);
+ 	if (ret < 0) {
+ 		return ret;
+ 	}
+-	logprint(DEBUG, "remotedesktop: dbus: npm: session_handle: %s", session_handle);
++	logprint(DEBUG, "remotedesktop: npm: session_handle: %s", session_handle);
+ 
+ 	wl_list_for_each_reverse(sess, &state->xdpw_sessions, link) {
+ 		if (strcmp(sess->session_handle, session_handle) == 0) {
+@@ -263,10 +261,10 @@ static int method_remotedesktop_notify_pointer_motion(sd_bus_message *msg,
+ 		}
+ 	}
+ 	if (!sess) {
+-		logprint(WARN, "remotedesktop: dbus: npm: session not found");
++		logprint(WARN, "remotedesktop: npm: session not found");
+ 		return -1;
+ 	}
+-	logprint(DEBUG, "remotedesktop: dbus: npm: session found");
++	logprint(DEBUG, "remotedesktop: npm: session found");
+ 
+ 	ret = sd_bus_message_skip(msg, "a{sv}");
+ 	if (ret < 0) {
+@@ -297,13 +295,13 @@ static int method_remotedesktop_notify_pointer_motion_absolute(
+ 	struct xdpw_session *sess;
+ 	double x = 0, y = 0;
+ 
+-	logprint(DEBUG, "remotedesktop: dbus: npma: method invoked");
++	logprint(DEBUG, "remotedesktop: npma: method invoked");
+ 
+ 	ret = sd_bus_message_read(msg, "o", &session_handle);
+ 	if (ret < 0) {
+ 		return ret;
+ 	}
+-	logprint(DEBUG, "remotedesktop: dbus: npma: session_handle: %s", session_handle);
++	logprint(DEBUG, "remotedesktop: npma: session_handle: %s", session_handle);
+ 
+ 	wl_list_for_each_reverse(sess, &state->xdpw_sessions, link) {
+ 		if (strcmp(sess->session_handle, session_handle) == 0) {
+@@ -311,10 +309,10 @@ static int method_remotedesktop_notify_pointer_motion_absolute(
+ 		}
+ 	}
+ 	if (!sess) {
+-		logprint(WARN, "remotedesktop: dbus: npma: session not found");
++		logprint(WARN, "remotedesktop: npma: session not found");
+ 		return -1;
+ 	}
+-	logprint(DEBUG, "remotedesktop: dbus: npma: session found");
++	logprint(DEBUG, "remotedesktop: npma: session found");
+ 
+ 	ret = sd_bus_message_skip(msg, "a{sv}");
+ 	if (ret < 0) {
+@@ -329,9 +327,11 @@ static int method_remotedesktop_notify_pointer_motion_absolute(
+ 		return ret;
+ 	}
+ 
+-	// zwlr_virtual_pointer_v1_motion_absolute(sess->remotedesktop_data.virtual_pointer,
+-	// 	get_timestamp_ms(&sess->remotedesktop_data),
+-	// 	wl_fixed_from_double(x), wl_fixed_from_double(y));
++	struct xdpw_wlr_output *output = sess->screencast_data.screencast_instance->target->output;
++	zwlr_virtual_pointer_v1_motion_absolute(sess->remotedesktop_data.virtual_pointer,
++		get_timestamp_ms(&sess->remotedesktop_data),
++		wl_fixed_from_double(x), wl_fixed_from_double(y),
++		output->width, output->height);
+ 
+ 	return 0;
+ }
+@@ -346,13 +346,13 @@ static int method_remotedesktop_notify_pointer_button(sd_bus_message *msg,
+ 	int32_t button;
+ 	uint32_t btn_state;
+ 
+-	logprint(DEBUG, "remotedesktop: dbus: npm: method invoked");
++	logprint(DEBUG, "remotedesktop: npb: method invoked");
+ 
+ 	ret = sd_bus_message_read(msg, "o", &session_handle);
+ 	if (ret < 0) {
+ 		return ret;
+ 	}
+-	logprint(DEBUG, "remotedesktop: dbus: npm: session_handle: %s", session_handle);
++	logprint(DEBUG, "remotedesktop: npb: session_handle: %s", session_handle);
+ 
+ 	wl_list_for_each_reverse(sess, &state->xdpw_sessions, link) {
+ 		if (strcmp(sess->session_handle, session_handle) == 0) {
+@@ -360,10 +360,10 @@ static int method_remotedesktop_notify_pointer_button(sd_bus_message *msg,
+ 		}
+ 	}
+ 	if (!sess) {
+-		logprint(WARN, "remotedesktop: dbus: npm: session not found");
++		logprint(WARN, "remotedesktop: npb: session not found");
+ 		return -1;
+ 	}
+-	logprint(DEBUG, "remotedesktop: dbus: npm: session found");
++	logprint(DEBUG, "remotedesktop: npb: session found");
+ 
+ 	ret = sd_bus_message_skip(msg, "a{sv}");
+ 	if (ret < 0) {
+@@ -377,34 +377,144 @@ static int method_remotedesktop_notify_pointer_button(sd_bus_message *msg,
+ 	if (ret < 0) {
+ 		return ret;
+ 	}
+-	// wl_pointer.button_state and the button state enum defined in the RemoteDesktop protocol
+-	// are identical, so this is not strictly necessary, just felt cleaner to me.
+-	enum wl_pointer_button_state wl_btn_state;
+-	switch (btn_state) {
+-		case 0:
+-			wl_btn_state = WL_POINTER_BUTTON_STATE_RELEASED;
+-			break;
+-		case 1:
+-			wl_btn_state = WL_POINTER_BUTTON_STATE_PRESSED;
+-			break;
+-		default:
+-			logprint(WARN, "remotedesktop: received invalid button state");
+-			return -1;
+-	};
+ 
+ 	zwlr_virtual_pointer_v1_button(sess->remotedesktop_data.virtual_pointer,
+-			get_timestamp_ms(&sess->remotedesktop_data),
+-			button, wl_btn_state);
++		get_timestamp_ms(&sess->remotedesktop_data),
++		button, btn_state);
+ 	return 0;
+ }
+ 
+ static int method_remotedesktop_notify_pointer_axis(sd_bus_message *msg,
+ 		void *data, sd_bus_error *ret_error) {
++	struct xdpw_state *state = data;
++
++	int ret = 0, finish = 0;
++	char *session_handle, *key;
++	struct xdpw_session *sess;
++	double dx = 0, dy = 0;
++
++	logprint(DEBUG, "remotedesktop: npa: method invoked");
++
++	ret = sd_bus_message_read(msg, "o", &session_handle);
++	if (ret < 0) {
++		return ret;
++	}
++	logprint(DEBUG, "remotedesktop: npa: session_handle: %s", session_handle);
++
++	wl_list_for_each_reverse(sess, &state->xdpw_sessions, link) {
++		if (strcmp(sess->session_handle, session_handle) == 0) {
++			break;
++		}
++	}
++	if (!sess) {
++		logprint(WARN, "remotedesktop: npa: session not found");
++		return -1;
++	}
++	logprint(DEBUG, "remotedesktop: npa: session found");
++
++	ret = sd_bus_message_enter_container(msg, 'a', "{sv}");
++	if (ret < 0) {
++		return ret;
++	}
++	while ((ret = sd_bus_message_enter_container(msg, 'e', "sv")) > 0) {
++		ret = sd_bus_message_read(msg, "s", &key);
++		if (ret < 0) {
++			return ret;
++		}
++
++		if (strcmp(key, "finish") == 0) {
++			sd_bus_message_read(msg, "v", "b", &finish);
++			logprint(DEBUG, "remotedesktop: npa: finish: %d", finish);
++		} else {
++			logprint(WARN, "remotedesktop: npa: unknown option: %s", key);
++			sd_bus_message_skip(msg, "v");
++		}
++
++		ret = sd_bus_message_exit_container(msg);
++		if (ret < 0) {
++			return ret;
++		}
++	}
++	if (ret < 0) {
++		return ret;
++	}
++	ret = sd_bus_message_exit_container(msg);
++	if (ret < 0) {
++		return ret;
++	}
++
++	ret = sd_bus_message_read(msg, "d", &dx);
++	if (ret < 0) {
++		return ret;
++	}
++	ret = sd_bus_message_read(msg, "d", &dy);
++	if (ret < 0) {
++		return ret;
++	}
++
++	zwlr_virtual_pointer_v1_axis(sess->remotedesktop_data.virtual_pointer,
++		get_timestamp_ms(&sess->remotedesktop_data),
++		WL_POINTER_AXIS_VERTICAL_SCROLL, wl_fixed_from_double(dy * 10));
++	zwlr_virtual_pointer_v1_axis(sess->remotedesktop_data.virtual_pointer,
++		get_timestamp_ms(&sess->remotedesktop_data),
++		WL_POINTER_AXIS_HORIZONTAL_SCROLL, wl_fixed_from_double(dx * 10));
++
++	if (finish) {
++		zwlr_virtual_pointer_v1_axis_stop(sess->remotedesktop_data.virtual_pointer,
++			get_timestamp_ms(&sess->remotedesktop_data),
++			WL_POINTER_AXIS_VERTICAL_SCROLL);
++		zwlr_virtual_pointer_v1_axis_stop(sess->remotedesktop_data.virtual_pointer,
++			get_timestamp_ms(&sess->remotedesktop_data),
++			WL_POINTER_AXIS_HORIZONTAL_SCROLL);
++	}
+ 	return 0;
+ }
+ 
+ static int method_remotedesktop_notify_pointer_axis_discrete(
+ 		sd_bus_message *msg, void *data, sd_bus_error *ret_error) {
++	struct xdpw_state *state = data;
++
++	int ret = 0;
++	char *session_handle;
++	struct xdpw_session *sess;
++	uint32_t axis;
++	int32_t steps;
++
++	logprint(DEBUG, "remotedesktop: npad: method invoked");
++
++	ret = sd_bus_message_read(msg, "o", &session_handle);
++	if (ret < 0) {
++		return ret;
++	}
++	logprint(DEBUG, "remotedesktop: npad: session_handle: %s", session_handle);
++
++	wl_list_for_each_reverse(sess, &state->xdpw_sessions, link) {
++		if (strcmp(sess->session_handle, session_handle) == 0) {
++			break;
++		}
++	}
++	if (!sess) {
++		logprint(WARN, "remotedesktop: npad: session not found");
++		return -1;
++	}
++	logprint(DEBUG, "remotedesktop: npad: session found");
++
++	ret = sd_bus_message_skip(msg, "a{sv}");
++	if (ret < 0) {
++		return ret;
++	}
++	ret = sd_bus_message_read(msg, "u", &axis);
++	if (ret < 0) {
++		return ret;
++	}
++	ret = sd_bus_message_read(msg, "i", &steps);
++	if (ret < 0) {
++		return ret;
++	}
++
++	zwlr_virtual_pointer_v1_axis_discrete(sess->remotedesktop_data.virtual_pointer,
++			get_timestamp_ms(&sess->remotedesktop_data),
++			axis, wl_fixed_from_double(0.1), steps);
+ 	return 0;
+ }
+ 
+
+From b092b2a8fdcbc6c12dbf96c21a69752fbcd37c36 Mon Sep 17 00:00:00 2001
+From: Sebastian Schmidt <schro.sb@gmail.com>
+Date: Sat, 21 Oct 2023 22:38:09 +0200
+Subject: [PATCH 5/7] Partially support virtual keyboard events
+
+This implementation is currently limited to ASCII printable characters
+and `BackSpace` and `Return` keys.
+---
+ include/keymap.h                     | 255 +++++++++++++++++++++++++++
+ include/remotedesktop_common.h       |   4 +
+ include/virtual_keyboard.h           |  15 ++
+ meson.build                          |   1 +
+ src/core/main.c                      |   2 +-
+ src/remotedesktop/remotedesktop.c    | 214 +++++++++++++++++++++-
+ src/remotedesktop/virtual_keyboard.c |  64 +++++++
+ 7 files changed, 553 insertions(+), 2 deletions(-)
+ create mode 100644 include/keymap.h
+ create mode 100644 include/virtual_keyboard.h
+ create mode 100644 src/remotedesktop/virtual_keyboard.c
+
+diff --git a/include/keymap.h b/include/keymap.h
+new file mode 100644
+index 00000000..38d80593
+--- /dev/null
++++ b/include/keymap.h
+@@ -0,0 +1,255 @@
++// roughly following the idea of wtype
++// https://github.com/atx/wtype/blob/master/main.c
++
++// Keys K001-K024 map to the xkbcommon TTY function keys.
++// The rest maps to the Latin 1 key section.
++static char const keymap[] =
++  "xkb_keymap {\
++xkb_keycodes \"(unnamed)\" {\
++        minimum = 8;\
++        maximum = 127;\
++        <K001> = 9;\
++        <K002> = 10;\
++        <K003> = 11;\
++        <K004> = 12;\
++        <K005> = 13;\
++        <K006> = 14;\
++        <K007> = 15;\
++        <K008> = 16;\
++        <K009> = 17;\
++        <K010> = 18;\
++        <K011> = 19;\
++        <K012> = 20;\
++        <K013> = 21;\
++        <K014> = 22;\
++        <K015> = 23;\
++        <K016> = 24;\
++        <K017> = 25;\
++        <K018> = 26;\
++        <K019> = 27;\
++        <K020> = 28;\
++        <K021> = 29;\
++        <K022> = 30;\
++        <K023> = 31;\
++        <K024> = 32;\
++        <K025> = 33;\
++        <K026> = 34;\
++        <K027> = 35;\
++        <K028> = 36;\
++        <K029> = 37;\
++        <K030> = 38;\
++        <K031> = 39;\
++        <K032> = 40;\
++        <K033> = 41;\
++        <K034> = 42;\
++        <K035> = 43;\
++        <K036> = 44;\
++        <K037> = 45;\
++        <K038> = 46;\
++        <K039> = 47;\
++        <K040> = 48;\
++        <K041> = 49;\
++        <K042> = 50;\
++        <K043> = 51;\
++        <K044> = 52;\
++        <K045> = 53;\
++        <K046> = 54;\
++        <K047> = 55;\
++        <K048> = 56;\
++        <K049> = 57;\
++        <K050> = 58;\
++        <K051> = 59;\
++        <K052> = 60;\
++        <K053> = 61;\
++        <K054> = 62;\
++        <K055> = 63;\
++        <K056> = 64;\
++        <K057> = 65;\
++        <K058> = 66;\
++        <K059> = 67;\
++        <K060> = 68;\
++        <K061> = 69;\
++        <K062> = 70;\
++        <K063> = 71;\
++        <K064> = 72;\
++        <K065> = 73;\
++        <K066> = 74;\
++        <K067> = 75;\
++        <K068> = 76;\
++        <K069> = 77;\
++        <K070> = 78;\
++        <K071> = 79;\
++        <K072> = 80;\
++        <K073> = 81;\
++        <K074> = 82;\
++        <K075> = 83;\
++        <K076> = 84;\
++        <K077> = 85;\
++        <K078> = 86;\
++        <K079> = 87;\
++        <K080> = 88;\
++        <K081> = 89;\
++        <K082> = 90;\
++        <K083> = 91;\
++        <K084> = 92;\
++        <K085> = 93;\
++        <K086> = 94;\
++        <K087> = 95;\
++        <K088> = 96;\
++        <K089> = 97;\
++        <K090> = 98;\
++        <K091> = 99;\
++        <K092> = 100;\
++        <K093> = 101;\
++        <K094> = 102;\
++        <K095> = 103;\
++        <K096> = 104;\
++        <K097> = 105;\
++        <K098> = 106;\
++        <K099> = 107;\
++        <K100> = 108;\
++        <K101> = 109;\
++        <K102> = 110;\
++        <K103> = 111;\
++        <K104> = 112;\
++        <K105> = 113;\
++        <K106> = 114;\
++        <K107> = 115;\
++        <K108> = 116;\
++        <K109> = 117;\
++        <K110> = 118;\
++        <K111> = 119;\
++        <K112> = 120;\
++        <K113> = 121;\
++        <K114> = 122;\
++        <K115> = 123;\
++        <K116> = 124;\
++        <K117> = 125;\
++        <K118> = 126;\
++        <K119> = 127;\
++};\
++xkb_types \"(unnamed)\" { include \"complete\" };\
++xkb_compatibility \"(unnamed)\" { include \"complete\" };\
++xkb_symbols \"(unnamed)\" {\
++        key <K001> { [ BackSpace ] };\
++        key <K002> { [ Tab ] };\
++        key <K003> { [ Linefeed ] };\
++        key <K004> { [ Clear ] };\
++        key <K005> { [ 0x0000ff0c ] };\
++        key <K006> { [ Return ] };\
++        key <K007> { [ 0x0000ff0e ] };\
++        key <K008> { [ 0x0000ff0f ] };\
++        key <K009> { [ 0x0000ff10 ] };\
++        key <K010> { [ 0x0000ff11 ] };\
++        key <K011> { [ 0x0000ff12 ] };\
++        key <K012> { [ Pause ] };\
++        key <K013> { [ Scroll_Lock ] };\
++        key <K014> { [ Sys_Req ] };\
++        key <K015> { [ 0x0000ff16 ] };\
++        key <K016> { [ 0x0000ff17 ] };\
++        key <K017> { [ 0x0000ff18 ] };\
++        key <K018> { [ 0x0000ff19 ] };\
++        key <K019> { [ 0x0000ff1a ] };\
++        key <K020> { [ Escape ] };\
++        key <K021> { [ 0x0000ff1c ] };\
++        key <K022> { [ 0x0000ff1d ] };\
++        key <K023> { [ 0x0000ff1e ] };\
++        key <K024> { [ 0x0000ff1f ] };\
++        key <K025> { [ space ] };\
++        key <K026> { [ exclam ] };\
++        key <K027> { [ quotedbl ] };\
++        key <K028> { [ numbersign ] };\
++        key <K029> { [ dollar ] };\
++        key <K030> { [ percent ] };\
++        key <K031> { [ ampersand ] };\
++        key <K032> { [ apostrophe ] };\
++        key <K033> { [ parenleft ] };\
++        key <K034> { [ parenright ] };\
++        key <K035> { [ asterisk ] };\
++        key <K036> { [ plus ] };\
++        key <K037> { [ comma ] };\
++        key <K038> { [ minus ] };\
++        key <K039> { [ period ] };\
++        key <K040> { [ slash ] };\
++        key <K041> { [ 0 ] };\
++        key <K042> { [ 1 ] };\
++        key <K043> { [ 2 ] };\
++        key <K044> { [ 3 ] };\
++        key <K045> { [ 4 ] };\
++        key <K046> { [ 5 ] };\
++        key <K047> { [ 6 ] };\
++        key <K048> { [ 7 ] };\
++        key <K049> { [ 8 ] };\
++        key <K050> { [ 9 ] };\
++        key <K051> { [ colon ] };\
++        key <K052> { [ semicolon ] };\
++        key <K053> { [ less ] };\
++        key <K054> { [ equal ] };\
++        key <K055> { [ greater ] };\
++        key <K056> { [ question ] };\
++        key <K057> { [ at ] };\
++        key <K058> { [ A ] };\
++        key <K059> { [ B ] };\
++        key <K060> { [ C ] };\
++        key <K061> { [ D ] };\
++        key <K062> { [ E ] };\
++        key <K063> { [ F ] };\
++        key <K064> { [ G ] };\
++        key <K065> { [ H ] };\
++        key <K066> { [ I ] };\
++        key <K067> { [ J ] };\
++        key <K068> { [ K ] };\
++        key <K069> { [ L ] };\
++        key <K070> { [ M ] };\
++        key <K071> { [ N ] };\
++        key <K072> { [ O ] };\
++        key <K073> { [ P ] };\
++        key <K074> { [ Q ] };\
++        key <K075> { [ R ] };\
++        key <K076> { [ S ] };\
++        key <K077> { [ T ] };\
++        key <K078> { [ U ] };\
++        key <K079> { [ V ] };\
++        key <K080> { [ W ] };\
++        key <K081> { [ X ] };\
++        key <K082> { [ Y ] };\
++        key <K083> { [ Z ] };\
++        key <K084> { [ bracketleft ] };\
++        key <K085> { [ backslash ] };\
++        key <K086> { [ bracketright ] };\
++        key <K087> { [ asciicircum ] };\
++        key <K088> { [ underscore ] };\
++        key <K089> { [ grave ] };\
++        key <K090> { [ a ] };\
++        key <K091> { [ b ] };\
++        key <K092> { [ c ] };\
++        key <K093> { [ d ] };\
++        key <K094> { [ e ] };\
++        key <K095> { [ f ] };\
++        key <K096> { [ g ] };\
++        key <K097> { [ h ] };\
++        key <K098> { [ i ] };\
++        key <K099> { [ j ] };\
++        key <K100> { [ k ] };\
++        key <K101> { [ l ] };\
++        key <K102> { [ m ] };\
++        key <K103> { [ n ] };\
++        key <K104> { [ o ] };\
++        key <K105> { [ p ] };\
++        key <K106> { [ q ] };\
++        key <K107> { [ r ] };\
++        key <K108> { [ s ] };\
++        key <K109> { [ t ] };\
++        key <K110> { [ u ] };\
++        key <K111> { [ v ] };\
++        key <K112> { [ w ] };\
++        key <K113> { [ x ] };\
++        key <K114> { [ y ] };\
++        key <K115> { [ z ] };\
++        key <K116> { [ braceleft ] };\
++        key <K117> { [ bar ] };\
++        key <K118> { [ braceright ] };\
++        key <K119> { [ asciitilde ] };\
++};\
++};\
++";
+diff --git a/include/remotedesktop_common.h b/include/remotedesktop_common.h
+index 28d5d8f8..bb59f635 100644
+--- a/include/remotedesktop_common.h
++++ b/include/remotedesktop_common.h
+@@ -4,6 +4,7 @@
+ #include <stdbool.h>
+ #include <time.h>
+ 
++#include "virtual-keyboard-unstable-v1-client-protocol.h"
+ #include "wlr-virtual-pointer-unstable-v1-client-protocol.h"
+ #include <wayland-client-protocol.h>
+ #include <wayland-util.h>
+@@ -16,13 +17,16 @@ struct xdpw_remotedesktop_context {
+ 
+ 	// wlroots
+ 	struct wl_registry *registry;
++	struct zwp_virtual_keyboard_manager_v1 *virtual_keyboard_manager;
+ 	struct zwlr_virtual_pointer_manager_v1 *virtual_pointer_manager;
++	struct wl_seat *seat;
+ 
+ 	// sessions
+ 	struct wl_list remotedesktop_instances;
+ };
+ 
+ struct xdpw_remotedesktop_session_data {
++	struct zwp_virtual_keyboard_v1 *virtual_keyboard;
+ 	struct zwlr_virtual_pointer_v1 *virtual_pointer;
+ 	struct timespec t_start;
+ };
+diff --git a/include/virtual_keyboard.h b/include/virtual_keyboard.h
+new file mode 100644
+index 00000000..c409f7a7
+--- /dev/null
++++ b/include/virtual_keyboard.h
+@@ -0,0 +1,15 @@
++#ifndef VIRTUAL_KEYBOARD_H
++#define VIRTUAL_KEYBOARD_H
++
++#define VIRTUAL_KEYBOARD_VERSION 1
++#define VIRTUAL_KEYBOARD_VERSION_MIN 1
++
++#include "remotedesktop_common.h"
++
++struct xdpw_state;
++
++int xdpw_virtual_keyboard_init(struct xdpw_state *state);
++
++void xdpw_virtual_keyboard_finish(struct xdpw_remotedesktop_context *ctx);
++
++#endif
+diff --git a/meson.build b/meson.build
+index c5aa205f..0052917d 100644
+--- a/meson.build
++++ b/meson.build
+@@ -79,6 +79,7 @@ xdpw_files = files([
+ 	'src/screencast/fps_limit.c',
+ 	'src/remotedesktop/remotedesktop.c',
+ 	'src/remotedesktop/wlr_virtual_pointer.c',
++	'src/remotedesktop/virtual_keyboard.c',
+ ])
+ 
+ executable(
+diff --git a/src/core/main.c b/src/core/main.c
+index f81a7e29..758526b2 100644
+--- a/src/core/main.c
++++ b/src/core/main.c
+@@ -120,7 +120,7 @@ int main(int argc, char *argv[]) {
+ 		.screencast_cursor_modes = HIDDEN | EMBEDDED,
+ 		.screencast_version = XDP_CAST_PROTO_VER,
+ 		.screenshot_version = XDP_SHOT_PROTO_VER,
+-		.remotedesktop_available_device_types = POINTER,
++		.remotedesktop_available_device_types = POINTER | KEYBOARD,
+ 		.remotedesktop_version = XDP_REMOTE_PROTO_VER,
+ 		.config = &config,
+ 	};
+diff --git a/src/remotedesktop/remotedesktop.c b/src/remotedesktop/remotedesktop.c
+index 51f4ddb8..bc0d1409 100644
+--- a/src/remotedesktop/remotedesktop.c
++++ b/src/remotedesktop/remotedesktop.c
+@@ -1,10 +1,20 @@
+ #include "remotedesktop.h"
+ 
++#include <stdint.h>
+ #include <time.h>
++#include <stdlib.h>
++#include <unistd.h>
++#include <fcntl.h>
++#include <sys/mman.h>
++#include <xkbcommon/xkbcommon.h>
++#include <linux/input-event-codes.h>
+ 
+ #include "wlr_virtual_pointer.h"
++#include "virtual_keyboard.h"
+ #include "xdpw.h"
+ 
++#include "keymap.h"
++
+ static const char object_path[] = "/org/freedesktop/portal/desktop";
+ static const char interface_name[] = "org.freedesktop.impl.portal.RemoteDesktop";
+ 
+@@ -166,6 +176,66 @@ static int method_remotedesktop_select_devices(sd_bus_message *msg, void *data,
+ 	return 0;
+ }
+ 
++int init_keymap() {
++	char template[] = "/xdpw-keymap-XXXXXX";
++	char const *path;
++	char *name;
++
++	path = getenv("XDG_RUNTIME_DIR");
++	if (!path) {
++		logprint(ERROR, "remotedestop: init_keymap: failed to get XDG_RUNTIME_DIR");
++		errno = ENOENT;
++		return -1;
++	}
++
++	name = malloc(strlen(path) + sizeof(template) + 1);
++	if (!name) {
++		logprint(ERROR, "remotedestop: init_keymap: failed to allocate keymap path");
++		return -1;
++	}
++
++	strcpy(name, path);
++	strcat(name, template);
++
++	int keymap_fd = mkstemp(name);
++	if (keymap_fd == -1) {
++		logprint(ERROR, "remotedesktop: init_keymap: failed to create temporary keymap file");
++		logprint(ERROR, name);
++		logprint(ERROR, strerror(errno));
++		return -1;
++	}
++
++	int flags = fcntl(keymap_fd, F_GETFD);
++	if (flags == -1) {
++		logprint(ERROR, "remotedesktop: init_keymap: failed to query temporary keymap file flags");
++		close(keymap_fd);
++		return -1;
++	}
++
++	if (fcntl(keymap_fd, F_SETFD, flags | FD_CLOEXEC) == -1) {
++		logprint(ERROR, "remotedesktop: init_keymap: failed to set temporary keymap file flags");
++		close(keymap_fd);
++		return -1;
++	}
++	unlink(name);
++	free(name);
++
++	off_t keymap_size = strlen(keymap)+64;
++	if (posix_fallocate(keymap_fd, 0, keymap_size)) {
++		logprint(ERROR, "remotedestop: init_keymap: failed to allocate keymap memory");
++		return -1;
++	}
++
++	void *keymap_memory_ptr = mmap(NULL, keymap_size, PROT_READ | PROT_WRITE, MAP_SHARED,
++		keymap_fd, 0);
++	if (keymap_memory_ptr == (void*)-1) {
++		logprint(ERROR, "remotedesktop: init_keymap: failed to mmap keymap data");
++		return -1;
++	}
++	strcpy(keymap_memory_ptr, keymap);
++	return keymap_fd;
++}
++
+ static int method_remotedesktop_start(sd_bus_message *msg, void *data, sd_bus_error *ret_error) {
+ 	struct xdpw_state *state = data;
+ 
+@@ -194,7 +264,18 @@ static int method_remotedesktop_start(sd_bus_message *msg, void *data, sd_bus_er
+ 
+ 	remote = &sess->remotedesktop_data;
+ 	remote->virtual_pointer = zwlr_virtual_pointer_manager_v1_create_virtual_pointer(
+-		state->remotedesktop.virtual_pointer_manager, NULL);
++		state->remotedesktop.virtual_pointer_manager, state->remotedesktop.seat);
++
++	int keymap_fd = init_keymap();
++	if (keymap_fd > 0)
++	{
++		int keymap_size = strlen(keymap)+64;
++		remote->virtual_keyboard = zwp_virtual_keyboard_manager_v1_create_virtual_keyboard(
++			state->remotedesktop.virtual_keyboard_manager, state->remotedesktop.seat);
++		zwp_virtual_keyboard_v1_keymap(remote->virtual_keyboard, WL_KEYBOARD_KEYMAP_FORMAT_XKB_V1,
++			keymap_fd, keymap_size);
++	}
++
+ 	clock_gettime(CLOCK_REALTIME, &remote->t_start);
+ 
+ 	ret = sd_bus_message_read(msg, "s", &parent_window);
+@@ -520,11 +601,134 @@ static int method_remotedesktop_notify_pointer_axis_discrete(
+ 
+ static int method_remotedesktop_notify_keyboard_keycode(
+ 		sd_bus_message *msg, void *data, sd_bus_error *ret_error) {
++	struct xdpw_state *state = data;
++
++	int ret = 0;
++	char *session_handle;
++	struct xdpw_session *sess;
++	struct xdpw_remotedesktop_session_data *remote;
++	int32_t keycode;
++	uint32_t key_state;
++
++	logprint(DEBUG, "remotedesktop: notify_keyboard_keycode: method invoked");
++
++	ret = sd_bus_message_read(msg, "o", &session_handle);
++	if (ret < 0) {
++		return ret;
++	}
++	logprint(DEBUG, "remotedesktop: notify_keyboard_keycode: session_handle: %s", session_handle);
++
++	wl_list_for_each_reverse(sess, &state->xdpw_sessions, link) {
++		if (strcmp(sess->session_handle, session_handle) == 0) {
++			break;
++		}
++	}
++	if (!sess) {
++		logprint(WARN, "remotedesktop: notify_keyboard_keycode: session not found");
++		return -1;
++	}
++	logprint(DEBUG, "remotedesktop: notify_keyboard_keycode: session found");
++
++	remote = &sess->remotedesktop_data;
++
++	ret = sd_bus_message_skip(msg, "a{sv}");
++	if (ret < 0) {
++		return ret;
++	}
++	ret = sd_bus_message_read(msg, "i", &keycode);
++	if (ret < 0) {
++		return ret;
++	}
++	ret = sd_bus_message_read(msg, "u", &key_state);
++	if (ret < 0) {
++		return ret;
++	}
++
++	// this is not the right way, but at least this enables minimal usage
++	// TODO: Map evdev keycodes to xkb_symbols properly
++	uint32_t key = 0;
++	switch(keycode)
++	{
++		case KEY_BACKSPACE: {
++			key = XKB_KEY_BackSpace - 0xff00;
++			break;
++		}
++		case KEY_ENTER: {
++			key = XKB_KEY_Return - 0xff00;
++			break;
++		}
++		default:
++			return -1;
++	}
++
++	zwp_virtual_keyboard_v1_key(remote->virtual_keyboard,
++		get_timestamp_ms(remote),
++		key-7, key_state);
+ 	return 0;
+ }
+ 
+ static int method_remotedesktop_notify_keyboard_keysym(
+ 		sd_bus_message *msg, void *data, sd_bus_error *ret_error) {
++	struct xdpw_state *state = data;
++
++	int ret = 0;
++	char *session_handle;
++	struct xdpw_session *sess;
++	struct xdpw_remotedesktop_session_data *remote;
++	int32_t keysym;
++	uint32_t key_state;
++
++	logprint(DEBUG, "remotedesktop: notify_keyboard_keysym: method invoked");
++
++	ret = sd_bus_message_read(msg, "o", &session_handle);
++	if (ret < 0) {
++		return ret;
++	}
++	logprint(DEBUG, "remotedesktop: notify_keyboard_keysym: session_handle: %s", session_handle);
++
++	wl_list_for_each_reverse(sess, &state->xdpw_sessions, link) {
++		if (strcmp(sess->session_handle, session_handle) == 0) {
++			break;
++		}
++	}
++	if (!sess) {
++		logprint(WARN, "remotedesktop: notify_keyboard_keysym: session not found");
++		return -1;
++	}
++	logprint(DEBUG, "remotedesktop: notify_keyboard_keysym: session found");
++
++	remote = &sess->remotedesktop_data;
++
++	ret = sd_bus_message_skip(msg, "a{sv}");
++	if (ret < 0) {
++		return ret;
++	}
++	ret = sd_bus_message_read(msg, "i", &keysym);
++	if (ret < 0) {
++		return ret;
++	}
++	ret = sd_bus_message_read(msg, "u", &key_state);
++	if (ret < 0) {
++		return ret;
++	}
++
++	// map char to xkb_keycode_t
++	uint32_t keycode = keysym;
++	if(keycode < 0x20) {
++		keycode += 0xff00;
++	}
++	else if(keycode > 127) {
++		// FIXME: create more temporary keymaps and switch between them if needed
++		logprint(WARN, "remotedestop: notify_keyboard_keysym: keysym > 127 not supported for now");
++		return -1;
++	}
++	else {
++		keycode -= 7;
++	}
++
++	zwp_virtual_keyboard_v1_key(remote->virtual_keyboard,
++		get_timestamp_ms(remote),
++		keycode, key_state);
+ 	return 0;
+ }
+ 
+@@ -592,9 +796,17 @@ int xdpw_remotedesktop_init(struct xdpw_state *state) {
+ 		goto fail_virtual_pointer;
+ 	}
+ 
++	err = xdpw_virtual_keyboard_init(state);
++	if (err) {
++		goto fail_virtual_keyboard;
++	}
++
+ 	return sd_bus_add_object_vtable(state->bus, &slot, object_path,
+ 		interface_name, remotedesktop_vtable, state);
+ 
++fail_virtual_keyboard:
++	xdpw_virtual_keyboard_finish(&state->remotedesktop);
++
+ fail_virtual_pointer:
+ 	xdpw_wlr_virtual_pointer_finish(&state->remotedesktop);
+ 
+diff --git a/src/remotedesktop/virtual_keyboard.c b/src/remotedesktop/virtual_keyboard.c
+new file mode 100644
+index 00000000..64a67d60
+--- /dev/null
++++ b/src/remotedesktop/virtual_keyboard.c
+@@ -0,0 +1,64 @@
++#include "virtual_keyboard.h"
++
++#include "virtual-keyboard-unstable-v1-client-protocol.h"
++
++#include "remotedesktop.h"
++#include "xdpw.h"
++#include "logger.h"
++
++static void wlr_registry_handle_add(void *data, struct wl_registry *reg,
++		uint32_t id, const char *interface, uint32_t ver) {
++	struct xdpw_remotedesktop_context *ctx = data;
++
++	logprint(DEBUG, "wlroots: interface to register %s  (Version: %u)",
++		interface, ver);
++
++	if (!strcmp(interface, zwp_virtual_keyboard_manager_v1_interface.name)) {
++		uint32_t version = ver;
++		if (VIRTUAL_KEYBOARD_VERSION < ver) {
++			version = VIRTUAL_KEYBOARD_VERSION;
++		} else if (ver < VIRTUAL_KEYBOARD_VERSION_MIN) {
++			version = VIRTUAL_KEYBOARD_VERSION_MIN;
++		}
++		logprint(DEBUG,
++			"wlroots: |-- registered to interface %s (Version %u)",
++			interface, version);
++		ctx->virtual_keyboard_manager = wl_registry_bind(reg, id,
++			&zwp_virtual_keyboard_manager_v1_interface, version);
++	} else if (strcmp(interface, wl_seat_interface.name) == 0) {
++		ctx->seat = wl_registry_bind(reg, id, &wl_seat_interface, 1);
++	}
++}
++
++static const struct wl_registry_listener wlr_registry_listener = {
++	.global = wlr_registry_handle_add,
++	.global_remove = NULL,
++};
++
++int xdpw_virtual_keyboard_init(struct xdpw_state *state) {
++	struct xdpw_remotedesktop_context *ctx = &state->remotedesktop;
++
++	// retrieve registry
++	ctx->registry = wl_display_get_registry(state->wl_display);
++	wl_registry_add_listener(ctx->registry, &wlr_registry_listener, ctx);
++
++	wl_display_roundtrip(state->wl_display);
++
++	logprint(DEBUG, "wayland: registry listeners run");
++	wl_display_roundtrip(state->wl_display);
++
++	// make sure our wlroots supports virtual-keyboard protocol
++	if (!ctx->virtual_keyboard_manager) {
++		logprint(ERROR, "Compositor doesn't support %s!",
++			zwp_virtual_keyboard_manager_v1_interface.name);
++		return -1;
++	}
++
++	return 0;
++}
++
++void xdpw_virtual_keyboard_finish(struct xdpw_remotedesktop_context *ctx) {
++	if (ctx->virtual_keyboard_manager) {
++		zwp_virtual_keyboard_manager_v1_destroy(ctx->virtual_keyboard_manager);
++	}
++}
+
+From b2cacc910e560a097b2e43b5a683809e5a94bb68 Mon Sep 17 00:00:00 2001
+From: Sebastian Schmidt <schro.sb@gmail.com>
+Date: Fri, 3 Nov 2023 22:22:12 +0100
+Subject: [PATCH 6/7] RemoteDesktop: Send `frame` messages after motion, axis
+ and button events
+
+Button events directly trigger `frame` messages, while motion and axis
+events will delay the `frame` messages by 5000ns.
+
+This eliminates several issues in a setup with KDEConnect and Wayfire on
+Raspberry Pi OS 5:
+- button presses only fire after the next mouse motion
+- moving the cursor over panel icons doesn't trigger their hovered state
+- application menu requiring mouse presses to show submenus
+- scrolling not working at all
+---
+ include/remotedesktop_common.h    |  3 +++
+ src/remotedesktop/remotedesktop.c | 29 +++++++++++++++++++++++++++++
+ 2 files changed, 32 insertions(+)
+
+diff --git a/include/remotedesktop_common.h b/include/remotedesktop_common.h
+index bb59f635..097b1aa7 100644
+--- a/include/remotedesktop_common.h
++++ b/include/remotedesktop_common.h
+@@ -29,6 +29,9 @@ struct xdpw_remotedesktop_session_data {
+ 	struct zwp_virtual_keyboard_v1 *virtual_keyboard;
+ 	struct zwlr_virtual_pointer_v1 *virtual_pointer;
+ 	struct timespec t_start;
++
++	struct xdpw_timer *motion_timer;
++	struct xdpw_timer *axis_timer;
+ };
+ 
+ enum device_types {
+diff --git a/src/remotedesktop/remotedesktop.c b/src/remotedesktop/remotedesktop.c
+index bc0d1409..1d1b5f10 100644
+--- a/src/remotedesktop/remotedesktop.c
++++ b/src/remotedesktop/remotedesktop.c
+@@ -17,6 +17,7 @@
+ 
+ static const char object_path[] = "/org/freedesktop/portal/desktop";
+ static const char interface_name[] = "org.freedesktop.impl.portal.RemoteDesktop";
++static const uint32_t delay_frame_end_ns = 5000;
+ 
+ static uint32_t get_timestamp_ms(struct xdpw_remotedesktop_session_data *remote) {
+ 	struct timespec *t_start, t_stop;
+@@ -236,6 +237,20 @@ int init_keymap() {
+ 	return keymap_fd;
+ }
+ 
++void remote_desktop_send_frame_motion(void *data) {
++	struct xdpw_session *sess = data;
++
++	zwlr_virtual_pointer_v1_frame(sess->remotedesktop_data.virtual_pointer);
++	sess->remotedesktop_data.motion_timer = NULL;
++}
++
++void remote_desktop_send_frame_axis(void *data) {
++	struct xdpw_session *sess = data;
++
++	zwlr_virtual_pointer_v1_frame(sess->remotedesktop_data.virtual_pointer);
++	sess->remotedesktop_data.axis_timer = NULL;
++}
++
+ static int method_remotedesktop_start(sd_bus_message *msg, void *data, sd_bus_error *ret_error) {
+ 	struct xdpw_state *state = data;
+ 
+@@ -364,6 +379,12 @@ static int method_remotedesktop_notify_pointer_motion(sd_bus_message *msg,
+ 		get_timestamp_ms(&sess->remotedesktop_data),
+ 		wl_fixed_from_double(dx), wl_fixed_from_double(dy));
+ 
++	if(sess->remotedesktop_data.motion_timer != NULL) {
++		xdpw_destroy_timer(sess->remotedesktop_data.motion_timer);
++	}
++	sess->remotedesktop_data.motion_timer = xdpw_add_timer(state, delay_frame_end_ns,
++		(xdpw_event_loop_timer_func_t) remote_desktop_send_frame_motion, sess);
++
+ 	return 0;
+ }
+ 
+@@ -462,6 +483,7 @@ static int method_remotedesktop_notify_pointer_button(sd_bus_message *msg,
+ 	zwlr_virtual_pointer_v1_button(sess->remotedesktop_data.virtual_pointer,
+ 		get_timestamp_ms(&sess->remotedesktop_data),
+ 		button, btn_state);
++	zwlr_virtual_pointer_v1_frame(sess->remotedesktop_data.virtual_pointer);
+ 	return 0;
+ }
+ 
+@@ -548,6 +570,13 @@ static int method_remotedesktop_notify_pointer_axis(sd_bus_message *msg,
+ 			get_timestamp_ms(&sess->remotedesktop_data),
+ 			WL_POINTER_AXIS_HORIZONTAL_SCROLL);
+ 	}
++
++	if(sess->remotedesktop_data.axis_timer != NULL) {
++		xdpw_destroy_timer(sess->remotedesktop_data.axis_timer);
++	}
++	sess->remotedesktop_data.axis_timer = xdpw_add_timer(state, delay_frame_end_ns,
++		(xdpw_event_loop_timer_func_t) remote_desktop_send_frame_axis, sess);
++
+ 	return 0;
+ }
+ 
+
+From 903af35e791380cd64ef2a2054b7013fc42c2f70 Mon Sep 17 00:00:00 2001
+From: Sebastian Schmidt <schro.sb@gmail.com>
+Date: Fri, 3 Nov 2023 22:29:35 +0100
+Subject: [PATCH 7/7] RemoteDesktop: Remove factor for axis events
+
+---
+ src/remotedesktop/remotedesktop.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/remotedesktop/remotedesktop.c b/src/remotedesktop/remotedesktop.c
+index 1d1b5f10..700558e6 100644
+--- a/src/remotedesktop/remotedesktop.c
++++ b/src/remotedesktop/remotedesktop.c
+@@ -557,10 +557,10 @@ static int method_remotedesktop_notify_pointer_axis(sd_bus_message *msg,
+ 
+ 	zwlr_virtual_pointer_v1_axis(sess->remotedesktop_data.virtual_pointer,
+ 		get_timestamp_ms(&sess->remotedesktop_data),
+-		WL_POINTER_AXIS_VERTICAL_SCROLL, wl_fixed_from_double(dy * 10));
++		WL_POINTER_AXIS_VERTICAL_SCROLL, wl_fixed_from_double(dy));
+ 	zwlr_virtual_pointer_v1_axis(sess->remotedesktop_data.virtual_pointer,
+ 		get_timestamp_ms(&sess->remotedesktop_data),
+-		WL_POINTER_AXIS_HORIZONTAL_SCROLL, wl_fixed_from_double(dx * 10));
++		WL_POINTER_AXIS_HORIZONTAL_SCROLL, wl_fixed_from_double(dx));
+ 
+ 	if (finish) {
+ 		zwlr_virtual_pointer_v1_axis_stop(sess->remotedesktop_data.virtual_pointer,

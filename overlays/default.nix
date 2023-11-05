@@ -235,6 +235,8 @@ in
   vulkanPackages_latest = callOverride ../pkgs/vulkan-versioned
     { vulkanVersions = importJSON ../pkgs/vulkan-versioned/latest.json; };
 
+  xdg-desktop-portal-wlr_git = callOverride ../pkgs/portal-wlr-git { };
+
   wayland_git = callOverride ../pkgs/wayland-git { };
   wayland-protocols_git = callOverride ../pkgs/wayland-protocols-git { };
   wayland-scanner_git = final.wayland_git.bin;
