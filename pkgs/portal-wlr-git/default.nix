@@ -1,4 +1,4 @@
-{ final, prev, gitOverride, nyxUtils, ... }:
+{ final, prev, gitOverride, ... }:
 
 gitOverride {
   newInputs = with final; {
