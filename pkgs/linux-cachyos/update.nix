@@ -66,6 +66,9 @@ writeShellScript "update-cachyos" ''
   cat "$(nix build '.#packages.x86_64-linux.linux_cachyos.cachyFlavor.baked' --no-link --print-out-paths)" \
     > pkgs/linux-cachyos/config-x86_64-linux.nix
 
+  cat "$(nix build '.#packages.x86_64-linux.linux_cachyos-server.cachyFlavor.baked' --no-link --print-out-paths)" \
+    > pkgs/linux-cachyos/config-x86_64-linux-server.nix
+
   cat "$(nix build '.#packages.x86_64-linux.linux-hardened_cachyos.cachyFlavor.baked' --no-link --print-out-paths)" \
     > pkgs/linux-cachyos/config-x86_64-linux-hardened.nix
 
