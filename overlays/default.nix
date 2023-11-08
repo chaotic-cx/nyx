@@ -141,6 +141,22 @@ in
     kernelPatches = [ ]; # feel free to override.
   };
 
+  linux_cachyos-server = final.callPackage ../pkgs/linux-cachyos {
+    inherit cachyVersions;
+    cachyFlavor = rec {
+      taste = "linux-cachyos-server";
+      configfile = final.callPackage ../pkgs/linux-cachyos/configfile-raw.nix {
+        inherit cachyVersions;
+        cachyTaste = taste;
+      };
+      config = import ../pkgs/linux-cachyos/config-x86_64-linux-server.nix;
+      baked = final.callPackage ../pkgs/linux-cachyos/configfile-bake.nix {
+        inherit configfile;
+      };
+    };
+    kernelPatches = [ ]; # feel free to override.
+  };
+
   linux-hardened_cachyos = final.callPackage ../pkgs/linux-cachyos {
     inherit cachyVersions;
     cachyFlavor = rec {
@@ -160,6 +176,10 @@ in
   linuxPackages_cachyos = (dropAttrsUpdateScript
     ((final.linuxPackagesFor final.linux_cachyos).extend cachyZFS)
   ) // { _description = "Kernel modules for linux_cachyos"; };
+
+  linuxPackages_cachyos-server = (dropAttrsUpdateScript
+    ((final.linuxPackagesFor final.linux_cachyos-server).extend cachyZFS)
+  ) // { _description = "Kernel modules for linux_cachyos-server"; };
 
   linuxPackages-hardened_cachyos = (dropAttrsUpdateScript
     ((final.linuxPackagesFor final.linux-hardened_cachyos).extend cachyZFS)
