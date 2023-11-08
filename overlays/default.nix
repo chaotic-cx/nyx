@@ -160,7 +160,7 @@ in
   linux-hardened_cachyos = final.callPackage ../pkgs/linux-cachyos {
     inherit cachyVersions;
     cachyFlavor = rec {
-      taste = "linux-cachyos-hardened";
+      taste = "archive/linux-cachyos-hardened";
       configfile = final.callPackage ../pkgs/linux-cachyos/configfile-raw.nix {
         inherit cachyVersions;
         cachyTaste = taste;
