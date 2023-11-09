@@ -17,7 +17,7 @@ let
 
   # Our utilities/helpers.
   nyxUtils = import ../shared/utils.nix { inherit (final) lib; nyxOverlay = selfOverlay; };
-  inherit (nyxUtils) dropAttrsUpdateScript dropUpdateScript multiOverride multiOverrides overrideDescription;
+  inherit (nyxUtils) dropUpdateScript multiOverride multiOverrides overrideDescription;
 
   # Helps when calling .nix that will override packages.
   callOverride = path: attrs: import path ({ inherit final flakes nyxUtils prev gitOverride; } // attrs);
@@ -109,7 +109,7 @@ in
   linuxPackages_cachyos-hardened = cachyosPackages.cachyos-hardened;
   linuxPackages-hardened_cachyos = warn
     "`linuxPackages-hardened_cachyos` was renamed to `linuxPackages_cachyos-hardened`"
-    (final.linuxPackages_cachyos-hardened // {recurseForDerivations = false;});
+    (final.linuxPackages_cachyos-hardened // { recurseForDerivations = false; });
 
   luxtorpeda = final.callPackage ../pkgs/luxtorpeda {
     luxtorpedaVersion = importJSON ../pkgs/luxtorpeda/version.json;

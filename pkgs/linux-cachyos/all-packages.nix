@@ -1,4 +1,4 @@
-{ final, prev, nyxUtils, ... }:
+{ final, ... }:
 
 let
   # CachyOS repeating stuff.
