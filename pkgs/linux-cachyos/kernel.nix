@@ -34,7 +34,7 @@ let
   schedPatch =
     if cachyConfig.cpuSched == "cachyos" then
       "bore-cachy"
-    else throw "Unsupported cachyos scheduler";
+    else throw "Unsupported cachyos _cpu_sched";
 in
 (linuxManualConfig {
   inherit stdenv src version features randstructSeed;
@@ -48,12 +48,11 @@ in
       name = builtins.baseNameOf filename;
       patch = filename;
     })
-    [
-      "${patches-src}/${major}/all/0001-cachyos-base-all.patch"
-      "${patches-src}/${major}/sched/0001-${schedPatch}.patch"
-      "${patches-src}/${major}/misc/0001-Add-extra-version-CachyOS.patch"
-      "${patches-src}/${major}/misc/0001-bcachefs.patch"
-    ];
+    ([ "${patches-src}/${major}/all/0001-cachyos-base-all.patch" ]
+      ++ lib.optional (cachyConfig.cpuSched != "eevdf") "${patches-src}/${major}/sched/0001-${schedPatch}.patch"
+      ++ [ "${patches-src}/${major}/misc/0001-Add-extra-version-CachyOS.patch" ]
+      ++ lib.optional cachyConfig.withBCacheFS "${patches-src}/${major}/misc/0001-bcachefs.patch"
+    );
 
   extraMeta = {
     maintainers = with lib.maintainers; [ dr460nf1r3 pedrohlc ];

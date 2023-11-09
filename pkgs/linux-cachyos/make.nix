@@ -5,12 +5,30 @@
 , fetchFromGitHub
 , linuxPackagesFor
 , nyxUtils
-, cpuSched ? "cachyos"
 , kernelPatches ? { }
+, basicCachy ? true
+, cpuSched ? "cachyos"
+, ticksHz ? 500
+, tickRate ? "full"
+, preempt ? "full"
+, hugePages ? "always"
+, withDAMON ? false
+, withBCacheFS ? true
+, description ? "Linux EEVDF-BORE scheduler Kernel by CachyOS with other patches and improvements"
 }:
 
 let
-  cachyConfig = { inherit taste cpuSched versions; };
+  cachyConfig = {
+    inherit taste versions basicCachy
+      cpuSched
+      ticksHz
+      tickRate
+      preempt
+      hugePages
+      withDAMON
+      withBCacheFS
+      description;
+  };
 
   # The three phases of the config
   # - First we apply the changes fromt their PKGBUILD using kconfig;
@@ -58,6 +76,6 @@ let
   packagesWithoutUpdateScript = nyxUtils.dropAttrsUpdateScript packagesWithZFS;
 in
 packagesWithoutUpdateScript // {
-  _description = "Kernel and modules for ${taste}";
+  _description = "Kernel and modules for ${description}";
   kernel = basePackages.kernel; # This one still has the updateScript
 }

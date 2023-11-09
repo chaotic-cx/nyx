@@ -18,6 +18,14 @@ in
   cachyos-server = mkCachyKernel {
     taste = "linux-cachyos-server";
     configPath = ./config-nix/cachyos-server.x86_64-linux.nix;
+    basicCachy = false;
+    cpuSched = "eevdf";
+    ticksHz = 300;
+    tickRate = "idle";
+    preempt = "server";
+    hugePages = "madvise";
+    withDAMON = true;
+    description = "Linux EEVDF scheduler Kernel by CachyOS targeted for Servers";
   };
 
   cachyos-hardened = mkCachyKernel {
