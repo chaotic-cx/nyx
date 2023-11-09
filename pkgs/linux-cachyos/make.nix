@@ -78,5 +78,5 @@ let
 in
 packagesWithoutUpdateScript // {
   _description = "Kernel and modules for ${description}";
-  kernel = basePackages.kernel; # This one still has the updateScript
+  inherit (basePackages) kernel; # This one still has the updateScript
 }
