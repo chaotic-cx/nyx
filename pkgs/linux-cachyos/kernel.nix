@@ -1,5 +1,7 @@
-{ cachyVersions
-, cachyFlavor
+{ cachyConfig
+, cachyConfigBake
+, config
+, configfile
 , callPackage
 , nyxUtils
 , fetchFromGitHub
@@ -13,27 +15,32 @@
 , randstructSeed ? ""
 }@inputs:
 let
-  inherit (cachyVersions.linux) version;
+  inherit (cachyConfig.versions.linux) version;
   major = lib.versions.pad 2 version;
 
   patches-src = fetchFromGitHub {
     owner = "CachyOS";
     repo = "kernel-patches";
-    inherit (cachyVersions.patches) rev hash;
+    inherit (cachyConfig.versions.patches) rev hash;
   };
 
   src = fetchurl {
     url = "mirror://kernel/linux/kernel/v6.x/linux-${
       if version == "${major}.0" then major else version
     }.tar.xz";
-    inherit (cachyVersions.linux) hash;
+    inherit (cachyConfig.versions.linux) hash;
   };
+
+  schedPatch =
+    if cachyConfig.cpuSched == "cachyos" || cachyConfig.cpuSched == "hardened" then
+      "bore-cachy"
+    else throw "Unsupported cachyos _cpu_sched";
 in
 (linuxManualConfig {
   inherit stdenv src version features randstructSeed;
-  modDirVersion = lib.versions.pad 3 "${version}${cachyVersions.suffix}";
+  modDirVersion = lib.versions.pad 3 "${version}${cachyConfig.versions.suffix}";
 
-  inherit (cachyFlavor) config configfile;
+  inherit config configfile;
   allowImportFromDerivation = false;
 
   kernelPatches = inputs.kernelPatches ++ builtins.map
@@ -41,12 +48,12 @@ in
       name = builtins.baseNameOf filename;
       patch = filename;
     })
-    [
-      "${patches-src}/${major}/all/0001-cachyos-base-all.patch"
-      "${patches-src}/${major}/sched/0001-bore-cachy.patch"
-      "${patches-src}/${major}/misc/0001-Add-extra-version-CachyOS.patch"
-      "${patches-src}/${major}/misc/0001-bcachefs.patch"
-    ];
+    ([ "${patches-src}/${major}/all/0001-cachyos-base-all.patch" ]
+      ++ lib.optional (cachyConfig.cpuSched != "eevdf") "${patches-src}/${major}/sched/0001-${schedPatch}.patch"
+      ++ lib.optional (cachyConfig.cpuSched != "hardened") "${patches-src}/${major}/misc/0001-hardened.patch"
+      ++ [ "${patches-src}/${major}/misc/0001-Add-extra-version-CachyOS.patch" ]
+      ++ lib.optional cachyConfig.withBCacheFS "${patches-src}/${major}/misc/0001-bcachefs.patch"
+    );
 
   extraMeta = {
     maintainers = with lib.maintainers; [ dr460nf1r3 pedrohlc ];
@@ -57,7 +64,7 @@ in
 ).overrideAttrs (prevAttrs: {
   # bypasses https://github.com/NixOS/nixpkgs/issues/216529
   passthru = prevAttrs.passthru // {
-    inherit cachyVersions cachyFlavor;
+    inherit cachyConfig cachyConfigBake;
     features = {
       efiBootStub = true;
       ia32Emulation = true;
@@ -66,6 +73,6 @@ in
       netfilterRPFilter = true;
     };
   } // nyxUtils.optionalAttr "updateScript"
-    (cachyFlavor.taste == "linux-cachyos")
+    (cachyConfig.taste == "linux-cachyos")
     (callPackage ./update.nix { });
 })
