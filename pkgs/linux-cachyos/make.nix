@@ -5,6 +5,7 @@
 , fetchFromGitHub
 , linuxPackagesFor
 , nyxUtils
+  # those are set in their PKGBUILDs
 , kernelPatches ? { }
 , basicCachy ? true
 , cpuSched ? "cachyos"

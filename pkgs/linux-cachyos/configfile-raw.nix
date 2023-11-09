@@ -79,7 +79,7 @@ let
   cpuSchedConfig =
     if cachyConfig.cpuSched == "eevdf" then
       [ ]
-    else if cachyConfig.cpuSched == "cachyos" then
+    else if cachyConfig.cpuSched == "cachyos" || cachyConfig.cpuSched == "hardened" then
       [ "-e SCHED_BORE" ]
     else throw "Unsupported cachyos scheduler";
 

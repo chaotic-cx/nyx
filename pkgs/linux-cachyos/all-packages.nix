@@ -31,5 +31,6 @@ in
   cachyos-hardened = mkCachyKernel {
     taste = "archive/linux-cachyos-hardened";
     configPath = ./config-nix/cachyos-hardened.x86_64-linux.nix;
+    cpuSched = "hardened";
   };
 }

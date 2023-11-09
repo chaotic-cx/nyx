@@ -12,8 +12,8 @@
 { flakes, self ? flakes.self, selfOverlay ? self.overlays.default }:
 final: prev:
 let
-  # Required to load version files.
-  inherit (final.lib.trivial) importJSON;
+  # Required to load version files and warning.
+  inherit (final.lib.trivial) importJSON warn;
 
   # Our utilities/helpers.
   nyxUtils = import ../shared/utils.nix { inherit (final) lib; nyxOverlay = selfOverlay; };
@@ -107,6 +107,9 @@ in
   linuxPackages_cachyos = cachyosPackages.cachyos;
   linuxPackages_cachyos-server = cachyosPackages.cachyos-server;
   linuxPackages_cachyos-hardened = cachyosPackages.cachyos-hardened;
+  linuxPackages-hardened_cachyos = warn
+    "`linuxPackages-hardened_cachyos` was renamed to `linuxPackages_cachyos-hardened`"
+    (final.linuxPackages_cachyos-hardened // {recurseForDerivations = false;});
 
   luxtorpeda = final.callPackage ../pkgs/luxtorpeda {
     luxtorpedaVersion = importJSON ../pkgs/luxtorpeda/version.json;

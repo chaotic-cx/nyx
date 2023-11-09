@@ -32,7 +32,7 @@ let
   };
 
   schedPatch =
-    if cachyConfig.cpuSched == "cachyos" then
+    if cachyConfig.cpuSched == "cachyos" || cachyConfig.cpuSched == "hardened" then
       "bore-cachy"
     else throw "Unsupported cachyos _cpu_sched";
 in
@@ -50,6 +50,7 @@ in
     })
     ([ "${patches-src}/${major}/all/0001-cachyos-base-all.patch" ]
       ++ lib.optional (cachyConfig.cpuSched != "eevdf") "${patches-src}/${major}/sched/0001-${schedPatch}.patch"
+      ++ lib.optional (cachyConfig.cpuSched != "hardened") "${patches-src}/${major}/misc/0001-hardened.patch"
       ++ [ "${patches-src}/${major}/misc/0001-Add-extra-version-CachyOS.patch" ]
       ++ lib.optional cachyConfig.withBCacheFS "${patches-src}/${major}/misc/0001-bcachefs.patch"
     );
