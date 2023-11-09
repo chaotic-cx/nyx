@@ -1,5 +1,4 @@
-{ cachyVersions
-, cachyTaste
+{ cachyConfig
 , fetchFromGitHub
 , fetchurl
 , lib
@@ -9,20 +8,20 @@
 , perl
 }:
 let
-  inherit (cachyVersions.linux) version;
+  inherit (cachyConfig.versions.linux) version;
   major = lib.versions.pad 2 version;
 
   config-src = fetchFromGitHub {
     owner = "CachyOS";
     repo = "linux-cachyos";
-    inherit (cachyVersions.config) rev hash;
+    inherit (cachyConfig.versions.config) rev hash;
   };
 
   src = fetchurl {
     url = "mirror://kernel/linux/kernel/v6.x/linux-${
       if version == "${major}.0" then major else version
     }.tar.xz";
-    inherit (cachyVersions.linux) hash;
+    inherit (cachyConfig.versions.linux) hash;
   };
 
   # There are some configurations set by the PKGBUILD
@@ -102,12 +101,12 @@ stdenv.mkDerivation {
   nativeBuildInputs = [ flex bison perl ];
 
   preparePhase = ''
-    cp "${config-src}/${cachyTaste}/config" ".config"
+    cp "${config-src}/${cachyConfig.taste}/config" ".config"
   '';
 
   buildPhase = ''
     make defconfig
-    cp "${config-src}/${cachyTaste}/config" ".config"
+    cp "${config-src}/${cachyConfig.taste}/config" ".config"
     patchShebangs scripts/config
     scripts/config ${lib.concatStringsSep " " pkgbuildConfig}
   '';

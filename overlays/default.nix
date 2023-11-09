@@ -29,30 +29,6 @@ let
     prev = prev.pkgsi686Linux;
   } // attrs);
 
-  # CachyOS repeating stuff.
-  cachyVersions = importJSON ../pkgs/linux-cachyos/versions.json;
-
-  # CachyOS repeating stuff.
-  cachyZFS = _finalAttrs: prevAttrs:
-    let
-      zfs = prevAttrs.zfsUnstable.overrideAttrs (prevAttrs: {
-        src =
-          final.fetchFromGitHub {
-            owner = "cachyos";
-            repo = "zfs";
-            inherit (cachyVersions.zfs) rev hash;
-          };
-        meta = prevAttrs.meta // { broken = false; };
-        patches = [ ];
-      });
-    in
-    {
-      kernel_configfile = prevAttrs.kernel.configfile;
-      inherit zfs;
-      zfsStable = zfs;
-      zfsUnstable = zfs;
-    };
-
   # Magic helper for _git packages.
   gitOverride = import ../shared/git-override.nix {
     inherit (final) lib callPackage fetchFromGitHub fetchFromGitLab;
@@ -60,6 +36,9 @@ let
     fetchRevFromGitHub = final.callPackage ../shared/github-rev-fetcher.nix { };
     fetchRevFromGitLab = final.callPackage ../shared/gitlab-rev-fetcher.nix { };
   };
+
+  # Too much variations
+  cachyosPackages = callOverride ../pkgs/linux-cachyos/all-packages.nix { };
 in
 {
   inherit nyxUtils;
@@ -125,65 +104,9 @@ in
 
   latencyflex-vulkan = final.callPackage ../pkgs/latencyflex-vulkan { };
 
-  linux_cachyos = final.callPackage ../pkgs/linux-cachyos {
-    inherit cachyVersions;
-    cachyFlavor = rec {
-      taste = "linux-cachyos";
-      configfile = final.callPackage ../pkgs/linux-cachyos/configfile-raw.nix {
-        inherit cachyVersions;
-        cachyTaste = taste;
-      };
-      config = import ../pkgs/linux-cachyos/config-x86_64-linux.nix;
-      baked = final.callPackage ../pkgs/linux-cachyos/configfile-bake.nix {
-        inherit configfile;
-      };
-    };
-    kernelPatches = [ ]; # feel free to override.
-  };
-
-  linux_cachyos-server = final.callPackage ../pkgs/linux-cachyos {
-    inherit cachyVersions;
-    cachyFlavor = rec {
-      taste = "linux-cachyos-server";
-      configfile = final.callPackage ../pkgs/linux-cachyos/configfile-raw.nix {
-        inherit cachyVersions;
-        cachyTaste = taste;
-      };
-      config = import ../pkgs/linux-cachyos/config-x86_64-linux-server.nix;
-      baked = final.callPackage ../pkgs/linux-cachyos/configfile-bake.nix {
-        inherit configfile;
-      };
-    };
-    kernelPatches = [ ]; # feel free to override.
-  };
-
-  linux-hardened_cachyos = final.callPackage ../pkgs/linux-cachyos {
-    inherit cachyVersions;
-    cachyFlavor = rec {
-      taste = "archive/linux-cachyos-hardened";
-      configfile = final.callPackage ../pkgs/linux-cachyos/configfile-raw.nix {
-        inherit cachyVersions;
-        cachyTaste = taste;
-      };
-      config = import ../pkgs/linux-cachyos/config-x86_64-linux-hardened.nix;
-      baked = final.callPackage ../pkgs/linux-cachyos/configfile-bake.nix {
-        inherit configfile;
-      };
-    };
-    kernelPatches = [ ]; # feel free to override.
-  };
-
-  linuxPackages_cachyos = (dropAttrsUpdateScript
-    ((final.linuxPackagesFor final.linux_cachyos).extend cachyZFS)
-  ) // { _description = "Kernel modules for linux_cachyos"; };
-
-  linuxPackages_cachyos-server = (dropAttrsUpdateScript
-    ((final.linuxPackagesFor final.linux_cachyos-server).extend cachyZFS)
-  ) // { _description = "Kernel modules for linux_cachyos-server"; };
-
-  linuxPackages-hardened_cachyos = (dropAttrsUpdateScript
-    ((final.linuxPackagesFor final.linux-hardened_cachyos).extend cachyZFS)
-  ) // { _description = "Kernel modules for linux-hardened_cachyos"; };
+  linuxPackages_cachyos = cachyosPackages.cachyos;
+  linuxPackages_cachyos-server = cachyosPackages.cachyos-server;
+  linuxPackages_cachyos-hardened = cachyosPackages.cachyos-hardened;
 
   luxtorpeda = final.callPackage ../pkgs/luxtorpeda {
     luxtorpedaVersion = importJSON ../pkgs/luxtorpeda/version.json;
