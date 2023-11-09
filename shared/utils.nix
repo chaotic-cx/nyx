@@ -94,6 +94,9 @@ rec {
       x
   );
 
+  # For revs
+  shorter = builtins.substring 0 7;
+
   # Like `lib.fakeHash`, but beautier.
   unreachableHash = "sha256-2342234223422342234223422342234223422342069=";
 

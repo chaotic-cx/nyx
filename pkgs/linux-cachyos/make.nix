@@ -5,6 +5,7 @@
 , fetchFromGitHub
 , linuxPackagesFor
 , nyxUtils
+, lib
   # those are set in their PKGBUILDs
 , kernelPatches ? { }
 , basicCachy ? true
@@ -75,8 +76,12 @@ let
   basePackages = linuxPackagesFor kernel;
   packagesWithZFS = basePackages.extend addZFS;
   packagesWithoutUpdateScript = nyxUtils.dropAttrsUpdateScript packagesWithZFS;
+
+  versionSuffix = "+C${nyxUtils.shorter versions.config.rev}+P${nyxUtils.shorter versions.patches.rev}"
+    + lib.strings.optionalString withBCacheFS "+bcachefs";
 in
 packagesWithoutUpdateScript // {
   _description = "Kernel and modules for ${description}";
+  _version = "${versions.linux.version}${versionSuffix}";
   inherit (basePackages) kernel; # This one still has the updateScript
 }

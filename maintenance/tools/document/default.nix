@@ -35,7 +35,7 @@ let
     else ''
       <tr>
         <td><code>${k}</code></td>
-        <td><code>-</code></td>
+        <td><code>${v._version or "-"}</code></td>
         <td>${v._description or "(${message})"}</td>
       </tr>
     '';
