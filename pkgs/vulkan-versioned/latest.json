@@ -38,9 +38,9 @@
     "badTag": "vulkan-tmp-1.3.266"
   },
   "vulkanTools": {
-    "version": "1.3.267",
+    "version": "1.3.270",
     "rev": "v#{version}",
-    "hash": "sha256-KEmv4zEJE17VRZ2Vlt8eJzqI1ModDmch7INFptfft6o="
+    "hash": "sha256-GbwbO+s2g+xN7EpYcd1hWu4WvQowNN9NIYVHld65/1k="
   },
   "vulkanToolsLunarG": {
     "version": "1.3.261.1",
