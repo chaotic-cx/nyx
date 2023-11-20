@@ -32,7 +32,7 @@ jobs:
         id: check
         if: github.event_name == 'push'
         continue-on-error: true
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           script: |
             try {
@@ -134,7 +134,7 @@ jobs:
           BUMP: ${{ inputs.nixpkgs-bump }}
       - name: Comment on commit
         if: (success() && steps.check.outputs.cached != 'true')
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           script: |
             if (process.env.FAILED_BUILDS_COUNT > 0) {
