@@ -62,7 +62,7 @@ jobs:
     steps:
       - name: Set labels
         continue-on-error: true
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         env:
           FAILED_BUILDS_COUNT: ${{ needs.build.outputs.FAILED_BUILDS_COUNT }}
           FAILED_BUILDS: ${{ needs.build.outputs.FAILED_BUILDS }}

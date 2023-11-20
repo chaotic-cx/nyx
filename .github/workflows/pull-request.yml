@@ -37,7 +37,7 @@ jobs:
     steps:
       - name: Add comment
         if: needs.lint.outputs.fmt == 'failure' && github.event.action == 'opened'
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           script: |
             github.rest.issues.createComment({
@@ -48,7 +48,7 @@ jobs:
             })
       - name: Remove cached label
         if: contains(github.event.pull_request.labels.*.name, 'cached')
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           script: |
             github.rest.issues.removeLabel({

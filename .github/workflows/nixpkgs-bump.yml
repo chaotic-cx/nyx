@@ -45,7 +45,7 @@ jobs:
       # Trigger build.yml and make sure no new commits were pushed in the meantime
       - name: Trigger build.yml workflow
         if: (success() && steps.bump.outcome == 'success')
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           script: |
             try {
