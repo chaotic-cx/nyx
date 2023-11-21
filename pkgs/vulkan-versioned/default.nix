@@ -78,7 +78,6 @@ final.lib.makeScope final.newScope (self:
     key = "vulkanExtensionLayer";
     owner = "KhronosGroup";
     repo = "Vulkan-ExtensionLayer";
-    extraAttrs = prevAttrs: { buildInputs = prevAttrs.buildInputs ++ [ self.vulkan-utility-libraries ]; };
   };
 
   vulkan-headers = genericOverride {
@@ -107,20 +106,12 @@ final.lib.makeScope final.newScope (self:
     key = "vulkanTools";
     owner = "KhronosGroup";
     repo = "Vulkan-Tools";
-    extraAttrs = prevAttrs: {
-      patches = [ ./use-nix-moltenvk.patch ] ++
-        (nyxUtils.removeByBaseName "use-nix-moltenvk.patch" prevAttrs.patches);
-    };
   };
 
   vulkan-tools-lunarg =
     genericOverride {
       origin = prev.vulkan-tools-lunarg;
-      extraInput =
-        if vulkanVersions.vulkanToolsLunarG.version == "1.3.261.1" then
-          { inherit (self) vulkan-validation-layers; }
-        else
-          { inherit (self) vulkan-headers vulkan-loader vulkan-validation-layers; };
+      extraInput = { inherit (self) vulkan-headers vulkan-loader vulkan-utility-libraries; };
       key = "vulkanToolsLunarG";
       owner = "LunarG";
       repo = "VulkanTools";

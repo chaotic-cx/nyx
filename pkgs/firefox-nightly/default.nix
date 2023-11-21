@@ -36,8 +36,9 @@ let
       updateScript = callPackage ./update.nix { };
     };
 
-  noKey = _prevAttrs: {
+  postOverride = prevAttrs: {
+    patches = nyxUtils.removeByBaseName "no-buildconfig-ffx96.patch" prevAttrs.patches;
     env.MOZ_REQUIRE_SIGNING = "";
   };
 in
-nyxUtils.multiOverride mach { nss_latest = nss_git; } noKey
+nyxUtils.multiOverride mach { nss_latest = nss_git; } postOverride
