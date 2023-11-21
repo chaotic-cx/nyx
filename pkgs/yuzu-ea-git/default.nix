@@ -8,6 +8,12 @@ let
     rev = "6.4.8";
     hash = "sha256-lsfwR+ydtn3LWWh0Jfb8+2qJqnRbjoTM18Wb1lfX/8w=";
   };
+  simpleini = final.fetchFromGitHub {
+    owner = "brofield";
+    repo = "simpleini";
+    rev = "382ddbb4b92c0b26aa1b32cefba2002119a5b1f2";
+    hash = "sha256-/cHkL95oj+RUkSLojY1EU6TDiX7KOTNEJzyAFSHmIwg=";
+  };
   sirit = final.fetchFromGitHub {
     owner = "ReinUsesLisp";
     repo = "sirit";
@@ -69,6 +75,7 @@ gitOverride (current: {
       ln -s ${sirit} externals/sirit
       ln -s ${xbyak} externals/xbyak
       ln -s ${vma} externals/VulkanMemoryAllocator
+      ln -s ${simpleini} externals/simpleini
     '';
 
     preConfigure = ''
