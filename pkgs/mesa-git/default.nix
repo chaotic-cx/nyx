@@ -23,9 +23,20 @@ gitOverride (current: {
   version = builtins.substring 0 (builtins.stringLength prev.mesa.version) current.rev;
 
   postOverride = prevAttrs: {
+    mesonFlags =
+      builtins.map
+        (builtins.replaceStrings [ "virtio-experimental" ] [ "virtio" ])
+        prevAttrs.mesonFlags;
     patches =
-      prevAttrs.patches
-       ++ [
+      (nyxUtils.removeByBaseName
+        "disk_cache-include-dri-driver-path-in-cache-key.patch"
+        (nyxUtils.removeByBaseName
+          "opencl.patch"
+          prevAttrs.patches
+        )
+      ) ++ [
+        ./opencl.patch
+        ./disk_cache-include-dri-driver-path-in-cache-key.patch
         ./gbm-backend.patch
       ];
     # expose gbm backend and rename vendor (if necessary)
