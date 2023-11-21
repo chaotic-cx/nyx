@@ -6,18 +6,17 @@
 , meson
 , ninja
 , pkg-config
-, vulkan-headers
-, vulkan-loader
-, vulkan-validation-layers
+, vulkanPackages_latest
 }:
 
 let
+  inherit (vulkanPackages_latest) vulkan-headers vulkan-loader vulkan-validation-layers;
   vulkan-validation-layers-headers =
     runCommand "vulkan-validation-layers-headers" { } ''
       mkdir -p $out/vulkan
       cd $out/vulkan
-      cp ${vulkan-validation-layers.src}/include/vulkan/generated/* ./
-      cp -r ${vulkan-validation-layers.src}/include/vulkan/{*/,vk_layer_config.*} ./
+      cp ${vulkan-validation-layers.src}/layers/vulkan/generated/* ./
+      cp -r ${vulkan-validation-layers.src}/layers/vulkan/{*/,vk_layer_config.*} ./
     '';
 in
 stdenv.mkDerivation {
