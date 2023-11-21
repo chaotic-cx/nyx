@@ -26,5 +26,4 @@
   "linuxPackages_cachyos-server.sysdig" = "/nix/store/r9wwl8cxi2r2ipz255dn7b0d82bpx463-sysdig-0.33.1";
   "linuxPackages_cachyos-server.system76-acpi" = "/nix/store/00mmy7nj04290am0556xsgp7g3pygagi-system76-acpi-module-1.0.2-6.6.2";
   "linuxPackages_cachyos-server.virtio_vmmci" = "/nix/store/f6kvwpj1b1vhax5rnjh9pmlspdz0rkl5-virtio_vmmci";
-  "river_git" = "/nix/store/gw8ys4nmrnl3amazpfddv8k0wr2gf4w7-river-unstable-20231117185157-50ccd4c";
 }
