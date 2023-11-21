@@ -16,8 +16,8 @@ let
     runCommand "vulkan-validation-layers-headers" { } ''
       mkdir -p $out/vulkan
       cd $out/vulkan
-      cp ${vulkan-validation-layers.headers}/include/vulkan/generated/* ./
-      cp -r ${vulkan-validation-layers.headers}/include/vulkan/{*/,vk_layer_config.*} ./
+      cp ${vulkan-validation-layers.src}/include/vulkan/generated/* ./
+      cp -r ${vulkan-validation-layers.src}/include/vulkan/{*/,vk_layer_config.*} ./
     '';
 in
 stdenv.mkDerivation {
