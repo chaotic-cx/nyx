@@ -1,6 +1,6 @@
 { lib
 , callPackage
-, clangStdenv
+, llvmPackages_15
 , fetchFromGitHub
 , pkg-config
 , cmake
@@ -14,7 +14,7 @@
 , openmohaaVersion
 }:
 
-clangStdenv.mkDerivation {
+llvmPackages_15.stdenv.mkDerivation {
   pname = "openmohaa";
   inherit (openmohaaVersion) version;
 
@@ -42,9 +42,7 @@ clangStdenv.mkDerivation {
     "-DUSE_CURL_DLOPEN=0"
   ];
 
-  postPatch = ''
-    echo "add_definitions(-w)" >> CMakeLists.txt
-  '';
+  hardeningDisable = [ "format" ];
 
   enableParallelBuilding = true;
 
