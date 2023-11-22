@@ -48,7 +48,16 @@ in
       let
         # When on aarch64 we don't need to expose *32 packages
         remove32 = attrs:
-          builtins.removeAttrs attrs [ "mangohud32_git" "mesa32_git" "vkshade32_git" ];
+          builtins.removeAttrs attrs
+            [
+              "pkgsx86_64_v2"
+              "pkgsx86_64_v3"
+              "pkgsx86_64_v3-core"
+              "pkgsx86_64_v4"
+              "mangohud32_git"
+              "mesa32_git"
+              "vkshade32_git"
+            ];
       in
       mkPackages (remove32 output.aarch64-linux);
   };
