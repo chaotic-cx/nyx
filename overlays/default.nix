@@ -47,7 +47,7 @@ let
         overlays = [
           selfOverlay
           (_final': prev': {
-            libuv = prev'.libuv.overrideAttrs (_pa: { doCheck = false; });
+            libuv = prev'.libuv.overrideAttrs (_prevattrs: { doCheck = false; });
           })
           (_final': prev': {
             "pkgsx86_64_${lvl}" = prev';
