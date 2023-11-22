@@ -17,7 +17,7 @@ let
 
   # Our utilities/helpers.
   nyxUtils = import ../shared/utils.nix { inherit (final) lib; nyxOverlay = selfOverlay; };
-  inherit (nyxUtils) dropUpdateScript multiOverride multiOverrides overrideDescription;
+  inherit (nyxUtils) dropAttrsUpdateScript dropUpdateScript multiOverride multiOverrides overrideDescription;
 
   # Helps when calling .nix that will override packages.
   callOverride = path: attrs: import path ({ inherit final flakes nyxUtils prev gitOverride; } // attrs);
@@ -46,8 +46,11 @@ let
       {
         overlays = [
           selfOverlay
-          (_self': super': {
-            "pkgsx86_64_${lvl}" = super';
+          (_final': prev': {
+            libuv = prev'.libuv.overrideAttrs (_pa: { doCheck = false; });
+          })
+          (_final': prev': {
+            "pkgsx86_64_${lvl}" = prev';
           })
         ] ++ overlays;
         ${if stdenv.hostPlatform == stdenv.buildPlatform
@@ -59,7 +62,10 @@ let
             arch = "x86-64-${lvl}";
           };
         };
-      } // { recurseForDerivations = false; }
+      } // {
+      recurseForDerivations = false;
+      _description = "Nixpkgs + Chaotic_nyx packages built for the x86-64-${lvl} microarchitecture.";
+    }
     else throw "x86_64_${lvl} package set can only be used with the x86 family.";
 in
 {
@@ -179,7 +185,7 @@ in
   pkgsx86_64_v3 = makeMicroarch "v3";
   pkgsx86_64_v4 = makeMicroarch "v4";
 
-  pkgsx86_64_v3-core = import ../shared/core-tier.nix final.pkgsx86_64_v3;
+  pkgsx86_64_v3-core = dropAttrsUpdateScript (import ../shared/core-tier.nix final.pkgsx86_64_v3);
 
   proton-ge-custom = final.callPackage ../pkgs/proton-ge-custom {
     protonGeTitle = "Proton-GE";

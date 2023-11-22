@@ -13,7 +13,7 @@ pkgs: with pkgs; {
   inherit libxcrypt libxml2 links2 logrotate libgcc lz4 lzo m4 gnumake man-db mdadm
     minizip mlocate mpfr ncurses nettools npth nspr nss openssl p11-kit patch pciutils
     pcre pcre2 perl python3 readline rpcbind gnused sqlite gnutar texinfo tzdata
-    util-linux which xz zlib zstd;
+    util-linux which xz zlib zstd libuv;
 
   recurseForDerivations = true;
 }
