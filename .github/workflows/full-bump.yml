@@ -30,6 +30,7 @@ jobs:
           extra_nix_config: |
             accept-flake-config = true
             sandbox-fallback = false
+            system-features = gccarch-x86-64-v3
           install_options: --daemon
           install_url: https://releases.nixos.org/nix/nix-2.18.1/install
       - name: Configure sandboxing
