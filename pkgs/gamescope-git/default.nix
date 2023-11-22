@@ -1,4 +1,4 @@
-{ final, prev, gitOverride, ... }:
+{ final, prev, gitOverride, nyxUtils, ... }:
 
 gitOverride {
   newInputs = with final; {
@@ -22,13 +22,15 @@ gitOverride {
   ref = "master";
 
   postOverride = prevAttrs: {
-    patches = prevAttrs.patches ++ [
-      # allows usage with latest wlroots
-      (final.fetchpatch2 {
-        url = "https://github.com/ValveSoftware/gamescope/commit/d4ca57e1f4afe0b0798bf71406b1430a915a7bb3.patch";
-        hash = "sha256-XG8114bHGuhW7WmXufPMVf2yFKml8A4uTP3ucvIiH2I=";
-      })
-    ];
+    buildInputs = with final; [ xorg.xcbutilwm xorg.xcbutilerrors ] ++ prevAttrs.buildInputs;
+
+    patches =
+      (nyxUtils.removeByBaseName "use-pkgconfig.patch" prevAttrs.patches)
+      ++ [ ./use-pkgconfig.patch ];
+
+    postInstall = prevAttrs.postInstall + ''
+      rm -r $out/include $lib/lib/pkgconfig $lib/lib/libwlroots.a
+    '';
 
     # erase wlroots replacement since we're fetching submodules.
     postUnpack = "";

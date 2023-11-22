@@ -40,7 +40,11 @@ in
 
       UPDATE_HINT = None
 
-      CHANNEL = 'chaotic-nyx'
+      CHANNEL = 'master'
+
+      ORIGIN = 'chaotic-cx/nyx'
+
+      _pkg_version = '${datedVersion}'
             " > yt_dlp/version.py
     '';
   };
