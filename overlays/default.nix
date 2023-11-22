@@ -9,7 +9,7 @@
 # NOTE:
 # - `*_next` packages will be removed once merged into nixpkgs-unstable.
 
-{ flakes, self ? flakes.self, selfOverlay ? self.overlays.default }:
+{ flakes, nixpkgs ? flakes.nixpkgs, self ? flakes.self, selfOverlay ? self.overlays.default }:
 final: prev:
 let
   # Required to load version files and warning.
@@ -39,6 +39,28 @@ let
 
   # Too much variations
   cachyosPackages = callOverride ../pkgs/linux-cachyos/all-packages.nix { };
+
+  # Microarch stuff
+  makeMicroarch = lvl: with final;
+    if stdenv.hostPlatform.isx86 then import "${nixpkgs}"
+      {
+        overlays = [
+          selfOverlay
+          (_self': super': {
+            "pkgsx86_64_${lvl}" = super';
+          })
+        ] ++ overlays;
+        ${if stdenv.hostPlatform == stdenv.buildPlatform
+        then "localSystem" else "crossSystem"} = {
+          parsed = stdenv.hostPlatform.parsed // {
+            cpu = lib.systems.parse.cpuTypes.x86_64;
+          };
+          gcc = stdenv.hostPlatform.gcc // {
+            arch = "x86-64-${lvl}";
+          };
+        };
+      } // { recurseForDerivations = false; }
+    else throw "x86_64_${lvl} package set can only be used with the x86 family.";
 in
 {
   inherit nyxUtils;
@@ -152,6 +174,12 @@ in
     openmohaaVersion = importJSON ../pkgs/openmohaa/version.json;
   };
   openmohaa_git = callOverride ../pkgs/openmohaa-git { };
+
+  pkgsx86_64_v2 = makeMicroarch "v2";
+  pkgsx86_64_v3 = makeMicroarch "v3";
+  pkgsx86_64_v4 = makeMicroarch "v4";
+
+  pkgsx86_64_v3-core = import ../shared/core-tier.nix final.pkgsx86_64_v3;
 
   proton-ge-custom = final.callPackage ../pkgs/proton-ge-custom {
     protonGeTitle = "Proton-GE";
