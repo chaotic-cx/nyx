@@ -46,7 +46,7 @@ let
       {
         overlays = [
           selfOverlay
-          (self': super': {
+          (_self': super': {
             "pkgsx86_64_${lvl}" = super';
           })
         ] ++ overlays;
