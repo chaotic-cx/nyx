@@ -18,7 +18,7 @@
   },
   "_zfs": "search for `git+https://github.com/cachyos/zfs.git` in config's PKGBUILD",
   "zfs": {
-    "rev": "043c6ee3b6bfb55f8d36e1f048ff13128c279fb8",
-    "hash": "sha256-QpiNSUre/UKjR5AQWKiWwm2ra6ahjsluSyLIatIGcGM="
+    "rev": "55dd24c4ccee2da61d5396289ef560f9b7bc6a68",
+    "hash": "sha256-2Q/Nhp3YKgMCLPNRNBq5r9U4GeuYlWMWAsjsQy3vFW4="
   }
 }
