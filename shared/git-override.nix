@@ -21,6 +21,8 @@ let
     , withUpdateScript ? true
     , withLastModified ? false
     , withLastModifiedDate ? false
+    , withCargoDeps ? null
+    , cargoLockPath ? builtins.replaceStrings [ "version.json" ] [ "Cargo.lock" ] versionNyxPath
     }:
     let
       versionLocalPath = "${nyx}/${versionNyxPath}";
@@ -39,7 +41,11 @@ let
         let
           src = fetchers.${fetcher} fullFetcherData;
 
-          hasCargo = prevAttrs ? cargoDeps;
+          hasCargo =
+            if prevAttrs ? cargoDeps then
+              if prevAttrs.cargoDeps.passthru ? lockFile then "lock"
+              else "rec"
+            else null;
 
           updateScript = callPackage ./git-update.nix {
             inherit (prevAttrs) pname;
@@ -65,11 +71,15 @@ let
           };
 
           whenCargo =
-            lib.attrsets.optionalAttrs hasCargo {
-              cargoDeps = prevAttrs.cargoDeps.overrideAttrs (_cargoPrevAttrs: {
-                inherit src;
-                outputHash = current.cargoHash;
-              });
+            lib.attrsets.optionalAttrs (hasCargo != null) {
+              cargoDeps =
+                if hasCargo == "lock" then
+                  withCargoDeps "${nyx}/${cargoLockPath}"
+                else
+                  prevAttrs.cargoDeps.overrideAttrs (_cargoPrevAttrs: {
+                    inherit src;
+                    outputHash = current.cargoHash;
+                  });
             };
         in
         common // whenCargo;
