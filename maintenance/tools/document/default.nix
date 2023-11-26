@@ -12,10 +12,7 @@
 let
   derivationMap = k: v:
     let
-      description =
-        if (builtins.stringLength (v.meta.longDescription or "") > 0) then
-          v.meta.longDescription
-        else v.meta.description or "-";
+      description = v.meta.description or "-";
       homepage =
         if (builtins.stringLength (v.meta.homepage or "") > 0) then
           "<a href=\"${v.meta.homepage}\" target=\"_blank\">${v.meta.homepage}</a>"
