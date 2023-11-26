@@ -54,6 +54,7 @@ in
   _LATEST_HASH=$(echo $_LATEST_GIT | jq -r .hash)
   _LATEST_DATE=$(date -u --date=$(echo $_LATEST_GIT | jq -r .date) '+%Y%m%d%H%M%S')
   _LATEST_VERSION="unstable-''${_LATEST_DATE}-''${_LATEST_REV:0:7}"
+  _LATEST_PATH=$(echo $_LATEST_GIT | jq -r .path)
 
   JQ_ARGS=(
     --arg version "$_LATEST_VERSION"
@@ -78,7 +79,7 @@ in
     JQ_OPS+=('| .lastModified = $stamp')
   fi
 
-  if [ $HAS_CARGO -eq 1 ]; then
+  if [ $HAS_CARGO == 'rec' ]; then
     JQ_ARGS+=(--arg cargo '${nyxUtils.unreachableHash}')
     JQ_OPS+=('| .cargoHash = $cargo')
   fi
@@ -87,11 +88,14 @@ in
     "''${JQ_OPS[*]}" \
     "$_VERSION_JSON" | sponge "$_VERSION_JSON"
 
-  if [ $HAS_CARGO -eq 1 ]; then
+  if [ $HAS_CARGO == 'rec' ]; then
     _LATEST_CARGO_HASH=$((nix build .#''${_NYX_KEY} 2>&1 || true) | awk '/got/{print $2}')
     jq --arg cargo "$_LATEST_CARGO_HASH" \
       '.cargoHash = $cargo' \
       "$_VERSION_JSON" | sponge "$_VERSION_JSON"
+  elif [ $HAS_CARGO == 'lock' ]; then
+    cp "$_LATEST_PATH/Cargo.lock" "$(dirname "$_VERSION_JSON")/"
+    git add "$(dirname "$_VERSION_JSON")/Cargo.lock"
   fi
 
   git add $_VERSION_JSON
