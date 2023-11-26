@@ -118,8 +118,6 @@ in
   firefox-unwrapped_nightly = final.callPackage ../pkgs/firefox-nightly { };
   firefox_nightly = final.wrapFirefox final.firefox-unwrapped_nightly { };
 
-  fractal_git = callOverride ../pkgs/fractal-git { };
-
   gamescope_git = callOverride ../pkgs/gamescope-git { };
 
   # Used by telegram-desktop_git
