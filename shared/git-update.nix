@@ -1,7 +1,7 @@
 { pname
 , nyxKey
 , versionPath
-, hasCargo ? false
+, hasCargo ? null
 , hasSubmodules ? false
 , withLastModifiedDate ? false
 , withLastModified ? false
