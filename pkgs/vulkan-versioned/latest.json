@@ -32,9 +32,9 @@
     "hash": "sha256-GZqnVBAs2fmIJOeKx7XSukLheD4ZAgXGM6glPNUZ284="
   },
   "vulkanLoader": {
-    "version": "1.3.270",
+    "version": "1.3.271",
     "rev": "v#{version}",
-    "hash": "sha256-Zq80f77/+eN6ckG0/X5tYdraeBX+DWYzdwekZwwYZyE=",
+    "hash": "sha256-k93gV24bEBuQj9pPlme1IUaJ/GCvDfN5TQUEFmey9s4=",
     "badTag": "vulkan-tmp-1.3.266"
   },
   "vulkanTools": {
