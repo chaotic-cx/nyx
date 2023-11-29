@@ -12,12 +12,6 @@
 let
   inherit (final.stdenv) is32bit;
   inherit (final.lib) optional;
-
-  problematicCommit = final.fetchpatch {
-    url = "https://github.com/chaotic-cx/mesa-mirror/commit/e4ffb2473b59dd98ea0b400a47b6b50beda3dbf2.patch";
-    hash = "sha256-5f80Ru1SdrkfSC+uG/haTF7Z7I6LetGY3WiownRdHfE=";
-    revert = true;
-  };
 in
 gitOverride (current: {
   nyxKey = if is32bit then "mesa32_git" else "mesa_git";
@@ -48,7 +42,7 @@ gitOverride (current: {
         ./opencl.patch
         ./disk_cache-include-dri-driver-path-in-cache-key.patch
         ./gbm-backend.patch
-      ] ++ optional is32bit problematicCommit;
+      ];
     # expose gbm backend and rename vendor (if necessary)
     outputs =
       if gbmDriver
