@@ -3,7 +3,7 @@
 gitOverride {
   newInputs = with final; {
     wlroots_0_16 = wlroots;
-    zig_0_10 = zig;
+    zig_0_11 = zig;
   };
 
   nyxKey = "river_git";
