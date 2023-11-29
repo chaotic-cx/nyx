@@ -11,7 +11,6 @@
 
 let
   inherit (final.stdenv) is32bit;
-  inherit (final.lib) optional;
 in
 gitOverride (current: {
   nyxKey = if is32bit then "mesa32_git" else "mesa_git";
