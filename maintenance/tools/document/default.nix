@@ -182,6 +182,9 @@ writeText "chaotic-documented.html" ''
     <style>
       .noscript-table { display: none; }
       :root { font-family: 'Inter', sans-serif; font-size: 8px; }
+      @media only screen and (min-width: 1280px) {
+        :root { font-size: 0.625vw; }
+      }
       @supports (font-variation-settings: normal) {
         :root { font-family: 'Inter var', sans-serif; }
       }
@@ -192,13 +195,13 @@ writeText "chaotic-documented.html" ''
         a:visited { color: #5bc629; }
         body .gridjs-search, body .gridjs-search-input { color: white; }
       }
-      body .gridjs-search, body .gridjs-search-input { width: 100%; }
+      body .gridjs-search, body .gridjs-search-input { width: 100%; font-size: 1.5rem; }
       pre { overflow: auto; }
       img { max-width: 100%; }
       :not(pre) > code { color: #8a2be2; }
     </style>
     <noscript><style>.noscript-table { display: table; }</style></noscript>
-  </head><body><div style="max-width: 138rem; margin: 0 auto">
+  </head><body><div style="max-width: 140rem; margin: 0 auto">
     ${builtins.head readme}
     <p>Built and cached against <a href="https://github.com/NixOS/nixpkgs/tree/${nixpkgs.rev}" target="_blank"><code>github:nixos/nixpkgs/${nixpkgs.rev}</code></a> (version <code>0.1.${toString nixpkgs.revCount}</code>).</p>
     <ul>${renderIndex tables}</ul>
