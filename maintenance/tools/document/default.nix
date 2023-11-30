@@ -177,6 +177,8 @@ writeText "chaotic-documented.html" ''
     <link rel="stylesheet" href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" />
     <link rel="stylesheet" href="https://lab.pedrohlc.com/bucket/gridjs-mermaid-auto.css" />
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <link rel="stylesheet" media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+    <link rel="stylesheet" media="(prefers-color-scheme: dark)" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
     <style>
       .noscript-table { display: none; }
       :root { font-family: 'Inter', sans-serif; font-size: 8px; }
@@ -193,6 +195,7 @@ writeText "chaotic-documented.html" ''
       body .gridjs-search, body .gridjs-search-input { width: 100%; }
       pre { overflow: auto; }
       img { max-width: 100%; }
+      :not(pre) > code { color: #8a2be2; }
     </style>
     <noscript><style>.noscript-table { display: table; }</style></noscript>
   </head><body><div style="max-width: 138rem; margin: 0 auto">
@@ -210,6 +213,13 @@ writeText "chaotic-documented.html" ''
       } from "https://unpkg.com/gridjs?module";
 
       ${renderGrids tables}
+    </script>
+    <script type="module">
+      import hljs from 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/es/highlight.min.js';
+      import nix from 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/es/languages/nix.min.js';
+
+      hljs.registerLanguage('nix', nix);
+      hljs.highlightAll();
     </script>
   </div></body></html>
 ''
