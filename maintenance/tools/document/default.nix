@@ -162,7 +162,7 @@ let
     lib.strings.splitString "<!-- cut here -->" (builtins.readFile ../../../README.md);
 in
 writeText "chaotic-documented.html" ''
-  <!DOCTYPE html><html style="font-size: 12px;">
+  <!DOCTYPE html><html>
   <head lang="en">
     <meta charset="UTF-8" />
     <title>Chaotic-Nyx</title>
@@ -174,20 +174,28 @@ writeText "chaotic-documented.html" ''
     <meta property="og:title" content="Chaotic-Nyx" />
     <meta property="og:image" content="https://gist.githubusercontent.com/PedroHLC/f6eaa9dfcf190e18b753e98fd265c8d3/raw/nix-frog-with-capes-web.svg" />
     <link rel="icon" href="https://avatars.githubusercontent.com/u/130499842?v=4" type="image/jpeg" />
-    <link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" />
+    <link rel="stylesheet" href="https://lab.pedrohlc.com/bucket/gridjs-mermaid-auto.css" />
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <style>
       .noscript-table { display: none; }
-      :root { font-family: 'Inter', sans-serif; }
+      :root { font-family: 'Inter', sans-serif; font-size: 8px; }
       @supports (font-variation-settings: normal) {
         :root { font-family: 'Inter var', sans-serif; }
+      }
+      body { font-size: 1.5rem; }
+      @media (prefers-color-scheme: dark) {
+        body { background-color: #151522; color: white; }
+        a { color: #ffff10; }
+        a:visited { color: #5bc629; }
+        body .gridjs-search, body .gridjs-search-input { color: white; }
       }
       body .gridjs-search, body .gridjs-search-input { width: 100%; }
       pre { overflow: auto; }
       img { max-width: 100%; }
     </style>
     <noscript><style>.noscript-table { display: table; }</style></noscript>
-  </head><body><div style="max-width: 1100px; margin: 0 auto">
+  </head><body><div style="max-width: 138rem; margin: 0 auto">
     ${builtins.head readme}
     <p>Built and cached against <a href="https://github.com/NixOS/nixpkgs/tree/${nixpkgs.rev}" target="_blank"><code>github:nixos/nixpkgs/${nixpkgs.rev}</code></a> (version <code>0.1.${toString nixpkgs.revCount}</code>).</p>
     <ul>${renderIndex tables}</ul>
