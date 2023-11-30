@@ -217,8 +217,11 @@ writeText "chaotic-documented.html" ''
     <script type="module">
       import hljs from 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/es/highlight.min.js';
       import nix from 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/es/languages/nix.min.js';
+      import bash from 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/es/languages/bash.min.js';
 
       hljs.registerLanguage('nix', nix);
+      hljs.registerLanguage('bash', bash);
+      hljs.registerLanguage('sh', bash);
       hljs.highlightAll();
     </script>
   </div></body></html>

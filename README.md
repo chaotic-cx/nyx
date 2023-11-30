@@ -37,7 +37,7 @@
 
 <p>We recommend integrating this repo using Flakes:</p>
 
-<pre lang="nix"><code>
+<pre lang="nix"><code class="language-nix">
 {
   description = "My configuration";
 
@@ -62,7 +62,7 @@
 
 <p>In your <code>configuration.nix</code> enable the packages and options that you prefer:</p>
 
-<pre lang="nix"><code>
+<pre lang="nix"><code class="language-nix">
 { pkgs, ... }:
 {
   environment.systemPackages = [ pkgs.input-leap-git ];
@@ -76,7 +76,7 @@
 
 <p>We recommend integrating this repo using Flakes:</p>
 
-<pre lang="nix"><code>
+<pre lang="nix"><code class="language-nix">
 {
   description = "My configuration";
 
@@ -105,7 +105,7 @@
 
 <p>In your <code>home-manager/default.nix</code> add a <code>nix.package</code>, and enable the desired packages:</p>
 
-<pre lang="nix"><code>
+<pre lang="nix"><code class="language-nix">
 { pkgs, ... }:
 {
   nix.package = pkgs.nix;
@@ -117,7 +117,7 @@
 
 <p>Besides using our module/overlay, you can run packages (without installing them) using:</p>
 
-<pre lang="sh"><code>
+<pre lang="sh"><code class="language-sh">
 nix run github:chaotic-cx/nyx/nyxpkgs-unstable#yuzu-early-access_git
 </code></pre>
 
@@ -138,7 +138,7 @@ We do this automatically, so we can gracefully update the cache's address and ke
 
 <p>Add chaotic to your <code>flake.nix</code>, make sure to use the rolling <code>*.tar.gz</code> to keep using the latest packages:</p>
 
-<pre lang="nix"><code>
+<pre lang="nix"><code class="language-nix">
 {
   inputs.chaotic.url = "https://flakehub.com/f/chaotic-cx/nyx/*.tar.gz";
 }
@@ -192,7 +192,7 @@ We do this automatically, so we can gracefully update the cache's address and ke
 
 <p>To build all the packages and push their cache usptream, use:</p>
 
-<pre lang="sh"><code>
+<pre lang="sh"><code class="language-sh">
 nix develop . -c chaotic-nyx-build
 </code></pre>
 
@@ -204,7 +204,7 @@ nix develop . -c chaotic-nyx-build
 
 <p>You can compare a branch with another like this:</p>
 
-<pre lang="bash"><code>
+<pre lang="bash"><code class="language-bash">
 machine=$(uname -m)-linux
 A='github:chaotic-cx/nyx/branch-a'
 B='github:chaotic-cx/nyx/branch-b'
