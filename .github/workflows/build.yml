@@ -177,6 +177,7 @@ jobs:
           name: logs
           path: |
             ${{ runner.temp }}/*.txt
+            ${{ runner.temp }}/*.nix
   docs:
     needs: build
     uses: ./.github/workflows/document.yml
