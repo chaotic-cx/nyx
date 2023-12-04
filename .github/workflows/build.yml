@@ -86,7 +86,7 @@ jobs:
             }
       - name: Install Nix
         if: (success() && steps.check.outputs.cached != 'true')
-        uses: cachix/install-nix-action@v23
+        uses: cachix/install-nix-action@v24
         with:
           extra_nix_config: |
             accept-flake-config = true

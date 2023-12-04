@@ -22,7 +22,7 @@ jobs:
     steps:
       - name: Install Nix
         if: steps.check.outputs.cached != 'true'
-        uses: cachix/install-nix-action@v23
+        uses: cachix/install-nix-action@v24
         with:
           extra_nix_config: "accept-flake-config = true"
           install_url: https://releases.nixos.org/nix/nix-2.18.1/install
