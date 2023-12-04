@@ -33,18 +33,19 @@ jobs:
             system-features = big-parallel gccarch-x86-64-v3
           install_options: --daemon
           install_url: https://releases.nixos.org/nix/nix-2.18.1/install
+      - name: Checkout
+        uses: actions/checkout@v4
       - name: Configure sandboxing
         run: |
           sed -i -e '/^build-users-group =/d' -e 's/max-jobs =.*/max-jobs = 8/g' /etc/nix/nix.conf
           nix eval .#_dev.nixConfig --json | jq -r 'to_entries[] | "\(.key) = \(.value | join(" "))"' >> /etc/nix/nix.conf
-      # the bump itself
-      - name: Checkout
-        uses: actions/checkout@v4
+      # config to commit
       - name: Bat-signal
         run: |
           set -e
           git config --global user.name 'Chaotic Github Actions'
           git config --global user.email 'actions@chaotic.cx'
+      # the bump itself
       - name: Wiggle, wiggle, wiggle
         run: nix develop --impure .#updater -c 'chaotic-nyx-bumper'
         env:
