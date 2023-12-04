@@ -1,22 +1,19 @@
-name: Bump all packages
+name: Bump one package
 on:
-  schedule:
-    - cron: '15 10 * * *'
   workflow_dispatch:
     inputs:
-      bumpNumber:
-        description: Increase for each bump in the same day
-        required: false
-        type: number
+      bumpWhat:
+        description: What do you want to bump
+        required: true
+        type: string
 
 permissions:
   contents: write
   pull-requests: write
 
-# It's better for it to conflict with other builds and bumps
 concurrency:
-  group: nyx-main-build
-  cancel-in-progress: true
+  group: nyx-single-bump
+  cancel-in-progress: false
 
 jobs:
   deploy:
@@ -47,15 +44,11 @@ jobs:
           git config --global user.email 'actions@chaotic.cx'
       # the bump itself
       - name: Wiggle, wiggle, wiggle
-        run: nix develop --impure .#updater -c 'chaotic-nyx-bumper'
+        run: |
+          git checkout -b "bump-${TARGETPKG}-$(date '+%Y%m%d')"
+          nix build ".#${TARGETPKG}"
+          bash ./result
+          git push origin
         env:
           GH_TOKEN: ${{ github.token }}
-          NYX_BUMPN: ${{ inputs.bumpNumber }}
-      # similar to build.yml
-      - name: Cache
-        if: success()
-        id: build
-        run: nix develop -c chaotic-nyx-build || [ $? -eq 42 ]
-        env:
-          NYX_WD: ${{ runner.temp }}
-          CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          TARGETPKG: ${{ inputs.bumpWhat }}

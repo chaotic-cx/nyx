@@ -18,7 +18,7 @@ let
       nyxRecursionHelper = callPackage ../../shared/recursion-helper.nix { };
 
       # Matches build.yml and full-bump.yml
-      pinnedNix = pkgs.nixVersions.nix_2_18;
+      pinnedNix = pkgs.nixVersions.nix_2_19;
 
       builder = callPackage ../tools/builder
         {

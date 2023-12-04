@@ -1,0 +1,116 @@
+name: WIP Build
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      commit-failures:
+        description: Should commit failures.nix
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: nyx-main-build
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: nyxbuilder
+    timeout-minutes: 1440
+    outputs:
+      pushed: ${{ steps.push.outcome == 'success' }}
+    steps:
+      # identical to build.yml
+      - name: Install Nix
+        uses: cachix/install-nix-action@v24
+        with:
+          extra_nix_config: |
+            accept-flake-config = true
+            sandbox-fallback = false
+            system-features = big-parallel gccarch-x86-64-v3
+          install_options: --daemon
+          install_url: https://releases.nixos.org/nix/nix-2.19.2/install
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Configure sandboxing
+        run: |
+          sed -i -e '/^build-users-group =/d' -e 's/max-jobs =.*/max-jobs = 8/g' /etc/nix/nix.conf
+          nix eval .#_dev.nixConfig --json | jq -r 'to_entries[] | "\(.key) = \(.value | join(" "))"' >> /etc/nix/nix.conf
+      # config to commit
+      - name: Bat-signal
+        run: |
+          set -e
+          git config --global user.name 'Chaotic Github Actions'
+          git config --global user.email 'actions@chaotic.cx'
+      # the building
+      - name: Build
+        if: (success())
+        id: build
+        run: |
+          nix develop -c chaotic-nyx-build || [ $? -eq 42 ]
+          failed_builds="$(cat ${{ runner.temp }}/failures.txt | sed 's/^/    <li>/; s/$/<\/li>/')"
+          failed_builds_count="$(cat ${{ runner.temp }}/failures.txt | wc -l)"
+          unbuildable_count="$(cat ${{ runner.temp }}/eval-failures.txt | wc -l)"
+          echo "FAILED_BUILDS_COUNT=$failed_builds_count
+          UNBUILDABLE_COUNT=$unbuildable_count
+          FAILED_BUILDS<<EOF
+          $failed_builds
+          EOF" >> $GITHUB_OUTPUT
+          cp ${{ runner.temp }}/new-failures.nix ./maintenance/failures.nix
+          git add ./maintenance/failures.nix
+          git commit --allow-empty -m "failures: update"
+          git push
+        env:
+          NYX_WD: ${{ runner.temp }}
+          CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
+      - name: Comment on commit
+        if: (success())
+        uses: actions/github-script@v7
+        with:
+          script: |
+            if (process.env.FAILED_BUILDS_COUNT > 0) {
+              var extratext = "";
+              core.setFailed("Build failures found!")
+              // Check if github actions triggered the event
+              if (process.env.ACTOR == "github-actions[bot]")
+                extratext = `\nNew build failures found!`
+              else
+                extratext = `\nNew build failures found! @${process.env.ACTOR}`
+              github.rest.repos.createCommitComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                commit_sha: context.sha,
+                body: `Failed to build ${process.env.FAILED_BUILDS_COUNT} packages:
+            <details>
+              <summary>${process.env.FAILED_BUILDS_COUNT} packages failed</summary>
+              <ul>
+                ${process.env.FAILED_BUILDS}
+              </ul>
+            </details>${extratext}`
+              })
+            } else
+              github.rest.repos.createCommitComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                commit_sha: context.sha,
+                body: `All packages were built and cached successfully! (${process.env.UNBUILDABLE_COUNT} not suitable for building)`
+              })
+        env:
+          FAILED_BUILDS_COUNT: ${{ steps.build.outputs.FAILED_BUILDS_COUNT }}
+          UNBUILDABLE_COUNT: ${{ steps.build.outputs.UNBUILDABLE_COUNT }}
+          FAILED_BUILDS: ${{ steps.build.outputs.FAILED_BUILDS }}
+          ACTOR: ${{ github.actor }}
+      - name: Upload logs
+        if: ((success() || failure()) && steps.build.outcome != 'skipped')
+        uses: actions/upload-artifact@v3
+        with:
+          name: logs
+          path: |
+            ${{ runner.temp }}/*.txt
+            ${{ runner.temp }}/*.nix
