@@ -1,0 +1,54 @@
+name: Bump one package
+on:
+  workflow_dispatch:
+    inputs:
+      bumpWhat:
+        description: What do you want to bump
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: nyx-single-bump
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: nyxbuilder
+    timeout-minutes: 1440
+    steps:
+      # identical to build.yml
+      - name: Install Nix
+        uses: cachix/install-nix-action@v24
+        with:
+          extra_nix_config: |
+            accept-flake-config = true
+            sandbox-fallback = false
+            system-features = big-parallel gccarch-x86-64-v3
+          install_options: --daemon
+          install_url: https://releases.nixos.org/nix/nix-2.18.1/install
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Configure sandboxing
+        run: |
+          sed -i -e '/^build-users-group =/d' -e 's/max-jobs =.*/max-jobs = 8/g' /etc/nix/nix.conf
+          nix eval .#_dev.nixConfig --json | jq -r 'to_entries[] | "\(.key) = \(.value | join(" "))"' >> /etc/nix/nix.conf
+      # config to commit
+      - name: Bat-signal
+        run: |
+          set -e
+          git config --global user.name 'Chaotic Github Actions'
+          git config --global user.email 'actions@chaotic.cx'
+      # the bump itself
+      - name: Wiggle, wiggle, wiggle
+        run: |
+          git checkout -b "bump-${TARGETPKG}-$(date '+%Y%m%d')"
+          nix build ".#${TARGETPKG}"
+          bash ./result
+          git push origin
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TARGETPKG: ${{ inputs.bumpWhat }}
