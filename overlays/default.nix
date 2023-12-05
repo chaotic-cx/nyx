@@ -132,6 +132,8 @@ in
 
   latencyflex-vulkan = final.callPackage ../pkgs/latencyflex-vulkan { };
 
+  libdrm_git = callOverride ../pkgs/libdrm-git { };
+
   linuxPackages_cachyos = cachyosPackages.cachyos;
   linuxPackages_cachyos-server = cachyosPackages.cachyos-server;
   linuxPackages_cachyos-hardened = cachyosPackages.cachyos-hardened;
