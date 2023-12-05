@@ -1,5 +1,4 @@
 {
-  "wlroots_git" = "/nix/store/fr71q6j9wcxkknk50i587vihk5jpg7pl-wlroots-unstable-20231204153904-7883629";
   "vulkanPackages_latest.vulkan-validation-layers" = "/nix/store/dscbchlh6hq3bw3c51ch0bypv5qq3xhi-vulkan-validation-layers-1.3.271";
   "linuxPackages_cachyos.cryptodev" = "/nix/store/chhzlxc1yc8m8vyqd4bf0lj889nx9qml-cryptodev-linux-1.13-6.6.4";
   "linuxPackages_cachyos.ipu6-drivers" = "/nix/store/x5c8l3w11lqggqxinc12qzy4wfybv96g-ipu6-drivers-unstable-2023-08-28";

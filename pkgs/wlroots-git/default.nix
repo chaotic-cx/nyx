@@ -8,14 +8,13 @@
 gitOverride {
   newInputs = with final; {
     inherit enableXWayland;
-    libdrm = libdrm_git;
     wayland = wayland_git;
     wayland-protocols = wayland-protocols_git;
     wayland-scanner = wayland-scanner_git;
   };
 
   nyxKey = "wlroots_git";
-  prev = prev.wlroots_0_16;
+  prev = prev.wlroots;
 
   versionNyxPath = "pkgs/wlroots-git/version.json";
   fetcher = "fetchFromGitLab";
@@ -27,7 +26,7 @@ gitOverride {
   ref = "master";
 
   postOverride = prevAttrs: {
-    buildInputs = prevAttrs.buildInputs ++ (with final; [ hwdata libdisplay-info ]);
+    buildInputs = (with final; [ hwdata libdrm_git libdisplay-info ]) ++ prevAttrs.buildInputs;
     postPatch = "";
   };
 }
