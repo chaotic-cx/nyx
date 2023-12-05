@@ -30,6 +30,4 @@
   "linuxPackages_cachyos-server.nvidia_dc" = "/nix/store/n79arpgb3crxkk675xbdijirwngyrk4b-nvidia-dc-520.61.05-6.6.4";
   "linuxPackages_cachyos-server.system76-acpi" = "/nix/store/qk3xbz9196xczclyky0cxs01ygh7a90w-system76-acpi-module-1.0.2-6.6.4";
   "linuxPackages_cachyos-server.virtio_vmmci" = "/nix/store/r1wpfy6y10i6bhcd5rms98fykjmlkfbi-virtio_vmmci";
-  "vulkanPackages_latest.vulkan-extension-layer" = "/nix/store/q8pwdd37554cyr2crr3d6hk4nhvdacfi-vulkan-extension-layer-1.3.271";
-  "vulkanPackages_latest.vulkan-tools" = "/nix/store/52mv4hg3gf8ca44si1nw9svsmh9f1s8x-vulkan-tools-1.3.272";
 }
