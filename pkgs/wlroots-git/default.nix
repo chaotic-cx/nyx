@@ -8,6 +8,7 @@
 gitOverride {
   newInputs = with final; {
     inherit enableXWayland;
+    libdrm = libdrm_git;
     wayland = wayland_git;
     wayland-protocols = wayland-protocols_git;
     wayland-scanner = wayland-scanner_git;
