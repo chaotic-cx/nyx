@@ -100,12 +100,23 @@ final.lib.makeScope final.newScope (self:
     };
   };
 
+  volk = genericOverride {
+    origin = prev.callPackage ./volk.nix { };
+    extraInput = { inherit (self) vulkan-headers vulkan-loader; };
+    key = "volk";
+    owner = "zeux";
+    repo = "volk";
+  };
+
   vulkan-tools = genericOverride {
     origin = prev.vulkan-tools;
     extraInput = { inherit (self) vulkan-headers vulkan-loader; };
     key = "vulkanTools";
     owner = "KhronosGroup";
     repo = "Vulkan-Tools";
+    extraAttrs = prevAttrs: {
+      buildInputs = prevAttrs.buildInputs ++ [ self.volk ];
+    };
   };
 
   vulkan-tools-lunarg =

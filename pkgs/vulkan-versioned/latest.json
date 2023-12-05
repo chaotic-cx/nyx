@@ -63,5 +63,10 @@
     "rev": "v#{version}",
     "hash": "sha256-SNnSQHPQe2+gXj3TGFm+xO2PSLZygYbOkOCPLktTuVk=",
     "badTag": "v1.3.271"
+  },
+  "volk": {
+    "version": "1.3.270",
+    "rev": "#{version}",
+    "hash": "sha256-qf3MygaUSN31AnlR/5o0W7cqA85Fc9aT+XemaLNfWzI="
   }
 }
