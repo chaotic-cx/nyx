@@ -17,16 +17,10 @@
 let
   inherit (cachyConfig.versions.linux) version;
   major = lib.versions.pad 2 version;
-
-  src = fetchurl {
-    url = "mirror://kernel/linux/kernel/v6.x/linux-${
-      if version == "${major}.0" then major else version
-    }.tar.xz";
-    inherit (cachyConfig.versions.linux) hash;
-  };
 in
 (linuxManualConfig {
-  inherit stdenv src version features randstructSeed;
+  inherit stdenv version features randstructSeed;
+  inherit (configfile) src;
   modDirVersion = lib.versions.pad 3 "${version}${cachyConfig.versions.suffix}";
 
   inherit config configfile;
