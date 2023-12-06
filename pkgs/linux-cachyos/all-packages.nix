@@ -33,7 +33,10 @@ in
     configPath = ./config-nix/cachyos-hardened.x86_64-linux.nix;
     cpuSched = "hardened";
     versions = mainVersions // {
-      linux = { version = "6.5.12"; hash = "sha256-SmnB0yyXThJa1yMUXTFoOjsHhmetVtF/eFLcr/ufNZ8="; };
+      linux = with final.linux_6_5; {
+        inherit version;
+        hash = src.outputHash;
+      };
     };
   };
 }
