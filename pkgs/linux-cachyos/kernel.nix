@@ -18,30 +18,12 @@ let
   inherit (cachyConfig.versions.linux) version;
   major = lib.versions.pad 2 version;
 
-  patches-src = fetchFromGitHub {
-    owner = "CachyOS";
-    repo = "kernel-patches";
-    inherit (cachyConfig.versions.patches) rev hash;
-  };
-
   src = fetchurl {
     url = "mirror://kernel/linux/kernel/v6.x/linux-${
       if version == "${major}.0" then major else version
     }.tar.xz";
     inherit (cachyConfig.versions.linux) hash;
   };
-
-  schedPatches =
-    if cachyConfig.cpuSched == "eevdf" then
-      [ ]
-    else if cachyConfig.cpuSched == "cachyos" || cachyConfig.cpuSched == "hardened" then
-      [ "${patches-src}/${major}/sched/0001-bore-cachy.patch" ]
-    else if cachyConfig.cpuSched == "sched-ext" then
-      [
-        "${patches-src}/${major}/sched/0001-sched-ext.patch"
-        "${patches-src}/${major}/sched/0001-bore-cachy-ext.patch"
-      ]
-    else throw "Unsupported cachyos _cpu_sched=${toString cachyConfig.cpuSched}";
 in
 (linuxManualConfig {
   inherit stdenv src version features randstructSeed;
@@ -55,12 +37,7 @@ in
       name = builtins.baseNameOf filename;
       patch = filename;
     })
-    ([ "${patches-src}/${major}/all/0001-cachyos-base-all.patch" ]
-      ++ schedPatches
-      ++ lib.optional (cachyConfig.cpuSched == "hardened") "${patches-src}/${major}/misc/0001-hardened.patch"
-      ++ lib.optional cachyConfig.withBCacheFS "${patches-src}/${major}/misc/0001-bcachefs.patch"
-      ++ [ ./0001-Add-extra-version-CachyOS.patch ]
-    );
+    configfile.passthru.kernelPatches;
 
   extraMeta = {
     maintainers = with lib.maintainers; [ dr460nf1r3 pedrohlc ];
