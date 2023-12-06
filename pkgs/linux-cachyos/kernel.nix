@@ -41,7 +41,7 @@ let
         "${patches-src}/${major}/sched/0001-sched-ext.patch"
         "${patches-src}/${major}/sched/0001-bore-cachy-ext.patch"
       ]
-    else throw "Unsupported cachyos _cpu_sched";
+    else throw "Unsupported cachyos _cpu_sched=${toString cachyConfig.cpuSched}";
 in
 (linuxManualConfig {
   inherit stdenv src version features randstructSeed;
