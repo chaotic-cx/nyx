@@ -135,6 +135,7 @@ in
   libdrm_git = callOverride ../pkgs/libdrm-git { };
 
   linuxPackages_cachyos = cachyosPackages.cachyos;
+  linuxPackages_cachyos-sched-ext = cachyosPackages.cachyos-sched-ext;
   linuxPackages_cachyos-server = cachyosPackages.cachyos-server;
   linuxPackages_cachyos-hardened = cachyosPackages.cachyos-hardened;
   linuxPackages-hardened_cachyos = warn
