@@ -32,7 +32,7 @@ let
   };
 
   schedPatches =
-    if cachyConfig.cpuSched != "eevdf" then
+    if cachyConfig.cpuSched == "eevdf" then
       [ ]
     else if cachyConfig.cpuSched == "cachyos" || cachyConfig.cpuSched == "hardened" then
       [ "${patches-src}/${major}/sched/0001-bore-cachy.patch" ]
