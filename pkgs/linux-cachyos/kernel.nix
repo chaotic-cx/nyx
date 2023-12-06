@@ -36,7 +36,7 @@ let
       [ ]
     else if cachyConfig.cpuSched == "cachyos" || cachyConfig.cpuSched == "hardened" then
       [ "${patches-src}/${major}/sched/0001-bore-cachy.patch" ]
-    else if cachyConfig.cpuSched == "bore-cachy" then
+    else if cachyConfig.cpuSched == "sched-ext" then
       [
         "${patches-src}/${major}/sched/0001-sched-ext.patch"
         "${patches-src}/${major}/sched/0001-bore-cachy-ext.patch"
