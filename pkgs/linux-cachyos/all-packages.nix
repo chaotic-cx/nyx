@@ -15,6 +15,13 @@ in
     configPath = ./config-nix/cachyos.x86_64-linux.nix;
   };
 
+  cachyos-sched-ext = mkCachyKernel {
+    taste = "linux-cachyos-sched-ext";
+    configPath = ./config-nix/cachyos-sched-ext.x86_64-linux.nix;
+    cpuSched = "sched-ext";
+    description = "Linux SCHED-EXT with BORE scheduler Kernel by CachyOS with other patches and improvements";
+  };
+
   cachyos-server = mkCachyKernel {
     taste = "linux-cachyos-server";
     configPath = ./config-nix/cachyos-server.x86_64-linux.nix;
