@@ -67,7 +67,7 @@ let
     ]
     ++ hugePagesConfig
     ++ damonConfig
-    ++ schedExtConfig
+    ++ disableDebug
 
     #_use_auto_optimization, defaults to "y" [but GENERIC to ""]
   ;
@@ -133,8 +133,8 @@ let
     ];
 
   # https://github.com/CachyOS/linux-cachyos/issues/187
-  schedExtConfig =
-    lib.optionals (cachyConfig.cpuSched == "sched-ext") [
+  disableDebug =
+    lib.optionals (cachyConfig.withoutDebug && cachyConfig.cpuSched != "sched-ext") [
       "-d DEBUG_INFO"
       "-d DEBUG_INFO_BTF"
       "-d DEBUG_INFO_DWARF4"
