@@ -16,6 +16,7 @@
 , hugePages ? "always"
 , withDAMON ? false
 , withBCacheFS ? true
+, withoutDebug ? false
 , description ? "Linux EEVDF-BORE scheduler Kernel by CachyOS with other patches and improvements"
 }:
 
@@ -29,6 +30,7 @@ let
       hugePages
       withDAMON
       withBCacheFS
+      withoutDebug
       description;
   };
 
