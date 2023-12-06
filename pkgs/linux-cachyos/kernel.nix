@@ -31,10 +31,17 @@ let
     inherit (cachyConfig.versions.linux) hash;
   };
 
-  schedPatch =
-    if cachyConfig.cpuSched == "cachyos" || cachyConfig.cpuSched == "hardened" then
-      "bore-cachy"
-    else throw "Unsupported cachyos _cpu_sched";
+  schedPatches =
+    if cachyConfig.cpuSched == "eevdf" then
+      [ ]
+    else if cachyConfig.cpuSched == "cachyos" || cachyConfig.cpuSched == "hardened" then
+      [ "${patches-src}/${major}/sched/0001-bore-cachy.patch" ]
+    else if cachyConfig.cpuSched == "sched-ext" then
+      [
+        "${patches-src}/${major}/sched/0001-sched-ext.patch"
+        "${patches-src}/${major}/sched/0001-bore-cachy-ext.patch"
+      ]
+    else throw "Unsupported cachyos _cpu_sched=${toString cachyConfig.cpuSched}";
 in
 (linuxManualConfig {
   inherit stdenv src version features randstructSeed;
@@ -49,7 +56,7 @@ in
       patch = filename;
     })
     ([ "${patches-src}/${major}/all/0001-cachyos-base-all.patch" ]
-      ++ lib.optional (cachyConfig.cpuSched != "eevdf") "${patches-src}/${major}/sched/0001-${schedPatch}.patch"
+      ++ schedPatches
       ++ lib.optional (cachyConfig.cpuSched == "hardened") "${patches-src}/${major}/misc/0001-hardened.patch"
       ++ lib.optional cachyConfig.withBCacheFS "${patches-src}/${major}/misc/0001-bcachefs.patch"
       ++ [ ./0001-Add-extra-version-CachyOS.patch ]

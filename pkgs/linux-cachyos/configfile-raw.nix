@@ -67,6 +67,7 @@ let
     ]
     ++ hugePagesConfig
     ++ damonConfig
+    ++ schedExtConfig
 
     #_use_auto_optimization, defaults to "y" [but GENERIC to ""]
   ;
@@ -81,6 +82,8 @@ let
       [ ]
     else if cachyConfig.cpuSched == "cachyos" || cachyConfig.cpuSched == "hardened" then
       [ "-e SCHED_BORE" ]
+    else if cachyConfig.cpuSched == "sched-ext" then
+      [ "-e SCHED_BORE" "-e SCHED_CLASS_EXT" ]
     else throw "Unsupported cachyos scheduler";
 
   # _HZ_ticks, defaults to "500"
@@ -127,6 +130,25 @@ let
       "-e DAMON_PADDR"
       "-e DAMON_RECLAIM"
       "-e DAMON_LRU_SORT"
+    ];
+
+  # https://github.com/CachyOS/linux-cachyos/issues/187
+  schedExtConfig =
+    lib.optionals (cachyConfig.cpuSched == "sched-ext") [
+      "-d DEBUG_INFO"
+      "-d DEBUG_INFO_BTF"
+      "-d DEBUG_INFO_DWARF4"
+      "-d DEBUG_INFO_DWARF5"
+      "-d PAHOLE_HAS_SPLIT_BTF"
+      "-d DEBUG_INFO_BTF_MODULES"
+      "-d SLUB_DEBUG"
+      "-d PM_DEBUG"
+      "-d PM_ADVANCED_DEBUG"
+      "-d PM_SLEEP_DEBUG"
+      "-d ACPI_DEBUG"
+      "-d SCHED_DEBUG"
+      "-d LATENCYTOP"
+      "-d DEBUG_PREEMPT"
     ];
 
 in
