@@ -3,9 +3,9 @@ on:
   workflow_dispatch:
     inputs:
       commit-failures:
-        description: Should commit failures.nix
+        description: Commit failures.nix
         required: false
-        default: false
+        default: true
         type: boolean
 
 permissions:
@@ -59,13 +59,16 @@ jobs:
           FAILED_BUILDS<<EOF
           $failed_builds
           EOF" >> $GITHUB_OUTPUT
-          cp ${{ runner.temp }}/new-failures.nix ./maintenance/failures.nix
-          git add ./maintenance/failures.nix
-          git commit --allow-empty -m "failures: update"
-          git push
+          if [ "$SAVE_FAILURES" = "true" ]; then
+            cp ${{ runner.temp }}/new-failures.nix ./maintenance/failures.nix
+            git add ./maintenance/failures.nix
+            git commit --allow-empty -m "failures: update"
+            git push
+          fi
         env:
           NYX_WD: ${{ runner.temp }}
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          SAVE_FAILURES: ${{ inputs.commit-failures }}
       - name: Comment on commit
         if: (success())
         uses: actions/github-script@v7
