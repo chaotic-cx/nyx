@@ -1,7 +1,6 @@
 { stdenv
 , lib
 , rustPlatform
-, fetchFromGitHub
 , pkg-config
 , elfutils
 , zlib

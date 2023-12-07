@@ -1,6 +1,5 @@
 { lib
 , llvmPackages_16
-, rustPlatform
 , writeShellScriptBin
 , scx-common
 , scx-rusty
@@ -8,7 +7,6 @@
 , pkg-config
 , meson
 , ninja
-, cargo
 , bpftools
 , elfutils
 , zlib
