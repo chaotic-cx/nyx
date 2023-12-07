@@ -50,9 +50,9 @@ llvmPackages_15.stdenv.mkDerivation {
 
   meta = with lib; {
     homepage = "https://github.com/openmoh/openmohaa";
-    description = "Open re-implementation of Medal of Honor: Allied Assault ";
+    description = "Open re-implementation of Medal of Honor: Allied Assault";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ peedrohlc ];
+    maintainers = with maintainers; [ pedrohlc ];
   };
 }
