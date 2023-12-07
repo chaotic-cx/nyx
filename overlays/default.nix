@@ -67,6 +67,9 @@ let
       _description = "Nixpkgs + Chaotic_nyx packages built for the x86-64-${lvl} microarchitecture.";
     }
     else throw "x86_64_${lvl} package set can only be used with the x86 family.";
+
+  # Common stuff for scx-schedulers
+  scx-common = final.callPackage ../pkgs/scx/common.nix { };
 in
 {
   inherit nyxUtils;
@@ -198,6 +201,10 @@ in
   };
 
   river_git = callOverride ../pkgs/river-git { };
+
+  scx-rusty = final.callPackage ../pkgs/scx/rusty { inherit scx-common; };
+  scx-layered = final.callPackage ../pkgs/scx/layered { inherit scx-common; };
+  scx = final.callPackage ../pkgs/scx { inherit scx-common; };
 
   sway-unwrapped_git = callOverride ../pkgs/sway-unwrapped-git { };
   sway_git = prev.sway.override {
