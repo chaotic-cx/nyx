@@ -36,11 +36,8 @@ in
   };
 
   cachyos-hardened = mkCachyKernel {
-    taste = "archive/linux-cachyos-hardened";
+    taste = "linux-cachyos-hardened";
     configPath = ./config-nix/cachyos-hardened.x86_64-linux.nix;
     cpuSched = "hardened";
-    versions = mainVersions // {
-      linux = { version = "6.5.12"; hash = "sha256-SmnB0yyXThJa1yMUXTFoOjsHhmetVtF/eFLcr/ufNZ8="; };
-    };
   };
 }
