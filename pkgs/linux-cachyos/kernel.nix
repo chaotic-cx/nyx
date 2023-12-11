@@ -4,8 +4,6 @@
 , configfile
 , callPackage
 , nyxUtils
-, fetchFromGitHub
-, fetchurl
 , lib
 , linuxManualConfig
 , stdenv
@@ -16,7 +14,6 @@
 }@inputs:
 let
   inherit (cachyConfig.versions.linux) version;
-  major = lib.versions.pad 2 version;
 in
 (linuxManualConfig {
   inherit stdenv version features randstructSeed;
