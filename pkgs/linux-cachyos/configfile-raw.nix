@@ -11,6 +11,12 @@ let
   inherit (cachyConfig.versions.linux) version;
   major = lib.versions.pad 2 version;
 
+  patches-src = fetchFromGitHub {
+    owner = "CachyOS";
+    repo = "kernel-patches";
+    inherit (cachyConfig.versions.patches) rev hash;
+  };
+
   config-src = fetchFromGitHub {
     owner = "CachyOS";
     repo = "linux-cachyos";
@@ -23,6 +29,25 @@ let
     }.tar.xz";
     inherit (cachyConfig.versions.linux) hash;
   };
+
+  schedPatches =
+    if cachyConfig.cpuSched == "eevdf" then
+      [ ]
+    else if cachyConfig.cpuSched == "cachyos" || cachyConfig.cpuSched == "hardened" then
+      [ "${patches-src}/${major}/sched/0001-bore-cachy.patch" ]
+    else if cachyConfig.cpuSched == "sched-ext" then
+      [
+        "${patches-src}/${major}/sched/0001-sched-ext.patch"
+        "${patches-src}/${major}/sched/0001-bore-cachy-ext.patch"
+      ]
+    else throw "Unsupported cachyos _cpu_sched=${toString cachyConfig.cpuSched}";
+
+  patches =
+    [ "${patches-src}/${major}/all/0001-cachyos-base-all.patch" ]
+    ++ schedPatches
+    ++ lib.optional (cachyConfig.cpuSched == "hardened") "${patches-src}/${major}/misc/0001-hardened.patch"
+    ++ lib.optional cachyConfig.withBCacheFS "${patches-src}/${major}/misc/0001-bcachefs.patch"
+    ++ [ ./0001-Add-extra-version-CachyOS.patch ];
 
   # There are some configurations set by the PKGBUILD
   pkgbuildConfig = with cachyConfig;
@@ -153,7 +178,7 @@ let
 
 in
 stdenv.mkDerivation {
-  inherit src;
+  inherit src patches;
   name = "linux-cachyos-config";
   nativeBuildInputs = [ flex bison perl ];
 
@@ -171,4 +196,6 @@ stdenv.mkDerivation {
   installPhase = ''
     cp .config $out
   '';
+
+  passthru.kernelPatches = patches;
 }
