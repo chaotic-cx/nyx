@@ -202,9 +202,11 @@ in
 
   river_git = callOverride ../pkgs/river-git { };
 
-  scx-rusty = final.callPackage ../pkgs/scx/rusty { inherit scx-common; };
-  scx-layered = final.callPackage ../pkgs/scx/layered { inherit scx-common; };
-  scx = final.callPackage ../pkgs/scx { inherit scx-common; };
+  scx = final.callPackage ../pkgs/scx {
+    inherit scx-common;
+    scx-layered = final.callPackage ../pkgs/scx/layered { inherit scx-common; };
+    scx-rusty = final.callPackage ../pkgs/scx/rusty { inherit scx-common; };
+  };
 
   sway-unwrapped_git = callOverride ../pkgs/sway-unwrapped-git { };
   sway_git = prev.sway.override {

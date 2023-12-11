@@ -58,6 +58,10 @@ llvmPackages_16.stdenv.mkDerivation {
   enableParallelBuilding = true;
   dontStrip = true;
 
+  passthru = {
+    inherit scx-common scx-rusty scx-layered;
+  };
+
   meta = with lib; {
     homepage = "https://bit.ly/scx_slack";
     description = "sched_ext schedulers and tools";
