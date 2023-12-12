@@ -5,6 +5,7 @@
       inherit system;
       config = {
         allowUnfree = true;
+        allowUnsupportedSystem = true;
         nvidia.acceptLicense = true;
       };
     };

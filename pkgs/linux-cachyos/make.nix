@@ -78,11 +78,12 @@ let
   basePackages = linuxPackagesFor kernel;
   packagesWithZFS = basePackages.extend addZFS;
   packagesWithoutUpdateScript = nyxUtils.dropAttrsUpdateScript packagesWithZFS;
+  packagesWithRightPlatforms = nyxUtils.setAttrsPlatforms [ "x86_64-linux" ] packagesWithoutUpdateScript;
 
   versionSuffix = "+C${nyxUtils.shorter versions.config.rev}+P${nyxUtils.shorter versions.patches.rev}"
     + lib.strings.optionalString withBCacheFS "+bcachefs";
 in
-packagesWithoutUpdateScript // {
+packagesWithRightPlatforms // {
   _description = "Kernel and modules for ${description}";
   _version = "${versions.linux.version}${versionSuffix}";
   inherit (basePackages) kernel; # This one still has the updateScript
