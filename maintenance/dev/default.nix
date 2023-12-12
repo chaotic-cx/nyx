@@ -1,17 +1,23 @@
 { flakes, nixConfig, utils, self ? flakes.self }: flakes.yafas.withAllSystems { }
   (universals: { system, ... }:
   let
-    pkgs = import flakes.nixpkgs {
+    nixPkgs = import flakes.nixpkgs {
       inherit system;
       config = {
         allowUnfree = true;
         nvidia.acceptLicense = true;
       };
     };
+    nyxPkgs = utils.applyOverlay { pkgs = nixPkgs; };
   in
   with universals; {
-    packages = utils.applyOverlay { inherit pkgs; };
-    nixpkgs = pkgs;
+    packages = nyxPkgs;
+    nixpkgs = nixPkgs;
+    mergedPkgs = utils.applyOverlay {
+      pkgs = nixPkgs;
+      merge = true;
+      replace = true;
+    };
     system = flakes.nixpkgs.lib.nixosSystem {
       inherit system;
       modules = [ self.nixosModules.default ];
