@@ -58,7 +58,7 @@ function cached() {
 # Helper to zip-merge _ALL_OUT_KEYS and _ALL_OUT_PATHS
 function zip_path() {
   for (( i=0; i<${#_ALL_OUT_KEYS[*]}; ++i)); do
-    echo "${_ALL_OUT_KEYS[$i]}" "${_ALL_OUT_PATHS[$i]}"
+    echo "${NIX_PREFIX:-}${_ALL_OUT_KEYS[$i]}" "${_ALL_OUT_PATHS[$i]}"
   done
 }
 

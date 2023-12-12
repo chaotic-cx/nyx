@@ -110,6 +110,10 @@ writeShellScriptBin "chaotic-nyx-build" ''
   # Options (1)
   NYX_SOURCE="''${NYX_SOURCE:-${flakeSelf}}"
   NYX_TARGET="''${NYX_TARGET:-${hostPlatform.system}}"
+  NYX_PREFIX="''${NYX_PREFIX:-}"
+  if [ -n "$NYX_PREFIX" ] && [ "$NYX_TARGET" != 'x86_64-linux' ]; then
+    NYX_PREFIX="''${NYX_TARGET%-linux}."
+  fi
 
   # All the required functions
   source ${./lib.sh}
