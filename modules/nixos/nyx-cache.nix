@@ -16,14 +16,10 @@ in
   };
   config = {
     nix.settings = lib.mkIf cfg.enable
-      rec {
-        # For Non-NixOS
-        inherit (flakes.self._dev.nixConfig)
-          extra-substituters
-          extra-trusted-public-keys;
-        # For NixOS
+      # On NixOS (and not Home-Manager, flakes, or shells) we want them without the "extra-" prefix.
+      (with flakes.self._dev.nixConfig; {
         substituters = extra-substituters;
         trusted-public-keys = extra-trusted-public-keys;
-      };
+      });
   };
 }
