@@ -78,7 +78,9 @@ let
   basePackages = linuxPackagesFor kernel;
   packagesWithZFS = basePackages.extend addZFS;
   packagesWithoutUpdateScript = nyxUtils.dropAttrsUpdateScript packagesWithZFS;
-  packagesWithRightPlatforms = nyxUtils.setAttrsPlatforms [ "x86_64-linux" ] packagesWithoutUpdateScript;
+  packagesWithRightPlatforms = nyxUtils.setAttrsPlatforms supportedPlatforms packagesWithoutUpdateScript;
+
+  supportedPlatforms = [ (with lib.systems.inspect.patterns; isx86_64 // isLinux) "x86_64-linux" ];
 
   versionSuffix = "+C${nyxUtils.shorter versions.config.rev}+P${nyxUtils.shorter versions.patches.rev}"
     + lib.strings.optionalString withBCacheFS "+bcachefs";

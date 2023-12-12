@@ -96,13 +96,15 @@ rec {
 
   # Helps when batch-overriding.
   setAttrsPlatforms = platforms: builtins.mapAttrs (_k: v:
-    if (lib.attrsets.isDerivation v) then
-      v.overrideAttrs (prevAttrs: {
-        meta = (prevAttrs.meta or {}) // {
-          platforms = lib.lists.intersectLists (prevAttrs.meta.platforms or []) platforms;
-          badPlatforms = [];
-        };
-      })
+    if (v ? "overrideAttrs") then
+      v.overrideAttrs
+        (prevAttrs: {
+          meta = (prevAttrs.meta or { }) // {
+            platforms = lib.lists.intersectLists (prevAttrs.meta.platforms or [ ]) platforms;
+            platformsOrig = prevAttrs.meta.platforms or [ ];
+            badPlatforms = [ ];
+          };
+        })
     else v
   );
 

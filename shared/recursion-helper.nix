@@ -1,4 +1,7 @@
 { lib, system }:
+let
+  parsedSystem = lib.systems.parse.mkSystemFromString system;
+in
 rec {
   join = namespace: current:
     if namespace != "" then
@@ -21,9 +24,17 @@ rec {
           (if lib.attrsets.isDerivation v then
             (if (v.meta.broken or true) then
               warnFn fullKey v "marked broken"
-            else if ((v.meta or {}) ? platforms && !(builtins.elem system v.meta.platforms)) then
+            else if ((v.meta.platforms or [ ]) != [ ] &&
+              !(builtins.elem system v.meta.platforms ||
+                lib.systems.inspect.matchAnyAttrs
+                  (builtins.filter builtins.isAttrs v.meta.platforms)
+                  parsedSystem)) then
               warnFn fullKey v "not marked compatible"
-            else if ((v.meta or {}) ? badPlatforms && builtins.elem system v.meta.badPlatforms) then
+            else if ((v.meta.badPlatforms or [ ]) != [ ] &&
+              (builtins.elem system v.meta.badPlatforms ||
+                lib.systems.inspect.matchAnyAttrs
+                  (builtins.filter builtins.isAttrs v.meta.badPlatforms)
+                  parsedSystem)) then
               warnFn fullKey v "marked incompatible"
             else if (v.meta.unfree or true && !(v.meta.nyx.bypassLicense or false) && v.meta.license != lib.licenses.unfreeRedistributable) then
               warnFn fullKey v "unfree"
