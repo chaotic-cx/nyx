@@ -6,7 +6,7 @@ let
     hdr = import ./hdr.nix;
     mesa-git = import ./mesa-git.nix;
     nordvpn = import ./nordvpn.nix;
-    nyx-cache = import ../common/nyx-cache.nix fromFlakes;
+    nyx-cache = import ./nyx-cache.nix fromFlakes;
     nyx-overlay = import ../common/nyx-overlay.nix fromFlakes;
     steam-compat-tools = import ./steam-compat-tools.nix;
     zfs-impermanence-on-shutdown = import ./zfs-impermanence-on-shutdown.nix;
