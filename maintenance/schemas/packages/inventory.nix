@@ -1,10 +1,10 @@
 { nixpkgs }: output:
 let
-  mkPackages = nyxPkgs:
+  mkPackages = system: nyxPkgs:
     let
       inherit (nixpkgs) lib;
 
-      nyxRecursionHelper = import ../../../shared/recursion-helper.nix { inherit lib; };
+      nyxRecursionHelper = import ../../../shared/recursion-helper.nix { inherit lib system; };
 
       derivationMap = k: v:
         {
@@ -42,7 +42,7 @@ in
   children = {
     x86_64-linux.forSystems = [ "x86_64-linux" ];
     x86_64-linux.children =
-      mkPackages output.x86_64-linux;
+      mkPackages "x86_64-linux" output.x86_64-linux;
     aarch64-linux.forSystems = [ "aarch64-linux" ];
     aarch64-linux.children =
       let
@@ -59,6 +59,6 @@ in
               "vkshade32_git"
             ];
       in
-      mkPackages (remove32 output.aarch64-linux);
+      mkPackages "aarch64-linux" (remove32 output.aarch64-linux);
   };
 }

@@ -33,7 +33,7 @@ in
   extraMeta = {
     maintainers = with lib.maintainers; [ dr460nf1r3 pedrohlc ];
     # at the time of this writing, they don't have config files for aarch64
-    broken = stdenv.system == "aarch64-linux";
+    platforms = [ "x86_64-linux" ];
   };
 }
 ).overrideAttrs (prevAttrs: {

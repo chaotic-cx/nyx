@@ -1,4 +1,4 @@
-{ lib }:
+{ lib, system }:
 rec {
   join = namespace: current:
     if namespace != "" then
@@ -21,6 +21,10 @@ rec {
           (if lib.attrsets.isDerivation v then
             (if (v.meta.broken or true) then
               warnFn fullKey v "marked broken"
+            else if ((v.meta or {}) ? platforms && !(builtins.elem system v.meta.platforms)) then
+              warnFn fullKey v "not marked compatible"
+            else if ((v.meta or {}) ? badPlatforms && builtins.elem system v.meta.badPlatforms) then
+              warnFn fullKey v "marked incompatible"
             else if (v.meta.unfree or true && !(v.meta.nyx.bypassLicense or false) && v.meta.license != lib.licenses.unfreeRedistributable) then
               warnFn fullKey v "unfree"
             else

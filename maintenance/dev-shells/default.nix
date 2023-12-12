@@ -15,7 +15,9 @@ let
       pkgs = applyOverlay { inherit nyxPkgs; pkgs = nixPkgs; replace = true; merge = true; };
       inherit (pkgs) callPackage mkShell;
 
-      nyxRecursionHelper = callPackage ../../shared/recursion-helper.nix { };
+      nyxRecursionHelper = callPackage ../../shared/recursion-helper.nix {
+        inherit (pkgs.stdenv) system;
+      };
 
       # Matches build.yml and full-bump.yml
       pinnedNix = pkgs.nixVersions.nix_2_19;
