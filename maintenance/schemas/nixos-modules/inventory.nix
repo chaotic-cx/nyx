@@ -6,7 +6,7 @@ let
   shared = import ../shared/options.nix;
   inherit (shared) optionMap optionWarn;
 
-  nyxRecursionHelper = pkgs.callPackage ../../../shared/recursion-helper.nix { };
+  nyxRecursionHelper = pkgs.callPackage ../../../shared/recursion-helper.nix { inherit (pkgs.stdenv) system; };
 
   nixosEval = nyxRecursionHelper.options optionWarn optionMap nyxosConfiguration.options.chaotic;
 
