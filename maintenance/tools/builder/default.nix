@@ -112,7 +112,7 @@ writeShellScriptBin "chaotic-nyx-build" ''
   NYX_TARGET="''${NYX_TARGET:-${hostPlatform.system}}"
 
   NYX_PREFIX=""
-  if [ -n "$NYX_PREFIX" ] && [ "$NYX_TARGET" != 'x86_64-linux' ]; then
+  if [ -z "$NYX_PREFIX" ] && [ "$NYX_TARGET" != 'x86_64-linux' ]; then
     NYX_PREFIX="''${NYX_TARGET%-linux}."
   fi
 
