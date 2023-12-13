@@ -13,6 +13,10 @@ let
   inherit (final.stdenv) is32bit;
 in
 gitOverride (current: {
+  newInputs = with final; {
+    meson = if is32bit then meson else meson_1_3;
+  };
+
   nyxKey = if is32bit then "mesa32_git" else "mesa_git";
   prev = prev.mesa;
 

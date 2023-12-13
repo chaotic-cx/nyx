@@ -11,13 +11,4 @@ gitOverride {
     repo = "nss";
   };
   ref = "master";
-
-  postOverride = _prevAttrs: {
-    # they could have used "sourceRoot"...
-    postUnpack = ''
-      mkdir _nss
-      mv source/* _nss/
-      mv _nss source/nss
-    '';
-  };
 }
