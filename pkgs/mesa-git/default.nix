@@ -14,7 +14,7 @@ let
 in
 gitOverride (current: {
   newInputs = with final; {
-    meson = meson_1_3;
+    meson = if is32bit then meson else meson_1_3;
   };
 
   nyxKey = if is32bit then "mesa32_git" else "mesa_git";
