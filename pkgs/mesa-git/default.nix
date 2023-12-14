@@ -72,7 +72,7 @@ gitOverride (current: {
       let
         cargoFetch = who: final.fetchurl {
           url = "https://crates.io/api/v1/crates/${who}/${cargoDeps.${who}.version}/download";
-          hash = cargoDeps.${who}.hash;
+          inherit (cargoDeps.${who}) hash;
         };
 
         cargoSubproject = who: ''
