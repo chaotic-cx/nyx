@@ -37,7 +37,7 @@ function bump-package() {
       elif [ $? -eq 43 ]; then
         echo "## Failed, reverting ${_PREV}..${_CURR}"
         git revert --no-commit "${_PREV}..${_CURR}"
-        git commit -m "Bumping \"$1\" failed"
+        git commit -m "Revert bumping \"$1\" (failed to build)"
       else
         echo "## Exited with $?"
       fi
