@@ -26,6 +26,7 @@ let
   callOverride32 = path: attrs: import path ({
     inherit flakes nyxUtils gitOverride;
     final = final.pkgsi686Linux;
+    final64 = final;
     prev = prev.pkgsi686Linux;
   } // attrs);
 
@@ -70,6 +71,9 @@ let
 
   # Common stuff for scx-schedulers
   scx-common = final.callPackage ../pkgs/scx/common.nix { };
+
+  # Required for 32-bit packages
+  has32 = final.stdenv.hostPlatform.isLinux && final.stdenv.hostPlatform.isx86;
 in
 {
   inherit nyxUtils;
@@ -96,6 +100,12 @@ in
     (overrideDescription (old: old + " (without applets' symlinks)"));
 
   bytecode-viewer_git = final.callPackage ../pkgs/bytecode-viewer-git { };
+
+  # Waiting for nixpkgs#272823 needed for mesa_git
+  directx-headers_1_611 = callOverride ../pkgs/mesa-git/directx-headers-pin.nix { };
+  directx-headers32_1_611 =
+    if has32 then callOverride32 ../pkgs/mesa-git/directx-headers-pin.nix { }
+    else throw "No directx-headers32_1_611 for non-x86";
 
   discord-krisp = callOverride ../pkgs/discord-krisp { };
 
@@ -152,31 +162,19 @@ in
   # You should not need "mangohud32_git" since it's embedded in "mangohud_git"
   mangohud_git = callOverride ../pkgs/mangohud-git { };
   mangohud32_git =
-    if final.stdenv.hostPlatform.isLinux && final.stdenv.hostPlatform.isx86
-    then
-      callOverride32 ../pkgs/mangohud-git { }
+    if has32 then callOverride32 ../pkgs/mangohud-git { }
     else throw "No mangohud32_git for non-x86";
 
   mesa_git = callOverride ../pkgs/mesa-git { gbmDriver = true; };
   mesa32_git =
-    if final.stdenv.hostPlatform.isLinux && final.stdenv.hostPlatform.isx86
-    then
-      callOverride32 ../pkgs/mesa-git { }
+    if has32 then callOverride32 ../pkgs/mesa-git { }
     else throw "No mesa32_git for non-x86";
 
-  # Waiting for nixpkgs#268583m needed for mesa_git
-  meson_1_3 = final.meson.overrideAttrs (prevAttrs: with final; rec {
-    version = "1.3.0";
-    src = fetchFromGitHub {
-      owner = "mesonbuild";
-      repo = "meson";
-      rev = "refs/tags/${version}";
-      hash = "sha256-Jt3PWnbv/8P6Rvf3E/Yli2vdtfgx3CmsW+jlc9CK5KA=";
-    };
-    patches = nyxUtils.removeByURL
-      "https://github.com/mesonbuild/meson/commit/d5252c5d4cf1c1931fef0c1c98dd66c000891d21.patch"
-      prevAttrs.patches;
-  });
+  # Waiting for nixpkgs#268583 needed for mesa_git
+  meson_1_3 = callOverride ../pkgs/mesa-git/meson-pin.nix { };
+  meson32_1_3 =
+    if has32 then callOverride32 ../pkgs/mesa-git/meson-pin.nix { }
+    else throw "No headers32_1_3 for non-x86";
 
   mpv-vapoursynth = (final.wrapMpv
     (final.mpv-unwrapped.override { vapoursynthSupport = true; })
@@ -235,9 +233,7 @@ in
   # You should not need "mangohud32_git" since it's embedded in "mangohud_git"
   vkshade_git = callOverride ../pkgs/vkshade-git { };
   vkshade32_git =
-    if final.stdenv.hostPlatform.isLinux && final.stdenv.hostPlatform.isx86
-    then
-      callOverride32 ../pkgs/vkshade-git { }
+    if has32 then callOverride32 ../pkgs/vkshade-git { }
     else throw "No vkshade32_git for non-x86";
 
   vulkanPackages_latest = callOverride ../pkgs/vulkan-versioned

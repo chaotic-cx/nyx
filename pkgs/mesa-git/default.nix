@@ -1,4 +1,5 @@
 { final
+, final64 ? final
 , flakes
 , nyxUtils
 , prev
@@ -20,15 +21,20 @@ let
   };
 in
 gitOverride (current: {
-  newInputs = if is32bit then { } else with final; {
-    meson = meson_1_3;
-    # We need to mention those besides "all", because of the usage of nix's `lib.elem` in
-    # the original derivation.
-    galliumDrivers = [ "all" "zink" "d3d12" ];
-    vulkanDrivers = [ "all" "microsoft-experimental" ];
-    # Instead, we enable the new option in `mesonFlags`
-    enablePatentEncumberedCodecs = false;
-  };
+  newInputs =
+    if is32bit then with final64; {
+      meson = meson32_1_3;
+      directx-headers = directx-headers32_1_611;
+    } else with final; {
+      meson = meson_1_3;
+      directx-headers = directx-headers_1_611;
+      # We need to mention those besides "all", because of the usage of nix's `lib.elem` in
+      # the original derivation.
+      galliumDrivers = [ "all" "zink" "d3d12" ];
+      vulkanDrivers = [ "all" "microsoft-experimental" ];
+      # Instead, we enable the new option in `mesonFlags`
+      enablePatentEncumberedCodecs = false;
+    };
 
   nyxKey = if is32bit then "mesa32_git" else "mesa_git";
   prev = prev.mesa;
