@@ -212,6 +212,10 @@ in
     protonGeVersions = importJSON ../pkgs/proton-ge-custom/versions.json;
   };
 
+  qtile_git = with final; python311Packages.toPythonApplication qtile-module_git;
+  qtile-module_git = callOverride ../pkgs/qtile-git { };
+  qtile-extras_git = callOverride ../pkgs/qtile-extras-git { };
+
   river_git = callOverride ../pkgs/river-git { };
 
   scx = final.callPackage ../pkgs/scx {

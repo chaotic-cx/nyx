@@ -3,8 +3,8 @@
 , ...
 }:
 
-final.python311Packages.toPythonApplication (gitOverride {
-  nyxKey = "qtile_git";
+gitOverride {
+  nyxKey = "qtile-module_git";
   prev = prev.python311Packages.qtile;
 
   versionNyxPath = "pkgs/qtile-git/version.json";
@@ -14,4 +14,4 @@ final.python311Packages.toPythonApplication (gitOverride {
     repo = "qtile";
   };
   ref = "master";
-})
+}
