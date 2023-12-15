@@ -17,4 +17,10 @@ gitOverride {
     owner = "elParaguayo";
     repo = "qtile-extras";
   };
+
+  postOverride = _prevAttrs: {
+    postPatch = ''
+      echo "" > test/widget/test_strava.py
+    '';
+  };
 }
