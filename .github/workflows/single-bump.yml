@@ -46,9 +46,9 @@ jobs:
       - name: Wiggle, wiggle, wiggle
         run: |
           git checkout -b "bump-${TARGETPKG}-$(date '+%Y%m%d')"
-          nix build ".#${TARGETPKG}"
+          nix build ".#${TARGETPKG}.updateScript"
           bash ./result
-          git push origin
+          git push origin "bump-${TARGETPKG}-$(date '+%Y%m%d')" -u
         env:
           GH_TOKEN: ${{ github.token }}
           TARGETPKG: ${{ inputs.bumpWhat }}
