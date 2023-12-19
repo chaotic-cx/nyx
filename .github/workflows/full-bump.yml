@@ -8,6 +8,11 @@ on:
         description: Increase for each bump in the same day
         required: false
         type: number
+      kissMeKissMeKissMe:
+        description: Don't build, don't revert, don't cache
+        required: true
+        default: false
+        type: boolean
 
 permissions:
   contents: write
@@ -47,14 +52,18 @@ jobs:
           git config --global user.email 'actions@chaotic.cx'
       # the bump itself
       - name: Wiggle, wiggle, wiggle
-        run: nix develop --impure .#updater -c 'chaotic-nyx-bumper'
+        id: build
+        run: |
+          [ "$NO_REVERT" == 'true' ] && export NYX_BUMP_REVERT=0
+          nix develop --impure .#updater -c 'chaotic-nyx-bumper'
         env:
           GH_TOKEN: ${{ github.token }}
           NYX_BUMPN: ${{ inputs.bumpNumber }}
+          NO_REVERT: ${{ inputs.kissMeKissMeKissMe }}
       # similar to build.yml
       - name: Cache
-        if: success()
-        id: build
+        id: cache
+        if: (success() && inputs.kissMeKissMeKissMe != 'true')
         run: nix develop -c chaotic-nyx-build || [ $? -eq 42 ]
         env:
           NYX_WD: ${{ runner.temp }}
