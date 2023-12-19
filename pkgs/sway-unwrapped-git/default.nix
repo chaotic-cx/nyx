@@ -2,7 +2,7 @@
 
 gitOverride {
   newInputs = with final; {
-    wlroots = wlroots_git;
+    wlroots_0_16 = wlroots_git;
     wayland = wayland_git;
     wayland-protocols = wayland-protocols_git;
     wayland-scanner = wayland-scanner_git;
