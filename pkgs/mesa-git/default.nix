@@ -14,10 +14,10 @@ let
   inherit (final.stdenv) is32bit;
 
   cargoDeps = {
-    proc-macro2 = { version = "1.0.56"; hash = "sha256-K2O9sM0G8fTe32myVHNPm0WvZuSgMeQqdIAlfZiYtDU="; };
-    quote = { version = "1.0.25"; hash = "sha256-UwjoIIcpw+FQSmz60NXarMRhTJouZdHqMSo0tcsA/oQ="; };
-    syn = { version = "2.0.15"; hash = "sha256-o0/PPotg9X5qFDAaLpFtMjr5iw6mPFmUQe7IVYZgyCI="; };
-    unicode-ident = { version = "1.0.6"; hash = "sha256-hKIrnyGLQGFK3LP0/wi3A3c61E+pQj5ODTRtXbhuTrw="; };
+    proc-macro2 = { version = "1.0.70"; hash = "sha256-OSePu/X7T2Rs5lFpCHf4nRxYEaPUrLJ3AMHLPNt4/Ts="; };
+    quote = { version = "1.0.33"; hash = "sha256-Umf8pElgKGKKlRYPxCOjPosuavilMCV54yLktSApPK4="; };
+    syn = { version = "2.0.39"; hash = "sha256-I+eLkPL89F0+hCAyzjLj8tFUW6ZjYnHcvyT6MG2Hvno="; };
+    unicode-ident = { version = "1.0.12"; hash = "sha256-M1S5rD+uH/Z1XLbbU2g622YWNPZ1V5Qt6k+s6+wP7ks="; };
   };
 in
 gitOverride (current: {
