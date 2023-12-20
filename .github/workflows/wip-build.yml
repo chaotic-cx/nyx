@@ -61,7 +61,7 @@ jobs:
           EOF" >> $GITHUB_OUTPUT
           if [ "$SAVE_FAILURES" = "true" ]; then
             cp ${{ runner.temp }}/new-failures.nix ./maintenance/failures.x86_64-linux.nix
-            git add ./maintenance/failures.nix
+            git add ./maintenance/failures.x86_64-linux.nix
             git commit --allow-empty -m "failures: update"
             git push
           fi
