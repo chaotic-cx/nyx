@@ -31,17 +31,7 @@ let
   };
 in
 {
-  options = with lib; {
-    chaotic.qtile.enable =
-      mkOption {
-        default = false;
-        example = false;
-        type = types.bool;
-        description = ''
-          Adds a wayland-session package and a `start-qtile` binary for using with `services.xserver.windowManager.qtile` options.
-        '';
-      };
-  };
+  options.chaotic.qtile.enable = lib.mkEnableOption "a wayland-session package and a `start-qtile` binary for using with `services.xserver.windowManager.qtile` options";
 
   config = lib.mkIf cfg.enable {
     services.xserver.windowManager.qtile.enable = true;
