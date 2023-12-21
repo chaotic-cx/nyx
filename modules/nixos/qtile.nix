@@ -34,7 +34,7 @@ in
   options = with lib; {
     chaotic.qtile.enable =
       mkOption {
-        default = true;
+        default = false;
         example = false;
         type = types.bool;
         description = ''
