@@ -3,7 +3,7 @@ let
   cfg = config.chaotic.qtile;
 
   mainCfg = config.services.xserver.windowManager.qtile;
-  pyEnv = pkgs.python3.withPackages (p: [ (mainCfg.package.unwrapped or mainCfg.package) ] ++ (mainCfg.extraPackages p));
+  pyEnv = pkgs.python3.withPackages (pypkgs: [ (mainCfg.package.unwrapped or mainCfg.package) ] ++ (mainCfg.extraPackages pypkgs));
 
   runner = backend: pkgs.writeShellScriptBin "start-qtile" ''
     exec ${pyEnv}/bin/qtile start -b ${backend} \

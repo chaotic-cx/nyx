@@ -33,10 +33,10 @@ import "${nixpkgs}/nixos/tests/make-test-python.nix" ({ pkgs, ... }: {
           enable = testingWithAutoLogin;
           user = "alice";
         };
-        defaultSession = "wayland+qtile";
+        defaultSession = "${if testingBackend == "wayland" then "wayland" else "none"}+qtile";
       };
       windowManager.qtile = {
-        backend = "wayland";
+        backend = testingBackend;
         package = pkgs.qtile-module_git;
         extraPackages = _pythonPackages: [ pkgs.qtile-extras_git ];
         configFile = pkgs.writeTextFile {
