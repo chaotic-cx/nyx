@@ -5,9 +5,9 @@
     "hash": "sha256-+h7r6uLRw08c1CHRHxGCdkPYqI10i2Q/Oep617rLhx0="
   },
   "glslang": {
-    "version": "13.1.1",
+    "version": "14.0.0",
     "rev": "#{version}",
-    "hash": "sha256-fuzNsVYdnThMzd4tLN/sTbCBXg6qXKLDJRziOKyOBGg=",
+    "hash": "sha256-7kIIU45pe+IF7lGltpIKSvQBmcXR+TWFvmx7ztMNrpc=",
     "badTag": "main-tot"
   },
   "spirvCross": {
