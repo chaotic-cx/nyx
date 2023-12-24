@@ -22,7 +22,7 @@ gitOverride {
   ref = "master";
 
   postOverride = prevAttrs: {
-    buildInputs = with final.xorg; [ libXcursor xcbutilwm xcbutilerrors ] ++ prevAttrs.buildInputs;
+    buildInputs = with final.xorg; [ libXcursor xcbutilwm xcbutilerrors final.libavif ] ++ prevAttrs.buildInputs;
 
     patches =
       (nyxUtils.removeByBaseName "use-pkgconfig.patch" prevAttrs.patches)
