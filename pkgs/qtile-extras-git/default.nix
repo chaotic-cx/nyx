@@ -21,6 +21,7 @@ gitOverride {
   postOverride = _prevAttrs: {
     postPatch = ''
       echo "" > test/widget/test_strava.py
+      echo "" > test/widget/test_iwd.py
     '';
   };
 }
