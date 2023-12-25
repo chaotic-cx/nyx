@@ -33,7 +33,7 @@ jobs:
           nix develop "github:chaotic-cx/nyx/${GITHUB_SHA}#document" -c 'true' | \
             xargs -i@ cp @ result/index.html
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3
         with:
           path: 'result'
       - name: Deploy to GitHub Pages
