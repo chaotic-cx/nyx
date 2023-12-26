@@ -16,6 +16,7 @@ permissions:
   # requirements for docs:
   pages: write
   id-token: write
+  actions: read
 
 concurrency:
   group: nyx-main-build
