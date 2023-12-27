@@ -2,6 +2,7 @@
 , final
 , prev
 , gitOverride
+, nyxUtils
 , ...
 }:
 
@@ -26,7 +27,8 @@ gitOverride {
   ref = "master";
 
   postOverride = prevAttrs: {
-    buildInputs = (with final; [ hwdata libdrm_git libdisplay-info ]) ++ prevAttrs.buildInputs;
-    postPatch = "";
+    patches = nyxUtils.removeByURL
+      "https://gitlab.freedesktop.org/wlroots/wlroots/-/commit/fe53ec693789afb44c899cad8c2df70c8f9f9023.patch"
+      prevAttrs.patches;
   };
 }
