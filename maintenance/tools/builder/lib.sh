@@ -30,6 +30,7 @@ function echo_error() {
 # That's how we start
 function prepare() {
   # Create empty logs and artifacts
+  [ ! -e "$NYX_WD" ] && mkdir -p "$NYX_WD"
   cd "$NYX_WD"
   touch push.txt errors.txt success.txt failures.txt cached.txt upstream.txt eval-failures.txt
   echo "{" > new-failures.nix
