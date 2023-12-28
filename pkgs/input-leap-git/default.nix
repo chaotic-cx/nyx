@@ -23,5 +23,9 @@ gitOverride {
     cmakeFlags = [
       "-DINPUTLEAP_USE_EXTERNAL_GTEST=ON"
     ];
+    postFixup = builtins.replaceStrings
+      [ "input-leap.desktop" ]
+      [ "io.github.input_leap.InputLeap.desktop" ]
+      prevAttrs.postFixup;
   };
 }
