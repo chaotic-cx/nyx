@@ -9,7 +9,7 @@
 # NOTE:
 # - `*_next` packages will be removed once merged into nixpkgs-unstable.
 
-{ flakes, nixpkgs ? flakes.nixpkgs, self ? flakes.self, selfOverlay ? self.overlays.default, nixpkgsExtraConfig ? {} }:
+{ flakes, nixpkgs ? flakes.nixpkgs, self ? flakes.self, selfOverlay ? self.overlays.default, nixpkgsExtraConfig ? { } }:
 final: prev:
 let
   # Required to load version files and warning.
