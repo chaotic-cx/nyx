@@ -9,7 +9,7 @@
 # NOTE:
 # - `*_next` packages will be removed once merged into nixpkgs-unstable.
 
-{ flakes, nixpkgs ? flakes.nixpkgs, self ? flakes.self, selfOverlay ? self.overlays.default }:
+{ flakes, nixpkgs ? flakes.nixpkgs, self ? flakes.self, selfOverlay ? self.overlays.default, nixpkgsExtraConfig ? { } }:
 final: prev:
 let
   # Required to load version files and warning.
@@ -45,6 +45,7 @@ let
   makeMicroarch = lvl: with final;
     if stdenv.hostPlatform.isx86 then import "${nixpkgs}"
       {
+        config = final.config // nixpkgsExtraConfig;
         overlays = [
           selfOverlay
           (_final': prev': {
