@@ -12,6 +12,6 @@ gitOverride {
   };
 
   postOverride = prevAttrs: {
-    patches = (prevAttrs.patches or []) ++ [ ./init-fix.patch ];
+    patches = (prevAttrs.patches or [ ]) ++ [ ./init-fix.patch ];
   };
 }
