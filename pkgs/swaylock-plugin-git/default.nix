@@ -10,4 +10,8 @@ gitOverride {
     owner = "mstoeckl";
     repo = "swaylock-plugin";
   };
+
+  postOverride = prevAttrs: {
+    patches = (prevAttrs.patches or [ ]) ++ [ ./init-fix.patch ];
+  };
 }
