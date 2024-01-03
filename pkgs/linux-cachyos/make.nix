@@ -1,4 +1,5 @@
-{ taste
+{ stdenv
+, taste
 , configPath
 , versions
 , callPackage
@@ -10,6 +11,7 @@
 , kernelPatches ? { }
 , basicCachy ? true
 , cpuSched ? "cachyos"
+, useLTO ? "none"
 , ticksHz ? 500
 , tickRate ? "full"
 , preempt ? "full"
@@ -24,6 +26,7 @@ let
   cachyConfig = {
     inherit taste versions basicCachy
       cpuSched
+      useLTO
       ticksHz
       tickRate
       preempt
@@ -39,7 +42,7 @@ let
   # - Then we NIXify it (in the update-script);
   # - Last state is importing the NIXified version for building.
   linuxConfigOriginal = callPackage ./configfile-raw.nix {
-    inherit cachyConfig;
+    inherit cachyConfig stdenv;
   };
   linuxConfigTransformable = callPackage ./configfile-bake.nix {
     configfile = linuxConfigOriginal;
@@ -47,7 +50,7 @@ let
   linuxConfigTransfomed = import configPath;
 
   kernel = callPackage ./kernel.nix {
-    inherit cachyConfig;
+    inherit cachyConfig stdenv;
     kernelPatches = [ ];
     configfile = linuxConfigOriginal;
     config = linuxConfigTransfomed;

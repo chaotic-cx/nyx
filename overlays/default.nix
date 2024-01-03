@@ -154,9 +154,7 @@ in
   linuxPackages_cachyos-sched-ext = cachyosPackages.cachyos-sched-ext;
   linuxPackages_cachyos-server = cachyosPackages.cachyos-server;
   linuxPackages_cachyos-hardened = cachyosPackages.cachyos-hardened;
-  linuxPackages-hardened_cachyos = warn
-    "`linuxPackages-hardened_cachyos` was renamed to `linuxPackages_cachyos-hardened`"
-    (final.linuxPackages_cachyos-hardened // { recurseForDerivations = false; });
+  linuxPackages_cachyos-lto = cachyosPackages.cachyos-lto;
 
   luxtorpeda = final.callPackage ../pkgs/luxtorpeda {
     luxtorpedaVersion = importJSON ../pkgs/luxtorpeda/version.json;
