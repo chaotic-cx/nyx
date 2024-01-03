@@ -12,8 +12,8 @@
 { flakes, nixpkgs ? flakes.nixpkgs, self ? flakes.self, selfOverlay ? self.overlays.default, nixpkgsExtraConfig ? { } }:
 final: prev:
 let
-  # Required to load version files and warning.
-  inherit (final.lib.trivial) importJSON warn;
+  # Required to load version files.
+  inherit (final.lib.trivial) importJSON;
 
   # Our utilities/helpers.
   nyxUtils = import ../shared/utils.nix { inherit (final) lib; nyxOverlay = selfOverlay; };
