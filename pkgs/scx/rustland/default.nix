@@ -9,10 +9,10 @@
 }:
 
 rustPlatform.buildRustPackage rec {
-  pname = "scx-layered";
+  pname = "scx-rustland";
 
   inherit (scx-common) src version;
-  cargoRoot = "scheds/rust/scx_layered";
+  cargoRoot = "scheds/rust/scx_rustland";
 
   cargoLock.lockFile = ./Cargo.lock;
 
@@ -21,19 +21,19 @@ rustPlatform.buildRustPackage rec {
   LIBCLANG_PATH = "${llvmPackages_16.libclang.lib}/lib";
 
   postPatch = ''
-    ln -s ${./Cargo.lock} scheds/rust/scx_layered/Cargo.lock
+    ln -s ${./Cargo.lock} scheds/rust/scx_rustland/Cargo.lock
   '';
 
   # Can't use sourceRoot because it will fail with lack of permissions in scx_utils
   preBuild = ''
-    cd scheds/rust/scx_layered
+    cd scheds/rust/scx_rustland
   '';
 
   installPhase = ''
     runHook preInstall
 
     mkdir $out
-    cp target/${stdenv.targetPlatform.config}/release/scx_layered $out/
+    cp target/${stdenv.targetPlatform.config}/release/scx_rustland $out/
 
     runHook postInstall
   '';
@@ -44,7 +44,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     homepage = "https://bit.ly/scx_slack";
-    description = "sched_ext schedulers and tools (scx_layered portion)";
+    description = "sched_ext schedulers and tools (scx_rustland portion)";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
     maintainers = with maintainers; [ pedrohlc ];
