@@ -10,5 +10,4 @@ gitOverride {
     owner = "89luca89";
     repo = "distrobox";
   };
-  ref = "main";
- }
+}
