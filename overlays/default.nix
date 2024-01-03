@@ -196,6 +196,7 @@ in
   nordvpn = final.callPackage ../pkgs/nordvpn { };
 
   nss_git = callOverride ../pkgs/nss-git { };
+  distrobox_git = callOverride ../pkgs/distrobox-git { };
 
   openmohaa = final.callPackage ../pkgs/openmohaa {
     openmohaaVersion = importJSON ../pkgs/openmohaa/version.json;
