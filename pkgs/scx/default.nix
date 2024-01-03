@@ -4,6 +4,7 @@
 , scx-common
 , scx-rusty
 , scx-layered
+, scx-rustland
 , pkg-config
 , meson
 , ninja
@@ -18,13 +19,17 @@ let
     set -e
     if [ ''${3:-} = '--target-dir=rust/scx_utils' ]; then
       exit 0
-    elif [ ''${3:-} = '--target-dir=scheds/rust-user/scx_layered' ]; then
-      mkdir -p /build/source/build/scheds/rust-user/scx_layered
-      cp -r ${scx-layered} /build/source/build/scheds/rust-user/scx_layered/release
+    elif [ ''${3:-} = '--target-dir=scheds/rust/scx_layered' ]; then
+      mkdir -p /build/source/build/scheds/rust/scx_layered
+      cp -r ${scx-layered} /build/source/build/scheds/rust/scx_layered/release
       exit 0
-    elif [ ''${3:-} = '--target-dir=scheds/rust-user/scx_rusty' ]; then
-      mkdir -p /build/source/build/scheds/rust-user/scx_rusty
-      cp -r ${scx-rusty} /build/source/build/scheds/rust-user/scx_rusty/release
+    elif [ ''${3:-} = '--target-dir=scheds/rust/scx_rustland' ]; then
+      mkdir -p /build/source/build/scheds/rust/scx_rustland
+      cp -r ${scx-rustland} /build/source/build/scheds/rust/scx_rustland/release
+      exit 0
+    elif [ ''${3:-} = '--target-dir=scheds/rust/scx_rusty' ]; then
+      mkdir -p /build/source/build/scheds/rust/scx_rusty
+      cp -r ${scx-rusty} /build/source/build/scheds/rust/scx_rusty/release
       exit 0
     fi
     exit 1
@@ -35,8 +40,9 @@ llvmPackages_16.stdenv.mkDerivation {
   inherit (scx-common) src version;
 
   postPatch = ''
-    cp -r ${scx-rusty} ./scheds/rust-user/scx_rusty/release
-    cp -r ${scx-layered} ./scheds/rust-user/scx_layered/release
+    cp -r ${scx-rusty} ./scheds/rust/scx_rusty/release
+    cp -r ${scx-layered} ./scheds/rust/scx_layered/release
+    cp -r ${scx-rustland} ./scheds/rust/scx_rustland/release
     patchShebangs ./meson-scripts
   '';
 
@@ -59,7 +65,7 @@ llvmPackages_16.stdenv.mkDerivation {
   dontStrip = true;
 
   passthru = {
-    inherit scx-common scx-rusty scx-layered;
+    inherit scx-common scx-rusty scx-layered scx-rustland;
   };
 
   meta = with lib; {

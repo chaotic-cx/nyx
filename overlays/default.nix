@@ -222,6 +222,7 @@ in
   scx = final.callPackage ../pkgs/scx {
     inherit scx-common;
     scx-layered = final.callPackage ../pkgs/scx/layered { inherit scx-common; };
+    scx-rustland = final.callPackage ../pkgs/scx/rustland { inherit scx-common; };
     scx-rusty = final.callPackage ../pkgs/scx/rusty { inherit scx-common; };
   };
 

@@ -12,7 +12,7 @@ rustPlatform.buildRustPackage rec {
   pname = "scx-rusty";
 
   inherit (scx-common) src version;
-  cargoRoot = "scheds/rust-user/scx_rusty";
+  cargoRoot = "scheds/rust/scx_rusty";
 
   cargoLock.lockFile = ./Cargo.lock;
 
@@ -21,12 +21,12 @@ rustPlatform.buildRustPackage rec {
   LIBCLANG_PATH = "${llvmPackages_16.libclang.lib}/lib";
 
   postPatch = ''
-    ln -s ${./Cargo.lock} scheds/rust-user/scx_rusty/Cargo.lock
+    ln -s ${./Cargo.lock} scheds/rust/scx_rusty/Cargo.lock
   '';
 
   # Can't use sourceRoot because it will fail with lack of permissions in scx_utils
   preBuild = ''
-    cd scheds/rust-user/scx_rusty
+    cd scheds/rust/scx_rusty
   '';
 
   installPhase = ''
