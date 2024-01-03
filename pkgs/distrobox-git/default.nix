@@ -2,7 +2,7 @@
 
 gitOverride {
   nyxKey = "distrobox_git";
-  prev = prev.alacritty;
+  prev = prev.distrobox;
 
   versionNyxPath = "pkgs/distrobox-git/version.json";
   fetcher = "fetchFromGitHub";
