@@ -66,6 +66,9 @@ writeShellScript "update-cachyos" ''
   cat "$(nix build '.#packages.x86_64-linux.linuxPackages_cachyos.kernel.cachyConfigBake' --no-link --print-out-paths)" \
     > pkgs/linux-cachyos/config-nix/cachyos.x86_64-linux.nix
 
+  cat "$(nix build '.#packages.x86_64-linux.linuxPackages_cachyos-lto.kernel.cachyConfigBake' --no-link --print-out-paths)" \
+    > pkgs/linux-cachyos/config-nix/cachyos-lto.x86_64-linux.nix
+
   cat "$(nix build '.#packages.x86_64-linux.linuxPackages_cachyos-sched-ext.kernel.cachyConfigBake' --no-link --print-out-paths)" \
     > pkgs/linux-cachyos/config-nix/cachyos-sched-ext.x86_64-linux.nix
 

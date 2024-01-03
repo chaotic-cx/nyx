@@ -73,6 +73,7 @@ let
       "-e DEFAULT_FQ"
       "--set-str DEFAULT_NET_SCH fq"
     ]
+    ++ ltoConfig
     ++ ticksHzConfig
     ++ tickRateConfig
     ++ preemptConfig
@@ -120,6 +121,16 @@ let
       "--set-val HZ ${toString cachyConfig.ticksHz}"
       "-e HZ_${toString cachyConfig.ticksHz}"
     ];
+
+  # _use_llvm_lto, defaults to "none"
+  ltoConfig =
+    if cachyConfig.useLTO == "thin" then
+      [ "-e LTO" "-e LTO_CLANG" "-e ARCH_SUPPORTS_LTO_CLANG" "-e ARCH_SUPPORTS_LTO_CLANG_THIN" "-d LTO_NONE" "-e HAS_LTO_CLANG" "-d LTO_CLANG_FULL" "-e LTO_CLANG_THIN" "-e HAVE_GCC_PLUGINS" ]
+    else if cachyConfig.useLTO == "full" then
+      [ "-e LTO" "-e LTO_CLANG" "-e ARCH_SUPPORTS_LTO_CLANG" "-e ARCH_SUPPORTS_LTO_CLANG_THIN" "-d LTO_NONE" "-e HAS_LTO_CLANG" "-e LTO_CLANG_FULL" "-d LTO_CLANG_THIN" "-e HAVE_GCC_PLUGINS" ]
+    else if cachyConfig.useLTO == "none" then
+      [ ]
+    else throw "Unsupported cachyos _use_llvm_lto";
 
   # _tickrate defaults to "full"
   tickRateConfig =
@@ -176,6 +187,10 @@ let
       "-d DEBUG_PREEMPT"
     ];
 
+  makeEnv =
+    if cachyConfig.useLTO != "none" then
+      "make LLVM=1 LLVM_IAS=1"
+    else "make";
 in
 stdenv.mkDerivation {
   inherit src patches;
@@ -187,7 +202,7 @@ stdenv.mkDerivation {
   '';
 
   buildPhase = ''
-    make defconfig
+    ${makeEnv} defconfig
     cp "${config-src}/${cachyConfig.taste}/config" ".config"
     patchShebangs scripts/config
     scripts/config ${lib.concatStringsSep " " pkgbuildConfig}

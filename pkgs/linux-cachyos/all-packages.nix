@@ -6,6 +6,8 @@ let
 
   mkCachyKernel = attrs: final.callPackage ./make.nix
     ({ versions = mainVersions; } // attrs);
+
+  stdenvLLVM = final.callPackage ./stdenv-llvm.nix { };
 in
 {
   inherit mainVersions mkCachyKernel;
@@ -13,6 +15,16 @@ in
   cachyos = mkCachyKernel {
     taste = "linux-cachyos";
     configPath = ./config-nix/cachyos.x86_64-linux.nix;
+  };
+
+  cachyos-lto = mkCachyKernel {
+    taste = "linux-cachyos";
+    configPath = ./config-nix/cachyos-lto.x86_64-linux.nix;
+
+    stdenv = stdenvLLVM;
+    useLTO = "thin";
+
+    description = "Linux EEVDF-BORE scheduler Kernel by CachyOS built with LLVM and Thin LTO";
   };
 
   cachyos-sched-ext = mkCachyKernel {
