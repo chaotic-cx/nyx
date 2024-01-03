@@ -23,6 +23,8 @@ in
 
     stdenv = stdenvLLVM;
     useLTO = "thin";
+
+    description = "Linux EEVDF-BORE scheduler Kernel by CachyOS built with LLVM and Thin LTO";
   };
 
   cachyos-sched-ext = mkCachyKernel {
