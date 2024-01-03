@@ -187,10 +187,10 @@ let
       "-d DEBUG_PREEMPT"
     ];
 
-  makeFlags =
+  makeEnv =
     if cachyConfig.useLTO != "none" then
-      "LLVM=1 LLVM_IAS=1"
-    else "";
+      "make LLVM=1 LLVM_IAS=1"
+    else "make";
 in
 stdenv.mkDerivation {
   inherit src patches;
@@ -202,7 +202,7 @@ stdenv.mkDerivation {
   '';
 
   buildPhase = ''
-    make ${makeFlags} defconfig
+    ${makeEnv} defconfig
     cp "${config-src}/${cachyConfig.taste}/config" ".config"
     patchShebangs scripts/config
     scripts/config ${lib.concatStringsSep " " pkgbuildConfig}
