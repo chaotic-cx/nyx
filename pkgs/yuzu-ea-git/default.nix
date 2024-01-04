@@ -43,10 +43,10 @@ let
 in
 
 gitOverride (current: {
-  newInputs = { inherit glslang vulkan-headers vulkan-loader; };
+  newInputs.mainline = final.yuzuPackages.mainline.override { inherit glslang vulkan-headers vulkan-loader; };
 
   nyxKey = "yuzu-early-access_git";
-  prev = prev.yuzu-early-access;
+  prev = prev.yuzuPackages.early-access;
 
   versionNyxPath = "pkgs/yuzu-ea-git/version.json";
   fetcher = "fetchFromGitHub";
