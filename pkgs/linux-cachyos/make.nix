@@ -20,6 +20,7 @@
 , withBCacheFS ? true
 , withoutDebug ? false
 , description ? "Linux EEVDF-BORE scheduler Kernel by CachyOS with other patches and improvements"
+, withUpdateScript ? false
 }:
 
 let
@@ -34,7 +35,8 @@ let
       withDAMON
       withBCacheFS
       withoutDebug
-      description;
+      description
+      withUpdateScript;
   };
 
   # The three phases of the config

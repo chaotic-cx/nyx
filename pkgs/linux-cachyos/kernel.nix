@@ -47,7 +47,8 @@ in
       needsCifsUtils = true;
       netfilterRPFilter = true;
     };
+    updateScript = null;
   } // nyxUtils.optionalAttr "updateScript"
-    (cachyConfig.taste == "linux-cachyos")
+    cachyConfig.withUpdateScript
     (callPackage ./update.nix { });
 })

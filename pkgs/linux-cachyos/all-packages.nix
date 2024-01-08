@@ -15,6 +15,8 @@ in
   cachyos = mkCachyKernel {
     taste = "linux-cachyos";
     configPath = ./config-nix/cachyos.x86_64-linux.nix;
+    # since all flavors use the same versions.json, we just need the updateScript in one of them
+    withUpdateScript = true;
   };
 
   cachyos-lto = mkCachyKernel {
