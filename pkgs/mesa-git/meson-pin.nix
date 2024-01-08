@@ -1,12 +1,12 @@
 # Waiting for nixpkgs#268583
 { final, nyxUtils, ... }:
 final.meson.overrideAttrs (prevAttrs: with final; rec {
-  version = "1.3.0";
+  version = "1.3.1";
   src = fetchFromGitHub {
     owner = "mesonbuild";
     repo = "meson";
     rev = "refs/tags/${version}";
-    hash = "sha256-Jt3PWnbv/8P6Rvf3E/Yli2vdtfgx3CmsW+jlc9CK5KA=";
+    hash = "sha256-KNNtHi3jx0MRiOgmluA4ucZJWB2WeIYdApfHuspbCqg=";
   };
   patches = nyxUtils.removeByURL
     "https://github.com/mesonbuild/meson/commit/d5252c5d4cf1c1931fef0c1c98dd66c000891d21.patch"
