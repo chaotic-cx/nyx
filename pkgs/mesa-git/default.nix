@@ -19,6 +19,12 @@ let
     syn = { version = "2.0.39"; hash = "sha256-I+eLkPL89F0+hCAyzjLj8tFUW6ZjYnHcvyT6MG2Hvno="; };
     unicode-ident = { version = "1.0.12"; hash = "sha256-M1S5rD+uH/Z1XLbbU2g622YWNPZ1V5Qt6k+s6+wP7ks="; };
   };
+
+  revert_mr_24386 = final.fetchpatch {
+    url = "https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/24386.diff";
+    hash = "sha256-VW4tcxEO8Uq/IYXmaXrbF62Jaym4wI6Zyc7DMMbnOiw=";
+    revert = true;
+  };
 in
 gitOverride (current: {
   newInputs =
@@ -66,6 +72,7 @@ gitOverride (current: {
         ./opencl.patch
         ./disk_cache-include-dri-driver-path-in-cache-key.patch
         ./gbm-backend.patch
+        revert_mr_24386
       ];
 
     # expose gbm backend and rename vendor (if necessary)
