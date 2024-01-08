@@ -25,6 +25,7 @@ in
     maintainers = with lib; [ maintainers.dr460nf1r3 ];
     maxSilent = 14400; # 4h, double the default of 7200s (c.f. #129212, #129115)
     platforms = lib.platforms.unix;
+    mainProgram = "firedragon";
   };
 }).override {
   crashreporterSupport = false;
