@@ -1,8 +1,10 @@
 { final, ... }:
 
 let
+  inherit (final.lib.trivial) importJSON;
+
   # CachyOS repeating stuff.
-  mainVersions = final.lib.trivial.importJSON ./versions.json;
+  mainVersions = importJSON ./versions.json;
 
   mkCachyKernel = attrs: final.callPackage ./make.nix
     ({ versions = mainVersions; } // attrs);
@@ -53,5 +55,9 @@ in
     taste = "linux-cachyos-hardened";
     configPath = ./config-nix/cachyos-hardened.x86_64-linux.nix;
     cpuSched = "hardened";
+
+    withBCacheFSPatch = true;
+
+    versions = importJSON ./v6.6.json;
   };
 }
