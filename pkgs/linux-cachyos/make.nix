@@ -17,7 +17,7 @@
 , preempt ? "full"
 , hugePages ? "always"
 , withDAMON ? false
-, withBCacheFSPatch ? true
+, withBCacheFSPatch ? false
 , withoutDebug ? false
 , description ? "Linux EEVDF-BORE scheduler Kernel by CachyOS with other patches and improvements"
 , withUpdateScript ? false

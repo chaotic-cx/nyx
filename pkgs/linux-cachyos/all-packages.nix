@@ -56,6 +56,8 @@ in
     configPath = ./config-nix/cachyos-hardened.x86_64-linux.nix;
     cpuSched = "hardened";
 
+    withBCacheFSPatch = true;
+
     versions = importJSON ./v6.6.json;
   };
 }
