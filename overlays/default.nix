@@ -222,6 +222,8 @@ in
 
   river_git = callOverride ../pkgs/river-git { };
 
+  sdl_git = callOverride ../pkgs/sdl-git { };
+
   scx = final.callPackage ../pkgs/scx {
     inherit scx-common;
     scx-layered = final.callPackage ../pkgs/scx/layered { inherit scx-common; };
