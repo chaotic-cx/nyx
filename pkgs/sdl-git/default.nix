@@ -13,7 +13,7 @@ gitOverride {
   ref = "main";
 
   postOverride = prevAttrs: {
-    patches = [];
+    patches = [ ];
     postPatch = ''
       substituteInPlace cmake/sdl3.pc.in \
         --replace 'libdir=''${prefix}/' 'libdir=' \
