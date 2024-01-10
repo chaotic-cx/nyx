@@ -53,7 +53,7 @@
   "linuxPackages_cachyos-lto.cryptodev" = "/nix/store/wd14k20djm019i8x2avmq5yxb42sl7y2-cryptodev-linux-1.13-6.7.0";
   "linuxPackages_cachyos-lto.ddcci-driver" = "/nix/store/gk6p2g3a987md1div6jhiycwqdk5nsr2-ddcci-driver-6.7.0-0.4.4";
   "linuxPackages_cachyos-lto.digimend" = "/nix/store/fxj8bgpfshm73n9hhv6qzhcym3f82h6p-digimend-unstable-2023-05-03";
-  "linuxPackages_cachyos-lto.dpdk" = "/nix/store/70mgl90b17z22x4ilbs13igha1s6i5vk-dpdk-23.07-6.7.0";
+  "linuxPackages_cachyos-lto.dpdk" = "/nix/store/8bnr9s0034yjwc30wqp8brqs7zghflwk-dpdk-23.07-6.7.0";
   "linuxPackages_cachyos-lto.dpdk-kmods" = "/nix/store/5j60f2i48qlcffmpk3iqlsdrajzl9adw-dpdk-kmods-2022-08-29";
   "linuxPackages_cachyos-lto.ena" = "/nix/store/jpf6mpsxdlnlakjdbz7g6g8j2x39f9m3-ena-2.8.9-6.7.0";
   "linuxPackages_cachyos-lto.facetimehd" = "/nix/store/9sdl282ry4lm3ihn1ixy3fanpkcvdfvx-facetimehd-0.5.18-6.7.0";

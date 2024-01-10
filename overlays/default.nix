@@ -149,6 +149,9 @@ in
   latencyflex-vulkan = final.callPackage ../pkgs/latencyflex-vulkan { };
 
   libdrm_git = callOverride ../pkgs/libdrm-git { };
+  libdrm32_git =
+    if has32 then callOverride32 ../pkgs/libdrm-git { }
+    else throw "No libdrm32_git for non-x86";
 
   linuxPackages_cachyos = cachyosPackages.cachyos;
   linuxPackages_cachyos-hardened = cachyosPackages.cachyos-hardened;

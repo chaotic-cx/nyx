@@ -147,7 +147,7 @@ index e6e93468..c5aa205f 100644
  	'src/screencast/fps_limit.c',
 +	'src/remotedesktop/remotedesktop.c',
 +	'src/remotedesktop/wlr_virtual_pointer.c',
- ])
+ )
  
  executable(
 diff --git a/protocols/meson.build b/protocols/meson.build
@@ -1986,7 +1986,7 @@ index c5aa205f..0052917d 100644
  	'src/remotedesktop/remotedesktop.c',
  	'src/remotedesktop/wlr_virtual_pointer.c',
 +	'src/remotedesktop/virtual_keyboard.c',
- ])
+ )
  
  executable(
 diff --git a/src/core/main.c b/src/core/main.c

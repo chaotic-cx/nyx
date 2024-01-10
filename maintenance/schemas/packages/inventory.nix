@@ -55,6 +55,7 @@ in
               "pkgsx86_64_v3"
               "pkgsx86_64_v3-core"
               "pkgsx86_64_v4"
+              "libdrm32_git"
               "mangohud32_git"
               "mesa32_git"
               "meson32_1_3"
