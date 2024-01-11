@@ -2,6 +2,7 @@
 
 gitOverride {
   newInputs = with final; {
+    libdrm = libdrm_git;
     wlroots_0_16 = wlroots_git;
     wayland = wayland_git;
     wayland-protocols = wayland-protocols_git;
