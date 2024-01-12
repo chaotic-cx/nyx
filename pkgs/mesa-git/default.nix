@@ -66,6 +66,8 @@ gitOverride (current: {
     repo = "mesa-mirror";
   };
   withUpdateScript = !is32bit;
+
+  # Matching the drvName length to use with replaceRuntime
   version = builtins.substring 0 (builtins.stringLength prev.mesa.version) current.rev;
 
   postOverride = prevAttrs: {
