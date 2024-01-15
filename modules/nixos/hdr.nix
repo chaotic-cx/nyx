@@ -1,7 +1,6 @@
 { config, lib, pkgs, ... }:
 let
   cfg = config.chaotic.hdr;
-  gamescopeCfg = config.programs.gamescope;
 
   configuration = strength: {
     boot.kernelPackages = strength cfg.kernelPackages;
@@ -13,7 +12,7 @@ let
         ENABLE_GAMESCOPE_WSI = "1";
       };
     };
-    environment.systemPackages = [ gamescopeCfg.package.lib ];
+    environment.systemPackages = [ cfg.wsiPackage ];
   };
 
   sysConfig = lib.mkIf (!cfg.specialisation.enable) (configuration (x: x));
@@ -47,6 +46,16 @@ in
         type = types.raw;
         description = ''
           Kernel+packages with "AMD Color Management" patches applied.
+        '';
+      };
+    wsiPackage =
+      mkOption {
+        default = pkgs.gamescope-wsi;
+        defaultText = literalExpression "pkgs.gamescope-wsi";
+        example = literalExpression "pkgs.gamescope-wsi_git";
+        type = types.package;
+        description = ''
+          Gamescope WSI package to use
         '';
       };
   };

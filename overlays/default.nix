@@ -129,6 +129,7 @@ in
   firefox_nightly = final.wrapFirefox final.firefox-unwrapped_nightly { };
 
   gamescope_git = callOverride ../pkgs/gamescope-git { };
+  gamescope-wsi_git = callOverride ../pkgs/gamescope-git { isWSI = true; };
 
   # Used by telegram-desktop_git
   glib_git = callOverride ../pkgs/glib-git { };
