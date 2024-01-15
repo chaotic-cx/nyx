@@ -17,7 +17,10 @@ gitOverride {
   };
   ref = "master";
 
+  version = prev.python311Packages.qtile.version + ".99";
+
   postOverride = prevAttrs: {
+    name = prevAttrs.name + ".99";
     passthru = prevAttrs.passthru // {
       tests.smoke-test = import ./test.nix
         {
