@@ -19,34 +19,14 @@ let
     syn = { version = "2.0.39"; hash = "sha256-I+eLkPL89F0+hCAyzjLj8tFUW6ZjYnHcvyT6MG2Hvno="; };
     unicode-ident = { version = "1.0.12"; hash = "sha256-M1S5rD+uH/Z1XLbbU2g622YWNPZ1V5Qt6k+s6+wP7ks="; };
   };
-
-  revert_mr_26943 = final.fetchpatch {
-    url = "https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/26943.diff";
-    hash = "sha256-KwIG68mf+aArMlvWBtGJdOFdCn5zTZJG6geWXE7bK44=";
-    revert = true;
-  };
-
-  revert_mr_24386_1 = final.fetchpatch {
-    url = "https://github.com/chaotic-cx/mesa-mirror/commit/299f9497758ca5d7278e5aafd210aa91d20dfb4d.patch";
-    hash = "sha256-ugrkIqJ/Tndimn6YIQSanLVvQ5qZfp2m6GGStHLt8xg=";
-    revert = true;
-  };
-
-  revert_mr_24386_2 = final.fetchpatch {
-    url = "https://github.com/chaotic-cx/mesa-mirror/commit/1e5bc00715ad8acf3dc323278d0d6a24986bb4ae.patch";
-    hash = "sha256-i0+sBeU/c8Eo8WA34aJfMLJOxhd7146+t7H6llGwS+g=";
-    revert = true;
-  };
 in
 gitOverride (current: {
   newInputs =
     if is32bit then with final64; {
       meson = meson32_1_3;
-      directx-headers = directx-headers32_1_611;
       libdrm = libdrm32_git;
     } else with final; {
       meson = meson_1_3;
-      directx-headers = directx-headers_1_611;
       libdrm = libdrm_git;
       # We need to mention those besides "all", because of the usage of nix's `lib.elem` in
       # the original derivation.
@@ -78,20 +58,15 @@ gitOverride (current: {
       ++ final.lib.optional (!is32bit) "-D video-codecs=all";
 
     patches =
-      (nyxUtils.removeByBaseName
-        "disk_cache-include-dri-driver-path-in-cache-key.patch"
-        (nyxUtils.removeByBaseName
-          "opencl.patch"
-          prevAttrs.patches
-        )
-      ) ++ [
-        ./opencl.patch
-        ./disk_cache-include-dri-driver-path-in-cache-key.patch
+      (final.lib.pipe prevAttrs.patches
+        [
+          (nyxUtils.removeByBaseName "0001-dri-added-build-dependencies-for-systems-using-non-s.patch")
+          (nyxUtils.removeByBaseName "0002-util-Update-util-libdrm.h-stubs-to-allow-loader.c-to.patch")
+          (nyxUtils.removeByBaseName "0003-glx-fix-automatic-zink-fallback-loading-between-hw-a.patch")
+        ]
+      )
+      ++ [
         ./gbm-backend.patch
-      ] ++ final.lib.optionals (!is32bit) [
-        revert_mr_26943
-        revert_mr_24386_1
-        revert_mr_24386_2
       ];
 
     # expose gbm backend and rename vendor (if necessary)

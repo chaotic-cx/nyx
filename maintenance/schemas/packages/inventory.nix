@@ -50,7 +50,6 @@ in
         remove32 = attrs:
           builtins.removeAttrs attrs
             [
-              "directx-headers32_1_611"
               "pkgsx86_64_v2"
               "pkgsx86_64_v3"
               "pkgsx86_64_v3-core"
@@ -59,7 +58,6 @@ in
               "mangohud32_git"
               "mesa32_git"
               "meson32_1_3"
-              "vkshade32_git"
             ];
       in
       mkPackages "aarch64-linux" (remove32 output.aarch64-linux);

@@ -102,12 +102,6 @@ in
 
   bytecode-viewer_git = final.callPackage ../pkgs/bytecode-viewer-git { };
 
-  # Waiting for nixpkgs#272823 needed for mesa_git
-  directx-headers_1_611 = callOverride ../pkgs/mesa-git/directx-headers-pin.nix { };
-  directx-headers32_1_611 =
-    if has32 then callOverride32 ../pkgs/mesa-git/directx-headers-pin.nix { }
-    else throw "No directx-headers32_1_611 for non-x86";
-
   discord-krisp = callOverride ../pkgs/discord-krisp { };
 
   distrobox_git = callOverride ../pkgs/distrobox-git { };
@@ -240,12 +234,6 @@ in
 
   telegram-desktop_git = callOverride ../pkgs/telegram-desktop-git { };
   tg-owt_git = callOverride ../pkgs/tg-owt-git { };
-
-  # You should not need "mangohud32_git" since it's embedded in "mangohud_git"
-  vkshade_git = callOverride ../pkgs/vkshade-git { };
-  vkshade32_git =
-    if has32 then callOverride32 ../pkgs/vkshade-git { }
-    else throw "No vkshade32_git for non-x86";
 
   vulkanPackages_latest = callOverride ../pkgs/vulkan-versioned
     { vulkanVersions = importJSON ../pkgs/vulkan-versioned/latest.json; };
