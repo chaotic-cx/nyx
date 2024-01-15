@@ -21,15 +21,7 @@ gitOverride {
   ref = "master";
 
   postOverride = prevAttrs: {
-    buildInputs = with final.xorg; [ libXcursor xcbutilwm xcbutilerrors final.libavif ] ++ prevAttrs.buildInputs;
-
-    patches =
-      (nyxUtils.removeByBaseName "use-pkgconfig.patch" prevAttrs.patches)
-      ++ [ ./use-pkgconfig.patch ];
-
-    postInstall = prevAttrs.postInstall + ''
-      rm -r $out/include $lib/lib/pkgconfig $lib/lib/libwlroots.a
-    '';
+    buildInputs = with final; [ seatd libavif xwayland ] ++ (with xorg; [ xcbutilwm xcbutilerrors ]) ++ prevAttrs.buildInputs;
 
     # erase wlroots replacement since we're fetching submodules.
     postUnpack = "";
