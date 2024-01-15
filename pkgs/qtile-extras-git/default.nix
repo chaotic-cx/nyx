@@ -8,7 +8,7 @@ gitOverride {
   newInputs = with final; {
     qtile = qtile-module_git;
     stravalib = python311Packages.stravalib.override {
-      pydantic = python311Packages.pydantic_1.overrideAttrs (prevAttrs: rec {
+      pydantic = python311Packages.pydantic_1.overrideAttrs (_prevAttrs: rec {
         version = "1.10.9";
 
         src = fetchFromGitHub {
