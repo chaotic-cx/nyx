@@ -19,6 +19,7 @@ gitOverride {
     fetchSubmodules = true;
   };
   ref = "master";
+  withUpdateScript = !isWSI;
 
   postOverride = prevAttrs: {
     buildInputs = with final; [ seatd libavif xwayland ] ++ (with xorg; [ xcbutilwm xcbutilerrors ]) ++ prevAttrs.buildInputs;

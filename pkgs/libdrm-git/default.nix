@@ -1,4 +1,5 @@
-{ prev
+{ final
+, prev
 , gitOverride
 , ...
 }:
@@ -17,4 +18,5 @@ gitOverride (current: {
     owner = "mesa";
     repo = "drm";
   };
+  withUpdateScript = !final.stdenv.is32bit;
 })
