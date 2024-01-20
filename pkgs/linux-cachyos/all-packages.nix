@@ -31,12 +31,7 @@ in
     description = "Linux EEVDF-BORE scheduler Kernel by CachyOS built with LLVM and Thin LTO";
   };
 
-  cachyos-sched-ext = mkCachyKernel {
-    taste = "linux-cachyos-sched-ext";
-    configPath = ./config-nix/cachyos-sched-ext.x86_64-linux.nix;
-    cpuSched = "sched-ext";
-    description = "Linux SCHED-EXT with BORE scheduler Kernel by CachyOS with other patches and improvements";
-  };
+  cachyos-sched-ext = throw "\"sched-ext\" patches were merged with \"cachyos\" flavor.";
 
   cachyos-server = mkCachyKernel {
     taste = "linux-cachyos-server";
@@ -57,6 +52,7 @@ in
     cpuSched = "hardened";
 
     withBCacheFSPatch = true;
+    withHDRPatch = false;
 
     versions = importJSON ./v6.6.json;
   };
