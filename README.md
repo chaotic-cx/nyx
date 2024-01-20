@@ -139,6 +139,8 @@ We do this automatically, so we can gracefully update the cache's address and ke
 
 <p>Commands like <code>nix run ...</code>, <code>nix develop ...</code>, and others, when using our flake as input, will ask you to add the cache interactively when missing from your user's nix settings.</p>
 
+<p>If you want to use the cache right from the <strong>installation media</strong>, install your system using <code>nixos-install --flake /mnt/etc/nixos#mymachine --option 'extra-substituters' 'https://nyx.chaotic.cx/' --option extra-trusted-public-keys "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="</code> (replace <code>mymachine</code> with your new host's name).</p>
+
 <h3 id="flakehub-notes">FlakeHub notes</h3>
 
 <a href="https://flakehub.com/flake/chaotic-cx/nyx"><img alt="FlakeHub" src="https://img.shields.io/endpoint?url=https://flakehub.com/f/chaotic-cx/nyx/badge" /></a>
