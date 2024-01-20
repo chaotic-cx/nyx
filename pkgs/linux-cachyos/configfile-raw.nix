@@ -33,9 +33,9 @@ let
   schedPatches =
     if cachyConfig.cpuSched == "eevdf" then
       [ ]
-    else if cachyConfig.cpuSched == "cachyos" || cachyConfig.cpuSched == "hardened" then
+    else if cachyConfig.cpuSched == "hardened" then
       [ "${patches-src}/${major}/sched/0001-bore-cachy.patch" ]
-    else if cachyConfig.cpuSched == "sched-ext" then
+    else if cachyConfig.cpuSched == "cachyos" || cachyConfig.cpuSched == "sched-ext" then
       [ "${patches-src}/${major}/sched/0001-sched-ext.patch" ]
     else throw "Unsupported cachyos _cpu_sched=${toString cachyConfig.cpuSched}";
 
@@ -44,6 +44,7 @@ let
     ++ schedPatches
     ++ lib.optional (cachyConfig.cpuSched == "hardened") "${patches-src}/${major}/misc/0001-hardened.patch"
     ++ lib.optional cachyConfig.withBCacheFSPatch "${patches-src}/${major}/misc/0001-bcachefs.patch"
+    ++ lib.optional cachyConfig.withHDRPatch "${patches-src}/${major}/misc/0001-amd-hdr.patch"
     ++ [ ./0001-Add-extra-version-CachyOS.patch ];
 
   # There are some configurations set by the PKGBUILD
@@ -103,9 +104,11 @@ let
   cpuSchedConfig =
     if cachyConfig.cpuSched == "eevdf" then
       [ ]
-    else if cachyConfig.cpuSched == "cachyos" || cachyConfig.cpuSched == "hardened" then
+    else if cachyConfig.cpuSched == "hardened" then
       [ "-e SCHED_BORE" ]
     else if cachyConfig.cpuSched == "sched-ext" then
+      [ "-e SCHED_CLASS_EXT" ]
+    else if cachyConfig.cpuSched == "cachyos" then
       [ "-e SCHED_BORE" "-e SCHED_CLASS_EXT" ]
     else throw "Unsupported cachyos scheduler";
 
@@ -167,7 +170,12 @@ let
 
   # https://github.com/CachyOS/linux-cachyos/issues/187
   disableDebug =
-    lib.optionals (cachyConfig.withoutDebug && cachyConfig.cpuSched != "sched-ext") [
+    lib.optionals
+      (
+        cachyConfig.withoutDebug
+        && cachyConfig.cpuSched != "sched-ext"
+        && cachyConfig.cpuSched != "cachyos"
+      ) [
       "-d DEBUG_INFO"
       "-d DEBUG_INFO_BTF"
       "-d DEBUG_INFO_DWARF4"

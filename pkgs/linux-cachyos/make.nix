@@ -18,6 +18,7 @@
 , hugePages ? "always"
 , withDAMON ? false
 , withBCacheFSPatch ? false
+, withHDRPatch ? true
 , withoutDebug ? false
 , description ? "Linux EEVDF-BORE scheduler Kernel by CachyOS with other patches and improvements"
 , withUpdateScript ? false
@@ -34,6 +35,7 @@ let
       hugePages
       withDAMON
       withBCacheFSPatch
+      withHDRPatch
       withoutDebug
       description
       withUpdateScript;
