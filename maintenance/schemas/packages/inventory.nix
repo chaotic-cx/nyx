@@ -37,12 +37,16 @@ let
 
     in
     builtins.listToAttrs packagesEvalFlat;
+
+  removeAlias =
+    builtins.removeAttr
+      "linuxPackages_cachyos-sched-ext";
 in
 {
   children = {
     x86_64-linux.forSystems = [ "x86_64-linux" ];
     x86_64-linux.children =
-      mkPackages "x86_64-linux" output.x86_64-linux;
+      mkPackages "x86_64-linux" (removeAlias output.x86_64-linux);
     aarch64-linux.forSystems = [ "aarch64-linux" ];
     aarch64-linux.children =
       let
@@ -60,6 +64,6 @@ in
               "meson32_1_3"
             ];
       in
-      mkPackages "aarch64-linux" (remove32 output.aarch64-linux);
+      mkPackages "aarch64-linux" (remove32 (removeAlias output.aarch64-linux));
   };
 }
