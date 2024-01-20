@@ -63,7 +63,7 @@ jobs:
       # similar to build.yml
       - name: Cache
         id: cache
-        if: (success() && inputs.kissMeKissMeKissMe != 'true')
+        if: (success() && ${{ inputs.kissMeKissMeKissMe != 'true' }})
         run: nix develop -c chaotic-nyx-build || [ $? -eq 42 ]
         env:
           NYX_WD: ${{ runner.temp }}
