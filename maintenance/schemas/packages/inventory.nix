@@ -38,9 +38,11 @@ let
     in
     builtins.listToAttrs packagesEvalFlat;
 
-  removeAlias =
-    builtins.removeAttr
-      "linuxPackages_cachyos-sched-ext";
+  removeAlias = attrs:
+    builtins.removeAttrs attrs
+      [
+        "linuxPackages_cachyos-sched-ext"
+      ];
 in
 {
   children = {
