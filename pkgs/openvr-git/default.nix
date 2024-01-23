@@ -1,4 +1,4 @@
-{ final, prev, gitOverride, ... }:
+{ prev, gitOverride, ... }:
 
 gitOverride {
   nyxKey = "openvr_git";
@@ -12,6 +12,4 @@ gitOverride {
     fetchSubmodules = true;
   };
   ref = "master";
-
-  postOverride = prevAttrs: {};
 }
