@@ -2,6 +2,7 @@
 
 gitOverride {
   newInputs = with final; {
+    openvr = openvr_git;
     wlroots = wlroots_git;
     wayland = wayland_git;
     wayland-protocols = wayland-protocols_git;

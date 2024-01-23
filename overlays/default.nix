@@ -200,6 +200,8 @@ in
   };
   openmohaa_git = callOverride ../pkgs/openmohaa-git { };
 
+  openvr_git = callOverride ../pkgs/openvr-git { };
+
   pkgsx86_64_v2 = makeMicroarch "v2";
   pkgsx86_64_v3 = makeMicroarch "v3";
   pkgsx86_64_v4 = makeMicroarch "v4";

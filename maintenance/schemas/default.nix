@@ -74,7 +74,7 @@
     inventory = output: {
       children = builtins.mapAttrs
         (_name: _value: {
-          what = "lamdda";
+          what = "lambda";
           evalChecks.isDerivation = false;
         })
         (builtins.removeAttrs output [ "_description" ]);
