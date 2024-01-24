@@ -30,6 +30,7 @@ jobs:
       - name: Build
         id: build
         run: |
+          set -euo pipefail
           mkdir result
           nix develop "github:chaotic-cx/nyx/${GITHUB_SHA}#document" -c 'true' | \
             xargs -i@ cp @ result/index.html
