@@ -29,6 +29,7 @@ let
   derivationWarn = k: v: message:
     if message == "unfree" then derivationMap k v
     else if message == "not a derivation" && ((v._description or null) == null) then null
+    else if message == "eval broken" then null
     else ''
       <tr>
         <td><code>${k}</code></td>
