@@ -76,6 +76,9 @@ gitOverride (current: {
       ln -s ${xbyak} externals/xbyak
       ln -s ${vma} externals/VulkanMemoryAllocator
       ln -s ${simpleini} externals/simpleini
+
+      substituteInPlace 'externals/nx_tzdb/CMakeLists.txt' \
+        --replace 'EXISTS ''${NX_TZDB_ROMFS_DIR}' 'EXISTS ''${NX_TZDB_ARCHIVE}'
     '';
 
     preConfigure = ''
