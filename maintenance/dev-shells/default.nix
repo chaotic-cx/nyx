@@ -24,11 +24,15 @@ let
 
       builder = callPackage ../tools/builder
         {
+          nix = pinnedNix;
+          inherit dry-build;
+        };
+      dry-build = callPackage ../tools/dry-build
+        {
           allPackages = nyxPkgs;
           flakeSelf = self;
           inherit nyxRecursionHelper;
           inherit (pkgs) nyxUtils;
-          nix = pinnedNix;
         };
       documentation = callPackage ../tools/document
         {
@@ -64,6 +68,10 @@ let
     {
       default = mkShell {
         buildInputs = [ builder ];
+      };
+      dry-build = mkShell {
+        env.NYX_DRY_BUILD = dry-build;
+        shellHook = "echo $NYX_DRY_BUILD";
       };
       document = mkShell {
         env.NYX_DOCUMENTATION = documentation;
