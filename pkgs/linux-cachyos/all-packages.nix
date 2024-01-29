@@ -43,6 +43,7 @@ in
     preempt = "server";
     hugePages = "madvise";
     withDAMON = true;
+    withHDRPatch = false;
     description = "Linux EEVDF scheduler Kernel by CachyOS targeted for Servers";
   };
 
