@@ -8,7 +8,7 @@ TEMPDIR="${NYX_TEMP:-${TEMPDIR}}"
 # Options (2)
 NYX_FLAGS="${NYX_FLAGS:---accept-flake-config --no-link}"
 NYX_WD="${NYX_WD:-$(mktemp -d)}"
-NYX_HOME="${NYX_HD:-$HOME/.nyx}"
+NYX_HOME="${NYX_HOME:-$HOME/.nyx}"
 
 # Colors
 R='\033[0;31m'
