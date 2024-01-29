@@ -8,6 +8,7 @@ TEMPDIR="${NYX_TEMP:-${TEMPDIR}}"
 # Options (2)
 NYX_FLAGS="${NYX_FLAGS:---accept-flake-config --no-link}"
 NYX_WD="${NYX_WD:-$(mktemp -d)}"
+NYX_HOME="${NYX_HD:-$HOME/.nyx}"
 
 # Colors
 R='\033[0;31m'
@@ -29,6 +30,9 @@ function echo_error() {
 
 # That's how we start
 function prepare() {
+  # A place for persistent advetures
+  [ ! -e "$NYX_HOME" ] && mkdir -p "$NYX_HOME"
+
   # Create empty logs and artifacts
   [ ! -e "$NYX_WD" ] && mkdir -p "$NYX_WD"
   cd "$NYX_WD"
@@ -48,6 +52,11 @@ function prepare() {
 
     ln -s "$_DIFF" filter.txt
   fi
+}
+
+# Check if $1 is known as cached
+function known-cached() {
+  grep "$1" "${NYX_HOME}/cached.txt"
 }
 
 # Check if $1 is in the cache
@@ -73,13 +82,20 @@ function build() {
     return 0
   fi
   echo -n "* $_WHAT..."
-  if [ -z "${NYX_REFRESH:-}" ] && cached 'https://chaotic-nyx.cachix.org' "$_MAIN_OUT_PATH"; then
+  if [ -z "${NYX_REFRESH:-}" ] && known-cached "$_MAIN_OUT_PATH"; then
     echo "$_WHAT" >> cached.txt
+    echo -e "${Y} KNOWN-CACHED${W}"
+    zip_path >> full-pin.txt
+    return 0
+  elif [ -z "${NYX_REFRESH:-}" ] && cached 'https://chaotic-nyx.cachix.org' "$_MAIN_OUT_PATH"; then
+    echo "$_WHAT" >> cached.txt
+    echo "$_MAIN_OUT_PATH" >> "${NYX_HOME}/cached.txt"
     echo -e "${Y} CACHED${W}"
     zip_path >> full-pin.txt
     return 0
   elif cached 'https://cache.nixos.org' "$_MAIN_OUT_PATH"; then
     echo "$_WHAT" >> upstream.txt
+    echo "$_MAIN_OUT_PATH" >> "${NYX_HOME}/cached.txt"
     echo -e "${Y} CACHED-UPSTREAM${W}"
     return 0
   else
@@ -139,6 +155,9 @@ function deploy() {
       cat to-pin.txt | xargs -n 2 \
         cachix -v pin chaotic-nyx --keep-revisions 7
     fi
+
+    # Locally tag everything as cached
+    cat push.txt >> "${NYX_HOME}/cached.txt"
   else
     echo_error "Nothing to push."
     exit 42
