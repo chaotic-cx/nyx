@@ -27,9 +27,10 @@ let
     hash = "sha256-y2GOR6yKIx7W5peFf5FzXlF2iJUfDE/RnMWjO/h/Ruk=";
   };
   tzdataVer = "221202";
-  tzdata = final.fetchurl {
+  tzdata = final.fetchzip {
     url = "https://github.com/lat9nq/tzdb_to_nx/releases/download/${tzdataVer}/${tzdataVer}.zip";
-    hash = "sha256-mRzW+iIwrU1zsxHmf+0RArU8BShAoEMvCz+McXFFK3c=";
+    hash = "sha256-YOIElcKTiclem05trZsA3YJReozu/ex7jJAKD6nAMwc=";
+    stripRoot = false;
   };
   vma = final.fetchFromGitHub {
     owner = "GPUOpen-LibrariesAndSDKs";
@@ -76,9 +77,6 @@ gitOverride (current: {
       ln -s ${xbyak} externals/xbyak
       ln -s ${vma} externals/VulkanMemoryAllocator
       ln -s ${simpleini} externals/simpleini
-
-      substituteInPlace 'externals/nx_tzdb/CMakeLists.txt' \
-        --replace 'EXISTS ''${NX_TZDB_ROMFS_DIR}' 'EXISTS ''${NX_TZDB_ARCHIVE}'
     '';
 
     preConfigure = ''
@@ -100,7 +98,7 @@ gitOverride (current: {
       cmakeBuildDir=''${cmakeBuildDir:=build}
    
       mkdir -p "$cmakeBuildDir/externals/nx_tzdb"
-      ln -s ${tzdata} "$cmakeBuildDir/externals/nx_tzdb/${tzdataVer}.zip"
+      ln -s ${tzdata} "$cmakeBuildDir/externals/nx_tzdb/nx_tzdb"
     '';
 
     # Shows released date in version
