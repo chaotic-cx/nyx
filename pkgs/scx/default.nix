@@ -61,6 +61,10 @@ llvmPackages_16.stdenv.mkDerivation {
     libbpf
   ];
 
+  mesonFlags = [
+    "-Dsystemd=disabled"
+  ];
+
   enableParallelBuilding = true;
   dontStrip = true;
 
