@@ -5,26 +5,26 @@ let
   dynarmic = final.fetchFromGitHub {
     owner = "merryhime";
     repo = "dynarmic";
-    rev = "6.4.8";
-    hash = "sha256-lsfwR+ydtn3LWWh0Jfb8+2qJqnRbjoTM18Wb1lfX/8w=";
+    rev = "ca0e264f4f962e29baa23a3282ce484625866b98";
+    hash = "sha256-C5qby4uU1aaJNi1H4tgRjwSEDjMDQlVlRx//G+tgnto=";
   };
   simpleini = final.fetchFromGitHub {
     owner = "brofield";
     repo = "simpleini";
-    rev = "382ddbb4b92c0b26aa1b32cefba2002119a5b1f2";
-    hash = "sha256-/cHkL95oj+RUkSLojY1EU6TDiX7KOTNEJzyAFSHmIwg=";
+    rev = "v4.22";
+    hash = "sha256-H4J4+v/3A8ZTOp4iMeiZ0OClu68oP4vUZ8YOFZbllcM=";
   };
   sirit = final.fetchFromGitHub {
-    owner = "ReinUsesLisp";
+    owner = "yuzu-emu";
     repo = "sirit";
-    rev = "d7ad93a88864bda94e282e95028f90b5784e4d20";
-    hash = "sha256-WDZivcYYe1qKV6IVsDPCHpAxKc+FWsSDlVw+pekCgmI=";
+    rev = "ab75463999f4f3291976b079d42d52ee91eebf3f";
+    hash = "sha256-XzuxuLDYUQFD8SZT6c8CWHNE3mX16OrlvLnhvQ301Hw=";
   };
   xbyak = final.fetchFromGitHub {
     owner = "herumi";
     repo = "xbyak";
-    rev = "v6.70";
-    hash = "sha256-y2GOR6yKIx7W5peFf5FzXlF2iJUfDE/RnMWjO/h/Ruk=";
+    rev = "a1ac3750f9a639b5a6c6d6c7da4259b8d6790989";
+    hash = "sha256-lRFiYlEW8wCot4Ks0xATJAfqrkhJPKG7OKUqI/SYg3Y=";
   };
   tzdataVer = "221202";
   tzdata = final.fetchzip {
@@ -36,11 +36,11 @@ let
     owner = "GPUOpen-LibrariesAndSDKs";
     repo = "VulkanMemoryAllocator";
     # Needs to be a revision with 3d23bb07e375ecabad0ad2e53599861be77310e3
-    rev = "6eb62e1515072827db992c2befd80b71b2d04329";
-    hash = "sha256-rqJSatXjytuF0A4XddG9U6V70BqLeo7gxo9PcTEr8lU=";
+    rev = "2f382df218d7e8516dee3b3caccb819a62b571a2";
+    hash = "sha256-Tw7C2xRYs2Ok02zAXSygs5un7JAPeYPZse6u+bck+pg=";
   };
 
-  inherit (final.vulkanPackages_latest) glslang vulkan-headers vulkan-loader spirv-headers;
+  inherit (final.vulkanPackages_latest) glslang vulkan-headers vulkan-loader vulkan-utility-libraries spirv-headers;
 in
 
 gitOverride (current: {
@@ -76,6 +76,7 @@ gitOverride (current: {
       ln -s ${sirit} externals/sirit
       ln -s ${xbyak} externals/xbyak
       ln -s ${vma} externals/VulkanMemoryAllocator
+      ln -s ${vulkan-utility-libraries.src} externals/Vulkan-Utility-Libraries
       ln -s ${simpleini} externals/simpleini
     '';
 
