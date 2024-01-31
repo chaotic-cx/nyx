@@ -153,6 +153,8 @@ in
     if has32 then callOverride32 ../pkgs/libdrm-git { }
     else throw "No libdrm32_git for non-x86";
 
+  libportal_git = callOverride ../pkgs/libportal-git { };
+
   linuxPackages_cachyos = cachyosPackages.cachyos;
   linuxPackages_cachyos-hardened = cachyosPackages.cachyos-hardened;
   linuxPackages_cachyos-lto = cachyosPackages.cachyos-lto;

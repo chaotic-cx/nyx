@@ -1,6 +1,10 @@
 { final, prev, gitOverride, ... }:
 
 gitOverride {
+  newInputs = with final; {
+    libportal = libportal_git;
+  };
+
   nyxKey = "input-leap_git";
   prev = prev.input-leap;
 
