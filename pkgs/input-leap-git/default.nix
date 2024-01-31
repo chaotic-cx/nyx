@@ -20,7 +20,7 @@ gitOverride {
     buildInputs = prevAttrs.buildInputs ++ (with final; [
       libuuid
     ]);
-    cmakeFlags = [
+    cmakeFlags = prevAttrs.cmakeFlags ++ [
       "-DINPUTLEAP_USE_EXTERNAL_GTEST=ON"
     ];
     postFixup = builtins.replaceStrings
