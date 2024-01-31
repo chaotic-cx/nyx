@@ -11,8 +11,8 @@ let
   simpleini = final.fetchFromGitHub {
     owner = "brofield";
     repo = "simpleini";
-    rev = "382ddbb4b92c0b26aa1b32cefba2002119a5b1f2";
-    hash = "sha256-/cHkL95oj+RUkSLojY1EU6TDiX7KOTNEJzyAFSHmIwg=";
+    rev = "v4.22";
+    hash = "sha256-H4J4+v/3A8ZTOp4iMeiZ0OClu68oP4vUZ8YOFZbllcM=";
   };
   sirit = final.fetchFromGitHub {
     owner = "ReinUsesLisp";
@@ -23,8 +23,8 @@ let
   xbyak = final.fetchFromGitHub {
     owner = "herumi";
     repo = "xbyak";
-    rev = "v6.70";
-    hash = "sha256-y2GOR6yKIx7W5peFf5FzXlF2iJUfDE/RnMWjO/h/Ruk=";
+    rev = "v6.73";
+    hash = "sha256-+6xIEtg7oJ1OAmERS/z+2zUYLPMV3sTV65DP6MlK3kY=";
   };
   tzdataVer = "221202";
   tzdata = final.fetchzip {
@@ -40,7 +40,7 @@ let
     hash = "sha256-rqJSatXjytuF0A4XddG9U6V70BqLeo7gxo9PcTEr8lU=";
   };
 
-  inherit (final.vulkanPackages_latest) glslang vulkan-headers vulkan-loader spirv-headers;
+  inherit (final.vulkanPackages_latest) glslang vulkan-headers vulkan-loader vulkan-utility-libraries spirv-headers;
 in
 
 gitOverride (current: {
@@ -62,6 +62,8 @@ gitOverride (current: {
     # where qtbase propagated input appears first.
     nativeBuildInputs = [ vulkan-headers glslang spirv-headers ] ++ prevAttrs.nativeBuildInputs;
 
+    buildInputs = [  ] ++ prevAttrs.buildInputs;
+
     cmakeFlags = prevAttrs.cmakeFlags ++ [
       "-DSIRIT_USE_SYSTEM_SPIRV_HEADERS=ON"
     ];
@@ -76,6 +78,7 @@ gitOverride (current: {
       ln -s ${sirit} externals/sirit
       ln -s ${xbyak} externals/xbyak
       ln -s ${vma} externals/VulkanMemoryAllocator
+      ln -s ${vulkan-utility-libraries.src} externals/Vulkan-Utility-Libraries
       ln -s ${simpleini} externals/simpleini
     '';
 
