@@ -62,8 +62,6 @@ gitOverride (current: {
     # where qtbase propagated input appears first.
     nativeBuildInputs = [ vulkan-headers glslang spirv-headers ] ++ prevAttrs.nativeBuildInputs;
 
-    buildInputs = [ ] ++ prevAttrs.buildInputs;
-
     cmakeFlags = prevAttrs.cmakeFlags ++ [
       "-DSIRIT_USE_SYSTEM_SPIRV_HEADERS=ON"
     ];
