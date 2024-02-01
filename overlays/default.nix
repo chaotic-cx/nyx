@@ -9,8 +9,15 @@
 # NOTE:
 # - `*_next` packages will be removed once merged into nixpkgs-unstable.
 
-{ flakes, nixpkgs ? flakes.nixpkgs, self ? flakes.self, selfOverlay ? self.overlays.default, nixpkgsExtraConfig ? { } }:
+{ flakes
+, nixpkgs ? flakes.nixpkgs
+, self ? flakes.self
+, selfOverlay ? self.overlays.default
+, jovian ? flakes.jovian or null
+, nixpkgsExtraConfig ? { }
+}:
 final: prev:
+
 let
   # Required to load version files.
   inherit (final.lib.trivial) importJSON;
@@ -75,9 +82,16 @@ let
 
   # Required for 32-bit packages
   has32 = final.stdenv.hostPlatform.isLinux && final.stdenv.hostPlatform.isx86;
+
+  # apply Jovian overlay only on x86_64-linux
+  jovian-chaotic =
+    if final.stdenv.hostPlatform.isLinux && final.stdenv.hostPlatform.isx86_64 then {
+      inherit (jovian.overlays.jovian final prev) linux_jovian mesa-radv-jupiter;
+      recurseForDerivations = true;
+    } else { };
 in
 {
-  inherit nyxUtils;
+  inherit nyxUtils jovian-chaotic;
 
   nyx-generic-git-update = final.callPackage ../pkgs/nyx-generic-git-update { };
 

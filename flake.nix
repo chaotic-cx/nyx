@@ -15,6 +15,10 @@ rec {
       inputs.systems.follows = "systems";
       inputs.flake-schemas.follows = "flake-schemas";
     };
+    jovian = {
+      url = "github:Jovian-Experiments/Jovian-NixOS";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { nixpkgs, yafas, ... }@inputs: yafas.withAllSystems nixpkgs
