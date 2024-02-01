@@ -4,6 +4,7 @@
 
 , coreutils-full
 , cachix
+, curl
 , findutils
 , git
 , gnugrep
@@ -16,6 +17,7 @@ let
   path = lib.makeBinPath [
     coreutils-full
     cachix
+    curl
     findutils
     git # cachix requires "git" in PATH
     gnugrep
@@ -73,6 +75,7 @@ writeShellScriptBin "chaotic-nyx-build" ''
 
   # Build jobs
   function build-jobs() {
+    set +u
     ${lib.strings.concatStringsSep "\n" packagesCmds}
 
     return 0

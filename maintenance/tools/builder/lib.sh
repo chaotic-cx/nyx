@@ -1,3 +1,5 @@
+set -euo pipefail
+
 # Derivate temporary paths
 TMPDIR="${NYX_TEMP:-${TMPDIR}}"
 NIX_BUILD_TOP="${NYX_TEMP:-${NIX_BUILD_TOP}}"
@@ -36,12 +38,20 @@ function prepare() {
   # Create empty logs and artifacts
   [ ! -e "$NYX_WD" ] && mkdir -p "$NYX_WD"
   cd "$NYX_WD"
-  touch push.txt errors.txt success.txt failures.txt cached.txt upstream.txt eval-failures.txt
+  touch push.txt errors.txt success.txt failures.txt cached.txt upstream.txt eval-failures.txt prev-cache.txt
   echo "{" > new-failures.nix
 
   # Warn if we don't have automated cachix
   if [ -z "$CACHIX_AUTH_TOKEN" ] && [ -z "$CACHIX_SIGNING_KEY" ]; then
     echo_warning "No key for cachix -- building anyway."
+  fi
+
+  # Download current list of cached packages
+  if [ -n "$CACHIX_AUTH_TOKEN" ]; then
+    echo "Downloading current list of cached contents"
+    curl -H "Authorization: Bearer $CACHIX_AUTH_TOKEN" \
+      'https://app.cachix.org/api/v1/cache/chaotic-nyx/contents' |\
+        jq -r .[] > prev-cache.txt
   fi
 
   # Creates list of what to build when only building what changed
@@ -56,12 +66,11 @@ function prepare() {
 
 # Check if $1 is known as cached
 function known-cached() {
-  grep "$1" "${NYX_HOME}/cached.txt"
+  grep "$1" "${NYX_HOME}/cached.txt" || grep "$1" "${NYX_WD}/prev-cache.txt"
 }
 
 # Check if $1 is in the cache
 function cached() {
-  set -e
   nix path-info "$2" --store "$1" >/dev/null 2>/dev/null
 }
 
@@ -87,7 +96,7 @@ function build() {
     echo -e "${Y} KNOWN-CACHED${W}"
     zip_path >> full-pin.txt
     return 0
-  elif [ -z "${NYX_REFRESH:-}" ] && cached 'https://chaotic-nyx.cachix.org' "$_MAIN_OUT_PATH"; then
+  elif [ -z "${NYX_REFRESH:-}" ] && [ -z "$CACHIX_AUTH_TOKEN" ] && cached 'https://chaotic-nyx.cachix.org' "$_MAIN_OUT_PATH"; then
     echo "$_WHAT" >> cached.txt
     echo "$_MAIN_OUT_PATH" >> "${NYX_HOME}/cached.txt"
     echo -e "${Y} CACHED${W}"
@@ -102,8 +111,7 @@ function build() {
     (while true; do echo -ne "${C} BUILDING${W}\n* $_WHAT..." && sleep 120; done) &
     _KEEPALIVE=$!
     if \
-      ( set -o pipefail;
-        nix build --json $NYX_FLAGS "${_FULL_TARGETS[@]}" |\
+      ( nix build --json $NYX_FLAGS "${_FULL_TARGETS[@]}" |\
           jq -r '.[].outputs[]' \
       ) 2>> errors.txt >> push.txt
     then
