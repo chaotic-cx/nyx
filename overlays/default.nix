@@ -86,7 +86,7 @@ let
   # apply Jovian overlay only on x86_64-linux
   jovian-chaotic =
     if final.stdenv.hostPlatform.isLinux && final.stdenv.hostPlatform.isx86_64 then {
-      inherit (jovian.overlays.jovian final prev) linux_jovian mesa-radv-jupiter;
+      inherit (jovian.legacyPackages.x86_64-linux) linux_jovian mesa-radv-jupiter;
       recurseForDerivations = true;
     } else { };
 in
