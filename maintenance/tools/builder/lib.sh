@@ -38,7 +38,7 @@ function prepare() {
   # Create empty logs and artifacts
   [ ! -e "$NYX_WD" ] && mkdir -p "$NYX_WD"
   cd "$NYX_WD"
-  touch push.txt errors.txt success.txt failures.txt cached.txt upstream.txt eval-failures.txt prev-cache.txt
+  touch push.txt errors.txt success.txt failures.txt cached.txt upstream.txt eval-failures.txt
   echo "{" > new-failures.nix
 
   # Warn if we don't have automated cachix
@@ -47,11 +47,17 @@ function prepare() {
   fi
 
   # Download current list of cached packages
-  if [ -n "$CACHIX_AUTH_TOKEN" ]; then
-    echo "Downloading current list of cached contents"
-    curl -H "Authorization: Bearer $CACHIX_AUTH_TOKEN" \
-      'https://app.cachix.org/api/v1/cache/chaotic-nyx/contents' |\
-        jq -r .[] > prev-cache.txt
+  if [ ! -e prev-cache.txt ]; then
+    if [ -f prev-cache.json ]; then
+      jq -r '.[]' prev-cache.json > prev-cache.txt
+    elif [ -n "$CACHIX_AUTH_TOKEN" ]; then
+      echo "Downloading current list of cached contents"
+      curl -H "Authorization: Bearer $CACHIX_AUTH_TOKEN" \
+        'https://app.cachix.org/api/v1/cache/chaotic-nyx/contents' |\
+          jq -r .[] > prev-cache.txt
+    else
+      touch prev-cache.txt
+    fi
   fi
 
   # Creates list of what to build when only building what changed
