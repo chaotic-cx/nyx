@@ -1,4 +1,4 @@
-{ prev, gitOverride, ... }:
+{ prev, nyxUtils, gitOverride, ... }:
 
 gitOverride {
   nyxKey = "distrobox_git";
