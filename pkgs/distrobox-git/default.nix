@@ -1,4 +1,4 @@
-{ prev, gitOverride, ... }:
+{ prev, nyxUtils, gitOverride, ... }:
 
 gitOverride {
   nyxKey = "distrobox_git";
@@ -9,5 +9,9 @@ gitOverride {
   fetcherData = {
     owner = "89luca89";
     repo = "distrobox";
+  };
+
+  postOverride = prevAttrs: {
+    patches = nyxUtils.removeByBaseName "always-mount-nix.patch" prevAttrs.patches;
   };
 }

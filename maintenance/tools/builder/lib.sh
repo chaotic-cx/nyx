@@ -72,7 +72,7 @@ function prepare() {
 
 # Check if $1 is known as cached
 function known-cached() {
-  grep "$1" "${NYX_HOME}/cached.txt" || grep "$1" "${NYX_WD}/prev-cache.txt"
+  ( grep "$1" "${NYX_HOME}/cached.txt" || grep "$1" "${NYX_WD}/prev-cache.txt" ) >/dev/null 2>/dev/null
 }
 
 # Check if $1 is in the cache
@@ -99,7 +99,7 @@ function build() {
   echo -n "* $_WHAT..."
   if [ -z "${NYX_REFRESH:-}" ] && known-cached "$_MAIN_OUT_PATH"; then
     echo "$_WHAT" >> cached.txt
-    echo -e "${Y} KNOWN-CACHED${W}"
+    echo -e "${Y} CACHED${W}"
     zip_path >> full-pin.txt
     return 0
   elif [ -z "${NYX_REFRESH:-}" ] && [ -z "$CACHIX_AUTH_TOKEN" ] && cached 'https://chaotic-nyx.cachix.org' "$_MAIN_OUT_PATH"; then
