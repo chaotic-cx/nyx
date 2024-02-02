@@ -12,7 +12,6 @@ gitOverride {
   };
 
   postOverride = prevAttrs: {
-    patches =
-      (nyxUtils.removeByBaseName "always-mount-nix.patch" prevAttrs.patches);
+    patches = nyxUtils.removeByBaseName "always-mount-nix.patch" prevAttrs.patches;
   };
 }
