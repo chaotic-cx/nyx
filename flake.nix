@@ -25,7 +25,6 @@ rec {
       inputs.fenix.follows = "fenix";
       inputs.flake-compat.follows = "flake-compat";
       inputs.flake-utils.follows = "flake-utils";
-      inputs.nix-compat.follows = "nix-compat";
       inputs.nix-filter.follows = "nix-filter";
     };
     jovian = {
