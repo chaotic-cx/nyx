@@ -1,7 +1,8 @@
-{ final, prev, gitOverride, ... }:
+{ prev, gitOverride, ... }:
 
 gitOverride {
-  newInputs = with final; { glib = glib_git; };
+  # newInputs = with final; { glib = glib_git; };
+
   nyxKey = "tg-owt_git";
   prev = prev.telegram-desktop.tg_owt;
 

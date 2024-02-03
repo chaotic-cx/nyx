@@ -29,10 +29,10 @@ gitOverride {
     patches = nyxUtils.removeByURL
       "https://github.com/desktop-app/lib_base/commit/5ca91dbb811c84591780236abc31431e313faf39.patch"
       prevAttrs.patches;
-    postFixup = ''
-      qtWrapperArgs+=(
-        --prefix LD_LIBRARY_PATH : "${final.glib_git.out}/lib"
-      )
-    '' + prevAttrs.postFixup;
+    # postFixup = ''
+    #   qtWrapperArgs+=(
+    #     --prefix LD_LIBRARY_PATH : "${final.glib_git.out}/lib"
+    #   )
+    #  '' + prevAttrs.postFixup;
   };
 }
