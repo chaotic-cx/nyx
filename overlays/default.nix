@@ -13,7 +13,10 @@
 , nixpkgs ? flakes.nixpkgs
 , self ? flakes.self
 , selfOverlay ? self.overlays.default
+, conduit ? flakes.conduit or null
 , jovian ? flakes.jovian or null
+, jujutsu ? flakes.jujutsu or null
+, niri ? flakes.niri or null
 , nixpkgsExtraConfig ? { }
 }:
 final: prev:
@@ -116,6 +119,8 @@ in
 
   bytecode-viewer_git = final.callPackage ../pkgs/bytecode-viewer-git { };
 
+  conduit_git = conduit.packages.${final.system}.default;
+
   discord-krisp = callOverride ../pkgs/discord-krisp { };
 
   distrobox_git = callOverride ../pkgs/distrobox-git { };
@@ -156,6 +161,8 @@ in
   input-leap_git = callOverride ../pkgs/input-leap-git {
     inherit (final.libsForQt5.qt5) qttools;
   };
+
+  jujutsu_git = jujutsu.packages.${final.system}.default;
 
   kf6coreaddons_git = callOverride ../pkgs/kf6coreaddons-git/latest.nix { };
 
@@ -206,6 +213,8 @@ in
       ];
     }
   ).overrideAttrs (overrideDescription (old: old + " (includes vapoursynth)"));
+
+  niri_git = niri.packages.${final.system}.default;
 
   nix-flake-schemas_git = callOverride ../pkgs/nix-flake-schemas-git { };
 
