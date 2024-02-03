@@ -1,7 +1,7 @@
 { prev, final, gitOverride, ... }:
 
 gitOverride {
-  newInputs = with final; { glib = glib_git; };
+  # newInputs = with final; { glib = glib_git; };
 
   nyxKey = "glibmm_git";
   prev = prev.glibmm_2_68;

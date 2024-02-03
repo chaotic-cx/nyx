@@ -151,7 +151,6 @@ in
   gamescope-wsi_git = callOverride ../pkgs/gamescope-git { isWSI = true; };
 
   # Used by telegram-desktop_git
-  glib_git = callOverride ../pkgs/glib-git { };
   glibmm_git = callOverride ../pkgs/glibmm-git { };
 
   input-leap_git = callOverride ../pkgs/input-leap-git {
