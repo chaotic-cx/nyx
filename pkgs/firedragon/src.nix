@@ -1,4 +1,4 @@
-{ fetchurl
+{ fetchFromGitHub
 , fetchFromGitLab
 ,
 }:
@@ -7,20 +7,22 @@ let
 in
 {
   inherit (src) packageVersion;
-  source = fetchFromGitLab {
-    owner = "librewolf-community/browser";
-    repo = "source";
-    fetchSubmodules = true;
-    inherit (src.source) rev hash;
+  firedragon-common = fetchFromGitLab {
+    owner = "garuda-linux/firedragon";
+    repo = "common";
+    fetchSubmodules = false;
+    inherit (src.common-firedragon) rev hash;
   };
-  source-firedragon = fetchFromGitLab {
-    owner = "dr460nf1r3";
+  firedragon-settings = fetchFromGitLab {
+    owner = "garuda-linux/firedragon";
     repo = "settings";
-    fetchSubmodules = true;
-    inherit (src.firedragon) rev hash;
+    fetchSubmodules = false;
+    inherit (src.settings-firedragon) rev hash;
   };
-  firefox = fetchurl {
-    url = "mirror://mozilla/firefox/releases/${src.firefox.version}/source/firefox-${src.firefox.version}.source.tar.xz";
-    inherit (src.firefox) hash;
+  floorp = fetchFromGitHub {
+    owner = "Floorp-Projects";
+    repo = "Floorp";
+    fetchSubmodules = true;
+    inherit (src.floorp) rev hash;
   };
 }
