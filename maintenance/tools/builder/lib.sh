@@ -1,4 +1,4 @@
-set -euo pipefail
+set -eo pipefail
 
 # Derivate temporary paths
 TMPDIR="${NYX_TEMP:-${TMPDIR}}"
