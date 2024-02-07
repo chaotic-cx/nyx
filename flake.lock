@@ -252,11 +252,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1707297414,
-        "narHash": "sha256-6sqb8o1QxXa/eAdcjeW4LgU8DJw+Jw4bYYxtCb0UGfo=",
+        "lastModified": 1707127787,
+        "narHash": "sha256-dxyrVH9O21A6kLIvtgeHHI9G7mqRNzNEgMGn/ovnrRg=",
         "owner": "YaLTeR",
         "repo": "niri",
-        "rev": "49ce791d13031ba5396b2ee8dbbffe128d64ff0f",
+        "rev": "3a23417e980de908c3183749da9309e9dabc9ece",
         "type": "github"
       },
       "original": {
