@@ -23,10 +23,8 @@ in
 gitOverride (current: {
   newInputs =
     if is32bit then with final64; {
-      meson = meson32_1_3;
       libdrm = libdrm32_git;
     } else with final; {
-      meson = meson_1_3;
       libdrm = libdrm_git;
       # We need to mention those besides "all", because of the usage of nix's `lib.elem` in
       # the original derivation.
