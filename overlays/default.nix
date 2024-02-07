@@ -196,12 +196,6 @@ in
     if has32 then callOverride32 ../pkgs/mesa-git { }
     else throw "No mesa32_git for non-x86";
 
-  # Waiting for nixpkgs#268583 needed for mesa_git
-  meson_1_3 = callOverride ../pkgs/mesa-git/meson-pin.nix { };
-  meson32_1_3 =
-    if has32 then callOverride32 ../pkgs/mesa-git/meson-pin.nix { }
-    else throw "No headers32_1_3 for non-x86";
-
   mpv-vapoursynth = (final.wrapMpv
     (final.mpv-unwrapped.override { vapoursynthSupport = true; })
     {
