@@ -39,7 +39,12 @@ let
     rev = "2f382df218d7e8516dee3b3caccb819a62b571a2";
     hash = "sha256-Tw7C2xRYs2Ok02zAXSygs5un7JAPeYPZse6u+bck+pg=";
   };
-
+  ffmpeg = final.fetchFromGitHub {
+    owner = "FFmpeg";
+    repo = "FFmpeg";
+    rev = "9c1294eaddb88cb0e044c675ccae059a85fc9c6c";
+    hash = "sha256-ryCPhFxuMKfZlPDwZWYaRBxwMSTvwsEVQG9eeq2dRTI=";
+  };
   inherit (final.vulkanPackages_latest) glslang vulkan-headers vulkan-loader vulkan-utility-libraries spirv-headers;
 in
 
@@ -66,8 +71,6 @@ gitOverride (current: {
       "-DSIRIT_USE_SYSTEM_SPIRV_HEADERS=ON"
     ];
 
-    patches = nyxUtils.removeByBaseName "vulkan_version.patch" (prevAttrs.patches or [ ]);
-
     postPatch = (prevAttrs.postPatch or "") + ''
       rm -r externals/{cpp-httplib,dynarmic,mbedtls,sirit,xbyak,ffmpeg/ffmpeg}
       cp --no-preserve=mode -r ${final.mbedtls_2.src} externals/mbedtls
@@ -78,7 +81,7 @@ gitOverride (current: {
       ln -s ${vma} externals/VulkanMemoryAllocator
       ln -s ${vulkan-utility-libraries.src} externals/Vulkan-Utility-Libraries
       ln -s ${simpleini} externals/simpleini
-      ln -s ${final.ffmpeg.src} externals/ffmpeg/ffmpeg
+      ln -s ${ffmpeg} externals/ffmpeg/ffmpeg
     '';
 
     preConfigure = ''
@@ -103,8 +106,10 @@ gitOverride (current: {
       ln -s ${tzdata} "$cmakeBuildDir/externals/nx_tzdb/nx_tzdb"
     '';
 
-    # Shows released date in version
-    env.SOURCE_DATE_EPOCH = current.lastModified;
+    env = prevAttrs.env // {
+      # Shows released date in version
+      SOURCE_DATE_EPOCH = current.lastModified;
+    };
 
     # Right now crypto tests don't pass
     doCheck = false;
