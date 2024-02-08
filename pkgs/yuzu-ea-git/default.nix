@@ -60,7 +60,7 @@ gitOverride (current: {
   postOverride = prevAttrs: {
     # We need to have these headers ahead, otherwise they cause an ordering issue in CMAKE_INCLUDE_PATH,
     # where qtbase propagated input appears first.
-    nativeBuildInputs = [ vulkan-headers glslang spirv-headers ] ++ prevAttrs.nativeBuildInputs;
+    nativeBuildInputs = [ vulkan-headers glslang spirv-headers final.perl ] ++ prevAttrs.nativeBuildInputs;
 
     cmakeFlags = prevAttrs.cmakeFlags ++ [
       "-DSIRIT_USE_SYSTEM_SPIRV_HEADERS=ON"
@@ -69,7 +69,7 @@ gitOverride (current: {
     patches = nyxUtils.removeByBaseName "vulkan_version.patch" (prevAttrs.patches or [ ]);
 
     postPatch = (prevAttrs.postPatch or "") + ''
-      rm -r externals/{cpp-httplib,dynarmic,mbedtls,sirit,xbyak}
+      rm -r externals/{cpp-httplib,dynarmic,mbedtls,sirit,xbyak,ffmpeg/ffmpeg}
       cp --no-preserve=mode -r ${final.mbedtls_2.src} externals/mbedtls
       ln -s ${final.httplib.src} externals/cpp-httplib
       ln -s ${dynarmic} externals/dynarmic
@@ -78,6 +78,7 @@ gitOverride (current: {
       ln -s ${vma} externals/VulkanMemoryAllocator
       ln -s ${vulkan-utility-libraries.src} externals/Vulkan-Utility-Libraries
       ln -s ${simpleini} externals/simpleini
+      ln -s ${final.ffmpeg.src} externals/ffmpeg/ffmpeg
     '';
 
     preConfigure = ''
