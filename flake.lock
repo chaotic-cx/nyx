@@ -220,11 +220,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1707284098,
-        "narHash": "sha256-tYVS7r8XmgHJp0o5qsPa33fCKL6JYFvg43+f29qOJK4=",
+        "lastModified": 1707354388,
+        "narHash": "sha256-ohO87JNC/NjO73TtXXw2pNLtfLZ52FzdLvCGFC43iqI=",
         "owner": "martinvonz",
         "repo": "jj",
-        "rev": "1be82250460a914ba2c718260de32d2c9eb60f9d",
+        "rev": "12c3be70f442d0ea54a0a536d743b17dd8c74e4a",
         "type": "github"
       },
       "original": {
