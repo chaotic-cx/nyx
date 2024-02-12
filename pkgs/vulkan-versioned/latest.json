@@ -60,9 +60,9 @@
     "hash": "sha256-5kcFzEMgRQtedJ9tv/ivjvZDrUZRpF5latkc1pxjPMY="
   },
   "vulkanValidationLayers": {
-    "version": "snapshot-2024wk06",
-    "rev": "#{version}",
-    "hash": "sha256-N3ff+xW5FFwUvBX/8ke48cBHZGIs2mwF4oEXidfwHwc=",
+    "version": "1.3.277",
+    "rev": "v#{version}",
+    "hash": "sha256-txEmdd3Zi+zqteLH9Op0TFWdCDisTrmr8nsW8MyUaX0=",
     "badTag": "vulkan-sdk-1.3.275.0"
   },
   "volk": {
