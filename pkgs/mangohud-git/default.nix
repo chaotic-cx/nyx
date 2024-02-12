@@ -68,8 +68,11 @@ gitOverride {
         unzip ${implot.patch}
       )
       substituteInPlace src/meson.build \
+        --replace 'glfw3_dep,' 'glfw3_dep, dep_vulkan,' \
         --replace "run_command(['git', 'describe', '--tags', '--dirty=+']).stdout().strip()" \
           "'${prevAttrs.version}'"
+      substituteInPlace meson.build \
+        --replace 'cmocka_dep,' 'cmocka_dep, dep_vulkan,'
     '';
   };
 }

@@ -1,4 +1,4 @@
-{ final, gitOverride, nyxUtils, prev, ... }:
+{ final, gitOverride, prev, ... }:
 
 # yuzu doesn't seem to recognize our mbedtls_2
 let
