@@ -4,7 +4,10 @@
 , ...
 }:
 
-gitOverride (current:
+let
+  override = x: final.python3Packages.toPythonApplication (gitOverride x);
+in
+override (current:
 let
   date = current.lastModifiedDate;
   year =
@@ -17,7 +20,7 @@ let
 in
 {
   nyxKey = "yt-dlp_git";
-  prev = final.python311Packages.toPythonApplication prev.python311Packages.yt-dlp;
+  prev = prev.python3Packages.callPackage ./prev.nix { };
 
   versionNyxPath = "pkgs/yt-dlp-git/version.json";
   fetcher = "fetchFromGitHub";
@@ -30,6 +33,11 @@ in
 
   postOverride = prevAttrs: {
     name = "${prevAttrs.pname}-${current.version}";
+    format = "pyproject";
+
+    nativeBuildInputs = with final.python3Packages; [
+      hatchling
+    ] ++ prevAttrs.nativeBuildInputs;
     postPatch = (prevAttrs.postPatch or "") + ''
             echo "
       __version__ = '${datedVersion}'
