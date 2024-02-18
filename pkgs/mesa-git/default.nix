@@ -55,7 +55,7 @@ gitOverride (current: {
         (builtins.replaceStrings [ "virtio-experimental" ] [ "virtio" ])
         prevAttrs.mesonFlags
       ++ final.lib.optional (!is32bit) "-D video-codecs=all"
-      ++ final.lib.optional (is32bit) "-D intel-rt=disabled";
+      ++ final.lib.optional is32bit "-D intel-rt=disabled";
 
     patches =
       (nyxUtils.removeByBaseNames
