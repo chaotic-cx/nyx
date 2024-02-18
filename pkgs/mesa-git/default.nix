@@ -28,7 +28,7 @@ gitOverride (current: {
       libdrm = libdrm_git;
       # We need to mention those besides "all", because of the usage of nix's `lib.elem` in
       # the original derivation.
-      galliumDrivers = [ "all" "zink" "d3d12" ];
+      galliumDrivers = [ "all" "zink" "d3d12" "i915" ];
       vulkanDrivers = [ "all" "microsoft-experimental" ];
       # Instead, we enable the new option in `mesonFlags`
       enablePatentEncumberedCodecs = false;
