@@ -56,12 +56,13 @@ gitOverride (current: {
       ++ final.lib.optional (!is32bit) "-D video-codecs=all";
 
     patches =
-      (final.lib.pipe prevAttrs.patches
+      (nyxUtils.removeByBaseNames
         [
-          (nyxUtils.removeByBaseName "0001-dri-added-build-dependencies-for-systems-using-non-s.patch")
-          (nyxUtils.removeByBaseName "0002-util-Update-util-libdrm.h-stubs-to-allow-loader.c-to.patch")
-          (nyxUtils.removeByBaseName "0003-glx-fix-automatic-zink-fallback-loading-between-hw-a.patch")
+          "0001-dri-added-build-dependencies-for-systems-using-non-s.patch"
+          "0002-util-Update-util-libdrm.h-stubs-to-allow-loader.c-to.patch"
+          "0003-glx-fix-automatic-zink-fallback-loading-between-hw-a.patch"
         ]
+        prevAttrs.patches
       )
       ++ [
         ./gbm-backend.patch

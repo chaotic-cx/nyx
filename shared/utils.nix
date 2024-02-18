@@ -82,6 +82,10 @@ rec {
     builtins.filter (x: builtins.baseNameOf x != baseName);
 
   # Helps when dropping patches.
+  removeByBaseNames = baseNames:
+    builtins.filter (x: ! builtins.elem (builtins.baseNameOf x) baseNames);
+
+  # Helps when dropping patches.
   removeByURL = url: builtins.filter (x:
     !(lib.attrsets.isDerivation x) || (x.url or null) != url
   );
