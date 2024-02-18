@@ -1,4 +1,4 @@
-{ final, prev, gitOverride, nyxUtils, ... }:
+{ final, prev, gitOverride, ... }:
 
 let
   # Derived from subprojects/imgui.wrap
@@ -47,11 +47,24 @@ gitOverride {
 
   postOverride = prevAttrs: {
     buildInputs = prevAttrs.buildInputs ++ [ final.SDL2 ];
-    patches = [ ./preload-nix-workaround.patch ] ++
-      (nyxUtils.removeByBaseName "preload-nix-workaround.patch"
-        (nyxUtils.removeByURL "https://github.com/flightlessmango/MangoHud/commit/3f8f036ee8773ae1af23dd0848b6ab487b5ac7de.patch"
-          prevAttrs.patches
-        ));
+    patches =
+      [ ./preload-nix-workaround.patch
+        (with final; substituteAll {
+          src = ./hardcode-dependencies.patch;
+
+          path = lib.makeBinPath [
+            coreutils
+            curl
+            glxinfo
+            gnugrep
+            gnused
+            xdg-utils
+          ];
+
+          libdbus = dbus.lib;
+          inherit hwdata;
+        })
+      ];
     postUnpack = prevAttrs.postUnpack + ''#
         (
           cd "$sourceRoot/subprojects"
