@@ -24,6 +24,7 @@ gitOverride (current: {
   newInputs =
     if is32bit then with final64; {
       libdrm = libdrm32_git;
+      enableOpenCL = true; # intel-clc is required even without intel-rt now
     } else with final; {
       libdrm = libdrm_git;
       # We need to mention those besides "all", because of the usage of nix's `lib.elem` in
@@ -53,15 +54,17 @@ gitOverride (current: {
       builtins.map
         (builtins.replaceStrings [ "virtio-experimental" ] [ "virtio" ])
         prevAttrs.mesonFlags
-      ++ final.lib.optional (!is32bit) "-D video-codecs=all";
+      ++ final.lib.optional (!is32bit) "-D video-codecs=all"
+      ++ final.lib.optional is32bit "-D intel-rt=disabled";
 
     patches =
-      (final.lib.pipe prevAttrs.patches
+      (nyxUtils.removeByBaseNames
         [
-          (nyxUtils.removeByBaseName "0001-dri-added-build-dependencies-for-systems-using-non-s.patch")
-          (nyxUtils.removeByBaseName "0002-util-Update-util-libdrm.h-stubs-to-allow-loader.c-to.patch")
-          (nyxUtils.removeByBaseName "0003-glx-fix-automatic-zink-fallback-loading-between-hw-a.patch")
+          "0001-dri-added-build-dependencies-for-systems-using-non-s.patch"
+          "0002-util-Update-util-libdrm.h-stubs-to-allow-loader.c-to.patch"
+          "0003-glx-fix-automatic-zink-fallback-loading-between-hw-a.patch"
         ]
+        prevAttrs.patches
       )
       ++ [
         ./gbm-backend.patch
