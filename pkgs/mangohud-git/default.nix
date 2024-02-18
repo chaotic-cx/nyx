@@ -48,7 +48,8 @@ gitOverride {
   postOverride = prevAttrs: {
     buildInputs = prevAttrs.buildInputs ++ [ final.SDL2 ];
     patches =
-      [ ./preload-nix-workaround.patch
+      [
+        ./preload-nix-workaround.patch
         (with final; substituteAll {
           src = ./hardcode-dependencies.patch;
 
