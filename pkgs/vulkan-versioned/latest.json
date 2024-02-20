@@ -49,9 +49,9 @@
     "hash": "sha256-MEQX90HL90jyVBWWcvOF7QLzm1+fNE5TW3MWdK4w53M="
   },
   "vulkanExtensionLayer": {
-    "version": "1.3.277",
+    "version": "1.3.278",
     "rev": "v#{version}",
-    "hash": "sha256-Vy2VSu28QGTP6rW3Zun1J5L3v4VYqHfhw3IroRZuGME=",
+    "hash": "sha256-PvFOBlneXnxkWtVSTMyJFGltFCzZJQgojMJ86NN+MSw=",
     "badTag": "v1.3.263"
   },
   "vulkanUtilityLibraries": {
@@ -63,7 +63,7 @@
     "version": "1.3.277",
     "rev": "v#{version}",
     "hash": "sha256-txEmdd3Zi+zqteLH9Op0TFWdCDisTrmr8nsW8MyUaX0=",
-    "badTag": "snapshot-2024wk07"
+    "badTag": "v1.3.278"
   },
   "volk": {
     "version": "1.3.275.0",
