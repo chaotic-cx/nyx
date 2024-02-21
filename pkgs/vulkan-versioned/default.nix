@@ -1,7 +1,6 @@
 { final
 , prev
 , vulkanVersions
-, nyxUtils
 , ...
 }:
 let
@@ -95,8 +94,6 @@ final.lib.makeScope final.newScope (self:
     repo = "Vulkan-Loader";
     extraAttrs = prevAttrs: {
       meta = prevAttrs.meta // { broken = false; };
-      patches = [ ./fix-pkgconfig.patch ] ++
-        (nyxUtils.removeByBaseName "fix-pkgconfig.patch" prevAttrs.patches);
     };
   };
 
