@@ -155,5 +155,5 @@
   "linuxPackages_cachyos-server.system76-acpi" = "/nix/store/gn1piyxsj37gi5mmdidydacyliya5277-system76-acpi-module-1.0.2-6.7.5";
   "linuxPackages_cachyos-server.virtio_vmmci" = "/nix/store/mjc6wnc38jygzdjn03hxm6rnqd4blg9i-virtio_vmmci";
   "pkgsx86_64_v3-core.links2" = "/nix/store/dpw120va1d751yf152a8xxi249xbs2db-links2-2.29";
-  "vulkanPackages_latest.vulkan-tools-lunarg" = "/nix/store/bs8xm9c1s2yh9bg9ba8s428h7spcys4s-vulkan-tools-lunarg-1.3.275.0";
+  "vulkanPackages_latest.vulkan-tools-lunarg" = "/nix/store/9352i3gj301qw6ggl5ij0sgkbayvdmya-vulkan-tools-lunarg-1.3.275.0";
 }
