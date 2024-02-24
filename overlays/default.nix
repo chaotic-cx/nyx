@@ -119,6 +119,8 @@ in
 
   bytecode-viewer_git = final.callPackage ../pkgs/bytecode-viewer-git { };
 
+  conduit-toolbox = final.callPackage ../pkgs/conduit-toolbox { };
+
   conduwuit_git = conduit.packages.${final.system}.default;
 
   discord-krisp = callOverride ../pkgs/discord-krisp { };

@@ -1,0 +1,17 @@
+diff --git a/tools/iface/Cargo.toml b/tools/iface/Cargo.toml
+index 6f302df..f1beb68 100644
+--- a/tools/iface/Cargo.toml
++++ b/tools/iface/Cargo.toml
+@@ -10,10 +10,10 @@ itertools = "0.10.1"
+ thiserror = "1.0.26"
+ anyhow = "1.0.42"
+ 
+-sled = { version = "0.34.6", features = ["compression", "no_metrics"], optional = true }
++sled = { version = "0.34.7", features = ["compression", "no_metrics"], optional = true }
+ rusqlite = { version = "0.25.3", features = ["bundled"], optional = true }
+ heed = { git = "https://github.com/timokoesters/heed.git", rev = "f6f825da7fb2c758867e05ad973ef800a6fe1d5d", optional = true }
+-rocksdb = { version = "0.17.0", features = ["multi-threaded-cf", "zstd"], optional = true }
++rocksdb = { version = "0.18.0", features = ["multi-threaded-cf", "zstd"], optional = true }
+ persy = { version = "1.2", optional = true }
+ 
+ [features]
