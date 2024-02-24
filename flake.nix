@@ -18,7 +18,7 @@ rec {
 
     # thirdy-party repositories
     conduit = {
-      url = "gitlab:famedly/conduit/next";
+      url = "gitlab:girlbossceo/conduwuit";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.attic.follows = "attic";
       inputs.crane.follows = "crane";
