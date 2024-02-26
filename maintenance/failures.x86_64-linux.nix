@@ -144,4 +144,5 @@
   "linuxPackages_cachyos-server.rtl88xxau-aircrack" = "/nix/store/12g7d9fha8alxmiqq24mafgmbaxgdkfi-rtl88xxau-aircrack-6.7.6-unstable-02-05-2023";
   "linuxPackages_cachyos-server.system76-acpi" = "/nix/store/kgv40gzk84ld145s17n22xyj9lg7lf71-system76-acpi-module-1.0.2-6.7.6";
   "linuxPackages_cachyos-server.virtio_vmmci" = "/nix/store/p3jh0agi66cqqa54zmp7c53nx65g88k5-virtio_vmmci";
+  "vulkanPackages_latest.vulkan-tools-lunarg" = "/nix/store/b1yqkg7ndbr3lvb9qw3fpmd3l0ddcjdi-vulkan-tools-lunarg-1.3.275.0";
 }
