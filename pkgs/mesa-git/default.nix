@@ -68,10 +68,6 @@ gitOverride (current: {
       )
       ++ [
         ./gbm-backend.patch
-        (final.fetchpatch2 {
-          url = "https://gitlab.freedesktop.org/mesa/mesa/-/commit/27f49062c6cdf44dc3e997f18881764841f6017f.patch";
-          hash = "sha256-sjhUOU9Ka6szuitu95GVtXi7CYJ8hTPVCp59/I8PfKg=";
-        })
       ];
 
     # expose gbm backend and rename vendor (if necessary)
