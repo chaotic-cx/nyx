@@ -8,6 +8,7 @@ let
     nordvpn = import ./nordvpn.nix;
     nyx-cache = import ./nyx-cache.nix fromFlakes;
     nyx-overlay = import ../common/nyx-overlay.nix fromFlakes;
+    scx = import ./scx.nix;
     steam-compat-tools = import ./steam-compat-tools.nix;
     qtile = import ./qtile.nix;
     zfs-impermanence-on-shutdown = import ./zfs-impermanence-on-shutdown.nix;
