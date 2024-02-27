@@ -11,6 +11,10 @@ in
     scheduler = mkOption {
       type = types.str;
       default = "scx_rustland";
+      example = "scx_rusty";
+      description = ''
+        Which of the SCX's schedulers to use.
+      '';
     };
   };
 
