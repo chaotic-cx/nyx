@@ -1,5 +1,5 @@
 { lib
-, llvmPackages_16
+, llvmPackages
 , writeShellScriptBin
 , scx-common
 , scx-rusty
@@ -35,7 +35,7 @@ let
     exit 1
   '';
 in
-llvmPackages_16.stdenv.mkDerivation {
+llvmPackages.stdenv.mkDerivation {
   pname = "scx";
   inherit (scx-common) src version;
 
@@ -50,7 +50,7 @@ llvmPackages_16.stdenv.mkDerivation {
     meson
     ninja
     pkg-config
-    llvmPackages_16.clang
+    llvmPackages.clang
     fakeCargo
     bpftools
   ];
