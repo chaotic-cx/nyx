@@ -88,12 +88,12 @@
         ]
       },
       "locked": {
-        "lastModified": 1706473297,
-        "narHash": "sha256-FbxuYIrHaXpsYCLtI1gCNJhd+qvERjPibXL3ctmVaCs=",
-        "rev": "fe812ef0dad5bb93a56c599d318be176d080281d",
-        "revCount": 493,
+        "lastModified": 1708560111,
+        "narHash": "sha256-DrAweODHz5LaAFkSNZTFEfmA+KES+tDB9Upk0eplrGY=",
+        "rev": "03d623218833e6b4089069867afe65c8e17d9b85",
+        "revCount": 508,
         "type": "tarball",
-        "url": "https://api.flakehub.com/f/pinned/ipetkov/crane/0.16.1/018d51be-1c17-765e-babc-c9e3bc8a5a14/source.tar.gz"
+        "url": "https://api.flakehub.com/f/pinned/ipetkov/crane/0.16.2/018dce20-43df-7c9c-ad49-b978cce40161/source.tar.gz"
       },
       "original": {
         "type": "tarball",
@@ -195,11 +195,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1708947951,
-        "narHash": "sha256-uRPNUmtvlmJsrIO9BSRTt8cHygcJ9WCqFglSubbk+4A=",
+        "lastModified": 1709063930,
+        "narHash": "sha256-bHPPYx0g74FH/2t60wFeZAeoR5xhyff9U0NkeiKjUpk=",
         "owner": "Jovian-Experiments",
         "repo": "Jovian-NixOS",
-        "rev": "fd248717f65be0dff8811fe7412847642fd61685",
+        "rev": "7a0e3d4b522ef180e76710213fafed0deca8fcca",
         "type": "github"
       },
       "original": {
@@ -219,11 +219,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1708999233,
-        "narHash": "sha256-vKCaiL/xHhWNgQ0O2PI/DiqnxF6wVnhRLFCGVM0+59M=",
+        "lastModified": 1709078596,
+        "narHash": "sha256-ipucFiCi2A/KC+fOiy65DPe3zuLxg5KYkV+H09lq7i8=",
         "owner": "martinvonz",
         "repo": "jj",
-        "rev": "9ad2fee72bc63c643447bf01d05dd752451825ec",
+        "rev": "7e127f500a7dc5bd180ebaa568279824791be49c",
         "type": "github"
       },
       "original": {
@@ -251,11 +251,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1708924475,
-        "narHash": "sha256-8HWBhv6kACTlJHZATdofz+cksMT3iu9iBYux5ZWTz0Y=",
+        "lastModified": 1709111981,
+        "narHash": "sha256-7lQ41gjQxvIlrIrWhOO915wm52+cphb6lBQyrEG6GAg=",
         "owner": "YaLTeR",
         "repo": "niri",
-        "rev": "494e98c1235133fd5267bfdfb9a5468f1115deff",
+        "rev": "719697179f6ddd79206e6ccf058a5e43f18ba346",
         "type": "github"
       },
       "original": {
