@@ -25,6 +25,7 @@ gitOverride (current: {
     if is32bit then with final64; {
       libdrm = libdrm32_git;
       enableOpenCL = true; # intel-clc is required even without intel-rt now
+      vulkanDrivers = [ "all" ];
     } else with final; {
       libdrm = libdrm_git;
       # We need to mention those besides "all", because of the usage of nix's `lib.elem` in

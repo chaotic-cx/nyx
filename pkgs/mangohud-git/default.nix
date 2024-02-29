@@ -15,7 +15,7 @@ gitOverride {
   withUpdateScript = !final.stdenv.is32bit;
 
   postOverride = prevAttrs: {
-    buildInputs = prevAttrs.buildInputs ++ [ final.SDL2 ];
+    buildInputs = with final; [ SDL2 libxkbcommon ] ++ prevAttrs.buildInputs;
     patches =
       [
         ./preload-nix-workaround.patch
