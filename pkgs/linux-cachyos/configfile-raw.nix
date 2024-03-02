@@ -45,6 +45,7 @@ let
     ++ lib.optional (cachyConfig.cpuSched == "hardened") "${patches-src}/${major}/misc/0001-hardened.patch"
     ++ lib.optional cachyConfig.withBCacheFSPatch "${patches-src}/${major}/misc/0001-bcachefs.patch"
     ++ lib.optional cachyConfig.withHDRPatch "${patches-src}/${major}/misc/0001-amd-hdr.patch"
+    ++ lib.optional cachyConfig.withNTSync "${patches-src}/${major}/misc/0001-ntsync.patch"
     ++ [ ./0001-Add-extra-version-CachyOS.patch ];
 
   # There are some configurations set by the PKGBUILD
@@ -91,6 +92,7 @@ let
     ]
     ++ hugePagesConfig
     ++ damonConfig
+    ++ ntSyncConfig
     ++ disableDebug
 
     #_use_auto_optimization, defaults to "y" [but GENERIC to ""]
@@ -167,6 +169,9 @@ let
       "-e DAMON_RECLAIM"
       "-e DAMON_LRU_SORT"
     ];
+
+  # _ntsync, defaults to empty
+  ntSyncConfig = lib.optionals cachyConfig.withNTSync [ "-m NTSYNC" ];
 
   # https://github.com/CachyOS/linux-cachyos/issues/187
   disableDebug =

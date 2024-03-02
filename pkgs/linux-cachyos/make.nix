@@ -17,6 +17,7 @@
 , preempt ? "full"
 , hugePages ? "always"
 , withDAMON ? false
+, withNTSync ? true
 , withBCacheFSPatch ? false
 , withHDRPatch ? true
 , withoutDebug ? false
@@ -34,6 +35,7 @@ let
       preempt
       hugePages
       withDAMON
+      withNTSync
       withBCacheFSPatch
       withHDRPatch
       withoutDebug
