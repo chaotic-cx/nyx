@@ -43,6 +43,7 @@ in
     preempt = "server";
     hugePages = "madvise";
     withDAMON = true;
+    withNTSync = false;
     withHDRPatch = false;
     description = "Linux EEVDF scheduler Kernel by CachyOS targeted for Servers";
   };
@@ -52,6 +53,7 @@ in
     configPath = ./config-nix/cachyos-hardened.x86_64-linux.nix;
     cpuSched = "hardened";
 
+    withNTSync = false;
     withHDRPatch = false;
   };
 }
