@@ -135,7 +135,10 @@ final.lib.makeScope final.newScope (self:
   vulkan-validation-layers =
     genericOverride {
       origin = prev.vulkan-validation-layers;
-      extraInput = { inherit (self) glslang vulkan-headers vulkan-utility-libraries spirv-headers; };
+      extraInput = {
+        inherit (self) glslang vulkan-headers vulkan-utility-libraries;
+        spirv-headers = final.spirv-headers_git;
+      };
       key = "vulkanValidationLayers";
       owner = "KhronosGroup";
       repo = "Vulkan-ValidationLayers";
