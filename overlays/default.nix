@@ -244,6 +244,9 @@ in
 
   sdl_git = callOverride ../pkgs/sdl-git { };
 
+  spirv-headers_git = callOverride ../pkgs/spirv-headers-git { };
+  spirv-tools_git = callOverride ../pkgs/spirv-tools-git { };
+
   scx = final.callPackage ../pkgs/scx {
     inherit scx-common;
     scx-layered = final.callPackage ../pkgs/scx/layered { inherit scx-common; };
