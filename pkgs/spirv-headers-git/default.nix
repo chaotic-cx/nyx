@@ -1,9 +1,6 @@
-{ final, prev, gitOverride, ... }:
+{ prev, gitOverride, ... }:
 
 gitOverride {
-  newInputs = with final; {
-  };
-
   nyxKey = "spirv-headers_git";
   prev = prev.spirv-headers;
 
