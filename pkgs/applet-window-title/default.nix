@@ -4,13 +4,13 @@
 }:
 stdenvNoCC.mkDerivation rec {
   pname = "applet-window-title";
-  version = "0.7.1";
+  version = "0.3";
 
   src = fetchFromGitHub {
-    owner = "psifidotos";
-    repo = pname;
-    rev = version;
-    hash = "sha256-KybioiBzSxy15f9BD8CDlAuROygeUuYeQBsN4/UwxgY=";
+    owner = "dhruv8sh";
+    repo = "plasma6-window-title-applet";
+    rev = "v${version}";
+    hash = "sha256-A6dTBX4TYNbquiVhFMz7Q19JNOVH7HuyhkeVm5srv34=";
   };
 
   propagatedBuildInputs = [ ];
@@ -24,7 +24,7 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Plasma 5 applet that shows the application title and icon for active window";
+    description = "Plasma 6 applet that shows the application title and icon for active window";
     homepage = "https://github.com/psifidotos/applet-window-title";
     license = licenses.gpl2Plus;
     maintainers = [ maintainers.dr460nf1r3 ];
