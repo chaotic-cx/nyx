@@ -125,7 +125,7 @@
 <p>Besides using our module/overlay, you can run packages (without installing them) using:</p>
 
 <pre lang="sh"><code class="language-sh">
-nix run github:chaotic-cx/nyx/nyxpkgs-unstable#yuzu-early-access_git
+nix run github:chaotic-cx/nyx/nyxpkgs-unstable#firefox_nightly
 </code></pre>
 
 <h3 id="binary-cache-notes">Binary Cache notes</h3>
