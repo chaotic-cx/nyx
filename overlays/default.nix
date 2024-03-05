@@ -102,8 +102,6 @@ in
 
   ananicy-cpp-rules = final.callPackage ../pkgs/ananicy-cpp-rules { };
 
-  applet-window-appmenu = final.libsForQt5.callPackage ../pkgs/applet-window-appmenu { };
-
   applet-window-title = final.callPackage ../pkgs/applet-window-title { };
 
   appmenu-gtk3-module = final.callPackage ../pkgs/appmenu-gtk3-module { };
