@@ -66,7 +66,7 @@ let
   # CachyOS repeating stuff.
   addZFS = _finalAttrs: prevAttrs:
     let
-      zfs = prevAttrs.zfsUnstable.overrideAttrs (prevAttrs: {
+      zfs = prevAttrs.zfs_unstable.overrideAttrs (prevAttrs: {
         src =
           fetchFromGitHub {
             owner = "cachyos";
@@ -80,8 +80,8 @@ let
     {
       kernel_configfile = prevAttrs.kernel.configfile;
       inherit zfs;
-      zfsStable = zfs;
-      zfsUnstable = zfs;
+      zfs_2_2 = zfs;
+      zfs_unstable = zfs;
     };
 
   basePackages = linuxPackagesFor kernel;
