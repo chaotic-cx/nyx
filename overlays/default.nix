@@ -275,4 +275,6 @@ in
   wlroots_git = callOverride ../pkgs/wlroots-git { };
 
   yt-dlp_git = callOverride ../pkgs/yt-dlp-git { };
+
+  zfs_cachyos = cachyosPackages.zfs;
 }

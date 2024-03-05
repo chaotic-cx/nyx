@@ -7,9 +7,15 @@ let
   mainVersions = importJSON ./versions.json;
 
   mkCachyKernel = attrs: final.callPackage ./make.nix
-    ({ versions = mainVersions; } // attrs);
+    ({ inherit zfs-source; versions = mainVersions; } // attrs);
 
   stdenvLLVM = final.callPackage ./stdenv-llvm.nix { };
+
+  zfs-source = final.fetchFromGitHub {
+    owner = "cachyos";
+    repo = "zfs";
+    inherit (mainVersions.zfs) rev hash;
+  };
 in
 {
   inherit mainVersions mkCachyKernel;
@@ -56,4 +62,12 @@ in
     withNTSync = false;
     withHDRPatch = false;
   };
+
+  zfs = final.zfs_unstable.overrideAttrs (prevAttrs: {
+    src = zfs-source;
+    patches = [ ];
+    passthru = prevAttrs.passthru // {
+      kernelModuleAttribute = "zfs_cachyos";
+    };
+  });
 }

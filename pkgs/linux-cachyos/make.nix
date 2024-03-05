@@ -3,7 +3,6 @@
 , configPath
 , versions
 , callPackage
-, fetchFromGitHub
 , linuxPackagesFor
 , nyxUtils
 , lib
@@ -23,6 +22,7 @@
 , withoutDebug ? false
 , description ? "Linux EEVDF-BORE scheduler Kernel by CachyOS with other patches and improvements"
 , withUpdateScript ? false
+, zfs-source
 }:
 
 let
@@ -65,27 +65,17 @@ let
 
   # CachyOS repeating stuff.
   addZFS = _finalAttrs: prevAttrs:
-    let
-      zfs = prevAttrs.zfs_unstable.overrideAttrs (prevAttrs: {
-        src =
-          fetchFromGitHub {
-            owner = "cachyos";
-            repo = "zfs";
-            inherit (versions.zfs) rev hash;
-          };
+    {
+      kernel_configfile = prevAttrs.kernel.configfile;
+      zfs_cachyos = prevAttrs.zfs_unstable.overrideAttrs (prevAttrs: {
+        src = zfs-source;
         meta = prevAttrs.meta // { broken = false; };
         patches = [ ];
       });
-    in
-    {
-      kernel_configfile = prevAttrs.kernel.configfile;
-      inherit zfs;
-      zfs_2_2 = zfs;
-      zfs_unstable = zfs;
     };
 
   basePackages = linuxPackagesFor kernel;
-  packagesWithZFS = basePackages.extend addZFS;
+  packagesWithZFS = removeAttrs (basePackages.extend addZFS) [ "zfs" "zfs_2_1" "zfs_2_2" "zfs_unstable" ];
   packagesWithoutUpdateScript = nyxUtils.dropAttrsUpdateScript packagesWithZFS;
   packagesWithRightPlatforms = nyxUtils.setAttrsPlatforms supportedPlatforms packagesWithoutUpdateScript;
 
