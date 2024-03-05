@@ -1,15 +1,15 @@
 {
-  "packageVersion": "11.9.0",
+  "packageVersion": "11.10.5",
   "common-firedragon": {
-    "rev": "9b8eb0fed742299a9946bcd9246c76fcd53a9b45",
-    "hash": "sha256-JXFrDKYzmnasFXkQMQOIbxbCmKtnatK9kcuyhHn/uHw="
+    "rev": "6f4b1b0689f120b85c0123a86593db83cdddb3f6",
+    "hash": "sha256-IYIxb4MQzWcp7wMIaYE/Le5Nve5jHUZiBuRv034PmHA="
   },
   "settings-firedragon": {
-    "rev": "8b235a8a102a78a023d670470807c53e41b32ae8",
-    "hash": "sha256-BPOWdSVjmqrikCzOGa3ecPVS6y4Y/BEyn5YUrQTYl98="
+    "rev": "11e0c235803ddb6cc7eaa5e69ce2151f77fb64e6",
+    "hash": "sha256-l6zjVGZEDRG3eOCi+bKZ+GliscJ1v2O5rwKRj3NNrys="
   },
   "floorp": {
-    "rev": "v11.9.0",
-    "hash": "sha256-Mk/5bkaSLQYFFGhCSjVho8CUilZSYDGarnIt4Wg9/6g="
+    "rev": "v11.10.5",
+    "hash": "sha256-uKgN74xn0v86E/YfqbJNnMIR3gS+3dhdgLJ5VUerurQ="
   }
 }
