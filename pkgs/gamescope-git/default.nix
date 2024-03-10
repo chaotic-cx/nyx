@@ -19,6 +19,6 @@ gitOverride {
   withUpdateScript = !isWSI;
 
   postOverride = prevAttrs: {
-    buildInputs = with final; [ seatd xwayland ] ++ (with xorg; [ xcbutilwm xcbutilerrors ]) ++ prevAttrs.buildInputs;
+    buildInputs = with final; [ seatd xwayland libdecor ] ++ (with xorg; [ xcbutilwm xcbutilerrors ]) ++ prevAttrs.buildInputs;
   };
 }
