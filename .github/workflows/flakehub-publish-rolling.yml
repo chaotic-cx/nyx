@@ -20,7 +20,7 @@ jobs:
             accept-flake-config = true
             sandbox-fallback = false
           install_options: --daemon
-          install_url: https://releases.nixos.org/nix/nix-2.19.2/install
+          install_url: https://releases.nixos.org/nix/nix-2.20.5/install
       - uses: "actions/checkout@v4"
       - name: Update Nix
         run : nix profile install .#nix-flake-schemas_git

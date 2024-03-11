@@ -37,7 +37,7 @@ jobs:
             sandbox-fallback = false
             system-features = big-parallel gccarch-x86-64-v3
           install_options: --daemon
-          install_url: https://releases.nixos.org/nix/nix-2.19.2/install
+          install_url: https://releases.nixos.org/nix/nix-2.20.5/install
       - name: Checkout
         uses: actions/checkout@v4
       - name: Configure sandboxing
