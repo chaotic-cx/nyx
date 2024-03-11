@@ -22,7 +22,7 @@ jobs:
     steps:
       # identical to build.yml
       - name: Install Nix
-        uses: cachix/install-nix-action@v25
+        uses: cachix/install-nix-action@v26
         with:
           extra_nix_config: |
             accept-flake-config = true
