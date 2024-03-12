@@ -73,12 +73,12 @@
         "owner": "girlbossceo",
         "repo": "conduwuit",
         "rev": "e888a0a745ac979abe6a687ff24b8c5e7b7b79ed",
-        "type": "gitlab"
+        "type": "github"
       },
       "original": {
         "owner": "girlbossceo",
         "repo": "conduwuit",
-        "type": "gitlab"
+        "type": "github"
       }
     },
     "crane": {
