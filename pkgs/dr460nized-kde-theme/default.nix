@@ -58,7 +58,7 @@ stdenvNoCC.mkDerivation rec {
     inherit pname;
     nyxKey = "dr460nized-kde-theme";
     versionPath = "pkgs/dr460nized-kde-theme/version.json";
-    fetchLatestRev = callPackage ../../shared/gitlab-rev-fetcher.nix { } "master" srcMeta;
+    fetchLatestRev = callPackage ../../shared/gitlab-rev-fetcher.nix { } "main" srcMeta;
     gitUrl = src.gitRepoUrl;
   };
 
