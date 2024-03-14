@@ -44,7 +44,6 @@ let
     ++ schedPatches
     ++ lib.optional (cachyConfig.cpuSched == "hardened") "${patches-src}/${major}/misc/0001-hardened.patch"
     ++ lib.optional cachyConfig.withBCacheFSPatch "${patches-src}/${major}/misc/0001-bcachefs.patch"
-    ++ lib.optional cachyConfig.withHDRPatch "${patches-src}/${major}/misc/0001-amd-hdr.patch"
     ++ lib.optional cachyConfig.withNTSync "${patches-src}/${major}/misc/0001-ntsync.patch"
     ++ [ ./0001-Add-extra-version-CachyOS.patch ];
 

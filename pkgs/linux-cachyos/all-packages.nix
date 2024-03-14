@@ -50,7 +50,6 @@ in
     hugePages = "madvise";
     withDAMON = true;
     withNTSync = false;
-    withHDRPatch = false;
     description = "Linux EEVDF scheduler Kernel by CachyOS targeted for Servers";
   };
 
@@ -60,7 +59,13 @@ in
     cpuSched = "hardened";
 
     withNTSync = false;
-    withHDRPatch = false;
+
+    versions = mainVersions // {
+      linux = {
+        inherit (final.linux_6_7) version;
+        hash = final.linux_6_7.src.outputHash;
+      };
+    };
   };
 
   zfs = final.zfs_unstable.overrideAttrs (prevAttrs: {
