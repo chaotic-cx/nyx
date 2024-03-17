@@ -19,7 +19,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.scx ];
+    environment.systemPackages = [ cfg.package ];
 
     systemd.services.scx = {
       wantedBy = [ "multi-user.target" ];
