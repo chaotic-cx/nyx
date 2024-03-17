@@ -44,6 +44,7 @@ let
     ++ schedPatches
     ++ lib.optional (cachyConfig.cpuSched == "hardened") "${patches-src}/${major}/misc/0001-hardened.patch"
     ++ lib.optional cachyConfig.withBCacheFSPatch "${patches-src}/${major}/misc/0001-bcachefs.patch"
+    ++ lib.optional cachyConfig.withHDR ./linux-amd-private-color-kconfig.patch
     ++ lib.optional cachyConfig.withNTSync "${patches-src}/${major}/misc/0001-ntsync.patch"
     ++ [ ./0001-Add-extra-version-CachyOS.patch ];
 
@@ -92,6 +93,7 @@ let
     ++ hugePagesConfig
     ++ damonConfig
     ++ ntSyncConfig
+    ++ hdrConfig
     ++ disableDebug
 
     #_use_auto_optimization, defaults to "y" [but GENERIC to ""]
@@ -171,6 +173,9 @@ let
 
   # _ntsync, defaults to empty
   ntSyncConfig = lib.optionals cachyConfig.withNTSync [ "-m NTSYNC" ];
+
+  # custom made
+  hdrConfig = lib.optionals cachyConfig.withHDR [ "-e AMD_PRIVATE_COLOR" ];
 
   # https://github.com/CachyOS/linux-cachyos/issues/187
   disableDebug =
