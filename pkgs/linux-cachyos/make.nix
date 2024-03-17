@@ -18,6 +18,7 @@
 , withDAMON ? false
 , withNTSync ? true
 , withBCacheFSPatch ? false
+, withHDR ? true
 , withoutDebug ? false
 , description ? "Linux EEVDF-BORE scheduler Kernel by CachyOS with other patches and improvements"
 , withUpdateScript ? false
@@ -36,6 +37,7 @@ let
       withDAMON
       withNTSync
       withBCacheFSPatch
+      withHDR
       withoutDebug
       description
       withUpdateScript;
