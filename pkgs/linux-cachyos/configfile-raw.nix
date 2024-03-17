@@ -211,7 +211,7 @@ stdenv.mkDerivation {
   '';
 
   buildPhase = ''
-    ${makeEnv} defconfig
+    ${makeEnv} olddefconfig
     patchShebangs scripts/config
     scripts/config ${lib.concatStringsSep " " pkgbuildConfig}
   '';
