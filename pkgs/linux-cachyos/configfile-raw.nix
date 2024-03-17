@@ -206,11 +206,8 @@ stdenv.mkDerivation {
   name = "linux-cachyos-config";
   nativeBuildInputs = [ flex bison perl ];
 
-  preparePhase = ''
-    cp "${config-src}/${cachyConfig.taste}/config" ".config"
-  '';
-
   buildPhase = ''
+    cp "${config-src}/${cachyConfig.taste}/config" ".config"
     ${makeEnv} olddefconfig
     patchShebangs scripts/config
     scripts/config ${lib.concatStringsSep " " pkgbuildConfig}
