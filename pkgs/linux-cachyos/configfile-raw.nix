@@ -212,7 +212,6 @@ stdenv.mkDerivation {
 
   buildPhase = ''
     ${makeEnv} defconfig
-    cp "${config-src}/${cachyConfig.taste}/config" ".config"
     patchShebangs scripts/config
     scripts/config ${lib.concatStringsSep " " pkgbuildConfig}
   '';
