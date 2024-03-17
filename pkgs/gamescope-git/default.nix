@@ -20,5 +20,12 @@ gitOverride {
 
   postOverride = prevAttrs: {
     buildInputs = with final; [ seatd xwayland libdecor ] ++ (with xorg; [ xcbutilwm xcbutilerrors ]) ++ prevAttrs.buildInputs;
+
+    patches = with final; prevAttrs.patches ++ [
+      (fetchpatch2 {
+        url = "https://github.com/ValveSoftware/gamescope/commit/85432af61b779a02b636fdc29d98aba5e89fcff7.patch";
+        hash = "sha256-XmrozomRB0adizdZPH9yK9SOA02XrABl6DWciyNNQn0=";
+      })
+    ];
   };
 }
