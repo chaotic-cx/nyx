@@ -165,11 +165,13 @@ We do this automatically, so we can gracefully update the cache's address and ke
 
 <h3 id="using-linux-cachyos-with-sched-ext">Using linux-cachyos with sched-ext</h3>
 
+<p> Since sched-ext packages have been added to `linux-chachyos`, you can just use that kernel. </p>
+
 <p>First, add this to your configuration:</p>
 
 <pre lang="nix"><code class="language-nix">
 {
-  boot.kernelPackages = pkgs.linuxPackages_cachyos-sched-ext;
+  boot.kernelPackages = pkgs.linuxPackages_cachyos;
   environment.systemPackages =  [ pkgs.scx ];
 }
 </code></pre>
