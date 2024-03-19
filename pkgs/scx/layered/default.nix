@@ -4,7 +4,7 @@
 , pkg-config
 , elfutils
 , zlib
-, llvmPackages_16
+, llvmPackages
 , scx-common
 }:
 
@@ -16,9 +16,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoLock.lockFile = ./Cargo.lock;
 
-  nativeBuildInputs = [ pkg-config llvmPackages_16.clang ];
+  nativeBuildInputs = [ pkg-config llvmPackages.clang ];
   buildInputs = [ elfutils zlib ];
-  LIBCLANG_PATH = "${llvmPackages_16.libclang.lib}/lib";
+  LIBCLANG_PATH = "${llvmPackages.libclang.lib}/lib";
 
   postPatch = ''
     ln -s ${./Cargo.lock} scheds/rust/scx_layered/Cargo.lock

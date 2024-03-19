@@ -3,6 +3,7 @@
 , writeShellScriptBin
 , scx-common
 , scx-rusty
+, scx-lavd
 , scx-layered
 , scx-rustland
 , pkg-config
@@ -18,6 +19,10 @@ let
   fakeCargo = writeShellScriptBin "cargo" ''
     set -e
     if [ ''${3:-} = '--target-dir=rust/scx_utils' ]; then
+      exit 0
+    elif [ ''${3:-} = '--target-dir=scheds/rust/scx_lavd' ]; then
+      mkdir -p /build/source/build/scheds/rust/scx_lavd
+      cp -r ${scx-lavd} /build/source/build/scheds/rust/scx_lavd/release
       exit 0
     elif [ ''${3:-} = '--target-dir=scheds/rust/scx_layered' ]; then
       mkdir -p /build/source/build/scheds/rust/scx_layered
@@ -42,6 +47,7 @@ llvmPackages.stdenv.mkDerivation {
   postPatch = ''
     cp -r ${scx-rusty} ./scheds/rust/scx_rusty/release
     cp -r ${scx-layered} ./scheds/rust/scx_layered/release
+    cp -r ${scx-lavd} ./scheds/rust/scx_lavd/release
     cp -r ${scx-rustland} ./scheds/rust/scx_rustland/release
     patchShebangs ./meson-scripts
   '';
@@ -69,7 +75,7 @@ llvmPackages.stdenv.mkDerivation {
   dontStrip = true;
 
   passthru = {
-    inherit scx-common scx-rusty scx-layered scx-rustland;
+    inherit scx-common scx-rusty scx-lavd scx-layered scx-rustland;
   };
 
   meta = with lib; {
