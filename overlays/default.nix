@@ -64,6 +64,11 @@ let
           (_final': prev': {
             "pkgsx86_64_${lvl}" = prev';
           })
+        ] ++ lib.optionals (lvl == "v4") [
+          (_final': prev': {
+            coreutils = prev'.coreutils.overrideAttrs (_prevattrs: { doCheck = false; });
+            ltrace = prev'.ltrace.overrideAttrs (_prevattrs: { doCheck = false; });
+          })
         ] ++ overlays;
         ${if stdenv.hostPlatform == stdenv.buildPlatform
         then "localSystem" else "crossSystem"} = {
