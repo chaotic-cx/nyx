@@ -5,6 +5,7 @@
 , stdenv
 , flex
 , bison
+, pahole
 , perl
 }:
 let
@@ -209,7 +210,8 @@ in
 stdenv.mkDerivation {
   inherit src patches;
   name = "linux-cachyos-config";
-  nativeBuildInputs = [ flex bison perl ];
+  # pahole is needed for "olddefconfig" to properly set "CONFIG_PAHOLE_VERSION"
+  nativeBuildInputs = [ flex bison perl pahole ];
 
   buildPhase = ''
     cp "${config-src}/${cachyConfig.taste}/config" ".config"
