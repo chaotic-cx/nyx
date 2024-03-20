@@ -3,10 +3,7 @@
 , fetchurl
 , lib
 , stdenv
-, flex
-, bison
-, pahole
-, perl
+, kernel
 }:
 let
   inherit (cachyConfig.versions.linux) version;
@@ -210,8 +207,7 @@ in
 stdenv.mkDerivation {
   inherit src patches;
   name = "linux-cachyos-config";
-  # pahole is needed for "olddefconfig" to properly set "CONFIG_PAHOLE_VERSION"
-  nativeBuildInputs = [ flex bison perl pahole ];
+  nativeBuildInputs = kernel.nativeBuildInputs ++ kernel.buildInputs;
 
   buildPhase = ''
     cp "${config-src}/${cachyConfig.taste}/config" ".config"
@@ -224,5 +220,8 @@ stdenv.mkDerivation {
     cp .config $out
   '';
 
-  passthru.kernelPatches = patches;
+  passthru = {
+    inherit cachyConfig makeEnv stdenv;
+    kernelPatches = patches;
+  };
 }
