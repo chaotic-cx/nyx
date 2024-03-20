@@ -253,6 +253,7 @@ in
     inherit scx-common;
     scx-lavd = final.callPackage ../pkgs/scx/lavd { inherit scx-common; };
     scx-layered = final.callPackage ../pkgs/scx/layered { inherit scx-common; };
+    scx-rlfifo = final.callPackage ../pkgs/scx/rlfifo { inherit scx-common; };
     scx-rustland = final.callPackage ../pkgs/scx/rustland { inherit scx-common; };
     scx-rusty = final.callPackage ../pkgs/scx/rusty { inherit scx-common; };
   };
