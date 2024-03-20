@@ -68,11 +68,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1710602287,
-        "narHash": "sha256-6hjHSfH3jfTDxD6hELL7RGoqv2pnyVAtS81H5Le6qkk=",
+        "lastModified": 1710821861,
+        "narHash": "sha256-Y+x3q7VkPpRok7Om2bwB2v1JDK/OCZmiFaBrIOJRojY=",
         "owner": "girlbossceo",
         "repo": "conduwuit",
-        "rev": "930bf3891c5a1279b23e16f3f10ce02c47b9b4cb",
+        "rev": "7809f0a6aee6900de59b720bf966d4a0315276bc",
         "type": "github"
       },
       "original": {
@@ -88,12 +88,12 @@
         ]
       },
       "locked": {
-        "lastModified": 1706473297,
-        "narHash": "sha256-FbxuYIrHaXpsYCLtI1gCNJhd+qvERjPibXL3ctmVaCs=",
-        "rev": "fe812ef0dad5bb93a56c599d318be176d080281d",
-        "revCount": 493,
+        "lastModified": 1710886643,
+        "narHash": "sha256-saTZuv9YeZ9COHPuj8oedGdUwJZcbQ3vyRqe7NVJMsQ=",
+        "rev": "5bace74e9a65165c918205cf67ad3977fe79c584",
+        "revCount": 525,
         "type": "tarball",
-        "url": "https://api.flakehub.com/f/pinned/ipetkov/crane/0.16.1/018d51be-1c17-765e-babc-c9e3bc8a5a14/source.tar.gz"
+        "url": "https://api.flakehub.com/f/pinned/ipetkov/crane/0.16.3/018e58cb-e73a-767a-a419-c5d172da29bb/source.tar.gz"
       },
       "original": {
         "type": "tarball",
@@ -195,11 +195,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1710404304,
-        "narHash": "sha256-tYsUAsZgt9TT7d+r1KRYHWyBRWedJ39SXNBVSCQVsGQ=",
+        "lastModified": 1710915975,
+        "narHash": "sha256-yOc0AD6ba7mbialNciZGzuSQLMo4CopoZGEfcUugA4I=",
         "owner": "Jovian-Experiments",
         "repo": "Jovian-NixOS",
-        "rev": "ffa51458aec4d53aac85b6dee1ee2ec29f4e953f",
+        "rev": "179d73fbe14c5bdb835d10bcc1c783466112bfa6",
         "type": "github"
       },
       "original": {
@@ -219,11 +219,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1710753783,
-        "narHash": "sha256-Av5QpYJvJYNefRCKhsOfSzTBaqQ2o+rj60/NVzGytOQ=",
+        "lastModified": 1710898409,
+        "narHash": "sha256-vk+NUeKBb8pyTkZvHVq7+or25fpnSeaaSBGHSGKXL44=",
         "owner": "martinvonz",
         "repo": "jj",
-        "rev": "54bb3b4114b1ee7fcd01e47553803f157c3635f5",
+        "rev": "4fbe6aecc95152eda44cb4b185ab369e23e1393f",
         "type": "github"
       },
       "original": {
@@ -251,11 +251,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1710525749,
-        "narHash": "sha256-LpV/mJLeShTPecVQZnIAb9PTCGziuMuGOJQUeAb2u/w=",
+        "lastModified": 1710858553,
+        "narHash": "sha256-CHSkAhNaWIMXlJX7skC2t5wr/qaNlMgWQsezNqr15mw=",
         "owner": "YaLTeR",
         "repo": "niri",
-        "rev": "0c57815fbf47c69af9ed11fa8ebc1b52158a3ba2",
+        "rev": "db49deb7fd2fbe805ceec060aa4dec65009ad7a7",
         "type": "github"
       },
       "original": {
