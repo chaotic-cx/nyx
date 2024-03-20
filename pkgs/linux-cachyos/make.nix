@@ -48,7 +48,7 @@ let
   # - Then we NIXify it (in the update-script);
   # - Last state is importing the NIXified version for building.
   linuxConfigOriginal = callPackage ./configfile-raw.nix {
-    inherit cachyConfig stdenv;
+    inherit cachyConfig stdenv kernel;
   };
   linuxConfigTransformable = callPackage ./configfile-bake.nix {
     configfile = linuxConfigOriginal;

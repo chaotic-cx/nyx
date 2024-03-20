@@ -43,8 +43,6 @@ in
     features = {
       efiBootStub = true;
       ia32Emulation = true;
-      iwlwifi = true;
-      needsCifsUtils = true;
       netfilterRPFilter = true;
     };
     updateScript = null;
