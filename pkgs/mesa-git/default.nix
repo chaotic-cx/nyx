@@ -64,6 +64,7 @@ gitOverride (current: {
           "0001-dri-added-build-dependencies-for-systems-using-non-s.patch"
           "0002-util-Update-util-libdrm.h-stubs-to-allow-loader.c-to.patch"
           "0003-glx-fix-automatic-zink-fallback-loading-between-hw-a.patch"
+          "backport-radeon-crash-fix.patch"
         ]
         prevAttrs.patches
       )
