@@ -8,7 +8,7 @@ gitOverride {
   fetcher = "fetchFromGitHub";
   fetcherData = {
     owner = "DeterminateSystems";
-    repo = "nix";
+    repo = "nix-src";
   };
   ref = "flake-schemas";
 
