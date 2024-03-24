@@ -180,7 +180,13 @@ in
 
   linuxPackages_cachyos = cachyosPackages.cachyos;
   linuxPackages_cachyos-hardened = cachyosPackages.cachyos-hardened;
-  linuxPackages_cachyos-lto = cachyosPackages.cachyos-lto;
+  linuxPackages_cachyos-lto = cachyosPackages.cachyos-lto.extend (
+    lto_final: lto_prev: with linuxKernel.packages.linux_cachyos-lto; {
+      virtualbox = lto_prev.virtualbox.overrideAttrs (_prevattrs: { stdenv = pkgs.clangStdenv; });
+      zenpower = lto_prev.zenpower.overrideAttrs (_prevattrs: { stdenv = pkgs.clangStdenv; });
+      zfs = lto_prev.zfs.overrideAttrs (_prevattrs: { stdenv = pkgs.clangStdenv; });
+    }
+  );
   linuxPackages_cachyos-sched-ext = cachyosPackages.cachyos-sched-ext;
   linuxPackages_cachyos-server = cachyosPackages.cachyos-server;
 
