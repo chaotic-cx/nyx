@@ -169,7 +169,6 @@
   "linuxPackages_cachyos-server.vendor-reset" = "/nix/store/yh0smmjm92dwlim4fnnw7rmsqm4j8ibm-vendor-reset-unstable-2021-02-16-6.8.1";
   "linuxPackages_cachyos-server.virtualboxGuestAdditions" = "/nix/store/5kzdhaszwb4cixlkywinffbc5b1knzbm-VirtualBox-GuestAdditions-7.0.14-6.8.1";
   "linuxPackages_cachyos-server.vm-tools" = "/nix/store/52v376f1cram3fwy1jxxy69cln2w4liw-vm-tools-6.6.22";
-  "nix-flake-schemas_git" = "/nix/store/r816k3i3j229h1ys4bq3rb1h88q6z67f-nix-unstable-20240311143851-d76e5fb";
   "pkgsx86_64_v3-core.libsecret" = "/nix/store/b3i35cy1a58f7iyxgwy5jg63v66f81r8-libsecret-0.21.4";
   "pkgsx86_64_v3-core.links2" = "/nix/store/27gic086p540dzx8aa5b4d9czshrbs39-links2-2.29";
 }
