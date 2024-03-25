@@ -88,12 +88,12 @@
         ]
       },
       "locked": {
-        "lastModified": 1706473297,
-        "narHash": "sha256-FbxuYIrHaXpsYCLtI1gCNJhd+qvERjPibXL3ctmVaCs=",
-        "rev": "fe812ef0dad5bb93a56c599d318be176d080281d",
-        "revCount": 493,
+        "lastModified": 1710886643,
+        "narHash": "sha256-saTZuv9YeZ9COHPuj8oedGdUwJZcbQ3vyRqe7NVJMsQ=",
+        "rev": "5bace74e9a65165c918205cf67ad3977fe79c584",
+        "revCount": 525,
         "type": "tarball",
-        "url": "https://api.flakehub.com/f/pinned/ipetkov/crane/0.16.1/018d51be-1c17-765e-babc-c9e3bc8a5a14/source.tar.gz"
+        "url": "https://api.flakehub.com/f/pinned/ipetkov/crane/0.16.3/018e58cb-e73a-767a-a419-c5d172da29bb/source.tar.gz"
       },
       "original": {
         "type": "tarball",
@@ -219,11 +219,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1711264826,
-        "narHash": "sha256-cq8EGJZ4r5QOHq2/olyLLlFPL2EC+ld4WluE66e8cTo=",
+        "lastModified": 1711332928,
+        "narHash": "sha256-VSqMvQR22wn0ySB4mvDqNnrOl43cBJc4vkPAk9YEPoQ=",
         "owner": "martinvonz",
         "repo": "jj",
-        "rev": "f312307cbfd588b6439b5311b230543b681b50e9",
+        "rev": "15ff7dfd4836d1d6d9fad0a91e06dea2b3dea58d",
         "type": "github"
       },
       "original": {
