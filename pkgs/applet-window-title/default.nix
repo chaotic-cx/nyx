@@ -4,13 +4,13 @@
 }:
 stdenvNoCC.mkDerivation rec {
   pname = "applet-window-title";
-  version = "0.3";
+  version = "0.5";
 
   src = fetchFromGitHub {
     owner = "dhruv8sh";
     repo = "plasma6-window-title-applet";
     rev = "v${version}";
-    hash = "sha256-A6dTBX4TYNbquiVhFMz7Q19JNOVH7HuyhkeVm5srv34=";
+    hash = "sha256-p10sHXsuAgbeOaTAYysxnkOwz3Vlh6Bl8S5lGHMvads=";
   };
 
   propagatedBuildInputs = [ ];
