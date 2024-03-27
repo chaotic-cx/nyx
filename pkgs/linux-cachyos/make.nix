@@ -23,6 +23,7 @@
 , description ? "Linux EEVDF-BORE scheduler Kernel by CachyOS with other patches and improvements"
 , withUpdateScript ? false
 , zfs-source
+, packagesExtend ? null
 }:
 
 let
@@ -75,8 +76,10 @@ let
     };
 
   basePackages = linuxPackagesFor kernel;
-  packagesWithZFS = removeAttrs (basePackages.extend addZFS) [ "zfs" "zfs_2_1" "zfs_2_2" "zfs_unstable" ];
-  packagesWithoutUpdateScript = nyxUtils.dropAttrsUpdateScript packagesWithZFS;
+  packagesWithZFS = basePackages.extend addZFS;
+  packagesWithExtend = if packagesExtend == null then packagesWithZFS else packagesWithZFS.extend (packagesExtend kernel);
+  packagesWithoutZFS = removeAttrs packagesWithExtend [ "zfs" "zfs_2_1" "zfs_2_2" "zfs_unstable" ];
+  packagesWithoutUpdateScript = nyxUtils.dropAttrsUpdateScript packagesWithoutZFS;
   packagesWithRightPlatforms = nyxUtils.setAttrsPlatforms supportedPlatforms packagesWithoutUpdateScript;
 
   supportedPlatforms = [ (with lib.systems.inspect.patterns; isx86_64 // isLinux) "x86_64-linux" ];

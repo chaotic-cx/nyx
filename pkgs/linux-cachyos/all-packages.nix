@@ -1,7 +1,7 @@
-{ final, ... }:
+{ final, nyxUtils, ... }:
 
 let
-  inherit (final.lib.trivial) importJSON;
+  inherit (final.lib.trivial) importJSON pipe;
 
   # CachyOS repeating stuff.
   mainVersions = importJSON ./versions.json;
@@ -16,6 +16,39 @@ let
     repo = "zfs";
     inherit (mainVersions.zfs) rev hash;
   };
+
+  llvmModule = kernel: prevModule:
+    nyxUtils.multiOverride prevModule { stdenv = stdenvLLVM; } (prevAttrs:
+      let
+        tmpPath = "/build/lto_kernel";
+        fixKernelBuild = builtins.replaceStrings [ "${kernel.dev}" ] [ tmpPath ];
+        mapFixKernelBuild = builtins.map fixKernelBuild;
+
+        filteredMakeFlags =  mapFixKernelBuild (prevAttrs.makeFlags or []);
+
+        fixAttrList = k: attrs:
+          if prevAttrs ? "${k}"
+          then attrs // { "${k}" = mapFixKernelBuild prevAttrs."${k}"; }
+          else attrs;
+
+        fixAttrString = k: attrs:
+          if prevAttrs ? "${k}"
+          then attrs // { "${k}" = fixKernelBuild prevAttrs."${k}"; }
+          else attrs;
+      in
+      pipe
+        {
+          patchPhase = ''
+            cp -r ${kernel.dev} ${tmpPath}
+            chmod -R +w ${tmpPath}
+          '' + (prevAttrs.patchPhase or "");
+          makeFlags = filteredMakeFlags ++ [ "LLVM=1" "LLVM_IAS=1" ];
+        }
+        [
+          (fixAttrList "configureFlags")
+          (fixAttrString "KERN_DIR")
+        ]
+    );
 in
 {
   inherit mainVersions mkCachyKernel;
@@ -35,6 +68,12 @@ in
     useLTO = "thin";
 
     description = "Linux EEVDF-BORE scheduler Kernel by CachyOS built with LLVM and Thin LTO";
+
+    packagesExtend = kernel: _finalModules: builtins.mapAttrs (k: v:
+      if builtins.elem k [ "zenpower" "v4l2loopback" "zfs_cachyos" "virtualbox" ]
+      then llvmModule kernel v
+      else v
+    );
   };
 
   cachyos-sched-ext = throw "\"sched-ext\" patches were merged with \"cachyos\" flavor.";
