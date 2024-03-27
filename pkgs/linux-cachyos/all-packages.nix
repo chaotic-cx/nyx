@@ -1,4 +1,4 @@
-{ final, ... }:
+{ final, ... }@inputs:
 
 let
   inherit (final.lib.trivial) importJSON;
@@ -16,6 +16,8 @@ let
     repo = "zfs";
     inherit (mainVersions.zfs) rev hash;
   };
+
+  llvmModule = import ./llvm-module-overlay.nix inputs stdenvLLVM;
 in
 {
   inherit mainVersions mkCachyKernel;
@@ -35,6 +37,12 @@ in
     useLTO = "thin";
 
     description = "Linux EEVDF-BORE scheduler Kernel by CachyOS built with LLVM and Thin LTO";
+
+    packagesExtend = kernel: _finalModules: builtins.mapAttrs (k: v:
+      if builtins.elem k [ "zenpower" "v4l2loopback" "zfs_cachyos" "virtualbox" ]
+      then llvmModule kernel v
+      else v
+    );
   };
 
   cachyos-sched-ext = throw "\"sched-ext\" patches were merged with \"cachyos\" flavor.";
