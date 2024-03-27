@@ -1,7 +1,7 @@
-{ final, nyxUtils, ... }:
+{ final, ... }@inputs:
 
 let
-  inherit (final.lib.trivial) importJSON pipe;
+  inherit (final.lib.trivial) importJSON;
 
   # CachyOS repeating stuff.
   mainVersions = importJSON ./versions.json;
@@ -17,38 +17,7 @@ let
     inherit (mainVersions.zfs) rev hash;
   };
 
-  llvmModule = kernel: prevModule:
-    nyxUtils.multiOverride prevModule { stdenv = stdenvLLVM; } (prevAttrs:
-      let
-        tmpPath = "/build/lto_kernel";
-        fixKernelBuild = builtins.replaceStrings [ "${kernel.dev}" ] [ tmpPath ];
-        mapFixKernelBuild = builtins.map fixKernelBuild;
-
-        filteredMakeFlags =  mapFixKernelBuild (prevAttrs.makeFlags or []);
-
-        fixAttrList = k: attrs:
-          if prevAttrs ? "${k}"
-          then attrs // { "${k}" = mapFixKernelBuild prevAttrs."${k}"; }
-          else attrs;
-
-        fixAttrString = k: attrs:
-          if prevAttrs ? "${k}"
-          then attrs // { "${k}" = fixKernelBuild prevAttrs."${k}"; }
-          else attrs;
-      in
-      pipe
-        {
-          patchPhase = ''
-            cp -r ${kernel.dev} ${tmpPath}
-            chmod -R +w ${tmpPath}
-          '' + (prevAttrs.patchPhase or "");
-          makeFlags = filteredMakeFlags ++ [ "LLVM=1" "LLVM_IAS=1" ];
-        }
-        [
-          (fixAttrList "configureFlags")
-          (fixAttrString "KERN_DIR")
-        ]
-    );
+  llvmModule = import ./llvm-module-overlay.nix inputs;
 in
 {
   inherit mainVersions mkCachyKernel;
