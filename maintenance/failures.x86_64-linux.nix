@@ -125,12 +125,10 @@
   "linuxPackages_cachyos-lto.trelay" = "/nix/store/qmpjz5hrmz44qls4ax4vzlk332yyykjk-trelay-22.03.5-6.8.1";
   "linuxPackages_cachyos-lto.turbostat" = "/nix/store/2r29lcdpb5vsra42mjlgpk08kz29xw64-turbostat-6.8.1";
   "linuxPackages_cachyos-lto.tuxedo-keyboard" = "/nix/store/cms3w5ijlqcghz74jp9x466awmkky16s-tuxedo-keyboard-6.8.1-3.2.14";
-  "linuxPackages_cachyos-lto.v4l2loopback" = "/nix/store/77kf0i1jx2ak5a42ppsilbmi4r5cfgyk-v4l2loopback-0.12.7-unstable-2024-02-12-6.8.1";
   "linuxPackages_cachyos-lto.veikk-linux-driver" = "/nix/store/2m0shf1qzmjjj4zkqq9xm2za52pdgc2f-veikk-linux-driver-2.0";
   "linuxPackages_cachyos-lto.vendor-reset" = "/nix/store/sdilha6cbsj3d72yps9ncq41v17xmcjw-vendor-reset-unstable-2021-02-16-6.8.1";
   "linuxPackages_cachyos-lto.vhba" = "/nix/store/62da0rqmf4fs4ijsrl483g8ybmbpa2i1-vhba-20240202";
   "linuxPackages_cachyos-lto.virtio_vmmci" = "/nix/store/9267j9317378j78xw3p892h9jhxmvrar-virtio_vmmci";
-  "linuxPackages_cachyos-lto.virtualbox" = "/nix/store/0szp43d7ppgmvip7xah98hrc733pigpl-virtualbox-modules-7.0.14-6.8.1";
   "linuxPackages_cachyos-lto.virtualboxGuestAdditions" = "/nix/store/wkgpgb354xx8ckf05f3rsmyniqyyrs4n-VirtualBox-GuestAdditions-7.0.14-6.8.1";
   "linuxPackages_cachyos-lto.vm-tools" = "/nix/store/19xlcd8y5dkbyysjipanfv7vj3jlrr8k-vm-tools-6.6.22";
   "linuxPackages_cachyos-lto.vmm_clock" = "/nix/store/rda8qa7h8l1ds5hgpxiw56vfqdaf1nbk-vmm_clock-0.2.0";
@@ -138,8 +136,7 @@
   "linuxPackages_cachyos-lto.x86_energy_perf_policy" = "/nix/store/bfrfhh8fbjw2kbrib0ccywc0pvawpg97-x86_energy_perf_policy-6.8.1";
   "linuxPackages_cachyos-lto.xone" = "/nix/store/kcik8ykj9kl7hhrbdxgmyng26nwj8hqn-xone-0.3-unstable-2024-03-16";
   "linuxPackages_cachyos-lto.xpadneo" = "/nix/store/fvqnn3bangml6fn778smxwaphkifna0s-xpadneo-0.9.6";
-  "linuxPackages_cachyos-lto.zenpower" = "/nix/store/7pf13r0bv355dljbgbcy21laasjynq07-zenpower-unstable-2022-11-04";
-  "linuxPackages_cachyos-lto.zfs_cachyos" = "/nix/store/y9kj9ajpzqasfw63b5jmq13asbb8infa-zfs-kernel-2.2.3-unstable-2024-03-21-6.8.1";
+  "linuxPackages_cachyos-lto.zfs_cachyos" = "/nix/store/jjrnpr1dsgmhq38qwk20vr3y5ycpnxlr-zfs-kernel-2.2.3-unstable-2024-03-21-6.8.1";
   "linuxPackages_cachyos-server.cryptodev" = "/nix/store/vnggadhndwfzq0d7rww9z6vhzywdqf0a-cryptodev-linux-1.13-6.8.1";
   "linuxPackages_cachyos-server.ddcci-driver" = "/nix/store/7ym1nhrjlmkklizhy3g3ya5pkgsdkp7n-ddcci-driver-6.8.1-0.4.4";
   "linuxPackages_cachyos-server.ena" = "/nix/store/m394i59r7w29nasl82sm2695kp3bp0im-ena-2.8.9-6.8.1";
