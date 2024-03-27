@@ -50,7 +50,6 @@ let
 
   # Too much variations
   cachyosPackages = callOverride ../pkgs/linux-cachyos/all-packages.nix { };
-  stdenvLLVM = final.callPackage ./stdenv-llvm.nix { };
 
   # Microarch stuff
   makeMicroarch = lvl: with final;

@@ -17,7 +17,7 @@ let
     inherit (mainVersions.zfs) rev hash;
   };
 
-  llvmModule = import ./llvm-module-overlay.nix inputs;
+  llvmModule = import ./llvm-module-overlay.nix inputs stdenvLLVM;
 in
 {
   inherit mainVersions mkCachyKernel;

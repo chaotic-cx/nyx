@@ -1,4 +1,4 @@
-{ final, nyxUtils, ... }: kernel: prevModule:
+{ final, nyxUtils, ... }: stdenvLLVM: kernel: prevModule:
 
 nyxUtils.multiOverride prevModule { stdenv = stdenvLLVM; } (prevAttrs:
 let
