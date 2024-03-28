@@ -23,6 +23,7 @@ rec {
     "--disable-webspeech"
     "--enable-bundled-fonts"
     "--enable-jxl"
+    "--enable-private-components"
     "--enable-proxy-bypass-protection"
     "--with-app-basename=FireDragon"
     "--with-app-name=firedragon"
