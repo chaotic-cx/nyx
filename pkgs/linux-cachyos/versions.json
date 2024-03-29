@@ -3,18 +3,18 @@
   "suffix": "-cachyos",
   "_linux": "pkgver from config's PKGBUILD",
   "linux": {
-    "version": "6.8.1",
-    "hash": "sha256-jQyJNuMUCg+99RGtep8hEhWY82VnQ4mPR7uQUtN8/2g="
+    "version": "6.8.2",
+    "hash": "sha256-msMi2FvPmKBGZ9kp9cJmaxW9WMbC1o3VEscqy87QfQQ="
   },
   "_config": "latest commit from https://github.com/CachyOS/linux-cachyos/commits/master/linux-cachyos",
   "config": {
-    "rev": "41787ef66db219d860fb71c84f474947b2b8b820",
-    "hash": "sha256-e87KPEuwioDB0EHA2r/uRlevj+GN62TYF+/i8zTxuAU="
+    "rev": "61731469188f6c8bd82508334254223077bf66df",
+    "hash": "sha256-1bpqkQYfqddBlz0fkJQiKZYCH4u+PL6UUhuucAQt8+k="
   },
   "_patches": "latest commit from https://github.com/CachyOS/kernel-patches/commits/master/x.y",
   "patches": {
-    "rev": "bbe6e55b8b9158910e30cb2515075ec464d401d8",
-    "hash": "sha256-ssmDs3BWORPXAQc88d6B8WF62fzXwKLF8nL1bc5J/5w="
+    "rev": "5bfa847bc22e66fbafa3fcb05d0dc8ed3211bc50",
+    "hash": "sha256-5F84jnsPGSovsEVfsCglHQjlS7v/fuE25T1I0BriWIw="
   },
   "_zfs": "search for `git+https://github.com/cachyos/zfs.git` in config's PKGBUILD",
   "zfs": {
