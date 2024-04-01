@@ -22,19 +22,25 @@ let
 in
 gitOverride (current: {
   newInputs =
-    if is32bit then with final64; {
-      libdrm = libdrm32_git;
-      enableOpenCL = true; # intel-clc is required even without intel-rt now
-      vulkanDrivers = [ "all" ];
-    } else with final; {
-      libdrm = libdrm_git;
+    {
+      directx-headers = final.directx-headers.overrideAttrs (_prevDX: {
+        src = final.fetchFromGitHub {
+          owner = "microsoft";
+          repo = "DirectX-Headers";
+          rev = "v1.613.1";
+          hash = "sha256-f7E1vsrPbaCj8FllzdxEHgFuzVqHoh3RSSIm5Vr1GhM=";
+        };
+      });
       # We need to mention those besides "all", because of the usage of nix's `lib.elem` in
       # the original derivation.
       galliumDrivers = [ "all" "zink" "d3d12" "i915" ];
       vulkanDrivers = [ "all" "microsoft-experimental" ];
-      # Instead, we enable the new option in `mesonFlags`
-      enablePatentEncumberedCodecs = false;
-    };
+      enableOpenCL = true; # intel-clc is required even without intel-rt now
+    } // (if is32bit then with final64; {
+      libdrm = libdrm32_git;
+    } else with final; {
+      libdrm = libdrm_git;
+    });
 
   nyxKey = if is32bit then "mesa32_git" else "mesa_git";
   prev = prev.mesa;
@@ -55,7 +61,6 @@ gitOverride (current: {
       builtins.map
         (builtins.replaceStrings [ "virtio-experimental" ] [ "virtio" ])
         prevAttrs.mesonFlags
-      ++ final.lib.optional (!is32bit) "-D video-codecs=all"
       ++ final.lib.optional is32bit "-D intel-rt=disabled";
 
     patches =
