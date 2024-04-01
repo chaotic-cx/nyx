@@ -18,14 +18,12 @@
   "spirvHeaders": {
     "version": "1.3.280.0",
     "rev": "vulkan-sdk-#{version}",
-    "hash": "sha256-kyOAwe4R0FmeA9IIJF2eoZR+7g9LiGKaZ7FuIfkrXJ4=",
-    "badTag": "vulkan-sdk-1.3.268.0"
+    "hash": "sha256-kyOAwe4R0FmeA9IIJF2eoZR+7g9LiGKaZ7FuIfkrXJ4="
   },
   "spirvTools": {
     "version": "1.3.280.0",
     "rev": "vulkan-sdk-#{version}",
-    "hash": "sha256-WnlFr9M7OI4unCIxfmSkvcLqZFKhW4Qkbb4+xp8lSOo=",
-    "badTag": "v2023.4.rc2"
+    "hash": "sha256-WnlFr9M7OI4unCIxfmSkvcLqZFKhW4Qkbb4+xp8lSOo="
   },
   "vulkanHeaders": {
     "version": "1.3.281",
@@ -35,8 +33,7 @@
   "vulkanLoader": {
     "version": "1.3.281",
     "rev": "v#{version}",
-    "hash": "sha256-EhjBBhMkat3kG9cK9b9pju1VKmyhFNR/j1S8tCRTZjc=",
-    "badTag": "vulkan-tmp-1.3.266"
+    "hash": "sha256-EhjBBhMkat3kG9cK9b9pju1VKmyhFNR/j1S8tCRTZjc="
   },
   "vulkanTools": {
     "version": "unstable-20240318-2225f5c30",
@@ -52,8 +49,7 @@
   "vulkanExtensionLayer": {
     "version": "1.3.281",
     "rev": "v#{version}",
-    "hash": "sha256-sSMcW8LyJOQVfwevGsy5L3fHF3IaqhIUixTY7eNYHBY=",
-    "badTag": "v1.3.263"
+    "hash": "sha256-sSMcW8LyJOQVfwevGsy5L3fHF3IaqhIUixTY7eNYHBY="
   },
   "vulkanUtilityLibraries": {
     "version": "1.3.281",
@@ -63,7 +59,8 @@
   "vulkanValidationLayers": {
     "version": "1.3.281",
     "rev": "v#{version}",
-    "hash": "sha256-raA5Ih95YRR6IgSnRBHDplGVk7PVqqHz86spga5z8lU="
+    "hash": "sha256-raA5Ih95YRR6IgSnRBHDplGVk7PVqqHz86spga5z8lU=",
+    "badTag": "snapshot-2024wk13"
   },
   "volk": {
     "version": "1.3.280.0",
