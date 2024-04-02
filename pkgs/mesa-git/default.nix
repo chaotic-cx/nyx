@@ -31,6 +31,7 @@ gitOverride (current: {
           hash = "sha256-f7E1vsrPbaCj8FllzdxEHgFuzVqHoh3RSSIm5Vr1GhM=";
         };
       });
+      wayland-protocols = final64.wayland-protocols_git;
       # We need to mention those besides "all", because of the usage of nix's `lib.elem` in
       # the original derivation.
       galliumDrivers = [ "all" "zink" "d3d12" "i915" ];
