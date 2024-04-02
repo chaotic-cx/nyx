@@ -1,6 +1,6 @@
-{ final, prev, gitOverride, isWSI ? false, ... }:
+{ final, prev, gitOverride, nyxUtils, isWSI ? false, ... }:
 
-gitOverride {
+gitOverride (current: {
   newInputs = with final; {
     openvr = openvr_git;
     wlroots = wlroots_git.overrideAttrs (_wlrPrev: {
@@ -31,5 +31,14 @@ gitOverride {
     buildInputs = with final; [ seatd xwayland libdecor ] ++ (with xorg; [ xcbutilwm xcbutilerrors ]) ++ prevAttrs.buildInputs;
 
     patches = with final; prevAttrs.patches ++ [ ./6.8-color.patch ];
+
+    postPatch =
+      let shortRev = nyxUtils.shorter current.rev; in
+      prevAttrs.postPatch + ''
+        substituteInPlace layer/VkLayer_FROG_gamescope_wsi.cpp \
+          --replace-fail 'WSI] Surface' 'WSI ${shortRev}] Surface'
+        substituteInPlace src/main.cpp \
+          --replace-fail 'usage:' 'rev: ${shortRev}\nusage:'
+      '';
   };
-}
+})
