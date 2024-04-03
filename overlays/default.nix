@@ -215,8 +215,6 @@ in
 
   nix-flake-schemas_git = callOverride ../pkgs/nix-flake-schemas-git { };
 
-  nixfmt_rfc166 = callOverride ../pkgs/nixfmt-rfc166 { };
-
   nordvpn = final.callPackage ../pkgs/nordvpn { };
 
   nss_git = callOverride ../pkgs/nss-git { };
