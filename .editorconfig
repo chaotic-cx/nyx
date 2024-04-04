@@ -6,6 +6,6 @@ insert_final_newline = true
 trim_trailing_whitespace = true
 charset = utf-8
 
-[*.nix,*.toml,*.yml]
+[*.nix,*.toml,*.yml,*.sh]
 indent_size = 2
 indent_style = space
