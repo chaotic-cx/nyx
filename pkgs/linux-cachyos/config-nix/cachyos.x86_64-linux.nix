@@ -607,6 +607,8 @@
   "CONFIG_AS_SHA256_NI" = "y";
   "CONFIG_AS_TPAUSE" = "y";
   "CONFIG_AS_GFNI" = "y";
+  "CONFIG_AS_VAES" = "y";
+  "CONFIG_AS_VPCLMULQDQ" = "y";
   "CONFIG_AS_WRUSS" = "y";
   "CONFIG_HOTPLUG_SMT" = "y";
   "CONFIG_HOTPLUG_CORE_SYNC" = "y";

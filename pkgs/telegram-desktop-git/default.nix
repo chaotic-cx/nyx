@@ -9,7 +9,6 @@ gitOverride {
         tg-owt_git
       else
         realCall;
-    glibmm_2_68 = glibmm_git;
   };
 
   nyxKey = "telegram-desktop_git";
