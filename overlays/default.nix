@@ -52,8 +52,8 @@ let
   cachyosPackages = callOverride ../pkgs/linux-cachyos/all-packages.nix { };
 
   # Microarch stuff
-  makeMicroarch = lvl: with final;
-    if stdenv.hostPlatform.isx86 then import "${nixpkgs}"
+  makeMicroarchPkgs = cpuType: arch: with final;
+    import "${nixpkgs}"
       {
         config = final.config // nixpkgsExtraConfig;
         overlays = [
@@ -62,9 +62,13 @@ let
             libuv = prev'.libuv.overrideAttrs (_prevattrs: { doCheck = false; });
           })
           (_final': prev': {
-            "pkgsx86_64_${lvl}" = prev';
+            "pkgs${builtins.replaceStrings ["-"] ["_"] arch}" = prev';
           })
-        ] ++ lib.optionals (lvl == "v4") [
+        ] ++ lib.optionals
+          (builtins.elem arch [
+            "x86-64-v4"
+            "znver4"
+          ]) [
           (_final': prev': {
             coreutils = prev'.coreutils.overrideAttrs (_prevattrs: { doCheck = false; });
             ltrace = prev'.ltrace.overrideAttrs (_prevattrs: { doCheck = false; });
@@ -73,17 +77,16 @@ let
         ${if stdenv.hostPlatform == stdenv.buildPlatform
         then "localSystem" else "crossSystem"} = {
           parsed = stdenv.hostPlatform.parsed // {
-            cpu = lib.systems.parse.cpuTypes.x86_64;
+            cpu = lib.systems.parse.cpuTypes."${cpuType}";
           };
           gcc = stdenv.hostPlatform.gcc // {
-            arch = "x86-64-${lvl}";
+            inherit arch;
           };
         };
       } // {
       recurseForDerivations = false;
-      _description = "Nixpkgs + Chaotic_nyx packages built for the x86-64-${lvl} microarchitecture.";
-    }
-    else throw "x86_64_${lvl} package set can only be used with the x86 family.";
+      _description = "Nixpkgs + Chaotic_nyx packages built for the ${arch} microarchitecture.";
+    };
 
   # Common stuff for scx-schedulers
   scx-common = final.callPackage ../pkgs/scx/common.nix { };
@@ -226,11 +229,13 @@ in
 
   openvr_git = callOverride ../pkgs/openvr-git { };
 
-  pkgsx86_64_v2 = makeMicroarch "v2";
-  pkgsx86_64_v3 = makeMicroarch "v3";
-  pkgsx86_64_v4 = makeMicroarch "v4";
+  pkgsx86_64_v2 = makeMicroarchPkgs "x86_64" "x86-64-v2";
+  pkgsx86_64_v3 = makeMicroarchPkgs "x86_64" "x86-64-v3";
+  pkgsx86_64_v4 = makeMicroarchPkgs "x86_64" "x86-64-v4";
 
   pkgsx86_64_v3-core = dropAttrsUpdateScript (import ../shared/core-tier.nix final.pkgsx86_64_v3);
+
+  pkgsznver4 = makeMicroarchPkgs "x86_64" "znver4";
 
   proton-ge-custom = final.callPackage ../pkgs/proton-ge-custom {
     protonGeTitle = "Proton-GE";
