@@ -72,8 +72,8 @@ in
 
     versions = mainVersions // {
       linux = {
-        inherit (final.linux_6_7) version;
-        hash = final.linux_6_7.src.outputHash;
+        version = "6.7.12";
+        hash = "sha256:113rf3jqfpf3wcv637zbq5ww2hpaaf23y6dsmkds01l8jkipjabc";
       };
     };
   };
