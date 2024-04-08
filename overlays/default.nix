@@ -240,7 +240,7 @@ in
       (arch: _inferiors: makeMicroarchPkgs "x86_64" arch)
       (builtins.removeAttrs
         final.lib.systems.architectures.inferiors
-        [ "default" "armv5te "armv6" "armv7-a" "armv8-a" "mips32" "loongson2f" ]
+        [ "default" "armv5te" "armv6" "armv7-a" "armv8-a" "mips32" "loongson2f" ]
       )
     );
 
