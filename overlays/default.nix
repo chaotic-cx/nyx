@@ -242,7 +242,7 @@ in
         final.lib.systems.architectures.inferiors
         [ "default" "armv5te "armv6" "armv7-a" "armv8-a" "mips32" "loongson2f" ]
       )
-    )
+    );
 
   proton-ge-custom = final.callPackage ../pkgs/proton-ge-custom {
     protonGeTitle = "Proton-GE";
