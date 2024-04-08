@@ -236,13 +236,12 @@ in
   pkgsx86_64_v3-core = dropAttrsUpdateScript (import ../shared/core-tier.nix final.pkgsx86_64_v3);
 
   pkgsAMD64Microarchs =
-    (builtins.mapAttrs
+    builtins.mapAttrs
       (arch: _inferiors: makeMicroarchPkgs "x86_64" arch)
       (builtins.removeAttrs
         final.lib.systems.architectures.inferiors
         [ "default" "armv5te" "armv6" "armv7-a" "armv8-a" "mips32" "loongson2f" ]
-      )
-    );
+      );
 
   proton-ge-custom = final.callPackage ../pkgs/proton-ge-custom {
     protonGeTitle = "Proton-GE";
