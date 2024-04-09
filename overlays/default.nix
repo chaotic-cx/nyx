@@ -243,6 +243,8 @@ in
         [ "default" "armv5te" "armv6" "armv7-a" "armv8-a" "mips32" "loongson2f" ]
       );
 
+  plasma6-applet-window-buttons = callOverride ../pkgs/plasma6-applet-window-buttons { };
+
   proton-ge-custom = final.callPackage ../pkgs/proton-ge-custom {
     protonGeTitle = "Proton-GE";
     protonGeVersions = importJSON ../pkgs/proton-ge-custom/versions.json;
