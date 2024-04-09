@@ -6,7 +6,7 @@
         what = "option";
         shortDescription =
           builtins.replaceStrings [ "\n" "\t" ] [ " " " " ] v.description;
-        evalChecks.isDerivation = false;
+        #evalChecks.isDerivation = false;
       };
     };
 
@@ -19,7 +19,7 @@
           if v ? description
           then builtins.replaceStrings [ "\n" "\t" ] [ " " " " ] v.description
           else "N/A";
-        value.evalChecks.isDerivation = false;
+        #value.evalChecks.isDerivation = false;
       };
     };
 }

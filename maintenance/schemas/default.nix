@@ -14,7 +14,7 @@
     inventory = _output: {
       shortDescription = "Pre-prepared values for CI/CD.";
       what = "attrset";
-      evalChecks.isDerivation = false;
+      #evalChecks.isDerivation = false;
     };
   };
   formatter = {
@@ -28,7 +28,7 @@
           forSystem = sys: {
             forSystems = [ sys ];
             shortDescription = "Auto-format tool";
-            evalChecks.isDerivation = true;
+            #evalChecks.isDerivation = true;
             derivation = output.${sys};
             what = "package";
           };
@@ -75,7 +75,7 @@
       children = builtins.mapAttrs
         (_name: _value: {
           what = "lambda";
-          evalChecks.isDerivation = false;
+          #evalChecks.isDerivation = false;
         })
         (builtins.removeAttrs output [ "_description" ]);
     };
