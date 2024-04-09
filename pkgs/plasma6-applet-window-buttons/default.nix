@@ -5,7 +5,7 @@ let
     hash = "sha256-m9ePAVoOYDOHoSAU9/kyI4IAyMAkNIBsela7RWnwFuw=";
   };
 in
-prev.libsForQt5.applet-window-buttons.overrideAttrs (previousAttrs: {
+prev.libsForQt5.applet-window-buttons.overrideAttrs (_previousAttrs: {
   pname = "plasma6-applet-window-buttons";
 
   patches = [ patch-plasma6 ];

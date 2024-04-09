@@ -36,7 +36,7 @@ in
   config = lib.mkIf cfg.enable {
     services.xserver.windowManager.qtile.enable = true;
 
-    services.displayManager.sessionPackages = [ session ];
+    services.xserver.displayManager.sessionPackages = [ session ];
 
     environment.systemPackages = [ defaultRunner ];
   };
