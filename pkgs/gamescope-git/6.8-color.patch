@@ -1,18 +1,19 @@
-From 85432af61b779a02b636fdc29d98aba5e89fcff7 Mon Sep 17 00:00:00 2001
+From 6cecae6c2689a60d4366d450c40002c389eb49bf Mon Sep 17 00:00:00 2001
 From: Andrew O'Neil <andy@andyofniall.net>
 Date: Sat, 24 Feb 2024 11:40:08 +1100
 Subject: [PATCH] Update AMD color management for Linux 6.8
 
+Rebased-by: PedroHLC
 ---
- src/drm.cpp       | 258 ++++++++++++++++++++++++++--------------------
- src/drm_include.h |  76 +++++++-------
- 2 files changed, 188 insertions(+), 146 deletions(-)
+ src/drm.cpp       | 228 +++++++++++++++++++++++++++-------------------
+ src/drm_include.h |  76 +++++++++-------
+ 2 files changed, 173 insertions(+), 131 deletions(-)
 
 diff --git a/src/drm.cpp b/src/drm.cpp
-index 9420ccbe4..29b8d06f5 100644
+index ae699fe..65bb040 100644
 --- a/src/drm.cpp
 +++ b/src/drm.cpp
-@@ -148,15 +148,15 @@ namespace gamescope
+@@ -179,15 +179,15 @@ namespace gamescope
  			std::optional<CDRMAtomicProperty> rotation;
  			std::optional<CDRMAtomicProperty> COLOR_ENCODING;
  			std::optional<CDRMAtomicProperty> COLOR_RANGE;
@@ -37,7 +38,7 @@ index 9420ccbe4..29b8d06f5 100644
  			std::optional<CDRMAtomicProperty> DUMMY_END;
  		};
  		      PlaneProperties &GetProperties()       { return m_Props; }
-@@ -187,7 +187,7 @@ namespace gamescope
+@@ -218,7 +218,7 @@ namespace gamescope
  			std::optional<CDRMAtomicProperty> CTM;
  			std::optional<CDRMAtomicProperty> VRR_ENABLED;
  			std::optional<CDRMAtomicProperty> OUT_FENCE_PTR;
@@ -46,81 +47,81 @@ index 9420ccbe4..29b8d06f5 100644
  			std::optional<CDRMAtomicProperty> DUMMY_END;
  		};
  		      CRTCProperties &GetProperties()       { return m_Props; }
-@@ -401,7 +401,7 @@ struct drm_t {
+@@ -428,7 +428,7 @@ struct drm_t {
  		uint32_t color_mgmt_serial;
  		std::shared_ptr<gamescope::BackendBlob> lut3d_id[ EOTF_Count ];
  		std::shared_ptr<gamescope::BackendBlob> shaperlut_id[ EOTF_Count ];
 -		drm_valve1_transfer_function output_tf = DRM_VALVE1_TRANSFER_FUNCTION_DEFAULT;
 +		amdgpu_transfer_function output_tf = AMDGPU_TRANSFER_FUNCTION_DEFAULT;
  	} current, pending;
-
- 	/* FBs in the atomic request, but not yet submitted to KMS */
-@@ -1287,8 +1287,8 @@ void finish_drm(struct drm_t *drm)
+ 
+ 	// FBs in the atomic request, but not yet submitted to KMS
+@@ -1288,8 +1288,8 @@ void finish_drm(struct drm_t *drm)
  		if ( pCRTC->GetProperties().OUT_FENCE_PTR )
  			pCRTC->GetProperties().OUT_FENCE_PTR->SetPendingValue( req, 0, true );
-
+ 
 -		if ( pCRTC->GetProperties().VALVE1_CRTC_REGAMMA_TF )
 -			pCRTC->GetProperties().VALVE1_CRTC_REGAMMA_TF->SetPendingValue( req, 0, true );
 +		if ( pCRTC->GetProperties().AMD_CRTC_REGAMMA_TF )
 +			pCRTC->GetProperties().AMD_CRTC_REGAMMA_TF->SetPendingValue( req, 0, true );
  	}
-
+ 
  	for ( std::unique_ptr< gamescope::CDRMPlane > &pPlane : drm->planes )
-@@ -1313,32 +1313,32 @@ void finish_drm(struct drm_t *drm)
+@@ -1315,32 +1315,32 @@ void finish_drm(struct drm_t *drm)
  		//if ( pPlane->GetProperties().zpos )
  		//	pPlane->GetProperties().zpos->SetPendingValue( req, , true );
-
+ 
 -		if ( pPlane->GetProperties().VALVE1_PLANE_DEGAMMA_TF )
 -			pPlane->GetProperties().VALVE1_PLANE_DEGAMMA_TF->SetPendingValue( req, DRM_VALVE1_TRANSFER_FUNCTION_DEFAULT, true );
 +		if ( pPlane->GetProperties().AMD_PLANE_DEGAMMA_TF )
 +			pPlane->GetProperties().AMD_PLANE_DEGAMMA_TF->SetPendingValue( req, AMDGPU_TRANSFER_FUNCTION_DEFAULT, true );
-
+ 
 -		if ( pPlane->GetProperties().VALVE1_PLANE_DEGAMMA_LUT )
 -			pPlane->GetProperties().VALVE1_PLANE_DEGAMMA_LUT->SetPendingValue( req, 0, true );
 +		if ( pPlane->GetProperties().AMD_PLANE_DEGAMMA_LUT )
 +			pPlane->GetProperties().AMD_PLANE_DEGAMMA_LUT->SetPendingValue( req, 0, true );
-
+ 
 -		if ( pPlane->GetProperties().VALVE1_PLANE_CTM )
 -			pPlane->GetProperties().VALVE1_PLANE_CTM->SetPendingValue( req, 0, true );
 +		if ( pPlane->GetProperties().AMD_PLANE_CTM )
 +			pPlane->GetProperties().AMD_PLANE_CTM->SetPendingValue( req, 0, true );
-
+ 
 -		if ( pPlane->GetProperties().VALVE1_PLANE_HDR_MULT )
 -			pPlane->GetProperties().VALVE1_PLANE_HDR_MULT->SetPendingValue( req, 0x100000000ULL, true );
 +		if ( pPlane->GetProperties().AMD_PLANE_HDR_MULT )
 +			pPlane->GetProperties().AMD_PLANE_HDR_MULT->SetPendingValue( req, 0x100000000ULL, true );
-
+ 
 -		if ( pPlane->GetProperties().VALVE1_PLANE_SHAPER_TF )
 -			pPlane->GetProperties().VALVE1_PLANE_SHAPER_TF->SetPendingValue( req, DRM_VALVE1_TRANSFER_FUNCTION_DEFAULT, true );
 +		if ( pPlane->GetProperties().AMD_PLANE_SHAPER_TF )
 +			pPlane->GetProperties().AMD_PLANE_SHAPER_TF->SetPendingValue( req, AMDGPU_TRANSFER_FUNCTION_DEFAULT, true );
-
+ 
 -		if ( pPlane->GetProperties().VALVE1_PLANE_SHAPER_LUT )
 -			pPlane->GetProperties().VALVE1_PLANE_SHAPER_LUT->SetPendingValue( req, 0, true );
 +		if ( pPlane->GetProperties().AMD_PLANE_SHAPER_LUT )
 +			pPlane->GetProperties().AMD_PLANE_SHAPER_LUT->SetPendingValue( req, 0, true );
-
+ 
 -		if ( pPlane->GetProperties().VALVE1_PLANE_LUT3D )
 -			pPlane->GetProperties().VALVE1_PLANE_LUT3D->SetPendingValue( req, 0, true );
 +		if ( pPlane->GetProperties().AMD_PLANE_LUT3D )
 +			pPlane->GetProperties().AMD_PLANE_LUT3D->SetPendingValue( req, 0, true );
-
+ 
 -		if ( pPlane->GetProperties().VALVE1_PLANE_BLEND_TF )
 -			pPlane->GetProperties().VALVE1_PLANE_BLEND_TF->SetPendingValue( req, DRM_VALVE1_TRANSFER_FUNCTION_DEFAULT, true );
 +		if ( pPlane->GetProperties().AMD_PLANE_BLEND_TF )
 +			pPlane->GetProperties().AMD_PLANE_BLEND_TF->SetPendingValue( req, AMDGPU_TRANSFER_FUNCTION_DEFAULT, true );
-
+ 
 -		if ( pPlane->GetProperties().VALVE1_PLANE_BLEND_LUT )
 -			pPlane->GetProperties().VALVE1_PLANE_BLEND_LUT->SetPendingValue( req, 0, true );
 +		if ( pPlane->GetProperties().AMD_PLANE_BLEND_LUT )
 +			pPlane->GetProperties().AMD_PLANE_BLEND_LUT->SetPendingValue( req, 0, true );
  	}
-
+ 
  	// We can't do a non-blocking commit here or else risk EBUSY in case the
-@@ -1637,37 +1637,73 @@ struct LiftoffStateCacheEntryKasher
-
+@@ -1561,37 +1561,73 @@ struct LiftoffStateCacheEntryKasher
+ 
  std::unordered_set<LiftoffStateCacheEntry, LiftoffStateCacheEntryKasher> g_LiftoffStateCache;
-
+ 
 -static inline drm_valve1_transfer_function colorspace_to_plane_degamma_tf(GamescopeAppTextureColorspace colorspace)
 +static inline amdgpu_transfer_function colorspace_to_plane_degamma_tf(GamescopeAppTextureColorspace colorspace)
  {
@@ -143,7 +144,7 @@ index 9420ccbe4..29b8d06f5 100644
 +			return AMDGPU_TRANSFER_FUNCTION_PQ_EOTF;
  	}
  }
-
+ 
 -static inline drm_valve1_transfer_function colorspace_to_plane_shaper_tf(GamescopeAppTextureColorspace colorspace)
 +static inline amdgpu_transfer_function colorspace_to_plane_shaper_tf(GamescopeAppTextureColorspace colorspace)
  {
@@ -198,8 +199,19 @@ index 9420ccbe4..29b8d06f5 100644
 +			return AMDGPU_TRANSFER_FUNCTION_GAMMA26_EOTF;
  	}
  }
-
-@@ -1919,15 +1960,15 @@ namespace gamescope
+ 
+@@ -1779,8 +1815,8 @@ namespace gamescope
+ 		auto rawProperties = GetRawProperties();
+ 		if ( rawProperties )
+ 		{
+-			m_Props.type                     = CDRMAtomicProperty::Instantiate( "type",                     this, *rawProperties );
+-			m_Props.IN_FORMATS               = CDRMAtomicProperty::Instantiate( "IN_FORMATS",               this, *rawProperties );
++			m_Props.type                  = CDRMAtomicProperty::Instantiate( "type",                  this, *rawProperties );
++			m_Props.IN_FORMATS            = CDRMAtomicProperty::Instantiate( "IN_FORMATS",            this, *rawProperties );
+ 
+ 			m_Props.FB_ID                    = CDRMAtomicProperty::Instantiate( "FB_ID",                    this, *rawProperties );
+ 			m_Props.IN_FENCE_FD              = CDRMAtomicProperty::Instantiate( "IN_FENCE_FD",              this, *rawProperties );
+@@ -1798,15 +1834,15 @@ namespace gamescope
  			m_Props.rotation                 = CDRMAtomicProperty::Instantiate( "rotation",                 this, *rawProperties );
  			m_Props.COLOR_ENCODING           = CDRMAtomicProperty::Instantiate( "COLOR_ENCODING",           this, *rawProperties );
  			m_Props.COLOR_RANGE              = CDRMAtomicProperty::Instantiate( "COLOR_RANGE",              this, *rawProperties );
@@ -223,8 +235,8 @@ index 9420ccbe4..29b8d06f5 100644
 +			m_Props.AMD_PLANE_BLEND_LUT      = CDRMAtomicProperty::Instantiate( "AMD_PLANE_BLEND_LUT",      this, *rawProperties );
  		}
  	}
-
-@@ -1908,14 +1944,14 @@ namespace gamescope
+ 
+@@ -1826,14 +1862,14 @@ namespace gamescope
  		auto rawProperties = GetRawProperties();
  		if ( rawProperties )
  		{
@@ -246,19 +258,19 @@ index 9420ccbe4..29b8d06f5 100644
 +			m_Props.AMD_CRTC_REGAMMA_TF = CDRMAtomicProperty::Instantiate( "AMD_CRTC_REGAMMA_TF", this, *rawProperties );
  		}
  	}
-
-@@ -2376,8 +2412,8 @@ drm_prepare_liftoff( struct drm_t *drm, const struct FrameInfo_t *frameInfo, boo
-
+ 
+@@ -2314,8 +2350,8 @@ drm_prepare_liftoff( struct drm_t *drm, const struct FrameInfo_t *frameInfo, boo
+ 
  				if ( drm_supports_color_mgmt( drm ) )
  				{
 -					drm_valve1_transfer_function degamma_tf = colorspace_to_plane_degamma_tf( entry.layerState[i].colorspace );
 -					drm_valve1_transfer_function shaper_tf = colorspace_to_plane_shaper_tf( entry.layerState[i].colorspace );
 +					amdgpu_transfer_function degamma_tf = colorspace_to_plane_degamma_tf( entry.layerState[i].colorspace );
 +					amdgpu_transfer_function shaper_tf = colorspace_to_plane_shaper_tf( entry.layerState[i].colorspace );
-
+ 
  					if ( entry.layerState[i].ycbcr )
  					{
-@@ -2389,27 +2425,27 @@ drm_prepare_liftoff( struct drm_t *drm, const struct FrameInfo_t *frameInfo, boo
+@@ -2327,27 +2363,27 @@ drm_prepare_liftoff( struct drm_t *drm, const struct FrameInfo_t *frameInfo, boo
  						//
  						// Doing LINEAR/DEFAULT here introduces banding so... this is the best way.
  						// (sRGB DEGAMMA does NOT work on YUV planes!)
@@ -267,15 +279,15 @@ index 9420ccbe4..29b8d06f5 100644
 +						degamma_tf = AMDGPU_TRANSFER_FUNCTION_BT709_OETF;
 +						shaper_tf = AMDGPU_TRANSFER_FUNCTION_BT709_INV_OETF;
  					}
-
- 					if (!g_bDisableDegamma)
+ 
+ 					if (!cv_drm_debug_disable_degamma_tf)
 -						liftoff_layer_set_property( drm->lo_layers[ i ], "VALVE1_PLANE_DEGAMMA_TF", degamma_tf );
 +						liftoff_layer_set_property( drm->lo_layers[ i ], "AMD_PLANE_DEGAMMA_TF", degamma_tf );
  					else
 -						liftoff_layer_set_property( drm->lo_layers[ i ], "VALVE1_PLANE_DEGAMMA_TF", 0 );
 +						liftoff_layer_set_property( drm->lo_layers[ i ], "AMD_PLANE_DEGAMMA_TF", 0 );
-
- 					if ( !g_bDisableShaperAnd3DLUT )
+ 
+ 					if ( !cv_drm_debug_disable_shaper_and_3dlut )
  					{
 -						liftoff_layer_set_property( drm->lo_layers[ i ], "VALVE1_PLANE_SHAPER_LUT", drm->pending.shaperlut_id[ ColorSpaceToEOTFIndex( entry.layerState[i].colorspace ) ]->GetBlobValue() );
 -						liftoff_layer_set_property( drm->lo_layers[ i ], "VALVE1_PLANE_SHAPER_TF", shaper_tf );
@@ -296,7 +308,7 @@ index 9420ccbe4..29b8d06f5 100644
  					}
  				}
  			}
-@@ -2417,25 +2453,25 @@ drm_prepare_liftoff( struct drm_t *drm, const struct FrameInfo_t *frameInfo, boo
+@@ -2355,25 +2391,25 @@ drm_prepare_liftoff( struct drm_t *drm, const struct FrameInfo_t *frameInfo, boo
  			{
  				if ( drm_supports_color_mgmt( drm ) )
  				{
@@ -312,16 +324,16 @@ index 9420ccbe4..29b8d06f5 100644
 +					liftoff_layer_set_property( drm->lo_layers[ i ], "AMD_PLANE_CTM", 0 );
  				}
  			}
-
+ 
  			if ( drm_supports_color_mgmt( drm ) )
  			{
- 				if (!g_bDisableBlendTF && !bSinglePlane)
+ 				if (!cv_drm_debug_disable_blend_tf && !bSinglePlane)
 -					liftoff_layer_set_property( drm->lo_layers[ i ], "VALVE1_PLANE_BLEND_TF", drm->pending.output_tf );
 +					liftoff_layer_set_property( drm->lo_layers[ i ], "AMD_PLANE_BLEND_TF", drm->pending.output_tf );
  				else
 -					liftoff_layer_set_property( drm->lo_layers[ i ], "VALVE1_PLANE_BLEND_TF", DRM_VALVE1_TRANSFER_FUNCTION_DEFAULT );
 +					liftoff_layer_set_property( drm->lo_layers[ i ], "AMD_PLANE_BLEND_TF", AMDGPU_TRANSFER_FUNCTION_DEFAULT );
-
+ 
  				if (frameInfo->layers[i].ctm != nullptr)
 -					liftoff_layer_set_property( drm->lo_layers[ i ], "VALVE1_PLANE_CTM", frameInfo->layers[i].ctm->GetBlobValue() );
 +					liftoff_layer_set_property( drm->lo_layers[ i ], "AMD_PLANE_CTM", frameInfo->layers[i].ctm->GetBlobValue() );
@@ -331,8 +343,8 @@ index 9420ccbe4..29b8d06f5 100644
  			}
  		}
  		else
-@@ -2447,12 +2483,12 @@ drm_prepare_liftoff( struct drm_t *drm, const struct FrameInfo_t *frameInfo, boo
-
+@@ -2386,12 +2422,12 @@ drm_prepare_liftoff( struct drm_t *drm, const struct FrameInfo_t *frameInfo, boo
+ 
  			if ( drm_supports_color_mgmt( drm ) )
  			{
 -				liftoff_layer_set_property( drm->lo_layers[ i ], "VALVE1_PLANE_DEGAMMA_TF", DRM_VALVE1_TRANSFER_FUNCTION_DEFAULT );
@@ -350,17 +362,17 @@ index 9420ccbe4..29b8d06f5 100644
  			}
  		}
  	}
-@@ -2533,7 +2569,7 @@ int drm_prepare( struct drm_t *drm, bool async, const struct FrameInfo_t *frameI
+@@ -2472,7 +2508,7 @@ int drm_prepare( struct drm_t *drm, bool async, const struct FrameInfo_t *frameI
  			drm->needs_modeset = true;
  	}
-
+ 
 -	uint32_t uColorimetry = DRM_MODE_COLORIMETRY_DEFAULT;
 +	drm_colorspace uColorimetry = DRM_MODE_COLORIMETRY_DEFAULT;
-
+ 
  	const bool bWantsHDR10 = g_bOutputHDREnabled && frameInfo->outputEncodingEOTF == EOTF_PQ;
  	gamescope::BackendBlob *pHDRMetadata = nullptr;
-@@ -2571,17 +2607,17 @@ int drm_prepare( struct drm_t *drm, bool async, const struct FrameInfo_t *frameI
- 		if ( !g_bDisableRegamma && !bSinglePlane )
+@@ -2510,17 +2546,17 @@ int drm_prepare( struct drm_t *drm, bool async, const struct FrameInfo_t *frameI
+ 		if ( !cv_drm_debug_disable_output_tf && !bSinglePlane )
  		{
  			drm->pending.output_tf = g_bOutputHDREnabled
 -				? DRM_VALVE1_TRANSFER_FUNCTION_PQ
@@ -379,47 +391,52 @@ index 9420ccbe4..29b8d06f5 100644
 -		drm->pending.output_tf = DRM_VALVE1_TRANSFER_FUNCTION_DEFAULT;
 +		drm->pending.output_tf = AMDGPU_TRANSFER_FUNCTION_DEFAULT;
  	}
-
+ 
  	uint32_t flags = DRM_MODE_ATOMIC_NONBLOCK;
-@@ -2644,8 +2680,8 @@ int drm_prepare( struct drm_t *drm, bool async, const struct FrameInfo_t *frameI
+@@ -2583,8 +2619,8 @@ int drm_prepare( struct drm_t *drm, bool async, const struct FrameInfo_t *frameI
  			if ( pCRTC->GetProperties().OUT_FENCE_PTR )
  				pCRTC->GetProperties().OUT_FENCE_PTR->SetPendingValue( drm->req, 0, bForceInRequest );
-
+ 
 -			if ( pCRTC->GetProperties().VALVE1_CRTC_REGAMMA_TF )
 -				pCRTC->GetProperties().VALVE1_CRTC_REGAMMA_TF->SetPendingValue( drm->req, 0, bForceInRequest );
 +			if ( pCRTC->GetProperties().AMD_CRTC_REGAMMA_TF )
 +				pCRTC->GetProperties().AMD_CRTC_REGAMMA_TF->SetPendingValue( drm->req, 0, bForceInRequest );
  		}
-
+ 
  		if ( drm->pConnector )
-@@ -2679,8 +2715,8 @@ int drm_prepare( struct drm_t *drm, bool async, const struct FrameInfo_t *frameI
-
+@@ -2618,12 +2654,12 @@ int drm_prepare( struct drm_t *drm, bool async, const struct FrameInfo_t *frameI
+ 
  	if ( drm->pCRTC )
  	{
 -		if ( drm->pCRTC->GetProperties().VALVE1_CRTC_REGAMMA_TF )
--			drm->pCRTC->GetProperties().VALVE1_CRTC_REGAMMA_TF->SetPendingValue( drm->req, drm->pending.output_tf, bForceInRequest );
 +		if ( drm->pCRTC->GetProperties().AMD_CRTC_REGAMMA_TF )
-+			drm->pCRTC->GetProperties().AMD_CRTC_REGAMMA_TF->SetPendingValue( drm->req, inverse_tf(drm->pending.output_tf), bForceInRequest );
+ 		{
+ 			if ( !cv_drm_debug_disable_regamma_tf )
+-				drm->pCRTC->GetProperties().VALVE1_CRTC_REGAMMA_TF->SetPendingValue( drm->req, drm->pending.output_tf, bForceInRequest );
++				drm->pCRTC->GetProperties().AMD_CRTC_REGAMMA_TF->SetPendingValue( drm->req, drm->pending.output_tf, bForceInRequest );
+ 			else
+-				drm->pCRTC->GetProperties().VALVE1_CRTC_REGAMMA_TF->SetPendingValue( drm->req, DRM_VALVE1_TRANSFER_FUNCTION_DEFAULT, bForceInRequest );
++				drm->pCRTC->GetProperties().AMD_CRTC_REGAMMA_TF->SetPendingValue( drm->req, AMDGPU_TRANSFER_FUNCTION_DEFAULT, bForceInRequest );
+ 		}
  	}
-
- 	drm->flags = flags;
-@@ -2995,7 +3031,7 @@ bool drm_supports_color_mgmt(struct drm_t *drm)
+ 
+@@ -2939,7 +2975,7 @@ bool drm_supports_color_mgmt(struct drm_t *drm)
  	if ( !drm->pPrimaryPlane )
  		return false;
-
+ 
 -	return drm->pPrimaryPlane->GetProperties().VALVE1_PLANE_CTM.has_value();
 +	return drm->pPrimaryPlane->GetProperties().AMD_PLANE_CTM.has_value();
  }
-
+ 
  std::span<const uint32_t> drm_get_valid_refresh_rates( struct drm_t *drm )
 diff --git a/src/drm_include.h b/src/drm_include.h
-index 500c3040a..d0ed3ce9e 100644
+index 500c304..d0ed3ce 100644
 --- a/src/drm_include.h
 +++ b/src/drm_include.h
 @@ -28,19 +28,22 @@ enum drm_color_range {
  	DRM_COLOR_RANGE_MAX,
  };
-
+ 
 -enum drm_valve1_transfer_function {
 -	DRM_VALVE1_TRANSFER_FUNCTION_DEFAULT,
 -
@@ -450,12 +467,12 @@ index 500c3040a..d0ed3ce9e 100644
 +	AMDGPU_TRANSFER_FUNCTION_GAMMA26_INV_EOTF,
 +	AMDGPU_TRANSFER_FUNCTION_COUNT
  };
-
+ 
  enum drm_panel_orientation {
 @@ -51,28 +54,31 @@ enum drm_panel_orientation {
  	DRM_MODE_PANEL_ORIENTATION_RIGHT_UP,
  };
-
+ 
 -/* For Default case, driver will set the colorspace */
 -#define DRM_MODE_COLORIMETRY_DEFAULT			0
 -/* CEA 861 Normal Colorimetry options */
@@ -503,6 +520,9 @@ index 500c3040a..d0ed3ce9e 100644
 +	DRM_MODE_COLORIMETRY_BT601_YCC		= 15,
 +	DRM_MODE_COLORIMETRY_COUNT
 +};
-
+ 
  /* Content type options */
  #define DRM_MODE_CONTENT_TYPE_NO_DATA		0
+-- 
+2.44.0
+
