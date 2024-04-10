@@ -42,6 +42,7 @@
   "linuxPackages_cachyos-hardened.rtl88xxau-aircrack" = "/nix/store/hgapqz7bvqyvnjmxs166a3cc9l7lj4m1-rtl88xxau-aircrack-6.7.12-unstable-02-05-2023";
   "linuxPackages_cachyos-hardened.shufflecake" = "/nix/store/1869qb9102jav971674l3zf65k9fcing-shufflecake";
   "linuxPackages_cachyos-hardened.system76-acpi" = "/nix/store/2p8zs14clhsf5nxvv2496f1pwqcjlrxs-system76-acpi-module-1.0.2-6.7.12";
+  "linuxPackages_cachyos-hardened.vm-tools" = "/nix/store/q2b70fxcssahm6wk7prmkmx9zdxhlbda-vm-tools-6.6.25";
   "linuxPackages_cachyos-lto.acpi_call" = "/nix/store/0q50dm3qnvnag139p4xs8wxwwwsprv7p-acpi-call-1.2.2-6.8.4";
   "linuxPackages_cachyos-lto.akvcam" = "/nix/store/s5jh8w4pswjg769k5zkcqk6zafx50472-akvcam-1.2.6";
   "linuxPackages_cachyos-lto.apfs" = "/nix/store/mvg527vr26k0l542agi4q74j5yjb7iwi-apfs-0.3.8-6.8.4";
@@ -127,7 +128,7 @@
   "linuxPackages_cachyos-lto.vendor-reset" = "/nix/store/750jpq3635i9p5fni26wh0891q2zw3a6-vendor-reset-unstable-2021-02-16-6.8.4";
   "linuxPackages_cachyos-lto.vhba" = "/nix/store/w5dz96vcrm5iiv31nzdzwii7snm7lhxf-vhba-20240202";
   "linuxPackages_cachyos-lto.virtio_vmmci" = "/nix/store/33pgaca192b0yi38f7mdr2v3amr05925-virtio_vmmci";
-  "linuxPackages_cachyos-lto.virtualboxGuestAdditions" = "/nix/store/lvbl7d4pxw2sb320ggc10q688qhi8hpj-VirtualBox-GuestAdditions-7.0.14-6.8.4";
+  "linuxPackages_cachyos-lto.virtualboxGuestAdditions" = "/nix/store/xijv1rcl1zzjwdl58pp7pbhrb6gsajsy-VirtualBox-GuestAdditions-7.0.14-6.8.4";
   "linuxPackages_cachyos-lto.vm-tools" = "/nix/store/vd4cgmnwhrawsqgkjmmy6d8qy9yq7ix7-vm-tools-6.6.25";
   "linuxPackages_cachyos-lto.vmm_clock" = "/nix/store/r9ggxjpjppspjlmcwr9figcip62kn227-vmm_clock-0.2.0";
   "linuxPackages_cachyos-lto.vmware" = "/nix/store/zj7bclgw5h4d63fbpn2r9xg7fzzxgc4g-vmware-modules-workstation-17.5.1-unstable-2024-01-12-6.8.4";
@@ -159,4 +160,5 @@
   "linuxPackages_cachyos-server.shufflecake" = "/nix/store/yb1hmygyghbpsir1jqm15l5ryf6z2n12-shufflecake";
   "linuxPackages_cachyos-server.system76-acpi" = "/nix/store/j6ylhaljsjg52045iy0s6g3dbfbi9fca-system76-acpi-module-1.0.2-6.8.4";
   "linuxPackages_cachyos-server.vendor-reset" = "/nix/store/k9zfn0ln6s9izfil9f1k033lbiw9pdlf-vendor-reset-unstable-2021-02-16-6.8.4";
+  "linuxPackages_cachyos-server.vm-tools" = "/nix/store/q2b70fxcssahm6wk7prmkmx9zdxhlbda-vm-tools-6.6.25";
 }
