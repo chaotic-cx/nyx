@@ -80,17 +80,6 @@ gitOverride (current: {
       )
       ++ [
         ./gbm-backend.patch
-        # frontends/va: Only export one handle for contiguous planes
-        # Fixes VAAPI in Chromium
-        # https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/26165
-        (final.fetchpatch {
-          url = "https://gitlab.freedesktop.org/mesa/mesa/-/commit/eff9f33d49db7e7562ed5b93551dcf21b78b916a.patch";
-          hash = "sha256-eSWG3iu7BpasWLYSHy6dHeRCh8lTwgq29cFi+PHZTXI=";
-        })
-        (final.fetchpatch {
-          url = "https://gitlab.freedesktop.org/mesa/mesa/-/commit/0b6b9cb00d8ae814b9a3c90ba811f1e9cec24d32.patch";
-          hash = "sha256-ZJ1XAhtEoutQ4EXVlsBKmF9ehWGPQ0OzOmqvE8E0a/I=";
-        })
       ];
 
     # expose gbm backend and rename vendor (if necessary)
