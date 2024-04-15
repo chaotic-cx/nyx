@@ -69,13 +69,6 @@ in
 
     withNTSync = false;
     withHDR = false;
-
-    versions = mainVersions // {
-      linux = {
-        version = "6.7.12";
-        hash = "sha256:113rf3jqfpf3wcv637zbq5ww2hpaaf23y6dsmkds01l8jkipjabc";
-      };
-    };
   };
 
   zfs = final.zfs_unstable.overrideAttrs (prevAttrs: {
