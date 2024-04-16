@@ -10,10 +10,10 @@
 , pkg-config
 , meson
 , ninja
-, bpftools
+, bpftools_full
 , elfutils
 , zlib
-, libbpf
+, libbpf_git
 , jq
 }:
 
@@ -67,18 +67,19 @@ llvmPackages.stdenv.mkDerivation {
     pkg-config
     llvmPackages.clang
     fakeCargo
-    bpftools
+    bpftools_full
     jq
   ];
 
   buildInputs = [
     elfutils
     zlib
-    libbpf
+    libbpf_git
   ];
 
   mesonFlags = [
     "-Dsystemd=disabled"
+    "-Dopenrc=disabled"
     "-Dbpftool=disabled"
     "-Dlibbpf_a=disabled"
   ];
