@@ -118,6 +118,8 @@ in
 
   blurredwallpaper = final.callPackage ../pkgs/blurredwallpaper { };
 
+  bpftools_full = final.callPackage ../pkgs/scx/bpftools-full.nix { };
+
   busybox_appletless = multiOverride
     prev.busybox
     { enableAppletSymlinks = false; }
@@ -173,6 +175,8 @@ in
   kf6coreaddons_git = callOverride ../pkgs/kf6coreaddons-git/latest.nix { };
 
   latencyflex-vulkan = final.callPackage ../pkgs/latencyflex-vulkan { };
+
+  libbpf_git = callOverride ../pkgs/libbpf-git { };
 
   libdrm_git = callOverride ../pkgs/libdrm-git { };
   libdrm32_git =
