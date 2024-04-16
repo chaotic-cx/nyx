@@ -12,9 +12,8 @@
     makeLinuxHeaders {
       inherit (kernel) src version patches;
     };
-  stdenv =
-    # Enables "clang-bpf-co-re" feature
-    llvmPackages.stdenv;
+  # Enables "clang-bpf-co-re" feature
+  inherit (llvmPackages) stdenv;
 }).overrideAttrs (prevAttrs: {
   buildInputs = prevAttrs.buildInputs ++ [
     # Enables "llvm" feature
