@@ -118,6 +118,8 @@ in
 
   blurredwallpaper = final.callPackage ../pkgs/blurredwallpaper { };
 
+  bpftools_full = final.callPackage ../pkgs/scx/bpftools-full.nix { };
+
   busybox_appletless = multiOverride
     prev.busybox
     { enableAppletSymlinks = false; }
