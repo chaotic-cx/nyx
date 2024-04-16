@@ -176,6 +176,8 @@ in
 
   latencyflex-vulkan = final.callPackage ../pkgs/latencyflex-vulkan { };
 
+  libbpf_git = callOverride ../pkgs/libbpf-git { };
+
   libdrm_git = callOverride ../pkgs/libdrm-git { };
   libdrm32_git =
     if has32 then callOverride32 ../pkgs/libdrm-git { }
