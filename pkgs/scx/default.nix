@@ -1,6 +1,8 @@
 { lib
 , llvmPackages
+, writeShellScript
 , writeShellScriptBin
+, fetchFromGitHub
 , scx-common
 , scx-rusty
 , scx-lavd
@@ -15,6 +17,7 @@
 , zlib
 , libbpf_git
 , jq
+, bash
 }:
 
 let
@@ -47,6 +50,25 @@ let
     fi
     exit 1
   '';
+
+  bpftools_src = fetchFromGitHub {
+    owner = "libbpf";
+    repo = "bpftool";
+    rev = "20ce6933869b70bacfdd0dd1a8399199290bf8ff";
+    hash = "sha256-XuPg+DG2cIcgPrPB9JBuiEu+7tnA0MwOMYvueXJg6QA=";
+    fetchSubmodules = true;
+  };
+
+  fetchBpftool = writeShellScript "fetch_bpftool" ''
+    [ "$2" == '${bpftools_src.rev}' ] || exit 1
+    cd "$1"
+    cp --no-preserve=mode,owner -r "${bpftools_src}/" ./bpftool
+  '';
+
+  misbehaviorBash = writeShellScript "bash" ''
+    shift 1
+    exec "${bash}/bin/bash" "$@"
+  '';
 in
 llvmPackages.stdenv.mkDerivation {
   pname = "scx";
@@ -58,7 +80,11 @@ llvmPackages.stdenv.mkDerivation {
     cp -r ${scx-lavd} ./scheds/rust/scx_lavd/release
     cp -r ${scx-rlfifo} ./scheds/rust/scx_rlfifo/release
     cp -r ${scx-rustland} ./scheds/rust/scx_rustland/release
+    rm meson-scripts/fetch_bpftool
     patchShebangs ./meson-scripts
+    cp ${fetchBpftool} meson-scripts/fetch_bpftool
+    substituteInPlace meson.build \
+      --replace-fail '[build_bpftool' "['${misbehaviorBash}', build_bpftool"
   '';
 
   nativeBuildInputs = [
@@ -67,9 +93,8 @@ llvmPackages.stdenv.mkDerivation {
     pkg-config
     llvmPackages.clang
     fakeCargo
-    bpftools_full
     jq
-  ];
+  ] ++ bpftools_full.buildInputs ++ bpftools_full.nativeBuildInputs;
 
   buildInputs = [
     elfutils
@@ -80,7 +105,6 @@ llvmPackages.stdenv.mkDerivation {
   mesonFlags = [
     "-Dsystemd=disabled"
     "-Dopenrc=disabled"
-    "-Dbpftool=disabled"
     "-Dlibbpf_a=disabled"
   ];
 
