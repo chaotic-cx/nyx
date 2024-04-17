@@ -8,13 +8,13 @@ in
 {
   options = with lib; {
     chaotic.zfs-impermanence-on-shutdown = {
-      enable = mkEnableOption (mdDoc "Impermanence on safe-shutdown through ZFS snapshots");
+      enable = mkEnableOption "Impermanence on safe-shutdown through ZFS snapshots";
 
       volume = mkOption {
         type = types.str;
         default = null;
         example = "zroot/ROOT/empty";
-        description = mdDoc ''
+        description = ''
           Full description to the volume including pool.
           This volume must have a snapshot to an "empty" state.
 
@@ -26,7 +26,7 @@ in
         type = types.str;
         default = null;
         example = "start";
-        description = mdDoc ''
+        description = ''
           Snapshot of the volume in an "empty" state to roll back to.
         '';
       };

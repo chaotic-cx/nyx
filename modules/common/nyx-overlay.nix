@@ -53,7 +53,7 @@ in
         default = pkgs.config;
         defaultText = literalExpression "pkgs.config";
         inherit (options.nixpkgs.config) example type;
-        description = mdDoc ''
+        description = ''
           Matches `nixpkgs.config` from the configuration of the Nix Packages collection.
         '';
       };

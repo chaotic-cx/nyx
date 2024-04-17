@@ -105,7 +105,7 @@ in
         type = types.listOf types.package;
         default = [ ];
         example = literalExpression "with pkgs; [ mesa_git.opencl intel-media-driver intel-ocl vaapiIntel ]";
-        description = mdDoc ''
+        description = ''
           Additional packages to add to OpenGL drivers.
           This can be used to add OpenCL drivers, VA-API/VDPAU drivers etc.
 
@@ -117,7 +117,7 @@ in
         type = types.listOf types.package;
         default = [ ];
         example = literalExpression "with pkgs.pkgsi686Linux; [ pkgs.mesa32_git.opencl intel-media-driver vaapiIntel ]";
-        description = mdDoc ''
+        description = ''
           Additional packages to add to 32-bit OpenGL drivers on 64-bit systems.
 
           WARNING: Don't use any of the `mesa.*`, replace with `pkgs.mesa32_git.*`.

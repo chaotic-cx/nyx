@@ -17,7 +17,7 @@ in
           proton-ge-custom
         ]
       '';
-      description = lib.mdDoc ''
+      description = ''
         Extra packages to be used as compatibility tools for Steam on Linux. Packages will be included
         in the `STEAM_EXTRA_COMPAT_TOOLS_PATHS` environmental variable.
       '';

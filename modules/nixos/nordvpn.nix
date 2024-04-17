@@ -4,7 +4,7 @@ with lib; {
   options.chaotic.nordvpn.enable = mkOption {
     type = types.bool;
     default = false;
-    description = mdDoc ''
+    description = ''
       Whether to enable the NordVPN daemon. Note that you'll have to set
       `networking.firewall.checkReversePath = false;`, add UDP 1194
       and TCP 443 to the list of allowed ports in the firewall and add your
