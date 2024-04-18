@@ -1,5 +1,5 @@
 { cachyConfig
-, cachyConfigBake
+, kconfigToNix
 , config
 , configfile
 , callPackage
@@ -39,7 +39,7 @@ in
 ).overrideAttrs (prevAttrs: {
   # bypasses https://github.com/NixOS/nixpkgs/issues/216529
   passthru = prevAttrs.passthru // {
-    inherit cachyConfig cachyConfigBake;
+    inherit cachyConfig kconfigToNix;
     features = {
       efiBootStub = true;
       ia32Emulation = true;

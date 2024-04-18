@@ -49,7 +49,7 @@ let
   };
 
   # Too much variations
-  cachyosPackages = callOverride ../pkgs/linux-cachyos/all-packages.nix { };
+  cachyosPackages = callOverride ../pkgs/linux-cachyos { };
 
   # Microarch stuff
   makeMicroarchPkgs = cpuType: arch: with final;

@@ -48,20 +48,19 @@ let
   # - First we apply the changes fromt their PKGBUILD using kconfig;
   # - Then we NIXify it (in the update-script);
   # - Last state is importing the NIXified version for building.
-  linuxConfigOriginal = callPackage ./configfile-raw.nix {
+  preparedConfigfile = callPackage ./prepare.nix {
     inherit cachyConfig stdenv kernel;
   };
-  linuxConfigTransformable = callPackage ./configfile-bake.nix {
-    configfile = linuxConfigOriginal;
+  kconfigToNix = callPackage ./lib/kconfig-to-nix.nix {
+    configfile = preparedConfigfile;
   };
   linuxConfigTransfomed = import configPath;
 
   kernel = callPackage ./kernel.nix {
-    inherit cachyConfig stdenv;
+    inherit cachyConfig stdenv kconfigToNix;
     kernelPatches = [ ];
-    configfile = linuxConfigOriginal;
+    configfile = preparedConfigfile;
     config = linuxConfigTransfomed;
-    cachyConfigBake = linuxConfigTransformable;
   };
 
   # CachyOS repeating stuff.

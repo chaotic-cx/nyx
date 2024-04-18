@@ -63,16 +63,16 @@ writeShellScript "update-cachyos" ''
      .zfs.rev = \$zfsRev | .zfs.hash = \$zfsHash" \
     "$srcJson" | sponge "$srcJson"
 
-  cat "$(nix build '.#packages.x86_64-linux.linuxPackages_cachyos.kernel.cachyConfigBake' --no-link --print-out-paths)" \
+  cat "$(nix build '.#packages.x86_64-linux.linuxPackages_cachyos.kernel.kconfigToNix' --no-link --print-out-paths)" \
     > pkgs/linux-cachyos/config-nix/cachyos.x86_64-linux.nix
 
-  cat "$(nix build '.#packages.x86_64-linux.linuxPackages_cachyos-lto.kernel.cachyConfigBake' --no-link --print-out-paths)" \
+  cat "$(nix build '.#packages.x86_64-linux.linuxPackages_cachyos-lto.kernel.kconfigToNix' --no-link --print-out-paths)" \
     > pkgs/linux-cachyos/config-nix/cachyos-lto.x86_64-linux.nix
 
-  cat "$(nix build '.#packages.x86_64-linux.linuxPackages_cachyos-server.kernel.cachyConfigBake' --no-link --print-out-paths)" \
+  cat "$(nix build '.#packages.x86_64-linux.linuxPackages_cachyos-server.kernel.kconfigToNix' --no-link --print-out-paths)" \
     > pkgs/linux-cachyos/config-nix/cachyos-server.x86_64-linux.nix
 
-  cat "$(nix build '.#packages.x86_64-linux.linuxPackages_cachyos-hardened.kernel.cachyConfigBake' --no-link --print-out-paths)" \
+  cat "$(nix build '.#packages.x86_64-linux.linuxPackages_cachyos-hardened.kernel.kconfigToNix' --no-link --print-out-paths)" \
     > pkgs/linux-cachyos/config-nix/cachyos-hardened.x86_64-linux.nix
 
   git add $srcJson pkgs/linux-cachyos/config-*.nix

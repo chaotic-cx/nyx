@@ -6,10 +6,10 @@ let
   # CachyOS repeating stuff.
   mainVersions = importJSON ./versions.json;
 
-  mkCachyKernel = attrs: final.callPackage ./make.nix
+  mkCachyKernel = attrs: final.callPackage ./packages-for.nix
     ({ inherit zfs-source; versions = mainVersions; } // attrs);
 
-  stdenvLLVM = final.callPackage ./stdenv-llvm.nix { };
+  stdenvLLVM = final.callPackage ./lib/llvm-stdenv.nix { };
 
   zfs-source = final.fetchFromGitHub {
     owner = "cachyos";
@@ -17,7 +17,7 @@ let
     inherit (mainVersions.zfs) rev hash;
   };
 
-  llvmModule = import ./llvm-module-overlay.nix inputs stdenvLLVM;
+  llvmModuleOverlay = import ./lib/llvm-module-overlay.nix inputs stdenvLLVM;
 in
 {
   inherit mainVersions mkCachyKernel;
@@ -40,7 +40,7 @@ in
 
     packagesExtend = kernel: _finalModules: builtins.mapAttrs (k: v:
       if builtins.elem k [ "zenpower" "v4l2loopback" "zfs_cachyos" "virtualbox" ]
-      then llvmModule kernel v
+      then llvmModuleOverlay kernel v
       else v
     );
   };
