@@ -31,6 +31,7 @@
     </ul>
   </li>
   <li><a href="#notes">Notes</a></li>
+  <li><a href="#why-am-i-building-a-kernel-basic-cache-troubleshooting">Why am I building a kernel? Basic cache troubleshooting</a></li>
   <li><a href="#maintainence">Maintainence</a></li>
 </ul>
 
@@ -209,6 +210,7 @@ CONFIG_SCHED_CLASS_EXT=y
   chaotic.qtile.enable = true;
 }
 </code></pre>
+
 <h2 id="notes">Notes</h2>
 
 <h3>Our branches</h3>
@@ -242,6 +244,57 @@ CONFIG_SCHED_CLASS_EXT=y
 <p>If you need to change this behavior, set <code>chaotic.nyx.onTopOf = "user-pkgs";</code>. Be warned that you mostly won't be able to benefit from our binary cache after this change.</p>
 
 <p>You can also disable our overlay entirely by configuring <code>chaotic.nyx.overlay.enable = false;</code>.</p>
+
+<h2 id="why-am-i-building-a-kernel-basic-cache-troubleshooting">Why am I building a kernel? Basic cache troubleshooting</h2>
+
+<p>For starters, suppose you're using our `linuxPackages_cachyos` as the kernel and an up-to-date flake lock. Check if all these three hashes prompt the same:</p>
+
+<pre lang="text"><code class="language-text">
+╰─λ nix eval 'github:chaotic-cx/nyx/nyxpkgs-unstable#linuxPackages_cachyos.kernel.outPath'
+"/nix/store/441qhriiz5fa4l3xvvjw3h4bps7xfk08-linux-6.8.7"
+
+╰─λ nix eval 'chaotic#linuxPackages_cachyos.kernel.outPath'
+"/nix/store/441qhriiz5fa4l3xvvjw3h4bps7xfk08-linux-6.8.7"
+
+╰─λ nix eval '/etc/nixos#nixosConfigurations.{{HOSTNAME}}.config.boot.kernelPackages.kernel.outPath'
+"/nix/store/441qhriiz5fa4l3xvvjw3h4bps7xfk08-linux-6.8.7"
+</code></pre>
+
+<p>If the second is different from the first, you're probably adding a <code>inputs.nixpkgs.follows</code> to <code>chaotic</code>, simply remove it.</p>
+
+<p>If the third is different from the first, you're most likely using an overlay that's changing the kernel or one of its dependencies; check your <code>nixpkgs.overlays</code> config.</p>
+
+<hr width="50%" />
+
+<p>If they all match, and you're still rebuilding the kernel, copy the hash from the result above, then change it in the following <code>curl</code> command:</p>
+
+<pre lang="text"><code class="language-text">
+╰─λ curl -L 'https://nyx.chaotic.cx/441qhriiz5fa4l3xvvjw3h4bps7xfk08.narinfo'
+StorePath: /nix/store/441qhriiz5fa4l3xvvjw3h4bps7xfk08-linux-6.8.7
+URL: nar/e5ccded34e4608448c49d3e9fdc92441cd564ae629a4b93fd3f8a334bca7c71d.nar.zst
+Compression: zstd
+FileHash: sha256:e5ccded34e4608448c49d3e9fdc92441cd564ae629a4b93fd3f8a334bca7c71d
+FileSize: 172226528
+NarHash: sha256:1v410bnc3qazxscwxvm80c40i0fxzp0amvp93y0y4x3kikdwz035
+NarSize: 184989384
+References:
+Deriver: snb6mg44fflzp3vm5fh4ybxa5j4nlfa5-linux-6.8.7.drv
+Sig: chaotic-nyx.cachix.org-1:L0D5GiJf/VEc1brcqYSB+vzYDDV6ZoDP59b+0mrX3bm2b5bbvtH3xOR4XEXy7QILYoIx2Pd64qWN+6okOMQZCA==
+</code></pre>
+
+<p>If the command above fails without an 404, then you have an issue with your internet connection. If it fails with 404, then tag <code>pedrohlc</code> (Matrix, Telegram or GitHub), he really broke the cache.</p>
+
+<p>If the command succeeds, and you're still building the cache, it can happen because of two things: (1) you might have tried to fetch said package before we deployed, then Nix will cache the 404 and won't try again; (2) you might have a misconfigured `/etc/nix/nix.conf` or outdated nix-daemon.</p>
+
+<p>For the second one, check if it looks like this (the word “chaotic” should appear three times):</p>
+
+<pre lang="text"><code class="language-text">
+╰─λ grep chaotic /etc/nix/nix.conf
+substituters = https://nix-community.cachix.org/ https://nyx.chaotic.cx/ https://cache.nixos.org/
+trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= nyx.chaotic.cx-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8= chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8
+</code></pre>
+
+<p>An outdated nix-daemon can happen when you change nix settings, then nixos-rebuilt your system, but you didn't restart the nix-daemon service. The easiest way to fix it is to reboot.</p>
 
 <h2 id="maintainence">Maintainence</h2>
 
