@@ -6,7 +6,8 @@ rec {
     flake-schemas.url = "https://flakehub.com/f/DeterminateSystems/flake-schemas/=0.1.1.tar.gz"; # pinned, used by "schemas" output
     nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1.*.tar.gz";
     home-manager = {
-      url = "https://flakehub.com/f/nix-community/home-manager/0.1.*.tar.gz";
+      #url = "https://flakehub.com/f/nix-community/home-manager/0.1.*.tar.gz";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     systems.url = "github:nix-systems/default-linux";
