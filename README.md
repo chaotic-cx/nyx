@@ -166,7 +166,7 @@ We do this automatically, so we can gracefully update the cache's address and ke
 
 <h3 id="using-linux-cachyos-with-sched-ext">Using linux-cachyos with sched-ext</h3>
 
-<p> Since sched-ext patches have been added to `linux-chachyos`, you can just use that kernel. </p>
+<p> Since sched-ext patches have been added to <code>linux-chachyos</code>, you can just use that kernel. </p>
 
 <p>First, add this to your configuration:</p>
 
@@ -247,7 +247,7 @@ CONFIG_SCHED_CLASS_EXT=y
 
 <h2 id="why-am-i-building-a-kernel-basic-cache-troubleshooting">Why am I building a kernel? Basic cache troubleshooting</h2>
 
-<p>For starters, suppose you're using our `linuxPackages_cachyos` as the kernel and an up-to-date flake lock. Check if all these three hashes prompt the same:</p>
+<p>For starters, suppose you're using our <code>linuxPackages_cachyos</code> as the kernel and an up-to-date flake lock. Check if all these three hashes prompt the same:</p>
 
 <pre lang="text"><code class="language-text">
 ╰─λ nix eval 'github:chaotic-cx/nyx/nyxpkgs-unstable#linuxPackages_cachyos.kernel.outPath'
@@ -284,7 +284,7 @@ Sig: chaotic-nyx.cachix.org-1:L0D5GiJf/VEc1brcqYSB+vzYDDV6ZoDP59b+0mrX3bm2b5bbvt
 
 <p>If the command above fails without an 404, then you have an issue with your internet connection. If it fails with 404, then tag <code>pedrohlc</code> (Matrix, Telegram or GitHub), he really broke the cache.</p>
 
-<p>If the command succeeds, and you're still building the cache, it can happen because of two things: (1) you might have tried to fetch said package before we deployed, then Nix will cache the 404 and won't try again; (2) you might have a misconfigured `/etc/nix/nix.conf` or outdated nix-daemon.</p>
+<p>If the command succeeds, and you're still building the cache, it can happen because of two things: (1) you might have tried to fetch said package before we deployed, then Nix will cache the 404 and won't try again; (2) you might have a misconfigured <code>/etc/nix/nix.conf</code> or outdated nix-daemon.</p>
 
 <p>For the second one, check if it looks like this (the word “chaotic” should appear three times):</p>
 
