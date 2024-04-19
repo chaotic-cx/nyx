@@ -163,9 +163,6 @@ in
   gamescope_git = callOverride ../pkgs/gamescope-git { };
   gamescope-wsi_git = callOverride ../pkgs/gamescope-git { isWSI = true; };
 
-  # Used by telegram-desktop_git
-  glibmm_git = callOverride ../pkgs/glibmm-git { };
-
   input-leap_git = callOverride ../pkgs/input-leap-git {
     inherit (final.libsForQt5.qt5) qttools;
   };
