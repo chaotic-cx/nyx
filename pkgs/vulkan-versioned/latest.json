@@ -60,7 +60,7 @@
     "version": "1.3.283",
     "rev": "v#{version}",
     "hash": "sha256-eUQcuYgml8g0uS4uNkTR6YA2CNN9XPXgYEtasEsbJfw=",
-    "badTag": "snapshot-2024wk15"
+    "badTag": "snapshot-2024wk17"
   },
   "volk": {
     "version": "1.3.280.0",
