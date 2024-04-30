@@ -1,14 +1,13 @@
 { fetchFromGitHub }:
 
 rec {
-  version = "unstable-20240429-d9ea53cb9";
+  version = "unstable-20240429-b1bb2a5c5";
 
   src = fetchFromGitHub {
     owner = "sched-ext";
     repo = "scx";
-    rev = "d9ea53cb9d29c88286e0a7b98556f9f49561521f";
-    hash = "sha256-N2sFluMws8tJzT/5twHb3OR+e5CE0G/NSfyfLbSHdv4=";
+    rev = "b1bb2a5c5f76d45d494480d90aacd2fc18535cd7";
+    hash = "sha256-CidStlelh+QFkNmvleg/zJf6FIeePL2HPPIPRbyKfpw=";
     fetchSubmodules = true;
   };
-
 }
