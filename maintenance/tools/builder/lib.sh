@@ -11,6 +11,7 @@ TEMPDIR="${NYX_TEMP:-${TEMPDIR}}"
 NYX_FLAGS="${NYX_FLAGS:---accept-flake-config --no-link}"
 NYX_WD="${NYX_WD:-$(mktemp -d)}"
 NYX_HOME="${NYX_HOME:-$HOME/.nyx}"
+CACHIX_REPO="${CACHIX_REPO:-chaotic-nyx}"
 
 # Colors
 R='\033[0;31m'
@@ -53,7 +54,7 @@ function prepare() {
     elif [ -n "$CACHIX_AUTH_TOKEN" ]; then
       echo "Downloading current list of cached contents"
       curl -H "Authorization: Bearer $CACHIX_AUTH_TOKEN" \
-        'https://app.cachix.org/api/v1/cache/chaotic-nyx/contents' |\
+        "https://app.cachix.org/api/v1/cache/${CACHIX_REPO}/contents" |\
           jq -r .[] > prev-cache.txt
     else
       touch prev-cache.txt
@@ -102,7 +103,7 @@ function build() {
     echo -e "${Y} CACHED${W}"
     zip_path >> full-pin.txt
     return 0
-  elif [ -z "${NYX_REFRESH:-}" ] && [ -z "$CACHIX_AUTH_TOKEN" ] && cached 'https://chaotic-nyx.cachix.org' "$_MAIN_OUT_PATH"; then
+  elif [ -z "${NYX_REFRESH:-}" ] && [ -z "$CACHIX_AUTH_TOKEN" ] && cached "https://${CACHIX_REPO}.cachix.org" "$_MAIN_OUT_PATH"; then
     echo "$_WHAT" >> cached.txt
     echo "$_MAIN_OUT_PATH" >> "${NYX_HOME}/cached.txt"
     echo -e "${Y} CACHED${W}"
@@ -161,13 +162,12 @@ function deploy() {
     sleep 10
 
     # Push all new deriations with compression
-    cat push.txt | cachix push chaotic-nyx \
-      --compression-method zstd
+    cat push.txt | cachix push "$CACHIX_REPO"
 
     # Pin packages
     if [ -e to-pin.txt ]; then
       cat to-pin.txt | xargs -n 2 \
-        cachix -v pin chaotic-nyx --keep-revisions 7
+        cachix -v pin "$CACHIX_REPO" --keep-revisions 7
     fi
 
     # Locally tag everything as cached
