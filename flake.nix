@@ -55,7 +55,7 @@ rec {
       inputs.flake-utils.follows = "flake-utils";
     };
     crane = {
-      url = "https://flakehub.com/f/ipetkov/crane/=0.16.1.tar.gz"; # This is the last commit that does not break conduwuit
+      url = "https://flakehub.com/f/ipetkov/crane/*.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-compat = {
