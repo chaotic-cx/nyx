@@ -280,6 +280,8 @@ in
   telegram-desktop_git = callOverride ../pkgs/telegram-desktop-git { };
   tg-owt_git = callOverride ../pkgs/tg-owt-git { };
 
+  virtualboxKvm = nixpkgs.legacyPackages.${final.system}.virtualboxKvm;
+
   vulkanPackages_latest = callOverride ../pkgs/vulkan-versioned
     { vulkanVersions = importJSON ../pkgs/vulkan-versioned/latest.json; };
 
