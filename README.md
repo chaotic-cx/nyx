@@ -247,6 +247,8 @@ CONFIG_SCHED_CLASS_EXT=y
 
 <h2 id="why-am-i-building-a-kernel-basic-cache-troubleshooting">Why am I building a kernel? Basic cache troubleshooting</h2>
 
+<p>You should rebuild and switch to a generation with the chaotic flake input enabled and <code>nix.package = package.nix;</code> added somewhere to your configuration before installing any packages from this repository, as the binary cache won't be added to nix otherwise. If that doesn't work, look at the rest of this section.</p>
+
 <p>For starters, suppose you're using our <code>linuxPackages_cachyos</code> as the kernel and an up-to-date flake lock. Check if all these three hashes prompt the same:</p>
 
 <pre lang="text"><code class="language-text">
