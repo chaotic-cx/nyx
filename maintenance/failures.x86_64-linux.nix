@@ -169,5 +169,6 @@
   "linuxPackages_cachyos-server.vendor-reset" = "/nix/store/d8manr77fyc2qaxdlzhai63806pi2z3j-vendor-reset-unstable-2021-02-16-6.8.9";
   "linuxPackages_cachyos-server.vm-tools" = "/nix/store/2ldb6ighsvkl4y2fkb16bjl0sb4lrdpy-vm-tools-6.6.30";
   "pkgsx86_64_v3-core.glib" = "/nix/store/8jrg9rn7ihnivxfga7q24w3v70rcas37-glib-2.80.0-bin";
+  "pkgsx86_64_v3-core.libsecret" = "/nix/store/wn8glf7xhb9c42mw3zk10jdr27dc6n0b-libsecret-0.21.4";
   "river_git" = "/nix/store/1j09bvr6zd27k9mc6gg4mcvlv3hpps56-river-unstable-20240502120834-e29d66f";
 }
