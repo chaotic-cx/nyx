@@ -87,11 +87,11 @@
         "rocksdb": "rocksdb"
       },
       "locked": {
-        "lastModified": 1714717104,
-        "narHash": "sha256-c+LnBnWKPQxNK6ebEe9RYlvGDkhEKJbSO6n0pZrKjdY=",
+        "lastModified": 1715064295,
+        "narHash": "sha256-/JXeVDvv2pkxbIoxmiVw9LwRmj4yMeKqFJN7eukP5G4=",
         "owner": "girlbossceo",
         "repo": "conduwuit",
-        "rev": "42e3567153f20ace6f287d46fff2d7c070b68840",
+        "rev": "43b07be3fc81f8cabfba193784fb92c997fd2293",
         "type": "github"
       },
       "original": {
@@ -194,11 +194,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1714900398,
-        "narHash": "sha256-H7XYHpjk1G6dkA3AnbYrKtaTFjcCE7ul6nUVlVQxtsA=",
+        "lastModified": 1715077503,
+        "narHash": "sha256-AfHQshzLQfUqk/efMtdebHaQHqVntCMjhymQzVFLes0=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "fdaaf543bad047639ef0b356ea2e6caec2f1215c",
+        "rev": "6e277d9566de9976f47228dd8c580b97488734d4",
         "type": "github"
       },
       "original": {
@@ -239,11 +239,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1714875377,
-        "narHash": "sha256-JOgZ3IHCK6s7JRoSdAUd1OnnGecPnX80rq195JbOpxs=",
+        "lastModified": 1715030990,
+        "narHash": "sha256-7Dtw63tOc/fdSJQD4rMx+eCgNWxkFow3WCQyTQezZKw=",
         "owner": "martinvonz",
         "repo": "jj",
-        "rev": "f1fd1d8071b6423dc756915eff5eca0714f10f7a",
+        "rev": "3345e409fc57776bf4855cdb29df5c5f343d5726",
         "type": "github"
       },
       "original": {
@@ -354,15 +354,15 @@
     "rocksdb": {
       "flake": false,
       "locked": {
-        "lastModified": 1713810944,
-        "narHash": "sha256-/Xf0bzNJPclH9IP80QNaABfhj4IAR5LycYET18VFCXc=",
-        "owner": "facebook",
+        "lastModified": 1714770052,
+        "narHash": "sha256-NCPYF2wYBsB9OHEkZSOYoPlxjC9BBMhJp8EM5M1o3Mc=",
+        "owner": "girlbossceo",
         "repo": "rocksdb",
-        "rev": "6f7cabeac80a3a6150be2c8a8369fcecb107bf43",
+        "rev": "db6df0b185774778457dabfcbd822cb81760cade",
         "type": "github"
       },
       "original": {
-        "owner": "facebook",
+        "owner": "girlbossceo",
         "ref": "v9.1.1",
         "repo": "rocksdb",
         "type": "github"
@@ -417,11 +417,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1707444620,
-        "narHash": "sha256-P8kRkiJLFttN+hbAOlm11wPxUrQZqKle+QtVCqFiGXY=",
+        "lastModified": 1714961776,
+        "narHash": "sha256-LiIxWRKbm1DZ+7l1a6FMmIO8leQx5yrRLIApCMai1DY=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "78503e9199010a4df714f29a4f9c00eb2ccae071",
+        "rev": "f3b20ea4131408ea585bddb1f41f91c4de9499cf",
         "type": "github"
       },
       "original": {
