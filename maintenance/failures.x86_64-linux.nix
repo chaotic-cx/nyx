@@ -68,7 +68,7 @@
   "linuxPackages_cachyos-lto.facetimehd" = "/nix/store/6w1g2y56lxdl6ahlmghf81l6rqc43rrw-facetimehd-0.6.8.1-6.8.9";
   "linuxPackages_cachyos-lto.fanout" = "/nix/store/ls1ph2ig66i8plh8p512lf4f8nlyc4rw-fanout-unstable-2022-10-17-6.8.9";
   "linuxPackages_cachyos-lto.framework-laptop-kmod" = "/nix/store/n48imhz4bc2n733xcgjsh0xyvri51ix9-framework-laptop-kmod-0-unstable-2024-01-02";
-  "linuxPackages_cachyos-lto.fwts-efi-runtime" = "/nix/store/wl1x83c2gz3fnghzyvck06dls334kyx2-fwts-efi-runtime-24.01.00-6.8.9";
+  "linuxPackages_cachyos-lto.fwts-efi-runtime" = "/nix/store/04w31ys27lv5lipr7707cqv3y1nrm88a-fwts-efi-runtime-24.03.00-6.8.9";
   "linuxPackages_cachyos-lto.gasket" = "/nix/store/di92gribv8rkhfslhp8w6a626496c2pw-gasket-1.0-18-unstable-2023-09-05";
   "linuxPackages_cachyos-lto.gcadapter-oc-kmod" = "/nix/store/5bfq4vdpa94p2yxvcamnbbq7z8jnv5bm-gcadapter-oc-kmod-unstable-2021-12-11";
   "linuxPackages_cachyos-lto.hid-ite8291r3" = "/nix/store/fd4qpdf2858jrigp3sizczd16xhnzwaj-hid-ite8291r3-unstable-2022-06-01";
