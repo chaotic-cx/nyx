@@ -19,9 +19,9 @@ stdenvNoCC.mkDerivation rec {
 
   installPhase = ''
     runHook preInstall
-    install -d $out/etc/ananicy.d
+    mkdir -p $out/etc/ananicy.d
+    rm README.md LICENSE
     cp -r * $out/etc/ananicy.d
-    rm $out/etc/ananicy.d/README.md
     runHook postInstall
   '';
 
