@@ -166,14 +166,14 @@ We do this automatically, so we can gracefully update the cache's address and ke
 
 <h3 id="using-linux-cachyos-with-sched-ext">Using linux-cachyos with sched-ext</h3>
 
-<p> Since sched-ext patches have been added to <code>linux-chachyos</code>, you can just use that kernel. </p>
+<p> Since sched-ext patches have been added to <code>linux-cachyos</code>, you can just use that kernel. </p>
 
 <p>First, add this to your configuration:</p>
 
 <pre lang="nix"><code class="language-nix">
 {
   boot.kernelPackages = pkgs.linuxPackages_cachyos;
-  environment.systemPackages =  [ pkgs.scx ];
+  chaotic.scx.enable = true; # by default uses scx_rustland scheduler
 }
 </code></pre>
 
@@ -184,7 +184,7 @@ We do this automatically, so we can gracefully update the cache's address and ke
 CONFIG_SCHED_CLASS_EXT=y
 </code></pre>
 
-<p>The last step is to start a scheduler:</p>
+<p>If the scheduler is not working for some reason, you can manually start it like:</p>
 
 <pre lang="text"><code class="language-text">
 ╰─λ sudo scx_rusty
@@ -192,6 +192,13 @@ CONFIG_SCHED_CLASS_EXT=y
 21:38:53 [INFO] DOM[00] cpumask 00000000FF03F03F (20 cpus)
 21:38:53 [INFO] DOM[01] cpumask 0000000000FC0FC0 (12 cpus)
 21:38:53 [INFO] Rusty Scheduler Attached
+</code></pre>
+
+<p>You can choose a different scheduler too.</p>
+<pre lang="nix"><code class="language-nix">
+{
+  chaotic.scx.scheduler = "scx_rusty";
+}
 </code></pre>
 
 <p>There are other scx_* binaries for you to play with, or head to <a href="https://github.com/sched-ext/scx" target="_blank">github.com/sched-ext/scx</a> for instructions on how to write one of your own.</p>
