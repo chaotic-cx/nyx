@@ -66,6 +66,12 @@ in
     taste = "linux-cachyos-hardened";
     configPath = ./config-nix/cachyos-hardened.x86_64-linux.nix;
     cpuSched = "hardened";
+    versions = mainVersions // {
+      linux = {
+        inherit (final.linux_6_8) version;
+        hash = final.linux_6_8.src.outputHash;
+      };
+    };
 
     withNTSync = false;
     withHDR = false;
