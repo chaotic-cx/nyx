@@ -1,10 +1,6 @@
 { final, prev, gitOverride, ... }:
 
 gitOverride {
-  newInputs = with final; {
-    zig_0_11 = zig;
-  };
-
   nyxKey = "river_git";
   prev = prev.river;
 
