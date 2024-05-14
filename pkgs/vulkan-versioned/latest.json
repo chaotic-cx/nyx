@@ -31,9 +31,9 @@
     "hash": "sha256-bbILp733ddwEStJB0nr+cyAV8Px0kie7rLQ4eS7kUoI="
   },
   "vulkanLoader": {
-    "version": "1.3.284",
+    "version": "1.3.285",
     "rev": "v#{version}",
-    "hash": "sha256-tWuIAy5/6BKrZO9wqhoweNZiCB4eTU94IQuD+N/EXNE="
+    "hash": "sha256-l+7UrOUoa0K9kZHcYARRbcq6cAxjCgsZupWb+b+xrYA="
   },
   "vulkanTools": {
     "version": "1.3.284",
