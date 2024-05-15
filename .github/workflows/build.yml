@@ -100,10 +100,12 @@ jobs:
         if: (success() && steps.check.outputs.cached != 'true')
         uses: actions/checkout@v4
       - name: Configure sandboxing
+        if: (success() && steps.check.outputs.cached != 'true')
         run: |
           sed -i -e '/^build-users-group =/d' -e 's/max-jobs =.*/max-jobs = 8/g' /etc/nix/nix.conf
           nix eval .#_dev.nixConfig --json | jq -r 'to_entries[] | "\(.key) = \(.value | join(" "))"' >> /etc/nix/nix.conf
       - name: Download cache list
+        if: (success() && steps.check.outputs.cached != 'true')
         run: |
           curl -vfo "${{ runner.temp }}/prev-cache.json" -H "Authorization: Bearer ${{ secrets.CACHIX_AUTH_TOKEN_SUPREME }}" \
             'https://app.cachix.org/api/v1/cache/chaotic-nyx/contents'
