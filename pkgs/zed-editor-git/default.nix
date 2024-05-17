@@ -42,6 +42,9 @@ gitOverride {
   };
 
   postOverride = prevAttrs: {
+    postPatch = (prevAttrs.postPatch or "") + ''
+      sed -i"" 's+zed::node_binary_path()?+"${final.nodejs_18}"+g' extensions/*/src/*.rs
+    '';
     env = prevAttrs.env // { OPENSSL_NO_VENDOR = 1; };
   };
 }
