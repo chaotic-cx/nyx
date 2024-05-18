@@ -1,17 +1,26 @@
 { buildMozillaMach
 , callPackage
+, fetchurl
 , lib
 , stdenv
 }:
 let
+  current = lib.trivial.importJSON ./version.json;
   firedragon-src = callPackage ./firedragon.nix { };
+  packageVersion = current.version;
 in
 ((buildMozillaMach rec {
   applicationName = "FireDragon";
   binaryName = "firedragon";
   pname = "firedragon";
-  src = firedragon-src.floorp;
-  inherit (firedragon-src) extraConfigureFlags extraPatches extraPostPatch extraPassthru packageVersion;
+
+  src = fetchurl {
+    url = "https://gitlab.com/api/v4/projects/55893651/packages/generic/firedragon/${packageVersion}/firedragon-v${packageVersion}.source.tar.zst";
+    inherit (current) hash;
+  };
+
+  inherit packageVersion;
+  inherit (firedragon-src) extraConfigureFlags extraNativeBuildInputs;
 
   # Must match the contents of `browser/config/version.txt` in the source tree
   version = "115.7.0";
@@ -42,5 +51,6 @@ in
   MOZ_REQUIRE_SIGNING = "";
   MOZ_SERVICES_HEALTHREPORT = "";
   MOZ_TELEMETRY_REPORTING = "";
-  RUSTC_OPT_LEVEL = "2";
+  OPT_LEVEL = "3";
+  RUSTC_OPT_LEVEL = "3";
 }
