@@ -87,11 +87,11 @@
         "rocksdb": "rocksdb"
       },
       "locked": {
-        "lastModified": 1715931745,
-        "narHash": "sha256-dKdp4HbNp4Y/S8W7Zx8fI0mHsrZHcRuqIvKGgb+MnRc=",
+        "lastModified": 1715983991,
+        "narHash": "sha256-2OL8zPpDHXgOxNqXlWqd1aJ2uZJCAuoqBWaabwWUg2M=",
         "owner": "girlbossceo",
         "repo": "conduwuit",
-        "rev": "6ef4781050c2fa7fd89bcce0bd1f427b8f864a77",
+        "rev": "8bffcfe82b3cc50bb095f41afc585fabacb963e3",
         "type": "github"
       },
       "original": {
@@ -239,11 +239,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1715941270,
-        "narHash": "sha256-bEGp5SR6NRm5YEXRIJCFb8Cw9mxP1nXQ9RDtofAD9ic=",
+        "lastModified": 1715993632,
+        "narHash": "sha256-ryvUw8A/m4zhmfaRko4rrc64M5/pBDZxfavVtdj7Yqw=",
         "owner": "martinvonz",
         "repo": "jj",
-        "rev": "0a48ac63cbeab30bb39d14744bf073d138918f5c",
+        "rev": "6d211c589ce6223ca01538b3f96ab294747e7f0c",
         "type": "github"
       },
       "original": {
@@ -271,11 +271,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1715931180,
-        "narHash": "sha256-Ll4Sm2hjS1gXCFq0moCjW1kRR+jeK4QnBi/qKwWn3Yc=",
+        "lastModified": 1716030039,
+        "narHash": "sha256-MJh0CR2YHJE0GNnxaTcElNMuZUEI0pe9fvC0mfy4484=",
         "owner": "YaLTeR",
         "repo": "niri",
-        "rev": "4dc7a6ceb80dfa8ac04ee9ca44a599405493f6cb",
+        "rev": "d96a66ddff1a6b88dbe3e23b049f7075533b216f",
         "type": "github"
       },
       "original": {
