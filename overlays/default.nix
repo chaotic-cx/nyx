@@ -145,7 +145,11 @@ in
 
   extra-cmake-modules_git = callOverride ../pkgs/extra-cmake-modules-git/latest.nix { };
 
-  firedragon = final.callPackage ../pkgs/firedragon { };
+  firedragon-unwrapped = final.callPackage ../pkgs/firedragon { };
+
+  firedragon = final.wrapFirefox final.firedragon-unwrapped {
+    libName = "firedragon";
+  };
 
   firefox-unwrapped_nightly = final.callPackage ../pkgs/firefox-nightly { };
   firefox_nightly = final.wrapFirefox final.firefox-unwrapped_nightly {
