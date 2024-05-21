@@ -7,7 +7,6 @@
 , jq
 , git
 , nix
-, nix-prefetch-url
 , moreutils
 , ...
 }:
@@ -20,7 +19,6 @@ let
     jq
     moreutils
     git
-    nix-prefetch-url
     nix
   ];
 in
