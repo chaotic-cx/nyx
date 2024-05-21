@@ -57,10 +57,10 @@
     "hash": "sha256-W7G67B64WGrhIy5PJ9IjvaD57FBiXXbcFOo4u9NF91I="
   },
   "vulkanValidationLayers": {
-    "version": "snapshot-2024wk20",
-    "rev": "#{version}",
-    "hash": "sha256-kFCWQQ1xkNrNvzjzDZXERC0eF7jWk2GZqYk3rc9rlAM=",
-    "badTag": "snapshot-2024wk17"
+    "version": "1.3.285",
+    "rev": "v#{version}",
+    "hash": "sha256-5x2L7NP0kDRcom4w1YhYA0fdY2qSk7XuYuLUE+K/m1g=",
+    "badTag": "snapshot-2024wk20"
   },
   "volk": {
     "version": "1.3.283.0",
