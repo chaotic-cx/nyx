@@ -1,4 +1,4 @@
-{ final, prev, gitOverride, nyxUtils, ... }:
+{ final, prev, gitOverride, ... }:
 
 gitOverride {
   newInputs = with final; {
@@ -21,9 +21,8 @@ gitOverride {
   ref = "master";
 
   postOverride = prevAttrs: {
-    patches =
-      nyxUtils.removeByURL
-        "https://github.com/swaywm/sway/commit/dee032d0a0ecd958c902b88302dc59703d703c7f.diff"
-        prevAttrs.patches;
+    mesonFlags =
+      builtins.filter (x: builtins.substring 0 10 x != "-Dxwayland")
+        prevAttrs.mesonFlags;
   };
 }
