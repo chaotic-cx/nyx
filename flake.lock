@@ -88,11 +88,11 @@
         "rocksdb": "rocksdb"
       },
       "locked": {
-        "lastModified": 1716800097,
-        "narHash": "sha256-A8AXq7GqwLNOwCP6UyHzrusf2he6IYlD363/SrBKgts=",
+        "lastModified": 1716883613,
+        "narHash": "sha256-1fJyH76Pfx863Uk5jpPtpmyAIZcCk1luPD0cmPnhUNU=",
         "owner": "girlbossceo",
         "repo": "conduwuit",
-        "rev": "6ccf578437a42cf8f32a454ca99b78df23cfa4dc",
+        "rev": "f4cfc77a577e0dfd152878830294c8eb3fe47861",
         "type": "github"
       },
       "original": {
@@ -195,11 +195,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1716736760,
-        "narHash": "sha256-h3RmnNknKYtVA+EvUSra6QAwfZjC2q1G8YA7W0gat8Y=",
+        "lastModified": 1716847642,
+        "narHash": "sha256-rjEswRV0o23eBBils8lJXyIGha+l/VjV73IPg+ztxgk=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "5d151429e1e79107acf6d06dcc5ace4e642ec239",
+        "rev": "10c7c219b7dae5795fb67f465a0d86cbe29f25fa",
         "type": "github"
       },
       "original": {
@@ -240,11 +240,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1716773713,
-        "narHash": "sha256-++tmVuLwprXWSSq9AmfcZ4MjorMueuO5ThwuTzhp5SE=",
+        "lastModified": 1716842187,
+        "narHash": "sha256-gZcaZqyR9qvwBgFlyNQ22WXxNdcz+T8PxEMrDwPGcwM=",
         "owner": "martinvonz",
         "repo": "jj",
-        "rev": "a075a5c6cabd493759fc973d99d3fd88feb74735",
+        "rev": "a17292317c63df7aad14c3203046f683b847fa69",
         "type": "github"
       },
       "original": {
