@@ -4,15 +4,14 @@ rec {
   inputs = {
     compare-to.url = "https://flakehub.com/f/chaotic-cx/nix-empty-flake/=0.1.2.tar.gz"; # pinned, used when comparing changes between commits
     flake-schemas.url = "https://flakehub.com/f/DeterminateSystems/flake-schemas/=0.1.1.tar.gz"; # pinned, used by "schemas" output
-    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1.*.tar.gz";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
-      #url = "https://flakehub.com/f/nix-community/home-manager/0.1.*.tar.gz";
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     systems.url = "github:nix-systems/default-linux";
     yafas = {
-      url = "https://flakehub.com/f/UbiqueLambda/yafas/0.1.*.tar.gz";
+      url = "github:UbiqueLambda/yafas";
       inputs.systems.follows = "systems";
       inputs.flake-schemas.follows = "flake-schemas";
     };
@@ -48,26 +47,26 @@ rec {
 
     # thirdy-party repositories' common dependencies
     attic = {
-      url = "https://flakehub.com/f/zhaofengli/attic/0.1.*.tar.gz";
+      url = "github:zhaofengli/attic";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.crane.follows = "crane";
       inputs.flake-compat.follows = "flake-compat";
       inputs.flake-utils.follows = "flake-utils";
     };
     crane = {
-      url = "https://flakehub.com/f/ipetkov/crane/*.tar.gz";
+      url = "github:ipetkov/crane";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-compat = {
-      url = "https://flakehub.com/f/edolstra/flake-compat/*.tar.gz";
+      url = "github:edolstra/flake-compat";
       flake = false;
     };
     flake-utils = {
-      url = "https://flakehub.com/f/numtide/flake-utils/0.1.*.tar.gz";
+      url = "github:numtide/flake-utils";
       inputs.systems.follows = "systems";
     };
     fenix = {
-      url = "https://flakehub.com/f/nix-community/fenix/0.1.*.tar.gz";
+      url = "github:nix-community/fenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-filter.url = "github:numtide/nix-filter";
