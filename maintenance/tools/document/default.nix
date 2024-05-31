@@ -161,6 +161,12 @@ let
 
   readme =
     lib.strings.splitString "<!-- cut here -->" (builtins.readFile ../../../README.md);
+
+  getVersion = flake:
+    if flake ? revCount then
+      "version <code>0.1.${toString flake.revCount}</code>"
+    else
+      "<code>${flake.lastModifiedDate}Z</code>";
 in
 writeText "chaotic-documented.html" ''
   <!DOCTYPE html><html>
@@ -204,12 +210,12 @@ writeText "chaotic-documented.html" ''
     <noscript><style>.noscript-table { display: table; }</style></noscript>
   </head><body><div style="max-width: 140rem; margin: 0 auto">
     ${builtins.head readme}
-    <p>Built and cached against <a href="https://github.com/NixOS/nixpkgs/tree/${nixpkgs.rev}" target="_blank"><code>github:nixos/nixpkgs/${nixpkgs.rev}</code></a> (version <code>0.1.${toString nixpkgs.revCount}</code>).</p>
+    <p>Built and cached against <a href="https://github.com/NixOS/nixpkgs/tree/${nixpkgs.rev}" target="_blank"><code>github:nixos/nixpkgs/${nixpkgs.rev}</code></a> (${getVersion nixpkgs}).</p>
     <ul>${renderIndex tables}</ul>
     ${renderTables tables}
     ${lib.lists.last readme}
     <h2>About this page</h2>
-    <p>Generated for <a href="https://github.com/chaotic-cx/nyx/tree/${self.rev or "nyxpkgs-unstable"}"><code>github:chaotic-cx/nyx/${self.rev or "nyxpkgs-unstable"}</code></a> from <code>${self.lastModifiedDate}Z</code>.</p>
+    <p>Generated for <a href="https://github.com/chaotic-cx/nyx/tree/${self.rev or "nyxpkgs-unstable"}"><code>github:chaotic-cx/nyx/${self.rev or "nyxpkgs-unstable"}</code></a> from (${getVersion self}).</p>
     <script type="module">
       import {
         Grid,
