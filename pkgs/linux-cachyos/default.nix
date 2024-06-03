@@ -68,8 +68,8 @@ in
     cpuSched = "hardened";
     versions = mainVersions // {
       linux = {
-        version = "6.8.9";
-        hash = "sha256:1dn9bgmf03bdfbmgq98d043702g808rjikxs2i9yia57iqiz21gr";
+        version = "6.9.2";
+        hash = "sha256:1yg5j284y1gz7zwxjz2abvlnas259m1y1vzd9lmcqqar5kgmnv6l";
       };
     };
 
