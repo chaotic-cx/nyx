@@ -32,7 +32,7 @@ in
 
   extraMeta = {
     maintainers = with lib.maintainers; [ dr460nf1r3 pedrohlc ];
-    platforms = configfile.meta.platforms;
+    inherit (configfile.meta) platforms;
   };
 }
 ).overrideAttrs (prevAttrs: {
