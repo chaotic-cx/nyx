@@ -68,8 +68,8 @@ in
     cpuSched = "hardened";
     versions = mainVersions // {
       linux = {
-        inherit (final.linux_6_8) version;
-        hash = final.linux_6_8.src.outputHash;
+        version = "6.9.2";
+        hash = "sha256:1yg5j284y1gz7zwxjz2abvlnas259m1y1vzd9lmcqqar5kgmnv6l";
       };
     };
 
