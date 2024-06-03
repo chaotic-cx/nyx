@@ -3,9 +3,11 @@
 , configPath
 , versions
 , callPackage
+, linuxPackages
 , linuxPackagesFor
 , nyxUtils
 , lib
+, ogKernelConfigfile ? linuxPackages.kernel.passthru.configfile
   # those are set in their PKGBUILDs
 , kernelPatches ? { }
 , basicCachy ? true
@@ -49,7 +51,7 @@ let
   # - Then we NIXify it (in the update-script);
   # - Last state is importing the NIXified version for building.
   preparedConfigfile = callPackage ./prepare.nix {
-    inherit cachyConfig stdenv kernel;
+    inherit cachyConfig stdenv kernel ogKernelConfigfile;
   };
   kconfigToNix = callPackage ./lib/kconfig-to-nix.nix {
     configfile = preparedConfigfile;

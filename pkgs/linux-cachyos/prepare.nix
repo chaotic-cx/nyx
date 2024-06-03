@@ -4,6 +4,7 @@
 , lib
 , stdenv
 , kernel
+, ogKernelConfigfile
 }:
 let
   inherit (cachyConfig.versions.linux) version;
@@ -217,6 +218,11 @@ stdenv.mkDerivation {
   installPhase = ''
     cp .config $out
   '';
+
+  meta = ogKernelConfigfile.meta // {
+    # at the time of this writing, they don't have config files for aarch64
+    platforms = [ "x86_64-linux" ];
+  };
 
   passthru = {
     inherit cachyConfig makeEnv stdenv;
