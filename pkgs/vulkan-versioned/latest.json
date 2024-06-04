@@ -57,9 +57,9 @@
     "hash": "sha256-W7G67B64WGrhIy5PJ9IjvaD57FBiXXbcFOo4u9NF91I="
   },
   "vulkanValidationLayers": {
-    "version": "snapshot-2024wk21",
+    "version": "snapshot-2024wk22",
     "rev": "#{version}",
-    "hash": "sha256-onzebgFGv9yknbFmcEco3qwDm6T+5o3/1aKZnztfl24=",
+    "hash": "sha256-Sxnej1nYeOoX0mXIlLxT6mGgSg/DPcvH4sy7uA9OJWY=",
     "badTag": "snapshot-2024wk20"
   },
   "volk": {
