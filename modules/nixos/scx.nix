@@ -5,13 +5,12 @@ let
 in
 {
   options.chaotic.scx = {
-    enable = lib.mkEnableOption ''scx service, a 
-    scheduler daemon with wide variety of
+    enable = lib.mkEnableOption ''scx service,
+    a scheduler daemon with wide variety of
     scheduling algorithms, that can be used to
     improve system performance. Requires a kernel
     with the SCX patchset applied. Currently
-    all cachyos kernels have this patchset applied.
-    '';
+    all cachyos kernels have this patchset applied'';
     package = lib.mkPackageOptionMD pkgs "scx" { };
     scheduler = lib.mkOption {
       type = lib.types.enum [
