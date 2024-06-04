@@ -106,6 +106,7 @@ llvmPackages.stdenv.mkDerivation {
     "-Dsystemd=disabled"
     "-Dopenrc=disabled"
     "-Dlibbpf_a=disabled"
+    "-Dlibalpm=disabled"
   ];
 
   enableParallelBuilding = true;
