@@ -48,5 +48,36 @@ in
         Restart = "on-failure";
       };
     };
+
+    assertions = [
+      {
+        assertion = config.boot.kernelPackages.kernel.passthru.config.CONFIG_BPF == "y";
+        message = "SCX needs a kernel with CONFIG_BPF";
+      }
+      {
+        assertion = config.boot.kernelPackages.kernel.passthru.config.CONFIG_BPF_EVENTS == "y";
+        message = "SCX needs a kernel with CONFIG_BPF_EVENTS";
+      }
+      {
+        assertion = config.boot.kernelPackages.kernel.passthru.config.CONFIG_BPF_JIT == "y";
+        message = "SCX needs a kernel with CONFIG_BPF_JIT";
+      }
+      {
+        assertion = config.boot.kernelPackages.kernel.passthru.config.CONFIG_BPF_SYSCALL == "y";
+        message = "SCX needs a kernel with CONFIG_BPF_SYSCALL";
+      }
+      {
+        assertion = config.boot.kernelPackages.kernel.passthru.config.CONFIG_DEBUG_INFO_BTF == "y";
+        message = "SCX needs a kernel with CONFIG_DEBUG_INFO_BTF";
+      }
+      {
+        assertion = config.boot.kernelPackages.kernel.passthru.config.CONFIG_FTRACE == "y";
+        message = "SCX needs a kernel with CONFIG_FTRACE";
+      }
+      {
+        assertion = config.boot.kernelPackages.kernel.passthru.config.CONFIG_SCHED_CLASS_EXT == "y";
+        message = "SCX needs a kernel with CONFIG_SCHED_CLASS_EXT";
+      }
+    ];
   };
 }
