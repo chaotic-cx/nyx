@@ -5,13 +5,12 @@ let
 in
 {
   options.chaotic.scx = {
-    enable = lib.mkEnableOption ''scx service, a 
-    scheduler daemon with wide variety of
+    enable = lib.mkEnableOption ''scx service,
+    a scheduler daemon with wide variety of
     scheduling algorithms, that can be used to
     improve system performance. Requires a kernel
     with the SCX patchset applied. Currently
-    all cachyos kernels have this patchset applied.
-    '';
+    all cachyos kernels have this patchset applied'';
     package = lib.mkPackageOptionMD pkgs "scx" { };
     scheduler = lib.mkOption {
       type = lib.types.enum [
@@ -49,5 +48,36 @@ in
         Restart = "on-failure";
       };
     };
+
+    assertions = [
+      {
+        assertion = (config.boot.kernelPackages.kernel.passthru.config.CONFIG_BPF or null) == "y";
+        message = "SCX needs a kernel with CONFIG_BPF";
+      }
+      {
+        assertion = (config.boot.kernelPackages.kernel.passthru.config.CONFIG_BPF_EVENTS or null) == "y";
+        message = "SCX needs a kernel with CONFIG_BPF_EVENTS";
+      }
+      {
+        assertion = (config.boot.kernelPackages.kernel.passthru.config.CONFIG_BPF_JIT or null) == "y";
+        message = "SCX needs a kernel with CONFIG_BPF_JIT";
+      }
+      {
+        assertion = (config.boot.kernelPackages.kernel.passthru.config.CONFIG_BPF_SYSCALL or null) == "y";
+        message = "SCX needs a kernel with CONFIG_BPF_SYSCALL";
+      }
+      {
+        assertion = (config.boot.kernelPackages.kernel.passthru.config.CONFIG_DEBUG_INFO_BTF or null) == "y";
+        message = "SCX needs a kernel with CONFIG_DEBUG_INFO_BTF";
+      }
+      {
+        assertion = (config.boot.kernelPackages.kernel.passthru.config.CONFIG_FTRACE or null) == "y";
+        message = "SCX needs a kernel with CONFIG_FTRACE";
+      }
+      {
+        assertion = (config.boot.kernelPackages.kernel.passthru.config.CONFIG_SCHED_CLASS_EXT or null) == "y";
+        message = "SCX needs a kernel with CONFIG_SCHED_CLASS_EXT";
+      }
+    ];
   };
 }
