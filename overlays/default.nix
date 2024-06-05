@@ -182,6 +182,7 @@ in
   libportal_git = callOverride ../pkgs/libportal-git { };
 
   linuxPackages_cachyos = cachyosPackages.cachyos;
+  linuxPackages_cachyos-rc = cachyosPackages.cachyos-rc;
   linuxPackages_cachyos-hardened = cachyosPackages.cachyos-hardened;
   linuxPackages_cachyos-lto = cachyosPackages.cachyos-lto;
   linuxPackages_cachyos-sched-ext = cachyosPackages.cachyos-sched-ext;
