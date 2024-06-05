@@ -182,11 +182,14 @@ in
   libportal_git = callOverride ../pkgs/libportal-git { };
 
   linuxPackages_cachyos = cachyosPackages.cachyos;
-  linuxPackages_cachyos-rc = cachyosPackages.cachyos-rc;
   linuxPackages_cachyos-hardened = cachyosPackages.cachyos-hardened;
   linuxPackages_cachyos-lto = cachyosPackages.cachyos-lto;
   linuxPackages_cachyos-sched-ext = cachyosPackages.cachyos-sched-ext;
   linuxPackages_cachyos-server = cachyosPackages.cachyos-server;
+
+  # Don't build modules for linux_cachyos-rc kernel
+  linuxPackages_cachyos-rc = cachyosPackages.cachyos-rc;
+  linux_cachyos-rc = cachyosPackages.cachyos-rc.kernel;
 
   luxtorpeda = final.callPackage ../pkgs/luxtorpeda {
     luxtorpedaVersion = importJSON ../pkgs/luxtorpeda/version.json;

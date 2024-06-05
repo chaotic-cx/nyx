@@ -45,6 +45,8 @@ in
         hash = "sha256-LYNSC5mlArXov9mKdWRleQEm8rE39csG1mO3Dwzusnw=";
       };
     };
+    # Prevent building kernel modules for rc kernel
+    packagesExtend = _kernel: _final: prev: prev // { recurseForDerivations = false; };
   };
 
   cachyos-lto = mkCachyKernel {
