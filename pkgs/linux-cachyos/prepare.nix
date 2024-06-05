@@ -54,6 +54,7 @@ let
     ++ lib.optional (cachyConfig.cpuSched == "hardened") "${patches-src}/${majorMinor}/misc/0001-hardened.patch"
     ++ lib.optional cachyConfig.withBCacheFSPatch "${patches-src}/${majorMinor}/misc/0001-bcachefs.patch"
     ++ (if majorMinor == "6.9" then [ ./0001-Add-extra-version-CachyOS.patch ] else [
+      # FIXME: remove in next kernel update
       "${patches-src}/${majorMinor}/misc/0001-Add-extra-version-CachyOS.patch"
     ]);
 

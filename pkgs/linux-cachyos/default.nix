@@ -37,10 +37,10 @@ in
     withUpdateScript = true;
     versions = mainVersions // {
       linux = {
-        version = "6.10-rc2";
-        hash = "sha256-wty5z12u5rCwSzxEEJuagARJ6nWUkldpIkiGfbi+0bA=";
+        inherit (mainVersions.linuxRc) version hash;
       };
       patches = {
+        # FIXME: remove patches override in next kernel update
         rev = "994b6d9ccf34fca3a7616ed4c95b252cc73cec09";
         hash = "sha256-LYNSC5mlArXov9mKdWRleQEm8rE39csG1mO3Dwzusnw=";
       };
