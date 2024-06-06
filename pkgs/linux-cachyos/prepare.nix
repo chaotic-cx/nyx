@@ -1,6 +1,7 @@
 { cachyConfig
 , fetchFromGitHub
 , fetchurl
+, fetchzip
 , lib
 , stdenv
 , kernel
@@ -8,7 +9,7 @@
 }:
 let
   inherit (cachyConfig.versions.linux) version;
-  major = lib.versions.pad 2 version;
+  majorMinor = lib.versions.majorMinor version;
 
   patches-src = fetchFromGitHub {
     owner = "CachyOS";
@@ -22,28 +23,41 @@ let
     inherit (cachyConfig.versions.config) rev hash;
   };
 
-  src = fetchurl {
-    url = "mirror://kernel/linux/kernel/v6.x/linux-${
-      if version == "${major}.0" then major else version
-    }.tar.xz";
-    inherit (cachyConfig.versions.linux) hash;
-  };
+  src =
+    if cachyConfig.taste == "linux-cachyos-rc" then
+      fetchzip
+        {
+          url = "https://git.kernel.org/torvalds/t/linux-${version}.tar.gz";
+          inherit (cachyConfig.versions.linux) hash;
+        }
+    else
+      fetchurl {
+        url = "mirror://kernel/linux/kernel/v${lib.versions.major version}.x/linux-${
+          if version == "${majorMinor}.0" then majorMinor else version
+        }.tar.xz";
+        inherit (cachyConfig.versions.linux) hash;
+      };
+
 
   schedPatches =
     if cachyConfig.cpuSched == "eevdf" then
       [ ]
     else if cachyConfig.cpuSched == "hardened" then
-      [ "${patches-src}/${major}/sched/0001-bore-cachy.patch" ]
+      [ "${patches-src}/${majorMinor}/sched/0001-bore-cachy.patch" ]
     else if cachyConfig.cpuSched == "cachyos" || cachyConfig.cpuSched == "sched-ext" then
-      [ "${patches-src}/${major}/sched/0001-sched-ext.patch" ]
+      [ "${patches-src}/${majorMinor}/sched/0001-sched-ext.patch" ]
     else throw "Unsupported cachyos _cpu_sched=${toString cachyConfig.cpuSched}";
 
   patches =
-    [ "${patches-src}/${major}/all/0001-cachyos-base-all.patch" ]
+    [ "${patches-src}/${majorMinor}/all/0001-cachyos-base-all.patch" ]
     ++ schedPatches
-    ++ lib.optional (cachyConfig.cpuSched == "hardened") "${patches-src}/${major}/misc/0001-hardened.patch"
-    ++ lib.optional cachyConfig.withBCacheFSPatch "${patches-src}/${major}/misc/0001-bcachefs.patch"
-    ++ [ ./0001-Add-extra-version-CachyOS.patch ];
+    ++ lib.optional (cachyConfig.cpuSched == "hardened") "${patches-src}/${majorMinor}/misc/0001-hardened.patch"
+    ++ lib.optional cachyConfig.withBCacheFSPatch "${patches-src}/${majorMinor}/misc/0001-bcachefs.patch"
+    ++ (if majorMinor == "6.9" then [ ./0001-Add-extra-version-CachyOS.patch ] else [
+      # FIXME: remove in next kernel update
+      "${patches-src}/${majorMinor}/misc/0001-Add-extra-version-CachyOS.patch"
+    ]);
+
 
   # There are some configurations set by the PKGBUILD
   pkgbuildConfig = with cachyConfig;

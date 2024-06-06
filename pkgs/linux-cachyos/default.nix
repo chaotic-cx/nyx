@@ -29,6 +29,26 @@ in
     withUpdateScript = true;
   };
 
+  cachyos-rc = mkCachyKernel {
+    taste = "linux-cachyos-rc";
+    configPath = ./config-nix/cachyos-rc.x86_64-linux.nix;
+
+    cpuSched = "eevdf"; # rc kernel does not have scx patches ready, usually
+    withUpdateScript = true;
+    versions = mainVersions // {
+      linux = {
+        inherit (mainVersions.linuxRc) version hash;
+      };
+      patches = {
+        # FIXME: remove patches override in next kernel update
+        rev = "994b6d9ccf34fca3a7616ed4c95b252cc73cec09";
+        hash = "sha256-LYNSC5mlArXov9mKdWRleQEm8rE39csG1mO3Dwzusnw=";
+      };
+    };
+    # Prevent building kernel modules for rc kernel
+    packagesExtend = _kernel: _final: prev: prev // { recurseForDerivations = false; };
+  };
+
   cachyos-lto = mkCachyKernel {
     taste = "linux-cachyos";
     configPath = ./config-nix/cachyos-lto.x86_64-linux.nix;
