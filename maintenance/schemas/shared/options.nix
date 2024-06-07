@@ -5,7 +5,9 @@
       value = {
         what = "option";
         shortDescription =
-          builtins.replaceStrings [ "\n" "\t" ] [ " " " " ] v.description;
+          if (v.visible or true)
+          then builtins.replaceStrings [ "\n" "\t" ] [ " " " " ] v.description
+          else "RENAMED or REMOVED";
         #evalChecks.isDerivation = false;
       };
     };
