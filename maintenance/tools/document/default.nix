@@ -78,7 +78,7 @@ let
         else if v ? default then prettify v.default
         else "N/A";
     in
-    ''
+    if (v.visible or true) then ''
       <tr>
         <td><code>chaotic.${k}</code></td>
         <td><code>${prettyDefault}</code></td>
@@ -87,6 +87,8 @@ let
           ${example}
         </td>
       </tr>
+    '' else ''
+      <!-- INVISIBLE OPTION chaotic.${k} -->
     '';
 
   optionWarn = k: _v: message:
