@@ -23,10 +23,10 @@ let
     environment.systemPackages = [ cfg.wsiPackage ];
   };
 
-  sysConfig = lib.mkIf (!cfg.specialisation.enable) (configuration (x: x));
+  sysConfig = lib.mkIf (!cfg.specialisation.enable) configuration;
 
   specConfig = lib.mkIf cfg.specialisation.enable {
-    specialisation.hdr.configuration = configuration lib.mkForce // {
+    specialisation.hdr.configuration = configuration // {
       system.nixos.tags = [ "hdr" ];
     };
   };
