@@ -24,36 +24,36 @@ let
   };
 in
 {
-  options.chaotic.hdr = with lib; {
+  options.chaotic.hdr = {
     enable =
-      mkEnableOption ''AMD-HDR as seen in
+      lib.mkEnableOption ''AMD-HDR as seen in
         https://lore.kernel.org/amd-gfx/20230810160314.48225-1-mwen@igalia.com/
       '';
     specialisation.enable =
-      mkOption {
+      lib.mkOption {
         default = true;
         example = false;
-        type = types.bool;
+        type = lib.types.bool;
         description = ''
           Isolates the changes in a specialisation.
         '';
       };
     kernelPackages =
-      mkOption {
+      lib.mkOption {
         default = pkgs.linuxPackages_cachyos;
-        defaultText = literalExpression "pkgs.linuxPackages_cachyos";
-        example = literalExpression "pkgs.linuxKernel.packages.linux_hdr";
-        type = types.raw;
+        defaultText = lib.literalExpression "pkgs.linuxPackages_cachyos";
+        example = lib.literalExpression "pkgs.linuxKernel.packages.linux_hdr";
+        type = lib.types.raw;
         description = ''
           Kernel+packages with "AMD Color Management" patches applied.
         '';
       };
     wsiPackage =
-      mkOption {
+      lib.mkOption {
         default = pkgs.gamescope-wsi;
-        defaultText = literalExpression "pkgs.gamescope-wsi";
-        example = literalExpression "pkgs.gamescope-wsi_git";
-        type = types.package;
+        defaultText = lib.literalExpression "pkgs.gamescope-wsi";
+        example = lib.literalExpression "pkgs.gamescope-wsi_git";
+        type = lib.types.package;
         description = ''
           Gamescope WSI package to use
         '';
