@@ -19,7 +19,7 @@ writeShellScriptBin "chaotic-nyx-lint" ''
   ${Statix} check .
   ${Deadnix} --fail .
 
-  _SHORT_FILES=$(${Find} . -type f -name '*.nix' | (xargs ${Rg} -P '[^\w"\/\{](?!_?xs|_?id|_?[kvx]:)(_?[a-zA-Z_][a-zA-Z_-]?:)(?!\w)' || true))
+  _SHORT_FILES=$(${Find} . -type f -name '*.nix' | (xargs ${Rg} -P '[^\w"-\/\{](?!_?xs|_?id|_?[kvx]:)(_?[a-zA-Z_][a-zA-Z_-]?:)(?!\w)' || true))
   if [[ -n "$_SHORT_FILES" ]]; then
     echo "Lambda parameters can't have two letters or less (except: x, xs, id, k, v):"
     echo "$_SHORT_FILES"

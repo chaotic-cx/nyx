@@ -2,8 +2,16 @@
 let
   cfg = config.chaotic.hdr;
 
-  configuration = strength: {
-    boot.kernelPackages = strength cfg.kernelPackages;
+  assertConfig = {
+    assertions = [
+      {
+        assertion = (config.boot.kernelPackages.kernel.passthru.config.CONFIG_AMD_PRIVATE_COLOR or null) == "y";
+        message = "HDR needs a kernel compiled with CONFIG_AMD_PRIVATE_COLOR";
+      }
+    ];
+  };
+
+  configuration = {
     programs.steam.gamescopeSession.enable = true; # HDR can only be used with headless Gamescope right now...
     programs.gamescope = {
       args = [ "--hdr-enabled" ];
@@ -15,49 +23,46 @@ let
     environment.systemPackages = [ cfg.wsiPackage ];
   };
 
-  sysConfig = lib.mkIf (!cfg.specialisation.enable) (configuration (x: x));
+  sysConfig = lib.mkIf (!cfg.specialisation.enable) configuration;
 
   specConfig = lib.mkIf cfg.specialisation.enable {
-    specialisation.hdr.configuration = configuration lib.mkForce // {
+    specialisation.hdr.configuration = configuration // {
       system.nixos.tags = [ "hdr" ];
     };
   };
 in
 {
-  options.chaotic.hdr = with lib; {
+  options.chaotic.hdr = {
     enable =
-      mkEnableOption ''AMD-HDR as seen in
+      lib.mkEnableOption ''AMD-HDR as seen in
         https://lore.kernel.org/amd-gfx/20230810160314.48225-1-mwen@igalia.com/
       '';
     specialisation.enable =
-      mkOption {
+      lib.mkOption {
         default = true;
         example = false;
-        type = types.bool;
+        type = lib.types.bool;
         description = ''
           Isolates the changes in a specialisation.
         '';
       };
-    kernelPackages =
-      mkOption {
-        default = pkgs.linuxPackages_cachyos;
-        defaultText = literalExpression "pkgs.linuxPackages_cachyos";
-        example = literalExpression "pkgs.linuxKernel.packages.linux_hdr";
-        type = types.raw;
-        description = ''
-          Kernel+packages with "AMD Color Management" patches applied.
-        '';
-      };
     wsiPackage =
-      mkOption {
+      lib.mkOption {
         default = pkgs.gamescope-wsi;
-        defaultText = literalExpression "pkgs.gamescope-wsi";
-        example = literalExpression "pkgs.gamescope-wsi_git";
-        type = types.package;
+        defaultText = lib.literalExpression "pkgs.gamescope-wsi";
+        example = lib.literalExpression "pkgs.gamescope-wsi_git";
+        type = lib.types.package;
         description = ''
           Gamescope WSI package to use
         '';
       };
   };
-  config = lib.mkIf cfg.enable (lib.mkMerge [ sysConfig specConfig ]);
+  config = lib.mkIf cfg.enable (lib.mkMerge [ sysConfig specConfig assertConfig ]);
+
+  imports = [
+    (lib.mkRemovedOptionModule
+      [ "chaotic" "hdr" "kernelPackages" ]
+      "kernelPackages option is deprecated. Please use a kernel built with the `AMD_PRIVATE_COLOR` flag."
+    )
+  ];
 }

@@ -52,31 +52,31 @@ in
     assertions = [
       {
         assertion = (config.boot.kernelPackages.kernel.passthru.config.CONFIG_BPF or null) == "y";
-        message = "SCX needs a kernel with CONFIG_BPF";
+        message = "SCX needs a kernel compiled with CONFIG_BPF";
       }
       {
         assertion = (config.boot.kernelPackages.kernel.passthru.config.CONFIG_BPF_EVENTS or null) == "y";
-        message = "SCX needs a kernel with CONFIG_BPF_EVENTS";
+        message = "SCX needs a kernel compiled with CONFIG_BPF_EVENTS";
       }
       {
         assertion = (config.boot.kernelPackages.kernel.passthru.config.CONFIG_BPF_JIT or null) == "y";
-        message = "SCX needs a kernel with CONFIG_BPF_JIT";
+        message = "SCX needs a kernel compiled with CONFIG_BPF_JIT";
       }
       {
         assertion = (config.boot.kernelPackages.kernel.passthru.config.CONFIG_BPF_SYSCALL or null) == "y";
-        message = "SCX needs a kernel with CONFIG_BPF_SYSCALL";
+        message = "SCX needs a kernel compiled with CONFIG_BPF_SYSCALL";
       }
       {
         assertion = (config.boot.kernelPackages.kernel.passthru.config.CONFIG_DEBUG_INFO_BTF or null) == "y";
-        message = "SCX needs a kernel with CONFIG_DEBUG_INFO_BTF";
+        message = "SCX needs a kernel compiled with CONFIG_DEBUG_INFO_BTF";
       }
       {
         assertion = (config.boot.kernelPackages.kernel.passthru.config.CONFIG_FTRACE or null) == "y";
-        message = "SCX needs a kernel with CONFIG_FTRACE";
+        message = "SCX needs a kernel compiled with CONFIG_FTRACE";
       }
       {
         assertion = (config.boot.kernelPackages.kernel.passthru.config.CONFIG_SCHED_CLASS_EXT or null) == "y";
-        message = "SCX needs a kernel with CONFIG_SCHED_CLASS_EXT";
+        message = "SCX needs a kernel compiled with CONFIG_SCHED_CLASS_EXT";
       }
     ];
   };
