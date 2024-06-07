@@ -2,7 +2,16 @@
 let
   cfg = config.chaotic.hdr;
 
-  configuration = strength: {
+  assertConfig = {
+    assertions = [
+      {
+        assertion = (config.boot.kernelPackages.kernel.passthru.config.CONFIG_AMD_PRIVATE_COLOR or null) == "y";
+        message = "HDR needs a kernel compiled with CONFIG_AMD_PRIVATE_COLOR";
+      }
+    ];
+  };
+
+  configuration = {
     programs.steam.gamescopeSession.enable = true; # HDR can only be used with headless Gamescope right now...
     programs.gamescope = {
       args = [ "--hdr-enabled" ];
@@ -48,7 +57,7 @@ in
         '';
       };
   };
-  config = lib.mkIf cfg.enable (lib.mkMerge [ sysConfig specConfig ]);
+  config = lib.mkIf cfg.enable (lib.mkMerge [ sysConfig specConfig assertConfig ]);
 
   imports = [
     (lib.mkRemovedOptionModule
