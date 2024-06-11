@@ -68,6 +68,7 @@
   "linuxPackages_cachyos-lto.new-lg4ff" = "/nix/store/4igrqp9gpsc0yli6hzr9k192lrgwm4sr-new-lg4ff-0.4.0";
   "linuxPackages_cachyos-lto.nvidia_x11_legacy470" = "/nix/store/h22gqnyinwsjisr7qm48rh2bimyn8b5v-nvidia-x11-470.256.02-6.9.3";
   "linuxPackages_cachyos-lto.openafs" = "/nix/store/w4q1q0hsiv09ygmjxgkmmbdm2arlx6ry-openafs-1.8.11-6.9.3-cachyos";
+  "linuxPackages_cachyos-lto.openafs_1_8" = "/nix/store/w4q1q0hsiv09ygmjxgkmmbdm2arlx6ry-openafs-1.8.11-6.9.3-cachyos";
   "linuxPackages_cachyos-lto.perf" = "/nix/store/qywwv034ysgh35bsy4p12aw8cab5x3d5-perf-linux-6.9.3";
   "linuxPackages_cachyos-lto.rr-zen_workaround" = "/nix/store/rj9p4c73h3iijcci85wia8ijjpb24k5j-rr-zen_workaround-2023-11-23";
   "linuxPackages_cachyos-lto.rtl8189es" = "/nix/store/s74f35rcxjda9vrdaggdasbpajhl8skk-rtl8189es-6.9.3-2024-01-21";
@@ -95,10 +96,11 @@
   "linuxPackages_cachyos-lto.tuxedo-keyboard" = "/nix/store/nyvmswnanhq33lnmn3jlnsdz41a4p63x-tuxedo-keyboard-6.9.3-3.2.14";
   "linuxPackages_cachyos-lto.vendor-reset" = "/nix/store/szdhjbdym714lay56wqcikhgyazs4fyi-vendor-reset-unstable-2021-02-16-6.9.3";
   "linuxPackages_cachyos-lto.virtualboxGuestAdditions" = "/nix/store/6k5rrs9dhia7jqmv86jm7s64mfiv9wfp-VirtualBox-GuestAdditions-7.0.18-6.9.3";
+  "linuxPackages_cachyos-lto.vm-tools" = "/nix/store/bg9fg9g55m59h4d7xfsi1smlamyr57h9-mm-tools-6.6.32";
   "linuxPackages_cachyos-lto.vmware" = "/nix/store/7w67mb03fhbydgn0d4gmidfhp1idwy5i-vmware-modules-workstation-17.5.1-unstable-2024-01-12-6.9.3";
   "linuxPackages_cachyos-lto.x86_energy_perf_policy" = "/nix/store/5jl91fviv9vck6i1x1an6s7q2r3l8r39-x86_energy_perf_policy-6.9.3";
   "linuxPackages_cachyos-lto.xone" = "/nix/store/8fsrk4w66ri4hj7dwwa06ijkdi69k732-xone-0.3-unstable-2024-03-16";
-  "linuxPackages_cachyos-lto.zfs_cachyos" = "/nix/store/szm03nmccn9p9fqlc02grqcrc0rav5cb-zfs-kernel-2.2.4-6.9.3";
+  "linuxPackages_cachyos-lto.zfs_cachyos" = "/nix/store/qw39awxwp28q11fvimxq644ss04xxnv7-zfs-kernel-2.2.4-unstable-2024-05-29-6.9.3";
   "linuxPackages_cachyos-server.gasket" = "/nix/store/409sg7d9fl0p232j5pazk2yl3y271zx4-gasket-1.0-18-unstable-2023-09-05";
   "linuxPackages_cachyos-server.ipu6-drivers" = "/nix/store/6gxvxf3c7959rblxw3rgnqkmzwi3pvmy-ipu6-drivers-unstable-2023-11-24";
   "linuxPackages_cachyos-server.isgx" = "/nix/store/sv9is3qniv315341y0m8dp77hi24cspy-isgx-2.14-6.9.3";
