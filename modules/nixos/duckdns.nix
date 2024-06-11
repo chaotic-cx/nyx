@@ -1,9 +1,8 @@
 { config, lib, pkgs, ... }:
+
 let
-  inherit (config.meta) username;
-  inherit (config.users.users.${username}) group;
   cfg = config.chaotic.duckdns;
-  httpPort = 80;
+  inherit (cfg.certs) group httpPort;
 in
 {
   options.chaotic.duckdns = {
@@ -19,6 +18,16 @@ in
     certs = {
       enable = lib.mkEnableOption "generate HTTPS cert via ACME/Let's Encrypt";
       useHttpServer = lib.mkEnableOption "use Lego's built-in HTTP server instead a request to DuckDNS";
+      group = lib.mkOption {
+        type = lib.types.str;
+        default = config.security.acme.defaults.group;
+        description = "Group account under which the activation runs.";
+      };
+      httpPort = lib.mkOption {
+        type = lib.types.port;
+        description = "Port number.";
+        default = 80;
+      };
     };
     domain = lib.mkOption {
       # TODO: accept a list of strings
@@ -116,6 +125,7 @@ in
       acceptTerms = true;
       certs.${cfg.domain} = {
         inherit group;
+        inherit (cfg) email;
         dnsProvider = lib.mkIf (!cfg.certs.useHttpServer) "duckdns";
         credentialsFile = lib.mkIf (!cfg.certs.useHttpServer) cfg.environmentFile;
         listenHTTP = lib.mkIf cfg.certs.useHttpServer ":${toString httpPort}"; # any other port needs to be proxied
