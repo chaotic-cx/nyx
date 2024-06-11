@@ -206,17 +206,15 @@ in
     if has32 then callOverride32 ../pkgs/mesa-git { }
     else throw "No mesa32_git for non-x86";
 
-  mpv-vapoursynth = (final.wrapMpv
-    (final.mpv-unwrapped.override { vapoursynthSupport = true; })
-    {
-      extraMakeWrapperArgs = [
-        "--prefix"
-        "LD_LIBRARY_PATH"
-        ":"
-        "${final.vapoursynth-mvtools}/lib/vapoursynth"
-      ];
-    }
-  ).overrideAttrs (overrideDescription (old: old + " (includes vapoursynth)"));
+  mpv-vapoursynth = (final.mpv-unwrapped.wrapper {
+    mpv = final.mpv-unwrapped.override { vapoursynthSupport = true; };
+    extraMakeWrapperArgs = [
+      "--prefix"
+      "LD_LIBRARY_PATH"
+      ":"
+      "${final.vapoursynth-mvtools}/lib/vapoursynth"
+    ];
+  }).overrideAttrs (overrideDescription (old: old + " (includes vapoursynth)"));
 
   niri_git = niri.packages.${final.system}.default;
 
