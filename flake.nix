@@ -17,59 +17,10 @@ rec {
     };
 
     # thirdy-party repositories
-    conduit = {
-      url = "github:girlbossceo/conduwuit";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.attic.follows = "attic";
-      inputs.crane.follows = "crane";
-      inputs.fenix.follows = "fenix";
-      inputs.flake-compat.follows = "flake-compat";
-      inputs.flake-utils.follows = "flake-utils";
-      inputs.nix-filter.follows = "nix-filter";
-    };
     jovian = {
       url = "github:Jovian-Experiments/Jovian-NixOS";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    jujutsu = {
-      url = "github:martinvonz/jj";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-    };
-    niri = {
-      url = "github:YaLTeR/niri";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.crane.follows = "crane";
-      inputs.fenix.follows = "fenix";
-      inputs.flake-utils.follows = "flake-utils";
-      inputs.nix-filter.follows = "nix-filter";
-    };
-
-    # thirdy-party repositories' common dependencies
-    attic = {
-      url = "github:zhaofengli/attic";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.crane.follows = "crane";
-      inputs.flake-compat.follows = "flake-compat";
-      inputs.flake-utils.follows = "flake-utils";
-    };
-    crane = {
-      url = "github:ipetkov/crane";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    flake-compat = {
-      url = "github:edolstra/flake-compat";
-      flake = false;
-    };
-    flake-utils = {
-      url = "github:numtide/flake-utils";
-      inputs.systems.follows = "systems";
-    };
-    fenix = {
-      url = "github:nix-community/fenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nix-filter.url = "github:numtide/nix-filter";
   };
 
   outputs = { nixpkgs, yafas, ... }@inputs: yafas.withAllSystems nixpkgs

@@ -13,10 +13,7 @@
 , nixpkgs ? flakes.nixpkgs
 , self ? flakes.self
 , selfOverlay ? self.overlays.default
-, conduit ? flakes.conduit or null
 , jovian ? flakes.jovian or null
-, jujutsu ? flakes.jujutsu or null
-, niri ? flakes.niri or null
 , nixpkgsExtraConfig ? { }
 }:
 final: prev:
@@ -127,7 +124,9 @@ in
 
   bytecode-viewer_git = final.callPackage ../pkgs/bytecode-viewer-git { };
 
-  conduwuit_git = conduit.packages.${final.system}.default;
+  conduwuit_git = callOverride ../pkgs/conduwuit-git {
+    conduwuitPins = importJSON ../pkgs/conduwuit-git/pins.json;
+  };
 
   discord-krisp = callOverride ../pkgs/discord-krisp { };
 
@@ -166,7 +165,7 @@ in
     inherit (final.libsForQt5.qt5) qttools;
   };
 
-  jujutsu_git = jujutsu.packages.${final.system}.default;
+  jujutsu_git = callOverride ../pkgs/jujutsu-git { };
 
   kf6coreaddons_git = callOverride ../pkgs/kf6coreaddons-git/latest.nix { };
 
@@ -216,7 +215,9 @@ in
     ];
   }).overrideAttrs (overrideDescription (old: old + " (includes vapoursynth)"));
 
-  niri_git = niri.packages.${final.system}.default;
+  niri_git = callOverride ../pkgs/niri-git {
+    niriPins = importJSON ../pkgs/niri-git/pins.json;
+  };
 
   nix-flake-schemas_git = callOverride ../pkgs/nix-flake-schemas-git { };
 
@@ -296,7 +297,9 @@ in
 
   yt-dlp_git = callOverride ../pkgs/yt-dlp-git { };
 
-  zed-editor_git = callOverride ../pkgs/zed-editor-git { };
+  zed-editor_git = callOverride ../pkgs/zed-editor-git {
+    zedPins = importJSON ../pkgs/zed-editor-git/pins.json;
+  };
 
   zfs_cachyos = cachyosPackages.zfs;
 }
