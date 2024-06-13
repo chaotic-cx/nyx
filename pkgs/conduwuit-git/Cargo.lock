@@ -302,7 +302,7 @@ dependencies = [
 [[package]]
 name = "axum-server"
 version = "0.6.0"
-source = "git+https://github.com/girlbossceo/axum-server?branch=phlip9/fix-graceful-shutdown#8e3368d899079818934e61cc9c839abcbbcada8a"
+source = "git+https://github.com/lexe-app/axum-server?branch=phlip9/fix-graceful-shutdown#8e3368d899079818934e61cc9c839abcbbcada8a"
 dependencies = [
  "arc-swap",
  "bytes",
@@ -701,7 +701,6 @@ dependencies = [
  "tikv-jemallocator",
  "tokio",
  "tracing",
- "tracing-core",
  "tracing-subscriber",
  "url",
 ]
@@ -1541,9 +1540,9 @@ dependencies = [
 
 [[package]]
 name = "httparse"
-version = "1.9.3"
+version = "1.9.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d0e7a4dd27b9476dc40cb050d3632d3bba3a70ddbff012285f7f8559a1e7e545"
+checksum = "9f3935c160d00ac752e09787e6e6bfc26494c2183cc922f1bc678a60d4733bc2"
 
 [[package]]
 name = "httpdate"
@@ -2072,9 +2071,9 @@ dependencies = [
 
 [[package]]
 name = "lz4-sys"
-version = "1.9.5"
+version = "1.9.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e9764018d143cc854c9f17f0b907de70f14393b1f502da6375dce70f00514eb3"
+checksum = "57d27b317e207b10f69f5e75494119e391a96f48861ae870d1da6edac98ca900"
 dependencies = [
  "cc",
  "libc",
@@ -2715,24 +2714,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "pulldown-cmark"
-version = "0.10.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "76979bea66e7875e7509c4ec5300112b316af87fa7a252ca91c448b32dfe3993"
-dependencies = [
- "bitflags 2.5.0",
- "memchr",
- "pulldown-cmark-escape",
- "unicase",
-]
-
-[[package]]
-name = "pulldown-cmark-escape"
-version = "0.10.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bd348ff538bc9caeda7ee8cad2d1d48236a1f443c1fa3913c6a02fe0043b1dd3"
-
-[[package]]
 name = "quick-error"
 version = "1.2.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2998,7 +2979,6 @@ dependencies = [
  "js_int",
  "js_option",
  "percent-encoding",
- "pulldown-cmark",
  "regex",
  "ruma-common",
  "ruma-identifiers-validation",
@@ -4159,7 +4139,7 @@ checksum = "b6bc1c9ce2b5135ac7f93c72918fc37feb872bdc6a5533a8b85eb4b86bfdae52"
 [[package]]
 name = "tracing"
 version = "0.1.40"
-source = "git+https://github.com/girlbossceo/tracing?branch=tracing-subscriber/env-filter-clone-0.1.x-backport#b348dca742af641c47bc390261f60711c2af573c"
+source = "git+https://github.com/girlbossceo/tracing?rev=b348dca742af641c47bc390261f60711c2af573c#b348dca742af641c47bc390261f60711c2af573c"
 dependencies = [
  "log",
  "pin-project-lite",
@@ -4170,7 +4150,7 @@ dependencies = [
 [[package]]
 name = "tracing-attributes"
 version = "0.1.27"
-source = "git+https://github.com/girlbossceo/tracing?branch=tracing-subscriber/env-filter-clone-0.1.x-backport#b348dca742af641c47bc390261f60711c2af573c"
+source = "git+https://github.com/girlbossceo/tracing?rev=b348dca742af641c47bc390261f60711c2af573c#b348dca742af641c47bc390261f60711c2af573c"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -4180,7 +4160,7 @@ dependencies = [
 [[package]]
 name = "tracing-core"
 version = "0.1.32"
-source = "git+https://github.com/girlbossceo/tracing?branch=tracing-subscriber/env-filter-clone-0.1.x-backport#b348dca742af641c47bc390261f60711c2af573c"
+source = "git+https://github.com/girlbossceo/tracing?rev=b348dca742af641c47bc390261f60711c2af573c#b348dca742af641c47bc390261f60711c2af573c"
 dependencies = [
  "once_cell",
  "valuable",
@@ -4200,18 +4180,7 @@ dependencies = [
 [[package]]
 name = "tracing-log"
 version = "0.2.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ee855f1f400bd0e5c02d150ae5de3840039a3f54b025156404e34c23c03f47c3"
-dependencies = [
- "log",
- "once_cell",
- "tracing-core",
-]
-
-[[package]]
-name = "tracing-log"
-version = "0.2.0"
-source = "git+https://github.com/girlbossceo/tracing?branch=tracing-subscriber/env-filter-clone-0.1.x-backport#b348dca742af641c47bc390261f60711c2af573c"
+source = "git+https://github.com/girlbossceo/tracing?rev=b348dca742af641c47bc390261f60711c2af573c#b348dca742af641c47bc390261f60711c2af573c"
 dependencies = [
  "log",
  "once_cell",
@@ -4231,7 +4200,7 @@ dependencies = [
  "smallvec",
  "tracing",
  "tracing-core",
- "tracing-log 0.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "tracing-log",
  "tracing-subscriber",
  "web-time 0.2.4",
 ]
@@ -4239,7 +4208,7 @@ dependencies = [
 [[package]]
 name = "tracing-subscriber"
 version = "0.3.18"
-source = "git+https://github.com/girlbossceo/tracing?branch=tracing-subscriber/env-filter-clone-0.1.x-backport#b348dca742af641c47bc390261f60711c2af573c"
+source = "git+https://github.com/girlbossceo/tracing?rev=b348dca742af641c47bc390261f60711c2af573c#b348dca742af641c47bc390261f60711c2af573c"
 dependencies = [
  "matchers",
  "nu-ansi-term",
@@ -4250,7 +4219,7 @@ dependencies = [
  "thread_local",
  "tracing",
  "tracing-core",
- "tracing-log 0.2.0 (git+https://github.com/girlbossceo/tracing?branch=tracing-subscriber/env-filter-clone-0.1.x-backport)",
+ "tracing-log",
 ]
 
 [[package]]
@@ -4294,15 +4263,6 @@ name = "uncased"
 version = "0.9.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e1b88fcfe09e89d3866a5c11019378088af2d24c3fbd4f0543f96b479ec90697"
-dependencies = [
- "version_check",
-]
-
-[[package]]
-name = "unicase"
-version = "2.7.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f7d2d4dafb69621809a81864c9c1b864479e1235c0dd4e199924b9742439ed89"
 dependencies = [
  "version_check",
 ]
