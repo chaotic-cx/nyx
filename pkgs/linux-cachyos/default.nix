@@ -39,11 +39,6 @@ in
       linux = {
         inherit (mainVersions.linuxRc) version hash;
       };
-      patches = {
-        # FIXME: remove patches override in next kernel update
-        rev = "994b6d9ccf34fca3a7616ed4c95b252cc73cec09";
-        hash = "sha256-LYNSC5mlArXov9mKdWRleQEm8rE39csG1mO3Dwzusnw=";
-      };
     };
     # Prevent building kernel modules for rc kernel
     packagesExtend = _kernel: _final: prev: prev // { recurseForDerivations = false; };
@@ -86,12 +81,6 @@ in
     taste = "linux-cachyos-hardened";
     configPath = ./config-nix/cachyos-hardened.x86_64-linux.nix;
     cpuSched = "hardened";
-    versions = mainVersions // {
-      linux = {
-        version = "6.9.2";
-        hash = "sha256:1yg5j284y1gz7zwxjz2abvlnas259m1y1vzd9lmcqqar5kgmnv6l";
-      };
-    };
 
     withNTSync = false;
     withHDR = false;
