@@ -1,7 +1,6 @@
 { cachyConfig
 , fetchFromGitHub
 , fetchurl
-, fetchzip
 , lib
 , stdenv
 , kernel
@@ -25,7 +24,7 @@ let
 
   src =
     if cachyConfig.taste == "linux-cachyos-rc" then
-      fetchzip
+      fetchurl
         {
           url = "https://git.kernel.org/torvalds/t/linux-${version}.tar.gz";
           inherit (cachyConfig.versions.linux) hash;
