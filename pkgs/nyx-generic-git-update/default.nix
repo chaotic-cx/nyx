@@ -44,6 +44,8 @@ in
   [ "$_LOCAL_REV" == "$_LATEST_REV" ] && exit 0
   _LOCAL_VER=$(jq -r .version "$_VERSION_JSON")
 
+  _PKG_DIR=$(dirname "$_VERSION_JSON")
+
   _NIX_PREFETCH_ARGS=(--quiet)
   if [ $HAS_SUBMODULES -eq 1 ]; then
     _NIX_PREFETCH_ARGS+=(--fetch-submodules)
@@ -94,11 +96,14 @@ in
       '.cargoHash = $cargo' \
       "$_VERSION_JSON" | sponge "$_VERSION_JSON"
   elif [ $HAS_CARGO == 'lock' ]; then
-    cp "$_LATEST_PATH/Cargo.lock" "$(dirname "$_VERSION_JSON")/"
-    git add "$(dirname "$_VERSION_JSON")/Cargo.lock"
+    cp "$_LATEST_PATH/Cargo.lock" "$_PKG_DIR/"
+    git add "$_PKG_DIR/Cargo.lock"
   fi
 
   git add $_VERSION_JSON
+
+  [ -n "''${WITH_EXTRA:-}" ] && source "$WITH_EXTRA"
+
   git commit -m "''${_NYX_KEY}: ''${_LOCAL_VER:9} -> ''${_LATEST_VERSION:9}"
 '').overrideAttrs (_prevAttrs: {
   meta = _prevAttrs.meta // { description = "Generic update-script for bleeding-edge GIT Nix derivations."; };
