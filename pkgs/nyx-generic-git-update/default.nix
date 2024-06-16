@@ -44,6 +44,7 @@ in
   [ "$_LOCAL_REV" == "$_LATEST_REV" ] && exit 0
   _LOCAL_VER=$(jq -r .version "$_VERSION_JSON")
 
+  _NYX_DIR="$PWD"
   _PKG_DIR=$(dirname "$_VERSION_JSON")
 
   _NIX_PREFETCH_ARGS=(--quiet)

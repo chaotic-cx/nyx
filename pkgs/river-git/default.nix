@@ -1,4 +1,4 @@
-{ prev, gitOverride, ... }:
+{ final, prev, gitOverride, ... }:
 
 gitOverride {
   nyxKey = "river_git";
@@ -12,4 +12,16 @@ gitOverride {
     fetchSubmodules = true;
   };
   ref = "master";
+
+  withExtraUpdateCommands = final.writeShellScript "bump-zig-zon" ''
+    pushd "$_LATEST_PATH"
+    ${final.zon2nix}/bin/zon2nix > "$_NYX_DIR/$_PKG_DIR/build.zig.zon.nix"
+    popd
+
+    git add "$_PKG_DIR/build.zig.zon.nix"
+  '';
+
+  postOverride = _prevAttrs: {
+    deps = final.callPackage ./build.zig.zon.nix { };
+  };
 }
