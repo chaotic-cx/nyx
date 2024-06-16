@@ -3,14 +3,6 @@
 gitOverride (current: {
   newInputs = with final; {
     openvr = openvr_git;
-    wlroots = wlroots_git.overrideAttrs (_wlrPrev: {
-      src = fetchFromGitHub {
-        owner = "Joshua-Ashton";
-        repo = "wlroots";
-        rev = "a5c9826e6d7d8b504b07d1c02425e6f62b020791";
-        hash = "sha256-G7CvsSRryNCoknWhfoZvkf33967xI51WkemA6ms3vo4=";
-      };
-    });
   };
 
   nyxKey = if isWSI then "gamescope-wsi_git" else "gamescope_git";
@@ -27,8 +19,10 @@ gitOverride (current: {
   withUpdateScript = !isWSI;
 
   postOverride = prevAttrs: {
-    buildInputs = with final; [ seatd xwayland libdecor ] ++ (with xorg; [ xcbutilwm xcbutilerrors ]) ++ prevAttrs.buildInputs;
+    # pulls nixpkgs#319766 ahead
+    patches = nyxUtils.removeByBaseName "use-pkgconfig.patch" prevAttrs.patches;
 
+    # Taints commits in logs for debugging purposes
     postPatch =
       let shortRev = nyxUtils.shorter current.rev; in
       prevAttrs.postPatch + ''

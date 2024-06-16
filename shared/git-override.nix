@@ -23,6 +23,7 @@ let
     , withLastModifiedDate ? false
     , withCargoDeps ? null
     , cargoLockPath ? builtins.replaceStrings [ "version.json" ] [ "Cargo.lock" ] versionNyxPath
+    , withExtraUpdateCommands ? null
     }:
     let
       versionLocalPath = "${nyx}/${versionNyxPath}";
@@ -54,6 +55,7 @@ let
             versionPath = versionNyxPath;
             fetchLatestRev = fetchLatestRev ref fullFetcherData;
             gitUrl = src.gitRepoUrl;
+            withExtraCommands = withExtraUpdateCommands;
           };
 
           common = {

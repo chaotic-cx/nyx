@@ -76,27 +76,3 @@ index 5e23859..b36d2a0 100644
  ]
  
  [[package]]
-diff --git a/Cargo.toml b/Cargo.toml
-index 58e84a2..e395cfb 100644
---- a/Cargo.toml
-+++ b/Cargo.toml
-@@ -419,13 +419,16 @@ features = [
- # we can switch back to upstream if #2956 is merged and backported in the upstream repo.
- [patch.crates-io.tracing-subscriber]
- git = "https://github.com/girlbossceo/tracing"
--branch = "tracing-subscriber/env-filter-clone-0.1.x-backport"
-+rev = "b348dca742af641c47bc390261f60711c2af573c"
- [patch.crates-io.tracing]
- git = "https://github.com/girlbossceo/tracing"
--branch = "tracing-subscriber/env-filter-clone-0.1.x-backport"
-+rev = "b348dca742af641c47bc390261f60711c2af573c"
- [patch.crates-io.tracing-core]
- git = "https://github.com/girlbossceo/tracing"
--branch = "tracing-subscriber/env-filter-clone-0.1.x-backport"
-+rev = "b348dca742af641c47bc390261f60711c2af573c"
-+[patch.crates-io.tracing-log]
-+git = "https://github.com/girlbossceo/tracing"
-+rev = "b348dca742af641c47bc390261f60711c2af573c"
- 
- # fixes hyper graceful shutdowns [https://github.com/programatik29/axum-server/issues/114]
- [patch.crates-io.axum-server]

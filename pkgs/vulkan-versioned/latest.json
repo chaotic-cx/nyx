@@ -26,19 +26,19 @@
     "hash": "sha256-at3krE0torhjg7G+NkX0/ewc26Sg/1t2xW7wghAAuZo="
   },
   "vulkanHeaders": {
-    "version": "1.3.287",
+    "version": "1.3.288",
     "rev": "v#{version}",
-    "hash": "sha256-56yke1/8Ulln5SBMn1hvRKN3Hu783rQjNhYoTthAMCk="
+    "hash": "sha256-tE4vitfjuCwkShCj7kXptnxEEu285J/WHayACz+t/o4="
   },
   "vulkanLoader": {
-    "version": "1.3.287",
+    "version": "1.3.288",
     "rev": "v#{version}",
-    "hash": "sha256-yhC2jWPvsWSDyC21hO53C/f1S+r8w2byJj23unC/u2o="
+    "hash": "sha256-d/uq8ePcFPUbs2nvUpIBDZgIViCQmZa+lRxva+t0byk="
   },
   "vulkanTools": {
-    "version": "1.3.287",
+    "version": "1.3.288",
     "rev": "v#{version}",
-    "hash": "sha256-JHEfp/jgHpB97Tj5H5zySmd9TO5okQc7+y/Xs4iL/6c=",
+    "hash": "sha256-6+y7fpgUFtoM35RKHQnwpFhedHeJtES4v7XF23BQl04=",
     "badTag": "vulkan-sdk-1.3.280.0"
   },
   "vulkanToolsLunarG": {
@@ -52,14 +52,14 @@
     "hash": "sha256-BhwnfF3f5gRM1dieBVLKzE/dPI5KzaYoAp0H9AXVtW4="
   },
   "vulkanUtilityLibraries": {
-    "version": "1.3.287",
+    "version": "1.3.288",
     "rev": "v#{version}",
-    "hash": "sha256-frZbJgtxXZw5c+yBp8hjJdpTWvnXS0YciQtIjjQXn+Q="
+    "hash": "sha256-ReZG+ifIFGuJTwcvfjQR2NPzo7dWA2rsHz60+pMEwKw="
   },
   "vulkanValidationLayers": {
-    "version": "snapshot-2024wk23",
-    "rev": "#{version}",
-    "hash": "sha256-/id+ggNpGAOMQ8x3IZ11vd1J3VVUB5zPo0BAfg7B4L4=",
+    "version": "1.3.288",
+    "rev": "v#{version}",
+    "hash": "sha256-BnUa+cis3kc9axpazgqFBlhrF93a/R9LFRvhtBvFe/g=",
     "badTag": "snapshot-2024wk20"
   },
   "volk": {
