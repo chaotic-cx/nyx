@@ -161,10 +161,6 @@ in
   gamescope_git = callOverride ../pkgs/gamescope-git { };
   gamescope-wsi_git = callOverride ../pkgs/gamescope-git { isWSI = true; };
 
-  input-leap_git = callOverride ../pkgs/input-leap-git {
-    inherit (final.libsForQt5.qt5) qttools;
-  };
-
   jujutsu_git = callOverride ../pkgs/jujutsu-git { };
 
   kf6coreaddons_git = callOverride ../pkgs/kf6coreaddons-git/latest.nix { };
@@ -294,8 +290,6 @@ in
   wayland_git = callOverride ../pkgs/wayland-git { };
   wayland-protocols_git = callOverride ../pkgs/wayland-protocols-git { };
   wayland-scanner_git = final.wayland_git.bin;
-
-  waynergy_git = callOverride ../pkgs/waynergy-git { };
 
   wlroots_git = callOverride ../pkgs/wlroots-git { };
 
