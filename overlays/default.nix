@@ -253,6 +253,10 @@ in
     protonGeVersions = importJSON ../pkgs/proton-ge-custom/versions.json;
   };
 
+  pwvucontrol_git = callOverride ../pkgs/pwvucontrol-git {
+    pwvucontrolPins = importJSON ../pkgs/pwvucontrol-git/pins.json;
+  };
+
   qtile_git = with final; python311Packages.toPythonApplication qtile-module_git;
   qtile-module_git = callOverride ../pkgs/qtile-git { };
   qtile-extras_git = callOverride ../pkgs/qtile-extras-git { };
