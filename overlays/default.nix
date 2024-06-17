@@ -2,7 +2,7 @@
 # - Sort packages in alphabetic order.
 # - If the recipe uses `override` or `overrideAttrs`, then use callOverride,
 #   otherwise use `final`.
-# - Composed names are separated with minus: `input-leap`
+# - Composed names are separated with minus: `lan-mouse`
 # - Versions/patches are suffixed with an underline: `mesa_git`, `libei_0_5`, `linux_hdr`
 # - Use `inherit (final) nyxUtils` since someone might want to override our utils
 
@@ -161,13 +161,11 @@ in
   gamescope_git = callOverride ../pkgs/gamescope-git { };
   gamescope-wsi_git = callOverride ../pkgs/gamescope-git { isWSI = true; };
 
-  input-leap_git = callOverride ../pkgs/input-leap-git {
-    inherit (final.libsForQt5.qt5) qttools;
-  };
-
   jujutsu_git = callOverride ../pkgs/jujutsu-git { };
 
   kf6coreaddons_git = callOverride ../pkgs/kf6coreaddons-git/latest.nix { };
+
+  lan-mouse_git = callOverride ../pkgs/lan-mouse-git { };
 
   latencyflex-vulkan = final.callPackage ../pkgs/latencyflex-vulkan { };
 
@@ -253,6 +251,10 @@ in
     protonGeVersions = importJSON ../pkgs/proton-ge-custom/versions.json;
   };
 
+  pwvucontrol_git = callOverride ../pkgs/pwvucontrol-git {
+    pwvucontrolPins = importJSON ../pkgs/pwvucontrol-git/pins.json;
+  };
+
   qtile_git = with final; python311Packages.toPythonApplication qtile-module_git;
   qtile-module_git = callOverride ../pkgs/qtile-git { };
   qtile-extras_git = callOverride ../pkgs/qtile-extras-git { };
@@ -290,8 +292,6 @@ in
   wayland_git = callOverride ../pkgs/wayland-git { };
   wayland-protocols_git = callOverride ../pkgs/wayland-protocols-git { };
   wayland-scanner_git = final.wayland_git.bin;
-
-  waynergy_git = callOverride ../pkgs/waynergy-git { };
 
   wlroots_git = callOverride ../pkgs/wlroots-git { };
 

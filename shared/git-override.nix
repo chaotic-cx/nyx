@@ -23,7 +23,7 @@ let
     , withLastModifiedDate ? false
     , withCargoDeps ? null
     , cargoLockPath ? builtins.replaceStrings [ "version.json" ] [ "Cargo.lock" ] versionNyxPath
-    , withExtraUpdateCommands ? null
+    , withExtraUpdateCommands ? ""
     }:
     let
       versionLocalPath = "${nyx}/${versionNyxPath}";
