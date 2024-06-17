@@ -2,7 +2,7 @@
 # - Sort packages in alphabetic order.
 # - If the recipe uses `override` or `overrideAttrs`, then use callOverride,
 #   otherwise use `final`.
-# - Composed names are separated with minus: `input-leap`
+# - Composed names are separated with minus: `lan-mouse`
 # - Versions/patches are suffixed with an underline: `mesa_git`, `libei_0_5`, `linux_hdr`
 # - Use `inherit (final) nyxUtils` since someone might want to override our utils
 
@@ -164,6 +164,8 @@ in
   jujutsu_git = callOverride ../pkgs/jujutsu-git { };
 
   kf6coreaddons_git = callOverride ../pkgs/kf6coreaddons-git/latest.nix { };
+
+  lan-mouse_git = callOverride ../pkgs/lan-mouse-git { };
 
   latencyflex-vulkan = final.callPackage ../pkgs/latencyflex-vulkan { };
 
