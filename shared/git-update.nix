@@ -5,7 +5,7 @@
 , hasSubmodules ? false
 , withLastModifiedDate ? false
 , withLastModified ? false
-, withExtraCommands ? null
+, withExtraCommands ? ""
 , gitUrl
 , fetchLatestRev
   # from nyx:
