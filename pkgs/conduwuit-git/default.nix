@@ -25,15 +25,7 @@ gitOverride {
     outputHashes = conduwuitPins;
   };
 
-  withExtraUpdateCommands = final.writeShellScript "patch-cargo" ''
-    pushd "$_PKG_DIR"
-    ${final.patch}/bin/patch -p1 --batch < ${./cargo-lock.diff}
-    git add Cargo.lock
-    popd
-  '';
-
   postOverride = prevAttrs: {
-    patches = (prevAttrs.patches or [ ]) ++ [ ./cargo-lock.diff ./cargo-toml.diff ];
     preBuild = "";
     pname = "conduwuit";
     env = prevAttrs.env // {

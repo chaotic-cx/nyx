@@ -20,7 +20,7 @@ in
       useHttpServer = lib.mkEnableOption "use Lego's built-in HTTP server instead a request to DuckDNS";
       group = lib.mkOption {
         type = lib.types.str;
-        default = (config.security.acme.defaults.group or "acme");
+        default = config.security.acme.defaults.group or "acme";
         description = "Group account under which the activation runs.";
       };
       httpPort = lib.mkOption {
