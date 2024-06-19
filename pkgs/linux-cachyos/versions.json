@@ -12,8 +12,8 @@
   },
   "_config": "latest commit from https://github.com/CachyOS/linux-cachyos/commits/master/linux-cachyos",
   "config": {
-    "rev": "30dba8fe21333d3ceccd33a3370e12cbe320826b",
-    "hash": "sha256-P8CpjRbdo1VXY6yHLwMzhHlcZW79qn5hq5Zrj4xhV4s="
+    "rev": "5b34c0815744ba7044c733271fcd8e7dbb7fa921",
+    "hash": "sha256-lhC2HZf36VPntPF/vjcPebulyD0S2lmzG+ZsMlftAsM="
   },
   "_patches": "latest commit from https://github.com/CachyOS/kernel-patches/commits/master/x.y",
   "patches": {
