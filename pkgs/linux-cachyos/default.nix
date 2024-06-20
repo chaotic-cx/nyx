@@ -34,7 +34,6 @@ in
     configPath = ./config-nix/cachyos-rc.x86_64-linux.nix;
 
     cpuSched = "eevdf"; # rc kernel does not have scx patches ready, usually
-    withUpdateScript = true;
     versions = mainVersions // {
       linux = {
         inherit (mainVersions.linuxRc) version hash;
