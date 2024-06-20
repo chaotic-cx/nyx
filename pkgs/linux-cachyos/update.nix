@@ -36,7 +36,7 @@ writeShellScript "update-cachyos" ''
   latestVer=$(curl 'https://raw.githubusercontent.com/CachyOS/linux-cachyos/master/linux-cachyos/.SRCINFO' | grep -Po '(?<=pkgver = )(.+)$')
   latestRcVer=$(curl 'https://raw.githubusercontent.com/CachyOS/linux-cachyos/master/linux-cachyos-rc/.SRCINFO' | grep -Po '(?<=pkgver = )(.+)$' | sed 's/\.rc/-rc/')
 
-  if [[ "$localVer" == "$latestVer" && "$localVer" == "$latestRcVer" ]]; then
+  if [[ "$localVer" == "$latestVer" ]]; then
     exit 0
   fi
 
