@@ -5,15 +5,13 @@ let
   has32 = pkgs.stdenv.hostPlatform.isLinux && pkgs.stdenv.hostPlatform.isx86;
 
   methodReplace = {
-    hardware.opengl = with lib; {
+    hardware.graphics = with lib; {
       enable = mkForce true;
       package = mkForce pkgs.mesa_git.drivers;
       package32 = mkForce pkgs.mesa32_git.drivers;
       extraPackages = mkForce cfg.extraPackages;
       extraPackages32 = mkForce cfg.extraPackages32;
-      driSupport = mkForce true;
-      driSupport32Bit = mkForce has32;
-      setLdLibraryPath = mkForce false;
+      enable32Bit = mkForce has32;
     };
 
     system.replaceRuntimeDependencies = [
@@ -30,15 +28,13 @@ let
       };
     in
     {
-      hardware.opengl = with lib; {
+      hardware.graphics = with lib; {
         enable = mkForce true;
         package = mkForce pkgs.mesa_git.drivers;
         package32 = mkForce pkgs.mesa32_git.drivers;
         extraPackages = mkForce (cfg.extraPackages ++ [ pkgs.mesa_git.gbm ]);
         extraPackages32 = mkForce cfg.extraPackages32;
-        driSupport = mkForce true;
-        driSupport32Bit = mkForce has32;
-        setLdLibraryPath = mkForce false;
+        enable32Bit = mkForce has32;
       };
 
       systemd.services.display-manager.environment = variables // {
