@@ -1,10 +1,6 @@
 { final, prev, gitOverride, nyxUtils, isWSI ? false, ... }:
 
 gitOverride (current: {
-  newInputs = with final; {
-    openvr = openvr_git;
-  };
-
   nyxKey = if isWSI then "gamescope-wsi_git" else "gamescope_git";
   prev = if isWSI then prev.gamescope-wsi else prev.gamescope;
 
