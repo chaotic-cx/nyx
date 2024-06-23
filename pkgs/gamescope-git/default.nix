@@ -21,8 +21,8 @@ gitOverride (current: {
       prevAttrs.postPatch + ''
         substituteInPlace layer/VkLayer_FROG_gamescope_wsi.cpp \
           --replace-fail 'WSI] Surface' 'WSI ${shortRev}] Surface'
-        substituteInPlace src/main.cpp \
-          --replace-fail 'usage:' 'rev: ${shortRev}\nusage:'
+        substituteInPlace src/meson.build \
+          --replace-fail "'git', 'describe', '--always', '--tags', '--dirty=+'" "'echo', '${current.rev}'"
       '';
   };
 })
