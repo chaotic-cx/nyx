@@ -15,9 +15,6 @@ gitOverride (current: {
   withUpdateScript = !isWSI;
 
   postOverride = prevAttrs: {
-    # pulls nixpkgs#319766 ahead
-    patches = nyxUtils.removeByBaseName "use-pkgconfig.patch" prevAttrs.patches;
-
     # Taints commits in logs for debugging purposes
     postPatch =
       let shortRev = nyxUtils.shorter current.rev; in
