@@ -22,7 +22,6 @@ let
     , withLastModified ? false
     , withLastModifiedDate ? false
     , withCargoDeps ? null
-    , cargoLockPath ? builtins.replaceStrings [ "version.json" ] [ "Cargo.lock" ] versionNyxPath
     , withExtraUpdateCommands ? ""
     }:
     let
@@ -76,7 +75,7 @@ let
             lib.attrsets.optionalAttrs (hasCargo != null) {
               cargoDeps =
                 if hasCargo == "lock" then
-                  withCargoDeps "${nyx}/${cargoLockPath}"
+                  withCargoDeps
                 else
                   prevAttrs.cargoDeps.overrideAttrs (_cargoPrevAttrs: {
                     inherit src;

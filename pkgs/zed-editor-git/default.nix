@@ -12,8 +12,8 @@ gitOverride {
   };
   ref = "main";
 
-  withCargoDeps = lockFile: final.rustPlatform.importCargoLock {
-    inherit lockFile;
+  withCargoDeps = final.rustPlatform.importCargoLock {
+    lockFile = ./Cargo.lock;
     outputHashes = zedPins;
   };
 

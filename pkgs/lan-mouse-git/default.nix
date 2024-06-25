@@ -11,7 +11,7 @@ gitOverride {
     repo = "lan-mouse";
   };
 
-  withCargoDeps = lockFile: final.rustPlatform.importCargoLock {
-    inherit lockFile;
+  withCargoDeps = final.rustPlatform.importCargoLock {
+    lockFile = ./Cargo.lock;
   };
 }
