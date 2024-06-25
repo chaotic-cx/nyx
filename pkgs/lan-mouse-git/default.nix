@@ -12,6 +12,6 @@ gitOverride {
   };
 
   withCargoDeps = lockFile: final.rustPlatform.importCargoLock {
-    lockFileContents = builtins.readFile lockFile;
+    inherit lockFile;
   };
 }
