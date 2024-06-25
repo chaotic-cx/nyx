@@ -22,12 +22,12 @@ stdenv.mkDerivation rec {
   pname = "nix-top";
   version = "0.3.0";
 
-  src = (fetchFromGitHub {
+  src = fetchFromGitHub {
     owner = "samueldr";
     repo = "nix-top";
     rev = "v${version}";
     sha256 = "sha256-w/TKzbZmMt4CX2KnLwPvR1ydp5NNlp9nNx78jJvhp54=";
-  });
+  };
 
   nativeBuildInputs = [
     makeWrapper
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     description = "Tracks what nix is building";
     homepage = "https://github.com/samueldr/nix-top";
     license = licenses.mit;
-    maintainers = [];
+    maintainers = [ ];
     platforms = platforms.linux ++ platforms.darwin ++ platforms.freebsd;
     mainProgram = "nix-top";
   };

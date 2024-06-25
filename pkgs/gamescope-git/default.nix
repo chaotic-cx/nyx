@@ -1,4 +1,4 @@
-{ final, prev, gitOverride, nyxUtils, isWSI ? false, ... }:
+{ prev, gitOverride, nyxUtils, isWSI ? false, ... }:
 
 gitOverride (current: {
   nyxKey = if isWSI then "gamescope-wsi_git" else "gamescope_git";
