@@ -5,7 +5,7 @@
 , baseSystem ? "x86_64-linux"
 }:
 {
-  inherit (flake-schemas.schemas) devShells overlays schemas packages;
+  inherit (flake-schemas.schemas) devShells overlays schemas;
   _dev = {
     version = 1;
     doc = ''

@@ -53,7 +53,7 @@ in
     aarch64-linux.children =
       let
         # When on aarch64 we don't need to expose *32 packages
-        removeCross = import ../default-packages/remove-cross-stuff.nix;
+        removeCross = import ./remove-cross-stuff.nix;
       in
       mkPackages "aarch64-linux" (removeCross (removeAlias output.aarch64-linux));
   };
