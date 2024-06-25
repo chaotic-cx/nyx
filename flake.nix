@@ -24,9 +24,10 @@ rec {
   };
 
   outputs = { nixpkgs, yafas, ... }@inputs: yafas.withAllSystems nixpkgs
-    (universals: { pkgs, ... }: with universals; {
+    (universals: { pkgs, system }: with universals; rec {
       # Exposes the packages created by the overlay.
-      packages = utils.applyOverlay { inherit pkgs; };
+      legacyPackages = utils.applyOverlay { inherit pkgs; };
+      packages = import ./maintenance/schemas/default-packages { inherit pkgs system legacyPackages; };
 
       # I would prefer if we had something stricter, with attribute alphabetical
       # sorting, and optimized for git's diffing. But this is the closer we have.

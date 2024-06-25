@@ -5,7 +5,7 @@
 , baseSystem ? "x86_64-linux"
 }:
 {
-  inherit (flake-schemas.schemas) devShells overlays schemas;
+  inherit (flake-schemas.schemas) devShells overlays schemas packages;
   _dev = {
     version = 1;
     doc = ''
@@ -59,7 +59,7 @@
       pkgs = nixpkgs.legacyPackages.${baseSystem};
     };
   };
-  packages = {
+  legacyPackages = {
     version = 1;
     doc = ''
       The `packages` flake output contains packages that can be added to a shell using `nix shell`.

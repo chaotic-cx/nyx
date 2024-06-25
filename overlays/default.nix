@@ -96,7 +96,9 @@ let
     if final.stdenv.hostPlatform.isLinux && final.stdenv.hostPlatform.isx86_64 then {
       inherit (jovian.legacyPackages.x86_64-linux) linux_jovian mesa-radv-jupiter mesa-radeonsi-jupiter;
       recurseForDerivations = true;
-    } else { };
+    } else {
+      recurseForDerivations = false;
+    };
 in
 {
   inherit nyxUtils jovian-chaotic;

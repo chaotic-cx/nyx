@@ -30,7 +30,7 @@ let
           };
         };
 
-      packagesEval = nyxRecursionHelper.derivationsLimited "explicit" derivationWarn derivationMap nyxPkgs;
+      packagesEval = nyxRecursionHelper.derivations derivationWarn derivationMap nyxPkgs;
 
       packagesEvalFlat =
         lib.lists.remove null (lib.lists.flatten packagesEval);
@@ -53,20 +53,8 @@ in
     aarch64-linux.children =
       let
         # When on aarch64 we don't need to expose *32 packages
-        remove32 = attrs:
-          builtins.removeAttrs attrs
-            [
-              "pkgsx86_64_v2"
-              "pkgsx86_64_v3"
-              "pkgsx86_64_v3-core"
-              "pkgsx86_64_v4"
-              "pkgsAMD64Microarchs"
-              "libdrm32_git"
-              "mangohud32_git"
-              "mesa32_git"
-              "meson32_1_3"
-            ];
+        removeCross = import ../default-packages/remove-cross-stuff.nix;
       in
-      mkPackages "aarch64-linux" (remove32 (removeAlias output.aarch64-linux));
+      mkPackages "aarch64-linux" (removeCross (removeAlias output.aarch64-linux));
   };
 }
