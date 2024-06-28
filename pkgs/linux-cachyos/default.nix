@@ -26,7 +26,7 @@ in
     taste = "linux-cachyos";
     configPath = ./config-nix/cachyos.x86_64-linux.nix;
     # since all flavors use the same versions.json, we just need the updateScript in one of them
-    withUpdateScript = true;
+    withUpdateScript = "stable";
   };
 
   cachyos-rc = mkCachyKernel {
@@ -39,6 +39,8 @@ in
         inherit (mainVersions.linuxRc) version hash;
       };
     };
+
+    withUpdateScript = "rc";
     # Prevent building kernel modules for rc kernel
     packagesExtend = _kernel: _final: prev: prev // { recurseForDerivations = false; };
   };
