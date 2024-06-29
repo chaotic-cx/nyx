@@ -33,7 +33,7 @@ in
     taste = "linux-cachyos-rc";
     configPath = ./config-nix/cachyos-rc.x86_64-linux.nix;
 
-    cpuSched = "eevdf"; # rc kernel does not have scx patches ready, usually
+    # cpuSched = "eevdf"; # rc kernel does not have scx patches ready, usually
     versions = mainVersions // {
       linux = {
         inherit (mainVersions.linuxRc) version hash;
