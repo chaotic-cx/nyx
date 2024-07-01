@@ -2,6 +2,7 @@
 , lib
 , coreutils
 , findutils
+, gawk
 , gnugrep
 , gnused
 , curl
@@ -17,6 +18,7 @@ let
     coreutils
     curl
     findutils
+    gawk
     gnugrep
     gnused
     jq
@@ -46,7 +48,11 @@ writeShellScript "update-cachyos" ''
     if [[ "$localVer" == "$latestVer" ]]; then
       exit 0
     fi
-    
+
+    localSuffix=$(echo $localVer | awk -F'-' '{print $2}')
+    latestSuffix=$(echo $latestVer | awk -F'-' '{print $2}')
+    sed -i "s/-$localSuffix/-$latestSuffix/g" pkgs/linux-cachyos/0001-Add-extra-version-CachyOS-rc.patch
+
     url="https://git.kernel.org/torvalds/t/linux-''${latestVer%.0}.tar.gz"
     latestHash=$(update_kernel $latestVer $url)
 
