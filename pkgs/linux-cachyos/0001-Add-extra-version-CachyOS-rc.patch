@@ -1,5 +1,5 @@
 --- a/Makefile
 +++ b/Makefile
 @@ -6 +6 @@
--EXTRAVERSION = -rc5
-+EXTRAVERSION = -rc5-cachyos
+-EXTRAVERSION = -rc6
++EXTRAVERSION = -rc6-cachyos

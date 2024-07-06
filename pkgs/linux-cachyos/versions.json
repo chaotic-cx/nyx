@@ -7,8 +7,8 @@
     "hash": "sha256-8Egme3uIMWycpwjGjRWproAtz8lDwxiMEnPrlYxDMoE="
   },
   "linuxRc": {
-    "version": "6.10-rc5",
-    "hash": "sha256-VjXGm3LtHZzWim+XT01ssxHw/97kra7/pdSZIqfyHq8="
+    "version": "6.10-rc6",
+    "hash": "sha256-DGL+kgW9SdOWxN11oeIDgR/C/2itA5J9L30tQM9Akl4="
   },
   "_config": "latest commit from https://github.com/CachyOS/linux-cachyos/commits/master/linux-cachyos",
   "config": {
