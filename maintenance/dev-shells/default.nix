@@ -13,7 +13,12 @@ let
   mkShells = nyxPkgs: nixPkgs:
     let
       pkgs = applyOverlay { inherit nyxPkgs; pkgs = nixPkgs; replace = true; merge = true; };
-      inherit (pkgs) callPackage mkShell;
+      inherit (pkgs) callPackage;
+
+      # as seen on https://nixos.wiki/wiki/Locales
+      mkShell = opts: pkgs.mkShell (opts // {
+        LOCALE_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
+      });
 
       nyxRecursionHelper = callPackage ../../shared/recursion-helper.nix {
         inherit (pkgs.stdenv) system;
