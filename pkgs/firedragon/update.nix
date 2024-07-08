@@ -3,6 +3,7 @@
 , coreutils
 , findutils
 , gnugrep
+, gnused
 , curl
 , jq
 , git
@@ -16,6 +17,7 @@ let
     curl
     findutils
     gnugrep
+    gnused
     jq
     moreutils
     git
