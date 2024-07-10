@@ -18,18 +18,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f26201604c87b1e01bd3d98f8d5d9a8fcbb815e8cedb41ffccbeb4bf593a35fe"
 
 [[package]]
-name = "ahash"
-version = "0.8.11"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e89da841a80418a9b391ebaea17f5c112ffaaa96f621d2c285b5174da76b9011"
-dependencies = [
- "cfg-if",
- "once_cell",
- "version_check",
- "zerocopy",
-]
-
-[[package]]
 name = "aho-corasick"
 version = "1.1.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -206,7 +194,7 @@ dependencies = [
  "http 1.1.0",
  "http-body 1.0.0",
  "http-body-util",
- "hyper 1.3.1",
+ "hyper 1.4.0",
  "hyper-util",
  "itoa",
  "matchit",
@@ -310,7 +298,7 @@ dependencies = [
  "http 1.1.0",
  "http-body 1.0.0",
  "http-body-util",
- "hyper 1.3.1",
+ "hyper 1.4.0",
  "hyper-util",
  "pin-project-lite",
  "rustls 0.21.12",
@@ -486,9 +474,9 @@ dependencies = [
 
 [[package]]
 name = "cc"
-version = "1.0.101"
+version = "1.0.104"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ac367972e516d45567c7eafc73d24e1c193dcf200a8d94e9db7b3d38b349572d"
+checksum = "74b6a57f98764a267ff415d50a25e6e166f3831a5071af4995296ea97d210490"
 dependencies = [
  "jobserver",
  "libc",
@@ -517,6 +505,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "613afe47fcd5fac7ccf1db93babcb082c5994d996f20b8b159f2ad1658eb5724"
 
 [[package]]
+name = "checked_ops"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b491d76efc1d99d74de3c8529bee64c62312c275c7eb124f9185291de45801d5"
+dependencies = [
+ "num-traits",
+]
+
+[[package]]
 name = "chrono"
 version = "0.4.38"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -538,9 +535,9 @@ dependencies = [
 
 [[package]]
 name = "clap"
-version = "4.5.7"
+version = "4.5.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5db83dced34638ad474f39f250d7fea9598bdd239eaced1bdf45d597da0f433f"
+checksum = "84b3edb18336f4df585bc9aa31dd99c036dfa5dc5e9a2939a722a188f3a8970d"
 dependencies = [
  "clap_builder",
  "clap_derive",
@@ -548,9 +545,9 @@ dependencies = [
 
 [[package]]
 name = "clap_builder"
-version = "4.5.7"
+version = "4.5.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f7e204572485eb3fbf28f871612191521df159bc3e15a9f5064c66dba3a8c05f"
+checksum = "c1c09dd5ada6c6c78075d6fd0da3f90d8080651e2d6cc8eb2f1aaa4034ced708"
 dependencies = [
  "anstyle",
  "clap_lex",
@@ -558,9 +555,9 @@ dependencies = [
 
 [[package]]
 name = "clap_derive"
-version = "4.5.5"
+version = "4.5.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c780290ccf4fb26629baa7a1081e68ced113f1d3ec302fa5948f1c381ebf06c6"
+checksum = "2bac35c6dafb060fd4d275d9a4ffae97917c13a6327903a8be2153cd964f7085"
 dependencies = [
  "heck 0.5.0",
  "proc-macro2",
@@ -582,7 +579,7 @@ checksum = "3d7b894f5411737b7867f4827955924d7c254fc9f4d91a6aad6b097804b1018b"
 
 [[package]]
 name = "conduit"
-version = "0.4.3"
+version = "0.4.5"
 dependencies = [
  "clap",
  "conduit_admin",
@@ -610,20 +607,14 @@ dependencies = [
 
 [[package]]
 name = "conduit_admin"
-version = "0.4.3"
+version = "0.4.5"
 dependencies = [
  "clap",
  "conduit_api",
  "conduit_core",
- "conduit_database",
  "conduit_service",
- "futures-util",
  "log",
- "loole",
- "regex",
  "ruma",
- "rust-rocksdb-uwu",
- "serde",
  "serde_json",
  "serde_yaml",
  "tokio",
@@ -633,7 +624,7 @@ dependencies = [
 
 [[package]]
 name = "conduit_api"
-version = "0.4.3"
+version = "0.4.5"
 dependencies = [
  "axum 0.7.5",
  "axum-client-ip",
@@ -646,7 +637,8 @@ dependencies = [
  "futures-util",
  "hmac",
  "http 1.1.0",
- "hyper 1.3.1",
+ "http-body-util",
+ "hyper 1.4.0",
  "image",
  "ipaddress",
  "jsonwebtoken",
@@ -658,7 +650,6 @@ dependencies = [
  "serde_html_form",
  "serde_json",
  "sha-1",
- "thiserror",
  "tokio",
  "tracing",
  "webpage",
@@ -666,11 +657,13 @@ dependencies = [
 
 [[package]]
 name = "conduit_core"
-version = "0.4.3"
+version = "0.4.5"
 dependencies = [
  "argon2",
  "axum 0.7.5",
  "bytes",
+ "checked_ops",
+ "chrono",
  "either",
  "figment",
  "hardened_malloc-rs",
@@ -682,20 +675,16 @@ dependencies = [
  "libloading",
  "log",
  "nix",
- "parking_lot",
  "rand",
  "regex",
  "reqwest",
  "ring",
  "ruma",
- "rusqlite",
- "rust-rocksdb-uwu",
  "sanitize-filename",
  "serde",
  "serde_json",
  "serde_regex",
  "thiserror",
- "thread_local",
  "tikv-jemalloc-ctl",
  "tikv-jemalloc-sys",
  "tikv-jemallocator",
@@ -708,42 +697,33 @@ dependencies = [
 
 [[package]]
 name = "conduit_database"
-version = "0.4.3"
+version = "0.4.5"
 dependencies = [
- "chrono",
  "conduit_core",
  "log",
- "lru-cache",
- "parking_lot",
- "ruma",
- "rusqlite",
  "rust-rocksdb-uwu",
- "thread_local",
  "tokio",
  "tracing",
 ]
 
 [[package]]
 name = "conduit_router"
-version = "0.4.3"
+version = "0.4.5"
 dependencies = [
  "axum 0.7.5",
  "axum-client-ip",
  "axum-server",
  "axum-server-dual-protocol",
  "bytes",
- "clap",
  "conduit_admin",
  "conduit_api",
  "conduit_core",
- "conduit_database",
  "conduit_service",
  "http 1.1.0",
  "http-body-util",
- "hyper 1.3.1",
+ "hyper 1.4.0",
  "hyper-util",
  "log",
- "regex",
  "ruma",
  "sd-notify",
  "sentry",
@@ -758,7 +738,7 @@ dependencies = [
 
 [[package]]
 name = "conduit_service"
-version = "0.4.3"
+version = "0.4.5"
 dependencies = [
  "async-trait",
  "base64 0.22.1",
@@ -780,7 +760,7 @@ dependencies = [
  "regex",
  "reqwest",
  "ruma",
- "ruma-identifiers-validation",
+ "ruma-identifiers-validation 0.9.5 (git+https://github.com/girlbossceo/ruwuma?rev=fd686e77950680462377c9105dfb4136dd49c7a0)",
  "rustyline-async",
  "serde",
  "serde_json",
@@ -1141,18 +1121,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5443807d6dff69373d433ab9ef5378ad8df50ca6298caf15de6e52e24aaf54d5"
 
 [[package]]
-name = "fallible-iterator"
-version = "0.3.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2acce4a10f12dc2fb14a218589d4f1f62ef011b2d0cc4b3cb1bba8e94da14649"
-
-[[package]]
-name = "fallible-streaming-iterator"
-version = "0.1.9"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7360491ce676a36bf9bb3c56c1aa791658183a54d2744120f27285738d90465a"
-
-[[package]]
 name = "fdeflate"
 version = "0.3.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1411,18 +1379,6 @@ name = "hashbrown"
 version = "0.14.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e5274423e17b7c9fc20b6e7e208532f9b19825d82dfd615708b70edd83df41f1"
-dependencies = [
- "ahash",
-]
-
-[[package]]
-name = "hashlink"
-version = "0.9.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6ba4ff7128dee98c7dc9794b6a411377e1404dba1c97deb8d1a55297bd25d8af"
-dependencies = [
- "hashbrown 0.14.5",
-]
 
 [[package]]
 name = "hdrhistogram"
@@ -1598,6 +1554,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "http-auth"
+version = "0.1.9"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "643c9bbf6a4ea8a656d6b4cd53d34f79e3f841ad5203c1a55fb7d761923bc255"
+dependencies = [
+ "memchr",
+]
+
+[[package]]
 name = "http-body"
 version = "0.4.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1675,9 +1640,9 @@ dependencies = [
 
 [[package]]
 name = "hyper"
-version = "1.3.1"
+version = "1.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fe575dd17d0862a9a33781c8c4696a55c320909004a67a00fb286ba8b1bc496d"
+checksum = "c4fe55fb7a772d59a5ff1dfbff4fe0258d19b89fec4b233e75d35d5d2316badc"
 dependencies = [
  "bytes",
  "futures-channel",
@@ -1702,7 +1667,7 @@ checksum = "5ee4be2c948921a1a5320b629c4193916ed787a7f7f293fd3f7f5a6c9de74155"
 dependencies = [
  "futures-util",
  "http 1.1.0",
- "hyper 1.3.1",
+ "hyper 1.4.0",
  "hyper-util",
  "rustls 0.23.10",
  "rustls-native-certs",
@@ -1727,16 +1692,16 @@ dependencies = [
 
 [[package]]
 name = "hyper-util"
-version = "0.1.5"
+version = "0.1.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7b875924a60b96e5d7b9ae7b066540b1dd1cbd90d1828f54c92e02a283351c56"
+checksum = "3ab92f4f49ee4fb4f997c784b7a2e0fa70050211e0b6a287f898c3c9785ca956"
 dependencies = [
  "bytes",
  "futures-channel",
  "futures-util",
  "http 1.1.0",
  "http-body 1.0.0",
- "hyper 1.3.1",
+ "hyper 1.4.0",
  "pin-project-lite",
  "socket2",
  "tokio",
@@ -2004,16 +1969,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "libsqlite3-sys"
-version = "0.28.0"
-source = "git+https://github.com/rusqlite/rusqlite?rev=e00b626e2b1c67347d789fb7f600281705c89381#e00b626e2b1c67347d789fb7f600281705c89381"
-dependencies = [
- "cc",
- "pkg-config",
- "vcpkg",
-]
-
-[[package]]
 name = "libz-sys"
 version = "1.1.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2042,9 +1997,9 @@ dependencies = [
 
 [[package]]
 name = "log"
-version = "0.4.21"
+version = "0.4.22"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "90ed8c1e510134f979dbc4f070f87d4313098b704861a105fe34231c70a3901c"
+checksum = "a7a70ba024b9dc04c27ea2f0c0548feb474ec5c54bba33a7f72f873a39d07b24"
 
 [[package]]
 name = "loole"
@@ -2239,9 +2194,9 @@ dependencies = [
 
 [[package]]
 name = "num-bigint"
-version = "0.4.5"
+version = "0.4.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c165a9ab64cf766f73521c0dd2cfdff64f488b8f0b3e621face3462d3db536d7"
+checksum = "a5e44f723f1133c9deac646763579fdb3ac745e418f2a7af9cd0c431da1f20b9"
 dependencies = [
  "num-integer",
  "num-traits",
@@ -2314,9 +2269,9 @@ dependencies = [
 
 [[package]]
 name = "object"
-version = "0.36.0"
+version = "0.36.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "576dfe1fc8f9df304abb159d767a29d0476f7750fbf8aa7ad07816004a207434"
+checksum = "081b846d1d56ddfc18fdf1a922e4f6e07a11768ea1b92dec44e42b72712ccfce"
 dependencies = [
  "memchr",
 ]
@@ -2388,7 +2343,7 @@ dependencies = [
  "glob",
  "once_cell",
  "opentelemetry",
- "ordered-float 4.2.0",
+ "ordered-float 4.2.1",
  "percent-encoding",
  "rand",
  "thiserror",
@@ -2407,9 +2362,9 @@ dependencies = [
 
 [[package]]
 name = "ordered-float"
-version = "4.2.0"
+version = "4.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a76df7075c7d4d01fdcb46c912dd17fba5b60c78ea480b475f2b6ab6f666584e"
+checksum = "19ff2cf528c6c03d9ed653d6c4ce1dc0582dc4af309790ad92f07c1cd551b0be"
 dependencies = [
  "num-traits",
 ]
@@ -2711,9 +2666,9 @@ dependencies = [
 
 [[package]]
 name = "pulldown-cmark"
-version = "0.10.3"
+version = "0.11.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "76979bea66e7875e7509c4ec5300112b316af87fa7a252ca91c448b32dfe3993"
+checksum = "8746739f11d39ce5ad5c2520a9b75285310dbfe78c541ccf832d38615765aec0"
 dependencies = [
  "bitflags 2.6.0",
  "memchr",
@@ -2723,9 +2678,9 @@ dependencies = [
 
 [[package]]
 name = "pulldown-cmark-escape"
-version = "0.10.1"
+version = "0.11.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bd348ff538bc9caeda7ee8cad2d1d48236a1f443c1fa3913c6a02fe0043b1dd3"
+checksum = "007d8adb5ddab6f8e3f491ac63566a7d5002cc7ed73901f72057943fa71ae1ae"
 
 [[package]]
 name = "quick-error"
@@ -2889,7 +2844,7 @@ dependencies = [
  "http 1.1.0",
  "http-body 1.0.0",
  "http-body-util",
- "hyper 1.3.1",
+ "hyper 1.4.0",
  "hyper-rustls",
  "hyper-util",
  "ipnet",
@@ -2949,7 +2904,7 @@ dependencies = [
 [[package]]
 name = "ruma"
 version = "0.10.1"
-source = "git+https://github.com/girlbossceo/ruwuma?rev=fd686e77950680462377c9105dfb4136dd49c7a0#fd686e77950680462377c9105dfb4136dd49c7a0"
+source = "git+https://github.com/girlbossceo/ruwuma?rev=c51ccb2c68d2e3557eb12b1a49036531711ec0e5#c51ccb2c68d2e3557eb12b1a49036531711ec0e5"
 dependencies = [
  "assign",
  "js_int",
@@ -2961,6 +2916,7 @@ dependencies = [
  "ruma-federation-api",
  "ruma-identity-service-api",
  "ruma-push-gateway-api",
+ "ruma-server-util",
  "ruma-signatures",
  "ruma-state-res",
  "web-time 1.1.0",
@@ -2969,7 +2925,7 @@ dependencies = [
 [[package]]
 name = "ruma-appservice-api"
 version = "0.10.0"
-source = "git+https://github.com/girlbossceo/ruwuma?rev=fd686e77950680462377c9105dfb4136dd49c7a0#fd686e77950680462377c9105dfb4136dd49c7a0"
+source = "git+https://github.com/girlbossceo/ruwuma?rev=c51ccb2c68d2e3557eb12b1a49036531711ec0e5#c51ccb2c68d2e3557eb12b1a49036531711ec0e5"
 dependencies = [
  "js_int",
  "ruma-common",
@@ -2981,7 +2937,7 @@ dependencies = [
 [[package]]
 name = "ruma-client-api"
 version = "0.18.0"
-source = "git+https://github.com/girlbossceo/ruwuma?rev=fd686e77950680462377c9105dfb4136dd49c7a0#fd686e77950680462377c9105dfb4136dd49c7a0"
+source = "git+https://github.com/girlbossceo/ruwuma?rev=c51ccb2c68d2e3557eb12b1a49036531711ec0e5#c51ccb2c68d2e3557eb12b1a49036531711ec0e5"
 dependencies = [
  "as_variant",
  "assign",
@@ -3004,7 +2960,7 @@ dependencies = [
 [[package]]
 name = "ruma-common"
 version = "0.13.0"
-source = "git+https://github.com/girlbossceo/ruwuma?rev=fd686e77950680462377c9105dfb4136dd49c7a0#fd686e77950680462377c9105dfb4136dd49c7a0"
+source = "git+https://github.com/girlbossceo/ruwuma?rev=c51ccb2c68d2e3557eb12b1a49036531711ec0e5#c51ccb2c68d2e3557eb12b1a49036531711ec0e5"
 dependencies = [
  "as_variant",
  "base64 0.22.1",
@@ -3017,7 +2973,7 @@ dependencies = [
  "percent-encoding",
  "rand",
  "regex",
- "ruma-identifiers-validation",
+ "ruma-identifiers-validation 0.9.5 (git+https://github.com/girlbossceo/ruwuma?rev=c51ccb2c68d2e3557eb12b1a49036531711ec0e5)",
  "ruma-macros",
  "serde",
  "serde_html_form",
@@ -3034,7 +2990,7 @@ dependencies = [
 [[package]]
 name = "ruma-events"
 version = "0.28.1"
-source = "git+https://github.com/girlbossceo/ruwuma?rev=fd686e77950680462377c9105dfb4136dd49c7a0#fd686e77950680462377c9105dfb4136dd49c7a0"
+source = "git+https://github.com/girlbossceo/ruwuma?rev=c51ccb2c68d2e3557eb12b1a49036531711ec0e5#c51ccb2c68d2e3557eb12b1a49036531711ec0e5"
 dependencies = [
  "as_variant",
  "indexmap 2.2.6",
@@ -3044,7 +3000,7 @@ dependencies = [
  "pulldown-cmark",
  "regex",
  "ruma-common",
- "ruma-identifiers-validation",
+ "ruma-identifiers-validation 0.9.5 (git+https://github.com/girlbossceo/ruwuma?rev=c51ccb2c68d2e3557eb12b1a49036531711ec0e5)",
  "ruma-macros",
  "serde",
  "serde_json",
@@ -3057,13 +3013,22 @@ dependencies = [
 [[package]]
 name = "ruma-federation-api"
 version = "0.9.0"
-source = "git+https://github.com/girlbossceo/ruwuma?rev=fd686e77950680462377c9105dfb4136dd49c7a0#fd686e77950680462377c9105dfb4136dd49c7a0"
+source = "git+https://github.com/girlbossceo/ruwuma?rev=c51ccb2c68d2e3557eb12b1a49036531711ec0e5#c51ccb2c68d2e3557eb12b1a49036531711ec0e5"
 dependencies = [
  "js_int",
  "ruma-common",
  "ruma-events",
  "serde",
  "serde_json",
+]
+
+[[package]]
+name = "ruma-identifiers-validation"
+version = "0.9.5"
+source = "git+https://github.com/girlbossceo/ruwuma?rev=c51ccb2c68d2e3557eb12b1a49036531711ec0e5#c51ccb2c68d2e3557eb12b1a49036531711ec0e5"
+dependencies = [
+ "js_int",
+ "thiserror",
 ]
 
 [[package]]
@@ -3078,7 +3043,7 @@ dependencies = [
 [[package]]
 name = "ruma-identity-service-api"
 version = "0.9.0"
-source = "git+https://github.com/girlbossceo/ruwuma?rev=fd686e77950680462377c9105dfb4136dd49c7a0#fd686e77950680462377c9105dfb4136dd49c7a0"
+source = "git+https://github.com/girlbossceo/ruwuma?rev=c51ccb2c68d2e3557eb12b1a49036531711ec0e5#c51ccb2c68d2e3557eb12b1a49036531711ec0e5"
 dependencies = [
  "js_int",
  "ruma-common",
@@ -3088,13 +3053,13 @@ dependencies = [
 [[package]]
 name = "ruma-macros"
 version = "0.13.0"
-source = "git+https://github.com/girlbossceo/ruwuma?rev=fd686e77950680462377c9105dfb4136dd49c7a0#fd686e77950680462377c9105dfb4136dd49c7a0"
+source = "git+https://github.com/girlbossceo/ruwuma?rev=c51ccb2c68d2e3557eb12b1a49036531711ec0e5#c51ccb2c68d2e3557eb12b1a49036531711ec0e5"
 dependencies = [
  "once_cell",
  "proc-macro-crate",
  "proc-macro2",
  "quote",
- "ruma-identifiers-validation",
+ "ruma-identifiers-validation 0.9.5 (git+https://github.com/girlbossceo/ruwuma?rev=c51ccb2c68d2e3557eb12b1a49036531711ec0e5)",
  "serde",
  "syn 2.0.68",
  "toml",
@@ -3103,7 +3068,7 @@ dependencies = [
 [[package]]
 name = "ruma-push-gateway-api"
 version = "0.9.0"
-source = "git+https://github.com/girlbossceo/ruwuma?rev=fd686e77950680462377c9105dfb4136dd49c7a0#fd686e77950680462377c9105dfb4136dd49c7a0"
+source = "git+https://github.com/girlbossceo/ruwuma?rev=c51ccb2c68d2e3557eb12b1a49036531711ec0e5#c51ccb2c68d2e3557eb12b1a49036531711ec0e5"
 dependencies = [
  "js_int",
  "ruma-common",
@@ -3113,9 +3078,22 @@ dependencies = [
 ]
 
 [[package]]
+name = "ruma-server-util"
+version = "0.3.0"
+source = "git+https://github.com/girlbossceo/ruwuma?rev=c51ccb2c68d2e3557eb12b1a49036531711ec0e5#c51ccb2c68d2e3557eb12b1a49036531711ec0e5"
+dependencies = [
+ "headers",
+ "http 1.1.0",
+ "http-auth",
+ "ruma-common",
+ "thiserror",
+ "tracing",
+]
+
+[[package]]
 name = "ruma-signatures"
 version = "0.15.0"
-source = "git+https://github.com/girlbossceo/ruwuma?rev=fd686e77950680462377c9105dfb4136dd49c7a0#fd686e77950680462377c9105dfb4136dd49c7a0"
+source = "git+https://github.com/girlbossceo/ruwuma?rev=c51ccb2c68d2e3557eb12b1a49036531711ec0e5#c51ccb2c68d2e3557eb12b1a49036531711ec0e5"
 dependencies = [
  "base64 0.22.1",
  "ed25519-dalek",
@@ -3131,7 +3109,7 @@ dependencies = [
 [[package]]
 name = "ruma-state-res"
 version = "0.11.0"
-source = "git+https://github.com/girlbossceo/ruwuma?rev=fd686e77950680462377c9105dfb4136dd49c7a0#fd686e77950680462377c9105dfb4136dd49c7a0"
+source = "git+https://github.com/girlbossceo/ruwuma?rev=c51ccb2c68d2e3557eb12b1a49036531711ec0e5#c51ccb2c68d2e3557eb12b1a49036531711ec0e5"
 dependencies = [
  "itertools 0.12.1",
  "js_int",
@@ -3144,22 +3122,9 @@ dependencies = [
 ]
 
 [[package]]
-name = "rusqlite"
-version = "0.31.0"
-source = "git+https://github.com/rusqlite/rusqlite?rev=e00b626e2b1c67347d789fb7f600281705c89381#e00b626e2b1c67347d789fb7f600281705c89381"
-dependencies = [
- "bitflags 2.6.0",
- "fallible-iterator",
- "fallible-streaming-iterator",
- "hashlink",
- "libsqlite3-sys",
- "smallvec",
-]
-
-[[package]]
 name = "rust-librocksdb-sys"
-version = "0.22.0+9.2.1"
-source = "git+https://github.com/zaidoon1/rust-rocksdb?rev=e9e1cb5ba92a44ea225fe8d13b31aa23621b9035#e9e1cb5ba92a44ea225fe8d13b31aa23621b9035"
+version = "0.23.0+9.3.1"
+source = "git+https://github.com/zaidoon1/rust-rocksdb?rev=b4887edfb84771336930855727390edec07d63fa#b4887edfb84771336930855727390edec07d63fa"
 dependencies = [
  "bindgen",
  "bzip2-sys",
@@ -3175,8 +3140,8 @@ dependencies = [
 
 [[package]]
 name = "rust-rocksdb"
-version = "0.26.0"
-source = "git+https://github.com/zaidoon1/rust-rocksdb?rev=e9e1cb5ba92a44ea225fe8d13b31aa23621b9035#e9e1cb5ba92a44ea225fe8d13b31aa23621b9035"
+version = "0.27.0"
+source = "git+https://github.com/zaidoon1/rust-rocksdb?rev=b4887edfb84771336930855727390edec07d63fa#b4887edfb84771336930855727390edec07d63fa"
 dependencies = [
  "libc",
  "rust-librocksdb-sys",
@@ -3310,8 +3275,7 @@ checksum = "955d28af4278de8121b7ebeb796b6a45735dc01436d898801014aced2773a3d6"
 [[package]]
 name = "rustyline-async"
 version = "0.4.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8b6eb06391513b2184f0a5405c11a4a0a5302e8be442f4c5c35267187c2b37d5"
+source = "git+https://github.com/girlbossceo/rustyline-async?rev=de26100b0db03e419a3d8e1dd26895d170d1fe50#de26100b0db03e419a3d8e1dd26895d170d1fe50"
 dependencies = [
  "crossterm",
  "futures-channel",
@@ -3366,9 +3330,9 @@ dependencies = [
 
 [[package]]
 name = "sd-notify"
-version = "0.4.1"
+version = "0.4.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "621e3680f3e07db4c9c2c3fb07c6223ab2fab2e54bd3c04c3ae037990f428c32"
+checksum = "4646d6f919800cd25c50edb49438a1381e2cd4833c027e75e8897981c50b8b5e"
 
 [[package]]
 name = "security-framework"
@@ -3569,9 +3533,9 @@ dependencies = [
 
 [[package]]
 name = "serde_json"
-version = "1.0.118"
+version = "1.0.120"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d947f6b3163d8857ea16c4fa0dd4840d52f3041039a85decd46867eb1abef2e4"
+checksum = "4e0d21c9a8cae1235ad58a00c11cb40d4b1e5c784f1ef2c537876ed6ffd8b7c5"
 dependencies = [
  "itoa",
  "ryu",
@@ -4903,26 +4867,6 @@ name = "yansi"
 version = "1.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "cfe53a6657fd280eaa890a3bc59152892ffa3e30101319d168b781ed6529b049"
-
-[[package]]
-name = "zerocopy"
-version = "0.7.34"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ae87e3fcd617500e5d106f0380cf7b77f3c6092aae37191433159dda23cfb087"
-dependencies = [
- "zerocopy-derive",
-]
-
-[[package]]
-name = "zerocopy-derive"
-version = "0.7.34"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "15e934569e47891f7d9411f1a451d947a60e000ab3bd24fbb970f000387d1b3b"
-dependencies = [
- "proc-macro2",
- "quote",
- "syn 2.0.68",
-]
 
 [[package]]
 name = "zeroize"
