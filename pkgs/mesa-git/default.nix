@@ -1,7 +1,6 @@
 { final
 , final64 ? final
 , flakes
-, nyxUtils
 , prev
 , gitOverride
 , gbmDriver ? false
@@ -51,7 +50,7 @@ gitOverride (current: {
         prevAttrs.mesonFlags
       ++ final.lib.optional is32bit "-D intel-rt=disabled";
 
-    patches = [
+    patches = prevAttrs.patches ++ [
       ./gbm-backend.patch
     ];
 
