@@ -1,7 +1,6 @@
 { final
 , final64 ? final
 , flakes
-, nyxUtils
 , prev
 , gitOverride
 , gbmDriver ? false
