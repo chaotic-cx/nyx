@@ -102,6 +102,7 @@ llvmPackages.stdenv.mkDerivation {
     libbpf_git
   ];
 
+
   mesonFlags = [
     "-Dsystemd=disabled"
     "-Dopenrc=disabled"
@@ -111,7 +112,10 @@ llvmPackages.stdenv.mkDerivation {
 
   enableParallelBuilding = true;
   dontStrip = true;
-  hardeningDisable = [ "stackprotector" ];
+  hardeningDisable = [
+    "stackprotector"
+    "zerocallusedregs"
+  ];
 
   passthru = {
     inherit scx-common scx-rusty scx-lavd scx-layered scx-rlfifo scx-rustland;

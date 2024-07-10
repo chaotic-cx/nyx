@@ -18,6 +18,11 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config llvmPackages.clang ];
   buildInputs = [ elfutils zlib ];
+
+  hardeningDisable = [
+    "zerocallusedregs"
+  ];
+
   LIBCLANG_PATH = "${llvmPackages.libclang.lib}/lib";
 
   postPatch = ''
