@@ -198,16 +198,9 @@ in
     if has32 then callOverride32 ../pkgs/mangohud-git { }
     else throw "No mangohud32_git for non-x86";
 
-  mesa_git = callOverride ../pkgs/mesa-git {
-    gbmDriver = true;
-    cargoDeps = importJSON ../pkgs/mesa-git/cargo-deps.json;
-  };
+  mesa_git = callOverride ../pkgs/mesa-git { gbmDriver = true; };
   mesa32_git =
-    if has32 then
-      callOverride32 ../pkgs/mesa-git
-        {
-          cargoDeps = importJSON ../pkgs/mesa-git/cargo-deps.json;
-        }
+    if has32 then callOverride32 ../pkgs/mesa-git { }
     else throw "No mesa32_git for non-x86";
 
   mpv-vapoursynth = (final.mpv-unwrapped.wrapper {
