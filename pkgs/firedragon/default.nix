@@ -33,7 +33,8 @@ in
     homepage = "https://github.com/dr460nf1r3/firedragon-browser";
     license = lib.licenses.mpl20;
     maintainers = with lib; [ maintainers.dr460nf1r3 ];
-    broken = stdenv.buildPlatform.is32bit; # since Firefox 60, build on 32-bit platforms fails with "out of memory".
+    broken = true;
+    # broken = stdenv.buildPlatform.is32bit; # since Firefox 60, build on 32-bit platforms fails with "out of memory".
     maxSilent = 14400; # 4h, double the default of 7200s (c.f. #129212, #129115)
     platforms = lib.platforms.unix;
     mainProgram = "firedragon";
