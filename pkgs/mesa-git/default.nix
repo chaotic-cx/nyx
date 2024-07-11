@@ -11,15 +11,19 @@
 
 let
   inherit (final.stdenv) is32bit;
+
+  cargoDeps = {
+    proc-macro2 = { version = "1.0.70"; hash = "sha256-OSePu/X7T2Rs5lFpCHf4nRxYEaPUrLJ3AMHLPNt4/Ts="; };
+    quote = { version = "1.0.33"; hash = "sha256-Umf8pElgKGKKlRYPxCOjPosuavilMCV54yLktSApPK4="; };
+    syn = { version = "2.0.39"; hash = "sha256-I+eLkPL89F0+hCAyzjLj8tFUW6ZjYnHcvyT6MG2Hvno="; };
+    unicode-ident = { version = "1.0.12"; hash = "sha256-M1S5rD+uH/Z1XLbbU2g622YWNPZ1V5Qt6k+s6+wP7ks="; };
+    paste = { version = "1.0.14"; hash = "sha256-3jFFrwgCTeqfqZFPOBoXuPxgNN+wDzqEAT9/9D8p7Uw="; };
+  };
 in
 gitOverride (current: {
   newInputs =
     {
       wayland-protocols = final64.wayland-protocols_git;
-      # We need to mention those besides "all", because of the usage of nix's `lib.elem` in
-      # the original derivation.
-      galliumDrivers = [ "all" "i915" ];
-      vulkanDrivers = [ "all" ];
     } // (if is32bit then with final64; {
       libdrm = libdrm32_git;
     } else with final; {
@@ -62,6 +66,15 @@ gitOverride (current: {
 
     postPatch =
       let
+        cargoFetch = who: final.fetchurl {
+          url = "https://crates.io/api/v1/crates/${who}/${cargoDeps.${who}.version}/download";
+          inherit (cargoDeps.${who}) hash;
+        };
+
+        cargoSubproject = who: ''
+          ln -s ${cargoFetch who} subprojects/packagecache/${who}-${cargoDeps.${who}.version}.tar.gz
+        '';
+
         # allow renaming the new backend name
         backendRename =
           if gbmBackend != "dri_git" then ''
@@ -69,7 +82,15 @@ gitOverride (current: {
           '' else "";
       in
       prevAttrs.postPatch
-      + backendRename;
+      + backendRename
+      + ''
+        mkdir subprojects/packagecache
+      ''
+      + (cargoSubproject "proc-macro2")
+      + (cargoSubproject "quote")
+      + (cargoSubproject "syn")
+      + (cargoSubproject "unicode-ident")
+      + (cargoSubproject "paste");
 
     # move new backend to its own output (if necessary)
     postInstall =
