@@ -56,13 +56,13 @@ writeShellScript "update-cachyos" ''
     url="https://git.kernel.org/torvalds/t/linux-''${latestVer%.0}.tar.gz"
     latestHash=$(update_kernel $latestVer $url)
 
-    cat "$(nix build '.#packages.x86_64-linux.linuxPackages_cachyos-rc.kernel.kconfigToNix' --no-link --print-out-paths)" \
-    > pkgs/linux-cachyos/config-nix/cachyos-rc.x86_64-linux.nix
-
     jq \
     --arg latestRcVer "$latestVer" --arg latestRcHash "$latestHash" \
     ".linuxRc.version = \$latestRcVer | .linuxRc.hash = \$latestRcHash " \
     "$srcJson" | sponge "$srcJson"
+
+    cat "$(nix build '.#packages.x86_64-linux.linuxPackages_cachyos-rc.kernel.kconfigToNix' --no-link --print-out-paths)" \
+    > pkgs/linux-cachyos/config-nix/cachyos-rc.x86_64-linux.nix
 
     message="linux_cachyos-rc: $localVer -> $latestVer"
   elif [[ "${withUpdateScript}" == "stable" ]]; then
@@ -75,6 +75,11 @@ writeShellScript "update-cachyos" ''
     url="https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-''${latestVer%.0}.tar.xz"
     latestHash=$(update_kernel $latestVer $url)
 
+  jq \
+    --arg latestVer "$latestVer" --arg latestHash "$latestHash" \
+    ".linux.version = \$latestVer | .linux.hash = \$latestHash " \
+    "$srcJson" | sponge "$srcJson"
+
     cat "$(nix build '.#packages.x86_64-linux.linuxPackages_cachyos.kernel.kconfigToNix' --no-link --print-out-paths)" \
       > pkgs/linux-cachyos/config-nix/cachyos.x86_64-linux.nix
 
@@ -86,11 +91,6 @@ writeShellScript "update-cachyos" ''
 
     cat "$(nix build '.#packages.x86_64-linux.linuxPackages_cachyos-hardened.kernel.kconfigToNix' --no-link --print-out-paths)" \
       > pkgs/linux-cachyos/config-nix/cachyos-hardened.x86_64-linux.nix
-
-  jq \
-    --arg latestVer "$latestVer" --arg latestHash "$latestHash" \
-    ".linux.version = \$latestVer | .linux.hash = \$latestHash " \
-    "$srcJson" | sponge "$srcJson"
 
     message="linux_cachyos: $localVer -> $latestVer"
   else
