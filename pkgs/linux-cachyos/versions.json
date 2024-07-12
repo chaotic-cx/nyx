@@ -3,8 +3,8 @@
   "suffix": "-cachyos",
   "_linux": "pkgver from config's PKGBUILD",
   "linux": {
-    "version": "6.9.8",
-    "hash": "sha256-8Egme3uIMWycpwjGjRWproAtz8lDwxiMEnPrlYxDMoE="
+    "version": "6.9.9",
+    "hash": "sha256-K+BbSH6yOaO/aH1iio8QQXfQnDEPALzCpeUPFzNCHrk="
   },
   "linuxRc": {
     "version": "6.10-rc7",
