@@ -2,7 +2,7 @@
 , callPackage
 , fetchurl
 , lib
-, stdenv
+, python311
 }:
 let
   current = lib.trivial.importJSON ./version.json;
@@ -13,6 +13,9 @@ in
   applicationName = "FireDragon";
   binaryName = "firedragon";
   pname = "firedragon";
+  branding = "browser/branding/firedragon";
+  requireSigning = false;
+  allowAddonSideload = true;
 
   src = fetchurl {
     url = "https://gitlab.com/api/v4/projects/55893651/packages/generic/firedragon/${packageVersion}/firedragon-v${packageVersion}.source.tar.zst";
@@ -23,7 +26,7 @@ in
   inherit (firedragon-src) extraConfigureFlags extraNativeBuildInputs;
 
   # Must match the contents of `browser/config/version.txt` in the source tree
-  version = "115.7.0";
+  version = "115.13.0";
 
   updateScript = callPackage ./update.nix { };
 
@@ -33,7 +36,6 @@ in
     homepage = "https://github.com/dr460nf1r3/firedragon-browser";
     license = lib.licenses.mpl20;
     maintainers = with lib; [ maintainers.dr460nf1r3 ];
-    broken = true;
     # broken = stdenv.buildPlatform.is32bit; # since Firefox 60, build on 32-bit platforms fails with "out of memory".
     maxSilent = 14400; # 4h, double the default of 7200s (c.f. #129212, #129115)
     platforms = lib.platforms.unix;
@@ -44,12 +46,12 @@ in
   enableOfficialBranding = false;
   pgoSupport = true;
   privacySupport = true;
+  python3 = python311;
   webrtcSupport = true;
 }).overrideAttrs {
   MOZ_APP_REMOTINGNAME = "firedragon";
   MOZ_CRASHREPORTER = "";
   MOZ_DATA_REPORTING = "";
-  MOZ_REQUIRE_SIGNING = "";
   MOZ_SERVICES_HEALTHREPORT = "";
   MOZ_TELEMETRY_REPORTING = "";
   OPT_LEVEL = "3";
