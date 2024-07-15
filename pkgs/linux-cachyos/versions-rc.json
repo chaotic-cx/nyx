@@ -1,1 +1,18 @@
-{ }
+{
+  "linux": {
+    "version": "6.10-rc7",
+    "hash": "sha256-M7MupqhPAWsv4HfDH4zhgRBI+Oxdk/RrXgnltXX7xg0="
+  },
+  "config": {
+    "rev": "7e519722851e815372c88d11282f1214b19f5187",
+    "hash": "sha256-9dOuuIbMrYw40fNEqJ+w2pi5EhHyePViS/90xzPnUPM="
+  },
+  "patches": {
+    "rev": "2bafea190705c6b5c94d738891d654a83b25d468",
+    "hash": "sha256-HDSIvbUIZTJwAodcA1gmdocVMWoCNSirpV3zn01NS9E="
+  },
+  "zfs": {
+    "rev": "55a3483f28e69bf0514abb8c0a8e3812da282e73",
+    "hash": "sha256-r6VIjNy4YYVjrQQVTavZc1bq9ufGkKDE1E0lWCVYQ/k="
+  }
+}
