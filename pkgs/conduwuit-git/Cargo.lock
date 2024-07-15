@@ -2988,7 +2988,7 @@ dependencies = [
  "percent-encoding",
  "rand",
  "regex",
- "ruma-identifiers-validation 0.9.5 (git+https://github.com/girlbossceo/ruwuma?rev=c51ccb2c68d2e3557eb12b1a49036531711ec0e5)",
+ "ruma-identifiers-validation 0.9.5 (git+https://github.com/girlbossceo/ruwuma?rev=fd686e77950680462377c9105dfb4136dd49c7a0)",
  "ruma-macros",
  "serde",
  "serde_html_form",
@@ -3015,7 +3015,7 @@ dependencies = [
  "pulldown-cmark",
  "regex",
  "ruma-common",
- "ruma-identifiers-validation 0.9.5 (git+https://github.com/girlbossceo/ruwuma?rev=c51ccb2c68d2e3557eb12b1a49036531711ec0e5)",
+ "ruma-identifiers-validation 0.9.5 (git+https://github.com/girlbossceo/ruwuma?rev=fd686e77950680462377c9105dfb4136dd49c7a0)",
  "ruma-macros",
  "serde",
  "serde_json",
@@ -3035,15 +3035,6 @@ dependencies = [
  "ruma-events",
  "serde",
  "serde_json",
-]
-
-[[package]]
-name = "ruma-identifiers-validation"
-version = "0.9.5"
-source = "git+https://github.com/girlbossceo/ruwuma?rev=c51ccb2c68d2e3557eb12b1a49036531711ec0e5#c51ccb2c68d2e3557eb12b1a49036531711ec0e5"
-dependencies = [
- "js_int",
- "thiserror",
 ]
 
 [[package]]
@@ -3074,7 +3065,7 @@ dependencies = [
  "proc-macro-crate",
  "proc-macro2",
  "quote",
- "ruma-identifiers-validation 0.9.5 (git+https://github.com/girlbossceo/ruwuma?rev=c51ccb2c68d2e3557eb12b1a49036531711ec0e5)",
+ "ruma-identifiers-validation 0.9.5 (git+https://github.com/girlbossceo/ruwuma?rev=fd686e77950680462377c9105dfb4136dd49c7a0)",
  "serde",
  "syn 2.0.71",
  "toml",
