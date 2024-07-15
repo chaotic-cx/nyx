@@ -36,6 +36,7 @@ in
   };
 }
 ).overrideAttrs (prevAttrs: {
+  postPatch = prevAttrs.postPatch + configfile.extraVerPatch;
   # bypasses https://github.com/NixOS/nixpkgs/issues/216529
   passthru = prevAttrs.passthru // {
     inherit cachyConfig kconfigToNix;
