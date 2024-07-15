@@ -46,7 +46,7 @@ in
     };
     updateScript = null;
   } // nyxUtils.optionalAttr "updateScript"
-    (cachyConfig.withUpdateScript == "stable" || cachyConfig.withUpdateScript == "rc")
+    (cachyConfig.withUpdateScript != null)
     (callPackage ./update.nix {
       inherit (cachyConfig) withUpdateScript;
     });

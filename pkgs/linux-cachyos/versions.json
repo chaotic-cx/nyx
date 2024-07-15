@@ -6,10 +6,6 @@
     "version": "6.9.9",
     "hash": "sha256-K+BbSH6yOaO/aH1iio8QQXfQnDEPALzCpeUPFzNCHrk="
   },
-  "linuxRc": {
-    "version": "6.10-rc7",
-    "hash": "sha256-M7MupqhPAWsv4HfDH4zhgRBI+Oxdk/RrXgnltXX7xg0="
-  },
   "_config": "latest commit from https://github.com/CachyOS/linux-cachyos/commits/master/linux-cachyos",
   "config": {
     "rev": "7e519722851e815372c88d11282f1214b19f5187",
