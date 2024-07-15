@@ -6,7 +6,6 @@ rec {
   inherit (src) packageVersion;
 
   extraConfigureFlags = [
-    "--allow-addon-sideload"
     "--disable-crashreporter"
     "--disable-debug"
     "--disable-debug-js-modules"
@@ -25,7 +24,6 @@ rec {
     "--enable-proxy-bypass-protection"
     "--with-app-basename=FireDragon"
     "--with-app-name=firedragon"
-    "--with-branding=browser/branding/firedragon"
     "--with-distribution-id=org.garudalinux"
     "--with-unsigned-addon-scopes=app,system"
   ];
