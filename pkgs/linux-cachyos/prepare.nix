@@ -252,7 +252,7 @@ stdenv.mkDerivation (finalAttrs: {
     inherit cachyConfig makeEnv stdenv;
     kernelPatches = patches;
     extraVerPatch = ''
-      sed -Ei"" 's/EXTRAVERSION =(.+)$/EXTRAVERSION =\1-cachyos/g' Makefile
+      sed -Ei"" 's/EXTRAVERSION = ?(.*)$/EXTRAVERSION = \1${cachyConfig.versions.suffix}/g' Makefile
     '';
   };
 })

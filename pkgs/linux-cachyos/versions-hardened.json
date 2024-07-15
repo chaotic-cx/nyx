@@ -1,4 +1,5 @@
 {
+  "suffix": "-cachyos",
   "linux": {
     "version": "6.9.9",
     "hash": "sha256-K+BbSH6yOaO/aH1iio8QQXfQnDEPALzCpeUPFzNCHrk="
