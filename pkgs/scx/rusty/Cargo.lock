@@ -875,7 +875,7 @@ dependencies = [
  "log",
  "metrics",
  "metrics-exporter-prometheus",
- "ordered-float",
+ "ordered-float 3.9.2",
  "scx_utils",
  "simplelog",
  "sorted-vec",
