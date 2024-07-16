@@ -4,11 +4,12 @@
 , writeShellScriptBin
 , fetchFromGitHub
 , scx-common
-, scx-rusty
+, scx-bpfland
 , scx-lavd
 , scx-layered
 , scx-rlfifo
 , scx-rustland
+, scx-rusty
 , pkg-config
 , meson
 , ninja
@@ -26,6 +27,10 @@ let
     if [ ''${3:-} = '--target-dir=rust/scx_utils' ]; then
       exit 0
     elif [ ''${3:-} = '--target-dir=rust/scx_rustland_core' ]; then
+      exit 0
+    elif [ ''${3:-} = '--target-dir=scheds/rust/scx_bpfland' ]; then
+      mkdir -p /build/source/build/scheds/rust/scx_bpfland
+      cp -r ${scx-bpfland} /build/source/build/scheds/rust/scx_bpfland/release
       exit 0
     elif [ ''${3:-} = '--target-dir=scheds/rust/scx_lavd' ]; then
       mkdir -p /build/source/build/scheds/rust/scx_lavd
@@ -54,8 +59,8 @@ let
   bpftools_src = fetchFromGitHub {
     owner = "libbpf";
     repo = "bpftool";
-    rev = "20ce6933869b70bacfdd0dd1a8399199290bf8ff";
-    hash = "sha256-XuPg+DG2cIcgPrPB9JBuiEu+7tnA0MwOMYvueXJg6QA=";
+    rev = "77a72987353fcae8ce330fd87d4c7afb7677a169";
+    hash = "sha256-pItTVewlXgB97AC/WH9rW9J/eYSe2ZdBkJaAgGnDeUU=";
     fetchSubmodules = true;
   };
 
