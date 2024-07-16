@@ -1,7 +1,8 @@
 {
   "axum-server-0.6.0": "sha256-qKP7NNrdfN3fV7GKSiVIzMc2bVx8F1sxx+qzWxlGX5s=",
-  "libsqlite3-sys-0.28.0": "sha256-3oepEzC12iHwUbpzvlhp/Pi6l3y6w2zZOkZzKsfHV/U=",
-  "ruma-0.10.1": "sha256-37ozG1PfljG1d6BLxuhIEHtEs8sdnVKGVwmgGAE9QjA=",
-  "rust-librocksdb-sys-0.22.0+9.2.1": "sha256-0NJmUChAOWraAfUkhY93kQTXe/QstmciCqZg3O14Z1E=",
-  "tracing-0.1.40": "sha256-1gP1sZPjhIrtiUfFMH1j4IWxGmcviukttLGR2eNAXXs="
+  "ruma-0.10.1": "sha256-gh+0jnxoVX4HvIJTds6VVXhKSCd1vWvv6QeoHSOy4ZA=",
+  "ruma-identifiers-validation-0.9.5": "sha256-37ozG1PfljG1d6BLxuhIEHtEs8sdnVKGVwmgGAE9QjA=",
+  "rust-librocksdb-sys-0.24.0+9.4.0": "sha256-uRwcSC7WDLzDf+PNfGfRiPrsjSnFz6HM8v6Zzzshw+o=",
+  "rustyline-async-0.4.2": "sha256-BWzq7GdZhykVe/5/zsQd4azIpYfGLUiicUaLCB8of+s=",
+  "tracing-0.1.40": "sha256-J6+8hBC/755SU8n1fTiJwBh17Unluv1SXfd5+dDAEhk="
 }
