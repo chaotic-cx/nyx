@@ -9,10 +9,10 @@
 }:
 
 rustPlatform.buildRustPackage rec {
-  pname = "scx-rlfifo";
+  pname = "scx-bpfland";
 
   inherit (scx-common) src version;
-  cargoRoot = "scheds/rust/scx_rlfifo";
+  cargoRoot = "scheds/rust/scx_bpfland";
 
   cargoLock.lockFile = ./Cargo.lock;
 
@@ -26,19 +26,19 @@ rustPlatform.buildRustPackage rec {
   LIBCLANG_PATH = "${llvmPackages.libclang.lib}/lib";
 
   postPatch = ''
-    ln -s ${./Cargo.lock} scheds/rust/scx_rlfifo/Cargo.lock
+    ln -s ${./Cargo.lock} scheds/rust/scx_bpfland/Cargo.lock
   '';
 
   # Can't use sourceRoot because it will fail with lack of permissions in scx_utils
   preBuild = ''
-    cd scheds/rust/scx_rlfifo
+    cd scheds/rust/scx_bpfland
   '';
 
   installPhase = ''
     runHook preInstall
 
     mkdir $out
-    cp target/${stdenv.targetPlatform.config}/release/scx_rlfifo $out/
+    cp target/${stdenv.targetPlatform.config}/release/scx_bpfland $out/
 
     runHook postInstall
   '';
@@ -46,11 +46,10 @@ rustPlatform.buildRustPackage rec {
   enableParallelBuilding = true;
   dontStrip = true;
   dontPatchELF = true;
-  dontCheck = true;
 
   meta = with lib; {
     homepage = "https://bit.ly/scx_slack";
-    description = "sched_ext schedulers and tools (scx_rlfifo portion)";
+    description = "sched_ext schedulers and tools (scx_bpfland portion)";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
     maintainers = with maintainers; [ pedrohlc ];
