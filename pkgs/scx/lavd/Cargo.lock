@@ -941,7 +941,7 @@ dependencies = [
 
 [[package]]
 name = "scx_lavd"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "anyhow",
  "bitvec",
@@ -963,7 +963,7 @@ dependencies = [
 
 [[package]]
 name = "scx_utils"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "anyhow",
  "bindgen",

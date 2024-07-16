@@ -867,7 +867,7 @@ dependencies = [
 
 [[package]]
 name = "scx_rlfifo"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "anyhow",
  "ctrlc",
@@ -880,7 +880,7 @@ dependencies = [
 
 [[package]]
 name = "scx_rustland_core"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "anyhow",
  "libbpf-rs",
@@ -893,7 +893,7 @@ dependencies = [
 
 [[package]]
 name = "scx_utils"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "anyhow",
  "bindgen",
