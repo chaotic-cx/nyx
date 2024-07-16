@@ -1,5 +1,0 @@
---- a/Makefile
-+++ b/Makefile
-@@ -6 +6 @@
--EXTRAVERSION =
-+EXTRAVERSION = -cachyos

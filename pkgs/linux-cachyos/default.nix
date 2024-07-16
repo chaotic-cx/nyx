@@ -5,42 +5,34 @@ let
 
   # CachyOS repeating stuff.
   mainVersions = importJSON ./versions.json;
+  rcVersions = importJSON ./versions-rc.json;
+  hardenedVersions = importJSON ./versions-hardened.json;
 
-  mkCachyKernel = attrs: final.callPackage ./packages-for.nix
-    ({ inherit zfs-source; versions = mainVersions; } // attrs);
+  mkCachyKernel = attrs: final.callPackage ./packages-for.nix ({ versions = mainVersions; } // attrs);
 
   stdenvLLVM = final.callPackage ./lib/llvm-stdenv.nix { };
 
-  zfs-source = final.fetchFromGitHub {
-    owner = "cachyos";
-    repo = "zfs";
-    inherit (mainVersions.zfs) rev hash;
-  };
-
-  llvmModuleOverlay = import ./lib/llvm-module-overlay.nix inputs stdenvLLVM;
-in
-{
-  inherit mainVersions mkCachyKernel;
-
-  cachyos = mkCachyKernel {
+  mainKernel = mkCachyKernel {
     taste = "linux-cachyos";
     configPath = ./config-nix/cachyos.x86_64-linux.nix;
     # since all flavors use the same versions.json, we just need the updateScript in one of them
     withUpdateScript = "stable";
   };
 
+  llvmModuleOverlay = import ./lib/llvm-module-overlay.nix inputs stdenvLLVM;
+in
+{
+  inherit mainVersions rcVersions hardenedVersions mkCachyKernel;
+
+  cachyos = mainKernel;
+
   cachyos-rc = mkCachyKernel {
     taste = "linux-cachyos-rc";
     configPath = ./config-nix/cachyos-rc.x86_64-linux.nix;
 
-    # cpuSched = "eevdf"; # rc kernel does not have scx patches ready, usually
-    versions = mainVersions // {
-      linux = {
-        inherit (mainVersions.linuxRc) version hash;
-      };
-    };
-
+    versions = rcVersions;
     withUpdateScript = "rc";
+
     # Prevent building kernel modules for rc kernel
     packagesExtend = _kernel: _final: prev: prev // { recurseForDerivations = false; };
   };
@@ -83,12 +75,15 @@ in
     configPath = ./config-nix/cachyos-hardened.x86_64-linux.nix;
     cpuSched = "hardened";
 
+    versions = hardenedVersions;
+    withUpdateScript = "hardened";
+
     withNTSync = false;
     withHDR = false;
   };
 
   zfs = final.zfs_unstable.overrideAttrs (prevAttrs: {
-    src = zfs-source;
+    inherit (mainKernel.zfs_cachyos) src;
     patches = [ ];
     passthru = prevAttrs.passthru // {
       kernelModuleAttribute = "zfs_cachyos";

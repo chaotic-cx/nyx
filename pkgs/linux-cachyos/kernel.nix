@@ -36,6 +36,7 @@ in
   };
 }
 ).overrideAttrs (prevAttrs: {
+  postPatch = prevAttrs.postPatch + configfile.extraVerPatch;
   # bypasses https://github.com/NixOS/nixpkgs/issues/216529
   passthru = prevAttrs.passthru // {
     inherit cachyConfig kconfigToNix;
@@ -46,7 +47,7 @@ in
     };
     updateScript = null;
   } // nyxUtils.optionalAttr "updateScript"
-    (cachyConfig.withUpdateScript == "stable" || cachyConfig.withUpdateScript == "rc")
+    (cachyConfig.withUpdateScript != null)
     (callPackage ./update.nix {
       inherit (cachyConfig) withUpdateScript;
     });

@@ -5,6 +5,7 @@
 , callPackage
 , linuxPackages
 , linuxPackagesFor
+, fetchFromGitHub
 , nyxUtils
 , lib
 , ogKernelConfigfile ? linuxPackages.kernel.passthru.configfile
@@ -23,7 +24,6 @@
 , withoutDebug ? false
 , description ? "Linux EEVDF-BORE scheduler Kernel by CachyOS with other patches and improvements"
 , withUpdateScript ? null
-, zfs-source
 , packagesExtend ? null
 }:
 
@@ -68,7 +68,11 @@ let
     {
       kernel_configfile = prevAttrs.kernel.configfile;
       zfs_cachyos = prevAttrs.zfs_unstable.overrideAttrs (prevAttrs: {
-        src = zfs-source;
+        src = fetchFromGitHub {
+          owner = "cachyos";
+          repo = "zfs";
+          inherit (versions.zfs) rev hash;
+        };
         meta = prevAttrs.meta // { broken = false; };
         patches = [ ];
       });
