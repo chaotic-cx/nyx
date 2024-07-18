@@ -10,8 +10,4 @@ gitOverride {
     owner = "feschber";
     repo = "lan-mouse";
   };
-
-  withCargoDeps = final.rustPlatform.importCargoLock {
-    lockFile = ./Cargo.lock;
-  };
 }
