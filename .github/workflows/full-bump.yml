@@ -40,6 +40,8 @@ jobs:
           install_url: https://releases.nixos.org/nix/nix-2.20.5/install
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Configure sandboxing
         run: |
           sed -i -e '/^build-users-group =/d' -e 's/max-jobs =.*/max-jobs = 8/g' /etc/nix/nix.conf

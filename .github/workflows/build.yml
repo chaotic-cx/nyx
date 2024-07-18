@@ -98,6 +98,8 @@ jobs:
       # Checkout the main branch
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-tags: true
       - name: Configure sandboxing
         if: (success() && steps.check.outputs.cached != 'true')
         run: |
