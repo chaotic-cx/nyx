@@ -56,7 +56,7 @@
   "linuxPackages_cachyos-lto.asus-ec-sensors" = "/nix/store/p6q5v4x8x2hgv09pybr135wmhjxwmn25-asus-ec-sensors-unstable-2022-07-10-6.10.0";
   "linuxPackages_cachyos-lto.asus-wmi-sensors" = "/nix/store/wb9ndvpwb2n3gmakk7zwskry2mqkchim-asus-wmi-sensors-unstable-2019-11-07-6.10.0";
   "linuxPackages_cachyos-lto.ax99100" = "/nix/store/3q11sgq55ngfvpqjmh89hk011m79yy3b-ax99100-1.8.0";
-  "linuxPackages_cachyos-lto.broadcom_sta" = "/nix/store/yklk0kn6nhxrn932faz6k26jg0l2zn7n-broadcom-sta-6.30.223.271-6.10.0";
+  "linuxPackages_cachyos-lto.broadcom_sta" = "/nix/store/43wfwh3kryp9ga4x7dylxmwd5n50j6ss-broadcom-sta-6.30.223.271-6.10.0";
   "linuxPackages_cachyos-lto.chipsec" = "/nix/store/xsyvljqc710kf9pfxqz2n0g79apxmwin-chipsec-1.10.6";
   "linuxPackages_cachyos-lto.ddcci-driver" = "/nix/store/9vaycpa9qafay6rqw45xaf7wsi5bzxcg-ddcci-driver-6.10.0-0.4.4";
   "linuxPackages_cachyos-lto.deepin-anything-module" = "/nix/store/p3rvhlg1ygy703nyrh5bx9sb2s2xr2w2-deepin-anything-module-6.1.9";
@@ -77,7 +77,7 @@
   "linuxPackages_cachyos-lto.lttng-modules" = "/nix/store/h940i10pimhw9ppf7wrrxbqwcgz5gcpm-lttng-modules-6.10.0-2.13.13";
   "linuxPackages_cachyos-lto.mba6x_bl" = "/nix/store/azhc69b13il9bmfq9wsrvrhjx2878gdg-mba6x_bl-unstable-2017-12-30";
   "linuxPackages_cachyos-lto.mbp2018-bridge-drv" = "/nix/store/qnwzld0nir33hp72r40z7860m5b62fzm-mbp2018-bridge-drv-2020-01-31";
-  "linuxPackages_cachyos-lto.mm-tools" = "/nix/store/99rnqchvqshlsms5bik6afhbl06snxix-mm-tools-6.6.40";
+  "linuxPackages_cachyos-lto.mm-tools" = "/nix/store/0dqkjnb206kcfmfmv6wk9llgirsiki3p-mm-tools-6.6.41";
   "linuxPackages_cachyos-lto.mwprocapture" = "/nix/store/2x15kxhlb47p7zmwrc1zxxvhbfsscvnn-mwprocapture-1.3.0.4390-6.10.0";
   "linuxPackages_cachyos-lto.netatop" = "/nix/store/7hn15maivj3ixwksygfx4wwwii58p1f3-netatop-6.10.0-3.1";
   "linuxPackages_cachyos-lto.new-lg4ff" = "/nix/store/mybhvgxfl0gm9iwzis9p392h3kd8rxw1-new-lg4ff-0.4.0";
