@@ -14,6 +14,7 @@ in
     package = lib.mkPackageOption pkgs "scx" { };
     scheduler = lib.mkOption {
       type = lib.types.enum [
+        "scx_bpfland"
         "scx_central"
         "scx_flatcg"
         "scx_lavd"
