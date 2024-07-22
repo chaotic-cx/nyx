@@ -1,4 +1,4 @@
-{ final, prev, gitOverride, ... }:
+{ prev, gitOverride, ... }:
 
 gitOverride {
   nyxKey = "lan-mouse_git";
