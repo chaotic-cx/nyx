@@ -3,6 +3,7 @@
 , flakes
 , prev
 , gitOverride
+, nyxUtils
 , gbmDriver ? false
 , gbmBackend ? "dri_git"
 , mesaTestAttrs ? final
@@ -24,6 +25,7 @@ gitOverride (current: {
   newInputs =
     {
       wayland-protocols = final64.wayland-protocols_git;
+      galliumDrivers = [ "all" ];
     } // (if is32bit then with final64; {
       libdrm = libdrm32_git;
     } else with final; {
@@ -45,13 +47,7 @@ gitOverride (current: {
   version = builtins.substring 0 (builtins.stringLength prev.mesa.version) current.rev;
 
   postOverride = prevAttrs: {
-    nativeBuildInputs = with final; [ python3Packages.pyyaml ] ++ prevAttrs.nativeBuildInputs;
-
-    mesonFlags =
-      builtins.map
-        (builtins.replaceStrings [ "virtio-experimental" ] [ "virtio" ])
-        prevAttrs.mesonFlags
-      ++ final.lib.optional is32bit "-D intel-rt=disabled";
+    nativeBuildInputs = with final; [ python3Packages.pyyaml rustfmt ] ++ prevAttrs.nativeBuildInputs;
 
     patches = prevAttrs.patches ++ [
       ./gbm-backend.patch
@@ -92,11 +88,25 @@ gitOverride (current: {
       + (cargoSubproject "paste");
 
     # move new backend to its own output (if necessary)
+    # NOTE: Deleting gbm from $out became necessary after 20240722 bump
     postInstall =
       if gbmDriver then prevAttrs.postInstall + ''
         mkdir -p $gbm/lib/gbm
-        ln -s $out/lib/libgbm.so $gbm/lib/gbm/${gbmBackend}_gbm.so
-      '' else prevAttrs.postInstall;
+        mv $out/lib/libgbm.so.1.0.0 $gbm/lib/gbm/${gbmBackend}_gbm.so.1.0.0
+        rm $out/lib/libgbm.so.1 $out/lib/libgbm.so
+        pushd $gbm/lib/gbm/
+        ln -s ${gbmBackend}_gbm.so.1.0.0 ${gbmBackend}_gbm.so.1
+        ln -s ${gbmBackend}_gbm.so.1.0.0 ${gbmBackend}_gbm.so
+        popd
+      '' else prevAttrs.postInstall + ''
+        rm rm $out/lib/libgbm.so{,.1.0.0,.1}
+      '';
+
+    # lib/dri/zink_dri.so is no more...
+    postFixup =
+      (nyxUtils.filterLines
+        (line: !(final.lib.strings.hasSuffix "lib/dri/zink_dri.so" line))
+        prevAttrs.postFixup);
 
     # test and accessible information
     passthru = prevAttrs.passthru // {
