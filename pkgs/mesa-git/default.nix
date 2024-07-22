@@ -45,8 +45,7 @@ gitOverride (current: {
   version = builtins.substring 0 (builtins.stringLength prev.mesa.version) current.rev;
 
   postOverride = prevAttrs: {
-    nativeBuildInputs = with final; [ rust-cbindgen python3Packages.pycparser ] ++ prevAttrs.nativeBuildInputs;
-    buildInputs = with final; [ rust-cbindgen ] ++ prevAttrs.buildInputs;
+    nativeBuildInputs = with final; [ python3Packages.pyyaml ] ++ prevAttrs.nativeBuildInputs;
 
     mesonFlags =
       builtins.map
