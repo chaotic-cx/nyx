@@ -45,9 +45,6 @@ rec {
     in
     builtins.filter (x: lib.strings.hasInfix (builtins.unsafeDiscardStringContext x.drvPath) allDeps) packages;
 
-  filterLines = f: str:
-    builtins.concatStringsSep "\n" (builtins.filter f (lib.strings.splitString "\n" str));
-
   # Helps when converting flakes to src.
   gitToVersion = src: "unstable-${src.lastModifiedDate}-${src.shortRev}";
 
