@@ -6,7 +6,7 @@
 , testingWithAutoLogin ? true
 }:
 
-import "${nixpkgs}/nixos/tests/make-test-python.nix" ({ pkgs, ... }: {
+import "${nixpkgs}/nixos/tests/make-test-python.nix" ({ pkgs, lib, ... }: {
   name = "mesa-git";
   meta.maintainers = with pkgs.lib.maintainers; [ pedrohlc ];
 
@@ -23,6 +23,7 @@ import "${nixpkgs}/nixos/tests/make-test-python.nix" ({ pkgs, ... }: {
       "-device virtio-vga-gl"
       "-display gtk,gl=on"
     ];
+    virtualisation.qemu.package = lib.mkForce pkgs.qemu_full;
 
     environment.systemPackages = with pkgs; [
       vulkan-tools
