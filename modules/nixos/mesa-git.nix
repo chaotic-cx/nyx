@@ -80,7 +80,8 @@ in
       method =
         mkOption {
           type = types.enum [
-            "replaceRuntimeDependencies"
+            # Had to remove this to avoid breakages after the 20240722 bump removed libgbm from $out
+            # "replaceRuntimeDependencies"
             "GBM_BACKENDS_PATH"
           ];
           default = "GBM_BACKENDS_PATH";

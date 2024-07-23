@@ -99,7 +99,7 @@ gitOverride (current: {
         ln -s ${gbmBackend}_gbm.so.1.0.0 ${gbmBackend}_gbm.so
         popd
       '' else prevAttrs.postInstall + ''
-        rm rm $out/lib/libgbm.so{,.1.0.0,.1}
+        rm $out/lib/libgbm.so{,.1.0.0,.1}
       '';
 
     # lib/dri/zink_dri.so is no more...
