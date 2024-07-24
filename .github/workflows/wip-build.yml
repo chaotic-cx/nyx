@@ -25,14 +25,14 @@ jobs:
     steps:
       # identical to build.yml
       - name: Install Nix
-        uses: cachix/install-nix-action@v26
+        uses: cachix/install-nix-action@v27
         with:
           extra_nix_config: |
             accept-flake-config = true
             sandbox-fallback = false
             system-features = big-parallel gccarch-x86-64-v3
           install_options: --daemon
-          install_url: https://releases.nixos.org/nix/nix-2.20.5/install
+          install_url: https://releases.nixos.org/nix/nix-2.22.3/install
       - name: Checkout
         uses: actions/checkout@v4
         with:
