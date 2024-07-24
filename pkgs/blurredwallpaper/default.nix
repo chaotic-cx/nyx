@@ -4,13 +4,13 @@
 }:
 stdenvNoCC.mkDerivation rec {
   pname = "blurredwallpaper";
-  version = "3.0.1";
+  version = "3.1.0";
 
   src = fetchFromGitHub {
     owner = "bouteillerAlan";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-zPnFk/FImem/x/ocA8KfVuh0bZE/C75dISrhb1AcHm8=";
+    hash = "sha256-+MjnVsGHqitQytxiAH39Kx9SXuTEFfIC14Ayzu4yE4I=";
   };
 
   propagatedBuildInputs = [ ];
