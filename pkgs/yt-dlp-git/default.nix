@@ -21,16 +21,6 @@ in
 {
   nyxKey = "yt-dlp_git";
   prev = prev.python312Packages.yt-dlp;
-  newInputs = {
-    requests = final.python312Packages.requests.overrideAttrs (prevAttrs: rec {
-      version = "2.32.2";
-      src = final.python312Packages.fetchPypi {
-        inherit (prevAttrs) pname;
-        inherit version;
-        hash = "sha256-3ZUf9ezz47OqJrQHA7p3SV2rQdqDmucu88jl2OJDMok=";
-      };
-    });
-  };
 
   versionNyxPath = "pkgs/yt-dlp-git/version.json";
   fetcher = "fetchFromGitHub";
