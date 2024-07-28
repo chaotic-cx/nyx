@@ -57,6 +57,8 @@ writeShellScript "update-vulkan-package" ''
     exit 0
   elif [ "$latestTag" == "$badTag" ]; then
     exit 0
+  elif [ "$latestTag" =~ snapshot-(.+) ]; then
+    exit 0
   elif [[ "$latestTag" =~ vulkan-sdk-(.+) ]]; then
     ARGS+=('--arg' "''${key}Version" "''${BASH_REMATCH[1]}")
     REPLACES+=(".$key.rev = \"vulkan-sdk-#{version}\"")

@@ -1,4 +1,4 @@
-{ prev, gitOverride, ... }:
+{ final, prev, gitOverride, ... }:
 
 gitOverride {
   # newInputs = with final; { glib = glib_git; };
@@ -14,4 +14,8 @@ gitOverride {
     fetchSubmodules = true;
   };
   ref = "master";
+
+  postOverride = prevAttrs: {
+    nativeBuildInputs = with final; [ python3 ] ++ prevAttrs.nativeBuildInputs;
+  };
 }
