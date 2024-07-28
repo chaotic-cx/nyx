@@ -19,7 +19,7 @@ gitOverride {
     repo = "qtile-extras";
   };
 
-  version = prev.python311Packages.qtile-extras.version + ".99";
+  version = (final.lib.versions.majorMinor prev.python311Packages.qtile-extras.version) + ".99";
 
   postOverride = prevAttrs: {
     name = prevAttrs.name + ".99";
