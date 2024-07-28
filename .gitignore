@@ -1,4 +1,5 @@
 /.env
+/.idea
 /.nixos-test-history
 /result
 /result-*
