@@ -76,6 +76,8 @@ let
       "-d DEFAULT_FQ_CODEL"
       "-e DEFAULT_FQ"
       "--set-str DEFAULT_NET_SCH fq"
+      # TOMOYO not packaged in nixpkgs
+      "-d SECURITY_TOMOYO"
     ]
     ++ ltoConfig
     ++ ticksHzConfig
