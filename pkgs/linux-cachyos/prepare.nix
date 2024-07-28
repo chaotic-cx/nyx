@@ -76,6 +76,9 @@ let
       "-d DEFAULT_FQ_CODEL"
       "-e DEFAULT_FQ"
       "--set-str DEFAULT_NET_SCH fq"
+
+      # Nixpkgs don't support this
+      "-d CONFIG_SECURITY_TOMOYO"
     ]
     ++ ltoConfig
     ++ ticksHzConfig
@@ -216,12 +219,8 @@ stdenv.mkDerivation (finalAttrs: {
   name = "linux-cachyos-config";
   nativeBuildInputs = kernel.nativeBuildInputs ++ kernel.buildInputs;
 
-  patchPhase = ''
-    runHook prePatch
-
+  postPhase = ''
     ${finalAttrs.passthru.extraVerPatch}
-
-    runHook postPatch
   '';
 
   buildPhase = ''
@@ -231,6 +230,7 @@ stdenv.mkDerivation (finalAttrs: {
     ${makeEnv} olddefconfig
     patchShebangs scripts/config
     scripts/config ${lib.concatStringsSep " " pkgbuildConfig}
+    ${makeEnv} olddefconfig
 
     runHook postBuild
   '';
