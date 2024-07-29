@@ -2,13 +2,13 @@
 , makeLinuxHeaders
 , llvmPackages
 , libcap
-, linux_6_8
-, kernel ? linux_6_8
+, linux_latest
+, kernel ? linux_latest
 }:
 
 (bpftools.override {
   linuxHeaders =
-    # Bumps to bpftools v7.4.0
+    # Bumps to newer bpftools
     makeLinuxHeaders {
       inherit (kernel) src version patches;
     };
