@@ -7,6 +7,7 @@
 , scx-bpfland
 , scx-lavd
 , scx-layered
+, scx-mitosis
 , scx-rlfifo
 , scx-rustland
 , scx-rusty
@@ -40,6 +41,10 @@ let
     elif [ ''${3:-} = '--target-dir=scheds/rust/scx_layered' ]; then
       mkdir -p /build/source/build/scheds/rust/scx_layered
       cp -r ${scx-layered} /build/source/build/scheds/rust/scx_layered/release
+      exit 0
+    elif [ ''${3:-} = '--target-dir=scheds/rust/scx_mitosis' ]; then
+      mkdir -p /build/source/build/scheds/rust/scx_mitosis
+      cp -r ${scx-mitosis} /build/source/build/scheds/rust/scx_mitosis/release
       exit 0
     elif [ ''${3:-} = '--target-dir=scheds/rust/scx_rustland' ]; then
       mkdir -p /build/source/build/scheds/rust/scx_rustland
@@ -88,6 +93,7 @@ llvmPackages.stdenv.mkDerivation {
     cp -r ${scx-rusty} ./scheds/rust/scx_rusty/release
     cp -r ${scx-layered} ./scheds/rust/scx_layered/release
     cp -r ${scx-lavd} ./scheds/rust/scx_lavd/release
+    cp -r ${scx-mitosis} ./scheds/rust/scx_mitosis/release
     cp -r ${scx-rlfifo} ./scheds/rust/scx_rlfifo/release
     cp -r ${scx-rustland} ./scheds/rust/scx_rustland/release
     rm meson-scripts/fetch_bpftool
@@ -127,7 +133,7 @@ llvmPackages.stdenv.mkDerivation {
   ];
 
   passthru = {
-    inherit scx-common scx-rusty scx-lavd scx-layered scx-rlfifo scx-rustland;
+    inherit scx-common scx-rusty scx-lavd scx-layered scx-mitosis scx-rlfifo scx-rustland;
   };
 
   meta = with lib; {
