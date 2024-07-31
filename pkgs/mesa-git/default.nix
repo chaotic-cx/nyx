@@ -6,6 +6,7 @@
 , gbmDriver ? false
 , gbmBackend ? "dri_git"
 , mesaTestAttrs ? final
+, nyxUtils
 , ...
 }:
 
@@ -54,9 +55,9 @@ gitOverride (current: {
         prevAttrs.mesonFlags
       ++ final.lib.optional is32bit "-D intel-rt=disabled";
 
-    patches = prevAttrs.patches ++ [
-      ./gbm-backend.patch
-    ];
+    patches =
+      (nyxUtils.removeByURL "https://gitlab.freedesktop.org/mesa/mesa/-/commit/241f70e5a13bb9c13a168282446ad074e16c3d74.patch" prevAttrs.patches)
+      ++ [ ./gbm-backend.patch ];
 
     # expose gbm backend and rename vendor (if necessary)
     outputs =
