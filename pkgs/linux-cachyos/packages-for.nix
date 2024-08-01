@@ -3,12 +3,16 @@
 , configPath
 , versions
 , callPackage
+, linuxManualConfig
 , linuxPackages
 , linuxPackagesFor
 , fetchFromGitHub
 , nyxUtils
 , lib
 , ogKernelConfigfile ? linuxPackages.kernel.passthru.configfile
+, withUpdateScript ? null
+, packagesExtend ? null
+, withKernelOverride ? null
   # those are set in their PKGBUILDs
 , kernelPatches ? { }
 , basicCachy ? true
@@ -23,8 +27,6 @@
 , withHDR ? true
 , withoutDebug ? false
 , description ? "Linux EEVDF-BORE scheduler Kernel by CachyOS with other patches and improvements"
-, withUpdateScript ? null
-, packagesExtend ? null
 }:
 
 let
@@ -61,6 +63,10 @@ let
     kernelPatches = [ ];
     configfile = preparedConfigfile;
     config = linuxConfigTransfomed;
+    linuxManualConfig =
+      if withKernelOverride == null
+      then linuxManualConfig
+      else linuxManualConfig.override withKernelOverride;
   };
 
   # CachyOS repeating stuff.

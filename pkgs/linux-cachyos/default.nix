@@ -51,6 +51,12 @@ in
       then llvmModuleOverlay kernel v
       else v
     );
+
+    withKernelOverride = {
+      pahole = final.pahole.overrideAttrs (prevAttrs: {
+        patches = prevAttrs.patches ++ [ ./cus-add.patch ];
+      });
+    };
   };
 
   cachyos-sched-ext = throw "\"sched-ext\" patches were merged with \"cachyos\" flavor.";
