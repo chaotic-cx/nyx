@@ -1,4 +1,4 @@
-{ prev, gitOverride, nyxUtils, isWSI ? false, ... }:
+{ final, prev, gitOverride, nyxUtils, isWSI ? false, ... }:
 
 gitOverride (current: {
   nyxKey = if isWSI then "gamescope-wsi_git" else "gamescope_git";
@@ -15,6 +15,7 @@ gitOverride (current: {
   withUpdateScript = !isWSI;
 
   postOverride = prevAttrs: {
+    buildInputs = with final; [ lcms2 ] ++ prevAttrs.buildInputs;
     # Taints commits in logs for debugging purposes
     postPatch =
       let shortRev = nyxUtils.shorter current.rev; in
