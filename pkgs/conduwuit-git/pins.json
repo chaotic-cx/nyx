@@ -1,6 +1,6 @@
 {
   "axum-server-0.6.0": "sha256-qKP7NNrdfN3fV7GKSiVIzMc2bVx8F1sxx+qzWxlGX5s=",
-  "ruma-0.10.1": "sha256-gh+0jnxoVX4HvIJTds6VVXhKSCd1vWvv6QeoHSOy4ZA=",
+  "ruma-0.10.1": "sha256-kTFPoR6z0mAYVyELIkzSpLitpNdcQxIowrXOPl0B6y0=",
   "ruma-identifiers-validation-0.9.5": "sha256-37ozG1PfljG1d6BLxuhIEHtEs8sdnVKGVwmgGAE9QjA=",
   "rust-librocksdb-sys-0.24.0+9.4.0": "sha256-uRwcSC7WDLzDf+PNfGfRiPrsjSnFz6HM8v6Zzzshw+o=",
   "rustyline-async-0.4.2": "sha256-BWzq7GdZhykVe/5/zsQd4azIpYfGLUiicUaLCB8of+s=",
