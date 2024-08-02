@@ -113,8 +113,6 @@ in
 
   beautyline-icons = final.callPackage ../pkgs/beautyline-icons { };
 
-  blurredwallpaper = final.callPackage ../pkgs/blurredwallpaper { };
-
   bpftools_full = final.callPackage ../pkgs/scx/bpftools-full.nix { };
 
   busybox_appletless = multiOverride
