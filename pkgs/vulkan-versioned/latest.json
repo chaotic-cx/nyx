@@ -49,7 +49,7 @@
   "vulkanExtensionLayer": {
     "version": "1.3.291",
     "rev": "7ef7b45274e8eff65b0e2467867a19973473677b",
-    "hash": "",
+    "hash": "sha256-I9K8eG9Dn9PRz6aZgd7VIffh8QybW8E+U9EO+H8iuoQ=",
     "badTag": "vulkan-sdk-1.3.290.0"
   },
   "vulkanUtilityLibraries": {
