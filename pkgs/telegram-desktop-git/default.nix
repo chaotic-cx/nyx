@@ -1,5 +1,8 @@
 { final, prev, gitOverride, nyxUtils, ... }:
 
+let
+  ada-url = final.callPackage ./ada-url.nix { };
+in
 gitOverride {
   newInputs = with final; {
     # I hope I don't go to robot-hell bc of this:
@@ -24,7 +27,7 @@ gitOverride {
   ref = "dev";
 
   postOverride = prevAttrs: {
-    buildInputs = prevAttrs.buildInputs ++ (with final; [ kf6coreaddons_git ]);
+    buildInputs = prevAttrs.buildInputs ++ (with final; [ ada-url kf6coreaddons_git ]);
     patches = nyxUtils.removeByURL
       "https://github.com/desktop-app/lib_base/commit/5ca91dbb811c84591780236abc31431e313faf39.patch"
       prevAttrs.patches;
