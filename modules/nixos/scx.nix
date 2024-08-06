@@ -19,6 +19,7 @@ in
         "scx_flatcg"
         "scx_lavd"
         "scx_layered"
+        "scx_mitosis"
         "scx_nest"
         "scx_pair"
         "scx_qmap"
