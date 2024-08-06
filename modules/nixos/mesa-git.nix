@@ -23,7 +23,7 @@ let
   methodBackend =
     let
       variables = {
-        GBM_BACKENDS_PATH = "/run/opengl-driver/lib/gbm";
+        GBM_BACKENDS_PATH = "/run/opengl-driver/lib/gbm"; # superfluous
         GBM_BACKEND = pkgs.mesa_git.gbmBackend;
       };
     in
@@ -38,11 +38,11 @@ let
       };
 
       systemd.services.display-manager.environment = variables // {
-        LD_PRELOAD = "${pkgs.mesa_git}/lib/libglapi.so.0"; # Required for SDDM
+        LD_PRELOAD = "${pkgs.mesa_git.drivers}/lib/libglapi.so.0"; # Required for SDDM
       };
 
       environment.sessionVariables = variables // {
-        LD_PRELOAD = [ "${pkgs.mesa_git}/lib/libglapi.so.0" ]; # Required for browser's gltest
+        LD_PRELOAD = [ "${pkgs.mesa_git.drivers}/lib/libglapi.so.0" ]; # Required for browser's gltest
       };
     };
 
