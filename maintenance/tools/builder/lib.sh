@@ -1,4 +1,4 @@
-set -eo pipefail
+set -euo pipefail
 
 # Derivate temporary paths
 TMPDIR="${NYX_TEMP:-${TMPDIR}}"
@@ -43,7 +43,7 @@ function prepare() {
   echo "{" > new-failures.nix
 
   # Warn if we don't have automated cachix
-  if [ -z "$CACHIX_AUTH_TOKEN" ] && [ -z "$CACHIX_SIGNING_KEY" ]; then
+  if [ -z "${CACHIX_AUTH_TOKEN:-}" ] && [ -z "${CACHIX_SIGNING_KEY:-}" ]; then
     echo_warning "No key for cachix -- building anyway."
   fi
 
@@ -51,7 +51,7 @@ function prepare() {
   if [ ! -e prev-cache.txt ]; then
     if [ -f prev-cache.json ]; then
       jq -r '.[]' prev-cache.json > prev-cache.txt
-    elif [ -n "$CACHIX_AUTH_TOKEN" ]; then
+    elif [ -n "${CACHIX_AUTH_TOKEN:-}" ]; then
       echo "Downloading current list of cached contents"
       curl -H "Authorization: Bearer $CACHIX_AUTH_TOKEN" \
         "https://app.cachix.org/api/v1/cache/${CACHIX_REPO}/contents" |\
@@ -103,7 +103,7 @@ function build() {
     echo -e "${Y} CACHED${W}"
     zip_path >> full-pin.txt
     return 0
-  elif [ -z "${NYX_REFRESH:-}" ] && [ -z "$CACHIX_AUTH_TOKEN" ] && cached "https://${CACHIX_REPO}.cachix.org" "$_MAIN_OUT_PATH"; then
+  elif [ -z "${NYX_REFRESH:-}" ] && [ -z "${CACHIX_AUTH_TOKEN:-}" ] && cached "https://${CACHIX_REPO}.cachix.org" "$_MAIN_OUT_PATH"; then
     echo "$_WHAT" >> cached.txt
     echo "$_MAIN_OUT_PATH" >> "${NYX_HOME}/cached.txt"
     echo -e "${Y} CACHED${W}"
@@ -114,6 +114,9 @@ function build() {
     echo "$_MAIN_OUT_PATH" >> "${NYX_HOME}/cached.txt"
     echo -e "${Y} CACHED-UPSTREAM${W}"
     return 0
+  elif [ -e "$NYX_WD/abort" ]; then
+    echo -e "${R} GENTLY ABORTED${W}"
+    return 1
   else
     (while true; do echo -ne "${C} BUILDING${W}\n* $_WHAT..." && sleep 120; done) &
     _KEEPALIVE=$!
@@ -125,7 +128,15 @@ function build() {
       echo "$_WHAT" >> success.txt
       kill $_KEEPALIVE
       echo -e "${G} OK${W}"
-      zip_path | tee -a to-pin.txt >> full-pin.txt
+      _TO_PIN=$(zip_path)
+      echo $_TO_PIN | tee -a to-pin.txt >> full-pin.txt
+      if [ -n "${NYX_PUSH_ALL:-}" ] && ([ -n "${CACHIX_AUTH_TOKEN:-}" ] || [ -n "${CACHIX_SIGNING_KEY:-}" ]); then
+        sleep 1
+        cachix push "$CACHIX_REPO" "${_ALL_OUT_PATHS[@]}"
+        echo $_TO_PIN | xargs -n 2 \
+          cachix -v pin "$CACHIX_REPO" --keep-revisions 7
+        printf '%s\n' "${_ALL_OUT_PATHS[@]}" >> "${NYX_HOME}/cached.txt"
+      fi
       return 0
     else
       echo "$_WHAT" >> failures.txt
@@ -154,7 +165,7 @@ function no-fail() {
 
 # Push logic
 function deploy() {
-  if [ -z "$CACHIX_AUTH_TOKEN" ] && [ -z "$CACHIX_SIGNING_KEY" ]; then
+  if [ -z "${CACHIX_AUTH_TOKEN:-}" ] && [ -z "${CACHIX_SIGNING_KEY:-}" ]; then
     echo_error "No key for cachix -- failing to deploy."
     exit 23
   elif [ -n "''${NYX_RESYNC:-}" ] || [ -s push.txt ]; then
