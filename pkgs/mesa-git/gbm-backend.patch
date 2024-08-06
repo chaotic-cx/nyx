@@ -1,8 +1,8 @@
 diff --git a/src/gbm/backends/dri/gbm_dri.c b/src/gbm/backends/dri/gbm_dri.c
-index ed76087b20b..f7b43aeb605 100644
+index e8ca34d..1cf6f5f 100644
 --- a/src/gbm/backends/dri/gbm_dri.c
 +++ b/src/gbm/backends/dri/gbm_dri.c
-@@ -1389,6 +1389,6 @@ err_dri:
+@@ -1245,7 +1245,7 @@ err_dri:
  
  struct gbm_backend gbm_dri_backend = {
     .v0.backend_version = GBM_BACKEND_ABI_VERSION,
@@ -10,66 +10,17 @@ index ed76087b20b..f7b43aeb605 100644
 +   .v0.backend_name = "dri_git",
     .v0.create_device = dri_device_create,
  };
-diff --git a/src/gbm/gbm-symbols.txt b/src/gbm/gbm-symbols.txt
-index d3c99b0c389..dbc8cb10897 100644
---- a/src/gbm/gbm-symbols.txt
-+++ b/src/gbm/gbm-symbols.txt
-@@ -29,6 +29,7 @@ gbm_device_get_fd
- gbm_device_get_format_modifier_plane_count
- gbm_device_is_format_supported
- gbm_format_get_name
-+gbmint_get_backend
- gbm_surface_create
- gbm_surface_create_with_modifiers
- gbm_surface_create_with_modifiers2
+ 
 diff --git a/src/gbm/main/backend.c b/src/gbm/main/backend.c
-index feee0703495..382c0645ac5 100644
+index d5c7f3a..9db366f 100644
 --- a/src/gbm/main/backend.c
 +++ b/src/gbm/main/backend.c
-@@ -37,6 +37,7 @@
- #include <xf86drm.h>
+@@ -155,7 +155,7 @@ static struct gbm_device *
+ find_backend(const char *name, int fd)
+ {
+    struct gbm_device *dev = NULL;
+-   dev = try_load_backend_by_name("dri", fd);
++   dev = try_load_backend_by_name("dri_git", fd);
  
- #include "loader.h"
-+#include "gbmint.h"
- #include "backend.h"
- 
- #define ARRAY_SIZE(a) (sizeof(a)/sizeof((a)[0]))
-@@ -54,7 +55,7 @@ struct gbm_backend_desc {
- 
- static const struct gbm_backend_desc builtin_backends[] = {
- #if defined(HAVE_DRI) || defined(HAVE_DRI2) || defined(HAVE_DRI3)
--   { "dri", &gbm_dri_backend },
-+   { "dri_git", &gbm_dri_backend },
- #endif
- };
- 
-@@ -240,3 +241,9 @@ _gbm_device_destroy(struct gbm_device *gbm)
-    if (backend_desc && backend_desc->lib)
-       free_backend_desc(backend_desc);
- }
-+
-+GBM_EXPORT
-+struct gbm_backend *
-+gbmint_get_backend(struct gbm_core *gbm_core) {
-+   return &gbm_dri_backend;
-+}
-diff --git a/src/gbm/main/backend.h b/src/gbm/main/backend.h
-index 325c4123f90..109d7ab860d 100644
---- a/src/gbm/main/backend.h
-+++ b/src/gbm/main/backend.h
-@@ -36,4 +36,15 @@ _gbm_create_device(int fd);
- void
- _gbm_device_destroy(struct gbm_device *gbm);
- 
-+#ifdef __cplusplus
-+extern "C" {
-+#endif
-+
-+struct gbm_backend *
-+gbmint_get_backend(struct gbm_core *gbm_core);
-+
-+#ifdef __cplusplus
-+}
-+#endif
-+
- #endif
+    if (name && !dev) {
+       dev = try_load_backend_by_name(name, fd);

@@ -47,7 +47,7 @@ gitOverride (current: {
   version = builtins.substring 0 (builtins.stringLength prev.mesa.version) current.rev;
 
   postOverride = prevAttrs: {
-    nativeBuildInputs = with final; [ python3Packages.pyyaml ] ++ prevAttrs.nativeBuildInputs;
+    nativeBuildInputs = with final; [ rustfmt python3Packages.pyyaml ] ++ prevAttrs.nativeBuildInputs;
 
     mesonFlags =
       builtins.map
@@ -57,13 +57,7 @@ gitOverride (current: {
 
     patches =
       (nyxUtils.removeByURL "https://gitlab.freedesktop.org/mesa/mesa/-/commit/241f70e5a13bb9c13a168282446ad074e16c3d74.patch" prevAttrs.patches)
-      ++ [ ./gbm-backend.patch ];
-
-    # expose gbm backend and rename vendor (if necessary)
-    outputs =
-      if gbmDriver
-      then prevAttrs.outputs ++ [ "gbm" ]
-      else prevAttrs.outputs;
+      ++ [ ./gbm-k900.patch ./gbm-backend.patch ];
 
     postPatch =
       let
@@ -95,10 +89,24 @@ gitOverride (current: {
 
     # move new backend to its own output (if necessary)
     postInstall =
-      if gbmDriver then prevAttrs.postInstall + ''
-        mkdir -p $gbm/lib/gbm
-        ln -s $out/lib/libgbm.so $gbm/lib/gbm/${gbmBackend}_gbm.so
-      '' else prevAttrs.postInstall;
+      let
+        addGbmRename = prevStr:
+          if gbmDriver then prevStr + ''
+            mv $drivers/lib/gbm/dri_gbm.so $drivers/lib/gbm/${gbmBackend}_gbm.so
+          '' else prevStr;
+
+        update24_2 =
+          builtins.replaceStrings [
+            ''moveToOutput "lib/lib*_mesa*" $drivers''
+          ] [
+            ''moveToOutput "lib/lib*_mesa*" $drivers; moveToOutput "lib/libgallium*" $drivers; moveToOutput "lib/gbm" $drivers; moveToOutput "lib/libglapi*" $drivers''
+          ]
+            prevAttrs.postInstall;
+      in
+      addGbmRename update24_2;
+
+    postFixup =
+      builtins.replaceStrings [ "/lib/dri/zink_dri.so" ] [ "/lib/libgallium*.so" ] prevAttrs.postFixup;
 
     # test and accessible information
     passthru = prevAttrs.passthru // {

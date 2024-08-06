@@ -32,7 +32,7 @@ let
         enable = mkForce true;
         package = mkForce pkgs.mesa_git.drivers;
         package32 = mkForce pkgs.mesa32_git.drivers;
-        extraPackages = mkForce (cfg.extraPackages ++ [ pkgs.mesa_git.gbm ]);
+        extraPackages = mkForce cfg.extraPackages;
         extraPackages32 = mkForce cfg.extraPackages32;
         enable32Bit = mkForce has32;
       };
