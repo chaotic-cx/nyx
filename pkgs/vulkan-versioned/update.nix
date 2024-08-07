@@ -59,13 +59,15 @@ writeShellScript "update-vulkan-package" ''
     exit 0
   elif [[ "$latestTag" =~ snapshot-(.+) ]]; then
     exit 0
-  elif [[ "$latestTag" =~ vulkan-sdk-(.+) ]]; then
+  elif [[ "$latestTag" =~ oxr-exp-(.+) ]]; then
+    exit 0
+  elif [[ "$latestTag" =~ ^vulkan-sdk-(.+) ]]; then
     ARGS+=('--arg' "''${key}Version" "''${BASH_REMATCH[1]}")
     REPLACES+=(".$key.rev = \"vulkan-sdk-#{version}\"")
-  elif [[ "$latestTag" =~ v(.+) ]]; then
+  elif [[ "$latestTag" =~ ^v(.+) ]]; then
     ARGS+=('--arg' "''${key}Version" "''${BASH_REMATCH[1]}")
     REPLACES+=(".$key.rev = \"v#{version}\"")
-  elif [[ "$latestTag" =~ sdk-(.+) ]]; then
+  elif [[ "$latestTag" =~ ^sdk-(.+) ]]; then
     ARGS+=('--arg' "''${key}Version" "''${BASH_REMATCH[1]}")
     REPLACES+=(".$key.rev = \"sdk-#{version}\"")
   elif [[ "$latestTag" =~ [^-]+ ]]; then
