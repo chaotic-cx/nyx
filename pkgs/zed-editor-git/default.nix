@@ -1,8 +1,12 @@
-{ final, prev, gitOverride, zedPins, ... }:
+{ final, prev, gitOverride, zedPins, rustPlatform_latest, ... }:
 
 gitOverride {
   nyxKey = "zed-editor_git";
   prev = prev.zed-editor;
+
+  newInputs = {
+    rustPlatform = rustPlatform_latest;
+  };
 
   versionNyxPath = "pkgs/zed-editor-git/version.json";
   fetcher = "fetchFromGitHub";
@@ -20,6 +24,7 @@ gitOverride {
 
   postOverride = prevAttrs: {
     env = prevAttrs.env // { OPENSSL_NO_VENDOR = 1; };
+    RUSTFLAGS = "-Clink-arg=-z -Clink-arg=nostart-stop-gc " + prevAttrs.RUSTFLAGS;
     # pull ahead nixpkgs#317564
     nativeBuildInputs = with final; [ clang ] ++ prevAttrs.nativeBuildInputs;
     postInstall = ''
