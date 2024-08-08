@@ -24,22 +24,23 @@ gitOverride {
 
   postOverride = prevAttrs: {
     env = prevAttrs.env // { OPENSSL_NO_VENDOR = 1; };
+    # Nothing wrong on it, just saving compilation time for me!
+    dontCheck = true;
+    # https://github.com/zed-industries/zed/issues/15902
     RUSTFLAGS = "-Clink-arg=-z -Clink-arg=nostart-stop-gc " + prevAttrs.RUSTFLAGS;
-    # pull ahead nixpkgs#317564
-    nativeBuildInputs = with final; [ clang ] ++ prevAttrs.nativeBuildInputs;
-    postInstall = ''
-      install -D ${prevAttrs.src}/crates/zed/resources/app-icon@2x.png $out/share/icons/hicolor/1024x1024@2x/apps/zed.png
-      install -D ${prevAttrs.src}/crates/zed/resources/app-icon.png $out/share/icons/hicolor/512x512/apps/zed.png
-
-      # extracted from https://github.com/zed-industries/zed/blob/v0.141.2/script/bundle-linux
-      (
-        export DO_STARTUP_NOTIFY="true"
-        export APP_CLI="zed"
-        export APP_ICON="zed"
-        export APP_NAME="Zed"
-        mkdir -p "$out/share/applications"
-        ${with final; lib.getExe envsubst} < "crates/zed/resources/zed.desktop.in" > "$out/share/applications/zed.desktop"
-      )
+    # Starting zed-editor from zed seems to loose these libraries somehow
+    nativeBuildInputs = with final; [ makeWrapper ] ++ prevAttrs.nativeBuildInputs;
+    postInstall = with final; ''
+      wrapProgram $out/bin/zed \
+        --prefix LD_PRELOAD : ${alsa-lib}/lib/libasound.so.2 \
+        --prefix LD_PRELOAD : ${zstd.out}/lib/libzstd.so.1 \
+        --prefix LD_PRELOAD : ${openssl.out}/lib/libssl.so.3 \
+        --prefix LD_PRELOAD : ${openssl.out}/lib/libcrypto.so.3 \
+        --prefix LD_PRELOAD : ${zlib}/lib/libz.so.1 \
+        --prefix LD_PRELOAD : ${xorg.libxcb}/lib/libxcb.so.1 \
+        --prefix LD_PRELOAD : ${libxkbcommon}/lib/libxkbcommon.so.0 \
+        --prefix LD_PRELOAD : ${libxkbcommon}/lib/libxkbcommon-x11.so.0 \
+        --prefix LD_PRELOAD : ${curl.out}/lib/libcurl.so.4
     '';
   };
 }
