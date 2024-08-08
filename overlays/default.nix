@@ -14,6 +14,7 @@
 , self ? flakes.self
 , selfOverlay ? self.overlays.default
 , jovian ? flakes.jovian or null
+, fenix ? flakes.fenix or null
 , nixpkgsExtraConfig ? { }
 }:
 final: prev:
@@ -27,7 +28,7 @@ let
   inherit (nyxUtils) dropAttrsUpdateScript dropUpdateScript multiOverride multiOverrides overrideDescription;
 
   # Helps when calling .nix that will override packages.
-  callOverride = path: attrs: import path ({ inherit final flakes nyxUtils prev gitOverride; } // attrs);
+  callOverride = path: attrs: import path ({ inherit final flakes nyxUtils prev gitOverride rustPlatform_latest; } // attrs);
 
   # Helps when calling .nix that will override i686-packages.
   callOverride32 = path: attrs: import path ({
@@ -44,6 +45,18 @@ let
     fetchRevFromGitHub = final.callPackage ../shared/github-rev-fetcher.nix { };
     fetchRevFromGitLab = final.callPackage ../shared/gitlab-rev-fetcher.nix { };
   };
+
+  # Latest rust toolchain from Fenix
+  rustPlatform_latest =
+    if (fenix == null) then final.rustPlatform
+    else
+      let
+        toolchain = fenix.packages.${final.system}.latest.toolchain;
+      in
+      final.makeRustPlatform {
+        cargo = toolchain;
+        rustc = toolchain;
+      };
 
   # Too much variations
   cachyosPackages = callOverride ../pkgs/linux-cachyos { };

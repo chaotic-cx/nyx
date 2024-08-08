@@ -15,6 +15,10 @@ rec {
       inputs.systems.follows = "systems";
       inputs.flake-schemas.follows = "flake-schemas";
     };
+    fenix = {
+      url = "github:nix-community/fenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # thirdy-party repositories
     jovian = {
@@ -49,8 +53,9 @@ rec {
 
   # Allows the user to use our cache when using `nix run <thisFlake>`.
   nixConfig = {
-    extra-substituters = [ "https://nyx.chaotic.cx/" ];
+    extra-substituters = [ "https://nix-community.cachix.org/" "https://nyx.chaotic.cx/" ];
     extra-trusted-public-keys = [
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "nyx.chaotic.cx-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
       "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
     ];
