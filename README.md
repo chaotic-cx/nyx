@@ -73,7 +73,7 @@
 <pre lang="nix"><code class="language-nix">
 { pkgs, ... }:
 {
-  environment.systemPackages = [ pkgs.input-leap-git ];
+  environment.systemPackages = [ pkgs.lan-mouse_git ];
   chaotic.mesa-git.enable = true;
 }
 </code></pre>
@@ -117,7 +117,7 @@
 { pkgs, ... }:
 {
   nix.package = pkgs.nix;
-  home.packages = [ pkgs.input-leap-git ];
+  home.packages = [ pkgs.lan-mouse_git ];
 }
 </code></pre>
 
