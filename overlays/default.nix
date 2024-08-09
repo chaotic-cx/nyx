@@ -51,7 +51,7 @@ let
     if (fenix == null) then final.rustPlatform
     else
       let
-        toolchain = fenix.packages.${final.system}.latest.toolchain;
+        inherit (fenix.packages.${final.system}.latest) toolchain;
       in
       final.makeRustPlatform {
         cargo = toolchain;
