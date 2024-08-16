@@ -104,7 +104,7 @@ let
   # Required for 32-bit packages
   has32 = final.stdenv.hostPlatform.isLinux && final.stdenv.hostPlatform.isx86;
 
-  # apply Jovian overlay only on x86_64-linux
+  # Apply Jovian overlay only on x86_64-linux
   jovian-chaotic =
     if final.stdenv.hostPlatform.isLinux && final.stdenv.hostPlatform.isx86_64 then {
       inherit (jovian.legacyPackages.x86_64-linux) linux_jovian mesa-radv-jupiter mesa-radeonsi-jupiter;
@@ -199,6 +199,8 @@ in
   # Don't build modules for linux_cachyos-rc kernel
   linuxPackages_cachyos-rc = cachyosPackages.cachyos-rc;
   linux_cachyos-rc = cachyosPackages.cachyos-rc.kernel;
+
+  lix_git = callOverride ../pkgs/lix-git { };
 
   luxtorpeda = final.callPackage ../pkgs/luxtorpeda {
     luxtorpedaVersion = importJSON ../pkgs/luxtorpeda/version.json;
