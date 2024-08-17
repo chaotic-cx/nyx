@@ -4,13 +4,6 @@
 
 linkFarm "zig-packages" [
   {
-    name = "12204d99aebfbf88f1ff3ab197362937b3d4bef4f45fde9c4ee0d569e095a2a25889";
-    path = fetchzip {
-      url = "https://codeberg.org/ifreund/zig-wlroots/archive/ae6151f22ceb4ccd7efb1291dea573785918a7ec.tar.gz";
-      hash = "sha256-mhFgVedXNLamD5OKQH/DnbB7p5fOTHMWMKACxtjQKk8=";
-    };
-  }
-  {
     name = "1220687c8c47a48ba285d26a05600f8700d37fc637e223ced3aa8324f3650bf52242";
     path = fetchzip {
       url = "https://codeberg.org/ifreund/zig-wayland/archive/v0.2.0.tar.gz";
@@ -22,6 +15,13 @@ linkFarm "zig-packages" [
     path = fetchzip {
       url = "https://codeberg.org/ifreund/zig-pixman/archive/v0.2.0.tar.gz";
       hash = "sha256-zcfZEMnipWDPuptl9UN0PoaJDjy2EHc7Wwi4GQq3hkY=";
+    };
+  }
+  {
+    name = "1220aeb3317e16c38583839961c9d695fa60d23a3d506c8275fb0e8fa9849844f2f7";
+    path = fetchzip {
+      url = "https://codeberg.org/ifreund/zig-wlroots/archive/e486223799648d27e8b91c5fe0ea4c088b74b707.tar.gz";
+      hash = "sha256-quz2BfJXgw0kTwEF1ctllhoBNQ3AYeDSvqyDjicdSiM=";
     };
   }
   {
