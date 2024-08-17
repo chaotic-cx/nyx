@@ -2,7 +2,6 @@
 , callPackage
 , fetchurl
 , lib
-, python311
 }:
 let
   current = lib.trivial.importJSON ./version.json;
@@ -26,7 +25,7 @@ in
   inherit (firedragon-src) extraConfigureFlags extraNativeBuildInputs;
 
   # Must match the contents of `browser/config/version.txt` in the source tree
-  version = "115.13.0";
+  version = "128.1.0";
 
   updateScript = callPackage ./update.nix { };
 
@@ -46,13 +45,11 @@ in
   enableOfficialBranding = false;
   pgoSupport = true;
   privacySupport = true;
-  python3 = python311;
   webrtcSupport = true;
 }).overrideAttrs {
   MOZ_APP_REMOTINGNAME = "firedragon";
   MOZ_CRASHREPORTER = "";
   MOZ_DATA_REPORTING = "";
-  MOZ_SERVICES_HEALTHREPORT = "";
   MOZ_TELEMETRY_REPORTING = "";
   OPT_LEVEL = "3";
   RUSTC_OPT_LEVEL = "3";

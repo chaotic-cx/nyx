@@ -2,7 +2,7 @@
 let
   src = callPackage ./src.nix { };
 in
-rec {
+{
   inherit (src) packageVersion;
 
   extraConfigureFlags = [
@@ -13,15 +13,19 @@ rec {
     "--disable-default-browser-agent"
     "--disable-gpsd"
     "--disable-necko-wifi"
+    "--disable-parental-controls"
     "--disable-rust-tests"
     "--disable-tests"
     "--disable-updater"
     "--disable-warnings-as-errors"
     "--disable-webspeech"
     "--enable-bundled-fonts"
+    "--enable-eme=widevine"
     "--enable-jxl"
-    "--enable-private-components"
     "--enable-proxy-bypass-protection"
+    "--enable-raw"
+    "--enable-sandbox"
+    "--enable-strip"
     "--with-app-basename=FireDragon"
     "--with-app-name=firedragon"
     "--with-distribution-id=org.garudalinux"
