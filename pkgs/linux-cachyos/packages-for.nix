@@ -3,7 +3,6 @@
 , configPath
 , versions
 , callPackage
-, linuxManualConfig
 , linuxPackages
 , linuxPackagesFor
 , fetchFromGitHub
@@ -12,7 +11,6 @@
 , ogKernelConfigfile ? linuxPackages.kernel.passthru.configfile
 , withUpdateScript ? null
 , packagesExtend ? null
-, withKernelOverride ? null
   # those are set in their PKGBUILDs
 , kernelPatches ? { }
 , basicCachy ? true
@@ -63,10 +61,6 @@ let
     kernelPatches = [ ];
     configfile = preparedConfigfile;
     config = linuxConfigTransfomed;
-    linuxManualConfig =
-      if withKernelOverride == null
-      then linuxManualConfig
-      else linuxManualConfig.override withKernelOverride;
   };
 
   # CachyOS repeating stuff.
