@@ -1,13 +1,13 @@
 set -euo pipefail
 
-# Derivate temporary paths
+# Replace temporary paths (when using $NYX_TEMP)
 TMPDIR="${NYX_TEMP:-${TMPDIR}}"
 NIX_BUILD_TOP="${NYX_TEMP:-${NIX_BUILD_TOP}}"
 TMP="${NYX_TEMP:-${TMP}}"
 TEMP="${NYX_TEMP:-${TEMP}}"
 TEMPDIR="${NYX_TEMP:-${TEMPDIR}}"
 
-# Options (2)
+# Options
 NYX_FLAGS="${NYX_FLAGS:---accept-flake-config --no-link}"
 NYX_WD="${NYX_WD:-$(mktemp -d)}"
 NYX_HOME="${NYX_HOME:-$HOME/.nyx}"
@@ -93,43 +93,70 @@ function build() {
   _WHAT="${1:- アンノーン}"
   _MAIN_OUT_PATH="${2:-/dev/null}"
   _FULL_TARGETS=("${_ALL_OUT_KEYS[@]/#/$NYX_SOURCE\#_dev.packages.${NYX_TARGET}.}")
+
   # If NYX_CHANGED_ONLY is set, only build changed derivations
   if [ -f filter.txt ] && ! grep -Pq "^$_WHAT\$" filter.txt; then
     return 0
   fi
+
+  # Announce
   echo -n "* $_WHAT..."
-  if [ -z "${NYX_REFRESH:-}" ] && known-cached "$_MAIN_OUT_PATH"; then
+
+  # If previosuly cached
+  if [ -z "${NYX_REBUILD_ALL:-}" ] && known-cached "$_MAIN_OUT_PATH"; then
     echo "$_WHAT" >> cached.txt
     echo -e "${Y} CACHED${W}"
     zip_path >> full-pin.txt
     return 0
-  elif [ -z "${NYX_REFRESH:-}" ] && [ -z "${CACHIX_AUTH_TOKEN:-}" ] && cached "https://${CACHIX_REPO}.cachix.org" "$_MAIN_OUT_PATH"; then
+
+  # If found in our's cache
+  elif [ -z "${NYX_REBUILD_ALL:-}" ] && [ -z "${CACHIX_AUTH_TOKEN:-}" ] && cached "https://${CACHIX_REPO}.cachix.org" "$_MAIN_OUT_PATH"; then
     echo "$_WHAT" >> cached.txt
     echo "$_MAIN_OUT_PATH" >> "${NYX_HOME}/cached.txt"
     echo -e "${Y} CACHED${W}"
     zip_path >> full-pin.txt
     return 0
+
+  # If found in Nixpkgs's cache
   elif cached 'https://cache.nixos.org' "$_MAIN_OUT_PATH"; then
     echo "$_WHAT" >> upstream.txt
     echo "$_MAIN_OUT_PATH" >> "${NYX_HOME}/cached.txt"
     echo -e "${Y} CACHED-UPSTREAM${W}"
     return 0
+
+  # If gently-aborting all builds
   elif [ -e "$NYX_WD/abort" ]; then
     echo -e "${R} GENTLY ABORTED${W}"
     return 1
+
+  # No remaining exceptions let's build
   else
+    # Notifies (inline) the user about building process while also keeping the GitHub Action alive
     (while true; do echo -ne "${C} BUILDING${W}\n* $_WHAT..." && sleep 120; done) &
     _KEEPALIVE=$!
+
+    # Builds all the outputs, redirect the build logs to "error.txt", redirect the built outputs to "push.txt" (to later push)
     if \
       ( nix build --json $NYX_FLAGS "${_FULL_TARGETS[@]}" |\
           jq -r '.[].outputs[]' \
       ) 2>> errors.txt >> push.txt
+
+    # If the build succeeds
     then
+      # Adds to success list
       echo "$_WHAT" >> success.txt
+
+      # Stops the "BUILDING" message
       kill $_KEEPALIVE
+
+      # Notify (inline) success
       echo -e "${G} OK${W}"
+
+      # Add thes "key.$out $outPath" to "to-pin.txt" (to later pin)
       _TO_PIN=$(zip_path)
       echo $_TO_PIN | tee -a to-pin.txt >> full-pin.txt
+
+      # If NYX_PUSH_ALL, push & pin it here and now
       if [ -n "${NYX_PUSH_ALL:-}" ] && ([ -n "${CACHIX_AUTH_TOKEN:-}" ] || [ -n "${CACHIX_SIGNING_KEY:-}" ]); then
         sleep 1
         cachix push "$CACHIX_REPO" "${_ALL_OUT_PATHS[@]}"
@@ -137,12 +164,25 @@ function build() {
           cachix -v pin "$CACHIX_REPO" --keep-revisions 7
         printf '%s\n' "${_ALL_OUT_PATHS[@]}" >> "${NYX_HOME}/cached.txt"
       fi
+
+      # Ends it, successfully, here
       return 0
+
+    # If the build fails
     else
+      # Add it to failures list
       echo "$_WHAT" >> failures.txt
+
+      # Add it to the know-failures list (to skip it in later builds)
       echo "  \"$_WHAT\" = \"$_MAIN_OUT_PATH\";" >> new-failures.nix
+
+      # Stops the "BUILDING" message
       kill $_KEEPALIVE
+
+      # Notify (inline) failures
       echo -e "${R} ERR${W}"
+
+      # Ends it, with failure, here
       return 1
     fi
   fi
@@ -168,7 +208,7 @@ function deploy() {
   if [ -z "${CACHIX_AUTH_TOKEN:-}" ] && [ -z "${CACHIX_SIGNING_KEY:-}" ]; then
     echo_error "No key for cachix -- failing to deploy."
     exit 23
-  elif [ -n "''${NYX_RESYNC:-}" ] || [ -s push.txt ]; then
+  elif [ -n "${NYX_PUSH_ANYWAY:-}" ] || [ -s push.txt ]; then
     # Let nix digest store paths first
     sleep 10
 
