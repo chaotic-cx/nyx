@@ -1,10 +1,21 @@
-{ callPackage, pkgs }:
+{ fetchFromGitLab
+, fetchurl
+, lib
+, pkgs
+, ...
+}:
 let
-  src = callPackage ./src.nix { };
-in
-{
-  inherit (src) packageVersion;
+  current = lib.trivial.importJSON ./version.json;
+  packageVersion = current.firedragonSource.version;
 
+  settings = fetchFromGitLab {
+    owner = "garuda-linux/firedragon";
+    repo = "settings";
+    fetchSubmodules = false;
+    inherit (current.firedragonSettings) rev hash;
+  };
+in
+rec {
   extraConfigureFlags = [
     "--disable-crashreporter"
     "--disable-debug"
@@ -33,4 +44,22 @@ in
   ];
 
   extraNativeBuildInputs = [ pkgs.zstd ];
+
+  extraPrefsFiles = [ "${settings}/firedragon.cfg" ];
+
+  extraPoliciesFiles = [ "${settings}/distribution/policies.json" ];
+
+  extraPassthru = {
+    firedragon = { inherit src; };
+    inherit extraPrefsFiles extraPoliciesFiles;
+  };
+
+  inherit packageVersion;
+
+  src = fetchurl {
+    url = "https://gitlab.com/api/v4/projects/55893651/packages/generic/firedragon/${packageVersion}/firedragon-v${packageVersion}.source.tar.zst";
+    inherit (current.firedragonSource) hash;
+  };
+
+  version = current.firefoxVersion;
 }
