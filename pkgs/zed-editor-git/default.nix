@@ -40,7 +40,8 @@ gitOverride {
         --prefix LD_PRELOAD : ${xorg.libxcb}/lib/libxcb.so.1 \
         --prefix LD_PRELOAD : ${libxkbcommon}/lib/libxkbcommon.so.0 \
         --prefix LD_PRELOAD : ${libxkbcommon}/lib/libxkbcommon-x11.so.0 \
-        --prefix LD_PRELOAD : ${curl.out}/lib/libcurl.so.4
+        --prefix LD_PRELOAD : ${curl.out}/lib/libcurl.so.4 \
+        --prefix LD_PRELOAD : ${libgit2.lib}/lib/libgit2.so.1.8
     '';
   };
 }
