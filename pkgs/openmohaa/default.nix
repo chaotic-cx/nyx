@@ -5,6 +5,7 @@
 , pkg-config
 , cmake
 , SDL2
+, openal
 , bison
 , curl
 , flex
@@ -32,6 +33,7 @@ llvmPackages_15.stdenv.mkDerivation {
     libogg
     libvorbis
     libopus
+    openal
   ];
 
   cmakeFlags = [
