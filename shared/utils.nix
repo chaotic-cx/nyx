@@ -82,6 +82,10 @@ rec {
     builtins.filter (x: builtins.baseNameOf x != baseName);
 
   # Helps when dropping patches.
+  removeByName = baseName:
+    builtins.filter (x: (x.name or null) != baseName);
+
+  # Helps when dropping patches.
   removeByBaseNames = baseNames:
     builtins.filter (x: ! builtins.elem (builtins.baseNameOf x) baseNames);
 
