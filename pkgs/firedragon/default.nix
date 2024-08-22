@@ -1,14 +1,11 @@
 { buildMozillaMach
 , callPackage
-, fetchurl
 , lib
 }:
 let
-  current = lib.trivial.importJSON ./version.json;
   firedragon-src = callPackage ./firedragon.nix { };
-  packageVersion = current.version;
 in
-((buildMozillaMach rec {
+((buildMozillaMach {
   applicationName = "FireDragon";
   binaryName = "firedragon";
   pname = "firedragon";
@@ -16,16 +13,7 @@ in
   requireSigning = false;
   allowAddonSideload = true;
 
-  src = fetchurl {
-    url = "https://gitlab.com/api/v4/projects/55893651/packages/generic/firedragon/${packageVersion}/firedragon-v${packageVersion}.source.tar.zst";
-    inherit (current) hash;
-  };
-
-  inherit packageVersion;
-  inherit (firedragon-src) extraConfigureFlags extraNativeBuildInputs;
-
-  # Must match the contents of `browser/config/version.txt` in the source tree
-  version = "128.1.0";
+  inherit (firedragon-src) extraConfigureFlags extraNativeBuildInputs extraPassthru packageVersion src version;
 
   updateScript = callPackage ./update.nix { };
 
