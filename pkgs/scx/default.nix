@@ -10,6 +10,7 @@
 , scx-rlfifo
 , scx-rustland
 , scx-rusty
+, scx-stats
 , pkg-config
 , meson
 , ninja
@@ -51,6 +52,10 @@ let
     elif [ ''${3:-} = '--target-dir=scheds/rust/scx_rusty' ]; then
       mkdir -p /build/source/build/scheds/rust/scx_rusty
       cp -r ${scx-rusty} /build/source/build/scheds/rust/scx_rusty/release
+      exit 0
+    elif [ ''${3:-} = '--target-dir=rust/scx_stats' ]; then
+      mkdir -p /build/source/build/rust/scx_stats
+      cp -r ${scx-stats} /build/source/build/rust/scx_stats/release
       exit 0
     fi
     exit 1
@@ -106,7 +111,6 @@ llvmPackages.stdenv.mkDerivation {
     zlib
     libbpf_git
   ];
-
 
   mesonFlags = [
     "-Dsystemd=disabled"
