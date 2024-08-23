@@ -28,8 +28,13 @@ for s in bpfland lavd layered rlfifo rustland rusty; do
 
   popd
 done
-
 popd
+
+pushd rust/scx_stats
+cargo generate-lockfile
+cp Cargo.lock "$PKGROOT/stats/Cargo.lock"
+popd
+
 popd
 popd
 

@@ -288,6 +288,7 @@ in
     scx-rlfifo = final.callPackage ../pkgs/scx/rlfifo { inherit scx-common; };
     scx-rustland = final.callPackage ../pkgs/scx/rustland { inherit scx-common; };
     scx-rusty = final.callPackage ../pkgs/scx/rusty { inherit scx-common; };
+    scx-stats = final.callPackage ../pkgs/scx/stats { inherit scx-common; };
   };
 
   sway-unwrapped_git = callOverride ../pkgs/sway-unwrapped-git { };
