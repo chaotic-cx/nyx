@@ -158,6 +158,7 @@ in
   firedragon-unwrapped = final.callPackage ../pkgs/firedragon { };
 
   firedragon = final.wrapFirefox final.firedragon-unwrapped {
+    inherit (final.firedragon-unwrapped) extraPrefsFiles extraPoliciesFiles;
     libName = "firedragon";
   };
 
