@@ -26,7 +26,7 @@ rustPlatform.buildRustPackage rec {
   LIBCLANG_PATH = "${llvmPackages.libclang.lib}/lib";
 
   postPatch = ''
-    ln -s ${./Cargo.lock} scheds/rust/scx_layered/Cargo.lock
+    ln -fs ${./Cargo.lock} scheds/rust/scx_layered/Cargo.lock
   '';
 
   # Can't use sourceRoot because it will fail with lack of permissions in scx_utils
