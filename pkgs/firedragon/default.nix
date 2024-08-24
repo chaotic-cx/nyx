@@ -45,8 +45,15 @@ let
     RUSTC_OPT_LEVEL = "3";
   };
 
+  # These are already applied to the FireDragon source via our build system
   postOverride = prevAttrs: {
-    patches = nyxUtils.removeByName "cbindgen-0.27.0-compat.patch" prevAttrs.patches;
+    patches = nyxUtils.removeByNames [
+      "cbindgen-0.27.0-compat.patch"
+      "mozbz-1898476-1.patch"
+      "mozbz-1898476-2.patch"
+      "mozbz-1898476-3.patch"
+    ]
+      prevAttrs.patches;
   };
 in
 
