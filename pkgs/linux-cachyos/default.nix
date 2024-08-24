@@ -47,7 +47,7 @@ in
     description = "Linux EEVDF-BORE scheduler Kernel by CachyOS built with LLVM and Thin LTO";
 
     packagesExtend = kernel: _finalModules: builtins.mapAttrs (k: v:
-      if builtins.elem k [ "zenpower" "v4l2loopback" "zfs_cachyos" "virtualbox" ]
+      if builtins.elem k [ "zenpower" "v4l2loopback" "zfs_cachyos" "virtualbox" "xone" ]
       then llvmModuleOverlay kernel v
       else v
     );
