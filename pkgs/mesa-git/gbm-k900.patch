@@ -1,18 +1,24 @@
 diff --git a/src/gbm/backends/dri/gbm_dri.c b/src/gbm/backends/dri/gbm_dri.c
-index 0c39dda..e8ca34d 100644
+index 2411868..7db6082 100644
 --- a/src/gbm/backends/dri/gbm_dri.c
 +++ b/src/gbm/backends/dri/gbm_dri.c
-@@ -58,6 +58,9 @@
+@@ -53,11 +53,15 @@
+ #include "pipe/p_screen.h"
+ #include "dri_screen.h"
+ 
++#include "gbm_backend_abi.h"
++
+ /* For importing wl_buffer */
+ #if HAVE_WAYLAND_PLATFORM
  #include "wayland-drm.h"
  #endif
  
-+#include "gbm_backend_abi.h"
 +static struct gbm_core *core;
 +
  static GLboolean
  dri_validate_egl_image(void *image, void *data)
  {
-@@ -340,7 +343,7 @@ static const struct gbm_dri_visual gbm_dri_visuals_table[] = {
+@@ -324,7 +328,7 @@ static const struct gbm_dri_visual gbm_dri_visuals_table[] = {
  static int
  gbm_format_to_dri_format(uint32_t gbm_format)
  {
@@ -21,7 +27,7 @@ index 0c39dda..e8ca34d 100644
     for (size_t i = 0; i < ARRAY_SIZE(gbm_dri_visuals_table); i++) {
        if (gbm_dri_visuals_table[i].gbm_format == gbm_format)
           return gbm_dri_visuals_table[i].dri_image_format;
-@@ -360,7 +363,7 @@ gbm_dri_is_format_supported(struct gbm_device *gbm,
+@@ -344,7 +348,7 @@ gbm_dri_is_format_supported(struct gbm_device *gbm,
     if ((usage & GBM_BO_USE_CURSOR) && (usage & GBM_BO_USE_RENDERING))
        return 0;
  
@@ -30,7 +36,7 @@ index 0c39dda..e8ca34d 100644
     if (gbm_format_to_dri_format(format) == 0)
        return 0;
  
-@@ -396,7 +399,7 @@ gbm_dri_get_format_modifier_plane_count(struct gbm_device *gbm,
+@@ -380,7 +384,7 @@ gbm_dri_get_format_modifier_plane_count(struct gbm_device *gbm,
     if (!dri->has_dmabuf_import)
        return -1;
  
@@ -39,7 +45,7 @@ index 0c39dda..e8ca34d 100644
     if (gbm_format_to_dri_format(format) == 0)
        return -1;
  
-@@ -718,7 +721,7 @@ gbm_dri_bo_import(struct gbm_device *gbm,
+@@ -702,7 +706,7 @@ gbm_dri_bo_import(struct gbm_device *gbm,
        /* GBM's GBM_FORMAT_* tokens are a strict superset of the DRI FourCC
         * tokens accepted by createImageFromDmaBufs, except for not supporting
         * the sARGB format. */
@@ -48,7 +54,7 @@ index 0c39dda..e8ca34d 100644
  
        image = dri2_from_dma_bufs(dri->screen,
                                   fd_data->width,
-@@ -746,7 +749,7 @@ gbm_dri_bo_import(struct gbm_device *gbm,
+@@ -730,7 +734,7 @@ gbm_dri_bo_import(struct gbm_device *gbm,
        /* GBM's GBM_FORMAT_* tokens are a strict superset of the DRI FourCC
         * tokens accepted by createImageFromDmaBufs, except for not supporting
         * the sARGB format. */
@@ -57,7 +63,7 @@ index 0c39dda..e8ca34d 100644
  
        image = dri2_from_dma_bufs(dri->screen, fd_data->width,
                                                   fd_data->height, fourcc,
-@@ -879,7 +882,7 @@ gbm_dri_bo_create(struct gbm_device *gbm,
+@@ -863,7 +867,7 @@ gbm_dri_bo_create(struct gbm_device *gbm,
     uint64_t *mods_filtered = NULL;
     unsigned int count_filtered = 0;
  
@@ -66,7 +72,7 @@ index 0c39dda..e8ca34d 100644
  
     if (usage & GBM_BO_USE_WRITE || !dri->has_dmabuf_export)
        return create_dumb(gbm, width, height, format, usage);
-@@ -1111,7 +1114,7 @@ gbm_dri_surface_create(struct gbm_device *gbm,
+@@ -1095,7 +1099,7 @@ gbm_dri_surface_create(struct gbm_device *gbm,
     surf->base.gbm = gbm;
     surf->base.v0.width = width;
     surf->base.v0.height = height;
@@ -75,7 +81,7 @@ index 0c39dda..e8ca34d 100644
     surf->base.v0.flags = flags;
     if (!modifiers) {
        assert(!count);
-@@ -1173,8 +1176,8 @@ dri_device_create(int fd, uint32_t gbm_backend_version)
+@@ -1157,8 +1161,8 @@ dri_device_create(int fd, uint32_t gbm_backend_version)
      * Since the DRI backend is built-in to the loader, the loader ABI version is
      * guaranteed to match this backend's ABI version
      */
@@ -86,7 +92,7 @@ index 0c39dda..e8ca34d 100644
  
     dri = calloc(1, sizeof *dri);
     if (!dri)
-@@ -1245,3 +1248,11 @@ struct gbm_backend gbm_dri_backend = {
+@@ -1229,3 +1233,11 @@ struct gbm_backend gbm_dri_backend = {
     .v0.backend_name = "dri",
     .v0.create_device = dri_device_create,
  };
@@ -196,33 +202,34 @@ index feee070..d5c7f3a 100644
  
     return dev;
 diff --git a/src/gbm/meson.build b/src/gbm/meson.build
-index 5887887..73aa741 100644
+index 4592833..8d8edeb 100644
 --- a/src/gbm/meson.build
 +++ b/src/gbm/meson.build
-@@ -22,14 +22,13 @@ incs_gbm = [
+@@ -22,14 +22,15 @@ incs_gbm = [
  # TODO: fix includes to delete this
  incs_gbm += inc_mesa
  
 -if with_dri2
 -  files_gbm += files('backends/dri/gbm_dri.c', 'backends/dri/gbm_driint.h')
--  deps_gbm += dep_libdrm # TODO: pthread-stubs
 -endif
  if with_platform_wayland
    deps_gbm += dep_wayland_server
    incs_gbm += inc_wayland_drm
  endif
+ 
 +if with_dri2
 +  subdir('backends/dri')
 +endif
- 
++
  libgbm_name = 'gbm'
  
-@@ -43,8 +42,8 @@ libgbm = shared_library(
+ if with_platform_android and get_option('platform-sdk-version') >= 30
+@@ -42,8 +43,8 @@ libgbm = shared_library(
    include_directories : incs_gbm,
    c_args : [args_gbm],
    link_args : [ld_args_gc_sections],
 -  link_with : [libloader, libgallium_dri],
--  dependencies : [deps_gbm, dep_dl, dep_thread, idep_mesautil, idep_xmlconfig],
+-  dependencies : [deps_gbm, dep_dl, dep_thread, dep_libdrm, idep_mesautil, idep_xmlconfig],
 +  link_with : [libloader],
 +  dependencies : [deps_gbm, dep_dl, dep_libdrm, dep_thread, idep_mesautil, idep_xmlconfig],
    gnu_symbol_visibility : 'hidden',
