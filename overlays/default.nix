@@ -311,7 +311,7 @@ in
 
   wayland_git = callOverride ../pkgs/wayland-git { };
   wayland-protocols_git = callOverride ../pkgs/wayland-protocols-git { };
-  wayland-scanner_git = final.wayland_git.bin;
+  wayland-scanner_git = prev.wayland-scanner.overrideAttrs (_: { inherit (final.wayland_git) src; });
 
   wlroots_git = callOverride ../pkgs/wlroots-git { };
 
