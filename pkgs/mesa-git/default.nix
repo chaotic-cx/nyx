@@ -99,14 +99,11 @@ gitOverride (current: {
           builtins.replaceStrings [
             ''moveToOutput "lib/lib*_mesa*" $drivers''
           ] [
-            ''moveToOutput "lib/lib*_mesa*" $drivers; moveToOutput "lib/libgallium*" $drivers; moveToOutput "lib/gbm" $drivers; moveToOutput "lib/libglapi*" $drivers''
+            ''moveToOutput "lib/lib*_mesa*" $drivers; moveToOutput "lib/gbm" $drivers; moveToOutput "lib/libglapi*" $drivers''
           ]
             prevAttrs.postInstall;
       in
       addGbmRename update24_2;
-
-    postFixup =
-      builtins.replaceStrings [ "/lib/dri/zink_dri.so" ] [ "/lib/libgallium*.so" ] prevAttrs.postFixup;
 
     # test and accessible information
     passthru = prevAttrs.passthru // {
