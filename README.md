@@ -244,13 +244,19 @@ CONFIG_SCHED_CLASS_EXT=y
 
 <p>If you have any suggestion to enhance our packages, modules, or even the CI's codes, let us know through the GitHub repo's issues.</p>
 
-<h4>Building over the user's pkgs</h4>
+<h3>Building over the user's pkgs</h3>
 
 <p>For cache reasons, Chaotic-Nyx now defaults to always use nixpkgs as provider of its dependencies.</p>
 
 <p>If you need to change this behavior, set <code>chaotic.nyx.onTopOf = "user-pkgs";</code>. Be warned that you mostly won't be able to benefit from our binary cache after this change.</p>
 
 <p>You can also disable our overlay entirely by configuring <code>chaotic.nyx.overlay.enable = false;</code>.</p>
+
+<h3>CachyOS kernels</h3>
+
+<p>Even though we provide <code>linuxPackages_cachyos-lto</code>, we don't maintain the kernel modules in it. Nixpkgs, where the derivations originate from, doesn't provide kernels built with Clang. Consequentially, adding later support for all the kernel modules available in Nixpkgs wouldn't be easy. Presently, <code>xone</code> is the only one guaranteed to work, and <strong>ZFS is known to not work</strong>.</p>
+
+<p>Other variations of <code>linuxPackages_cachyos</code> works without any issues. But, we don't build the ones in <code>linuxPackages_cachyos-rc</code>, they should work, but don't expect cache for them.</p>
 
 <h2 id="why-am-i-building-a-kernel-basic-cache-troubleshooting">Why am I building a kernel? Basic cache troubleshooting</h2>
 
