@@ -55,9 +55,9 @@
     "badTag": "vulkan-sdk-1.3.290.0"
   },
   "vulkanUtilityLibraries": {
-    "version": "1.3.294",
+    "version": "1.3.295",
     "rev": "v#{version}",
-    "hash": "sha256-SUX+aI/0lWbmBnMYw59TYok/3wzviuLhZ5MD5yO5wSw="
+    "hash": "sha256-n6T6k1duq28IuN7msDjdtrhm6GXzjZaqJsRu6+ViE4w="
   },
   "vulkanValidationLayers": {
     "version": "1.3.294",
