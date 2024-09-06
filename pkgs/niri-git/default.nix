@@ -15,4 +15,8 @@ gitOverride {
     lockFile = ./Cargo.lock;
     outputHashes = niriPins;
   };
+
+  postOverride = prevAttrs: {
+    buildInputs = [ final.libdisplay-info ] ++ prevAttrs.buildInputs;
+  };
 }
