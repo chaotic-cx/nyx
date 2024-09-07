@@ -47,6 +47,8 @@ in
         User = "root";
         ExecStart = "${lib.getExe' cfg.package cfg.scheduler}";
         Restart = "on-failure";
+        StandardError = "journal";
+        StandardOutput = "null";
       };
     };
 
