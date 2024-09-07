@@ -173,6 +173,8 @@ in
   gamescope_git = callOverride ../pkgs/gamescope-git { };
   gamescope-wsi_git = callOverride ../pkgs/gamescope-git { isWSI = true; };
 
+  godot_4-mono = final.callPackage ../pkgs/godot_4-mono { };
+
   jujutsu_git = callOverride ../pkgs/jujutsu-git { };
 
   kf6coreaddons_git = callOverride ../pkgs/kf6coreaddons-git/latest.nix { };
