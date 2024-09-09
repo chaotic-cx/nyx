@@ -20,7 +20,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # Used by "schemas" output (for FlakeHub and "nix show", pinned)
-    flake-schemas.url = "https://flakehub.com/f/DeterminateSystems/flake-schemas/=0.1.1.tar.gz";
+    flake-schemas.url = "https://flakehub.com/f/DeterminateSystems/flake-schemas/=0.1.5.tar.gz";
   };
 
   outputs = { self, nixpkgs, ... }@inputs:
@@ -44,7 +44,8 @@
         # The stars: our overlay and our modules.
         overlays.default = import ./overlays { flakes = inputs; };
         nixosModules = import ./modules/nixos { flakes = inputs; };
-        homeManagerModules = import ./modules/home-manager { flakes = inputs; };
+        homeModules = import ./modules/home-manager { flakes = inputs; };
+        homeManagerModules = self.homeModules;
 
         # Dev stuff.
         utils = import ./shared/utils.nix { nyxOverlay = self.overlays.default; inherit (nixpkgs) lib; };
