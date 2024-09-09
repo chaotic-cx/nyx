@@ -1,18 +1,16 @@
 { flakes
 , flake-schemas ? flakes.flake-schemas
 , nixpkgs ? flakes.nixpkgs
-, self ? flakes.self
-, baseSystem ? "x86_64-linux"
 }:
 {
-  inherit (flake-schemas.schemas) devShells overlays schemas;
-  _dev = {
+  inherit (flake-schemas.schemas) devShells overlays schemas nixosModules homeModules;
+  nixConfig = {
     version = 1;
     doc = ''
-      Pre-prepared values for CI/CD.
+      Exposes nixConfig as seen in Flakes.
     '';
     inventory = _output: {
-      shortDescription = "Pre-prepared values for CI/CD.";
+      shortDescription = "Exposes nixConfig as seen in Flakes.";
       what = "attrset";
       #evalChecks.isDerivation = false;
     };
@@ -39,26 +37,7 @@
         };
     };
   };
-  homeManagerModules = {
-    version = 1;
-    doc = ''
-      The `homeManagerModules` flake output contains the modules and options we support for Home-Manager setups.
-    '';
-    inventory = import ./home-manager-modules/inventory.nix {
-      inherit flakes;
-      pkgs = nixpkgs.legacyPackages.${baseSystem};
-    };
-  };
-  nixosModules = {
-    version = 1;
-    doc = ''
-      The `nixosModules` flake output contains the modules and options we support for NixOS setups.
-    '';
-    inventory = import ./nixos-modules/inventory.nix {
-      nyxosConfiguration = self._dev.system.${baseSystem};
-      pkgs = nixpkgs.legacyPackages.${baseSystem};
-    };
-  };
+  homeManagerModules = flake-schemas.schemas.homeModules;
   packages = {
     version = 1;
     doc = ''

@@ -1,8 +1,8 @@
 <h1>Chaotic's Nyx</h1>
 
-<img alt="Six frogs with capes, aligned like the NixOS logo, with intercalated shades of green" src="https://gist.githubusercontent.com/PedroHLC/f6eaa9dfcf190e18b753e98fd265c8d3/raw/nix-frog-with-capes-web.svg" width="35%" />
+<img alt="Six frogs with capes, aligned like the NixOS logo, with intercalated shades of green" src="https://gist.githubusercontent.com/PedroHLC/f6eaa9dfcf190e18b753e98fd265c8d3/raw/nix-frog-with-capes-web.svg" width="35%" /><br />
 
-<img alt="GitHub's menu buttons re-ordered and re-labeled to say: Make Pull requests Not Issues. Sounding like Make Love Not War" src="https://gist.githubusercontent.com/PedroHLC/eba5644666a1f2f007319d566ab77a83/raw/91c6064eb0d5cd1e19ac76a48acda87996f330f9/make-pr-not-issues.svg" width="35%" />
+<img alt="GitHub's menu buttons re-ordered and re-labeled to say: Make Pull requests Not Issues. Sounding like Make Love Not War" src="https://gist.githubusercontent.com/PedroHLC/eba5644666a1f2f007319d566ab77a83/raw/91c6064eb0d5cd1e19ac76a48acda87996f330f9/make-pr-not-issues.svg" width="35%" /><br/>
 
 <p>Nix flake for "too much bleeding-edge" and unreleased packages (e.g., mesa_git, linux_cachyos, firefox_nightly, sway_git, gamescope_git). And experimental modules (e.g., HDR, duckdns).</p>
 
@@ -34,7 +34,6 @@
   </li>
   <li><a href="#notes">Notes</a></li>
   <li><a href="#why-am-i-building-a-kernel-basic-cache-troubleshooting">Why am I building a kernel? Basic cache troubleshooting</a></li>
-  <li><a href="#maintainence">Maintainence</a></li>
 </ul>
 
 <h2 id="news">News</h2>
@@ -310,44 +309,3 @@ trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDS
 </code></pre>
 
 <p>An outdated nix-daemon can happen when you change nix settings, then nixos-rebuilt your system, but you didn't restart the nix-daemon service. The easiest way to fix it is to reboot.</p>
-
-<h2 id="maintainence">Maintainence</h2>
-
-<p>The code in the <code>devshells</code> directory is used to automate our CIs and maintainence processes.</p>
-
-<h3>Build them all</h3>
-
-<p>To build all the packages and push their cache usptream, use:</p>
-
-<pre lang="sh"><code class="language-sh">
-nix develop . -c chaotic-nyx-build
-</code></pre>
-
-<p>This commands will properly skip already-known failures, evaluation failures, building failures, and even skip any chain of failures caused by internal-dependecies. It will also avoid to download what it's already in our cache and in the upstream nixpkgs' cache.</p>
-
-<p>A list of what successfully built, failed to build, hashes of all failures, paths to push to cache and logs will be available at the <code>/tmp/nix-shell.*/tmp.*/</code> directory. This directory can be specified with the <code>NYX_WD</code> envvar.</p>
-
-<h3>Check for evaluation differerences</h3>
-
-<p>You can compare a branch with another like this:</p>
-
-<pre lang="bash"><code class="language-bash">
-machine=$(uname -m)-linux
-A='github:chaotic-cx/nyx/branch-a'
-B='github:chaotic-cx/nyx/branch-b'
-
-nix build --impure --expr \
-  "(builtins.getFlake \"$A\").devShells.$machine.comparer.passthru.any \"$B\""
-</code></pre>
-
-<p>After running, you'll find all the derivations that changed in the <code>result</code> file.</p>
-
-<h4>Known failures</h4>
-
-<p>All the hashes that are known to produce build-time failures are kept in <code>devshells/failures.nix</code>.</p>
-
-<p>Our builder produces a <code>new-failures.nix</code> that must be used to update this file in every PR.</p>
-
-<h4>Banished and rejected packages</h4>
-
-<p>There are none (so far).</p>

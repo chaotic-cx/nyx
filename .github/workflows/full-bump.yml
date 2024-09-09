@@ -45,7 +45,7 @@ jobs:
       - name: Configure sandboxing
         run: |
           sed -i -e '/^build-users-group =/d' -e 's/max-jobs =.*/max-jobs = 8/g' /etc/nix/nix.conf
-          nix eval .#_dev.nixConfig --json | jq -r 'to_entries[] | "\(.key) = \(.value | join(" "))"' >> /etc/nix/nix.conf
+          nix eval ./maintenance#_dev.nixConfig --json | jq -r 'to_entries[] | "\(.key) = \(.value | join(" "))"' >> /etc/nix/nix.conf
       # config to commit
       - name: Bat-signal
         run: |
@@ -57,7 +57,7 @@ jobs:
         id: build
         run: |
           [ "$NO_REVERT" == 'true' ] && export NYX_BUMP_REVERT=0
-          nix develop --impure .#updater -c 'chaotic-nyx-bumper'
+          nix develop --impure ./maintenance#updater -c 'chaotic-nyx-bumper'
         env:
           GH_TOKEN: ${{ github.token }}
           NYX_BUMPN: ${{ inputs.bumpNumber }}
@@ -71,7 +71,7 @@ jobs:
       - name: Cache
         id: cache
         if: (success() && ${{ inputs.kissMeKissMeKissMe != 'true' }})
-        run: nix develop -c chaotic-nyx-build || [ $? -eq 42 ]
+        run: nix develop ./maintenance -c chaotic-nyx-build || [ $? -eq 42 ]
         env:
           NYX_WD: ${{ runner.temp }}
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}

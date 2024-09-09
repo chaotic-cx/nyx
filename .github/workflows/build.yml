@@ -104,7 +104,7 @@ jobs:
         if: (success() && steps.check.outputs.cached != 'true')
         run: |
           sed -i -e '/^build-users-group =/d' -e 's/max-jobs =.*/max-jobs = 8/g' /etc/nix/nix.conf
-          nix eval .#_dev.nixConfig --json | jq -r 'to_entries[] | "\(.key) = \(.value | join(" "))"' >> /etc/nix/nix.conf
+          nix eval ./maintenance#_dev.nixConfig --json | jq -r 'to_entries[] | "\(.key) = \(.value | join(" "))"' >> /etc/nix/nix.conf
       - name: Download cache list
         if: (success() && steps.check.outputs.cached != 'true')
         run: |
@@ -114,7 +114,7 @@ jobs:
         if: (success() && steps.check.outputs.cached != 'true')
         id: build
         run: |
-          nix develop -c chaotic-nyx-build || [ $? -eq 42 ]
+          nix develop ./maintenance -c chaotic-nyx-build || [ $? -eq 42 ]
           failed_builds="$(cat ${{ runner.temp }}/failures.txt | sed 's/^/    <li>/; s/$/<\/li>/')"
           failed_builds_count="$(cat ${{ runner.temp }}/failures.txt | wc -l)"
           unbuildable_count="$(cat ${{ runner.temp }}/eval-failures.txt | wc -l)"
