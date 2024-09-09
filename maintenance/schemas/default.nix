@@ -1,8 +1,6 @@
 { flakes
 , flake-schemas ? flakes.flake-schemas
 , nixpkgs ? flakes.nixpkgs
-, self ? flakes.self
-, baseSystem ? "x86_64-linux"
 }:
 {
   inherit (flake-schemas.schemas) devShells overlays schemas nixosModules homeModules;

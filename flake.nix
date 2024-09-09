@@ -49,7 +49,7 @@
 
         # Dev stuff.
         utils = import ./shared/utils.nix { nyxOverlay = self.overlays.default; inherit (nixpkgs) lib; };
-        nixConfig = (import ./flake.nix).nixConfig;
+        inherit (import ./flake.nix) nixConfig;
       };
     in
     builtins.foldl' eachSystem universals [ "x86_64-linux" "aarch64-linux" ];

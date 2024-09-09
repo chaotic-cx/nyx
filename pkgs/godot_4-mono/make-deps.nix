@@ -19,7 +19,7 @@ godot4-mono.overrideAttrs (base: {
   # This script is used to update the accompanying deps.nix file, a nix expression listing the
   # nuget packages that the godot-mono code depends on, along with their sha256 hashes. This
   # file is referenced by the godot-mono derivation and needs to be updated every time the
-  # godot version is updated. The way it works is:
+  # godot version is updated. The way it works is...
   #
   # 1) Creates and navigates to a temporary directory and then explicitly runs the unpack,
   # patch, and configure phases from the godot-mono derivation.
