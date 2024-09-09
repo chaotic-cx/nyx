@@ -13,6 +13,7 @@ rustPlatform.buildRustPackage rec {
   cargoLock.lockFile = ./Cargo.lock;
 
   postPatch = ''
+    rm Cargo.lock Cargo.toml
     ln -fs ${./Cargo.lock} rust/scx_stats/Cargo.lock
   '';
 

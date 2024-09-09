@@ -8,35 +8,27 @@ if ! [ -f common.nix ]; then
 fi
 
 PKGROOT=$PWD
-pushd /tmp
 
+cd /tmp
 if [ -d scx ]; then
   echo 'WARNING: Using an already cloned version of scx, the result might be outdated.'
 else
-  git clone --single-branch 'https://github.com/sched-ext/scx.git'
+  git clone --single-branch 'https://github.com/sched-ext/scx.git' scx
 fi
 
-pushd scx
+cd /tmp/scx
 CURRREV=$(git rev-parse HEAD)
+rm Cargo.lock Cargo.toml
 
-pushd scheds/rust
 for s in bpfland lavd layered rlfifo rustland rusty; do
-  pushd "scx_${s}"
-
-  cargo generate-lockfile
-  cp Cargo.lock "$PKGROOT/${s}/Cargo.lock"
-
-  popd
+  target="scheds/rust/scx_$s"
+  echo $target
+  cargo -Z unstable-options -C "$target" generate-lockfile --verbose
+  cp "$target/Cargo.lock" "$PKGROOT/${s}/Cargo.lock"
 done
-popd
 
-pushd rust/scx_stats
-cargo generate-lockfile
-cp Cargo.lock "$PKGROOT/stats/Cargo.lock"
-popd
-
-popd
-popd
+cargo  -Z unstable-options -C "rust/scx_stats" generate-lockfile --verbose
+cp rust/scx_stats/Cargo.lock "$PKGROOT/stats/Cargo.lock"
 
 echo "Updated to ${CURRREV}"
 echo 'FINISHED SUCCESSFULLY'

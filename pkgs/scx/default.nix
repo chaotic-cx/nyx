@@ -57,6 +57,8 @@ let
       mkdir -p /build/source/build/rust/scx_stats
       cp -r ${scx-stats} /build/source/build/rust/scx_stats/release
       exit 0
+    elif [ ''${3:-} = '--target-dir=.' ]; then
+      exit 0
     fi
     exit 1
   '';
@@ -85,11 +87,6 @@ llvmPackages.stdenv.mkDerivation {
   inherit (scx-common) src version;
 
   postPatch = ''
-    cp -r ${scx-rusty} ./scheds/rust/scx_rusty/release
-    cp -r ${scx-layered} ./scheds/rust/scx_layered/release
-    cp -r ${scx-lavd} ./scheds/rust/scx_lavd/release
-    cp -r ${scx-rlfifo} ./scheds/rust/scx_rlfifo/release
-    cp -r ${scx-rustland} ./scheds/rust/scx_rustland/release
     rm meson-scripts/fetch_bpftool
     patchShebangs ./meson-scripts
     cp ${fetchBpftool} meson-scripts/fetch_bpftool
