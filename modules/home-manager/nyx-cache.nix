@@ -17,7 +17,7 @@ in
   config = {
     nix.settings = lib.mkIf cfg.enable
       {
-        inherit (flakes.self._dev.nixConfig)
+        inherit (flakes.self.nixConfig)
           extra-substituters
           extra-trusted-public-keys;
       };

@@ -37,9 +37,9 @@ jobs:
       - name: Configure sandboxing
         run: |
           sed -i -e '/^build-users-group =/d' -e 's/max-jobs =.*/max-jobs = 8/g' /etc/nix/nix.conf
-          nix eval .#_dev.nixConfig --json | jq -r 'to_entries[] | "\(.key) = \(.value | join(" "))"' >> /etc/nix/nix.conf
+          nix eval ./maintenance#_dev.nixConfig --json | jq -r 'to_entries[] | "\(.key) = \(.value | join(" "))"' >> /etc/nix/nix.conf
       - name: Build packages
-        run: nix develop -c chaotic-nyx-build && exit 1 || [ $? -eq 23 ]
+        run: nix develop ./maintenance -c chaotic-nyx-build && exit 1 || [ $? -eq 23 ]
         env:
           NYX_CHANGED_ONLY: "github:${{ github.repository }}/${{ github.event.pull_request.base.ref }}"
           NYX_WD: ${{ runner.temp }}

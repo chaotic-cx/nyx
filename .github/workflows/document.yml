@@ -32,7 +32,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir result
-          nix develop "github:chaotic-cx/nyx/${GITHUB_SHA}#document" -c 'true' | \
+          nix develop "github:chaotic-cx/nyx/${GITHUB_SHA}?dir=maintenance#document" -c 'true' | \
             xargs -i@ cp @ result/index.html
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
