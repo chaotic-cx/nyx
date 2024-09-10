@@ -8,7 +8,8 @@ TEMP="${NYX_TEMP:-${TEMP}}"
 TEMPDIR="${NYX_TEMP:-${TEMPDIR}}"
 
 # Options
-NYX_FLAGS="${NYX_FLAGS:---accept-flake-config --no-link}"
+NYX_ENV=('NIXPKGS_ALLOW_INSECURE=1' 'NIXPKGS_ALLOW_UNFREE=1' 'NIXPKGS_ALLOW_BROKEN=1')
+NYX_FLAGS="${NYX_FLAGS:---accept-flake-config --no-link --impure}"
 NYX_WD="${NYX_WD:-$(mktemp -d)}"
 NYX_HOME="${NYX_HOME:-$HOME/.nyx}"
 CACHIX_REPO="${CACHIX_REPO:-chaotic-nyx}"
@@ -92,7 +93,7 @@ function zip_path() {
 function build() {
   _WHAT="${1:- アンノーン}"
   _MAIN_OUT_PATH="${2:-/dev/null}"
-  _FULL_TARGETS=("${_ALL_OUT_KEYS[@]/#/$NYX_SOURCE\#_dev.packages.${NYX_TARGET}.}")
+  _FULL_TARGETS=("${_ALL_OUT_KEYS[@]/#/$NYX_SOURCE\#packages.${NYX_TARGET}.}")
 
   # If NYX_CHANGED_ONLY is set, only build changed derivations
   if [ -f filter.txt ] && ! grep -Pq "^$_WHAT\$" filter.txt; then
@@ -135,9 +136,11 @@ function build() {
     (while true; do echo -ne "${C} BUILDING${W}\n* $_WHAT..." && sleep 120; done) &
     _KEEPALIVE=$!
 
+    echo '---' >> errors.txt
+    echo "env ${NYX_ENV[*]} nix build --json $NYX_FLAGS ${_FULL_TARGETS[*]}" >> errors.txt
     # Builds all the outputs, redirect the build logs to "error.txt", redirect the built outputs to "push.txt" (to later push)
     if \
-      ( nix build --json $NYX_FLAGS "${_FULL_TARGETS[@]}" |\
+      ( env "${NYX_ENV[@]}" nix build --json $NYX_FLAGS "${_FULL_TARGETS[@]}" |\
           jq -r '.[].outputs[]' \
       ) 2>> errors.txt >> push.txt
 
