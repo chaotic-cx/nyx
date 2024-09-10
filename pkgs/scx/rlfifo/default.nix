@@ -26,7 +26,6 @@ rustPlatform.buildRustPackage rec {
   LIBCLANG_PATH = "${llvmPackages.libclang.lib}/lib";
 
   postPatch = ''
-    rm Cargo.lock Cargo.toml
     ln -fs ${./Cargo.lock} scheds/rust/scx_rlfifo/Cargo.lock
   '';
 
