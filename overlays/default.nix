@@ -167,8 +167,6 @@ in
   linuxPackages_cachyos-rc = cachyosPackages.cachyos-rc;
   linux_cachyos-rc = cachyosPackages.cachyos-rc.kernel;
 
-  lix_git = callOverride ../pkgs/lix-git { };
-
   luxtorpeda = final.callPackage ../pkgs/luxtorpeda {
     luxtorpedaVersion = importJSON ../pkgs/luxtorpeda/version.json;
   };
