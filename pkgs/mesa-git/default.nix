@@ -49,15 +49,9 @@ gitOverride (current: {
   postOverride = prevAttrs: {
     nativeBuildInputs = with final; [ rustfmt python3Packages.pyyaml ] ++ prevAttrs.nativeBuildInputs;
 
-    mesonFlags =
-      builtins.map
-        (builtins.replaceStrings [ "virtio-experimental" ] [ "virtio" ])
-        prevAttrs.mesonFlags
-      ++ final.lib.optional is32bit "-D intel-rt=disabled";
+    mesonFlags = final.lib.lists.remove "-Domx-libs-path=${placeholder "drivers"}/lib/bellagio" prevAttrs.mesonFlags;
 
-    patches =
-      (nyxUtils.removeByURL "https://gitlab.freedesktop.org/mesa/mesa/-/commit/8b35da91b23afc65256b78a59d116fd09544cd28.patch" prevAttrs.patches)
-      ++ [ ./gbm-k900.patch ./gbm-backend.patch ];
+    patches = prevAttrs.patches ++ [ ./gbm-k900.patch ./gbm-backend.patch ];
 
     postPatch =
       let
