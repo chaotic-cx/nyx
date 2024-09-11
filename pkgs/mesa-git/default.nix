@@ -6,7 +6,6 @@
 , gbmDriver ? false
 , gbmBackend ? "dri_git"
 , mesaTestAttrs ? final
-, nyxUtils
 , ...
 }:
 

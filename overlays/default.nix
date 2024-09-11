@@ -24,7 +24,7 @@ let
 
   # Our utilities/helpers.
   nyxUtils = import ../shared/utils.nix { inherit (final) lib; nyxOverlay = selfOverlay; };
-  inherit (nyxUtils) dropAttrsUpdateScript dropUpdateScript multiOverride multiOverrides overrideDescription;
+  inherit (nyxUtils) dropUpdateScript multiOverride multiOverrides overrideDescription;
 
   # Helps when calling .nix that will override packages.
   callOverride = path: attrs: import path ({ inherit final flakes nyxUtils prev gitOverride rustPlatform_latest; } // attrs);
