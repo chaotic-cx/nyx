@@ -4,7 +4,6 @@
 #   otherwise use `final`.
 # - Composed names are separated with minus: `lan-mouse`
 # - Versions/patches are suffixed with an underline: `mesa_git`, `libei_0_5`, `linux_hdr`
-# - Use `inherit (final) nyxUtils` since someone might want to override our utils
 
 # NOTE:
 # - `*_next` packages will be removed once merged into nixpkgs-unstable.
@@ -62,41 +61,7 @@ let
   cachyosPackages = callOverride ../pkgs/linux-cachyos { };
 
   # Microarch stuff
-  makeMicroarchPkgs = cpuType: arch: with final;
-    import "${nixpkgs}"
-      {
-        config = final.config // nixpkgsExtraConfig;
-        overlays = [
-          selfOverlay
-          (_final': prev': {
-            libuv = prev'.libuv.overrideAttrs (_prevattrs: { doCheck = false; });
-          })
-          (_final': prev': {
-            "pkgs${builtins.replaceStrings ["-"] ["_"] arch}" = prev';
-          })
-        ] ++ lib.optionals
-          (builtins.elem arch [
-            "x86-64-v4"
-            "znver4"
-          ]) [
-          (_final': prev': {
-            coreutils = prev'.coreutils.overrideAttrs (_prevattrs: { doCheck = false; });
-            ltrace = prev'.ltrace.overrideAttrs (_prevattrs: { doCheck = false; });
-          })
-        ] ++ overlays;
-        ${if stdenv.hostPlatform == stdenv.buildPlatform
-        then "localSystem" else "crossSystem"} = {
-          parsed = stdenv.hostPlatform.parsed // {
-            cpu = lib.systems.parse.cpuTypes."${cpuType}";
-          };
-          gcc = stdenv.hostPlatform.gcc // {
-            inherit arch;
-          };
-        };
-      } // {
-      recurseForDerivations = false;
-      _description = "Nixpkgs + Chaotic_nyx packages built for the ${arch} microarchitecture.";
-    };
+  makeMicroarchPkgs = import ../shared/make-microarch.nix { inherit nixpkgs final selfOverlay nixpkgsExtraConfig; };
 
   # Common stuff for scx-schedulers
   scx-common = final.callPackage ../pkgs/scx/common.nix { };
@@ -250,11 +215,9 @@ in
 
   openvr_git = callOverride ../pkgs/openvr-git { };
 
-  pkgsx86_64_v2 = makeMicroarchPkgs "x86_64" "x86-64-v2";
-  pkgsx86_64_v3 = makeMicroarchPkgs "x86_64" "x86-64-v3";
-  pkgsx86_64_v4 = makeMicroarchPkgs "x86_64" "x86-64-v4";
-
-  pkgsx86_64_v3-core = dropAttrsUpdateScript (import ../shared/core-tier.nix final.pkgsx86_64_v3);
+  pkgsx86_64_v2 = final.pkgsAMD64Microarchs.x86-64-v2;
+  pkgsx86_64_v3 = final.pkgsAMD64Microarchs.x86-64-v3;
+  pkgsx86_64_v4 = final.pkgsAMD64Microarchs.x86-64-v4;
 
   pkgsAMD64Microarchs =
     builtins.mapAttrs
