@@ -141,7 +141,7 @@ We do this automatically, so we can gracefully update the cache's address and ke
 
 <p>Commands like <code>nix run ...</code>, <code>nix develop ...</code>, and others, when using our flake as input, will ask you to add the cache interactively when missing from your user's nix settings.</p>
 
-<p>If you want to use the cache right from the <strong>installation media</strong>, install your system using <code>nixos-install --flake /mnt/etc/nixos#mymachine --option 'extra-substituters' 'https://nyx.chaotic.cx/' --option extra-trusted-public-keys "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="</code> (replace <code>mymachine</code> with your new host's name).</p>
+<p>If you want to use the cache right from the <strong>installation media</strong>, install your system using <code>nixos-install --flake /mnt/etc/nixos#mymachine --option 'extra-substituters' 'https://chaotic-nyx.cachix.org/' --option extra-trusted-public-keys "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="</code> (replace <code>mymachine</code> with your new host's name).</p>
 
 <h3 id="flakehub-notes">FlakeHub notes</h3>
 
@@ -283,7 +283,7 @@ CONFIG_SCHED_CLASS_EXT=y
 <p>If they all match, and you're still rebuilding the kernel, copy the hash from the result above, then change it in the following <code>curl</code> command:</p>
 
 <pre lang="text"><code class="language-text">
-╰─λ curl -L 'https://nyx.chaotic.cx/441qhriiz5fa4l3xvvjw3h4bps7xfk08.narinfo'
+╰─λ curl -L 'https://chaotic-nyx.cachix.org/441qhriiz5fa4l3xvvjw3h4bps7xfk08.narinfo'
 StorePath: /nix/store/441qhriiz5fa4l3xvvjw3h4bps7xfk08-linux-6.8.7
 URL: nar/e5ccded34e4608448c49d3e9fdc92441cd564ae629a4b93fd3f8a334bca7c71d.nar.zst
 Compression: zstd
@@ -304,8 +304,8 @@ Sig: chaotic-nyx.cachix.org-1:L0D5GiJf/VEc1brcqYSB+vzYDDV6ZoDP59b+0mrX3bm2b5bbvt
 
 <pre lang="text"><code class="language-text">
 ╰─λ grep chaotic /etc/nix/nix.conf
-substituters = https://nix-community.cachix.org/ https://nyx.chaotic.cx/ https://cache.nixos.org/
-trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= nyx.chaotic.cx-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8= chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8
+substituters = https://nix-community.cachix.org/ https://chaotic-nyx.cachix.org/ https://cache.nixos.org/
+trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8
 </code></pre>
 
 <p>An outdated nix-daemon can happen when you change nix settings, then nixos-rebuilt your system, but you didn't restart the nix-daemon service. The easiest way to fix it is to reboot.</p>
