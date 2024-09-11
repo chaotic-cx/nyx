@@ -1,8 +1,6 @@
 name: Bump nixpkgs
 
 on:
-  schedule:
-    - cron: '47 6 * * *'
   workflow_dispatch:
   repository_dispatch:
     types: [nixpkgs-update]
