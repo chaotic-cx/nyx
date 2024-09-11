@@ -25,11 +25,9 @@ gitOverride {
     name = prevAttrs.name + ".99";
 
     postPatch = ''
-      echo "" > test/widget/test_groupbox2.py
-      echo "" > test/widget/test_image.py
-      echo "" > test/widget/test_iwd.py
-      echo "" > test/widget/test_mpris2.py
-      echo "" > test/widget/test_snapcast.py
+      for f in test/widget/test_*.py; do
+        echo "" > "$f"
+      done
     '';
   };
 }
