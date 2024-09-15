@@ -29,7 +29,6 @@
     <a href="#harder-stuff">Harder stuff</a><br/>
     <ul>
       <li><a href="#using-linux-cachyos-with-sched-ext">Using linux-cachyos with sched-ext</a><br/></li>
-      <li><a href="#using-qtile-from-git">Using qtile from git</a><br/></li>
     </ul>
   </li>
   <li><a href="#notes">Notes</a></li>
@@ -203,21 +202,6 @@ CONFIG_SCHED_CLASS_EXT=y
 </code></pre>
 
 <p>There are other scx_* binaries for you to play with, or head to <a href="https://github.com/sched-ext/scx" target="_blank">github.com/sched-ext/scx</a> for instructions on how to write one of your own.</p>
-
-<h3 id="using-qtile-from-git">Using qtile from git</h3>
-
-<pre lang="nix"><code class="language-nix">
-{
-  services.xserver.windowManager.qtile = {
-    enable = true;
-    backend = "wayland";
-    package = pkgs.qtile-module_git;
-    extraPackages = _pythonPackages: [ pkgs.qtile-extras_git ];
-  };
-  # if you want a proper wayland+qtile session, and/or a "start-qtile" executable in PATH:
-  chaotic.qtile.enable = true;
-}
-</code></pre>
 
 <h2 id="notes">Notes</h2>
 
