@@ -1,16 +1,10 @@
-{ final, prev, gitOverride, conduwuitPins, ... }:
-let
-  rocksdb_fixed = with final; rocksdb.override {
-    jemalloc = rust-jemalloc-sys-unprefixed;
-  };
-in
+{ final, prev, rustPlatform_latest, gitOverride, conduwuitPins, ... }:
 gitOverride {
   nyxKey = "conduwuit_git";
-  prev = prev.matrix-conduit;
+  prev = prev.conduwuit;
 
   newInputs = with final; {
-    rust-jemalloc-sys = rust-jemalloc-sys-unprefixed;
-    rocksdb = rocksdb_fixed;
+    rustPlatform = rustPlatform_latest;
   };
 
   versionNyxPath = "pkgs/conduwuit-git/version.json";
@@ -26,11 +20,7 @@ gitOverride {
   };
 
   postOverride = prevAttrs: {
-    preBuild = "";
-    pname = "conduwuit";
-    env = prevAttrs.env // {
-      ROCKSDB_INCLUDE_DIR = "${rocksdb_fixed}/include";
-      ROCKSDB_LIB_DIR = "${rocksdb_fixed}/lib";
-    };
+    # Adds the setup-hook
+    nativeBuildInputs = prevAttrs.nativeBuildInputs ++ [ final.rust-jemalloc-sys-unprefixed ];
   };
 }
