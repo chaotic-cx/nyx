@@ -22,9 +22,9 @@
     "badTag": "vulkan-sdk-1.3.290.0"
   },
   "spirvTools": {
-    "version": "unstable-20240730-363486479",
-    "rev": "363486479d4c8dfbfdf2e2dc397cd10aa15f80b0",
-    "hash": "sha256-ZVhHqAhhEhvY0ih/8RRbq6TELRc2SpROqErcupG3CGI=",
+    "version": "2024.4.rc1",
+    "rev": "v#{version}",
+    "hash": "sha256-ExseInoB/mMtVUOf0KMrQwDQ5UQdo3Ru7VnGMGPeXrk=",
     "badTag": "vulkan-sdk-1.3.290.0"
   },
   "vulkanHeaders": {
