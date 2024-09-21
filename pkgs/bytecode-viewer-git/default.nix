@@ -13,7 +13,7 @@ maven.buildMavenPackage rec {
     repo = "bytecode-viewer";
   };
 
-  mvnHash = "sha256-vaKNleHwl0fwEi94BRjXNKQGhLstUkE+kKMB5nig5Uo=";
+  mvnHash = "sha256-iySnksspdiVkLaRj1SYhy5mzS8f3MTSgEKWAU87n7QE=";
 
   nativeBuildInputs = [ makeWrapper ];
 
