@@ -29,7 +29,7 @@ gitOverride {
     # https://github.com/zed-industries/zed/issues/15902
     RUSTFLAGS = "-Clink-arg=-z -Clink-arg=nostart-stop-gc " + prevAttrs.RUSTFLAGS;
     # Starting zed-editor from zed seems to loose these libraries somehow
-    nativeBuildInputs = with final; [ makeWrapper ] ++ prevAttrs.nativeBuildInputs;
+    nativeBuildInputs = with final; [ makeWrapper cmake ] ++ prevAttrs.nativeBuildInputs;
     postInstall = with final; ''
       wrapProgram $out/bin/zed \
         --prefix LD_PRELOAD : ${alsa-lib}/lib/libasound.so.2 \
