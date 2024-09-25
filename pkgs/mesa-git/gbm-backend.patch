@@ -1,8 +1,8 @@
 diff --git a/src/gbm/backends/dri/gbm_dri.c b/src/gbm/backends/dri/gbm_dri.c
-index e8ca34d..1cf6f5f 100644
+index 4e6b2b5..1210c1a 100644
 --- a/src/gbm/backends/dri/gbm_dri.c
 +++ b/src/gbm/backends/dri/gbm_dri.c
-@@ -1245,7 +1245,7 @@ err_dri:
+@@ -1223,7 +1223,7 @@ err_dri:
  
  struct gbm_backend gbm_dri_backend = {
     .v0.backend_version = GBM_BACKEND_ABI_VERSION,
@@ -12,15 +12,15 @@ index e8ca34d..1cf6f5f 100644
  };
  
 diff --git a/src/gbm/main/backend.c b/src/gbm/main/backend.c
-index d5c7f3a..9db366f 100644
+index 321c7e1..b88ae7c 100644
 --- a/src/gbm/main/backend.c
 +++ b/src/gbm/main/backend.c
-@@ -155,7 +155,7 @@ static struct gbm_device *
- find_backend(const char *name, int fd)
- {
-    struct gbm_device *dev = NULL;
--   dev = try_load_backend_by_name("dri", fd);
-+   dev = try_load_backend_by_name("dri_git", fd);
+@@ -162,7 +162,7 @@ _gbm_create_device(int fd)
+       if (dev) return dev;
+    }
  
-    if (name && !dev) {
-       dev = try_load_backend_by_name(name, fd);
+-   return load_backend_by_name("dri", fd, true);
++   return load_backend_by_name("dri_git", fd, true);
+ }
+ 
+ void

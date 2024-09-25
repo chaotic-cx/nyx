@@ -98,6 +98,17 @@ rec {
     !(lib.attrsets.isDerivation x) || (x.url or null) != url
   );
 
+  # Helps when dropping flags.
+  removeByPrefix = prefix:
+    let
+      prefixLen = builtins.stringLength prefix;
+    in
+    builtins.filter (s: builtins.substring 0 prefixLen s != prefix);
+
+  # Helps when dropping flags.
+  removeByPrefixes = prefixes: xs:
+    lib.lists.foldl (accu: prefix: removeByPrefix prefix accu) xs prefixes;
+
   # Helps updating flags
   replaceStartingWith = prefix: newSuffix: builtins.map (x:
     if lib.strings.hasPrefix prefix x then

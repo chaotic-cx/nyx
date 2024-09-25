@@ -3,6 +3,7 @@
 , flakes
 , prev
 , gitOverride
+, nyxUtils
 , gbmDriver ? false
 , gbmBackend ? "dri_git"
 , mesaTestAttrs ? final
@@ -25,6 +26,16 @@ gitOverride (current: {
     {
       wayland-protocols = final64.wayland-protocols_git;
       galliumDrivers = [ "all" ];
+      directx-headers = final.directx-headers.overrideAttrs (_prevAttrs: rec {
+        version = "1.614.1";
+
+        src = final.fetchFromGitHub {
+            owner = "microsoft";
+            repo = "DirectX-Headers";
+            rev = "v${version}";
+            hash = "sha256-CDmzKdV40EExLpOHPAUnytqG9x1+IGW4AZldfYs5YJk=";
+        };
+      });
     } // (if is32bit then with final64; {
       libdrm = libdrm32_git;
     } else with final; {
@@ -48,9 +59,9 @@ gitOverride (current: {
   postOverride = prevAttrs: {
     nativeBuildInputs = with final; [ rustfmt python3Packages.pyyaml ] ++ prevAttrs.nativeBuildInputs;
 
-    mesonFlags = final.lib.lists.remove "-Domx-libs-path=${placeholder "drivers"}/lib/bellagio" prevAttrs.mesonFlags;
+    mesonFlags = nyxUtils.removeByPrefixes [ "-Domx-libs-path=" "-Ddri-search-path=" ] prevAttrs.mesonFlags;
 
-    patches = prevAttrs.patches ++ [ ./gbm-k900.patch ./gbm-backend.patch ];
+    patches = prevAttrs.patches ++ [ ./gbm-backend.patch ];
 
     postPatch =
       let
