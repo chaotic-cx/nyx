@@ -30,10 +30,10 @@ gitOverride (current: {
         version = "1.614.1";
 
         src = final.fetchFromGitHub {
-            owner = "microsoft";
-            repo = "DirectX-Headers";
-            rev = "v${version}";
-            hash = "sha256-CDmzKdV40EExLpOHPAUnytqG9x1+IGW4AZldfYs5YJk=";
+          owner = "microsoft";
+          repo = "DirectX-Headers";
+          rev = "v${version}";
+          hash = "sha256-CDmzKdV40EExLpOHPAUnytqG9x1+IGW4AZldfYs5YJk=";
         };
       });
     } // (if is32bit then with final64; {
