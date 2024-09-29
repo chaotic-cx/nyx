@@ -18,13 +18,13 @@
   "spirvHeaders": {
     "version": "unstable-20240909-2a9b6f95",
     "rev": "2a9b6f951c7d6b04b6c21fe1bf3f475b68b84801",
-    "hash": "",
+    "hash": "sha256-o1yRTvP7a+XVwendTKBJKNnelVGWLD0gH258GGeUDhQ=",
     "badTag": "vulkan-sdk-1.3.290.0"
   },
   "spirvTools": {
     "version": "unstable-20240917-6dcc7e35",
     "rev": "6dcc7e350a0b9871a825414d42329e44b0eb8109",
-    "hash": "",
+    "hash": "sha256-ExseInoB/mMtVUOf0KMrQwDQ5UQdo3Ru7VnGMGPeXrk=",
     "badTag": "v2024.4.rc1"
   },
   "vulkanHeaders": {
