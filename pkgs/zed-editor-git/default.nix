@@ -31,7 +31,7 @@ gitOverride {
     # Starting zed-editor from zed seems to loose these libraries somehow
     nativeBuildInputs = with final; [ makeWrapper cmake ] ++ prevAttrs.nativeBuildInputs;
     postInstall = with final; ''
-      wrapProgram $out/bin/zed \
+      wrapProgram $out/bin/zeditor \
         --prefix LD_PRELOAD : ${alsa-lib}/lib/libasound.so.2 \
         --prefix LD_PRELOAD : ${zstd.out}/lib/libzstd.so.1 \
         --prefix LD_PRELOAD : ${openssl.out}/lib/libssl.so.3 \
