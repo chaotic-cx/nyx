@@ -43,8 +43,10 @@ let
       [ ]
     else if cachyConfig.cpuSched == "hardened" then
       [ "${patches-src}/${majorMinor}/sched/0001-bore-cachy.patch" ]
-    else if cachyConfig.cpuSched == "cachyos" || cachyConfig.cpuSched == "sched-ext" then
-      [ "${patches-src}/${majorMinor}/sched/0001-sched-ext.patch" ]
+    else if (cachyConfig.cpuSched == "cachyos" || cachyConfig.cpuSched == "sched-ext") then
+      if (lib.strings.versionOlder majorMinor "6.12") then
+        [ "${patches-src}/${majorMinor}/sched/0001-sched-ext.patch" ]
+      else [ ]
     else throw "Unsupported cachyos _cpu_sched=${toString cachyConfig.cpuSched}";
 
   patches =
