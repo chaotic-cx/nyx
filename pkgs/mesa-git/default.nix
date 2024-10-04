@@ -61,7 +61,7 @@ gitOverride (current: {
 
     mesonFlags = nyxUtils.removeByPrefixes [ "-Domx-libs-path=" "-Ddri-search-path=" ] prevAttrs.mesonFlags;
 
-    patches = prevAttrs.patches ++ [ ./gbm-backend.patch ];
+    patches = (nyxUtils.removeByBaseName "opencl.patch" prevAttrs.patches) ++ [ ./opencl.patch ./gbm-backend.patch ];
 
     postPatch =
       let
