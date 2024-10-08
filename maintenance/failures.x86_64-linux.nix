@@ -5,7 +5,6 @@
   "linuxPackages_cachyos.isgx" = "/nix/store/j97228hsyp689rq246xark36icjk9vih-isgx-2.14-6.11.2";
   "linuxPackages_cachyos.ithc" = "/nix/store/9mydjvp25si1yqwr3ixiny3cssscdk07-ithc-unstable-2022-06-07";
   "linuxPackages_cachyos.ivsc-driver" = "/nix/store/62bwlmq7331j1r0gnx3aqs8zclmic8y5-ivsc-driver-unstable-2023-11-09";
-  "linuxPackages_cachyos.kvmfr" = "/nix/store/dwszva1cpwjk1g2l25wvh89xm95klmqk-kvmfr-B7-rc1";
   "linuxPackages_cachyos.lenovo-legion-module" = "/nix/store/0c6mzd7li4h3r0lpnjna1a3n2gz4a7a4-lenovo-legion-module-0.0.12";
   "linuxPackages_cachyos.lttng-modules" = "/nix/store/pcxghr28myvbj45cf5imc3l113qrdwg6-lttng-modules-6.11.2-2.13.13";
   "linuxPackages_cachyos.mba6x_bl" = "/nix/store/vrg3n5v2k29qpjary9ilzmv77qz0y9ym-mba6x_bl-unstable-2017-12-30";
@@ -33,7 +32,6 @@
   "linuxPackages_cachyos-hardened.isgx" = "/nix/store/x3gan3i7ci95fhzli3v45b5bl85s11fq-isgx-2.14-6.10.10";
   "linuxPackages_cachyos-hardened.ithc" = "/nix/store/rpj3hiw3m8n17iqkc7hp1yii8in7aq65-ithc-unstable-2022-06-07";
   "linuxPackages_cachyos-hardened.ivsc-driver" = "/nix/store/8yhkm9p33x2b8295gr8xmn3dr26xhqh4-ivsc-driver-unstable-2023-11-09";
-  "linuxPackages_cachyos-hardened.kvmfr" = "/nix/store/bcvydnnv6q9294iwb4cdaahsjwc7fbpw-kvmfr-B7-rc1";
   "linuxPackages_cachyos-hardened.lttng-modules" = "/nix/store/dknfabn5100afs4frpv8rsdp6ydx7qn2-lttng-modules-6.10.10-2.13.13";
   "linuxPackages_cachyos-hardened.mba6x_bl" = "/nix/store/w8hkn9q9kb300cyw4paz522pjzyqmnqp-mba6x_bl-unstable-2017-12-30";
   "linuxPackages_cachyos-hardened.mbp2018-bridge-drv" = "/nix/store/big9n30qn4nb4qdr8jkwg7nx7nrz0hib-mbp2018-bridge-drv-2020-01-31";
@@ -73,14 +71,14 @@
   "linuxPackages_cachyos-lto.it87" = "/nix/store/86yzxmc7mymrpkiyyiysh7gx6d5rp7b6-it87-unstable-2024-06-09-6.11.2";
   "linuxPackages_cachyos-lto.ithc" = "/nix/store/9xa630lcyhp0xcbws0rp0rx134f8aqz2-ithc-unstable-2022-06-07";
   "linuxPackages_cachyos-lto.ivsc-driver" = "/nix/store/mckgi2cr57dxcng9z5cnqi20blhj8glw-ivsc-driver-unstable-2023-11-09";
-  "linuxPackages_cachyos-lto.kvmfr" = "/nix/store/dag54g05j7zk4qsppbwpfslxajkh0mrh-kvmfr-B7-rc1";
+  "linuxPackages_cachyos-lto.kvmfr" = "/nix/store/mv8aajfmz6xmvxvr1i6pr9fkr2gyiak1-kvmfr-B7-rc1";
   "linuxPackages_cachyos-lto.lenovo-legion-module" = "/nix/store/hr7qfq2kvln47b7lragn3jgs9yahg3bk-lenovo-legion-module-0.0.12";
   "linuxPackages_cachyos-lto.linux-gpib" = "/nix/store/2rag5ix10m2x16y6f73m05nxmjrgrk2h-linux-gpib-kernel-4.3.6";
   "linuxPackages_cachyos-lto.liquidtux" = "/nix/store/0zmn9cr4fv4yi607zcbq8mr2hy9l6rya-liquidtux-unstable-2021-12-16-6.11.2";
   "linuxPackages_cachyos-lto.lttng-modules" = "/nix/store/g5jhkgraaqsjhv0qa40fascgjvi04s1w-lttng-modules-6.11.2-2.13.13";
   "linuxPackages_cachyos-lto.mba6x_bl" = "/nix/store/ibivv5bwrjzgyxhaj1s0wl8vdl1ffb6g-mba6x_bl-unstable-2017-12-30";
   "linuxPackages_cachyos-lto.mbp2018-bridge-drv" = "/nix/store/2hwgs2nvj4153zw9adcvz48d1v7s1jr7-mbp2018-bridge-drv-2020-01-31";
-  "linuxPackages_cachyos-lto.mm-tools" = "/nix/store/l6q8zrrldj8s8r4in7ylm3ng1grysgsp-mm-tools-6.6.53";
+  "linuxPackages_cachyos-lto.mm-tools" = "/nix/store/pzys4i3bjxrmxn5cya0cpn9npxz4vlid-mm-tools-6.6.54";
   "linuxPackages_cachyos-lto.mwprocapture" = "/nix/store/0r966hk67bmfkvmwpzcdvgf39sygwpbv-mwprocapture-1.3.0.4390-6.11.2";
   "linuxPackages_cachyos-lto.netatop" = "/nix/store/nx91k4rgkqzwd6rbbfsmp1qq3n0cbk8a-netatop-6.11.2-3.1";
   "linuxPackages_cachyos-lto.new-lg4ff" = "/nix/store/blhk06r433ljf2gnyd53f4049dxjxchl-new-lg4ff-0.4.0";
@@ -88,6 +86,7 @@
   "linuxPackages_cachyos-lto.nvidia_x11_legacy470" = "/nix/store/vdp510jfb03y467czf95s10r6dyhssqa-nvidia-x11-470.256.02-6.11.2";
   "linuxPackages_cachyos-lto.nvidia_x11_legacy535" = "/nix/store/m6cjaaa6nk2pq2as1447pkbwmzyy8g49-nvidia-x11-535.154.05-6.11.2";
   "linuxPackages_cachyos-lto.openafs" = "/nix/store/1g07wi4arwx1244pd9qydqhcypx6rkgh-openafs-1.8.12-6.11.2-cachyos";
+  "linuxPackages_cachyos-lto.openafs_1_8" = "/nix/store/1g07wi4arwx1244pd9qydqhcypx6rkgh-openafs-1.8.12-6.11.2-cachyos";
   "linuxPackages_cachyos-lto.perf" = "/nix/store/3k2nw3rsby7jd8aw4ja47apvd260zzql-perf-linux-6.11.2";
   "linuxPackages_cachyos-lto.ply" = "/nix/store/sb0p9vgi96mj3qc44j17awqhpmicyadi-ply-2.1.1-e25c913";
   "linuxPackages_cachyos-lto.rr-zen_workaround" = "/nix/store/mybdfk60ds53shwp7m4338pal6pzbgw7-rr-zen_workaround-5.8.0";
@@ -129,7 +128,6 @@
   "linuxPackages_cachyos-server.isgx" = "/nix/store/nmfs1zvpa13v4phw6jrxzfx0376y45gb-isgx-2.14-6.11.2";
   "linuxPackages_cachyos-server.ithc" = "/nix/store/3c8r3ddlpfarsqfpis3hs28nsm2hkb6l-ithc-unstable-2022-06-07";
   "linuxPackages_cachyos-server.ivsc-driver" = "/nix/store/wqaa5j6rns55p4ak9x6d7q4x0b66fdv6-ivsc-driver-unstable-2023-11-09";
-  "linuxPackages_cachyos-server.kvmfr" = "/nix/store/n27g1bj4j2d60qc05ql3hsbx719rr769-kvmfr-B7-rc1";
   "linuxPackages_cachyos-server.lenovo-legion-module" = "/nix/store/gqil7dmwzc4pja2gk3q6jrb6dqdl8p04-lenovo-legion-module-0.0.12";
   "linuxPackages_cachyos-server.lttng-modules" = "/nix/store/cdbcayzqm1yv1hpblps54vrv6hpg3nz8-lttng-modules-6.11.2-2.13.13";
   "linuxPackages_cachyos-server.mba6x_bl" = "/nix/store/pgf1y1djnd8am4qgr7z2j1cgg1brwk8g-mba6x_bl-unstable-2017-12-30";
