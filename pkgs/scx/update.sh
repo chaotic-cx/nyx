@@ -19,8 +19,10 @@ fi
 pushd scx
 CURRREV=$(git rev-parse HEAD)
 
+rm -f Cargo.toml Cargo.lock
+
 pushd scheds/rust
-for s in bpfland lavd layered rlfifo rustland rusty; do
+for s in bpfland lavd layered mitosis rlfifo rustland rusty; do
   pushd "scx_${s}"
 
   cargo generate-lockfile

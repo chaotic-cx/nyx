@@ -9,10 +9,10 @@
 }:
 
 rustPlatform.buildRustPackage rec {
-  pname = "scx-rustland";
+  pname = "scx-mitosis";
 
   inherit (scx-common) src version;
-  cargoRoot = "scheds/rust/scx_rustland";
+  cargoRoot = "scheds/rust/scx_mitosis";
 
   cargoLock.lockFile = ./Cargo.lock;
 
@@ -27,19 +27,19 @@ rustPlatform.buildRustPackage rec {
 
   postPatch = ''
     rm Cargo.toml Cargo.lock
-    ln -fs ${./Cargo.lock} scheds/rust/scx_rustland/Cargo.lock
+    ln -fs ${./Cargo.lock} scheds/rust/scx_mitosis/Cargo.lock
   '';
 
   # Can't use sourceRoot because it will fail with lack of permissions in scx_utils
   preBuild = ''
-    cd scheds/rust/scx_rustland
+    cd scheds/rust/scx_mitosis
   '';
 
   installPhase = ''
     runHook preInstall
 
     mkdir $out
-    cp target/${stdenv.targetPlatform.config}/release/scx_rustland $out/
+    cp target/${stdenv.targetPlatform.config}/release/scx_mitosis $out/
 
     runHook postInstall
   '';
@@ -50,7 +50,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = with lib; {
     homepage = "https://bit.ly/scx_slack";
-    description = "sched_ext schedulers and tools (scx_rustland portion)";
+    description = "sched_ext schedulers and tools (scx_mitosis portion)";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
     maintainers = with maintainers; [ pedrohlc ];

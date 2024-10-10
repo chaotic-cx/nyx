@@ -24,7 +24,7 @@ in
         "scx_qmap"
         "scx_rlfifo"
         "scx_rustland"
-        "scx_rusty"
+        # "scx_rusty" (BROKEN)
         "scx_simple"
         "scx_userland"
       ];

@@ -7,6 +7,7 @@
 , scx-bpfland
 , scx-lavd
 , scx-layered
+, scx-mitosis
 , scx-rlfifo
 , scx-rustland
 , scx-rusty
@@ -23,44 +24,7 @@
 }:
 
 let
-  fakeCargo = writeShellScriptBin "cargo" ''
-    set -e
-    if [ ''${3:-} = '--target-dir=rust/scx_utils' ]; then
-      exit 0
-    elif [ ''${3:-} = '--target-dir=rust/scx_rustland_core' ]; then
-      exit 0
-    elif [ ''${3:-} = '--target-dir=scheds/rust/scx_bpfland' ]; then
-      mkdir -p /build/source/build/scheds/rust/scx_bpfland
-      cp -r ${scx-bpfland} /build/source/build/scheds/rust/scx_bpfland/release
-      exit 0
-    elif [ ''${3:-} = '--target-dir=scheds/rust/scx_lavd' ]; then
-      mkdir -p /build/source/build/scheds/rust/scx_lavd
-      cp -r ${scx-lavd} /build/source/build/scheds/rust/scx_lavd/release
-      exit 0
-    elif [ ''${3:-} = '--target-dir=scheds/rust/scx_layered' ]; then
-      mkdir -p /build/source/build/scheds/rust/scx_layered
-      cp -r ${scx-layered} /build/source/build/scheds/rust/scx_layered/release
-      exit 0
-    elif [ ''${3:-} = '--target-dir=scheds/rust/scx_rustland' ]; then
-      mkdir -p /build/source/build/scheds/rust/scx_rustland
-      cp -r ${scx-rustland} /build/source/build/scheds/rust/scx_rustland/release
-      exit 0
-    elif [ ''${3:-} = '--target-dir=scheds/rust/scx_rlfifo' ]; then
-      mkdir -p /build/source/build/scheds/rust/scx_rlfifo
-      cp -r ${scx-rlfifo} /build/source/build/scheds/rust/scx_rlfifo/release
-      exit 0
-    elif [ ''${3:-} = '--target-dir=scheds/rust/scx_rusty' ]; then
-      mkdir -p /build/source/build/scheds/rust/scx_rusty
-      cp -r ${scx-rusty} /build/source/build/scheds/rust/scx_rusty/release
-      exit 0
-    elif [ ''${3:-} = '--target-dir=rust/scx_stats' ]; then
-      mkdir -p /build/source/build/rust/scx_stats
-      cp -r ${scx-stats} /build/source/build/rust/scx_stats/release
-      exit 0
-    fi
-    exit 1
-  '';
-
+  # grep 'bpftool_commit =' ./meson.build
   bpftools_src = fetchFromGitHub {
     owner = "libbpf";
     repo = "bpftool";
@@ -85,11 +49,6 @@ llvmPackages.stdenv.mkDerivation {
   inherit (scx-common) src version;
 
   postPatch = ''
-    cp -r ${scx-rusty} ./scheds/rust/scx_rusty/release
-    cp -r ${scx-layered} ./scheds/rust/scx_layered/release
-    cp -r ${scx-lavd} ./scheds/rust/scx_lavd/release
-    cp -r ${scx-rlfifo} ./scheds/rust/scx_rlfifo/release
-    cp -r ${scx-rustland} ./scheds/rust/scx_rustland/release
     rm meson-scripts/fetch_bpftool
     patchShebangs ./meson-scripts
     cp ${fetchBpftool} meson-scripts/fetch_bpftool
@@ -102,7 +61,6 @@ llvmPackages.stdenv.mkDerivation {
     ninja
     pkg-config
     llvmPackages.clang
-    fakeCargo
     jq
   ] ++ bpftools_full.buildInputs ++ bpftools_full.nativeBuildInputs;
 
@@ -117,6 +75,8 @@ llvmPackages.stdenv.mkDerivation {
     "-Dopenrc=disabled"
     "-Dlibbpf_a=disabled"
     "-Dlibalpm=disabled"
+    "-Doffline=true"
+    "-Denable_rust=false"
   ];
 
   enableParallelBuilding = true;
@@ -126,8 +86,20 @@ llvmPackages.stdenv.mkDerivation {
     "zerocallusedregs"
   ];
 
+  # These two are borken right now:
+  # cp ${scx-mitosis}/scx_mitosis $out/bin/
+  # cp ${scx-rusty}/scx_rusty $out/bin/
+  # cp ${scx-stats}/libscx_stats* $out/lib/
+  postInstall = ''
+    cp ${scx-bpfland}/scx_bpfland $out/bin/
+    cp ${scx-lavd}/scx_lavd $out/bin/
+    cp ${scx-layered}/scx_layered $out/bin/
+    cp ${scx-rlfifo}/scx_rlfifo $out/bin/
+    cp ${scx-rustland}/scx_rustland $out/bin/
+  '';
+
   passthru = {
-    inherit scx-common scx-rusty scx-lavd scx-layered scx-rlfifo scx-rustland;
+    inherit scx-common scx-bpfland scx-lavd scx-layered scx-mitosis scx-rlfifo scx-rustland scx-rusty scx-stats;
   };
 
   meta = with lib; {
