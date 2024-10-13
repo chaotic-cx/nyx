@@ -120,6 +120,8 @@ in
 
   extra-cmake-modules_git = callOverride ../pkgs/extra-cmake-modules-git/latest.nix { };
 
+  fetchTorGit = callOverride ../pkgs/fetchtorgit { };
+
   firedragon-unwrapped = final.callPackage ../pkgs/firedragon { };
 
   firedragon = final.wrapFirefox final.firedragon-unwrapped {
@@ -270,6 +272,11 @@ in
 
   telegram-desktop_git = callOverride ../pkgs/telegram-desktop-git { };
   tg-owt_git = callOverride ../pkgs/tg-owt-git { };
+
+  torzu_git = final.kdePackages.callPackage ../pkgs/torzu-git {
+    current = importJSON ../pkgs/torzu-git/version.json;
+    inherit (final) fetchTorGit;
+  };
 
   vulkanPackages_latest = callOverride ../pkgs/vulkan-versioned
     { vulkanVersions = importJSON ../pkgs/vulkan-versioned/latest.json; };

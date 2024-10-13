@@ -1,0 +1,14 @@
+{
+  "version": "unstable-20241010-a9b7cae",
+  "lastModified": "1728545832",
+  "rev": "a9b7cae66757513b13a97d60f86fcc604ccbe3ed",
+  "hash": "sha256-dminZLKXBNDbnYa54Kvb339f85lnam5/o4A3nk2T8aI=",
+  "compatList": {
+    "rev": "fc974b6e78105774dae5f68e712a6beb51b9db1e",
+    "hash": "sha256:1hdsza3wf9a0yvj6h55gsl7xqvhafvbz1i8paz9kg7l49b0gnlh1"
+  },
+  "tzinfo": {
+    "version": "221202",
+    "hash": "sha256-YOIElcKTiclem05trZsA3YJReozu/ex7jJAKD6nAMwc="
+  }
+}
