@@ -1,11 +1,11 @@
 {
-  "firefoxVersion": "128.3.0",
+  "firefoxVersion": "128.4.0",
   "firedragonSource": {
-    "version": "11.19.0-1",
-    "hash": "sha256-09BlIwAWy11AZ3LwSl2Ddat4YdOo7xdGEi0ZxruzgHM="
+    "version": "11.19.1-1",
+    "hash": "sha256-qnbAq0HsiAWNRPTKnaNmbOtgA0BBRUKI+C9HoOWl5jI="
   },
   "firedragonSettings": {
-    "rev": "61705e6b7489e4e86b238c4bd67ebe187f8b5a71",
-    "hash": "sha256-NpZqfUR5ngnEKsjk03Cb6U9w5aLj25Ula1/Zb6N1nSc="
+    "rev": "bca1db769cb60c9d18873a4ca80208091105904e",
+    "hash": "sha256-puFuwFFAdHZgf+yU2E/YzTfmC3MLC9Y0F840wefsA/8="
   }
 }
