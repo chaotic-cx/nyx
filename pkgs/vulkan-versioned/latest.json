@@ -28,9 +28,9 @@
     "badTag": "v2024.4.rc1"
   },
   "vulkanHeaders": {
-    "version": "1.3.297",
+    "version": "1.3.298",
     "rev": "v#{version}",
-    "hash": "sha256-ny/UVx4r+Fj39ZEepaWqDPplAJcrBQEQlkqsSofwLJ0="
+    "hash": "sha256-Psw9XooeXiww3b3GVoidvR5axUs/fNSt/iMiCHKkEeY="
   },
   "vulkanLoader": {
     "version": "1.3.297",
