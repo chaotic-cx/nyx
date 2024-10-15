@@ -1,4 +1,4 @@
-{ prev, gitOverride, nyxUtils, ... }:
+{ prev, gitOverride, ... }:
 
 gitOverride {
   nyxKey = "jujutsu_git";
