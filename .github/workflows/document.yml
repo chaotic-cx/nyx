@@ -26,7 +26,6 @@ jobs:
         uses: cachix/install-nix-action@v30
         with:
           extra_nix_config: "accept-flake-config = true"
-          install_url: https://releases.nixos.org/nix/nix-2.22.3/install
       - name: Checkout
         uses: actions/checkout@v4
       - name: Build

@@ -24,7 +24,6 @@ jobs:
           extra_nix_config: |
             accept-flake-config = true
             system-features = big-parallel gccarch-x86-64-v3
-          install_url: https://releases.nixos.org/nix/nix-2.22.3/install
       - uses: actions/checkout@v4
       - name: Update nixpkgs flake
         run: nix flake lock --update-input nixpkgs || exit 1; git diff --exit-code flake.lock && exit 1 || exit 0
