@@ -97,7 +97,6 @@ with major; writeShellScript "update-cachyos" ''
     > pkgs/linux-cachyos/config-nix/cachyos${flavor}.x86_64-linux.nix
   '') flavors}
 
-  git add $srcJson pkgs/linux-cachyos/config-*.nix
+  git add pkgs/linux-cachyos
   git commit -m "linux_cachyos${suffix}: $localVer -> $latestVer"
 ''
-
