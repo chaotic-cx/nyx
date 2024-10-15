@@ -26,6 +26,7 @@ gitOverride {
     env = prevAttrs.env // { OPENSSL_NO_VENDOR = 1; };
     # Nothing wrong on it, just saving compilation time for me!
     dontCheck = true;
+    doInstallCheck = true;
     # https://github.com/zed-industries/zed/issues/15902
     RUSTFLAGS = "-Clink-arg=-z -Clink-arg=nostart-stop-gc " + prevAttrs.RUSTFLAGS;
     # Starting zed-editor from zed seems to loose these libraries somehow
