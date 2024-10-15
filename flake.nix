@@ -9,11 +9,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # For packages that require the latest rust toolchain (at the moment only zed-editor_git)
-    fenix = {
-      url = "github:nix-community/fenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     # Thirdy-party republished repositories
     jovian = {
       url = "github:Jovian-Experiments/Jovian-NixOS";
