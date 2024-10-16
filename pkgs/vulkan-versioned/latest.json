@@ -19,7 +19,7 @@
     "version": "unstable-20241010-50bc4de",
     "rev": "50bc4debdc3eec5045edbeb8ce164090e29b91f3",
     "hash": "sha256-Zv5QZ8MmP45MH5e6EBDNPmP0vcjjNXJHKva5MNh5ovA=",
-    "badTag": "vulkan-sdk-1.3.290.0"
+    "badTag": "vulkan-sdk-1.3.296.0"
   },
   "spirvTools": {
     "version": "unstable-20241009-fcf994a",
