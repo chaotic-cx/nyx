@@ -52,7 +52,6 @@ let
     url = "https://raw.githubusercontent.com/flathub/org.yuzu_emu.yuzu/${rev}/compatibility_list.json";
     inherit hash;
   };
-  branch = "early-access";
 
   tzinfo = with current.tzinfo; fetchzip {
     url = "https://github.com/lat9nq/tzdb_to_nx/releases/download/${version}/${version}.zip";

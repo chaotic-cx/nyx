@@ -15,8 +15,7 @@ gitOverride (current: {
   withUpdateScript = !isWSI;
 
   postOverride = prevAttrs: {
-    buildInputs = with final; [ lcms2 ] ++ prevAttrs.buildInputs;
-    # Taints commits in logs for debugging purposes
+    buildInputs = with final; [ luajit ] ++ prevAttrs.buildInputs;
     postPatch =
       let shortRev = nyxUtils.shorter current.rev; in
       prevAttrs.postPatch + ''
@@ -24,6 +23,7 @@ gitOverride (current: {
           --replace-fail 'WSI] Surface' 'WSI ${shortRev}] Surface'
         substituteInPlace src/meson.build \
           --replace-fail "'git', 'describe', '--always', '--tags', '--dirty=+'" "'echo', '${current.rev}'"
+        patchShebangs default_scripts_install.sh
       '';
   };
 })

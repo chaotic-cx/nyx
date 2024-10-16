@@ -1,7 +1,6 @@
 { lib
 , llvmPackages
 , writeShellScript
-, writeShellScriptBin
 , fetchFromGitHub
 , scx-common
 , scx-bpfland
