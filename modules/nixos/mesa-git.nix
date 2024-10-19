@@ -23,7 +23,7 @@ let
   methodBackend =
     let
       variables = {
-        GBM_BACKENDS_PATH = "/run/opengl-driver/lib/gbm"; # superfluous
+        GBM_BACKENDS_PATH = "/run/opengl-driver/lib/gbm:/run/opengl-driver-32/lib/gbm"; # superfluous
         GBM_BACKEND = pkgs.mesa_git.gbmBackend;
       };
     in

@@ -182,7 +182,7 @@ in
     if has32 then callOverride32 ../pkgs/mangohud-git { }
     else throw "No mangohud32_git for non-x86";
 
-  mesa_git = callOverride ../pkgs/mesa-git { gbmDriver = true; };
+  mesa_git = callOverride ../pkgs/mesa-git { };
   mesa32_git =
     if has32 then callOverride32 ../pkgs/mesa-git { }
     else throw "No mesa32_git for non-x86";

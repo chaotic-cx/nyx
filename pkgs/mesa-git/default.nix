@@ -4,7 +4,7 @@
 , prev
 , gitOverride
 , nyxUtils
-, gbmDriver ? false
+, gbmDriver ? true
 , gbmBackend ? "dri_git"
 , mesaTestAttrs ? final
 , ...
