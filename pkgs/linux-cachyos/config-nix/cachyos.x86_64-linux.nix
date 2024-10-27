@@ -7426,7 +7426,6 @@
   "CONFIG_AMD_PMF" = "m";
   "CONFIG_AMD_PMC" = "m";
   "CONFIG_AMD_MP2_STB" = "y";
-  "CONFIG_AMD_HFI" = "y";
   "CONFIG_AMD_3D_VCACHE" = "y";
   "CONFIG_AMD_HSMP" = "m";
   "CONFIG_AMD_WBRF" = "y";
