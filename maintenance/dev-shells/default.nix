@@ -27,7 +27,7 @@ let
       };
 
       # Matches build.yml and full-bump.yml
-      pinnedNix = pkgs.nixVersions.latest;
+      pinnedNix = pkgs.lix;
 
       builder = callPackage ../tools/builder
         {
