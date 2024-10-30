@@ -1,8 +1,6 @@
-{ final, prev, gitOverride, ... }:
+{ prev, gitOverride, ... }:
 
 gitOverride {
-  # newInputs = with final; { glib = glib_git; };
-
   nyxKey = "tg-owt_git";
   prev = prev.telegram-desktop.tg_owt;
 
@@ -15,7 +13,7 @@ gitOverride {
   };
   ref = "master";
 
-  postOverride = prevAttrs: {
-    nativeBuildInputs = with final; [ python3 ] ++ prevAttrs.nativeBuildInputs;
+  postOverride = _prevAttrs: {
+    patches = [];
   };
 }
