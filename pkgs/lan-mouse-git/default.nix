@@ -1,4 +1,4 @@
-{ prev, gitOverride, ... }:
+{ final, prev, gitOverride, ... }:
 
 gitOverride (current: {
   nyxKey = "lan-mouse_git";
@@ -11,7 +11,10 @@ gitOverride (current: {
     repo = "lan-mouse";
   };
 
-  postOverride = _prevAttrs: {
+  postOverride = prevAttrs: {
+    buildInputs = with final; prevAttrs.buildInputs
+      ++ lib.optional stdenv.hostPlatform.isDarwin darwin.apple_sdk.frameworks.ApplicationServices;
+
     patches = [ ./no-describe.patch ];
 
     postPatch = ''
