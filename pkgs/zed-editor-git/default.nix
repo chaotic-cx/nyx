@@ -22,7 +22,7 @@ gitOverride {
     outputHashes = zedPins;
   };
 
-  postOverride = prevAttrs: {
+  postOverride = _prevAttrs: {
     # Nothing wrong on it, just saving compilation time for me!
     dontCheck = true;
     doInstallCheck = false;
