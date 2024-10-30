@@ -3,7 +3,6 @@
 , lib
 
 , coreutils-full
-, cacert
 , cachix
 , curl
 , findutils
