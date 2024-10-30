@@ -1,8 +1,8 @@
 {
-  "ruma-0.10.1": "sha256-F//nGTUhhJPR6Z9/r2qlMw+Kw+tmrpJy5axPBcUiEmk=",
+  "ruma-0.10.1": "sha256-ucyH4Jx4WklB7M8BZANNheueROPKBEmtB5l8SZ+4EeU=",
   "ruma-identifiers-validation-0.9.5": "sha256-37ozG1PfljG1d6BLxuhIEHtEs8sdnVKGVwmgGAE9QjA=",
-  "rust-librocksdb-sys-0.26.0+9.6.1": "sha256-e4ji5SFitdASfoOUnsi75pQRZuGU0G7MKXvmxMrOeQ0=",
+  "rust-librocksdb-sys-0.28.0+9.7.3": "sha256-hBOL3e9F8KIjx1OU/z5RSysm4RHa0vDJladUv9GBd88=",
   "rustyline-async-0.4.3": "sha256-7yYOGZ14SODD4+e9fTGgggUKqTi31479S0lEVKTKLPI=",
   "tracing-0.1.40": "sha256-J6+8hBC/755SU8n1fTiJwBh17Unluv1SXfd5+dDAEhk=",
-  "tikv-jemalloc-ctl-0.6.0": "sha256-guiH6Gw/Oeb6A8Ri1SFcB6CW6mt+9XeA6vfwdS72yDQ="
+  "tikv-jemalloc-ctl-0.6.0": "sha256-jEQKxJkbSLC6uKdSzIG8YqFgmqz9AeFpivXOYrauptM="
 }
