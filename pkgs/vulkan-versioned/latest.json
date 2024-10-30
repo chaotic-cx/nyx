@@ -16,15 +16,15 @@
     "hash": "sha256-HKEh/UQzDQEOvJGHQlM6kEYVZrMaUBOcOGjjHWXSPoo="
   },
   "spirvHeaders": {
-    "version": "unstable-20241010-50bc4de",
-    "rev": "50bc4debdc3eec5045edbeb8ce164090e29b91f3",
-    "hash": "sha256-Zv5QZ8MmP45MH5e6EBDNPmP0vcjjNXJHKva5MNh5ovA=",
+    "version": "unstable-20241023-22c4d1b",
+    "rev": "22c4d1b1e9d1c7d9aa5086c93e6491f21080019b",
+    "hash": "sha256-OArYJBauw5mu6Lnlf842KIueQya0HON1Mg4oEQ5w0Uw=",
     "badTag": "vulkan-sdk-1.3.296.0"
   },
   "spirvTools": {
-    "version": "unstable-20241009-fcf994a",
-    "rev": "fcf994a619608c2bdb505189f6e325b1a6b4f294",
-    "hash": "sha256-tZ9H+6Ac83YcwUR3NNa3Xj+SzKALTxvq/QtuvEflyUs=",
+    "version": "unstable-20241024-ce92630",
+    "rev": "ce92630396c2fd2d6d04819369116af4fb141a284",
+    "hash": "sha256-EUFYEDRshBHYpqorlA6/ZD6CCbB4XL7SgJZUFTgvJu0=",
     "badTag": "vulkan-sdk-1.3.296.0"
   },
   "vulkanHeaders": {
