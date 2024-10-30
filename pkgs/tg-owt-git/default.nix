@@ -14,6 +14,6 @@ gitOverride {
   ref = "master";
 
   postOverride = _prevAttrs: {
-    patches = [];
+    patches = [ ];
   };
 }
