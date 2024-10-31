@@ -83,7 +83,7 @@ in
 
   alacritty_git = callOverride ../pkgs/alacritty-git { };
 
-  ananicy-cpp-rules = final.callPackage ../pkgs/ananicy-cpp-rules { };
+  ananicy-rules-cachyos_git = callOverride ../pkgs/ananicy-cpp-rules { };
 
   applet-window-title = final.callPackage ../pkgs/applet-window-title { };
 
