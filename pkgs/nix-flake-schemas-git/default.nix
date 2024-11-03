@@ -13,6 +13,7 @@ gitOverride {
   ref = "flake-schemas";
 
   postOverride = prevAttrs: {
+    patches = [];
     doInstallCheck = false;
     configureFlags = prevAttrs.configureFlags ++ [
       "--with-default-flake-schemas=${final.fetchFromGitHub {
