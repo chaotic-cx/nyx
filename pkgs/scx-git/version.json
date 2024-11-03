@@ -1,0 +1,15 @@
+{
+  "scx": {
+    "version": "unstable-20241102152003-20c0372",
+    "rev": "20c03726242cdf94768ba190fe30dc12274b420e",
+    "hash": "sha256-j0foIBA6BLvFDPM1WAGwxzfVYw6ZvRB9zwLWXG6QPQU="
+  },
+  "bpftool": {
+    "rev": "77a72987353fcae8ce330fd87d4c7afb7677a169",
+    "hash": "sha256-pItTVewlXgB97AC/WH9rW9J/eYSe2ZdBkJaAgGnDeUU="
+  },
+  "libbpf": {
+    "rev": "09b9e83102eb8ab9e540d36b4559c55f3bcdb95d",
+    "hash": "sha256-0PadA9OppNGmgSTLi8sXrh3syxPVkqrnTkBr8cyp+Ug="
+  }
+}

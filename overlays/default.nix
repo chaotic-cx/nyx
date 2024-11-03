@@ -64,7 +64,7 @@ let
   makeMicroarchPkgs = import ../shared/make-microarch.nix { inherit nixpkgs final selfOverlay nixpkgsExtraConfig; };
 
   # Common stuff for scx-schedulers
-  scx-common = final.callPackage ../pkgs/scx/common.nix { };
+  scx-common = final.callPackage ../pkgs/scx-git/common.nix { };
 
   # Required for 32-bit packages
   has32 = final.stdenv.hostPlatform.isLinux && final.stdenv.hostPlatform.isx86;
@@ -91,7 +91,7 @@ in
 
   beautyline-icons = final.callPackage ../pkgs/beautyline-icons { };
 
-  bpftools_full = final.callPackage ../pkgs/scx/bpftools-full.nix { };
+  bpftools_full = final.callPackage ../pkgs/bpftools-full { };
 
   busybox_appletless = multiOverride
     prev.busybox
@@ -251,16 +251,15 @@ in
 
   spirv-headers_git = callOverride ../pkgs/spirv-headers-git { };
 
-  scx = final.callPackage ../pkgs/scx {
-    inherit scx-common;
-    scx-bpfland = final.callPackage ../pkgs/scx/bpfland { inherit scx-common; };
-    scx-lavd = final.callPackage ../pkgs/scx/lavd { inherit scx-common; };
-    scx-layered = final.callPackage ../pkgs/scx/layered { inherit scx-common; };
-    scx-mitosis = final.callPackage ../pkgs/scx/mitosis { inherit scx-common; };
-    scx-rlfifo = final.callPackage ../pkgs/scx/rlfifo { inherit scx-common; };
-    scx-rustland = final.callPackage ../pkgs/scx/rustland { inherit scx-common; };
-    scx-rusty = final.callPackage ../pkgs/scx/rusty { inherit scx-common; };
-    scx-stats = final.callPackage ../pkgs/scx/stats { inherit scx-common; };
+  scx_git = {
+    bpfland = final.callPackage ../pkgs/scx-git/bpfland { inherit scx-common; };
+    cscheds = final.callPackage ../pkgs/scx-git/cscheds.nix { inherit scx-common; };
+    lavd = final.callPackage ../pkgs/scx-git/lavd { inherit scx-common; };
+    layered = final.callPackage ../pkgs/scx-git/layered { inherit scx-common; };
+    rlfifo = final.callPackage ../pkgs/scx-git/rlfifo { inherit scx-common; };
+    rustland = final.callPackage ../pkgs/scx-git/rustland { inherit scx-common; };
+    rusty = final.callPackage ../pkgs/scx-git/rusty { inherit scx-common; };
+    full = final.callPackage ../pkgs/scx-git/full.nix { inherit final; };
   };
 
   sway-unwrapped_git = callOverride ../pkgs/sway-unwrapped-git { };
