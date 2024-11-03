@@ -37,7 +37,7 @@ let
     };
 
   postOverride = prevAttrs: {
-    patches = nyxUtils.removeByBaseName "no-buildconfig-ffx96.patch" prevAttrs.patches;
+    patches = nyxUtils.removeByBaseName "env_var_for_system_dir-ff133.patch" prevAttrs.patches;
     env.MOZ_REQUIRE_SIGNING = "";
   };
 in

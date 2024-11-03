@@ -1,6 +1,4 @@
 {
-  "firefox-unwrapped_nightly" = "/nix/store/iqa0znj89dmh9q6m7hahjvl6s5awzsf8-firefox-nightly-unwrapped-134.0a1";
-  "firefox_nightly" = "/nix/store/37xr5nisx5qcnn48m58c8y0qk7j7l1sy-firefox-134.0a1";
   "linuxPackages_cachyos.ax99100" = "/nix/store/hcvm4lgg79j4b29x3689wdl0zxpsjbf5-ax99100-1.8.0";
   "linuxPackages_cachyos.ddcci-driver" = "/nix/store/nx8g4pm3a2mxmxim1pjn97hjvaflfmhv-ddcci-driver-6.11.6-0.4.4";
   "linuxPackages_cachyos.isgx" = "/nix/store/sl7dr18p45dyf1rmz2i8phsamzzbjw5j-isgx-2.14-6.11.6";
@@ -141,5 +139,4 @@
   "linuxPackages_cachyos-server.vendor-reset" = "/nix/store/ha4j6b6s3433wa79k0msz3mmxy3n4lfk-vendor-reset-unstable-2021-02-16-6.11.6";
   "linuxPackages_cachyos-server.virtio_vmmci" = "/nix/store/qyhbz45qdwjc1v8x54rzzabkf71mir0l-virtio_vmmci";
   "linuxPackages_cachyos-server.vmm_clock" = "/nix/store/g6zp0322vj2adgspcxv374czfbmhs6ka-vmm_clock-0.2.0";
-  "nix-flake-schemas_git" = "/nix/store/hbyk2f512v1wmk4w2vy6mg1mpdmqpjfd-nix-unstable-20240712141454-e1ed2d1";
 }
