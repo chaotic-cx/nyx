@@ -111,6 +111,12 @@ final.lib.makeScope final.newScope (self:
     key = "vulkanTools";
     owner = "KhronosGroup";
     repo = "Vulkan-Tools";
+    extraAttrs = _prevAttrs: {
+      postPatch = ''
+        substituteInPlace cube/CMakeLists.txt \
+          --replace-fail ' ''${WAYLAND_CLIENT_PATH}/wayland.xml' ' ${final.buildPackages.wayland-scanner.out}/share/wayland/wayland.xml'
+      '';
+    };
   };
 
   vulkan-tools-lunarg =
