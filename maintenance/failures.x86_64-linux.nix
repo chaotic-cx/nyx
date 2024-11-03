@@ -139,6 +139,5 @@
   "linuxPackages_cachyos-server.vmm_clock" = "/nix/store/g6zp0322vj2adgspcxv374czfbmhs6ka-vmm_clock-0.2.0";
   "nix-flake-schemas_git" = "/nix/store/hbyk2f512v1wmk4w2vy6mg1mpdmqpjfd-nix-unstable-20240712141454-e1ed2d1";
   "swaylock-plugin_git" = "/nix/store/gb5cxyrzjp1h98bi75lvz5dvvvm56xif-swaylock-unstable-20241101221233-e792b19";
-  "telegram-desktop_git" = "/nix/store/5xgrj33ww8s8c1a5zyzhj4bknh5v38zc-telegram-desktop-unstable-20241101182507-233eb6d";
   "vulkanPackages_latest.vulkan-tools" = "/nix/store/afy028l2cir8jqsnz9kkvgv4vcpdbxw4-vulkan-tools-1.3.300";
 }
