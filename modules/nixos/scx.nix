@@ -11,7 +11,7 @@ in
     improve system performance. Requires a kernel
     with the SCX patchset applied. Currently
     all cachyos kernels have this patchset applied'';
-    package = lib.mkPackageOption pkgs "scx" { };
+    package = lib.mkPackageOption pkgs "scx.full" { };
     scheduler = lib.mkOption {
       type = lib.types.enum [
         "scx_bpfland"
@@ -24,7 +24,7 @@ in
         "scx_qmap"
         "scx_rlfifo"
         "scx_rustland"
-        # "scx_rusty" (BROKEN)
+        "scx_rusty"
         "scx_simple"
         "scx_userland"
       ];
