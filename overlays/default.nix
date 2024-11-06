@@ -118,7 +118,7 @@ in
       (overrideDescription (_prevDesc: "Provides \"DroidSansM Nerd Font\" font family."))
     ];
 
-  extra-cmake-modules_git = callOverride ../pkgs/extra-cmake-modules-git/latest.nix { };
+  extra-cmake-modules_git = callOverride ../pkgs/extra-cmake-modules-git { };
 
   fetchTorGit = callOverride ../pkgs/fetchtorgit { };
 
@@ -146,8 +146,6 @@ in
   godot_4-mono = final.callPackage ../pkgs/godot_4-mono { };
 
   jujutsu_git = callOverride ../pkgs/jujutsu-git { };
-
-  kf6coreaddons_git = callOverride ../pkgs/kf6coreaddons-git/latest.nix { };
 
   lan-mouse_git = callOverride ../pkgs/lan-mouse-git { };
 
