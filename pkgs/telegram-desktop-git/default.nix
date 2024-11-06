@@ -11,8 +11,8 @@ gitOverride {
         realCall;
   };
 
-  nyxKey = "telegram-desktop_git";
-  prev = prev.telegram-desktop;
+  nyxKey = "telegram-desktop-unwrapped_git";
+  prev = prev.telegram-desktop.unwrapped;
 
   versionNyxPath = "pkgs/telegram-desktop-git/version.json";
   fetcher = "fetchFromGitHub";

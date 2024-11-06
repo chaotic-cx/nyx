@@ -269,7 +269,10 @@ in
 
   swaylock-plugin_git = callOverride ../pkgs/swaylock-plugin-git { };
 
-  telegram-desktop_git = callOverride ../pkgs/telegram-desktop-git { };
+  telegram-desktop-unwrapped_git = callOverride ../pkgs/telegram-desktop-git { };
+  telegram-desktop_git = final.telegram-desktop.override {
+    unwrapped = final.telegram-desktop-unwrapped_git;
+  };
   tg-owt_git = callOverride ../pkgs/tg-owt-git { };
 
   torzu_git = final.kdePackages.callPackage ../pkgs/torzu-git {
