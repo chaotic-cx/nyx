@@ -1,4 +1,5 @@
 {
+  "firefox-unwrapped_nightly" = "/nix/store/0srp5gjf0l4xxsww3115bn59khk72v7w-firefox-nightly-unwrapped-134.0a1";
   "linuxPackages_cachyos.ax99100" = "/nix/store/hcvm4lgg79j4b29x3689wdl0zxpsjbf5-ax99100-1.8.0";
   "linuxPackages_cachyos.ddcci-driver" = "/nix/store/nx8g4pm3a2mxmxim1pjn97hjvaflfmhv-ddcci-driver-6.11.6-0.4.4";
   "linuxPackages_cachyos.isgx" = "/nix/store/sl7dr18p45dyf1rmz2i8phsamzzbjw5j-isgx-2.14-6.11.6";
