@@ -118,8 +118,6 @@ in
       (overrideDescription (_prevDesc: "Provides \"DroidSansM Nerd Font\" font family."))
     ];
 
-  extra-cmake-modules_git = callOverride ../pkgs/extra-cmake-modules-git { };
-
   fetchTorGit = callOverride ../pkgs/fetchtorgit { };
 
   firedragon-unwrapped = final.callPackage ../pkgs/firedragon { };
