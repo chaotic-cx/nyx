@@ -143,8 +143,6 @@ in
     if has32 then callOverride32 ../pkgs/gamescope-git { isWSI = true; }
     else throw "No gamescope-wsi32_git for non-x86";
 
-  godot_4-mono = final.callPackage ../pkgs/godot_4-mono { };
-
   jujutsu_git = callOverride ../pkgs/jujutsu-git { };
 
   lan-mouse_git = callOverride ../pkgs/lan-mouse-git { };
