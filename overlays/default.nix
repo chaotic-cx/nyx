@@ -254,6 +254,7 @@ in
     rustland = final.callPackage ../pkgs/scx-git/rustland { inherit scx-common; };
     rusty = final.callPackage ../pkgs/scx-git/rusty { inherit scx-common; };
     full = final.callPackage ../pkgs/scx-git/full.nix { inherit final; };
+    recurseForDerivations = true;
   };
 
   sway-unwrapped_git = callOverride ../pkgs/sway-unwrapped-git { };

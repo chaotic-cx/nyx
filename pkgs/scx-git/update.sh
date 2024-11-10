@@ -53,3 +53,6 @@ for scheduler in bpfland lavd layered rlfifo rustland rusty; do
 
   popd
 done
+
+git add "$nixFolder"
+git commit -m 'scx_git: $localRev -> $latestRev'
