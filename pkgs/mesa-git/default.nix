@@ -59,7 +59,7 @@ gitOverride (current: {
   postOverride = prevAttrs: {
     nativeBuildInputs = with final; [ rustfmt python3Packages.pyyaml ] ++ prevAttrs.nativeBuildInputs;
 
-    mesonFlags = nyxUtils.removeByPrefixes [ "-Domx-libs-path=" "-Ddri-search-path=" ] prevAttrs.mesonFlags;
+    mesonFlags = nyxUtils.removeByPrefixes [ "-Domx-libs-path=" "-Ddri-search-path=" "-Dopencl-spirv" ] prevAttrs.mesonFlags;
 
     patches = (nyxUtils.removeByBaseName "opencl.patch" prevAttrs.patches) ++ [ ./opencl.patch ./gbm-backend.patch ];
 
