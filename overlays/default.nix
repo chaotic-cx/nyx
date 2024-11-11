@@ -118,8 +118,6 @@ in
       (overrideDescription (_prevDesc: "Provides \"DroidSansM Nerd Font\" font family."))
     ];
 
-  extra-cmake-modules_git = callOverride ../pkgs/extra-cmake-modules-git { };
-
   fetchTorGit = callOverride ../pkgs/fetchtorgit { };
 
   firedragon-unwrapped = final.callPackage ../pkgs/firedragon { };
@@ -256,6 +254,7 @@ in
     rustland = final.callPackage ../pkgs/scx-git/rustland { inherit scx-common; };
     rusty = final.callPackage ../pkgs/scx-git/rusty { inherit scx-common; };
     full = final.callPackage ../pkgs/scx-git/full.nix { inherit final; };
+    recurseForDerivations = true;
   };
 
   sway-unwrapped_git = callOverride ../pkgs/sway-unwrapped-git { };

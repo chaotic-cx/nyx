@@ -15,4 +15,6 @@ final.scx_git.cscheds.overrideAttrs (oldAttrs: {
       cp ${lib.getExe final.scx_git.rustland} $out/bin/
       cp ${lib.getExe final.scx_git.rusty} $out/bin/
     '';
+
+  updateScript = ./update.sh;
 })
