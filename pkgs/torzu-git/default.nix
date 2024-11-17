@@ -16,7 +16,7 @@
 , fetchurl
 , fetchzip
 , ffmpeg
-, fmt
+, fmt_11
 , glslang
 , httplib
 , inih
@@ -89,7 +89,7 @@ stdenv.mkDerivation {
     # intentionally omitted: dynarmic - prefer vendored version for compatibility
     enet
     ffmpeg
-    fmt
+    fmt_11
     glslang
     httplib
     inih
