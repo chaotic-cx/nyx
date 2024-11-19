@@ -1,17 +1,7 @@
 { final, prev, gitOverride, conduwuitPins, ... }:
-let
-  rocksdb_fixed = with final; rocksdb.override {
-    jemalloc = rust-jemalloc-sys-unprefixed;
-  };
-in
 gitOverride {
   nyxKey = "conduwuit_git";
-  prev = prev.matrix-conduit;
-
-  newInputs = with final; {
-    rust-jemalloc-sys = rust-jemalloc-sys-unprefixed;
-    rocksdb = rocksdb_fixed;
-  };
+  prev = prev.conduwuit;
 
   versionNyxPath = "pkgs/conduwuit-git/version.json";
   fetcher = "fetchFromGitHub";
@@ -23,14 +13,5 @@ gitOverride {
   withCargoDeps = final.rustPlatform.importCargoLock {
     lockFile = ./Cargo.lock;
     outputHashes = conduwuitPins;
-  };
-
-  postOverride = prevAttrs: {
-    preBuild = "";
-    pname = "conduwuit";
-    env = prevAttrs.env // {
-      ROCKSDB_INCLUDE_DIR = "${rocksdb_fixed}/include";
-      ROCKSDB_LIB_DIR = "${rocksdb_fixed}/lib";
-    };
   };
 }
