@@ -1,5 +1,5 @@
 { final, prev, gitOverride, conduwuitPins, ... }:
-gitOverride {
+gitOverride (current: {
   nyxKey = "conduwuit_git";
   prev = prev.conduwuit;
 
@@ -10,8 +10,11 @@ gitOverride {
     repo = "conduwuit";
   };
 
-  withCargoDeps = final.rustPlatform.importCargoLock {
-    lockFile = ./Cargo.lock;
-    outputHashes = conduwuitPins;
+  postOverride = prevAttrs: {
+    cargoDeps = final.fetchCargoVendor {
+        inherit (prevAttrs) src postUnpack;
+        name = "conduwuit-deps";
+        hash = current.cargoHash;
+    };
   };
-}
+})
