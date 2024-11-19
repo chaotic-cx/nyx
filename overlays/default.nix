@@ -118,6 +118,11 @@ in
       (overrideDescription (_prevDesc: "Provides \"DroidSansM Nerd Font\" font family."))
     ];
 
+  fetchCargoVendor = final.callPackage ../pkgs/fetch-cargo-vendor {
+    inherit nixpkgs;
+    inherit (final) cargo;
+  };
+
   fetchTorGit = callOverride ../pkgs/fetchtorgit { };
 
   firedragon-unwrapped = final.callPackage ../pkgs/firedragon { };
