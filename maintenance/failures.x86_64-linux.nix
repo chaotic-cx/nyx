@@ -1,4 +1,7 @@
 {
+  "conduwuit_git" = "/nix/store/sr1rq8q1880fv6abq1njh8bhgrmqg17l-conduwuit-unstable-20241117001513-26bcc7e";
+  "firefox-unwrapped_nightly" = "/nix/store/617v9014yabpljh7l8gilipfiv0xky9g-firefox-nightly-unwrapped-134.0a1";
+  "libbpf_git" = "/nix/store/nvdmzdq89gfy2jslirrzpy7jl9cw6y7m-libbpf-unstable-20241114032537-244485c";
   "linuxPackages_cachyos.asus-ec-sensors" = "/nix/store/3an0kb9dn1y6sb0wwhs5gs8037nwlmz8-asus-ec-sensors-unstable-2022-07-10-6.12.0";
   "linuxPackages_cachyos.ax99100" = "/nix/store/dvwsjyqbr8ddzf7x8cal48y15vnm1q8k-ax99100-1.8.0";
   "linuxPackages_cachyos.batman_adv" = "/nix/store/55abrkpd9p80wqmkk66qsw78k3pr0026-batman-adv-2024.3-6.12.0";
@@ -194,4 +197,6 @@
   "linuxPackages_cachyos-server.vm-tools" = "/nix/store/1mr7fm46r6v6i93i91fwzmi4ijkyq5iw-mm-tools-6.6.61";
   "linuxPackages_cachyos-server.vmm_clock" = "/nix/store/zpjjhqgq22b5ccv04c0z6zc0nm6x45x9-vmm_clock-0.2.0";
   "linuxPackages_cachyos-server.xpadneo" = "/nix/store/qnzi9jh8dn8kdsp5bx7qlb28jzwmd2g5-xpadneo-0.9.6";
+  "tg-owt_git" = "/nix/store/g6y17j7mbppwffjw319l6dpsx9pkpkp8-tg_owt-unstable-20241116052729-3008950";
+  "zed-editor_git" = "/nix/store/br9ifrnbq8y57mdn7xfrq5s1zjz2lw8s-zed-editor-unstable-20241118142329-5fd7afb";
 }
