@@ -4,6 +4,7 @@
 , libcap
 , linux_latest
 , kernel ? linux_latest
+, gcc
 }:
 
 (bpftools.override {
@@ -15,6 +16,9 @@
   # Enables "clang-bpf-co-re" feature
   inherit (llvmPackages) stdenv;
 }).overrideAttrs (prevAttrs: {
+  nativeBuildInputs = prevAttrs.nativeBuildInputs ++ [
+    gcc
+  ];
   buildInputs = prevAttrs.buildInputs ++ [
     # Enables "llvm" feature
     llvmPackages.llvm
