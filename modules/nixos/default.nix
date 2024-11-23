@@ -8,7 +8,6 @@ let
     nordvpn = import ./nordvpn.nix;
     nyx-cache = import ./nyx-cache.nix fromFlakes;
     nyx-overlay = import ../common/nyx-overlay.nix fromFlakes;
-    scx = import ./scx.nix;
     zfs-impermanence-on-shutdown = import ./zfs-impermanence-on-shutdown.nix;
   };
 
