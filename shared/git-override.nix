@@ -6,6 +6,7 @@
 , fetchFromGitLab
 , fetchRevFromGitHub
 , fetchRevFromGitLab
+, fetchCargoVendor
 }: config:
 let
   arrange =
@@ -41,11 +42,7 @@ let
         let
           src = fetchers.${fetcher} fullFetcherData;
 
-          hasCargo =
-            if prevAttrs ? cargoDeps then
-              if prevAttrs.cargoDeps.passthru ? lockFile then "lock"
-              else "rec"
-            else null;
+          hasCargo = prevAttrs ? cargoDeps;
 
           updateScript = callPackage ./git-update.nix {
             inherit (prevAttrs) pname;
@@ -72,15 +69,21 @@ let
           };
 
           whenCargo =
-            lib.attrsets.optionalAttrs (hasCargo != null) {
+            lib.attrsets.optionalAttrs hasCargo {
               cargoDeps =
-                if hasCargo == "lock" then
-                  withCargoDeps
-                else
-                  prevAttrs.cargoDeps.overrideAttrs (_cargoPrevAttrs: {
-                    inherit src;
-                    outputHash = current.cargoHash;
-                  });
+                if withCargoDeps == null then
+                  fetchCargoVendor
+                    {
+                      inherit src;
+                      inherit (prevAttrs.cargoDeps) name;
+                      sourceRoot = prevAttrs.cargoDeps.sourceRoot or null;
+                      patches = prevAttrs.cargoDeps.patches or [];
+                      preUnpack = prevAttrs.cargoDeps.preUnpack or null;
+                      unpackPhase = prevAttrs.cargoDeps.unpackPhase or null;
+                      postUnpack = prevAttrs.cargoDeps.postUnpack or null;
+                      hash = current.cargoHash;
+                    }
+                else withCargoDeps;
             };
         in
         common // whenCargo;
