@@ -11,4 +11,21 @@ in
     inherit (versionInfo.scx) rev hash;
     fetchSubmodules = true;
   };
+
+  cargoHash = "";
+
+  # grep 'bpftool_commit =' ./meson.build
+  bpftools_src = fetchFromGitHub {
+    owner = "libbpf";
+    repo = "bpftool";
+    inherit (versionInfo.bpftool) rev hash;
+    fetchSubmodules = true;
+  };
+  # grep 'libbpf_commit = ' ./meson.build
+  libbpf_src = fetchFromGitHub {
+    owner = "libbpf";
+    repo = "libbpf";
+    inherit (versionInfo.libbpf) rev hash;
+    fetchSubmodules = true;
+  };
 }
