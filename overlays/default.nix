@@ -40,6 +40,7 @@ let
   # Magic helper for _git packages.
   gitOverride = import ../shared/git-override.nix {
     inherit (final) lib callPackage fetchFromGitHub fetchFromGitLab;
+    inherit (final.rustPlatform) fetchCargoVendor;
     nyx = self;
     fetchRevFromGitHub = final.callPackage ../shared/github-rev-fetcher.nix { };
     fetchRevFromGitLab = final.callPackage ../shared/gitlab-rev-fetcher.nix { };
