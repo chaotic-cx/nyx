@@ -1,4 +1,4 @@
-{ final, prev, gitOverride, rustPlatform_latest, ... }:
+{ prev, gitOverride, rustPlatform_latest, ... }:
 
 gitOverride {
   nyxKey = "zed-editor_git";
