@@ -1,4 +1,4 @@
-{ final, prev, gitOverride, ... }:
+{ final, prev, gitOverride, nyxUtils, ... }:
 
 gitOverride {
   newInputs = with final; { mangohud32 = mangohud32_git; };
@@ -16,7 +16,8 @@ gitOverride {
 
   postOverride = prevAttrs: {
     doCheck = false;
-    buildInputs = with final; [ SDL2 libxkbcommon ] ++ prevAttrs.buildInputs;
+    buildInputs = with final; [ SDL2 ] ++ prevAttrs.buildInputs;
+    mesonFlags = nyxUtils.removeByPrefix "-Dmangoapp_layer=" prevAttrs.mesonFlags;
     patches =
       [
         ./preload-nix-workaround.patch
