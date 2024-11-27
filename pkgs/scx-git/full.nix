@@ -1,5 +1,4 @@
-{ lib
-, final
+{ final
 , scx
 }:
 final.scx_git.cscheds.overrideAttrs (oldAttrs: {

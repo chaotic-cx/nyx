@@ -43,16 +43,14 @@ jq \
   .libbpf.rev = \$libbpfRev | .libbpf.hash = \$libbpfHash" \
   "$versionJson" | sponge $versionJson
 
-rm -f Cargo.toml Cargo.lock
+popd
 
-for scheduler in bpfland lavd layered rlfifo rustland rusty; do
-  pushd "scheds/rust/scx_$scheduler"
+cargoHash=$((nix-build --attr scx_git.rustscheds 2>&1 || true) | awk '/got/{print $2}')
 
-  cargo generate-lockfile
-  cp Cargo.lock "$nixFolder/$scheduler/Cargo.lock"
-
-  popd
-done
+jq \
+  --arg cargoHash "$cargoHash" \
+  ".scx.cargoHash = \$cargoHash" \
+  "$versionJson" | sponge $versionJson
 
 git add "$nixFolder"
-git commit -m 'scx_git: $localRev -> $latestRev'
+git commit -m "scx_git: $localRev -> $latestRev"

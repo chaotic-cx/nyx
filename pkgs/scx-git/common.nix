@@ -3,7 +3,7 @@ let
   versionInfo = lib.importJSON ./version.json;
 in
 {
-  inherit (versionInfo.scx) version;
+  inherit (versionInfo.scx) version cargoHash;
 
   src = fetchFromGitHub {
     owner = "sched-ext";
@@ -11,8 +11,6 @@ in
     inherit (versionInfo.scx) rev hash;
     fetchSubmodules = true;
   };
-
-  cargoHash = "";
 
   # grep 'bpftool_commit =' ./meson.build
   bpftools_src = fetchFromGitHub {

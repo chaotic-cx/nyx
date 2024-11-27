@@ -77,7 +77,7 @@ let
                       inherit src;
                       inherit (prevAttrs.cargoDeps) name;
                       sourceRoot = prevAttrs.cargoDeps.sourceRoot or null;
-                      patches = prevAttrs.cargoDeps.patches or [];
+                      patches = prevAttrs.cargoDeps.patches or [ ];
                       preUnpack = prevAttrs.cargoDeps.preUnpack or null;
                       unpackPhase = prevAttrs.cargoDeps.unpackPhase or null;
                       postUnpack = prevAttrs.cargoDeps.postUnpack or null;
