@@ -247,13 +247,8 @@ in
   spirv-headers_git = callOverride ../pkgs/spirv-headers-git { };
 
   scx_git = {
-    bpfland = final.callPackage ../pkgs/scx-git/bpfland { inherit scx-common; };
     cscheds = final.callPackage ../pkgs/scx-git/cscheds.nix { inherit scx-common; };
-    lavd = final.callPackage ../pkgs/scx-git/lavd { inherit scx-common; };
-    layered = final.callPackage ../pkgs/scx-git/layered { inherit scx-common; };
-    rlfifo = final.callPackage ../pkgs/scx-git/rlfifo { inherit scx-common; };
-    rustland = final.callPackage ../pkgs/scx-git/rustland { inherit scx-common; };
-    rusty = final.callPackage ../pkgs/scx-git/rusty { inherit scx-common; };
+    rustscheds = final.callPackage ../pkgs/scx-git/rustscheds.nix { inherit scx-common final; };
     full = final.callPackage ../pkgs/scx-git/full.nix { inherit final; };
     recurseForDerivations = true;
   };
