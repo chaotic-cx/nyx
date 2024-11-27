@@ -1,4 +1,4 @@
-{ final, prev, gitOverride, nyxUtils, niriPins, ... }:
+{ final, prev, gitOverride, nyxUtils, ... }:
 
 gitOverride {
   nyxKey = "niri_git";
@@ -9,11 +9,6 @@ gitOverride {
   fetcherData = {
     owner = "YaLTeR";
     repo = "niri";
-  };
-
-  withCargoDeps = final.rustPlatform.importCargoLock {
-    lockFile = ./Cargo.lock;
-    outputHashes = niriPins;
   };
 
   postOverride = prevAttrs: {

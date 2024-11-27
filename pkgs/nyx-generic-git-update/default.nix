@@ -82,7 +82,7 @@ in
     JQ_OPS+=('| .lastModified = $stamp')
   fi
 
-  if [ $HAS_CARGO == 'rec' ]; then
+  if [ $HAS_CARGO -eq 1 ]; then
     JQ_ARGS+=(--arg cargo '${nyxUtils.unreachableHash}')
     JQ_OPS+=('| .cargoHash = $cargo')
   fi
@@ -91,14 +91,11 @@ in
     "''${JQ_OPS[*]}" \
     "$_VERSION_JSON" | sponge "$_VERSION_JSON"
 
-  if [ $HAS_CARGO == 'rec' ]; then
+  if [ $HAS_CARGO -eq 1 ]; then
     _LATEST_CARGO_HASH=$((nix build .#''${_NYX_KEY} 2>&1 || true) | awk '/got/{print $2}')
     jq --arg cargo "$_LATEST_CARGO_HASH" \
       '.cargoHash = $cargo' \
       "$_VERSION_JSON" | sponge "$_VERSION_JSON"
-  elif [ $HAS_CARGO == 'lock' ]; then
-    cp "$_LATEST_PATH/Cargo.lock" "$_PKG_DIR/"
-    git add "$_PKG_DIR/Cargo.lock"
   fi
 
   git add $_VERSION_JSON
@@ -109,4 +106,3 @@ in
 '').overrideAttrs (_prevAttrs: {
   meta = _prevAttrs.meta // { description = "Generic update-script for bleeding-edge GIT Nix derivations."; };
 })
-

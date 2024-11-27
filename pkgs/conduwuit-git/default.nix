@@ -1,4 +1,4 @@
-{ final, prev, gitOverride, conduwuitPins, ... }:
+{ prev, gitOverride, ... }:
 gitOverride {
   nyxKey = "conduwuit_git";
   prev = prev.conduwuit;
@@ -8,10 +8,5 @@ gitOverride {
   fetcherData = {
     owner = "girlbossceo";
     repo = "conduwuit";
-  };
-
-  withCargoDeps = final.rustPlatform.importCargoLock {
-    lockFile = ./Cargo.lock;
-    outputHashes = conduwuitPins;
   };
 }

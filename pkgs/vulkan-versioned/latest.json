@@ -28,19 +28,19 @@
     "badTag": "vulkan-sdk-1.3.296.0"
   },
   "vulkanHeaders": {
-    "version": "1.3.301",
+    "version": "1.3.302",
     "rev": "v#{version}",
-    "hash": "sha256-exXzafLgrgxyRvaF+4pCF+OLtPT2gDmcvzazQ4EQ1eA="
+    "hash": "sha256-+29yOL4VBAR8QpsK/WcCiJkPQxSoReTXVSoAhzsPPKc="
   },
   "vulkanLoader": {
-    "version": "1.3.301",
+    "version": "1.3.302",
     "rev": "v#{version}",
-    "hash": "sha256-0Km0cKhTGyGf+95JyxhGds4OL74MYtsI0PyQ5Zyw09M="
+    "hash": "sha256-jkPbqrvOjEibcyOj3aO5bAvfBp+BlWidahKEST006sg="
   },
   "vulkanTools": {
-    "version": "1.3.301",
+    "version": "1.3.302",
     "rev": "v#{version}",
-    "hash": "sha256-KMK6E/OQ7C1E6Yfg/LcepM3byNbvAXb+rzBuuDhHCtQ=",
+    "hash": "sha256-rcBJg1VyvEwIleDDA5sVSIOgY2nqw8yB57lcEDRF6a0=",
     "badTag": "vulkan-sdk-1.3.280.0"
   },
   "vulkanToolsLunarG": {
@@ -55,14 +55,14 @@
     "badTag": "vulkan-sdk-1.3.290.0"
   },
   "vulkanUtilityLibraries": {
-    "version": "1.3.301",
+    "version": "1.3.302",
     "rev": "v#{version}",
-    "hash": "sha256-IjiCbtogAtwVRfGMna1l06SR8fAbt14SFY/BtV8zX0M="
+    "hash": "sha256-XoMQ9VhyS4eJ8TLxNKZ1YygeOJp65AsFSk2galRM7BE="
   },
   "vulkanValidationLayers": {
-    "version": "1.3.301",
+    "version": "1.3.302",
     "rev": "v#{version}",
-    "hash": "sha256-OizLi4Qv6ydjyqzlrOo22X+G6eTO9/lUKKTLkDMbbXc="
+    "hash": "sha256-u8EwwFn4g3LqnhxD2tVFRCf+9XnTQ/Ol7KVKxEc02OE="
   },
   "volk": {
     "version": "1.3.296.0",

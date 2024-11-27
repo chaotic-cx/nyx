@@ -1,4 +1,4 @@
-{ final, prev, gitOverride, zedPins, rustPlatform_latest, ... }:
+{ final, prev, gitOverride, rustPlatform_latest, ... }:
 
 gitOverride {
   nyxKey = "zed-editor_git";
@@ -17,16 +17,9 @@ gitOverride {
   };
   ref = "main";
 
-  withCargoDeps = final.rustPlatform.importCargoLock {
-    lockFile = ./Cargo.lock;
-    outputHashes = zedPins;
-  };
-
   postOverride = _prevAttrs: {
     # Nothing wrong on it, just saving compilation time for me!
     dontCheck = true;
     doInstallCheck = false;
-    # https://github.com/zed-industries/zed/issues/19971
-    preBuild = "";
   };
 }

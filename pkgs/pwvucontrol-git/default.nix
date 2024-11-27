@@ -1,4 +1,4 @@
-{ final, prev, gitOverride, pwvucontrolPins, ... }:
+{ prev, gitOverride, ... }:
 
 gitOverride {
   nyxKey = "pwvucontrol_git";
@@ -9,10 +9,5 @@ gitOverride {
   fetcherData = {
     owner = "saivert";
     repo = "pwvucontrol";
-  };
-
-  withCargoDeps = final.rustPlatform.importCargoLock {
-    lockFile = ./Cargo.lock;
-    outputHashes = pwvucontrolPins;
   };
 }
