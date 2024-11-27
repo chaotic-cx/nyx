@@ -15,11 +15,8 @@ gitOverride (current: {
     buildInputs = with final; prevAttrs.buildInputs
       ++ lib.optional stdenv.hostPlatform.isDarwin darwin.apple_sdk.frameworks.ApplicationServices;
 
-    patches = [ ./no-describe.patch ];
-
-    postPatch = ''
-      substituteInPlace ./build.rs \
-        --replace-fail '{git_describe}' '${current.version}'
-    '';
+    env = prevAttrs.env // {
+      GIT_DESCRIBE = "${current.version}-chaotic-nyx";
+    };
   };
 })
