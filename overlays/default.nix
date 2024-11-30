@@ -111,13 +111,8 @@ in
 
   dr460nized-kde-theme = final.callPackage ../pkgs/dr460nized-kde-theme { };
 
-  droid-sans-mono-nerdfont = multiOverrides
-    final.nerdfonts
-    { fonts = [ "DroidSansMono" ]; }
-    [
-      dropUpdateScript
-      (overrideDescription (_prevDesc: "Provides \"DroidSansM Nerd Font\" font family."))
-    ];
+  # alias added at 2024-11-30
+  droid-sans-mono-nerdfont = final.nerd-fonts.droid-sans-mono;
 
   fetchTorGit = callOverride ../pkgs/fetchtorgit { };
 
