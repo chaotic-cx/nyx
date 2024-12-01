@@ -191,8 +191,6 @@ in
     niriPins = importJSON ../pkgs/niri-git/pins.json;
   };
 
-  nix-flake-schemas_git = callOverride ../pkgs/nix-flake-schemas-git { };
-
   nix-top_abandoned = final.callPackage ../pkgs/nix-top { };
 
   nordvpn = final.callPackage ../pkgs/nordvpn { };
