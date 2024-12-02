@@ -22,9 +22,9 @@ import "${nixpkgs}"
     ] ++ overlays;
     ${if stdenv.hostPlatform == stdenv.buildPlatform
     then "localSystem" else "crossSystem"} = {
-      parsed = stdenv.hostPlatform.parsed // {
+      config = lib.systems.parse.tripleFromSystem (stdenv.hostPlatform.parsed // {
         cpu = lib.systems.parse.cpuTypes."${cpuType}";
-      };
+      });
       gcc = stdenv.hostPlatform.gcc // {
         inherit arch;
       };
