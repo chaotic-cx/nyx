@@ -28,7 +28,7 @@
   <li>
     <a href="#harder-stuff">Harder stuff</a><br/>
     <ul>
-      <li><a href="#using-linux-cachyos-with-sched-ext">Using linux-cachyos with sched-ext</a><br/></li>
+      <li><a href="#using-sched-ext-schedulers">Using linux-cachyos with sched-ext</a><br/></li>
     </ul>
   </li>
   <li><a href="#notes">Notes</a></li>
@@ -164,27 +164,33 @@ We do this automatically, so we can gracefully update the cache's address and ke
 
 <p>Some packages are harder to use, I'll go into details in the following paragraphs.</p>
 
-<h3 id="using-linux-cachyos-with-sched-ext">Using linux-cachyos with sched-ext</h3>
+<h3 id="using-sched-ext-schedulers">Using sched-ext schedulers</h3>
 
-<p> Since sched-ext patches have been added to <code>linux-cachyos</code>, you can just use that kernel. </p>
+<p> From version 6.12 onwards, sched-ext support is officially available on the upstream kernel. You can use the latest kernel (<code>pkgs.linuxPackages_latest</code>) or our provided CachyOS kernel (<code>pkgs.linuxPackages_cachyos</code>). </p>
 
-<p>First, add this to your configuration:</p>
+<p>Just add this to your configuration:</p>
 
 <pre lang="nix"><code class="language-nix">
 {
   boot.kernelPackages = pkgs.linuxPackages_cachyos;
-  chaotic.scx.enable = true; # by default uses scx_rustland scheduler
+  services.scx.enable = true; # by default uses scx_rustland scheduler
 }
 </code></pre>
 
-<p>Then, with the new kernel booted, check if the correct kernel booted:</p>
+<p> Then, reboot with the new configuration, check if the scheduler is running: </p>
 
 <pre lang="text"><code class="language-text">
-╰─λ zgrep 'SCHED_CLASS' /proc/config.gz
-CONFIG_SCHED_CLASS_EXT=y
+╰─λ systemctl status scx.service
 </code></pre>
 
-<p>If the scheduler is not working for some reason, you can manually start it like:</p>
+<p> If this is not working, check if the current kernel support <code>sched-ext</code> feature. </p>
+
+<pre lang="text"><code class="language-text">
+╰─λ ls /sys/kernel/sched_ext/
+enable_seq  hotplug_seq  nr_rejected  root  state  switch_all
+</code></pre>
+
+<p> You can also manually start a scheduler like: </p>
 
 <pre lang="text"><code class="language-text">
 ╰─λ sudo scx_rusty
@@ -197,7 +203,15 @@ CONFIG_SCHED_CLASS_EXT=y
 <p>You can choose a different scheduler too.</p>
 <pre lang="nix"><code class="language-nix">
 {
-  chaotic.scx.scheduler = "scx_rusty";
+  services.scx.scheduler = "scx_rusty";
+}
+</code></pre>
+
+<p> We also provide a git version of scx to stay up to date on the latest features. </p>
+
+<pre lang="nix"><code class="language-nix">
+{
+  services.scx.package = pkgs.scx_git.full;
 }
 </code></pre>
 
