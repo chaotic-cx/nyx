@@ -24,7 +24,7 @@ let
 
   # Our utilities/helpers.
   nyxUtils = import ../shared/utils.nix { inherit (final) lib; nyxOverlay = selfOverlay; };
-  inherit (nyxUtils) dropUpdateScript multiOverride multiOverrides overrideDescription;
+  inherit (nyxUtils) multiOverride overrideDescription;
 
   # Helps when calling .nix that will override packages.
   callOverride = path: attrs: import path ({ inherit final flakes nyxUtils prev gitOverride rustPlatform_latest; } // attrs);
@@ -110,9 +110,6 @@ in
   distrobox_git = callOverride ../pkgs/distrobox-git { };
 
   dr460nized-kde-theme = final.callPackage ../pkgs/dr460nized-kde-theme { };
-
-  # alias added at 2024-11-30
-  droid-sans-mono-nerdfont = final.nerd-fonts.droid-sans-mono;
 
   fetchTorGit = callOverride ../pkgs/fetchtorgit { };
 
