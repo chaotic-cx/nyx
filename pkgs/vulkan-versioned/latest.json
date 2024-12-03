@@ -28,14 +28,14 @@
     "badTag": "vulkan-sdk-1.3.296.0"
   },
   "vulkanHeaders": {
-    "version": "1.3.302",
+    "version": "1.4.303",
     "rev": "v#{version}",
-    "hash": "sha256-+29yOL4VBAR8QpsK/WcCiJkPQxSoReTXVSoAhzsPPKc="
+    "hash": "sha256-M6w058pxZTPqyTNEwL8Khu3eAivgajLdEFYtm6cqGoI="
   },
   "vulkanLoader": {
-    "version": "1.3.302",
+    "version": "1.4.303",
     "rev": "v#{version}",
-    "hash": "sha256-jkPbqrvOjEibcyOj3aO5bAvfBp+BlWidahKEST006sg="
+    "hash": "sha256-MKpGBHFMq3dznL7RFYeFXpO8cvTBXDUtxzbm1V8IcZU="
   },
   "vulkanTools": {
     "version": "1.3.302",
