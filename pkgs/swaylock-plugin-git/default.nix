@@ -1,4 +1,4 @@
-{ prev, gitOverride, ... }:
+{ final, prev, gitOverride, ... }:
 
 gitOverride {
   nyxKey = "swaylock-plugin_git";
@@ -9,5 +9,9 @@ gitOverride {
   fetcherData = {
     owner = "mstoeckl";
     repo = "swaylock-plugin";
+  };
+
+  postOverride = prevAttrs: {
+    buildInputs = prevAttrs.buildInputs ++ [ final.systemd ];
   };
 }
