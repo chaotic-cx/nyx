@@ -1,4 +1,4 @@
-{ prev, gitOverride, ... }:
+{ final, prev, gitOverride, ... }:
 
 gitOverride {
   nyxKey = "jujutsu_git";
@@ -11,7 +11,8 @@ gitOverride {
     repo = "jj";
   };
 
-  postOverride = _prevAttrs: {
+  postOverride = prevAttrs: {
+    nativeBuildInputs = [ final.cmake ] ++ prevAttrs.nativeBuildInputs;
     doCheck = false;
   };
 }
