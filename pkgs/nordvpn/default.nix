@@ -11,24 +11,36 @@
 , cacert
 , libxml2
 , libidn2
+, libnl
+, libcap_ng
 , zlib
 , wireguard-tools
 }:
 
 let
   pname = "nordvpn";
-  version = "3.16.5";
+  version = "3.19.2";
 
   nordVPNBase = stdenv.mkDerivation {
     inherit pname version;
 
     src = fetchurl {
-      url = "https://repo.nordvpn.com/deb/nordvpn/debian/pool/main/nordvpn_${version}_amd64.deb";
-      hash = "sha256-d2FXgmW/Tyz18EzQ912HNuMEjq0iW8L4WY8N4EzLBwQ=";
+      url = "https://repo.nordvpn.com/deb/nordvpn/debian/pool/main/n/nordvpn/nordvpn_${version}_amd64.deb";
+      hash = "sha256-V8SM91Q+DJelrEEipcnwI3BAvput79U13U908u6tjMw=";
     };
 
-    buildInputs = [ libxml2 libidn2 ];
-    nativeBuildInputs = [ dpkg autoPatchelfHook stdenv.cc.cc.lib ];
+    buildInputs = [
+      libxml2
+      libidn2
+      libnl
+      libcap_ng
+    ];
+
+    nativeBuildInputs = [
+      dpkg
+      autoPatchelfHook
+      stdenv.cc.cc.lib
+    ];
 
     dontConfigure = true;
     dontBuild = true;
