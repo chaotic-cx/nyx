@@ -9,6 +9,7 @@ let
     nyx-cache = import ./nyx-cache.nix fromFlakes;
     nyx-overlay = import ../common/nyx-overlay.nix fromFlakes;
     zfs-impermanence-on-shutdown = import ./zfs-impermanence-on-shutdown.nix;
+    owl-wlr = import ./owl-wlr.nix;
   };
 
   default = { ... }: {

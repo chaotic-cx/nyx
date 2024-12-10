@@ -4,13 +4,13 @@ let
   cfg = config.chaotic.owl-wlr;
 in
 {
-  options.programs.owl-wlr = {
+  options.chaotic.owl-wlr = {
     enable = lib.mkEnableOption ''
       Owl - tiling wayland compositor based on wlroots. 
       Enabling this option will add owl to your system.
     '';
 
-    package = lib.mkPackageOption pkgs "owl-wlr" {
+    package = lib.mkPackageOption pkgs "owl-wlr_git" {
       nullable = true;
       extraDescription = ''
         This option can provide different version of Owl compositor.
@@ -53,16 +53,12 @@ in
 
           systemd.packages = [ cfg.package ];
 
-          services = {
-            displayManager.sessionPackages = [ cfg.package ];
-          };
-
           xdg.portal = {
             enable = lib.mkDefault true;
             configPackages = [ cfg.package ];
           };
-        };
-      ];
+        }
+      ]
     );
 
   meta.maintainers = with lib.maintainers; [ s0me1newithhand7s ];
