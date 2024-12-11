@@ -203,7 +203,7 @@ in
 
   openvr_git = callOverride ../pkgs/openvr-git { };
 
-  owl-wlr_git = final.callPackage ../pkgs/owl-git/package.nix { };
+  owl-wlr_git = callOverride ../pkgs/owl-git { };
 
   pkgsx86_64_v2 = final.pkgsAMD64Microarchs.x86-64-v2;
   pkgsx86_64_v3 = final.pkgsAMD64Microarchs.x86-64-v3;
