@@ -4835,7 +4835,6 @@
   "CONFIG_PC87413_WDT" = "m";
   "CONFIG_NV_TCO" = "m";
   "CONFIG_60XX_WDT" = "m";
-  "CONFIG_CPU5_WDT" = "m";
   "CONFIG_SMSC_SCH311X_WDT" = "m";
   "CONFIG_SMSC37B787_WDT" = "m";
   "CONFIG_TQMX86_WDT" = "m";
