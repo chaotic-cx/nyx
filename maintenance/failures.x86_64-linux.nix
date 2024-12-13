@@ -1,7 +1,6 @@
 {
   "linuxPackages_cachyos.asus-ec-sensors" = "/nix/store/pp46lcwp2l3slw24i0b73shlhh0zg77p-asus-ec-sensors-unstable-2022-07-10-6.12.4";
   "linuxPackages_cachyos.ax99100" = "/nix/store/rw4jd68zq93w7z3jgqixskrk9r1d112z-ax99100-1.8.0";
-  "linuxPackages_cachyos.batman_adv" = "/nix/store/9dk3sy723xmpk8p0a7lrfxy0svg6jydz-batman-adv-2024.3-6.12.4";
   "linuxPackages_cachyos.digimend" = "/nix/store/i1aqf693db5qvavnbgybj5i2sdynfk6z-digimend-13";
   "linuxPackages_cachyos.fwts-efi-runtime" = "/nix/store/7dhsrgky4l3hp37q97l8icvr128rb954-fwts-efi-runtime-24.09.00-6.12.4";
   "linuxPackages_cachyos.hid-tmff2" = "/nix/store/ji4frwm29icqrgw41r6ys7fi9b99rmvk-hid-tmff2-0.81";
@@ -52,13 +51,12 @@
   "linuxPackages_cachyos-lto.asus-ec-sensors" = "/nix/store/wn528asxrrhcw3lnmcj7k4lx3x9hw6ln-asus-ec-sensors-unstable-2022-07-10-6.12.4";
   "linuxPackages_cachyos-lto.asus-wmi-sensors" = "/nix/store/3ax8i8478g88k49jx5v7nhbwps3hc9ys-asus-wmi-sensors-unstable-2019-11-07-6.12.4";
   "linuxPackages_cachyos-lto.ax99100" = "/nix/store/lw4hdkwd19acpskjjfhxkqs5slw9n4a9-ax99100-1.8.0";
-  "linuxPackages_cachyos-lto.batman_adv" = "/nix/store/q81ijd9lg16lcfd335ikc96vzbbv2hwz-batman-adv-2024.3-6.12.4";
   "linuxPackages_cachyos-lto.broadcom_sta" = "/nix/store/13aa0ssxc7dnz0pk797v8i92fj42qbrx-broadcom-sta-6.30.223.271-6.12.4";
   "linuxPackages_cachyos-lto.chipsec" = "/nix/store/2d02r1g4hlm5dyz7q5jbz2i0cv9knk9j-chipsec-1.10.6";
   "linuxPackages_cachyos-lto.corefreq" = "/nix/store/dv4jr7hfv4iciyfwnf30q1976sk8f3b0-corefreq-1.98.4";
   "linuxPackages_cachyos-lto.deepin-anything-module" = "/nix/store/l0zh73sbada1h5rnq6vvyzv5l1xh9bwf-deepin-anything-module-6.1.9";
   "linuxPackages_cachyos-lto.digimend" = "/nix/store/6kw7y4qcq3ddn70gvcddj0xlsk1b4m88-digimend-13";
-  "linuxPackages_cachyos-lto.drbd" = "/nix/store/5aadyzb0pxabd8mp34a770ghh6064zjv-drbd-9.2.12";
+  "linuxPackages_cachyos-lto.drbd" = "/nix/store/4x24j83yprlw46g981ycycfkcwjqsni3-drbd-9.2.12";
   "linuxPackages_cachyos-lto.evdi" = "/nix/store/b5x7p49hv757azsv56h7lf5x7rgczri9-evdi-1.14.7-unstable-2024-11-30";
   "linuxPackages_cachyos-lto.facetimehd" = "/nix/store/8rlrzi5f7156vxzkjph31a1ghwfpmxh7-facetimehd-0.6.8.1-6.12.4";
   "linuxPackages_cachyos-lto.fwts-efi-runtime" = "/nix/store/hyzfb7m1061894b45xy3j3idsn0gfs1n-fwts-efi-runtime-24.09.00-6.12.4";
@@ -73,13 +71,14 @@
   "linuxPackages_cachyos-lto.lttng-modules" = "/nix/store/nkya0ii446irh1whxn49cf5pcbby7dng-lttng-modules-6.12.4-2.13.15";
   "linuxPackages_cachyos-lto.mba6x_bl" = "/nix/store/0rraafcksmjm93g8w24i21w1ddvyyvyg-mba6x_bl-unstable-2017-12-30";
   "linuxPackages_cachyos-lto.mbp2018-bridge-drv" = "/nix/store/fsp2hq5vp9jvjazrixdlavd25sf24b44-mbp2018-bridge-drv-2020-01-31";
-  "linuxPackages_cachyos-lto.mm-tools" = "/nix/store/i2rqqikaszy7xxk97kfgpc9zmdzmmbca-mm-tools-6.6.63";
+  "linuxPackages_cachyos-lto.mm-tools" = "/nix/store/yr8dzpgw15d73qa3fwdpmq8zqnljy2pl-mm-tools-6.6.64";
   "linuxPackages_cachyos-lto.mwprocapture" = "/nix/store/p5nfi5jc4lq1dy54mrlp83mjg7i5b1mv-mwprocapture-1.3.0.4390-6.12.4";
   "linuxPackages_cachyos-lto.netatop" = "/nix/store/d06iiakhcc0jmwf7qi2798898p9qfc7s-netatop-6.12.4-3.1";
   "linuxPackages_cachyos-lto.new-lg4ff" = "/nix/store/59v37qdkrgpii6maqavp7kxd8y6v6dr5-new-lg4ff-0-unstable-2024-11-25";
   "linuxPackages_cachyos-lto.nvidia_dc_535" = "/nix/store/k61k6bq75w64cxxsfd99ysgb6pd4nxzh-nvidia-dc-535.154.05-6.12.4";
   "linuxPackages_cachyos-lto.nvidia_x11_legacy470" = "/nix/store/26ajppy18l7y6n4lw3z7zi49napqsqzz-nvidia-x11-470.256.02-6.12.4";
   "linuxPackages_cachyos-lto.openafs" = "/nix/store/jridn6497ilyzhnalrj0c0fqj8h9agf6-openafs-1.8.13-6.12.4-cachyos";
+  "linuxPackages_cachyos-lto.openafs_1_8" = "/nix/store/jridn6497ilyzhnalrj0c0fqj8h9agf6-openafs-1.8.13-6.12.4-cachyos";
   "linuxPackages_cachyos-lto.perf" = "/nix/store/vn99dv54ckvyhy55l0l6zkpl8pkwg2va-perf-linux-6.12.4";
   "linuxPackages_cachyos-lto.ply" = "/nix/store/936ad9vcgzirkrly63va57d42xrgwh0a-ply-2.1.1-e25c913";
   "linuxPackages_cachyos-lto.qc71_laptop" = "/nix/store/v4fkqcm45yzi6p1z7ckblzlapy4g05g0-qc71_laptop-unstable-2023-03-02";
@@ -111,13 +110,11 @@
   "linuxPackages_cachyos-lto.vendor-reset" = "/nix/store/fxqijwfv80z3f3s9rhk0chghcpr57fpr-vendor-reset-unstable-2024-04-16-6.12.4";
   "linuxPackages_cachyos-lto.virtio_vmmci" = "/nix/store/1d02jb7ggppyrrwypy1c9njzfk341179-virtio_vmmci";
   "linuxPackages_cachyos-lto.virtualboxGuestAdditions" = "/nix/store/vn24471di3ghi5s5w3h07xdc2nbc37jk-VirtualBox-GuestAdditions-7.0.22-6.12.4";
-  "linuxPackages_cachyos-lto.vm-tools" = "/nix/store/i2rqqikaszy7xxk97kfgpc9zmdzmmbca-mm-tools-6.6.63";
   "linuxPackages_cachyos-lto.vmware" = "/nix/store/gd56zjamk88achxy7gr0nrnhfzixp6gh-vmware-modules-workstation-17.6.1-unstable-2024-10-12-6.12.4";
   "linuxPackages_cachyos-lto.x86_energy_perf_policy" = "/nix/store/y8rcmqsf31rkrnxpmbjmaylw54f9wnpa-x86_energy_perf_policy-6.12.4";
   "linuxPackages_cachyos-lto.xone" = "/nix/store/7ab5l9kd1grxl47pdaisdlsd7iw415kv-xone-0.3-unstable-2024-03-16";
   "linuxPackages_cachyos-server.asus-ec-sensors" = "/nix/store/l4g6nrzdqnk95md82rqlbp56kzgz5sap-asus-ec-sensors-unstable-2022-07-10-6.12.4";
   "linuxPackages_cachyos-server.ax99100" = "/nix/store/236d7zlywl5ksnqbm56fx5mvzjbjlq2s-ax99100-1.8.0";
-  "linuxPackages_cachyos-server.batman_adv" = "/nix/store/y6579bqvks58k41h2g7c08z99p61kbmm-batman-adv-2024.3-6.12.4";
   "linuxPackages_cachyos-server.digimend" = "/nix/store/0xx62f0xf8ac4qzicvxz5l7x3vp6k7s7-digimend-13";
   "linuxPackages_cachyos-server.fwts-efi-runtime" = "/nix/store/wqi0pd370sdv9jiy1y8ghjzxs9pcx7rx-fwts-efi-runtime-24.09.00-6.12.4";
   "linuxPackages_cachyos-server.hid-tmff2" = "/nix/store/1csmfhb30ggiy4n1dydpzbw4c74wlsp5-hid-tmff2-0.81";
@@ -130,6 +127,7 @@
   "linuxPackages_cachyos-server.mwprocapture" = "/nix/store/q317qzw76a8ah9amvl5p9sc2vsqh0w2z-mwprocapture-1.3.0.4390-6.12.4";
   "linuxPackages_cachyos-server.nvidia_dc_535" = "/nix/store/1x765yngnd9bw33f0ffn7pf5fls544gv-nvidia-dc-535.154.05-6.12.4";
   "linuxPackages_cachyos-server.nvidia_x11_legacy470" = "/nix/store/hp7mx1mzqg6z04i43dy5alxv7li6v0yd-nvidia-x11-470.256.02-6.12.4";
+  "linuxPackages_cachyos-server.ply" = "/nix/store/0n1p74gq2yfmi625lwfk9r86fpw2rc8z-ply-2.1.1-e25c913";
   "linuxPackages_cachyos-server.qc71_laptop" = "/nix/store/kb4jhghkf1p7gaxyis6sca47x5gqi8s6-qc71_laptop-unstable-2023-03-02";
   "linuxPackages_cachyos-server.rtl8188eus-aircrack" = "/nix/store/b5b4vamdlzcsbrz635rdr3i47p06bi9k-rtl8188eus-aircrack-6.12.4-unstable-2024-09-18";
   "linuxPackages_cachyos-server.rtl8189es" = "/nix/store/lvkzj0a80rqmzh9sy3zj57cqg630fgcd-rtl8189es-6.12.4-2024-01-21";
