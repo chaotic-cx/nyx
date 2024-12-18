@@ -7939,6 +7939,7 @@
   "CONFIG_GPIB_CB7210" = "m";
   "CONFIG_GPIB_NI_USB" = "m";
   "CONFIG_GPIB_FLUKE" = "m";
+  "CONFIG_GPIB_FMH" = "m";
   "CONFIG_GPIB_INES" = "m";
   "CONFIG_GPIB_PCMCIA" = "y";
   "CONFIG_GPIB_LPVO" = "m";
