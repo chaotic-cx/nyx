@@ -31,4 +31,11 @@ linkFarm "zig-packages" [
       hash = "sha256-T+EZiStBfmxFUjaX05WhYkFJ8tRok/UQtpc9QY9NxZk=";
     };
   }
+  {
+    name = "1220e1b6f822bda107aa1e3eca277ac82e0d833ba3182cd6f6ec56521046dc37cccc";
+    path = fetchzip {
+      url = "https://codeberg.org/ifreund/zig-wayland/archive/4761e625bcc8218650625edc4734710b29a9ff0b.tar.gz";
+      hash = "sha256-x6HAEipo7qaKTNRkkSSKStqEQiB+MwQKuqtUWxFPxuw=";
+    };
+  }
 ]
