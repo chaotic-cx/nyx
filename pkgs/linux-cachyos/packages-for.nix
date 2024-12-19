@@ -81,8 +81,8 @@ let
   basePackages = linuxPackagesFor kernel;
   packagesWithZFS = basePackages.extend addZFS;
   packagesWithExtend = if packagesExtend == null then packagesWithZFS else packagesWithZFS.extend (packagesExtend kernel);
-  packagesWithoutZFS = removeAttrs packagesWithExtend [ "zfs" "zfs_2_1" "zfs_2_2" "zfs_unstable" ];
-  packagesWithoutUpdateScript = nyxUtils.dropAttrsUpdateScript packagesWithoutZFS;
+  packagesWithRemovals = removeAttrs packagesWithExtend [ "zfs" "zfs_2_1" "zfs_2_2" "zfs_unstable" "lkrg" ];
+  packagesWithoutUpdateScript = nyxUtils.dropAttrsUpdateScript packagesWithRemovals;
   packagesWithRightPlatforms = nyxUtils.setAttrsPlatforms supportedPlatforms packagesWithoutUpdateScript;
 
   supportedPlatforms = [ (with lib.systems.inspect.patterns; isx86_64 // isLinux) "x86_64-linux" ];
