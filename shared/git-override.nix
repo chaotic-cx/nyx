@@ -19,6 +19,7 @@ let
     , version ? null
     , newInputs ? null
     , postOverride ? null
+    , preOverride ? null
     , withUpdateScript ? true
     , withLastModified ? false
     , withLastModifiedDate ? false
@@ -88,6 +89,10 @@ let
         in
         common // whenCargo;
 
+      optionalPreOverride = lib.lists.optional
+        (preOverride != null)
+        preOverride;
+
       optionalPostOverride = lib.lists.optional
         (postOverride != null)
         postOverride;
@@ -97,7 +102,7 @@ let
         lib.lists.foldl
           (accu: accu.overrideAttrs)
           (if newInputs == null then prev else prev.override newInputs)
-          ([ main ] ++ optionalPostOverride);
+          (optionalPreOverride ++ [ main ] ++ optionalPostOverride);
       inherit current;
     };
 

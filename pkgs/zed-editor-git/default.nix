@@ -17,6 +17,10 @@ gitOverride {
   };
   ref = "main";
 
+  preOverride = prevAttrs: {
+    postPatch = builtins.replaceStrings [ prevAttrs.version ] [ "*" ] prevAttrs.postPatch;
+  };
+
   postOverride = _prevAttrs: {
     # Nothing wrong on it, just saving compilation time for me!
     dontCheck = true;

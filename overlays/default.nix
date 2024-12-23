@@ -10,6 +10,7 @@
 
 { flakes
 , nixpkgs ? flakes.nixpkgs
+, nixpkgs-small ? flakes.nixpkgs-small or nixpkgs
 , self ? flakes.self
 , selfOverlay ? self.overlays.default
 , jovian ? flakes.jovian or null
@@ -278,6 +279,7 @@ in
 
   zed-editor_git = callOverride ../pkgs/zed-editor-git {
     zedPins = importJSON ../pkgs/zed-editor-git/pins.json;
+    prev = nixpkgs-small.legacyPackages.${prev.system};
   };
 
   zfs_cachyos = cachyosPackages.zfs;
