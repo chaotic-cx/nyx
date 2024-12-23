@@ -59,11 +59,6 @@ let
           compareToFlake = flakes.compare-to;
           inherit nyxRecursionHelper;
         };
-      comparer = compareToFlakeUrl: callPackage ../tools/comparer
-        {
-          allPackages = nyxPkgs;
-          inherit compareToFlakeUrl nyxRecursionHelper;
-        };
       bumper = callPackage ../tools/bumper
         {
           allPackages = nyxPkgs;
@@ -89,8 +84,8 @@ let
         shellHook = "echo $NYX_EVALUATED";
       };
       comparer = mkShell {
-        passthru.any = comparer;
         env.NYX_COMPARED = compared;
+        passthru = { inherit compared; };
         shellHook = "echo $NYX_COMPARED";
       };
       updater = mkShell {

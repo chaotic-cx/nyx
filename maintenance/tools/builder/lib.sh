@@ -64,8 +64,10 @@ function prepare() {
 
   # Creates list of what to build when only building what changed
   if [ -n "${NYX_CHANGED_ONLY:-}" ]; then
-    _DIFF=$(nix build --no-link --print-out-paths --impure \
-      --expr "(builtins.getFlake \"$NYX_SOURCE/maintenance\").devShells.${NYX_TARGET}.comparer.passthru.any \"$NYX_CHANGED_ONLY\"" \
+    _DIFF=$(cd "$NYX_SOURCE" \
+        && sed -Ei'' "s|compare-to\.url = \"[^\"]*\";|compare-to.url = \"$NYX_CHANGED_ONLY\";|" './maintenance/flake.nix' \
+        && nix build ./maintenance#devShells.${NYX_TARGET}.comparer.passthru.compared \
+        --no-link --print-out-paths --impure \
       || exit 13)
 
     ln -s "$_DIFF" filter.txt

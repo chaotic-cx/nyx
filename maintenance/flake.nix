@@ -1,7 +1,7 @@
 {
   inputs = {
     chaotic.url = "../";
-    compare-to.url = "https://flakehub.com/f/chaotic-cx/nix-empty-flake/=0.1.2.tar.gz";
+    compare-to.url = "../";
     systems.url = "github:nix-systems/default-linux";
     yafas = {
       url = "github:UbiqueLambda/yafas";

@@ -8,6 +8,7 @@
 , findutils
 , git
 , gnugrep
+, gnused
 , jq
 , nix
 
@@ -21,6 +22,7 @@ let
     findutils
     git # cachix requires "git" in PATH
     gnugrep
+    gnused
     jq
     nix
   ];

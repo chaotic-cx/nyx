@@ -1,5 +1,4 @@
 { allPackages
-, compareTo ? compareToFlake._dev.legacyPackages.${system} or compareToFlake.legacyPackages.${system}
 , compareToFlake ? (builtins.getFlake compareToFlakeUrl)
 , compareToFlakeUrl ? "github.com/chaotic-cx/nix-empty-flake"
 , nyxRecursionHelper
@@ -8,6 +7,17 @@
 , writeText
 }:
 let
+  compareTo = with compareToFlake; utils.applyOverlay {
+    pkgs = import inputs.nixpkgs {
+      inherit system;
+      config = {
+        allowUnfree = true;
+        allowUnsupportedSystem = true;
+        nvidia.acceptLicense = true;
+      };
+    };
+  };
+
   evalResult = k: v:
     { name = k; value = builtins.unsafeDiscardStringContext v.outPath; };
 

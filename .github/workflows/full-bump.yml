@@ -56,6 +56,7 @@ jobs:
           [ "$NO_REVERT" == 'true' ] && export NYX_BUMP_REVERT=0
           nix develop --impure ./maintenance#updater -c 'chaotic-nyx-bumper'
         env:
+          NYX_SOURCE: ${{ github.workspace }}
           GH_TOKEN: ${{ github.token }}
           NYX_BUMPN: ${{ inputs.bumpNumber }}
           NO_REVERT: ${{ inputs.kissMeKissMeKissMe }}

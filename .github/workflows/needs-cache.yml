@@ -40,6 +40,7 @@ jobs:
       - name: Build packages
         run: nix develop ./maintenance -c chaotic-nyx-build && exit 1 || [ $? -eq 23 ]
         env:
+          NYX_SOURCE: ${{ github.workspace }}
           NYX_CHANGED_ONLY: "github:${{ github.repository }}/${{ github.event.pull_request.base.ref }}"
           NYX_WD: ${{ runner.temp }}
       - name: Upload to cachix
