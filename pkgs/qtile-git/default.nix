@@ -7,7 +7,7 @@
 
 gitOverride {
   nyxKey = "qtile-module_git";
-  prev = prev.python311Packages.qtile;
+  prev = prev.python3Packages.qtile;
 
   versionNyxPath = "pkgs/qtile-git/version.json";
   fetcher = "fetchFromGitHub";
@@ -17,7 +17,7 @@ gitOverride {
   };
   ref = "master";
 
-  version = prev.python311Packages.qtile.version + ".99";
+  version = prev.python3Packages.qtile.version + ".99";
 
   postOverride = prevAttrs: {
     name = prevAttrs.name + ".99";

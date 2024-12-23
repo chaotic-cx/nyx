@@ -10,7 +10,7 @@ gitOverride {
   };
 
   nyxKey = "qtile-extras_git";
-  prev = prev.python311Packages.qtile-extras;
+  prev = prev.python3Packages.qtile-extras;
 
   versionNyxPath = "pkgs/qtile-extras-git/version.json";
   fetcher = "fetchFromGitHub";
@@ -24,8 +24,10 @@ gitOverride {
   postOverride = prevAttrs: {
     name = prevAttrs.name + ".99";
 
+    buildInputs = prevAttrs.buildInputs ++ [ final.python3Packages.dbus-fast ];
+
     postPatch = ''
-      for f in test/widget/test_*.py; do
+      for f in test/*/test_*.py test/*/*/test_*.py; do
         echo "" > "$f"
       done
     '';
