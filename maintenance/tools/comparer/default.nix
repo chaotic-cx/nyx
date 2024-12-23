@@ -1,5 +1,5 @@
 { allPackages
-, compareTo ? compareToFlake._dev.packages.${system} or compareToFlake.packages.${system}
+, compareTo ? compareToFlake._dev.legacyPackages.${system} or compareToFlake.legacyPackages.${system}
 , compareToFlake ? (builtins.getFlake compareToFlakeUrl)
 , compareToFlakeUrl ? "github.com/chaotic-cx/nix-empty-flake"
 , nyxRecursionHelper

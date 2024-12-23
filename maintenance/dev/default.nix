@@ -12,7 +12,7 @@
     nyxPkgs = utils.applyOverlay { pkgs = nixPkgs; };
   in
   with universals; {
-    packages = nyxPkgs;
+    legacyPackages = nyxPkgs;
     nixpkgs = nixPkgs;
     mergedPkgs = utils.applyOverlay {
       pkgs = nixPkgs;

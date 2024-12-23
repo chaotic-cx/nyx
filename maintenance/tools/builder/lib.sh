@@ -93,7 +93,7 @@ function zip_path() {
 function build() {
   _WHAT="${1:- アンノーン}"
   _MAIN_OUT_PATH="${2:-/dev/null}"
-  _FULL_TARGETS=("${_ALL_OUT_KEYS[@]/#/$NYX_SOURCE\#packages.${NYX_TARGET}.}")
+  _FULL_TARGETS=("${_ALL_OUT_KEYS[@]/#/$NYX_SOURCE\#legacyPackages.${NYX_TARGET}.}")
 
   # If NYX_CHANGED_ONLY is set, only build changed derivations
   if [ -f filter.txt ] && ! grep -Pq "^$_WHAT\$" filter.txt; then
