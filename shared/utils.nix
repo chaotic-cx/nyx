@@ -4,13 +4,16 @@ rec {
   _description = "Pack of functions that are useful for Chaotic-Nyx and might become useful for you too";
 
   # All the ways I found to overlay in nixpkgs
-  applyOverlay = { replace ? false, merge ? false, overlay ? nyxOverlay, nyxPkgs ? null, pkgs }:
+  applyOverlay = { replace ? false, merge ? false, overlay ? nyxOverlay, nyxPkgs ? null, onlyDerivations ? false, pkgs }:
     let
       fullPackages = if replace then pkgs // ourPackages else ourPackages // pkgs;
       overlayFinal = fullPackages // { callPackage = pkgs.newScope overlayFinal; };
       ourPackages = if nyxPkgs != null then nyxPkgs else overlay overlayFinal pkgs;
+      preFilter = if merge then overlayFinal else ourPackages;
     in
-    if merge then overlayFinal else ourPackages;
+    if onlyDerivations then
+      pkgs.lib.attrsets.filterAttrs (_k: v: (builtins.tryEval v).success && pkgs.lib.attrsets.isDerivation v) preFilter
+    else preFilter;
 
   # When `removeByBaseName` and `removeByURL` can't help, use this to drop patches.
   dropN = qty: list: lib.lists.take (builtins.length list - qty) list;
@@ -25,6 +28,9 @@ rec {
   # Helps when overriding.
   dropUpdateScript = prevAttrs:
     { passthru = removeAttrs prevAttrs.passthru [ "updateScript" ]; };
+
+  # Helps when overriding.
+  drvDropUpdateScript = package: package.overrideAttrs dropUpdateScript;
 
   # NOTE: Don't use in your system's configuration, this helps in the repo's infra.
   # Checks if a derivation is in a list.

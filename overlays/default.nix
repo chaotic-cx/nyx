@@ -25,7 +25,7 @@ let
 
   # Our utilities/helpers.
   nyxUtils = import ../shared/utils.nix { inherit (final) lib; nyxOverlay = selfOverlay; };
-  inherit (nyxUtils) multiOverride overrideDescription;
+  inherit (nyxUtils) multiOverride overrideDescription drvDropUpdateScript;
 
   # Helps when calling .nix that will override packages.
   callOverride = path: attrs: import path ({ inherit final flakes nyxUtils prev gitOverride rustPlatform_latest; } // attrs);
@@ -150,15 +150,16 @@ in
 
   libportal_git = callOverride ../pkgs/libportal-git { };
 
+  linux_cachyos = drvDropUpdateScript cachyosPackages.cachyos.kernel;
+  linux_cachyos-hardened = drvDropUpdateScript cachyosPackages.cachyos-rc.kernel;
+  linux_cachyos-rc = cachyosPackages.cachyos-rc.kernel;
+  linux_cachyos-server = drvDropUpdateScript cachyosPackages.cachyos-server.kernel;
+
   linuxPackages_cachyos = cachyosPackages.cachyos;
   linuxPackages_cachyos-hardened = cachyosPackages.cachyos-hardened;
   linuxPackages_cachyos-lto = cachyosPackages.cachyos-lto;
-  linuxPackages_cachyos-sched-ext = cachyosPackages.cachyos-sched-ext;
-  linuxPackages_cachyos-server = cachyosPackages.cachyos-server;
-
-  # Don't build modules for linux_cachyos-rc kernel
   linuxPackages_cachyos-rc = cachyosPackages.cachyos-rc;
-  linux_cachyos-rc = cachyosPackages.cachyos-rc.kernel;
+  linuxPackages_cachyos-server = cachyosPackages.cachyos-server;
 
   luxtorpeda = final.callPackage ../pkgs/luxtorpeda {
     luxtorpedaVersion = importJSON ../pkgs/luxtorpeda/version.json;
@@ -245,6 +246,8 @@ in
     full = final.callPackage ../pkgs/scx-git/full.nix { inherit final; };
     recurseForDerivations = true;
   };
+
+  scx-full_git = drvDropUpdateScript final.scx_git.full;
 
   sway-unwrapped_git = callOverride ../pkgs/sway-unwrapped-git { };
   sway_git = prev.sway.override {

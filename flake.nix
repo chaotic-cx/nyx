@@ -26,7 +26,8 @@
         in
         accu // {
           # Exposes the packages created by the overlay.
-          packages = (accu.packages or { }) // { ${system} = accu.utils.applyOverlay { inherit pkgs; }; };
+          legacyPackages = (accu.legacyPackages or { }) // { ${system} = accu.utils.applyOverlay { inherit pkgs; }; };
+          packages = (accu.packages or { }) // { ${system} = accu.utils.applyOverlay { inherit pkgs; onlyDerivations = true; }; };
 
           # I would prefer if we had something stricter, with attribute alphabetical
           # sorting, and optimized for git's diffing. But this is the closer we have.
