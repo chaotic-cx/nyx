@@ -1,4 +1,5 @@
 {
+  "jovian-chaotic.mesa-radeonsi-jupiter" = "/nix/store/jdqrzcjdgb3cb4pbxfzcmv9fy17yfi4v-mesa-24.3.2";
   "linuxPackages_cachyos.asus-ec-sensors" = "/nix/store/vk42qfpwl3r8p8cs5zp40pjsrzjnlxls-asus-ec-sensors-unstable-2022-07-10-6.12.6";
   "linuxPackages_cachyos.ax99100" = "/nix/store/mif86n9rnh4d69y0g91065fxidx4w3gx-ax99100-1.8.0";
   "linuxPackages_cachyos.bpftrace" = "/nix/store/2cw9ldxd4zz9rq17sqaw6saq9j3zr134-bpftrace-0.21.2";
@@ -150,4 +151,5 @@
   "linuxPackages_cachyos-server.v86d" = "/nix/store/38946b61r3h2pwv2ify95p6cf49nrp00-v86d-0.1.10-6.12.6";
   "linuxPackages_cachyos-server.veikk-linux-driver" = "/nix/store/dsi14k98j7i51ksy1b2lwmpgn4fklvfr-veikk-linux-driver-2.0";
   "linuxPackages_cachyos-server.yt6801" = "/nix/store/88y5nd7k3bclskd6xf0wknq6yacczwcv-yt6801-1.0.29-20240812";
+  "torzu_git" = "/nix/store/48alzisv62xz8rbbrzvq6k1dsl29s9ck-torzu-unstable-20241115-bb142c9";
 }
