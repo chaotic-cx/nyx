@@ -4,7 +4,7 @@
 , stdenv
 , wrapQtAppsHook
 , alsa-lib
-, boost
+, boost183
 , catch2_3
 , cmake
 , cpp-jwt
@@ -81,7 +81,7 @@ stdenv.mkDerivation {
 
   buildInputs = [
     alsa-lib
-    boost
+    boost183
     catch2_3
     cpp-jwt
     cubeb
