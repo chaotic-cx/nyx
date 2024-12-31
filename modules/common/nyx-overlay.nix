@@ -20,7 +20,7 @@ let
         else
           import "${flakes.nixpkgs}" {
             inherit (cfg.flakeNixpkgs) config;
-            localSystem = stdenv.hostPlatform;
+            localSystem = flakes.nixpkgs.legacyPackages."${pkgs.stdenv.hostPlatform.system}".stdenv.hostPlatform;
           };
     in
     flakes.self.utils.applyOverlay { pkgs = prev; };
