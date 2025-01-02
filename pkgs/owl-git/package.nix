@@ -17,13 +17,13 @@
 
 stdenv.mkDerivation rec {
   pname = "owl-wlr";
-  version = "unstable-20241209-37efc0c0d";
+  version = "unstable-20250102-fef773aa5";
 
   src = fetchFromGitHub {
     owner = "dqrk0jeste";
     repo = "owl";
-    rev = "37efc0c0d7ebc39b7911bcaec9da1c7cd9a7b6c7";
-    hash = "sha256-ZkKwzsi0Cc6Mq6N3jnYajHMS7cdrSccWU+CuP2j86KI=";
+    rev = "fef773aa56a835d7edae4c35369d4922d09f1484";
+    hash = "sha256-mTvI7kJEXdfhu903xajlqKuJIWlo//90eLnokxbDM0Y=";
     fetchSubmodules = true;
   };
 
@@ -56,6 +56,7 @@ stdenv.mkDerivation rec {
   ];
 
   strictDeps = true;
+
 
   depsBuildBuild = [
     pkg-config
