@@ -93,7 +93,7 @@ with major; writeShellScript "update-cachyos" ''
     "$srcJson" | sponge "$srcJson"
 
   ${lib.strings.concatMapStrings (flavor: ''
-    cat "$(nix build '.#packages.x86_64-linux.linuxPackages_cachyos${flavor}.kernel.kconfigToNix' --no-link --print-out-paths)" \
+    cat "$(nix build '.#legacyPackages.x86_64-linux.linuxPackages_cachyos${flavor}.kernel.kconfigToNix' --no-link --print-out-paths)" \
     > pkgs/linux-cachyos/config-nix/cachyos${flavor}.x86_64-linux.nix
   '') flavors}
 
