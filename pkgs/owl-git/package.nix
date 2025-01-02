@@ -4,7 +4,7 @@
 , makeWrapper
 , pkg-config
 , libinput
-, wlroots_git
+, wlroots_0_18
 , wayland
 , pixman
 , libxcb
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
   buildInputs = [
     wayland-protocols
     libxkbcommon
-    wlroots_git
+    wlroots_0_18
     libinput
     wayland
     libxcb
