@@ -61,7 +61,7 @@ gitOverride (current: {
 
     mesonFlags = nyxUtils.removeByPrefixes [ "-Domx-libs-path=" "-Ddri-search-path=" "-Dopencl-spirv" ] prevAttrs.mesonFlags;
 
-    patches = (nyxUtils.removeByBaseName "opencl.patch" prevAttrs.patches) ++ [ ./opencl.patch ./gbm-backend.patch ];
+    patches = (nyxUtils.removeByBaseNames [ "opencl.patch" "cross_clc.patch" ] prevAttrs.patches) ++ [ ./opencl.patch ./gbm-backend.patch ];
 
     postPatch =
       let
@@ -98,16 +98,8 @@ gitOverride (current: {
           if gbmDriver then prevStr + ''
             mv $drivers/lib/gbm/dri_gbm.so $drivers/lib/gbm/${gbmBackend}_gbm.so
           '' else prevStr;
-
-        update24_2 =
-          builtins.replaceStrings [
-            ''moveToOutput "lib/lib*_mesa*" $drivers''
-          ] [
-            ''moveToOutput "lib/lib*_mesa*" $drivers; moveToOutput "lib/gbm" $drivers; moveToOutput "lib/libglapi*" $drivers''
-          ]
-            prevAttrs.postInstall;
       in
-      addGbmRename update24_2;
+      addGbmRename prevAttrs.postInstall;
 
     # test and accessible information
     passthru = prevAttrs.passthru // {
