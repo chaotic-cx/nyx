@@ -166,7 +166,7 @@ We do this automatically, so we can gracefully update the cache's address and ke
 
 <h3 id="using-sched-ext-schedulers">Using sched-ext schedulers</h3>
 
-<p> From version 6.12 onwards, sched-ext support is officially available on the upstream kernel. You can use the latest kernel (<code>pkgs.linuxPackages_latest</code>) or our provided CachyOS kernel (<code>chaotic.legacyPackages.x86_64-linux.linuxPackages_cachyos</code>).</p>
+<p> From version 6.12 onwards, sched-ext support is officially available on the upstream kernel. You can use the latest kernel (<code>pkgs.linuxPackages_latest</code>) or our provided CachyOS kernel (<code>pkgs.inuxPackages_cachyos</code>).</p>
 
 <p>Just add this to your configuration:</p>
 
@@ -256,6 +256,8 @@ enable_seq  hotplug_seq  nr_rejected  root  state  switch_all
 <p>Even though we provide <code>linuxPackages_cachyos-lto</code>, we don't maintain the kernel modules in it. Nixpkgs, where the derivations originate from, doesn't provide kernels built with Clang. Consequentially, adding later support for all the kernel modules available in Nixpkgs wouldn't be easy. Presently, <code>xone</code> is the only one guaranteed to work, and <strong>ZFS is known to not work</strong>.</p>
 
 <p>Other variations of <code>linuxPackages_cachyos</code> works without any issues. But, we don't build the ones in <code>linuxPackages_cachyos-rc</code>, they should work, but don't expect cache for them.</p>
+
+<p>You may install the CachyOS kernel directly using the default modules and overlays with <code>pkgs.linuxPackages_cachyos</code>. Alternatively, use <code>chaotic.legacyPackages.x86_64-linux.inuxPackages_cachyos</code> if you would like to use the package directly without using modules and overlay</p>
 
 <h2 id="why-am-i-building-a-kernel-basic-cache-troubleshooting">Why am I building a kernel? Basic cache troubleshooting</h2>
 
