@@ -166,7 +166,7 @@ We do this automatically, so we can gracefully update the cache's address and ke
 
 <h3 id="using-sched-ext-schedulers">Using sched-ext schedulers</h3>
 
-<p> From version 6.12 onwards, sched-ext support is officially available on the upstream kernel. You can use the latest kernel (<code>pkgs.linuxPackages_latest</code>) or our provided CachyOS kernel (<code>pkgs.linuxPackages_cachyos</code>). </p>
+<p> From version 6.12 onwards, sched-ext support is officially available on the upstream kernel. You can use the latest kernel (<code>pkgs.linuxPackages_latest</code>) or our provided CachyOS kernel (<code>chaotic.legacyPackages.x86_64-linux.linuxPackages_cachyos</code>).</p>
 
 <p>Just add this to your configuration:</p>
 
