@@ -15,7 +15,7 @@ gitOverride {
 
   withExtraUpdateCommands = final.writeShellScript "bump-zig-zon" ''
     pushd "$_LATEST_PATH"
-    ${final.zon2nix}/bin/zon2nix > "$_NYX_DIR/$_PKG_DIR/build.zig.zon.nix"
+    ${final.zon2nix_zig_0_13}/bin/zon2nix > "$_NYX_DIR/$_PKG_DIR/build.zig.zon.nix"
     popd
 
     git add "$_PKG_DIR/build.zig.zon.nix"
