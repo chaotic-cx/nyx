@@ -257,7 +257,7 @@ enable_seq  hotplug_seq  nr_rejected  root  state  switch_all
 
 <p>Other variations of <code>linuxPackages_cachyos</code> works without any issues. But, we don't build the ones in <code>linuxPackages_cachyos-rc</code>, they should work, but don't expect cache for them.</p>
 
-<p>You may install the CachyOS kernel directly using the default modules and overlays with <code>pkgs.linuxPackages_cachyos</code>. Alternatively, use <code>chaotic.legacyPackages.x86_64-linux.inuxPackages_cachyos</code> if you would like to use the package directly without using modules and overlay</p>
+<p>You may install the CachyOS kernel directly using the default modules and overlays with <code>pkgs.linuxPackages_cachyos</code>. Alternatively, use <code>chaotic.legacyPackages.x86_64-linux.linuxPackages_cachyos</code> if you would like to use the package directly without using modules and overlay</p>
 
 <h2 id="why-am-i-building-a-kernel-basic-cache-troubleshooting">Why am I building a kernel? Basic cache troubleshooting</h2>
 
