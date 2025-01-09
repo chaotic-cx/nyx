@@ -31,7 +31,7 @@ in
       "chaotic=${flakes.self}"
     ];
     nix.registry = lib.mkIf pathCfg.enable {
-      chaotic.flake.path = flakes.self;
+      chaotic.flake = flakes.self;
     };
   };
 }
