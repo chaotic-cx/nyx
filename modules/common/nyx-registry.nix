@@ -5,17 +5,17 @@ let
 in
 {
   options = with lib; {
-    chaotic.nyx.registry.enable =
-      mkOption {
-        default = true;
-        example = false;
-        type = types.bool;
-        description = ''
-          Whether to add Chaotic-Nyx to `nix.registry`.
-        '';
-      };
-    options = with lib; {
-      chaotic.nyx.nixPath.enable =
+    chaotic.nyx = {
+      registry.enable =
+        mkOption {
+          default = true;
+          example = false;
+          type = types.bool;
+          description = ''
+            Whether to add Chaotic-Nyx to `nix.registry`.
+          '';
+        };
+      nixPath.enable =
         mkOption {
           default = true;
           example = false;
@@ -25,13 +25,13 @@ in
           '';
         };
     };
-    config = {
-      nix.nixPath = lib.lists.optionals cfg.enable [
-        "chaotic=${flakes.self}"
-      ];
-      nix.registry = lib.mkIf cfg.enable {
-        chaotic.flake.path = flakes.self;
-      };
+  };
+  config = {
+    nix.nixPath = lib.lists.optionals cfg.enable [
+      "chaotic=${flakes.self}"
+    ];
+    nix.registry = lib.mkIf cfg.enable {
+      chaotic.flake.path = flakes.self;
     };
   };
 }
