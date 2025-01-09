@@ -17,7 +17,8 @@
   <li>
     <a href="#how-to-use-it">How to use it</a><br/>
     <ul>
-      <li><a href="#on-nixos">On NixOS</a><br/></li>
+      <li><a href="#on-nixos-unstable">On NixOS unstable</a><br/></li>
+      <li><a href="#on-nixos-stable">On NixOS stable</a><br/></li>
       <li><a href="#on-home-manager">On Home-Manager</a><br/></li>
       <li><a href="#running-packages-without-installing">Running packages (without installing)</a><br/></li>
       <li><a href="#binary-cache-notes">Binary Cache notes</a><br/></li>
@@ -41,7 +42,9 @@
 
 <h2 id="how-to-use-it">How to use it</h2>
 
-<h3 id="on-nixos">On NixOS</h3>
+<h3 id="on-nixos-unstable">On NixOS unstable</h3>
+
+<p>This tutorial does not apply for users using NixOS 24.11 and other stable channels. This tutorial is for unstable users.</p>
 
 <p>We recommend integrating this repo using Flakes:</p>
 
@@ -75,6 +78,50 @@
 {
   environment.systemPackages = [ pkgs.lan-mouse_git ];
   chaotic.mesa-git.enable = true;
+}
+</code></pre>
+
+<h3 id="on-nixos-stable">On NixOS stable</h3>
+
+<p>This tutorial does not apply for users using NixOS unstable channel. This tutorial is for 24.11 and other stable channels.</p>
+
+<p>You won't have access to all the modules and options available to unstable users, as those are prone to breaking due to the divergence between the channels.
+But you'll have access to all packages, the cache, and the registry.</p>
+
+<p>We recommend integrating this repo using Flakes:</p>
+
+<pre lang="nix"><code class="language-nix">
+{
+  description = "My configuration";
+
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+  };
+
+  outputs = { nixpkgs, chaotic, ... }: {
+    nixosConfigurations = {
+      hostname = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./configuration.nix # Your system configuration.
+          chaotic.nixosModules.nyx-cache
+          chaotic.nixosModules.nyx-overlay
+          chaotic.nixosModules.nyx-registry
+        ];
+      };
+    };
+  };
+}
+</code></pre>
+
+<p>In your <code>configuration.nix</code> enable the packages that you prefer:</p>
+
+<pre lang="nix"><code class="language-nix">
+{ pkgs, ... }:
+{
+  environment.systemPackages = [ pkgs.lan-mouse_git ];
+  boot.kernelPackages = pkgs.linuxPackages_cachyos;
 }
 </code></pre>
 
