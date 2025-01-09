@@ -27,10 +27,10 @@ in
     };
   };
   config = {
-    nix.nixPath = lib.lists.optionals cfg.enable [
+    nix.nixPath = lib.lists.optionals registryCfg.enable [
       "chaotic=${flakes.self}"
     ];
-    nix.registry = lib.mkIf cfg.enable {
+    nix.registry = lib.mkIf pathCfg.enable {
       chaotic.flake.path = flakes.self;
     };
   };
