@@ -33,4 +33,5 @@ in
         chaotic.flake.path = flakes.self;
       };
     };
-  }
+  };
+}
