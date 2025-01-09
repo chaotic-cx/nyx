@@ -85,8 +85,8 @@
 
 <p>This tutorial does not apply for users using NixOS unstable channel. This tutorial is for 24.11 and other stable channels.</p>
 
-<p>You won't have access to all the modules and options avaiable to unstable users as those are prone to break due to the divergence between the channels.
-But, you'll have access to all packages, the cache and the registry.</p>
+<p>You won't have access to all the modules and options available to unstable users, as those are prone to breaking due to the divergence between the channels.
+But you'll have access to all packages, the cache, and the registry.</p>
 
 <p>We recommend integrating this repo using Flakes:</p>
 
