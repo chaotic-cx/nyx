@@ -65,8 +65,8 @@
     "hash": "sha256-9kUfvIq8jod4F4266HYoq1ieIvoJX28UXtzotKbAbco="
   },
   "volk": {
-    "version": "1.3.296.0",
-    "rev": "vulkan-sdk-#{version}",
-    "hash": "sha256-faLszfOeFo5eAzwvnrAUDVAPCVt/F9xRUFGxC9TA8E8="
+    "version": "1.4.304",
+    "rev": "#{version}",
+    "hash": "sha256-+SLGRvCUKFntz60/xL/NjoFjvvATWMImR4CGnCHUj2o="
   }
 }
