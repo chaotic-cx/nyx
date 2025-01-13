@@ -22,7 +22,6 @@
   "linuxPackages_cachyos.rtl8192eu" = "/nix/store/9prwxis9x1apr4cnbx8f5v1zhydjf211-rtl8192eu-6.12.9-4.4.1.20240507";
   "linuxPackages_cachyos.rtl8814au" = "/nix/store/vqdqfi8z5dqd28wbxci01ai0h1ybly0n-rtl8814au-6.12.9-unstable-2024-05-26";
   "linuxPackages_cachyos.rtl8821au" = "/nix/store/0yaw6ncnjnwd0hq8ijbzxg2i41za3k76-rtl8821au-6.12.9-unstable-2024-03-16";
-  "linuxPackages_cachyos.system76" = "/nix/store/ljs2jp5shkmvax92wd2l6klnxhwfmc36-system76-module-1.0.16-6.12.9";
   "linuxPackages_cachyos.system76-acpi" = "/nix/store/l3fg00znxyfrbfpdff3ghr0y5cavzi7j-system76-acpi-module-1.0.2-6.12.9";
   "linuxPackages_cachyos.systemtap" = "/nix/store/d1kv6yp0aapyrdy3h5209s1ikz8ndbfh-systemtap-5.2";
   "linuxPackages_cachyos.tbs" = "/nix/store/q7dh05vy6z1y2b682k17fijbh6653df3-tbs-20241213-6.12.9";
@@ -57,7 +56,6 @@
   "linuxPackages_cachyos-hardened.rtl8821au" = "/nix/store/95c3q7i08fswf3485fl886dqflzinvgj-rtl8821au-6.12.9-unstable-2024-03-16";
   "linuxPackages_cachyos-hardened.rtl8852au" = "/nix/store/kaqa5wq42l2gcmbz0rww7j900ql4lqjd-rtl8852au-6.12.9-unstable-2024-05-06";
   "linuxPackages_cachyos-hardened.rtl8852bu" = "/nix/store/63bm32wc1g9kbywk0ns4gaynbk1kwksl-rtl8852bu-6.12.9-unstable-2024-05-25";
-  "linuxPackages_cachyos-hardened.system76" = "/nix/store/1nd8f5l90k3v5jclr66v4vp7h12h7qpj-system76-module-1.0.16-6.12.9";
   "linuxPackages_cachyos-hardened.system76-acpi" = "/nix/store/3fbsxfc7v9cb3ssbxl5fhcaya718b7d2-system76-acpi-module-1.0.2-6.12.9";
   "linuxPackages_cachyos-hardened.systemtap" = "/nix/store/q95ssy3scn9zgvigjdxckgj9zzn49n8r-systemtap-5.2";
   "linuxPackages_cachyos-hardened.tbs" = "/nix/store/hcck8f6izj0y67rw065gdvilxm47rzf1-tbs-20241213-6.12.9";
@@ -89,7 +87,7 @@
   "linuxPackages_cachyos-lto.lttng-modules" = "/nix/store/b8kxxywqsmx7gccdylykm0rqdd05603z-lttng-modules-6.12.9-2.13.15";
   "linuxPackages_cachyos-lto.mba6x_bl" = "/nix/store/ax8d0cdbz1kdkg2svqdq7x7wlzrzlhrl-mba6x_bl-unstable-2017-12-30";
   "linuxPackages_cachyos-lto.mbp2018-bridge-drv" = "/nix/store/n14pl62srs23h0ygcgmkg1dxhqb1476y-mbp2018-bridge-drv-2020-01-31";
-  "linuxPackages_cachyos-lto.mm-tools" = "/nix/store/nwdzazmyjlyyb6psl1g9ijigfdpm99zv-mm-tools-6.6.70";
+  "linuxPackages_cachyos-lto.mm-tools" = "/nix/store/2rdcgv5m2dxv0dk47rfa5ia788lf4lk2-mm-tools-6.6.71";
   "linuxPackages_cachyos-lto.mwprocapture" = "/nix/store/2f0cyh6y74li4ms9y7rv2knqwjzzynqy-mwprocapture-1.3.0.4390-6.12.9";
   "linuxPackages_cachyos-lto.netatop" = "/nix/store/10m4nr3sc4vkf1ylwvf5nj39mv16fmzj-netatop-6.12.9-3.1";
   "linuxPackages_cachyos-lto.new-lg4ff" = "/nix/store/8bi4m0aq5ba3l18qp5afm6srgqaqscbm-new-lg4ff-0-unstable-2024-11-25";
@@ -119,7 +117,7 @@
   "linuxPackages_cachyos-lto.ryzen-smu" = "/nix/store/n92h9lz38yndvc94v8f23mk5shyx7w25-ryzen-smu-6.12.9-0.1.5-unstable-2024-01-03";
   "linuxPackages_cachyos-lto.shufflecake" = "/nix/store/28jczk5j0ww4b1ad33w0f8a4ppxd3in1-shufflecake";
   "linuxPackages_cachyos-lto.sysdig" = "/nix/store/i0qmw57b2rlpsyz9bh632zwbcch4gl15-sysdig-0.38.1";
-  "linuxPackages_cachyos-lto.system76" = "/nix/store/v1lkv46s3whwwvz1mf0fq7h5w4a83x0n-system76-module-1.0.16-6.12.9";
+  "linuxPackages_cachyos-lto.system76" = "/nix/store/xia04nl83sw4d2dw4nqwcbaz9vipvji2-system76-module-1.0.17-6.12.9";
   "linuxPackages_cachyos-lto.system76-acpi" = "/nix/store/yaavja1vsag74d2r8ixy7ky220pavy96-system76-acpi-module-1.0.2-6.12.9";
   "linuxPackages_cachyos-lto.system76-io" = "/nix/store/91zvs1xlii08gfnlvb9zkzh9qm449ccc-system76-io-module-1.0.4-6.12.9";
   "linuxPackages_cachyos-lto.systemtap" = "/nix/store/c9yvqhz4a25k1lfqkpxk7c5a48gjpp9g-systemtap-5.2";
@@ -158,7 +156,6 @@
   "linuxPackages_cachyos-server.rtl8192eu" = "/nix/store/8qd0mpka16jv88fpw8r9xyhd4iiy875s-rtl8192eu-6.12.9-4.4.1.20240507";
   "linuxPackages_cachyos-server.rtl8814au" = "/nix/store/w9y64k1x0svf83rmqb7rq6ral5yff9p3-rtl8814au-6.12.9-unstable-2024-05-26";
   "linuxPackages_cachyos-server.rtl8821au" = "/nix/store/pwgm8p0faamjaxwp8i43d0cqaivfjc91-rtl8821au-6.12.9-unstable-2024-03-16";
-  "linuxPackages_cachyos-server.system76" = "/nix/store/xkhp6gj0mawa7cx0lzvw37jshh0yc2yq-system76-module-1.0.16-6.12.9";
   "linuxPackages_cachyos-server.system76-acpi" = "/nix/store/0pw70bq6vx9h9n1zlfgcvazd7znxml8i-system76-acpi-module-1.0.2-6.12.9";
   "linuxPackages_cachyos-server.systemtap" = "/nix/store/2cfh1534pgdnk2487nyd2j2wnz0b56xi-systemtap-5.2";
   "linuxPackages_cachyos-server.tbs" = "/nix/store/xb77shswdmnd2m5q2k0pa9vkhm4bccbr-tbs-20241213-6.12.9";
