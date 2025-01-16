@@ -158,5 +158,4 @@
   "linuxPackages_cachyos-server.v86d" = "/nix/store/zpnsza8amfxq0yn3xzl8r4fr4j9v4a3n-v86d-0.1.10-6.12.9";
   "linuxPackages_cachyos-server.veikk-linux-driver" = "/nix/store/g7ydyr853qliv2m6qznwmzf6b650s8rd-veikk-linux-driver-2.0";
   "linuxPackages_cachyos-server.yt6801" = "/nix/store/2f3bcq8bjspkxk6dsj6vvl49riiva1id-yt6801-1.0.29-20240812";
-  "xdg-desktop-portal-wlr_git" = "/nix/store/gwrrwhnk8ramm1dy2pci5zimgyigqi6l-xdg-desktop-portal-wlr-unstable-20240522135608-d9ada84";
 }
