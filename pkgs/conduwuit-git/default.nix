@@ -17,6 +17,7 @@ gitOverride {
   };
 
   postOverride = prevAttrs: {
+    meta = prevAttrs.meta // { mainProgram = "conduwuit"; };
     # autoPatchelfHook & buildINputs is needed when using Fenix
     nativeBuildInputs = prevAttrs.nativeBuildInputs ++ [ final.autoPatchelfHook ];
     buildInputs = prevAttrs.buildInputs ++ [ final.rocksdb final.libgcc.libgcc ];
