@@ -67,7 +67,7 @@ let
   addZFS = _finalAttrs: prevAttrs:
     {
       kernel_configfile = prevAttrs.kernel.configfile;
-      zfs_cachyos = prevAttrs.zfs_unstable.overrideAttrs (prevAttrs: {
+      zfs_cachyos = prevAttrs.zfs_2_2.overrideAttrs (prevAttrs: {
         src = fetchFromGitHub {
           owner = "cachyos";
           repo = "zfs";
@@ -81,7 +81,7 @@ let
   basePackages = linuxPackagesFor kernel;
   packagesWithZFS = basePackages.extend addZFS;
   packagesWithExtend = if packagesExtend == null then packagesWithZFS else packagesWithZFS.extend (packagesExtend kernel);
-  packagesWithRemovals = removeAttrs packagesWithExtend [ "zfs" "zfs_2_1" "zfs_2_2" "zfs_unstable" "lkrg" "drbd" ];
+  packagesWithRemovals = removeAttrs packagesWithExtend [ "zfs" "zfs_2_1" "zfs_2_2" "zfs_2_3" "zfs_unstable" "lkrg" "drbd" ];
   packagesWithoutUpdateScript = nyxUtils.dropAttrsUpdateScript packagesWithRemovals;
   packagesWithRightPlatforms = nyxUtils.setAttrsPlatforms supportedPlatforms packagesWithoutUpdateScript;
 
