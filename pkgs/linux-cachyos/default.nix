@@ -82,7 +82,7 @@ in
     withHDR = false;
   };
 
-  zfs = final.zfs_unstable.overrideAttrs (prevAttrs: {
+  zfs = final.zfs_2_2.overrideAttrs (prevAttrs: {
     inherit (mainKernel.zfs_cachyos) src;
     patches = [ ];
     passthru = prevAttrs.passthru // {
