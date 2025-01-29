@@ -1,13 +1,7 @@
-{ final, prev, gitOverride, rustPlatform_latest, ... }:
+{ final, prev, gitOverride, ... }:
 gitOverride {
   nyxKey = "conduwuit_git";
   prev = prev.conduwuit;
-
-  newInputs = {
-    rustPlatform = rustPlatform_latest;
-    # Needed when using Fenix
-    enableJemalloc = false;
-  };
 
   versionNyxPath = "pkgs/conduwuit-git/version.json";
   fetcher = "fetchFromGitHub";
@@ -18,8 +12,5 @@ gitOverride {
 
   postOverride = prevAttrs: {
     meta = prevAttrs.meta // { mainProgram = "conduwuit"; };
-    # autoPatchelfHook & buildINputs is needed when using Fenix
-    nativeBuildInputs = prevAttrs.nativeBuildInputs ++ [ final.autoPatchelfHook ];
-    buildInputs = prevAttrs.buildInputs ++ [ final.rocksdb final.libgcc.libgcc ];
   };
 }
