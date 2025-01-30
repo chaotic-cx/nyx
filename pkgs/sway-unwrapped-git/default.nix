@@ -24,6 +24,6 @@ gitOverride {
     mesonFlags =
       builtins.filter (x: builtins.substring 0 10 x != "-Dxwayland")
         prevAttrs.mesonFlags;
-    patches = [];
+    patches = [ ];
   };
 }

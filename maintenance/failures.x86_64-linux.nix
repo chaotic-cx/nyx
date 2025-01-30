@@ -1,5 +1,4 @@
 {
-  "firefox-unwrapped_nightly" = "/nix/store/ync4al7w5vry3l67jkb3lcsrvbd6p50v-firefox-nightly-unwrapped-136.0a1";
   "gamescope-wsi32_git" = "/nix/store/6398rv4grs1iywwn13hzxw371kxn7swm-gamescope-unstable-20250123103953-ef1e8db";
   "gamescope-wsi_git" = "/nix/store/v0lwc2cg70k4ya226mdh7mq71fgw1cck-gamescope-unstable-20250123103953-ef1e8db";
   "gamescope_git" = "/nix/store/0aa0ix6hi21g4iiiak5hraqyl84k9np0-gamescope-unstable-20250123103953-ef1e8db";

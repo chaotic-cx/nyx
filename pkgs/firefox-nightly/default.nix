@@ -7,6 +7,7 @@
 , nss_git
 , nyxUtils
 , stdenv
+, icu76
 }:
 
 let
@@ -42,5 +43,10 @@ let
       prevAttrs.patches ++ [ ./env_var_for_system_dir-ff-unstable.patch ./no-buildconfig-ffx-unstable.patch ];
     env.MOZ_REQUIRE_SIGNING = "";
   };
+
+  newInputs = {
+    nss_latest = nss_git;
+    icu74 = icu76;
+  };
 in
-nyxUtils.multiOverride mach { nss_latest = nss_git; } postOverride
+nyxUtils.multiOverride mach newInputs postOverride
