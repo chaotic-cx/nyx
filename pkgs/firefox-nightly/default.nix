@@ -8,6 +8,7 @@
 , nyxUtils
 , stdenv
 , icu76
+, libpng
 }:
 
 let
@@ -47,6 +48,18 @@ let
   newInputs = {
     nss_latest = nss_git;
     icu74 = icu76;
+    libpng = libpng.overrideAttrs (_prevAttrs: {
+      version = "1.6.45";
+      src = fetchurl {
+        url = "mirror://sourceforge/libpng/libpng-1.6.45.tar.xz";
+        hash = "sha256-kmSFNQE5/7Ue9pdg2zX3iEbIBf7z1Zv9yy+6cEZj83A=";
+      };
+      postPatch =
+        "gunzip < ${fetchurl {
+          url = "mirror://sourceforge/libpng-apng/libpng-1.6.45-apng.patch.gz";
+          hash = "sha256-aulUljivHlsmkH4BVnHQCldh7qk+Mm9Xbf6CsIVnJ0w=";
+        }} | patch -Np1";
+    });
   };
 in
 nyxUtils.multiOverride mach newInputs postOverride

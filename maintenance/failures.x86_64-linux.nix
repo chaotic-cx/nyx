@@ -1,5 +1,4 @@
 {
-  "firefox-unwrapped_nightly" = "/nix/store/3ipfmsczkf29vl0j914f2pp9yvj7z92q-firefox-nightly-unwrapped-136.0a1";
   "vulkanPackages_latest.vulkan-validation-layers" = "/nix/store/mpqc3mgmvglk1fkiij9gzw7k842mabcz-vulkan-validation-layers-1.4.305";
   "linuxPackages_cachyos.ajantv2" = "/nix/store/mii2dw74bnsvfqgh9zxa84mqaw67z787-ajantv2-module-17.1.0-6.13.0";
   "linuxPackages_cachyos.asus-ec-sensors" = "/nix/store/p7dymd7whfd3hx1y8lqhrqvpxzsmhvrx-asus-ec-sensors-unstable-2022-07-10-6.13.0";
