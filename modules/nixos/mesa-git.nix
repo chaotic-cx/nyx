@@ -36,14 +36,6 @@ let
         extraPackages32 = mkForce cfg.extraPackages32;
         enable32Bit = mkForce has32;
       };
-
-      systemd.services.display-manager.environment = variables // {
-        LD_PRELOAD = "${pkgs.mesa_git.drivers}/lib/libglapi.so.0"; # Required for SDDM
-      };
-
-      environment.sessionVariables = variables // {
-        LD_PRELOAD = [ "${pkgs.mesa_git.drivers}/lib/libglapi.so.0" ]; # Required for browser's gltest
-      };
     };
 
   common = {
