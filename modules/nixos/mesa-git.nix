@@ -36,6 +36,10 @@ let
         extraPackages32 = mkForce cfg.extraPackages32;
         enable32Bit = mkForce has32;
       };
+
+      systemd.services.display-manager.environment = variables;
+
+      environment.sessionVariables = variables;
     };
 
   common = {
