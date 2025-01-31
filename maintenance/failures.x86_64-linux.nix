@@ -1,5 +1,6 @@
 {
-  "firefox-unwrapped_nightly" = "/nix/store/5pgmakf0h0y2dnmqrrxqkhlymj0qxyl9-firefox-nightly-unwrapped-136.0a1";
+  "firefox-unwrapped_nightly" = "/nix/store/vqpyvf96hyj5lwaxm2pmzr8m1lbpqw55-firefox-nightly-unwrapped-136.0a1";
+  "firefox_nightly" = "/nix/store/vgkac43f4f6vqmdsligqvnnpqxj7cb3f-firefox-136.0a1";
   "linuxPackages_cachyos.ajantv2" = "/nix/store/mii2dw74bnsvfqgh9zxa84mqaw67z787-ajantv2-module-17.1.0-6.13.0";
   "linuxPackages_cachyos.asus-ec-sensors" = "/nix/store/p7dymd7whfd3hx1y8lqhrqvpxzsmhvrx-asus-ec-sensors-unstable-2022-07-10-6.13.0";
   "linuxPackages_cachyos.ax99100" = "/nix/store/90cjr8qycc6hd9q5g9brrj373jhff5cy-ax99100-1.8.0";

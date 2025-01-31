@@ -43,23 +43,27 @@ let
       [ "env_var_for_system_dir-ff133.patch" "no-buildconfig-ffx121.patch" ]
       prevAttrs.patches ++ [ ./env_var_for_system_dir-ff-unstable.patch ./no-buildconfig-ffx-unstable.patch ];
     env.MOZ_REQUIRE_SIGNING = "";
+    # Fix a dep conflict
+    configureFlags = nyxUtils.replaceStartingWith "--with-system-png" "=${libpng_pinned}" prevAttrs.buildInputs;
   };
+
+  libpng_pinned = libpng.overrideAttrs (_prevAttrs: {
+    version = "1.6.45";
+    src = fetchurl {
+        url = "mirror://sourceforge/libpng/libpng-1.6.45.tar.xz";
+        hash = "sha256-kmSFNQE5/7Ue9pdg2zX3iEbIBf7z1Zv9yy+6cEZj83A=";
+    };
+    postPatch =
+      "gunzip < ${fetchurl {
+      url = "mirror://sourceforge/libpng-apng/libpng-1.6.45-apng.patch.gz";
+      hash = "sha256-aulUljivHlsmkH4BVnHQCldh7qk+Mm9Xbf6CsIVnJ0w=";
+      }} | patch -Np1";
+  });
 
   newInputs = {
     nss_latest = nss_git;
     icu74 = icu76;
-    libpng = libpng.overrideAttrs (_prevAttrs: {
-      version = "1.6.45";
-      src = fetchurl {
-        url = "mirror://sourceforge/libpng/libpng-1.6.45.tar.xz";
-        hash = "sha256-kmSFNQE5/7Ue9pdg2zX3iEbIBf7z1Zv9yy+6cEZj83A=";
-      };
-      postPatch =
-        "gunzip < ${fetchurl {
-          url = "mirror://sourceforge/libpng-apng/libpng-1.6.45-apng.patch.gz";
-          hash = "sha256-aulUljivHlsmkH4BVnHQCldh7qk+Mm9Xbf6CsIVnJ0w=";
-        }} | patch -Np1";
-    });
+    libpng = libpng_pinned;
   };
 in
 nyxUtils.multiOverride mach newInputs postOverride
