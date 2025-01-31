@@ -42,9 +42,13 @@ let
     patches = nyxUtils.removeByBaseNames
       [ "env_var_for_system_dir-ff133.patch" "no-buildconfig-ffx121.patch" ]
       prevAttrs.patches ++ [ ./env_var_for_system_dir-ff-unstable.patch ./no-buildconfig-ffx-unstable.patch ];
-    env.MOZ_REQUIRE_SIGNING = "";
+    env = (prevAttrs.env or {}) // {
+      MOZ_REQUIRE_SIGNING = "";
+    };
     # Fix a dep conflict
-    configureFlags = nyxUtils.replaceStartingWith "--with-system-png" "=${libpng_pinned}" prevAttrs.buildInputs;
+    preConfigure = prevAttrs.preConfigure + ''
+      export PKG_CONFIG_PATH="${libpng_pinned.dev}/lib/pkgconfig:$PKG_CONFIG_PATH"
+    '';
   };
 
   libpng_pinned = libpng.overrideAttrs (_prevAttrs: {
