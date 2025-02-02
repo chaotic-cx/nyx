@@ -51,7 +51,7 @@ let
     '';
     # Fix libpng conflicts
     preConfigure = prevAttrs.preConfigure + ''
-      export PKG_CONFIG_PATH="${libpng_pinned.dev}/lib/pkgconfig:$PKG_CONFIG_PATH"
+      export PKG_CONFIG_PATH="''${PKG_CONFIG_PATH/libpng-apng-1.6.43/buggy-corpse-1}"
     '';
   };
 
