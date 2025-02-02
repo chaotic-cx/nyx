@@ -7,7 +7,6 @@
 , nss_git
 , nyxUtils
 , stdenv
-, freetype
 , icu76
 , libpng
 }:
@@ -52,36 +51,16 @@ let
     '';
     # Freetype's derivation adds libpng to propagatedBuildInputs and the build system goes nuts
     # with two different versions of libpng. Sadly freetype itself is dependency of many packages.
-    # So we need to hack the entire env.
-    preConfigure = prevAttrs.preConfigure + ''
-      export PKG_CONFIG_PATH="''${PKG_CONFIG_PATH//libpng-apng-${libpng.version}/corpse-0}"
-      export NIX_CFLAGS_COMPILE="''${NIX_CFLAGS_COMPILE//libpng-apng-${libpng.version}/corpse-0}"
-      export BINDGEN_EXTRA_CLANG_ARGS="''${BINDGEN_EXTRA_CLANG_ARGS//libpng-apng-${libpng.version}/corpse-0}"
-      export PATH="''${PATH//libpng-apng-${libpng.version}/corpse-0}"
-      export NIX_LDFLAGS="''${NIX_LDFLAGS//libpng-apng-${libpng.version}/corpse-0}"
-      export HOST_PATH="''${HOST_PATH//libpng-apng-${libpng.version}/corpse-0}"
-    '';
-    passthru = prevAttrs.passthru // { libpng = libpng; libpng_pinned = libpng_pinned; };
+    # The easiest solution is to use vendored libpng.
+    configureFlags =
+      if lib.strings.versionOlder libpng.version "1.6.46" then
+        nyxUtils.removeByPrefix "--with-system-png" prevAttrs.configureFlags
+      else prevAttrs.configureFlags;
   };
-
-  libpng_pinned = libpng.overrideAttrs (_prevAttrs: rec {
-    version = "1.6.46";
-    src = fetchurl {
-      url = "mirror://sourceforge/libpng/libpng-${version}.tar.xz";
-      hash = "sha256-86qLcAOZirkqTpkGwY0ZhT6Zn507ypvRZo9U+oFwfLE=";
-    };
-    postPatch =
-      "gunzip < ${fetchurl {
-        url = "mirror://sourceforge/libpng-apng/libpng-${version}-apng.patch.gz";
-      hash = "sha256-Kb7C39BG71HVLz5TIPkfr/yWvge0HZy51D2d9Veg0wM=";
-      }} | patch -Np1";
-  });
 
   newInputs = {
     nss_latest = nss_git;
     icu74 = icu76;
-    libpng = libpng_pinned;
-    freetype = freetype.override { libpng = libpng_pinned; };
   };
 in
 nyxUtils.multiOverride mach newInputs postOverride
