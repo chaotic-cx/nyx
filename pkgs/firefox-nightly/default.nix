@@ -7,6 +7,7 @@
 , nss_git
 , nyxUtils
 , stdenv
+, freetype
 , icu76
 , libpng
 }:
@@ -49,10 +50,18 @@ let
     postPatch = prevAttrs.postPatch + ''
       sed -i 's/icu-i18n/icu-uc &/' js/moz.configure
     '';
-    # Fix libpng conflicts
+    # Freetype's derivation adds libpng to propagatedBuildInputs and the build system goes nuts
+    # with two different versions of libpng. Sadly freetype itself is dependency of many packages.
+    # So we need to hack the entire env.
     preConfigure = prevAttrs.preConfigure + ''
-      export PKG_CONFIG_PATH="''${PKG_CONFIG_PATH/libpng-apng-1.6.43/buggy-corpse-1}"
+      export PKG_CONFIG_PATH="''${PKG_CONFIG_PATH//libpng-apng-${libpng.version}/corpse-0}"
+      export NIX_CFLAGS_COMPILE="''${NIX_CFLAGS_COMPILE//libpng-apng-${libpng.version}/corpse-0}"
+      export BINDGEN_EXTRA_CLANG_ARGS="''${BINDGEN_EXTRA_CLANG_ARGS//libpng-apng-${libpng.version}/corpse-0}"
+      export PATH="''${PATH//libpng-apng-${libpng.version}/corpse-0}"
+      export NIX_LDFLAGS="''${NIX_LDFLAGS//libpng-apng-${libpng.version}/corpse-0}"
+      export HOST_PATH="''${HOST_PATH//libpng-apng-${libpng.version}/corpse-0}"
     '';
+    passthru = prevAttrs.passthru // { libpng = libpng; libpng_pinned = libpng_pinned; };
   };
 
   libpng_pinned = libpng.overrideAttrs (_prevAttrs: rec {
@@ -72,6 +81,7 @@ let
     nss_latest = nss_git;
     icu74 = icu76;
     libpng = libpng_pinned;
+    freetype = freetype.override { libpng = libpng_pinned; };
   };
 in
 nyxUtils.multiOverride mach newInputs postOverride
