@@ -47,9 +47,11 @@ let
     };
     # Fix a dep conflict
     preConfigure = prevAttrs.preConfigure + ''
-      export PKG_CONFIG_PATH="${libpng_pinned.dev}/lib/pkgconfig:$PKG_CONFIG_PATH"
+      export PKG_CONFIG_PATH="${libpng_pinned.dev}/lib/pkgconfig:${icu_pinned.dev}/lib/pkgconfig:$PKG_CONFIG_PATH"
     '';
   };
+
+  icu_pinned = icu76;
 
   libpng_pinned = libpng.overrideAttrs (_prevAttrs: {
     version = "1.6.45";
@@ -66,7 +68,7 @@ let
 
   newInputs = {
     nss_latest = nss_git;
-    icu74 = icu76;
+    icu74 = icu_pinned;
     libpng = libpng_pinned;
   };
 in
