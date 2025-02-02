@@ -45,13 +45,15 @@ let
     env = (prevAttrs.env or { }) // {
       MOZ_REQUIRE_SIGNING = "";
     };
-    # Fix a dep conflict
+    # Fix missing icu_76::UnicodeSet symbols
+    postPatch = prevAttrs.postPatch + ''
+      sed -i 's/icu-i18n/icu-uc &/' js/moz.configure
+    '';
+    # Fix libpng conflicts
     preConfigure = prevAttrs.preConfigure + ''
-      export PKG_CONFIG_PATH="${libpng_pinned.dev}/lib/pkgconfig:${icu_pinned.dev}/lib/pkgconfig:$PKG_CONFIG_PATH"
+      export PKG_CONFIG_PATH="${libpng_pinned.dev}/lib/pkgconfig:$PKG_CONFIG_PATH"
     '';
   };
-
-  icu_pinned = icu76;
 
   libpng_pinned = libpng.overrideAttrs (_prevAttrs: {
     version = "1.6.45";
@@ -68,7 +70,7 @@ let
 
   newInputs = {
     nss_latest = nss_git;
-    icu74 = icu_pinned;
+    icu74 = icu76;
     libpng = libpng_pinned;
   };
 in
