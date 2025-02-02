@@ -55,7 +55,7 @@ let
     '';
   };
 
-  libpng_pinned = libpng.overrideAttrs (_prevAttrs: {
+  libpng_pinned = libpng.overrideAttrs (prevAttrs: {
     version = "1.6.45";
     src = fetchurl {
       url = "mirror://sourceforge/libpng/libpng-1.6.45.tar.xz";
@@ -66,6 +66,7 @@ let
       url = "mirror://sourceforge/libpng-apng/libpng-1.6.45-apng.patch.gz";
       hash = "sha256-aulUljivHlsmkH4BVnHQCldh7qk+Mm9Xbf6CsIVnJ0w=";
       }} | patch -Np1";
+    configureFlags = [ "-DPNG_cICP_SUPPORTED" ] ++ (prevAttrs.configureFlags or [ ]);
   });
 
   newInputs = {
