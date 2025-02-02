@@ -55,18 +55,17 @@ let
     '';
   };
 
-  libpng_pinned = libpng.overrideAttrs (prevAttrs: {
-    version = "1.6.45";
+  libpng_pinned = libpng.overrideAttrs (_prevAttrs: rec {
+    version = "1.6.46";
     src = fetchurl {
-      url = "mirror://sourceforge/libpng/libpng-1.6.45.tar.xz";
-      hash = "sha256-kmSFNQE5/7Ue9pdg2zX3iEbIBf7z1Zv9yy+6cEZj83A=";
+      url = "mirror://sourceforge/libpng/libpng-${version}.tar.xz";
+      hash = "sha256-86qLcAOZirkqTpkGwY0ZhT6Zn507ypvRZo9U+oFwfLE=";
     };
     postPatch =
       "gunzip < ${fetchurl {
-      url = "mirror://sourceforge/libpng-apng/libpng-1.6.45-apng.patch.gz";
-      hash = "sha256-aulUljivHlsmkH4BVnHQCldh7qk+Mm9Xbf6CsIVnJ0w=";
+        url = "mirror://sourceforge/libpng-apng/libpng-${version}-apng.patch.gz";
+      hash = "sha256-Kb7C39BG71HVLz5TIPkfr/yWvge0HZy51D2d9Veg0wM=";
       }} | patch -Np1";
-    configureFlags = [ "-DPNG_cICP_SUPPORTED" ] ++ (prevAttrs.configureFlags or [ ]);
   });
 
   newInputs = {
