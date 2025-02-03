@@ -67,7 +67,7 @@ let
   addZFS = _finalAttrs: prevAttrs:
     {
       kernel_configfile = prevAttrs.kernel.configfile;
-      zfs_cachyos = prevAttrs.zfs_2_2.overrideAttrs (prevAttrs: {
+      zfs_cachyos = prevAttrs.zfs_2_3.overrideAttrs (prevAttrs: {
         src = fetchFromGitHub {
           owner = "cachyos";
           repo = "zfs";
