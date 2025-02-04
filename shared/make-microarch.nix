@@ -1,4 +1,9 @@
 { nixpkgs, final, selfOverlay, nixpkgsExtraConfig }: cpuType: arch: with final;
+let
+  targetPlatform =
+    if lib.systems.equals (lib.systems.elaborate stdenv.buildPlatform) (lib.systems.elaborate stdenv.hostPlatform)
+    then "localSystem" else "crossSystem";
+in
 import "${nixpkgs}"
   {
     config = final.config // nixpkgsExtraConfig;
@@ -20,8 +25,7 @@ import "${nixpkgs}"
         ltrace = prev'.ltrace.overrideAttrs (_prevattrs: { doCheck = false; });
       })
     ] ++ overlays;
-    ${if stdenv.hostPlatform == stdenv.buildPlatform
-    then "localSystem" else "crossSystem"} = {
+    ${targetPlatform} = {
       config = lib.systems.parse.tripleFromSystem (stdenv.hostPlatform.parsed // {
         cpu = lib.systems.parse.cpuTypes."${cpuType}";
       });
