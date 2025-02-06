@@ -1,5 +1,5 @@
-{ final, prev, gitOverride, rustPlatform_latest, ... }:
-gitOverride {
+{ final, prev, gitOverride, nyxUtils, rustPlatform_latest, ... }:
+gitOverride (current: {
   nyxKey = "conduwuit_git";
   prev = prev.conduwuit;
 
@@ -18,8 +18,19 @@ gitOverride {
 
   postOverride = prevAttrs: {
     meta = prevAttrs.meta // { mainProgram = "conduwuit"; };
-    # autoPatchelfHook & buildINputs is needed when using Fenix
+    # watermark
+    env = prevAttrs.env // {
+      CONDUWUIT_VERSION_EXTRA = "${nyxUtils.shorter current.rev}+nyx";
+    };
+    # We need blurhashing, sentry requires opt-in during runtime (set `sentry = true` in your config)
+    buildNoDefaultFeatures = false;
+    cargoBuildNoDefaultFeatures = false;
+    cargoCheckNoDefaultFeatures = false;
+    buildFeatures = [ "blurhashing" "sentry_telemetry" ];
+    cargoBuildFeatures = [ "blurhashing" "sentry_telemetry" ];
+    cargoCheckFeatures = [ "blurhashing" "sentry_telemetry" ];
+    # autoPatchelfHook & buildInputs is needed when using Fenix
     nativeBuildInputs = prevAttrs.nativeBuildInputs ++ [ final.autoPatchelfHook ];
     buildInputs = prevAttrs.buildInputs ++ [ final.rocksdb final.libgcc.libgcc ];
   };
-}
+})

@@ -1,6 +1,6 @@
 { prev, gitOverride, ... }:
 
-gitOverride {
+gitOverride (current: {
   nyxKey = "zed-editor_git";
   prev = prev.zed-editor;
 
@@ -17,9 +17,12 @@ gitOverride {
     postPatch = builtins.replaceStrings [ prevAttrs.version ] [ "*" ] prevAttrs.postPatch;
   };
 
-  postOverride = _prevAttrs: {
+  postOverride = prevAttrs: {
+    env = prevAttrs.env // {
+      ZED_COMMIT_SHA = current.rev;
+    };
     # Nothing wrong on it, just saving compilation time for me!
     dontCheck = true;
     doInstallCheck = false;
   };
-}
+})
