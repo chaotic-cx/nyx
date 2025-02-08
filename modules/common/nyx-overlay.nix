@@ -7,10 +7,7 @@ let
     _userFinal: _userPrev:
     let
       inherit (pkgs) stdenv;
-      isCross =
-        !(lib.systems.equals (lib.systems.elaborate stdenv.buildPlatform) (
-          lib.systems.elaborate stdenv.hostPlatform
-        ));
+      isCross = stdenv.buildPlatform != stdenv.hostPlatform;
 
       prev =
         if isCross then
@@ -23,7 +20,7 @@ let
         else
           import "${flakes.nixpkgs}" {
             inherit (cfg.flakeNixpkgs) config;
-            system = flakes.nixpkgs.legacyPackages."${pkgs.stdenv.hostPlatform.system}".stdenv.hostPlatform.system;
+            localSystem = flakes.nixpkgs.legacyPackages."${pkgs.stdenv.hostPlatform.system}".stdenv.hostPlatform;
           };
     in
     flakes.self.utils.applyOverlay { pkgs = prev; };
