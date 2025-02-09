@@ -1,5 +1,4 @@
 {
-  "jujutsu_git" = "/nix/store/10xn11h2k0cykljd5w0xdfv1pkibc9r0-jujutsu-unstable-20241215234419-c82483b";
   "linuxPackages_cachyos.ajantv2" = "/nix/store/34r3dc6xrbhvm80hdjxk02phhyqsmvgb-ajantv2-module-17.1.0-6.13.1";
   "linuxPackages_cachyos.asus-ec-sensors" = "/nix/store/7kkfq00x74wnwirc512g6r0jya6g3amw-asus-ec-sensors-unstable-2022-07-10-6.13.1";
   "linuxPackages_cachyos.ax99100" = "/nix/store/958hjmha12snd9kw74djf7md7j7i1m7c-ax99100-1.8.0";
@@ -201,9 +200,4 @@
   "linuxPackages_cachyos-server.v86d" = "/nix/store/wifnxsdlhsrc55jdb9l64pp49qv8ij41-v86d-0.1.10-6.13.1";
   "linuxPackages_cachyos-server.veikk-linux-driver" = "/nix/store/n0z4w6abmm05b547r5bk33jrjr1pqzay-veikk-linux-driver-2.0";
   "linuxPackages_cachyos-server.yt6801" = "/nix/store/k2f7wgjn75ihv5yb5s51lic6f2cb3dz0-yt6801-1.0.29-20240812";
-  "mangohud_git" = "/nix/store/fg2g6w6aaj724zmsxkyx34j1pf7kc8i3-mangohud-unstable-20250206065845-984f39a";
-  "qtile-extras_git" = "/nix/store/f65jlzsk0d61zf2697iashlrp3qnmb9v-python3.12-qtile-extras-0.30.0.99";
-  "qtile-module_git" = "/nix/store/35ng1jgh28l4m8yzvpxrih2qw9h2f6r3-python3.12-qtile-0.30.0.99";
-  "qtile_git" = "/nix/store/35ng1jgh28l4m8yzvpxrih2qw9h2f6r3-python3.12-qtile-0.30.0.99";
-  "vulkanPackages_latest.vulkan-tools" = "/nix/store/qrq53ygnpqy9didiswd7jrcz6c29qiwn-vulkan-tools-1.4.307";
 }
