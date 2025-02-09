@@ -11,7 +11,7 @@
     "badTag": "main-tot"
   },
   "spirvCross": {
-    "version": "1.4.304.0",
+    "version": "1.4.304.1",
     "rev": "vulkan-sdk-#{version}",
     "hash": "sha256-cpWvGCXS6VaS0YehnGYTaXydL6S4FU9HLPh0JZ+jfd8="
   },
