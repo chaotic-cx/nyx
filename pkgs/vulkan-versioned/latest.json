@@ -5,9 +5,9 @@
     "hash": "sha256-XtOlD8WTwuL8qTfN4poc7yrA2lDH/MfTP41agn2Y1BE="
   },
   "glslang": {
-    "version": "15.0.0",
-    "rev": "#{version}",
-    "hash": "sha256-QXNecJ6SDeWpRjzHRTdPJHob1H3q2HZmWuL2zBt2Tlw=",
+    "version": "1.4.304.1",
+    "rev": "vulkan-sdk-#{version}",
+    "hash": "sha256-M3737MbLxo98V/qlHxcO43S5WXaWwdE7heJFJoPjfa8=",
     "badTag": "main-tot"
   },
   "spirvCross": {
@@ -60,9 +60,9 @@
     "hash": "sha256-zI3y5aoP4QcYp677Oxj5Ef7lJyJwOMdGsaRBe+X9vpI="
   },
   "vulkanValidationLayers": {
-    "version": "1.4.306",
+    "version": "1.4.307",
     "rev": "v#{version}",
-    "hash": "sha256-6oUNSqVO9ACUe0Rvd6EzKu3ScCwo8yy68zLNhtxaCtU="
+    "hash": "sha256-gqKh8GIpw0DoSn9wzLFaoG3/uqF+1NEMNC116K9zKgo="
   },
   "volk": {
     "version": "1.4.304",
