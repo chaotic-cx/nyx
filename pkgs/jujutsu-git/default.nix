@@ -7,12 +7,18 @@ gitOverride {
   versionNyxPath = "pkgs/jujutsu-git/version.json";
   fetcher = "fetchFromGitHub";
   fetcherData = {
-    owner = "martinvonz";
+    owner = "jj-vcs";
     repo = "jj";
   };
 
+  preOverride = _prevAttrs: {
+    cargoPatches = [ ];
+    patches = [ ];
+  };
   postOverride = prevAttrs: {
-    nativeBuildInputs = [ final.cmake ] ++ prevAttrs.nativeBuildInputs;
     doCheck = false;
+    env = prevAttrs.env // {
+      LIBGIT2_NO_VENDOR = "0";
+    };
   };
 }
