@@ -1,5 +1,4 @@
 {
-  "vulkanPackages_latest.vulkan-validation-layers" = "/nix/store/37rjpsvgfiiv759s6ma252srvbs9ihx3-vulkan-validation-layers-1.4.306";
   "linuxPackages_cachyos.ajantv2" = "/nix/store/y3c3nl8g8aaqrpqq9wlgpjywijmh5amm-ajantv2-module-17.1.0-6.13.2";
   "linuxPackages_cachyos.asus-ec-sensors" = "/nix/store/8n6hrw5gayqkl429x2z9wc6cx0l0k5yq-asus-ec-sensors-unstable-2022-07-10-6.13.2";
   "linuxPackages_cachyos.ax99100" = "/nix/store/cdm8iv4z0h8m322j9kaibxx7nlpfjysp-ax99100-1.8.0";
@@ -197,5 +196,4 @@
   "linuxPackages_cachyos-server.v86d" = "/nix/store/rdbhs1sfjsllp7i482z55xcbv7znwqp0-v86d-0.1.10-6.13.2";
   "linuxPackages_cachyos-server.veikk-linux-driver" = "/nix/store/yjwi9h0lxnvpkcwx0kc57jw7dy8dyd51-veikk-linux-driver-2.0";
   "linuxPackages_cachyos-server.yt6801" = "/nix/store/1b29y5cmkr9l27i146a48pzpx4l2v90m-yt6801-1.0.29-20240812";
-  "vulkanPackages_latest.gfxreconstruct" = "/nix/store/bc704kfaybr39a0ka3kgdlgqicjd8vkd-gfxreconstruct-1.4.304.1";
 }
