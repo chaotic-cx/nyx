@@ -40,6 +40,13 @@ final.lib.makeScope final.newScope (self:
     owner = "LunarG";
     repo = "gfxreconstruct";
     fetchSubmodules = true;
+
+    extraAttrs = prevAttrs: {
+      buildInputs = prevAttrs.buildInputs ++ [ final.sdl3 ];
+      postPatch = (prevAttrs.postPatch or "") + ''
+        rm cmake/FindSDL3.cmake
+      '';
+    };
   };
 
   glslang = genericOverride {
