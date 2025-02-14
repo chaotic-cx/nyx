@@ -151,12 +151,13 @@
   "linuxPackages_cachyos-lto.vendor-reset" = "/nix/store/xv0yl057h2pgka8brl258iwzfl42jca7-vendor-reset-unstable-2024-04-16-6.13.2";
   "linuxPackages_cachyos-lto.virtualbox" = "/nix/store/y9bhadgabcnx8nfzx1d23xvvjk85s5a9-virtualbox-modules-7.1.6a-6.13.2";
   "linuxPackages_cachyos-lto.virtualboxGuestAdditions" = "/nix/store/magxrdfa2hcb9ajz65y4ixnsjyksyl5k-VirtualBox-GuestAdditions-7.1.6a-6.13.2";
+  "linuxPackages_cachyos-lto.vm-tools" = "/nix/store/kr43bx4cb842vjw3xma1bhniqr730a6z-mm-tools-6.12.13";
   "linuxPackages_cachyos-lto.vmware" = "/nix/store/xqhs7jp1msrw9nry4w41yfvpcxs9n2g6-vmware-modules-workstation-17.6.1-unstable-2024-10-12-6.13.2";
   "linuxPackages_cachyos-lto.x86_energy_perf_policy" = "/nix/store/6q48y63rcsawjdvm8izs73kxbq91gk9s-x86_energy_perf_policy-6.13.2";
   "linuxPackages_cachyos-lto.xone" = "/nix/store/pihbx30sd4bgg7qz6dajg6axrvvjr389-xone-0.3-unstable-2024-04-25";
   "linuxPackages_cachyos-lto.yt6801" = "/nix/store/yw4vjalcmsixkq94vzx3yv2pjf5hc09w-yt6801-1.0.29-20240812";
   "linuxPackages_cachyos-lto.zenpower" = "/nix/store/mwiirpdnbjy978v3k9af9ri1g7qcj06x-zenpower-unstable-2022-11-04";
-  "linuxPackages_cachyos-lto.zfs_cachyos" = "/nix/store/iq713i01h34gdvfsq71px7ld69b3xzm0-zfs-kernel-2.3.0-6.13.2";
+  "linuxPackages_cachyos-lto.zfs_cachyos" = "/nix/store/2am858lfr3wx3apafarmbrahw7rmgm4v-zfs-kernel-2.3.0-6.13.2";
   "linuxPackages_cachyos-server.ajantv2" = "/nix/store/bl6pnr05k1hdzyjkgxg3ia08rg99ap52-ajantv2-module-17.1.0-6.13.2";
   "linuxPackages_cachyos-server.asus-ec-sensors" = "/nix/store/3bamvi780vc5hlcs4q0645f4v6ap5fcd-asus-ec-sensors-unstable-2022-07-10-6.13.2";
   "linuxPackages_cachyos-server.ax99100" = "/nix/store/fph4fadm5104kn4i228ifihhvkwnc9ja-ax99100-1.8.0";
