@@ -1,4 +1,4 @@
-{ final, prev, gitOverride, nyxUtils, ... }:
+{ final, prev, gitOverride, ... }:
 
 let
   inherit (final.stdenv) is32bit;
@@ -18,12 +18,6 @@ gitOverride {
   withUpdateScript = !final.stdenv.is32bit;
 
   postOverride = prevAttrs: {
-    doCheck = false;
-    buildInputs = with final; [ SDL2 ] ++ prevAttrs.buildInputs;
-    mesonFlags = nyxUtils.removeByPrefix "-Dmangoapp_layer=" prevAttrs.mesonFlags;
-    postInstall = if is32bit then prevAttrs.postInstall else prevAttrs.postInstall + ''
-      rm "$out/share/vulkan/implicit_layer.d/libMangoApp.x86.json"
-    '';
     patches =
       [
         ./preload-nix-workaround.patch
