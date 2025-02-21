@@ -23,6 +23,7 @@ let
     , withUpdateScript ? true
     , withLastModified ? false
     , withLastModifiedDate ? false
+    , withBump ? false
     , withCargoDeps ? null
     , withExtraUpdateCommands ? ""
     }:
@@ -47,7 +48,7 @@ let
 
           updateScript = callPackage ./git-update.nix {
             inherit (prevAttrs) pname;
-            inherit nyxKey hasCargo withLastModified withLastModifiedDate;
+            inherit nyxKey hasCargo withLastModified withLastModifiedDate withBump;
             hasSubmodules = fetcherData.fetchSubmodules or false;
             versionPath = versionNyxPath;
             fetchLatestRev = fetchLatestRev ref fullFetcherData;

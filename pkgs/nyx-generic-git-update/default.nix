@@ -34,6 +34,7 @@ in
   HAS_SUBMODULES="''${HAS_SUBMODULES:-0}"
   WITH_LAST_DATE="''${WITH_LAST_DATE:-0}"
   WITH_LAST_STAMP="''${WITH_LAST_STAMP:-0}"
+  WITH_BUMP_STAMP="''${WITH_BUMP_STAMP:-0}"
   _PNAME="$1"
   _NYX_KEY="$2"
   _VERSION_JSON="$3"
@@ -74,6 +75,16 @@ in
   if [ $WITH_LAST_DATE -eq 1 ]; then
     JQ_ARGS+=(--arg date "$_LATEST_DATE")
     JQ_OPS+=('| .lastModifiedDate = $date')
+  elif [ $WITH_LAST_DATE -eq 3339 ]; then
+    _LATEST_3339=$(date -u -Isec --date=$(echo $_LATEST_GIT | jq -r .date))
+    JQ_ARGS+=(--arg date "$_LATEST_3339")
+    JQ_OPS+=('| .lastModifiedDate = $date')
+  fi
+
+  if [ $WITH_BUMP_STAMP -eq 1 ]; then
+    _BUMP_STAMP=$(date -u '+%s')
+    JQ_ARGS+=(--arg bump "$_BUMP_STAMP")
+    JQ_OPS+=('| .bump = $bump')
   fi
 
   if [ $WITH_LAST_STAMP -eq 1 ]; then

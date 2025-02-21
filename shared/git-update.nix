@@ -5,6 +5,7 @@
 , hasSubmodules ? false
 , withLastModifiedDate ? false
 , withLastModified ? false
+, withBump ? false
 , withExtraCommands ? ""
 , gitUrl
 , fetchLatestRev
@@ -14,6 +15,12 @@
 , writeShellScript
 }:
 
+let
+  moreThanABoolean = default: x:
+    if x == null || x == false then "0"
+    else if x == true then default
+    else x;
+in
 writeShellScript "update-${pname}-git" ''
   set -euo pipefail
 
@@ -21,8 +28,9 @@ writeShellScript "update-${pname}-git" ''
 
   HAS_CARGO=${if hasCargo then "1" else "0"} \
   HAS_SUBMODULES=${if hasSubmodules then "1" else "0"} \
-  WITH_LAST_DATE=${if withLastModifiedDate then "1" else "0"} \
+  WITH_LAST_DATE=${moreThanABoolean "1" withLastModifiedDate} \
   WITH_LAST_STAMP=${if withLastModified then "1" else "0"} \
+  WITH_BUMP_STAMP=${if withBump then "1" else "0"} \
   WITH_EXTRA=${withExtraCommands} \
     exec "${nyx-generic-git-update}/bin/nyx-generic-update" \
     "${pname}" "${nyxKey}" "${versionPath}" \
