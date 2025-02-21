@@ -10,13 +10,23 @@ gitOverride (current: {
     owner = "feschber";
     repo = "lan-mouse";
   };
+  withLastModified = true;
 
   postOverride = prevAttrs: {
     buildInputs = with final; prevAttrs.buildInputs
       ++ lib.optional stdenv.hostPlatform.isDarwin darwin.apple_sdk.frameworks.ApplicationServices;
 
+    preConfigure = ''
+      export OUT_DIR="$out"
+    '' + (prevAttrs.preConfigure or "");
+
+    prePatch = "";
+
     env = prevAttrs.env // {
-      GIT_DESCRIBE = "${current.version}-chaotic-nyx";
+      # sadly, "shadow-rs" doesn't help when we don't have a ".git", and ".git" is not
+      # completely deterministic: https://github.com/NixOS/nixpkgs/issues/8567
+      # Setting SOURCE_DATE_EPOCH is the best I can do here.
+      SOURCE_DATE_EPOCH = current.lastModified;
     };
   };
 })
