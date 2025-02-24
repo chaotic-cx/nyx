@@ -43,6 +43,7 @@ gitOverride (current: {
           };
       in
       [ revertZed25209 revertZed25035 revertZed24996 ] ++ prevAttrs.patches;
+    nativeBuildInputs = prevAttrs.nativeBuildInputs ++ [ final.clang ];
     # Nothing wrong on it, just saving compilation time for me!
     dontCheck = true;
     doInstallCheck = false;
