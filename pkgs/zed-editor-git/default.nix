@@ -1,4 +1,4 @@
-{ prev, gitOverride, ... }:
+{ prev, gitOverride, nyxUtils, ... }:
 
 gitOverride (current: {
   nyxKey = "zed-editor_git";
@@ -21,6 +21,7 @@ gitOverride (current: {
     env = prevAttrs.env // {
       ZED_COMMIT_SHA = current.rev;
     };
+    patches = nyxUtils.removeByBaseName "0001-generate-licenses.patch" prevAttrs.patches;
     # Nothing wrong on it, just saving compilation time for me!
     dontCheck = true;
     doInstallCheck = false;
