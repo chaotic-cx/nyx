@@ -123,7 +123,6 @@ in
   firefox-unwrapped_nightly = final.callPackage ../pkgs/firefox-nightly { };
   firefox_nightly = final.wrapFirefox final.firefox-unwrapped_nightly {
     nameSuffix = "-nightly";
-    desktopName = "Firefox Nightly";
     wmClass = "firefox-nightly";
     icon = "firefox-nightly";
   };

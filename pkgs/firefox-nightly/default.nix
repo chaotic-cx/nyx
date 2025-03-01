@@ -16,7 +16,7 @@ let
     rec {
       pname = "firefox-nightly";
       inherit (current) version;
-      applicationName = "Mozilla Firefox Nightly";
+      applicationName = "Firefox Nightly";
       branding = "browser/branding/nightly";
       src = fetchurl {
         inherit (current) hash;
