@@ -62,10 +62,7 @@ jobs:
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 workflow_id: 'build.yml',
-                ref: process.env.REF_NAME,
-                inputs: {
-                  "nixpkgs-bump": true
-                }
+                ref: process.env.REF_NAME
               });
             } catch (error) {
               core.setFailed(error);
