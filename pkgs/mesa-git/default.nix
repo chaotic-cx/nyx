@@ -5,7 +5,6 @@
 , gitOverride
 , nyxUtils
 , gbmDriver ? true
-, gbmBackend ? "dri_git"
 , mesaTestAttrs ? final
 , ...
 }:
@@ -61,7 +60,7 @@ gitOverride (current: {
 
     mesonFlags = nyxUtils.removeByPrefixes [ "-Domx-libs-path=" "-Ddri-search-path=" "-Dopencl-spirv" ] prevAttrs.mesonFlags;
 
-    patches = (nyxUtils.removeByBaseNames [ "opencl.patch" "cross_clc.patch" ] prevAttrs.patches) ++ [ ./opencl.patch ./gbm-backend.patch ];
+    patches = (nyxUtils.removeByBaseNames [ "opencl.patch" "cross_clc.patch" ] prevAttrs.patches) ++ [ ./opencl.patch ];
 
     postPatch =
       let
@@ -73,15 +72,8 @@ gitOverride (current: {
         cargoSubproject = who: ''
           ln -s ${cargoFetch who} subprojects/packagecache/${who}-${cargoDeps.${who}.version}.tar.gz
         '';
-
-        # allow renaming the new backend name
-        backendRename =
-          if gbmBackend != "dri_git" then ''
-            sed -i"" 's/"dri_git"/"${gbmBackend}"/' src/gbm/backends/dri/gbm_dri.c src/gbm/main/backend.c
-          '' else "";
       in
       prevAttrs.postPatch
-      + backendRename
       + ''
         mkdir subprojects/packagecache
       ''
@@ -91,19 +83,8 @@ gitOverride (current: {
       + (cargoSubproject "unicode-ident")
       + (cargoSubproject "paste");
 
-    # move new backend to its own output (if necessary)
-    postInstall =
-      let
-        addGbmRename = prevStr:
-          if gbmDriver then prevStr + ''
-            mv $drivers/lib/gbm/dri_gbm.so $drivers/lib/gbm/${gbmBackend}_gbm.so
-          '' else prevStr;
-      in
-      addGbmRename prevAttrs.postInstall;
-
     # test and accessible information
     passthru = prevAttrs.passthru // {
-      inherit gbmBackend;
       tests.smoke-test = import ./test.nix
         {
           inherit (flakes) nixpkgs;
