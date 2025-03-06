@@ -175,14 +175,11 @@ in
     else throw "No mesa32_git for non-x86";
 
   mpv-vapoursynth = (final.mpv-unwrapped.wrapper {
-    mpv = final.mpv-unwrapped.override { vapoursynthSupport = true; };
-    extraMakeWrapperArgs = [
-      "--prefix"
-      "LD_LIBRARY_PATH"
-      ":"
-      "${final.vapoursynth-mvtools}/lib/vapoursynth"
-    ];
-  }).overrideAttrs (overrideDescription (old: old + " (includes vapoursynth)"));
+    mpv = final.mpv-unwrapped.override {
+      vapoursynthSupport = true;
+      vapoursynth = final.vapoursynth.withPlugins [ final.vapoursynth-mvtools ];
+    };
+  }).overrideAttrs (overrideDescription (old: old + " (includes vapoursynth-mvtools)"));
 
   niri_git = callOverride ../pkgs/niri-git {
     niriPins = importJSON ../pkgs/niri-git/pins.json;
