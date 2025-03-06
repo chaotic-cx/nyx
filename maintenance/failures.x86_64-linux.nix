@@ -1,7 +1,4 @@
 {
-  "bytecode-viewer_git" = "/nix/store/3lnv30ckd8ab6nh2rdshbfw7id7igr2i-bytecode-viewer-unstable-20250301035506-a626bc4";
-  "vulkanPackages_latest.glslang" = "/nix/store/dx03fcpj0y5dsyhvmn8jq5vq1bg2v8cx-glslang-1.4.304.1-bin";
-  "vulkanPackages_latest.spirv-tools" = "/nix/store/zrbc4fgd55jwqxpgjnmb8ij1ynwxgmy8-spirv-tools-2025.1.rc1";
   "linuxPackages_cachyos.asus-ec-sensors" = "/nix/store/zjv62gzcmjbs2v21r7447iqbxymp1a4j-asus-ec-sensors-unstable-2022-07-10-6.13.5";
   "linuxPackages_cachyos.ax99100" = "/nix/store/dx6xnpnz0qj2ppzdznlsdj8f69i33i2r-ax99100-1.8.0";
   "linuxPackages_cachyos.digimend" = "/nix/store/8is033qxi53lnciizm7mrd8dsl2z4rwn-digimend-13";
