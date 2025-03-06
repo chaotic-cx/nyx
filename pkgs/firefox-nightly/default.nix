@@ -40,7 +40,7 @@ let
 
   postOverride = prevAttrs: {
     patches = nyxUtils.removeByBaseNames
-      [ "env_var_for_system_dir-ff133.patch" "no-buildconfig-ffx121.patch" ]
+      [ "env_var_for_system_dir-ff133.patch" "no-buildconfig-ffx136.patch" ]
       prevAttrs.patches ++ [ ./env_var_for_system_dir-ff-unstable.patch ./no-buildconfig-ffx-unstable.patch ];
     env = (prevAttrs.env or { }) // {
       MOZ_REQUIRE_SIGNING = "";
@@ -49,13 +49,8 @@ let
     postPatch = prevAttrs.postPatch + ''
       sed -i 's/icu-i18n/icu-uc &/' js/moz.configure
     '';
-    # Freetype's derivation adds libpng to propagatedBuildInputs and the build system goes nuts
-    # with two different versions of libpng. Sadly freetype itself is dependency of many packages.
-    # The easiest solution is to use vendored libpng.
-    configureFlags =
-      if lib.strings.versionOlder libpng.version "1.6.46" then
-        nyxUtils.removeByPrefix "--with-system-png" prevAttrs.configureFlags
-      else prevAttrs.configureFlags;
+    configureFlags = prevAttrs.configureFlags ++ [ "--with-system-icu" ];
+    buildInputs = prevAttrs.buildInputs ++ [ icu76 ];
   };
 
   newInputs = {
