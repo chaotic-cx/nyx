@@ -125,7 +125,6 @@ in
       acceptTerms = true;
       certs.${cfg.domain} = {
         inherit group;
-        inherit (cfg) email;
         dnsProvider = lib.mkIf (!cfg.certs.useHttpServer) "duckdns";
         credentialsFile = lib.mkIf (!cfg.certs.useHttpServer) cfg.environmentFile;
         listenHTTP = lib.mkIf cfg.certs.useHttpServer ":${toString httpPort}"; # any other port needs to be proxied
