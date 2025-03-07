@@ -5,7 +5,6 @@
   "linuxPackages_cachyos.facetimehd" = "/nix/store/2k1k7jp66rc6jscqv7n3irs9v58mvmm7-facetimehd-0.6.8.2-6.13.5";
   "linuxPackages_cachyos.fwts-efi-runtime" = "/nix/store/cfr2isnpjbipp63hg8p5sqhjdi05gd7g-fwts-efi-runtime-24.09.00-6.13.5";
   "linuxPackages_cachyos.gasket" = "/nix/store/ybjbp64zgkkw011l32r4c14k7hzc6091-gasket-1.0-18-unstable-2024-04-25";
-  "linuxPackages_cachyos.hid-tmff2" = "/nix/store/dlajrqgwbw9wi3b7dz14mwg697rj4zw5-hid-tmff2-0.82";
   "linuxPackages_cachyos.ithc" = "/nix/store/j36v530szd8l0l3cj5qy05axfn9b1lwi-ithc-unstable-2022-06-07";
   "linuxPackages_cachyos.kvmfr" = "/nix/store/izbqkq8rs81q70awl0gcx800gy8dmxgz-kvmfr-B7-rc1";
   "linuxPackages_cachyos.linux-gpib" = "/nix/store/f1bmz68bffka0ss3f04bbl1g4c0icm6q-linux-gpib-kernel-4.3.6";
@@ -16,6 +15,7 @@
   "linuxPackages_cachyos.mwprocapture" = "/nix/store/kv40zyl90f9sqfg55ysi3qr0p15kncl3-mwprocapture-1.3.0.4390-6.13.5";
   "linuxPackages_cachyos.nvidia_dc" = "/nix/store/06d4f481il26g2i8brd7f254s2fgvs20-nvidia-dc-565.57.01-6.13.5";
   "linuxPackages_cachyos.nvidia_dc_535" = "/nix/store/xic1cxdmkc3glgx1j9kvi32wkqdrmybs-nvidia-dc-535.154.05-6.13.5";
+  "linuxPackages_cachyos.nvidia_dc_565" = "/nix/store/06d4f481il26g2i8brd7f254s2fgvs20-nvidia-dc-565.57.01-6.13.5";
   "linuxPackages_cachyos.nvidia_x11_legacy470" = "/nix/store/kynk0vzksnnqwf7jwdd9larm9vsm5l1q-nvidia-x11-470.256.02-6.13.5";
   "linuxPackages_cachyos.nvidia_x11_legacy535" = "/nix/store/4myavayqzqbh8rp3vn9ms00mnk8z7xq8-nvidia-x11-535.216.01-6.13.5";
   "linuxPackages_cachyos.qc71_laptop" = "/nix/store/x9bplh0xcc115pbrn68g60lgffb3ywdf-qc71_laptop-unstable-2023-03-02";
@@ -43,7 +43,6 @@
   "linuxPackages_cachyos-hardened.ax99100" = "/nix/store/374d27s1alll65x42wk6l1mi21s74gv2-ax99100-1.8.0";
   "linuxPackages_cachyos-hardened.digimend" = "/nix/store/sg8lhlq4b27jc0hfvyib54j5gm1zgl9m-digimend-13";
   "linuxPackages_cachyos-hardened.fwts-efi-runtime" = "/nix/store/caz86syfamggm82r923dsgjnq8v3cq6w-fwts-efi-runtime-24.09.00-6.12.13";
-  "linuxPackages_cachyos-hardened.hid-tmff2" = "/nix/store/x58h3njy5126sj5cfzmrzx2a2y4k0qg5-hid-tmff2-0.82";
   "linuxPackages_cachyos-hardened.ithc" = "/nix/store/dzbwjg03gzsv8zz81dgvnv4xmn43hg5m-ithc-unstable-2022-06-07";
   "linuxPackages_cachyos-hardened.linux-gpib" = "/nix/store/xzxly8i3bk3cs1ngmwyxhpijq4gh2z9m-linux-gpib-kernel-4.3.6";
   "linuxPackages_cachyos-hardened.liquidtux" = "/nix/store/z06yxpiy4lzwlzhcbz40n9ni860nwwa5-liquidtux-unstable-2021-12-16-6.12.13";
@@ -87,7 +86,6 @@
   "linuxPackages_cachyos-lto.facetimehd" = "/nix/store/r127vz25ajs255wb2a3sppvh8k6dwxb2-facetimehd-0.6.8.2-6.13.5";
   "linuxPackages_cachyos-lto.fwts-efi-runtime" = "/nix/store/82dwbcivjl7i6fmyjsq4qc101bani5ai-fwts-efi-runtime-24.09.00-6.13.5";
   "linuxPackages_cachyos-lto.gasket" = "/nix/store/6161p9d8nhh5a3kmmmvgwz9csrzmcyd1-gasket-1.0-18-unstable-2024-04-25";
-  "linuxPackages_cachyos-lto.hid-tmff2" = "/nix/store/2v7c6yanjlwpdjl28psqb2vk0k2006ay-hid-tmff2-0.82";
   "linuxPackages_cachyos-lto.hpuefi-mod" = "/nix/store/qgbp0l6lidii5rhdjb92ng1gwm5cvv2d-hpuefi-mod-3.05";
   "linuxPackages_cachyos-lto.it87" = "/nix/store/6wq63pxz5394bdhlgksw5v4l904vwcsy-it87-unstable-2024-06-09-6.13.5";
   "linuxPackages_cachyos-lto.ithc" = "/nix/store/4b8yaybjx4j0b9r88da8gigqg95wi634-ithc-unstable-2022-06-07";
@@ -103,9 +101,11 @@
   "linuxPackages_cachyos-lto.new-lg4ff" = "/nix/store/bbapdbmfrj7nnizaqys20cxllwclp6sg-new-lg4ff-0-unstable-2024-11-25";
   "linuxPackages_cachyos-lto.nvidia_dc" = "/nix/store/sq2nv3fhdh16b79gnbrqpk6a2mivbjkj-nvidia-dc-565.57.01-6.13.5";
   "linuxPackages_cachyos-lto.nvidia_dc_535" = "/nix/store/ijxjamyhgv7k5pj55j0b2gibqh0pcr6q-nvidia-dc-535.154.05-6.13.5";
+  "linuxPackages_cachyos-lto.nvidia_dc_565" = "/nix/store/sq2nv3fhdh16b79gnbrqpk6a2mivbjkj-nvidia-dc-565.57.01-6.13.5";
   "linuxPackages_cachyos-lto.nvidia_x11_legacy470" = "/nix/store/73sfsssa5ghpd46040klv93cavxsl8yh-nvidia-x11-470.256.02-6.13.5";
   "linuxPackages_cachyos-lto.nvidia_x11_legacy535" = "/nix/store/3p10hlrzc8a80yx8zk6d0r5gmhlg1v87-nvidia-x11-535.216.01-6.13.5";
   "linuxPackages_cachyos-lto.openafs" = "/nix/store/bfnhwfni4j6vx5qlwdla73myh5a7f7ri-openafs-1.8.13.2-6.13.5-cachyos";
+  "linuxPackages_cachyos-lto.openafs_1_8" = "/nix/store/bfnhwfni4j6vx5qlwdla73myh5a7f7ri-openafs-1.8.13.2-6.13.5-cachyos";
   "linuxPackages_cachyos-lto.perf" = "/nix/store/qkrrbrb9n5kkb3h4rl9aj0bx8bck4riv-perf-linux-6.13.5";
   "linuxPackages_cachyos-lto.ply" = "/nix/store/x9l9x0ajdc0pwqc6by4g4xln2930b5lb-ply-2.1.1-e25c913";
   "linuxPackages_cachyos-lto.qc71_laptop" = "/nix/store/14i2k052kyf1lnh1l4dss52m0r8ifbn2-qc71_laptop-unstable-2023-03-02";
@@ -138,7 +138,7 @@
   "linuxPackages_cachyos-lto.veikk-linux-driver" = "/nix/store/i6b1sk39vszlcbwyskj15cn7cwszn6j6-veikk-linux-driver-2.0";
   "linuxPackages_cachyos-lto.vendor-reset" = "/nix/store/aqmrhbhwzmri3qcxim43kby9wc2c0xfl-vendor-reset-unstable-2024-04-16-6.13.5";
   "linuxPackages_cachyos-lto.virtualbox" = "/nix/store/3k58xjjrvrk8chhkds5kds4hgr17by5k-virtualbox-modules-7.1.6a-6.13.5";
-  "linuxPackages_cachyos-lto.virtualboxGuestAdditions" = "/nix/store/pv2qkf8xvrgzp4wc37f2nj7b1y32hsdg-VirtualBox-GuestAdditions-7.1.6a-6.13.5";
+  "linuxPackages_cachyos-lto.virtualboxGuestAdditions" = "/nix/store/06cb9i61wwykh2abnz992ycksywqafq2-VirtualBox-GuestAdditions-7.1.6a-6.13.5";
   "linuxPackages_cachyos-lto.vm-tools" = "/nix/store/7fpxir8d6y066h0jcnccc0xrdpxajdw7-mm-tools-6.12.17";
   "linuxPackages_cachyos-lto.vmware" = "/nix/store/b09dnv4k9207kx355j4b5jkgvr99d7l4-vmware-modules-workstation-17.6.1-unstable-2024-10-12-6.13.5";
   "linuxPackages_cachyos-lto.x86_energy_perf_policy" = "/nix/store/90afns2v5nlh2gpr4xi5hlkckmb5kxhw-x86_energy_perf_policy-6.13.5";
@@ -152,7 +152,6 @@
   "linuxPackages_cachyos-server.facetimehd" = "/nix/store/gh2yfia5c0lkjp3j4ylz4j7d2kv10rfy-facetimehd-0.6.8.2-6.13.5";
   "linuxPackages_cachyos-server.fwts-efi-runtime" = "/nix/store/c2hxy9z4f4zwkv1ns6qb4w8nkls5qaac-fwts-efi-runtime-24.09.00-6.13.5";
   "linuxPackages_cachyos-server.gasket" = "/nix/store/klh4wj822dmmsw8cf42racv7apg0gg58-gasket-1.0-18-unstable-2024-04-25";
-  "linuxPackages_cachyos-server.hid-tmff2" = "/nix/store/qr30vkv81g9wsb144y8gpsr5ih93p6sy-hid-tmff2-0.82";
   "linuxPackages_cachyos-server.ithc" = "/nix/store/i0fnmdwv1gkslxr0igsxbj7zvp4zpsrb-ithc-unstable-2022-06-07";
   "linuxPackages_cachyos-server.kvmfr" = "/nix/store/llh29a1bickq4gc891nicjg681l6cmkf-kvmfr-B7-rc1";
   "linuxPackages_cachyos-server.linux-gpib" = "/nix/store/156jh7lgvl2kz5yivjlq3klr5wivwgk7-linux-gpib-kernel-4.3.6";
@@ -163,6 +162,7 @@
   "linuxPackages_cachyos-server.mwprocapture" = "/nix/store/4yq305lx5qq5lzlx21qh229v6my4i9ss-mwprocapture-1.3.0.4390-6.13.5";
   "linuxPackages_cachyos-server.nvidia_dc" = "/nix/store/rikz0hkgfwq51xmhnwp0d2k2c23kavsn-nvidia-dc-565.57.01-6.13.5";
   "linuxPackages_cachyos-server.nvidia_dc_535" = "/nix/store/vrch7ll3sr92y78bmdzyv5pc68ypzx0v-nvidia-dc-535.154.05-6.13.5";
+  "linuxPackages_cachyos-server.nvidia_dc_565" = "/nix/store/rikz0hkgfwq51xmhnwp0d2k2c23kavsn-nvidia-dc-565.57.01-6.13.5";
   "linuxPackages_cachyos-server.nvidia_x11_legacy470" = "/nix/store/9dbffmacmhpjk5ihzivxj0v9zqh99qps-nvidia-x11-470.256.02-6.13.5";
   "linuxPackages_cachyos-server.nvidia_x11_legacy535" = "/nix/store/8rq2is56l9z3c95ln4wi2mmalivicw6n-nvidia-x11-535.216.01-6.13.5";
   "linuxPackages_cachyos-server.qc71_laptop" = "/nix/store/bi2ivr09sv0waa40mrw1mqvqvqqavd0d-qc71_laptop-unstable-2023-03-02";
