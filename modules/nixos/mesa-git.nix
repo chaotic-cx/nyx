@@ -4,23 +4,14 @@ let
 
   has32 = pkgs.stdenv.hostPlatform.isLinux && pkgs.stdenv.hostPlatform.isx86;
 
-  methodReplace = {
-    hardware.graphics = with lib; {
-      enable = mkForce true;
-      package = mkForce pkgs.mesa_git.drivers;
-      package32 = mkForce pkgs.mesa32_git.drivers;
-      extraPackages = mkForce cfg.extraPackages;
-      extraPackages32 = mkForce cfg.extraPackages32;
-      enable32Bit = mkForce has32;
-    };
-
+  replaceConfig = {
     system.replaceRuntimeDependencies = [
       { original = pkgs.mesa.out; replacement = pkgs.mesa_git.out; }
       { original = pkgs.pkgsi686Linux.mesa.out; replacement = pkgs.mesa32_git.out; }
     ];
   };
 
-  methodBackend = {
+  commonConfig = {
     hardware.graphics = with lib;
       {
         enable = mkForce true;
@@ -63,25 +54,15 @@ in
         '';
       };
 
-      method =
-        mkOption {
-          type = types.enum [
-            "replaceRuntimeDependencies"
-            "GBM_BACKENDS_PATH"
-          ];
-          default = "GBM_BACKENDS_PATH";
-          example = "replaceRuntimeDependencies";
-          description = ''
-            There are three available methods to replace your video drivers system-wide:
-
-            - GBM_BACKENDS_PATH:
-              The default one that tricks any package linked against nixpkgs' libgbm to
-              load our newer one;
-            - replaceRuntimeDependencies:
-              The second most recommended, which impurely replaces nixpkgs' libgbm with
-              ours in the nix store (requires "--impure");
-          '';
-        };
+      replaceBasePackage = mkOption {
+        default = true;
+        example = false;
+        type = types.bool;
+        description = ''
+          Whether to impurely replace `mesa.out` with `mesa_git.out`.
+          Might increase compatibility. But you'll need `--impure` to build your configuration.
+        '';
+      };
 
       extraPackages = mkOption {
         type = types.listOf types.package;
@@ -110,7 +91,7 @@ in
 
   config = lib.mkIf cfg.enable (lib.mkMerge [
     (lib.mkIf cfg.fallbackSpecialisation common)
-    (lib.mkIf (cfg.method == "replaceRuntimeDependencies") methodReplace)
-    (lib.mkIf (cfg.method == "GBM_BACKENDS_PATH") methodBackend)
+    commonConfig
+    (lib.mkIf cfg.replaceBasePackage replaceConfig)
   ]);
 }
