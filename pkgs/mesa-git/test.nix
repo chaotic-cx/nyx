@@ -1,8 +1,8 @@
 { nixpkgs
 , chaotic
-, testingDM ? "gdm" # "sddm" | "gdm"
-, testingDE ? "gnome" # "plasma5" | "gnome"
-, testingSession ? "gnome" # "gnome" | "plasma" | "plasmawayland"
+, testingDM ? "sddm" # "sddm" | "gdm"
+, testingDE ? "plasma6" # "plasma6" | "gnome"
+, testingSession ? "plasma" # "gnome" | "plasma"
 , testingWithAutoLogin ? true
 }:
 
@@ -31,8 +31,8 @@ import "${nixpkgs}/nixos/tests/make-test-python.nix" ({ pkgs, lib, ... }: {
       alacritty
     ];
 
-    services.xserver = {
-      enable = true;
+    services = {
+      xserver.enable = true;
       displayManager = {
         "${testingDM}".enable = true;
         autoLogin = {
