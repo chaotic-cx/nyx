@@ -20,15 +20,9 @@ let
     ];
   };
 
-  methodBackend =
-    let
-      variables = {
-        GBM_BACKENDS_PATH = "/run/opengl-driver/lib/gbm:/run/opengl-driver-32/lib/gbm"; # superfluous
-        GBM_BACKEND = pkgs.mesa_git.gbmBackend;
-      };
-    in
-    {
-      hardware.graphics = with lib; {
+  methodBackend = {
+    hardware.graphics = with lib;
+      {
         enable = mkForce true;
         package = mkForce pkgs.mesa_git.drivers;
         package32 = mkForce pkgs.mesa32_git.drivers;
@@ -36,11 +30,7 @@ let
         extraPackages32 = mkForce cfg.extraPackages32;
         enable32Bit = mkForce has32;
       };
-
-      systemd.services.display-manager.environment = variables;
-
-      environment.sessionVariables = variables;
-    };
+  };
 
   common = {
     specialisation.stable-mesa.configuration = {
