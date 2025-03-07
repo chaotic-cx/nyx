@@ -276,6 +276,7 @@ in
   zed-editor_git = callOverride ../pkgs/zed-editor-git {
     zedPins = importJSON ../pkgs/zed-editor-git/pins.json;
   };
+  zed-editor-fhs_git = final.zed-editor_git.fhs;
 
   zfs_cachyos = cachyosPackages.zfs;
 
