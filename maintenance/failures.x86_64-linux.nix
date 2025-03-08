@@ -6,7 +6,6 @@
   "linuxPackages_cachyos.fwts-efi-runtime" = "/nix/store/iamvgg9qva3367wrcxqa69rxkl3kigkv-fwts-efi-runtime-24.09.00-6.13.6";
   "linuxPackages_cachyos.gasket" = "/nix/store/4vfd3fwaqnmcy1z9cbi54gl9l4dwzfjl-gasket-1.0-18-unstable-2024-04-25";
   "linuxPackages_cachyos.ithc" = "/nix/store/49vh298bi98icjjjhsaw42z50dvr45sr-ithc-unstable-2022-06-07";
-  "linuxPackages_cachyos.kvmfr" = "/nix/store/kb9b2khxhwn6mzscfrclprjk45jf7z53-kvmfr-B7-rc1";
   "linuxPackages_cachyos.linux-gpib" = "/nix/store/jlvvps2hwxn6pl8jg96fwmjppq52x7sm-linux-gpib-kernel-4.3.6";
   "linuxPackages_cachyos.liquidtux" = "/nix/store/vwl6ymbcya552hal9prcp09s1n5ljw7q-liquidtux-unstable-2021-12-16-6.13.6";
   "linuxPackages_cachyos.lttng-modules" = "/nix/store/lzwr6dv8crzdwh8zaqmxm0mkl0csiih9-lttng-modules-6.13.6-2.13.15";
@@ -90,7 +89,7 @@
   "linuxPackages_cachyos-lto.hpuefi-mod" = "/nix/store/8a3gf5h70zvwlcrpvfji4xf9vqmnxiiq-hpuefi-mod-3.05";
   "linuxPackages_cachyos-lto.it87" = "/nix/store/9syphyvh65qaji4aqnybj3hk41952b98-it87-unstable-2024-06-09-6.13.6";
   "linuxPackages_cachyos-lto.ithc" = "/nix/store/hhvwk5na333lxip3xc29abxcc7qcbm8g-ithc-unstable-2022-06-07";
-  "linuxPackages_cachyos-lto.kvmfr" = "/nix/store/m57lfxnnrhgbc4d1d6x7bnss4bml7bka-kvmfr-B7-rc1";
+  "linuxPackages_cachyos-lto.kvmfr" = "/nix/store/nw17wa4pr7wmasvs1y8bv919bmy9q6al-kvmfr-B7";
   "linuxPackages_cachyos-lto.linux-gpib" = "/nix/store/b67gw9pvza2hzr9lysa3yp4m0hg2m7d7-linux-gpib-kernel-4.3.6";
   "linuxPackages_cachyos-lto.liquidtux" = "/nix/store/5fph46fg12wf1l93aqvbqbxz46iasw1c-liquidtux-unstable-2021-12-16-6.13.6";
   "linuxPackages_cachyos-lto.lttng-modules" = "/nix/store/zc96p4lgklvb65kfw20sg8x58p5dn5h6-lttng-modules-6.13.6-2.13.15";
@@ -154,7 +153,6 @@
   "linuxPackages_cachyos-server.fwts-efi-runtime" = "/nix/store/spksbwgjiq5hqi09ddqxwircws64xmk2-fwts-efi-runtime-24.09.00-6.13.6";
   "linuxPackages_cachyos-server.gasket" = "/nix/store/y388z5ak4s32vkrvh6lrx1i06ik6b6zv-gasket-1.0-18-unstable-2024-04-25";
   "linuxPackages_cachyos-server.ithc" = "/nix/store/qi4xisi9dy002xhbnaalsqsnh0xf6ijj-ithc-unstable-2022-06-07";
-  "linuxPackages_cachyos-server.kvmfr" = "/nix/store/aydrsfsis9rr9qnvvazkvf79wg58a50h-kvmfr-B7-rc1";
   "linuxPackages_cachyos-server.linux-gpib" = "/nix/store/rr9gw790hisyl5brvcg76w2rng9pq4sg-linux-gpib-kernel-4.3.6";
   "linuxPackages_cachyos-server.liquidtux" = "/nix/store/nlkf0idr477bc2b5sgl0bmhzpbavir0m-liquidtux-unstable-2021-12-16-6.13.6";
   "linuxPackages_cachyos-server.lttng-modules" = "/nix/store/ccqim2rhz8hq5vm7xzismpsa8qh7f2ci-lttng-modules-6.13.6-2.13.15";
