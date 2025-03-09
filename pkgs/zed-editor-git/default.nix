@@ -1,4 +1,4 @@
-{ final, prev, gitOverride, ... }:
+{ prev, gitOverride, ... }:
 
 gitOverride (current: {
   nyxKey = "zed-editor_git";

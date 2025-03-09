@@ -4,7 +4,6 @@
 , prev
 , gitOverride
 , nyxUtils
-, gbmDriver ? true
 , mesaTestAttrs ? final
 , ...
 }:

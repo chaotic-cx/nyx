@@ -8,7 +8,6 @@
 , nyxUtils
 , stdenv
 , icu76
-, libpng
 }:
 
 let

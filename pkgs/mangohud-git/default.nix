@@ -17,7 +17,7 @@ gitOverride {
   ref = "master";
   withUpdateScript = !final.stdenv.is32bit;
 
-  postOverride = prevAttrs: {
+  postOverride = _prevAttrs: {
     patches =
       [
         ./preload-nix-workaround.patch
