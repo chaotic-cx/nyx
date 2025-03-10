@@ -1,9 +1,7 @@
 { scx
 , scx-common
-,
 }:
 
 scx.cscheds.overrideAttrs {
-  inherit (scx-common) src version bpftools_src libbpf_src;
-  patches = [ ];
+  inherit (scx-common) version src patches bpftools_src libbpf_src;
 }
