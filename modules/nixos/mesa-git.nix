@@ -55,7 +55,7 @@ in
       };
 
       replaceBasePackage = mkOption {
-        default = true;
+        default = false;
         example = false;
         type = types.bool;
         description = ''
