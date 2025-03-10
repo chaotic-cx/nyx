@@ -43,14 +43,23 @@ jq \
   .libbpf.rev = \$libbpfRev | .libbpf.hash = \$libbpfHash" \
   "$versionJson" | sponge $versionJson
 
-popd
+message="scx_git: ${localRev:0:7} -> ${latestRev:0:7}"
+echo "$message"
 
+echo "Updating cargoHash. This may take a while..."
+popd
 cargoHash=$((nix-build --attr scx_git.rustscheds 2>&1 || true) | awk '/got/{print $2}')
 
+if [ -z "$cargoHash" ]; then
+  echo "Failed to get cargoHash, please update it manually"
+fi
+
+# at this point, if we don't have the cargoHash, we just replace with ""
+# we can get the cargo hash from failing build next time
 jq \
   --arg cargoHash "$cargoHash" \
   ".scx.cargoHash = \$cargoHash" \
   "$versionJson" | sponge $versionJson
 
 git add "$nixFolder"
-git commit -m "scx_git: $localRev -> $latestRev"
+git commit -m "$message"
