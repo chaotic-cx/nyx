@@ -12,6 +12,10 @@ in
     fetchSubmodules = true;
   };
 
+  patches = [
+
+  ];
+
   # grep 'bpftool_commit =' ./meson.build
   bpftools_src = fetchFromGitHub {
     owner = "libbpf";
