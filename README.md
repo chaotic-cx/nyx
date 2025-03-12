@@ -30,6 +30,7 @@
     <a href="#harder-stuff">Harder stuff</a><br/>
     <ul>
       <li><a href="#using-sched-ext-schedulers">Using linux-cachyos with sched-ext</a><br/></li>
+      <li><a href="#using-with-read-only-pkgs">Using with read-only pkgs</a><br/></li>
     </ul>
   </li>
   <li><a href="#notes">Notes</a></li>
@@ -263,6 +264,36 @@ enable_seq  hotplug_seq  nr_rejected  root  state  switch_all
 </code></pre>
 
 <p>There are other scx_* binaries for you to play with, or head to <a href="https://github.com/sched-ext/scx" target="_blank">github.com/sched-ext/scx</a> for instructions on how to write one of your own.</p>
+
+<h3 id="using-with-read-only-pkgs">Using with read-only pkgs</h3>
+
+<p>If you use <code>nixpkgs.nixosModules.readOnlyPkgs</code> in your setup, you need to disable our overlay module, and import the cache-friendly overlay directly instead.</p>
+
+<pre lang="nix"><code class="language-nix">
+{
+  # ...
+  outputs = { nixpkgs, chaotic, ... }: {
+    nixosConfigurations = {
+      hostname = nixpkgs.lib.nixosSystem {
+        modules = [
+          nixpkgs.nixosModules.readOnlyPkgs
+          # ...
+          {
+            nixpkgs.pkgs = import nixpkgs {
+              system = "x86_64-linux";
+              config = { allowUnfree = true; };
+              overlays = [ chaotic.overlays.cache-friendly ]; # IMPORTANT
+            };
+            chaotic.nyx.overlay.enable = false; # IMPORTANT
+          }
+          # ...
+          chaotic.nixosModules.default # IMPORTANT
+        ];
+      };
+    };
+  };
+}
+</code></pre>
 
 <h2 id="notes">Notes</h2>
 

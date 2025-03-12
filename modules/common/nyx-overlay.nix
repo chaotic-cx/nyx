@@ -4,26 +4,10 @@ let
   cacheCfg = config.chaotic.nyx.cache;
 
   onTopOfFlakeInputs =
-    _userFinal: _userPrev:
-    let
-      inherit (pkgs) stdenv;
-      isCross = stdenv.buildPlatform != stdenv.hostPlatform;
-
-      prev =
-        if isCross then
-          import "${flakes.nixpkgs}"
-            {
-              inherit (cfg.flakeNixpkgs) config;
-              localSystem = stdenv.buildPlatform;
-              crossSystem = stdenv.hostPlatform;
-            }
-        else
-          import "${flakes.nixpkgs}" {
-            inherit (cfg.flakeNixpkgs) config;
-            localSystem = flakes.nixpkgs.legacyPackages."${pkgs.stdenv.hostPlatform.system}".stdenv.hostPlatform;
-          };
-    in
-    flakes.self.utils.applyOverlay { pkgs = prev; };
+    import ../../overlays/cache-friendly.nix {
+      inherit flakes;
+      nixpkgsConfig = cfg.flakeNixpkgs.config;
+    };
 
   onTopOfUserPkgs =
     flakes.self.overlays.default;

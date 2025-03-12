@@ -44,6 +44,7 @@
 
         # The stars: our overlay and our modules.
         overlays.default = import ./overlays { flakes = inputs; };
+        overlays.cache-friendly = import ./overlays/cache-friendly.nix { flakes = inputs; };
         nixosModules = import ./modules/nixos { flakes = inputs; };
         homeModules = import ./modules/home-manager { flakes = inputs; };
         homeManagerModules = self.homeModules;
