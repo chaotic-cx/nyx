@@ -27,6 +27,9 @@ let
 
   onTopOfUserPkgs =
     flakes.self.overlays.default;
+
+  # Workaround because of https://github.com/NixOS/nixos-search/pull/803#issuecomment-2717855951
+  configType = if (options ? "nixpkgs") then options.nixpkgs.config.type else lib.types.attrs;
 in
 {
   options = with lib; {
@@ -52,7 +55,10 @@ in
       flakeNixpkgs.config = mkOption {
         default = pkgs.config;
         defaultText = literalExpression "pkgs.config";
-        inherit (options.nixpkgs.config) example type;
+        example = lib.literalExpression ''
+          { allowBroken = true; allowUnfree = true; }
+        '';
+        type = configType;
         description = ''
           Matches `nixpkgs.config` from the configuration of the Nix Packages collection.
         '';
