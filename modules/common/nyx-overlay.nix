@@ -1,10 +1,32 @@
-{ flakes }@rootArgs: { config, options, lib, pkgs, ... }:
+{ flakes }: { config, options, lib, pkgs, ... }:
 let
   cfg = config.chaotic.nyx.overlay;
   cacheCfg = config.chaotic.nyx.cache;
 
-  onTopOfFlakeInputs = import ../../overlays/cache-friendly.nix rootArgs;
-  onTopOfUserPkgs = flakes.self.overlays.default;
+  onTopOfFlakeInputs =
+    _userFinal: _userPrev:
+    let
+      inherit (pkgs) stdenv;
+      isCross = stdenv.buildPlatform != stdenv.hostPlatform;
+
+      prev =
+        if isCross then
+          import "${flakes.nixpkgs}"
+            {
+              inherit (cfg.flakeNixpkgs) config;
+              localSystem = stdenv.buildPlatform;
+              crossSystem = stdenv.hostPlatform;
+            }
+        else
+          import "${flakes.nixpkgs}" {
+            inherit (cfg.flakeNixpkgs) config;
+            localSystem = flakes.nixpkgs.legacyPackages."${pkgs.stdenv.hostPlatform.system}".stdenv.hostPlatform;
+          };
+    in
+    flakes.self.utils.applyOverlay { pkgs = prev; };
+
+  onTopOfUserPkgs =
+    flakes.self.overlays.default;
 
   # Workaround because of https://github.com/NixOS/nixos-search/pull/803#issuecomment-2717855951
   configType = if (options ? "nixpkgs") then options.nixpkgs.config.type else lib.types.attrs;
