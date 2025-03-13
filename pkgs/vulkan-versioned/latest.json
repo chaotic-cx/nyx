@@ -22,8 +22,8 @@
     "badTag": "vulkan-sdk-1.4.304.1"
   },
   "spirvTools": {
-    "version": "unstable-f289d04",
-    "rev": "f289d047f49fb60488301ec62bafab85573668cc",
+    "version": "1.4.309.0",
+    "rev": "vulkan-sdk-#{version}",
     "hash": "sha256-2Wv0dxVQ8NvuDRTcsXkH1GKmuA6lsIuwTl0j6kbTefo=",
     "badTag": "v2025.1.rc1"
   },
