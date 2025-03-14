@@ -32,7 +32,7 @@ function bump-package() {
       echo "# Building $1"
       if NYX_CHANGED_ONLY="git+file:$PWD?rev=$_PREV" \
           PHASES='prepare build-jobs no-fail' \
-          nix develop --impure -c 'chaotic-nyx-build'; \
+          nix develop --impure ./maintenance -c 'chaotic-nyx-build'; \
       then return 0
       elif [ $? -eq 43 ]; then
         echo "## Failed, reverting ${_PREV}..${_CURR}"
