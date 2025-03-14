@@ -182,7 +182,6 @@
   "linuxPackages_cachyos-server.v86d" = "/nix/store/xcm8iav1nvxis03fgrq2b43924v4gqgb-v86d-0.1.10-6.13.7";
   "linuxPackages_cachyos-server.veikk-linux-driver" = "/nix/store/i1abnsq72mv8h3vpv22zzhqkm301134x-veikk-linux-driver-2.0";
   "linuxPackages_cachyos-server.yt6801" = "/nix/store/nkm9bapyk0a4swjkx0qdpvq3s85zdlwa-yt6801-1.0.29-20240812";
-  "nut_git" = "/nix/store/kjx4psvnlyizrki1k0njnaf6m804bwc1-nut-unstable-20250313115729-e9a48c9";
   "vulkanPackages_latest.vulkan-tools-lunarg" = "/nix/store/kxixykvbh6gxlybgpkh0613dr8ml8hzm-vulkan-tools-lunarg-1.4.309.0";
   "zed-editor_git" = "/nix/store/gfzv4rxwbaws7rm74sm005vivy028964-zed-editor-unstable-20250313160644-95208a6";
 }
