@@ -188,8 +188,5 @@
   "linuxPackages_cachyos-server.v86d" = "/nix/store/j1s6dxrmh3yfjwqalw4a1ldxcdf2ijrh-v86d-0.1.10-6.13.7";
   "linuxPackages_cachyos-server.veikk-linux-driver" = "/nix/store/9sjb5d73m8apqh278fs746n65bpy9bbx-veikk-linux-driver-2.0";
   "linuxPackages_cachyos-server.yt6801" = "/nix/store/7f82ghg7vis2kn6v3ap7qf42940hyk7z-yt6801-1.0.29-20240812";
-  "pwvucontrol_git" = "/nix/store/c36g3zsh58a498i741ma2skgkpcnq7sr-pwvucontrol-unstable-20250312210352-160a11f";
-  "telegram-desktop-unwrapped_git" = "/nix/store/r9w4idd3k6dppx2vnw1n2dpgagc4wghg-telegram-desktop-unwrapped-unstable-20250312171530-3f6f96c";
-  "tg-owt_git" = "/nix/store/754z4phrrfks60jx5x8i1hfjm08z5n8s-tg_owt-unstable-20241203132336-be39b8c";
   "vulkanPackages_latest.vulkan-tools-lunarg" = "/nix/store/xg7h41wyklcw992c7ii19j5fjbp1hppz-vulkan-tools-lunarg-1.4.309.0";
 }
