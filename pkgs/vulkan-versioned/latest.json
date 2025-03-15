@@ -5,9 +5,9 @@
     "hash": "sha256-8Jxf0zmrk3Mek6e4frH5/gQV5+CEmRfPrNFneb5UHDI="
   },
   "glslang": {
-    "version": "1.4.304.1",
+    "version": "1.4.309.0",
     "rev": "vulkan-sdk-#{version}",
-    "hash": "sha256-M3737MbLxo98V/qlHxcO43S5WXaWwdE7heJFJoPjfa8=",
+    "hash": "sha256-HkVRuxxxM7NVUnCj3I0uvj0pHaE6TVnOtX/+3gSU/08=",
     "badTag": "main-tot"
   },
   "spirvCross": {
