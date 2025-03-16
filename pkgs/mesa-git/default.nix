@@ -37,7 +37,9 @@ gitOverride (current: {
   version = builtins.substring 0 (builtins.stringLength prev.mesa.version) current.rev;
 
   postOverride = prevAttrs: {
-    patches = (nyxUtils.removeByBaseNames [ "opencl.patch" ] prevAttrs.patches) ++ [ ./opencl.patch ];
+    patches = [ ./opencl.patch ./system-gbm.diff ];
+
+    mesonFlags = nyxUtils.removeByPrefixes [ "-Dosmesa" "-Dgallium-opencl" ] prevAttrs.mesonFlags;
 
     # test and accessible information
     passthru = prevAttrs.passthru // {
