@@ -15,8 +15,8 @@ let
     hardware.graphics = with lib;
       {
         enable = mkForce true;
-        package = mkForce pkgs.mesa_git.drivers;
-        package32 = mkForce pkgs.mesa32_git.drivers;
+        package = mkForce pkgs.mesa_git;
+        package32 = mkForce pkgs.mesa32_git;
         extraPackages = mkForce cfg.extraPackages;
         extraPackages32 = mkForce cfg.extraPackages32;
         enable32Bit = mkForce has32;
