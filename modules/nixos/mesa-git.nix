@@ -5,9 +5,9 @@ let
   has32 = pkgs.stdenv.hostPlatform.isLinux && pkgs.stdenv.hostPlatform.isx86;
 
   replaceConfig = {
-    system.replaceRuntimeDependencies = [
-      { original = pkgs.mesa.out; replacement = pkgs.mesa_git.out; }
-      { original = pkgs.pkgsi686Linux.mesa.out; replacement = pkgs.mesa32_git.out; }
+    system.replaceDependencies.replacements = [
+      { oldDependency = pkgs.mesa.out; newDependency = pkgs.mesa_git.out; }
+      { oldDependency = pkgs.pkgsi686Linux.mesa.out; newDependency = pkgs.mesa32_git.out; }
     ];
   };
 
@@ -23,11 +23,20 @@ let
       };
   };
 
-  common = {
+  specialisationConfig = {
     specialisation.stable-mesa.configuration = {
       system.nixos.tags = [ "stable-mesa" ];
       chaotic.mesa-git.enable = lib.mkForce false;
     };
+  };
+
+  assertionConfig = {
+    assertions = [
+      {
+        assertion = lib.versionAtLeast pkgs.mesa.version "24.3.0";
+        message = "chaotic.mesa-git no longer supports nixos-24.11, please upgrade to nixos-25.05 or nixos-unstable.";
+      }
+    ];
   };
 in
 {
@@ -90,7 +99,8 @@ in
   };
 
   config = lib.mkIf cfg.enable (lib.mkMerge [
-    (lib.mkIf cfg.fallbackSpecialisation common)
+    assertionConfig
+    (lib.mkIf cfg.fallbackSpecialisation specialisationConfig)
     commonConfig
     (lib.mkIf cfg.replaceBasePackage replaceConfig)
   ]);
