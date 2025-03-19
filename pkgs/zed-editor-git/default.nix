@@ -21,7 +21,7 @@ gitOverride (current: {
     patches = nyxUtils.removeByBaseName "0001-generate-licenses.patch" prevAttrs.patches;
     env = (builtins.removeAttrs prevAttrs.env [ "RELEASE_VERSION" ]) // {
       RELEASE_VERSION = "";
-      ALLOW_MISSING_LICENSES="y";
+      ALLOW_MISSING_LICENSES = "y";
       ZED_COMMIT_SHA = current.rev;
     };
     installPhase = builtins.replaceStrings [ "zed-remote-server-stable-$version" ] [ "zed-remote-server-dev-build" ] prevAttrs.installPhase;
