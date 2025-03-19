@@ -1,0 +1,122 @@
+name: Build Aarch64
+on:
+  workflow_dispatch:
+    inputs:
+      commit-failures:
+        description: Commit failures.nix
+        required: false
+        default: true
+        type: boolean
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: nyx-aarch64-linux-build
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest-arm
+    timeout-minutes: 1440
+    outputs:
+      pushed: ${{ steps.push.outcome == 'success' }}
+    steps:
+      # identical to build.yml
+      - name: Install Nix
+        uses: cachix/install-nix-action@v30
+        with:
+          extra_nix_config: |
+            accept-flake-config = true
+            sandbox-fallback = false
+            system-features = big-parallel
+          install_options: --daemon
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Configure sandboxing
+        run: |
+          sed -i -e '/^build-users-group =/d' -e 's/max-jobs =.*/max-jobs = 8/g' /etc/nix/nix.conf
+          nix eval ./maintenance#_dev.nixConfig --json | jq -r 'to_entries[] | "\(.key) = \(.value | join(" "))"' >> /etc/nix/nix.conf
+      # config to commit
+      - name: Bat-signal
+        run: |
+          set -e
+          git config --global user.name 'Chaotic Github Actions'
+          git config --global user.email 'actions@chaotic.cx'
+      # similar to build.yml
+      - name: Download cache list
+        run: |
+          curl -vfo "${{ runner.temp }}/prev-cache.json" -H "Authorization: Bearer ${{ secrets.CACHIX_AUTH_TOKEN_SUPREME }}" \
+            'https://app.cachix.org/api/v1/cache/chaotic-nyx/contents'
+      # the building
+      - name: Build
+        if: (success())
+        id: build
+        run: |
+          nix develop ./maintenance -c chaotic-nyx-build || [ $? -eq 42 ]
+          failed_builds="$(cat ${{ runner.temp }}/failures.txt | sed 's/^/    <li>/; s/$/<\/li>/')"
+          failed_builds_count="$(cat ${{ runner.temp }}/failures.txt | wc -l)"
+          unbuildable_count="$(cat ${{ runner.temp }}/eval-failures.txt | wc -l)"
+          echo "FAILED_BUILDS_COUNT=$failed_builds_count
+          UNBUILDABLE_COUNT=$unbuildable_count
+          FAILED_BUILDS<<EOF
+          $failed_builds
+          EOF" >> $GITHUB_OUTPUT
+          if [ "$SAVE_FAILURES" = "true" ]; then
+            cp ${{ runner.temp }}/new-failures.nix ./maintenance/failures.aarch64-linux.nix
+            git add ./maintenance/failures.aarch64-linux.nix
+            git commit --allow-empty -m "failures: update"
+            git push
+          fi
+        env:
+          NYX_WD: ${{ runner.temp }}
+          CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          SAVE_FAILURES: ${{ inputs.commit-failures }}
+      - name: Comment on commit
+        if: (success())
+        uses: actions/github-script@v7
+        with:
+          script: |
+            if (process.env.FAILED_BUILDS_COUNT > 0) {
+              var extratext = "";
+              core.setFailed("Build failures found!")
+              // Check if github actions triggered the event
+              if (process.env.ACTOR == "github-actions[bot]")
+                extratext = `\nNew build failures found!`
+              else
+                extratext = `\nNew build failures found! @${process.env.ACTOR}`
+              github.rest.repos.createCommitComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                commit_sha: context.sha,
+                body: `Failed to build ${process.env.FAILED_BUILDS_COUNT} aarch64-linux packages:
+            <details>
+              <summary>${process.env.FAILED_BUILDS_COUNT} packages failed</summary>
+              <ul>
+                ${process.env.FAILED_BUILDS}
+              </ul>
+            </details>${extratext}`
+              })
+            } else
+              github.rest.repos.createCommitComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                commit_sha: context.sha,
+                body: `All aarch64-linux packages were built and cached successfully! (${process.env.UNBUILDABLE_COUNT} not suitable for building)`
+              })
+        env:
+          FAILED_BUILDS_COUNT: ${{ steps.build.outputs.FAILED_BUILDS_COUNT }}
+          UNBUILDABLE_COUNT: ${{ steps.build.outputs.UNBUILDABLE_COUNT }}
+          FAILED_BUILDS: ${{ steps.build.outputs.FAILED_BUILDS }}
+          ACTOR: ${{ github.actor }}
+      - name: Upload logs
+        if: ((success() || failure()) && steps.build.outcome != 'skipped')
+        uses: actions/upload-artifact@v4
+        with:
+          name: logs
+          path: |
+            ${{ runner.temp }}/*.txt
+            ${{ runner.temp }}/*.nix
