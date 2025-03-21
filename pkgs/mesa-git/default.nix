@@ -13,7 +13,7 @@ let
 in
 gitOverride (current: {
   newInputs =
-    if ! final.stdenv.isDarwin then
+    if final.stdenv.isLinux then
       {
         wayland-protocols = final64.wayland-protocols_git;
         galliumDrivers = [ "all" ];

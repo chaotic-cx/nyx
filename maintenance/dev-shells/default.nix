@@ -15,12 +15,15 @@ let
       pkgs = applyOverlay { inherit nyxPkgs; pkgs = nixPkgs; replace = true; merge = true; };
       inherit (pkgs) callPackage;
 
-      mkShell = opts: pkgs.mkShell (opts // {
-        env = (opts.env or { }) // {
-          # as seen on https://nixos.wiki/wiki/Locales
-          LOCALE_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
-        };
-      });
+      mkShell =
+        if nixPkgs.stdenv.isLinux then
+          opts: pkgs.mkShell (opts // {
+            env = (opts.env or { }) // {
+              # as seen on https://nixos.wiki/wiki/Locales
+              LOCALE_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
+            };
+          })
+        else pkgs.mkShell;
 
       nyxRecursionHelper = callPackage ../../shared/recursion-helper.nix {
         inherit (pkgs.stdenv) system;
