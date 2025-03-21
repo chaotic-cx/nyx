@@ -101,4 +101,6 @@ in
     nixpkgs.legacyPackages.x86_64-linux;
   aarch64-linux = mkShells packages.aarch64-linux
     nixpkgs.legacyPackages.aarch64-linux;
+  aarch64-darwin = mkShells packages.aarch64-darwin
+    nixpkgs.legacyPackages.aarch64-darwin;
 }

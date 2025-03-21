@@ -2,7 +2,7 @@
   inputs = {
     chaotic.url = "../";
     compare-to.url = "../";
-    systems.url = "github:nix-systems/default-linux";
+    systems.url = "github:nix-systems/default";
     yafas = {
       url = "github:UbiqueLambda/yafas";
       inputs.systems.follows = "systems";

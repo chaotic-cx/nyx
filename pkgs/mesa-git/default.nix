@@ -13,14 +13,16 @@ let
 in
 gitOverride (current: {
   newInputs =
-    {
-      wayland-protocols = final64.wayland-protocols_git;
-      galliumDrivers = [ "all" ];
-    } // (if is32bit then with final64; {
-      libdrm = libdrm32_git;
-    } else with final; {
-      libdrm = libdrm_git;
-    });
+    if ! final.stdenv.isDarwin then
+      {
+        wayland-protocols = final64.wayland-protocols_git;
+        galliumDrivers = [ "all" ];
+      } // (if is32bit then with final64; {
+        libdrm = libdrm32_git;
+      } else with final; {
+        libdrm = libdrm_git;
+      })
+    else { };
 
   nyxKey = if is32bit then "mesa32_git" else "mesa_git";
   prev = prev.mesa;
