@@ -54,7 +54,7 @@
         inherit (import ./flake.nix) nixConfig;
       };
     in
-    builtins.foldl' eachSystem universals [ "x86_64-linux" "aarch64-linux" ];
+    builtins.foldl' eachSystem universals [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" ];
 
   # Allows the user to use our cache when using `nix run <thisFlake>`.
   nixConfig = {

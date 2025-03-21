@@ -138,7 +138,7 @@ jobs:
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 commit_sha: context.sha,
-                body: `Failed to build ${process.env.FAILED_BUILDS_COUNT} packages:
+                body: `Failed to build ${process.env.FAILED_BUILDS_COUNT} x86_64-linux packages:
             <details>
               <summary>${process.env.FAILED_BUILDS_COUNT} packages failed</summary>
               <ul>
@@ -151,7 +151,7 @@ jobs:
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 commit_sha: context.sha,
-                body: `All packages were built and cached successfully! (${process.env.UNBUILDABLE_COUNT} not suitable for building)`
+                body: `All x86_64-linux packages were built and cached successfully! (${process.env.UNBUILDABLE_COUNT} not suitable for building)`
               })
         env:
           FAILED_BUILDS_COUNT: ${{ steps.build.outputs.FAILED_BUILDS_COUNT }}
