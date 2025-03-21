@@ -31,6 +31,6 @@ gitOverride (current: {
     cargoCheckFeatures = [ "blurhashing" "sentry_telemetry" ];
     # autoPatchelfHook & buildInputs is needed when using Fenix
     nativeBuildInputs = prevAttrs.nativeBuildInputs ++ [ final.autoPatchelfHook ];
-    buildInputs = prevAttrs.buildInputs ++ [ final.rocksdb final.libgcc.libgcc ];
+    buildInputs = prevAttrs.buildInputs ++ [ final.rocksdb ] ++ (if final.stdenv.isLinux then [ final.libgcc.libgcc ] else [ ]);
   };
 })

@@ -79,6 +79,6 @@ let
 in
 finalJSON.overrideAttrs (oldAttrs: {
   passthru = (oldAttrs.passthru or { }) // {
-    inherit packagesCmds system flakeSelf;
+    inherit packagesCmds system flakeSelf packagesEval;
   };
 })

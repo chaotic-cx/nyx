@@ -59,6 +59,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://gitlab.com/garuda-linux/themes-and-settings/artwork/beautyline";
     license = licenses.gpl3;
     maintainers = [ maintainers.dr460nf1r3 ];
-    platforms = platforms.all;
+    platforms = platforms.linux;
   };
 }

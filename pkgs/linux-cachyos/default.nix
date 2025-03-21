@@ -8,7 +8,9 @@ let
   rcVersions = importJSON ./versions-rc.json;
   hardenedVersions = importJSON ./versions-hardened.json;
 
-  mkCachyKernel = attrs: final.callPackage ./packages-for.nix ({ versions = mainVersions; } // attrs);
+  mkCachyKernel =
+    if final.stdenv.isDarwin then _: { kernel = final.hello; }
+    else attrs: final.callPackage ./packages-for.nix ({ versions = mainVersions; } // attrs);
 
   stdenvLLVM = final.callPackage ./lib/llvm-stdenv.nix { };
 

@@ -28,6 +28,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/psifidotos/applet-window-title";
     license = licenses.gpl2Plus;
     maintainers = [ maintainers.dr460nf1r3 ];
-    platforms = platforms.all;
+    platforms = platforms.linux;
   };
 }
