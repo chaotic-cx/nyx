@@ -70,6 +70,9 @@ let
   # Required for 32-bit packages
   has32 = final.stdenv.hostPlatform.isLinux && final.stdenv.hostPlatform.isx86;
 
+  # Required for kernel packages
+  inherit (final.stdenv) isLinux;
+
   # Apply Jovian overlay only on x86_64-linux
   jovian-chaotic =
     if final.stdenv.hostPlatform.isLinux && final.stdenv.hostPlatform.isx86_64 then {
@@ -92,7 +95,9 @@ in
 
   beautyline-icons = final.callPackage ../pkgs/beautyline-icons { };
 
-  bpftools_full = final.callPackage ../pkgs/bpftools-full { };
+  bpftools_full =
+    if isLinux then final.callPackage ../pkgs/bpftools-full { }
+    else throw "No bpftools for your target";
 
   busybox_appletless = multiOverride
     prev.busybox
