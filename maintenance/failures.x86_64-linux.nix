@@ -172,8 +172,5 @@
   "linuxPackages_cachyos-server.v86d" = "/nix/store/2769qkkjrw4j2mkag6kp8bbyddm46yyh-v86d-0.1.10-6.13.7";
   "linuxPackages_cachyos-server.veikk-linux-driver" = "/nix/store/ifdx7ic4cavwlzvax0kmm96lr7fh461g-veikk-linux-driver-2.0";
   "linuxPackages_cachyos-server.yt6801" = "/nix/store/ahdd1a1ikl2w5ah8f7zi4jqpqqcv5y6s-yt6801-1.0.29-20240812";
-  "mesa_git" = "/nix/store/11ds2fmqakpynd1d0l5j3sdkdpavcjdp-mesa-5b11c3";
-  "river_git" = "/nix/store/g8gj10kv033aqv1isj6zcjzwn0s778af-river-unstable-20250316124809-8490558";
-  "wayland-scanner_git" = "/nix/store/zqxvrqyifvjimm2w9qlgmv9dzwymqwkx-wayland-scanner-1.23.1";
   "vulkanPackages_latest.vulkan-tools-lunarg" = "/nix/store/fb9il5naap0fqgn57535jpcsk7rl9zy8-vulkan-tools-lunarg-1.4.309.0";
 }
