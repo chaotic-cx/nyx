@@ -14,7 +14,10 @@ gitOverride (current: {
   ref = "main";
 
   preOverride = prevAttrs: {
-    postPatch = builtins.replaceStrings [ prevAttrs.version ] [ "*" ] prevAttrs.postPatch;
+    postPatch = (builtins.replaceStrings [ prevAttrs.version ] [ "*" ] prevAttrs.postPatch) + ''
+      substituteInPlace script/generate-licenses \
+        --replace-fail 'CARGO_ABOUT_VERSION="0.6"' 'CARGO_ABOUT_VERSION="0.7"'
+    '';
   };
 
   postOverride = prevAttrs: {
