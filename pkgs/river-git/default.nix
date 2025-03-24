@@ -4,6 +4,10 @@ gitOverride {
   nyxKey = "river_git";
   prev = prev.river;
 
+  newInputs = {
+      zig_0_14 = final.zig_0_13;
+  };
+
   versionNyxPath = "pkgs/river-git/version.json";
   fetcher = "fetchFromGitHub";
   fetcherData = {
