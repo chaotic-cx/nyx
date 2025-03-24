@@ -1,4 +1,4 @@
-{ prev, gitOverride, nyxUtils, ... }:
+{ prev, gitOverride, ... }:
 
 gitOverride (current: {
   nyxKey = "zed-editor_git";
@@ -14,14 +14,15 @@ gitOverride (current: {
   ref = "main";
 
   preOverride = prevAttrs: {
-    postPatch = builtins.replaceStrings [ prevAttrs.version ] [ "*" ] prevAttrs.postPatch;
+    postPatch = (builtins.replaceStrings [ prevAttrs.version ] [ "*" ] prevAttrs.postPatch) + ''
+      substituteInPlace script/generate-licenses \
+        --replace-fail 'CARGO_ABOUT_VERSION="0.6"' 'CARGO_ABOUT_VERSION="0.7"'
+    '';
   };
 
   postOverride = prevAttrs: {
-    patches = nyxUtils.removeByBaseName "0001-generate-licenses.patch" prevAttrs.patches;
     env = (builtins.removeAttrs prevAttrs.env [ "RELEASE_VERSION" ]) // {
       RELEASE_VERSION = "";
-      ALLOW_MISSING_LICENSES = "y";
       ZED_COMMIT_SHA = current.rev;
     };
     installPhase = builtins.replaceStrings [ "zed-remote-server-stable-$version" ] [ "zed-remote-server-dev-build" ] prevAttrs.installPhase;
