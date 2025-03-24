@@ -66,7 +66,7 @@ jobs:
           if [ "$SAVE_FAILURES" = "true" ]; then
             cp ${{ runner.temp }}/new-failures.nix ./maintenance/failures.aarch64-linux.nix
             git add ./maintenance/failures.aarch64-linux.nix
-            git commit --allow-empty -m "failures: update"
+            git commit --allow-empty -m "failures: update aarch64-linux"
             git push
           fi
         env:
