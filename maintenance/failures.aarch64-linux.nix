@@ -1,6 +1,8 @@
 {
+  "firedragon" = "/nix/store/8fbij8kfbbx5h4l5wibv1m3f85ssjws3-firedragon-11.24.0-2";
   "firedragon-unwrapped" = "/nix/store/vd6cmjphrzmpjvq7bg8p84xb8x75vck2-firedragon-unwrapped-11.24.0-2";
   "firefox-unwrapped_nightly" = "/nix/store/4wjl58mnl5jyaz4br0m5l4k71hbay6xd-firefox-nightly-unwrapped-138.0a1";
+  "firefox_nightly" = "/nix/store/sdv8n7s47xaf0fz362h7i5cxm6b7711s-firefox-138.0a1";
   "latencyflex-vulkan" = "/nix/store/dzc445by138xmvxzw5cdv60bib65kcp9-latencyflex-vulkan-unstable-2023-07-03";
   "linuxPackages_cachyos.ply" = "/nix/store/gy1qm09qnm6n1fkdifmxsqj9sdq3ibgr-ply-2.1.1-e25c913";
   "linuxPackages_cachyos.rtl8188eus-aircrack" = "/nix/store/dr94xv6rnbmix35db20aw8ydhp0b15jx-rtl8188eus-aircrack-6.14.0-unstable-2024-09-18";
@@ -13,6 +15,7 @@
   "linuxPackages_cachyos-lto.rtl8188eus-aircrack" = "/nix/store/msmb4nwbb8jhlf4z94jb3vxzfscfd629-rtl8188eus-aircrack-6.14.0-unstable-2024-09-18";
   "linuxPackages_cachyos-lto.rtl8814au" = "/nix/store/gj37dnp62gml4jcd4dj7gq7sps7zgp3n-rtl8814au-6.14.0-unstable-2024-05-26";
   "linuxPackages_cachyos-lto.systemtap" = "/nix/store/x7awas7czyq42firq3s1ndjb31v4gk21-systemtap-5.2";
+  "linuxPackages_cachyos-server.ply" = "/nix/store/gy1qm09qnm6n1fkdifmxsqj9sdq3ibgr-ply-2.1.1-e25c913";
   "linuxPackages_cachyos-server.rtl8188eus-aircrack" = "/nix/store/kdrjfk5a21v5925aip023ivk6znsrmf9-rtl8188eus-aircrack-6.14.0-unstable-2024-09-18";
   "linuxPackages_cachyos-server.rtl8814au" = "/nix/store/alx8f0apy5cgcr3wm6k4chrckphv594a-rtl8814au-6.14.0-unstable-2024-05-26";
   "linuxPackages_cachyos-server.systemtap" = "/nix/store/k4ikm3snyy3dagc394as3gc31yj4kzlz-systemtap-5.2";
