@@ -14,14 +14,11 @@ gitOverride (current: {
   ref = "main";
 
   preOverride = prevAttrs: {
-    postPatch = (builtins.replaceStrings [ prevAttrs.version ] [ "*" ] prevAttrs.postPatch) + ''
-      substituteInPlace script/generate-licenses \
-        --replace-fail 'CARGO_ABOUT_VERSION="0.6"' 'CARGO_ABOUT_VERSION="0.7"'
-    '';
+    postPatch = (builtins.replaceStrings [ prevAttrs.version ] [ "*" ] prevAttrs.postPatch);
   };
 
   postOverride = prevAttrs: {
-    env = (builtins.removeAttrs prevAttrs.env [ "RELEASE_VERSION" ]) // {
+    env = prevAttrs.env // {
       RELEASE_VERSION = "";
       ZED_COMMIT_SHA = current.rev;
     };
