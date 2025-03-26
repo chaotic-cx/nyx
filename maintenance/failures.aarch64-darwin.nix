@@ -6,5 +6,5 @@
   "mesa_git" = "/nix/store/jdkkd9gsyq8l9mi8zz2aj0hx2l92w9dg-mesa-53484d";
   "vulkanPackages_latest.vulkan-validation-layers" = "/nix/store/f54mby5l4rvaajh2n03x2ncv9bm4mqjc-vulkan-validation-layers-1.4.309.0";
   "wayland_git" = "/nix/store/vsx62w0ms2js0kb622xpdsh6q82vvsqg-wayland-unstable-20250315231207-6137c8c";
-  "zed-editor-fhs_git" = "/nix/store/nw0mkqmyvjc3afkw8133fiixppaip27i-zeditor";
+  "zed-editor-fhs_git" = "/nix/store/fhkzhkpbmh4ggx26pzr9ymr1bdrrbhq6-zeditor";
 }
