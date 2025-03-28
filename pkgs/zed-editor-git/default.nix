@@ -14,7 +14,7 @@ gitOverride (current: {
   ref = "main";
 
   preOverride = prevAttrs: {
-    postPatch = (builtins.replaceStrings [ prevAttrs.version ] [ "*" ] prevAttrs.postPatch);
+    postPatch = builtins.replaceStrings [ prevAttrs.version ] [ "*" ] prevAttrs.postPatch;
   };
 
   postOverride = prevAttrs: {

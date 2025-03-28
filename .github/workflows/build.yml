@@ -8,6 +8,8 @@ permissions:
   pages: write
   id-token: write
   actions: read
+  # requirement for the workflow building other systems:
+  pull-requests: write
 
 concurrency:
   group: nyx-main-build
@@ -173,6 +175,14 @@ jobs:
   flakehub:
     needs: docs
     uses: ./.github/workflows/flakehub-publish-rolling.yml
+    if: needs.build.outputs.pushed == 'true'
+  build-aarch64:
+    needs: build
+    uses: ./.github/workflows/build-aarch64.yml
+    if: needs.build.outputs.pushed == 'true'
+  build-aarch64-darwin:
+    needs: build-aarch64
+    uses: ./.github/workflows/build-aarch64-darwin.yml
     if: needs.build.outputs.pushed == 'true'
   # flakestry:
   #   needs: docs

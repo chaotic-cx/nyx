@@ -1,5 +1,6 @@
 name: Build Aarch64
 on:
+  workflow_call:
   workflow_dispatch:
     inputs:
       commit-failures:
