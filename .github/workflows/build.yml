@@ -180,10 +180,12 @@ jobs:
     needs: build
     uses: ./.github/workflows/build-aarch64.yml
     if: needs.build.outputs.pushed == 'true'
+    secrets: inherit
   build-aarch64-darwin:
     needs: build-aarch64
     uses: ./.github/workflows/build-aarch64-darwin.yml
     if: needs.build.outputs.pushed == 'true'
+    secrets: inherit
   # flakestry:
   #   needs: docs
   #   uses: ./.github/workflows/flakestry-publish-rolling.yml
