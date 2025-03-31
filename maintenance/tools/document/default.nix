@@ -145,13 +145,7 @@ let
     lib.strings.concatStrings (lib.attrsets.mapAttrsToList renderTable xs);
 
   renderGrid = id: { overflow ? false, ... }: ''
-    new Grid({
-      from: document.getElementById("${id}"),
-      search: true,
-      sort: true ${if overflow then
-        ", style: { table: { 'overflow-wrap': 'break-word' } }"
-      else ""}
-    }).render(document.getElementById("js-${id}"));
+    renderGrid("${id}", "js-${id}", ${if overflow then "true" else "false"});
   '';
   renderGrids = xs:
     lib.strings.concatStrings (lib.attrsets.mapAttrsToList renderGrid xs);
@@ -167,8 +161,10 @@ let
   getVersion = flake:
     if flake ? revCount then
       "version <code>0.1.${toString flake.revCount}</code>"
+    else if flake ? lastModifiedDate then
+      "<code>${flake.lastModifiedDate}Z</code>"
     else
-      "<code>${flake.lastModifiedDate}Z</code>";
+       "bad rev";
 in
 writeText "chaotic-documented.html" ''
   <!DOCTYPE html><html>
@@ -183,13 +179,12 @@ writeText "chaotic-documented.html" ''
     <meta property="og:title" content="Chaotic-Nyx" />
     <meta property="og:image" content="https://gist.githubusercontent.com/PedroHLC/f6eaa9dfcf190e18b753e98fd265c8d3/raw/nix-frog-with-capes-web.svg" />
     <link rel="icon" href="https://avatars.githubusercontent.com/u/130499842?v=4" type="image/jpeg" />
-    <link rel="stylesheet" href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gridjs@6.2.0/dist/theme/mermaid.min.css" />
     <link rel="stylesheet" href="https://lab.pedrohlc.com/bucket/gridjs-mermaid-auto.css" />
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <link rel="stylesheet" media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
     <link rel="stylesheet" media="(prefers-color-scheme: dark)" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
     <style>
-      .noscript-table { display: none; }
       :root { font-family: 'Inter', sans-serif; font-size: 8px; }
       @media only screen and (min-width: 1280px) {
         :root { font-size: 0.625vw; }
@@ -209,7 +204,6 @@ writeText "chaotic-documented.html" ''
       img { max-width: 100%; }
       :not(pre) > code { color: #8a2be2; }
     </style>
-    <noscript><style>.noscript-table { display: table; }</style></noscript>
   </head><body><div style="max-width: 140rem; margin: 0 auto">
     ${builtins.head readme}
     <p>Built and cached against <a href="https://github.com/NixOS/nixpkgs/tree/${nixpkgs.rev}" target="_blank"><code>github:nixos/nixpkgs/${nixpkgs.rev}</code></a> (${getVersion nixpkgs}).</p>
@@ -222,7 +216,18 @@ writeText "chaotic-documented.html" ''
       import {
         Grid,
         html
-      } from "https://unpkg.com/gridjs?module";
+      } from "https://cdn.jsdelivr.net/npm/gridjs@6.2.0/+esm";
+
+      function renderGrid(originalId, newId, overflow) {
+        const from = document.getElementById(originalId);
+        const to = document.getElementById(newId);
+        return new Grid({
+          from,
+          search: true,
+          sort: true,
+          style: (overflow ? { table: { 'overflow-wrap': 'break-word' } } : { })
+        }).render(to);
+      }
 
       ${renderGrids tables}
     </script>
