@@ -1,4 +1,4 @@
-name: WIP Build
+name: Build x86-64 Linux
 on:
   workflow_dispatch:
     inputs:

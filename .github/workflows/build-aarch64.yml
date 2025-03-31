@@ -1,4 +1,4 @@
-name: Build Aarch64
+name: Build Aarch64 Linux
 on:
   workflow_call:
   workflow_dispatch:
