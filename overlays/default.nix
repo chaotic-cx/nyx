@@ -8,13 +8,14 @@
 # NOTE:
 # - `*_next` packages will be removed once merged into nixpkgs-unstable.
 
-{ flakes
-, nixpkgs ? flakes.nixpkgs
-, self ? flakes.self
-, selfOverlay ? self.overlays.default
-, jovian ? flakes.jovian or null
-, fenix ? flakes.fenix or null
-, nixpkgsExtraConfig ? { }
+{
+  flakes,
+  nixpkgs ? flakes.nixpkgs,
+  self ? flakes.self,
+  selfOverlay ? self.overlays.default,
+  jovian ? flakes.jovian or null,
+  fenix ? flakes.fenix or null,
+  nixpkgsExtraConfig ? { },
 }:
 final: prev:
 
@@ -23,23 +24,50 @@ let
   inherit (final.lib.trivial) importJSON;
 
   # Our utilities/helpers.
-  nyxUtils = import ../shared/utils.nix { inherit (final) lib; nyxOverlay = selfOverlay; };
+  nyxUtils = import ../shared/utils.nix {
+    inherit (final) lib;
+    nyxOverlay = selfOverlay;
+  };
   inherit (nyxUtils) multiOverride overrideDescription drvDropUpdateScript;
 
   # Helps when calling .nix that will override packages.
-  callOverride = path: attrs: import path ({ inherit final flakes nyxUtils prev gitOverride rustPlatform_latest; } // attrs);
+  callOverride =
+    path: attrs:
+    import path (
+      {
+        inherit
+          final
+          flakes
+          nyxUtils
+          prev
+          gitOverride
+          rustPlatform_latest
+          ;
+      }
+      // attrs
+    );
 
   # Helps when calling .nix that will override i686-packages.
-  callOverride32 = path: attrs: import path ({
-    inherit flakes nyxUtils gitOverride;
-    final = final.pkgsi686Linux;
-    final64 = final;
-    prev = prev.pkgsi686Linux;
-  } // attrs);
+  callOverride32 =
+    path: attrs:
+    import path (
+      {
+        inherit flakes nyxUtils gitOverride;
+        final = final.pkgsi686Linux;
+        final64 = final;
+        prev = prev.pkgsi686Linux;
+      }
+      // attrs
+    );
 
   # Magic helper for _git packages.
   gitOverride = import ../shared/git-override.nix {
-    inherit (final) lib callPackage fetchFromGitHub fetchFromGitLab;
+    inherit (final)
+      lib
+      callPackage
+      fetchFromGitHub
+      fetchFromGitLab
+      ;
     inherit (final.rustPlatform) fetchCargoVendor;
     nyx = self;
     fetchRevFromGitHub = final.callPackage ../shared/github-rev-fetcher.nix { };
@@ -48,7 +76,8 @@ let
 
   # Latest rust toolchain from Fenix
   rustPlatform_latest =
-    if (fenix == null) then final.rustPlatform
+    if (fenix == null) then
+      final.rustPlatform
     else
       let
         inherit (fenix.packages.${final.system}.latest) toolchain;
@@ -62,7 +91,14 @@ let
   cachyosPackages = callOverride ../pkgs/linux-cachyos { };
 
   # Microarch stuff
-  makeMicroarchPkgs = import ../shared/make-microarch.nix { inherit nixpkgs final selfOverlay nixpkgsExtraConfig; };
+  makeMicroarchPkgs = import ../shared/make-microarch.nix {
+    inherit
+      nixpkgs
+      final
+      selfOverlay
+      nixpkgsExtraConfig
+      ;
+  };
 
   # Common stuff for scx-schedulers
   scx-common = final.callPackage ../pkgs/scx-git/common.nix { };
@@ -75,10 +111,13 @@ let
 
   # Apply Jovian overlay only on x86_64-linux
   jovian-chaotic =
-    if final.stdenv.hostPlatform.isLinux && final.stdenv.hostPlatform.isx86_64 then {
-      inherit (jovian.legacyPackages.x86_64-linux) linux_jovian mesa-radv-jupiter mesa-radeonsi-jupiter;
-      recurseForDerivations = true;
-    } else { };
+    if final.stdenv.hostPlatform.isLinux && final.stdenv.hostPlatform.isx86_64 then
+      {
+        inherit (jovian.legacyPackages.x86_64-linux) linux_jovian mesa-radv-jupiter mesa-radeonsi-jupiter;
+        recurseForDerivations = true;
+      }
+    else
+      { };
 in
 {
   inherit nyxUtils jovian-chaotic;
@@ -96,13 +135,14 @@ in
   beautyline-icons = final.callPackage ../pkgs/beautyline-icons { };
 
   bpftools_full =
-    if isLinux then final.callPackage ../pkgs/bpftools-full { }
-    else throw "No bpftools for your target";
+    if isLinux then
+      final.callPackage ../pkgs/bpftools-full { }
+    else
+      throw "No bpftools for your target";
 
-  busybox_appletless = multiOverride
-    prev.busybox
-    { enableAppletSymlinks = false; }
-    (overrideDescription (old: old + " (without applets' symlinks)"));
+  busybox_appletless = multiOverride prev.busybox { enableAppletSymlinks = false; } (
+    overrideDescription (old: old + " (without applets' symlinks)")
+  );
 
   bytecode-viewer_git = final.callPackage ../pkgs/bytecode-viewer-git { };
 
@@ -135,8 +175,10 @@ in
   gamescope_git = callOverride ../pkgs/gamescope-git { };
   gamescope-wsi_git = callOverride ../pkgs/gamescope-git { isWSI = true; };
   gamescope-wsi32_git =
-    if has32 then callOverride32 ../pkgs/gamescope-git { isWSI = true; }
-    else throw "No gamescope-wsi32_git for non-x86";
+    if has32 then
+      callOverride32 ../pkgs/gamescope-git { isWSI = true; }
+    else
+      throw "No gamescope-wsi32_git for non-x86";
 
   jujutsu_git = callOverride ../pkgs/jujutsu-git { };
 
@@ -148,8 +190,7 @@ in
 
   libdrm_git = callOverride ../pkgs/libdrm-git { };
   libdrm32_git =
-    if has32 then callOverride32 ../pkgs/libdrm-git { }
-    else throw "No libdrm32_git for non-x86";
+    if has32 then callOverride32 ../pkgs/libdrm-git { } else throw "No libdrm32_git for non-x86";
 
   libportal_git = callOverride ../pkgs/libportal-git { };
 
@@ -171,20 +212,20 @@ in
   # You should not need "mangohud32_git" since it's embedded in "mangohud_git"
   mangohud_git = callOverride ../pkgs/mangohud-git { };
   mangohud32_git =
-    if has32 then callOverride32 ../pkgs/mangohud-git { }
-    else throw "No mangohud32_git for non-x86";
+    if has32 then callOverride32 ../pkgs/mangohud-git { } else throw "No mangohud32_git for non-x86";
 
   mesa_git = callOverride ../pkgs/mesa-git { };
   mesa32_git =
-    if has32 then callOverride32 ../pkgs/mesa-git { }
-    else throw "No mesa32_git for non-x86";
+    if has32 then callOverride32 ../pkgs/mesa-git { } else throw "No mesa32_git for non-x86";
 
-  mpv-vapoursynth = (final.mpv-unwrapped.wrapper {
-    mpv = final.mpv-unwrapped.override {
-      vapoursynthSupport = true;
-      vapoursynth = final.vapoursynth.withPlugins [ final.vapoursynth-mvtools ];
-    };
-  }).overrideAttrs (overrideDescription (old: old + " (includes vapoursynth-mvtools)"));
+  mpv-vapoursynth =
+    (final.mpv-unwrapped.wrapper {
+      mpv = final.mpv-unwrapped.override {
+        vapoursynthSupport = true;
+        vapoursynth = final.vapoursynth.withPlugins [ final.vapoursynth-mvtools ];
+      };
+    }).overrideAttrs
+      (overrideDescription (old: old + " (includes vapoursynth-mvtools)"));
 
   niri_git = callOverride ../pkgs/niri-git {
     niriPins = importJSON ../pkgs/niri-git/pins.json;
@@ -211,13 +252,17 @@ in
   pkgsx86_64_v3 = final.pkgsAMD64Microarchs.x86-64-v3;
   pkgsx86_64_v4 = final.pkgsAMD64Microarchs.x86-64-v4;
 
-  pkgsAMD64Microarchs =
-    builtins.mapAttrs
-      (arch: _inferiors: makeMicroarchPkgs "x86_64" arch)
-      (builtins.removeAttrs
-        final.lib.systems.architectures.inferiors
-        [ "default" "armv5te" "armv6" "armv7-a" "armv8-a" "mips32" "loongson2f" ]
-      );
+  pkgsAMD64Microarchs = builtins.mapAttrs (arch: _inferiors: makeMicroarchPkgs "x86_64" arch) (
+    builtins.removeAttrs final.lib.systems.architectures.inferiors [
+      "default"
+      "armv5te"
+      "armv6"
+      "armv7-a"
+      "armv8-a"
+      "mips32"
+      "loongson2f"
+    ]
+  );
 
   proton-ge-custom = final.callPackage ../pkgs/proton-ge-custom {
     protonGeTitle = "Proton-GE";
@@ -265,14 +310,17 @@ in
     inherit (final) fetchTorGit;
   };
 
-  vulkanPackages_latest = callOverride ../pkgs/vulkan-versioned
-    { vulkanVersions = importJSON ../pkgs/vulkan-versioned/latest.json; };
+  vulkanPackages_latest = callOverride ../pkgs/vulkan-versioned {
+    vulkanVersions = importJSON ../pkgs/vulkan-versioned/latest.json;
+  };
 
   xdg-desktop-portal-wlr_git = callOverride ../pkgs/portal-wlr-git { };
 
   wayland_git = callOverride ../pkgs/wayland-git { };
   wayland-protocols_git = callOverride ../pkgs/wayland-protocols-git { };
-  wayland-scanner_git = prev.wayland-scanner.overrideAttrs (_: { inherit (final.wayland_git) src; });
+  wayland-scanner_git = prev.wayland-scanner.overrideAttrs (_: {
+    inherit (final.wayland_git) src;
+  });
 
   wlroots_git = callOverride ../pkgs/wlroots-git { };
 
@@ -285,15 +333,12 @@ in
 
   zfs_cachyos = cachyosPackages.zfs;
 
-  zon2nix_zig_0_13 = multiOverride
-    prev.zon2nix
-    { zig_0_11 = final.zig_0_13; }
-    (_prevAttrs: {
-      src = final.fetchFromGitHub {
-        owner = "andreafeletto";
-        repo = "zon2nix";
-        rev = "5413d1afd430cc175de297fd09f26c2a9beef075";
-        hash = "sha256-lgtM6Wu9vh3OxGI5iw7npfh6f9yJIpRh8oJsosxnJiU=";
-      };
-    });
+  zon2nix_zig_0_13 = multiOverride prev.zon2nix { zig_0_11 = final.zig_0_13; } (_prevAttrs: {
+    src = final.fetchFromGitHub {
+      owner = "andreafeletto";
+      repo = "zon2nix";
+      rev = "5413d1afd430cc175de297fd09f26c2a9beef075";
+      hash = "sha256-lgtM6Wu9vh3OxGI5iw7npfh6f9yJIpRh8oJsosxnJiU=";
+    };
+  });
 }

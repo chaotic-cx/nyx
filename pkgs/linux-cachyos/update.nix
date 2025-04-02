@@ -1,16 +1,17 @@
-{ writeShellScript
-, lib
-, coreutils
-, findutils
-, gnugrep
-, gnused
-, curl
-, jq
-, git
-, nix
-, nix-prefetch-git
-, moreutils
-, withUpdateScript
+{
+  writeShellScript,
+  lib,
+  coreutils,
+  findutils,
+  gnugrep,
+  gnused,
+  curl,
+  jq,
+  git,
+  nix,
+  nix-prefetch-git,
+  moreutils,
+  withUpdateScript,
 }:
 let
   path = lib.makeBinPath [
@@ -33,7 +34,11 @@ let
       {
         versionsFile = "versions.json";
         suffix = "";
-        flavors = [ "" "-lto" "-server" ];
+        flavors = [
+          ""
+          "-lto"
+          "-server"
+        ];
         srcUrl = releaseSrcUrl;
       }
     else if withUpdateScript == "rc" then
@@ -50,9 +55,11 @@ let
         flavors = [ "-hardened" ];
         srcUrl = releaseSrcUrl;
       }
-    else throw "Unsupported update-script for linux-cachyos";
+    else
+      throw "Unsupported update-script for linux-cachyos";
 in
-with major; writeShellScript "update-cachyos" ''
+with major;
+writeShellScript "update-cachyos" ''
   set -euo pipefail
   PATH=${path}
 

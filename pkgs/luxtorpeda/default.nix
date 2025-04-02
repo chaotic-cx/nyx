@@ -1,8 +1,9 @@
-{ callPackage
-, stdenv
-, lib
-, fetchurl
-, luxtorpedaVersion
+{
+  callPackage,
+  stdenv,
+  lib,
+  fetchurl,
+  luxtorpedaVersion,
 }:
 
 stdenv.mkDerivation {

@@ -1,4 +1,11 @@
-{ lib, callPackage, fetchFromGitHub, jre, makeWrapper, maven }:
+{
+  lib,
+  callPackage,
+  fetchFromGitHub,
+  jre,
+  makeWrapper,
+  maven,
+}:
 
 let
   current = lib.trivial.importJSON ./version.json;

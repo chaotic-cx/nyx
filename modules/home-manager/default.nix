@@ -6,8 +6,10 @@ let
     nyx-registry = import ../common/nyx-registry.nix fromFlakes;
   };
 
-  default = { ... }: {
-    imports = builtins.attrValues modulesPerFile;
-  };
+  default =
+    { ... }:
+    {
+      imports = builtins.attrValues modulesPerFile;
+    };
 in
 modulesPerFile // { inherit default; }

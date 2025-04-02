@@ -1,9 +1,10 @@
-{ callPackage
-, stdenv
-, lib
-, fetchurl
-, protonGeTitle ? null
-, protonGeVersions
+{
+  callPackage,
+  stdenv,
+  lib,
+  fetchurl,
+  protonGeTitle ? null,
+  protonGeVersions,
 }:
 
 stdenv.mkDerivation {
@@ -19,14 +20,15 @@ stdenv.mkDerivation {
       inherit (protonGeVersions) hash;
     };
 
-  buildCommand = ''
-    mkdir -p $out/bin
-    tar -C $out/bin --strip=1 -x -f $src
-  ''
-  # Allow to keep the same name between updates
-  + lib.strings.optionalString (protonGeTitle != null) ''
-    sed -i -r 's|"GE-Proton.*"|"${protonGeTitle}"|' $out/bin/compatibilitytool.vdf
-  '';
+  buildCommand =
+    ''
+      mkdir -p $out/bin
+      tar -C $out/bin --strip=1 -x -f $src
+    ''
+    # Allow to keep the same name between updates
+    + lib.strings.optionalString (protonGeTitle != null) ''
+      sed -i -r 's|"GE-Proton.*"|"${protonGeTitle}"|' $out/bin/compatibilitytool.vdf
+    '';
 
   passthru.updateScript = callPackage ./update.nix { };
 
@@ -35,6 +37,9 @@ stdenv.mkDerivation {
     homepage = "https://github.com/GloriousEggroll/proton-ge-custom";
     license = licenses.bsd3;
     platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ pedrohlc shawn8901 ];
+    maintainers = with maintainers; [
+      pedrohlc
+      shawn8901
+    ];
   };
 }

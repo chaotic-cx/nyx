@@ -1,22 +1,25 @@
-{ allPackages
-, homeManagerConfiguration
-, homeManagerModule
-, lib
-, nixpkgs
-, nyxosConfiguration
-, nyxRecursionHelper
-, pkgs
-, self
-, writeText
+{
+  allPackages,
+  homeManagerConfiguration,
+  homeManagerModule,
+  lib,
+  nixpkgs,
+  nyxosConfiguration,
+  nyxRecursionHelper,
+  pkgs,
+  self,
+  writeText,
 }:
 let
-  derivationMap = k: v:
+  derivationMap =
+    k: v:
     let
       description = v.meta.description or "-";
       homepage =
         if (builtins.stringLength (v.meta.homepage or "") > 0) then
           "<a href=\"${v.meta.homepage}\" target=\"_blank\">${v.meta.homepage}</a>"
-        else "";
+        else
+          "";
     in
     ''
       <tr>
@@ -26,22 +29,28 @@ let
       </tr>
     '';
 
-  derivationWarn = k: v: message:
-    if message == "unfree" then derivationMap k v
-    else if message == "not a derivation" && ((v._description or null) == null) then null
-    else if message == "eval broken" then null
-    else ''
-      <tr>
-        <td><code>${k}</code></td>
-        <td><code>${v._version or "-"}</code></td>
-        <td>${v._description or "(${message})"}</td>
-      </tr>
-    '';
+  derivationWarn =
+    k: v: message:
+    if message == "unfree" then
+      derivationMap k v
+    else if message == "not a derivation" && ((v._description or null) == null) then
+      null
+    else if message == "eval broken" then
+      null
+    else
+      ''
+        <tr>
+          <td><code>${k}</code></td>
+          <td><code>${v._version or "-"}</code></td>
+          <td>${v._description or "(${message})"}</td>
+        </tr>
+      '';
 
-  packagesEval = nyxRecursionHelper.derivationsLimited "explicit" derivationWarn derivationMap allPackages;
+  packagesEval =
+    nyxRecursionHelper.derivationsLimited "explicit" derivationWarn derivationMap
+      allPackages;
 
-  packagesEvalFlat =
-    lib.lists.remove null (lib.lists.flatten packagesEval);
+  packagesEvalFlat = lib.lists.remove null (lib.lists.flatten packagesEval);
 
   loadedHomeManagerModule = homeManagerConfiguration {
     modules = [
@@ -58,113 +67,137 @@ let
     inherit pkgs;
   };
 
-  optionMap = k: v:
+  optionMap =
+    k: v:
     let
       htmlify = builtins.replaceStrings [ "\n" " " ] [ "<br/>" "&nbsp;" ];
       prettify = src: htmlify (lib.options.renderOptionValue src).text;
-      exampleValue =
-        if v ? example then prettify v.example
-        else "";
+      exampleValue = if v ? example then prettify v.example else "";
       example =
         if (builtins.stringLength exampleValue > 0) then
           "<br/><b>Example:</b> <code>${exampleValue}</code><br/>"
-        else "";
+        else
+          "";
       typeDescription =
-        if v.type.name == "enum" then
-          "<br/><b>Enum:</b> <code>${v.type.description}</code><br/>"
-        else "";
+        if v.type.name == "enum" then "<br/><b>Enum:</b> <code>${v.type.description}</code><br/>" else "";
       prettyDefault =
-        if v ? defaultText then prettify v.defaultText
-        else if v ? default then prettify v.default
-        else "N/A";
+        if v ? defaultText then
+          prettify v.defaultText
+        else if v ? default then
+          prettify v.default
+        else
+          "N/A";
     in
-    if (v.visible or true) then ''
-      <tr>
-        <td><code>chaotic.${k}</code></td>
-        <td><code>${prettyDefault}</code></td>
-        <td>${htmlify v.description}
-          ${typeDescription}
-          ${example}
-        </td>
-      </tr>
-    '' else ''
-      <!-- INVISIBLE OPTION chaotic.${k} -->
-    '';
+    if (v.visible or true) then
+      ''
+        <tr>
+          <td><code>chaotic.${k}</code></td>
+          <td><code>${prettyDefault}</code></td>
+          <td>${htmlify v.description}
+            ${typeDescription}
+            ${example}
+          </td>
+        </tr>
+      ''
+    else
+      ''
+        <!-- INVISIBLE OPTION chaotic.${k} -->
+      '';
 
-  optionWarn = k: _v: message:
-    ''
-      <tr>
-        <td><code>chaotic.${k}</code></td>
-        <td><code>-</code></td>
-        <td>(${message})</td>
-      </tr>
-    '';
+  optionWarn = k: _v: message: ''
+    <tr>
+      <td><code>chaotic.${k}</code></td>
+      <td><code>-</code></td>
+      <td>(${message})</td>
+    </tr>
+  '';
 
   nixosEval = nyxRecursionHelper.options optionWarn optionMap nyxosConfiguration.options.chaotic;
 
-  nixosEvalFlat =
-    lib.lists.flatten nixosEval;
+  nixosEvalFlat = lib.lists.flatten nixosEval;
 
-  homeManagerEval = nyxRecursionHelper.options optionWarn optionMap loadedHomeManagerModule.options.chaotic;
+  homeManagerEval =
+    nyxRecursionHelper.options optionWarn optionMap
+      loadedHomeManagerModule.options.chaotic;
 
-  homeManagerEvalFlat =
-    lib.lists.flatten homeManagerEval;
+  homeManagerEvalFlat = lib.lists.flatten homeManagerEval;
 
   tables = {
     t1-packages = {
       title = "Packages";
-      headers = [ "Name" "Version" "Description" ];
+      headers = [
+        "Name"
+        "Version"
+        "Description"
+      ];
       rows = packagesEvalFlat;
       overflow = false;
     };
     t2-nixos = {
       title = "NixOS Options";
-      headers = [ "Key" "Default" "Description" ];
+      headers = [
+        "Key"
+        "Default"
+        "Description"
+      ];
       rows = nixosEvalFlat;
     };
     t3-home-manager = {
       title = "Home-Manager Options";
-      headers = [ "Key" "Default" "Description" ];
+      headers = [
+        "Key"
+        "Default"
+        "Description"
+      ];
       rows = homeManagerEvalFlat;
     };
   };
 
   renderHeader = x: "<th>${x}</th>";
-  renderHeaders = xs:
-    lib.strings.concatStrings (lib.lists.map renderHeader xs);
+  renderHeaders = xs: lib.strings.concatStrings (lib.lists.map renderHeader xs);
 
-  renderTable = id: { title, headers, rows, ... }: ''
-    <h3 id="t-${id}">${title}</h2>
-    <table id="${id}" class="noscript-table" border="1">
-      <thead>${renderHeaders headers}</thead>
-      <tbody>${lib.strings.concatStrings rows}</tbody>
-    </table>
-    <div id="js-${id}"></div>
-  '';
-  renderTables = xs:
-    lib.strings.concatStrings (lib.attrsets.mapAttrsToList renderTable xs);
+  renderTable =
+    id:
+    {
+      title,
+      headers,
+      rows,
+      ...
+    }:
+    ''
+      <h3 id="t-${id}">${title}</h2>
+      <table id="${id}" class="noscript-table" border="1">
+        <thead>${renderHeaders headers}</thead>
+        <tbody>${lib.strings.concatStrings rows}</tbody>
+      </table>
+      <div id="js-${id}"></div>
+    '';
+  renderTables = xs: lib.strings.concatStrings (lib.attrsets.mapAttrsToList renderTable xs);
 
-  renderGrid = id: { overflow ? false, ... }: ''
-    renderGrid("${id}", "js-${id}", ${if overflow then "true" else "false"});
-  '';
-  renderGrids = xs:
-    lib.strings.concatStrings (lib.attrsets.mapAttrsToList renderGrid xs);
+  renderGrid =
+    id:
+    {
+      overflow ? false,
+      ...
+    }:
+    ''
+      renderGrid("${id}", "js-${id}", ${if overflow then "true" else "false"});
+    '';
+  renderGrids = xs: lib.strings.concatStrings (lib.attrsets.mapAttrsToList renderGrid xs);
 
-  renderIndexElem = id: { title, ... }:
-    "<li><a href=\"#t-${id}\">${title}</a></li>";
-  renderIndex = xs:
-    lib.strings.concatStrings (lib.attrsets.mapAttrsToList renderIndexElem xs);
+  renderIndexElem = id: { title, ... }: "<li><a href=\"#t-${id}\">${title}</a></li>";
+  renderIndex = xs: lib.strings.concatStrings (lib.attrsets.mapAttrsToList renderIndexElem xs);
 
-  readme =
-    lib.strings.splitString "<!-- cut here -->" (builtins.readFile ../../../README.md);
+  readme = lib.strings.splitString "<!-- cut here -->" (builtins.readFile ../../../README.md);
 
-  getVersion = flake:
+  getVersion =
+    flake:
     if flake ? revCount then
       "version <code>0.1.${toString flake.revCount}</code>"
     else if flake ? lastModifiedDate then
       "<code>${flake.lastModifiedDate}Z</code>"
     else
-       "bad rev";
+      "bad rev";
 in
 writeText "chaotic-documented.html" ''
   <!DOCTYPE html><html>

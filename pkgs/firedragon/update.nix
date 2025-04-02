@@ -1,16 +1,17 @@
-{ coreutils
-, curl
-, findutils
-, git
-, gnugrep
-, gnused
-, jq
-, lib
-, moreutils
-, nix
-, nix-prefetch-git
-, writeShellScript
-, ...
+{
+  coreutils,
+  curl,
+  findutils,
+  git,
+  gnugrep,
+  gnused,
+  jq,
+  lib,
+  moreutils,
+  nix,
+  nix-prefetch-git,
+  writeShellScript,
+  ...
 }:
 let
   path = lib.makeBinPath [
@@ -61,4 +62,3 @@ writeShellScript "update-firedragon" ''
   git add $srcJson
   git commit -m "firedragon: $localVer -> $latestVer"
 ''
-

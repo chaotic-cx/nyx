@@ -13,8 +13,10 @@ let
     owl-wlr = import ./owl-wlr.nix;
   };
 
-  default = { ... }: {
-    imports = builtins.attrValues modulesPerFile;
-  };
+  default =
+    { ... }:
+    {
+      imports = builtins.attrValues modulesPerFile;
+    };
 in
 modulesPerFile // { inherit default; }

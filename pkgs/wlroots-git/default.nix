@@ -1,9 +1,10 @@
-{ enableXWayland ? true
-, final
-, prev
-, gitOverride
-, nyxUtils
-, ...
+{
+  enableXWayland ? true,
+  final,
+  prev,
+  gitOverride,
+  nyxUtils,
+  ...
 }:
 
 gitOverride {
@@ -27,9 +28,13 @@ gitOverride {
   ref = "master";
 
   postOverride = prevAttrs: {
-    patches = nyxUtils.removeByURL
-      "https://gitlab.freedesktop.org/wlroots/wlroots/-/commit/fe53ec693789afb44c899cad8c2df70c8f9f9023.patch"
-      prevAttrs.patches;
-    buildInputs = with final; [ lcms libdrm_git ] ++ prevAttrs.buildInputs;
+    patches = nyxUtils.removeByURL "https://gitlab.freedesktop.org/wlroots/wlroots/-/commit/fe53ec693789afb44c899cad8c2df70c8f9f9023.patch" prevAttrs.patches;
+    buildInputs =
+      with final;
+      [
+        lcms
+        libdrm_git
+      ]
+      ++ prevAttrs.buildInputs;
   };
 }

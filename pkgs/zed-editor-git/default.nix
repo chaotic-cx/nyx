@@ -22,7 +22,9 @@ gitOverride (current: {
       RELEASE_VERSION = "";
       ZED_COMMIT_SHA = current.rev;
     };
-    installPhase = builtins.replaceStrings [ "zed-remote-server-stable-$version" ] [ "zed-remote-server-dev-build" ] prevAttrs.installPhase;
+    installPhase =
+      builtins.replaceStrings [ "zed-remote-server-stable-$version" ] [ "zed-remote-server-dev-build" ]
+        prevAttrs.installPhase;
     # Nothing wrong on it, just saving compilation time for me!
     dontCheck = true;
     doInstallCheck = false;

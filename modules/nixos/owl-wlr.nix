@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.chaotic.owl-wlr;
@@ -45,21 +50,20 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable
-    (
-      lib.mkMerge [
-        {
-          environment.systemPackages = [ cfg.package ];
+  config = lib.mkIf cfg.enable (
+    lib.mkMerge [
+      {
+        environment.systemPackages = [ cfg.package ];
 
-          systemd.packages = [ cfg.package ];
+        systemd.packages = [ cfg.package ];
 
-          xdg.portal = {
-            enable = lib.mkDefault true;
-            configPackages = [ cfg.package ];
-          };
-        }
-      ]
-    );
+        xdg.portal = {
+          enable = lib.mkDefault true;
+          configPackages = [ cfg.package ];
+        };
+      }
+    ]
+  );
 
   meta.maintainers = with lib.maintainers; [ s0me1newithhand7s ];
 }

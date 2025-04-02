@@ -1,18 +1,19 @@
 # The smallest and KISSer continuos-deploy I was able to create.
-{ dry-build
-, lib
+{
+  dry-build,
+  lib,
 
-, coreutils-full
-, cachix
-, curl
-, findutils
-, git
-, gnugrep
-, gnused
-, jq
-, nix
+  coreutils-full,
+  cachix,
+  curl,
+  findutils,
+  git,
+  gnugrep,
+  gnused,
+  jq,
+  nix,
 
-, writeShellScriptBin
+  writeShellScriptBin,
 }:
 let
   path = lib.makeBinPath [
@@ -34,29 +35,38 @@ let
   depVar = dep: "_dep_${dep}";
   depVarQuoted = dep: quote "$_dep_${dep}";
 
-  allOutPaths = artifacts:
-    lib.strings.concatStringsSep " \\\n  " (map quote (builtins.attrValues artifacts));
-  allOutFlakeKey = artifacts:
-    lib.strings.concatStringsSep " \\\n  " (map quote (builtins.attrNames artifacts));
+  allOutPaths =
+    artifacts: lib.strings.concatStringsSep " \\\n  " (map quote (builtins.attrValues artifacts));
+  allOutFlakeKey =
+    artifacts: lib.strings.concatStringsSep " \\\n  " (map quote (builtins.attrNames artifacts));
 
-  cmdMap = cmd:
+  cmdMap =
+    cmd:
     let
-      depsCond = lib.strings.concatStrings
-        (builtins.map (dep: "[ ${depVarQuoted dep} == '1' ] && ") cmd.deps);
+      depsCond = lib.strings.concatStrings (
+        builtins.map (dep: "[ ${depVarQuoted dep} == '1' ] && ") cmd.deps
+      );
       thisVar = depVar cmd.this;
     in
-    if cmd.build then ''
-      _ALL_OUT_KEYS=(${allOutFlakeKey cmd.artifacts})
-      _ALL_OUT_PATHS=(${allOutPaths cmd.artifacts})
-      ${depsCond}[ -z ${depVarQuoted cmd.this} ] && ${thisVar}=0 && \
-      build "${cmd.key}" "${cmd.mainOutPath}" && ${thisVar}=1
-    '' else if cmd ? broken then ''
-      echo "  \"${cmd.key}\" = \"${cmd.broken}\";" >> new-failures.nix
-    '' else if cmd ? warn then ''
-      echo "${cmd.key}: ${cmd.warn}" >> eval-failures.txt
-    '' else ''
-      echo "${cmd.key}: unexplained skip" >> eval-failures.txt
-    '';
+    if cmd.build then
+      ''
+        _ALL_OUT_KEYS=(${allOutFlakeKey cmd.artifacts})
+        _ALL_OUT_PATHS=(${allOutPaths cmd.artifacts})
+        ${depsCond}[ -z ${depVarQuoted cmd.this} ] && ${thisVar}=0 && \
+        build "${cmd.key}" "${cmd.mainOutPath}" && ${thisVar}=1
+      ''
+    else if cmd ? broken then
+      ''
+        echo "  \"${cmd.key}\" = \"${cmd.broken}\";" >> new-failures.nix
+      ''
+    else if cmd ? warn then
+      ''
+        echo "${cmd.key}: ${cmd.warn}" >> eval-failures.txt
+      ''
+    else
+      ''
+        echo "${cmd.key}: unexplained skip" >> eval-failures.txt
+      '';
 
 in
 writeShellScriptBin "chaotic-nyx-build" ''

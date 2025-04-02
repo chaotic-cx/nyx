@@ -1,5 +1,10 @@
 # ZFS-based impermanence but instead of rolling back on every start, roll back on safe shutdown/halt/reboot.
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.chaotic.zfs-impermanence-on-shutdown;
@@ -34,19 +39,18 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    systemd.shutdownRamfs.contents."/etc/systemd/system-shutdown/zpool".source =
-      lib.mkForce
-        (pkgs.writeShellScript "zpool-sync-shutdown" ''
-          ${cfgZfs.package}/bin/zfs rollback -r "${cfg.volume}@${cfg.snapshot}"
-          exec ${cfgZfs.package}/bin/zpool sync
-        '');
+    systemd.shutdownRamfs.contents."/etc/systemd/system-shutdown/zpool".source = lib.mkForce (
+      pkgs.writeShellScript "zpool-sync-shutdown" ''
+        ${cfgZfs.package}/bin/zfs rollback -r "${cfg.volume}@${cfg.snapshot}"
+        exec ${cfgZfs.package}/bin/zpool sync
+      ''
+    );
     systemd.shutdownRamfs.storePaths = [ "${cfgZfs.package}/bin/zfs" ];
 
-    fileSystems."/" =
-      {
-        device = cfg.volume;
-        fsType = "zfs";
-        neededForBoot = true;
-      };
+    fileSystems."/" = {
+      device = cfg.volume;
+      fsType = "zfs";
+      neededForBoot = true;
+    };
   };
 }

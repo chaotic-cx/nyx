@@ -1,29 +1,41 @@
-{ flakes
-, homeManagerModules ? self.homeManagerModules
-, nixpkgs ? flakes.nixpkgs
-, home-manager ? flakes.home-manager
-, packages ? self._dev.legacyPackages
-, self ? flakes.self
-, nyxosConfiguration ? self._dev.system.x86_64-linux
-, applyOverlay ? self.utils.applyOverlay
+{
+  flakes,
+  homeManagerModules ? self.homeManagerModules,
+  nixpkgs ? flakes.nixpkgs,
+  home-manager ? flakes.home-manager,
+  packages ? self._dev.legacyPackages,
+  self ? flakes.self,
+  nyxosConfiguration ? self._dev.system.x86_64-linux,
+  applyOverlay ? self.utils.applyOverlay,
 }:
 
 # The following shells are used to help our maintainers and CI/CDs.
 let
-  mkShells = nyxPkgs: nixPkgs:
+  mkShells =
+    nyxPkgs: nixPkgs:
     let
-      pkgs = applyOverlay { inherit nyxPkgs; pkgs = nixPkgs; replace = true; merge = true; };
+      pkgs = applyOverlay {
+        inherit nyxPkgs;
+        pkgs = nixPkgs;
+        replace = true;
+        merge = true;
+      };
       inherit (pkgs) callPackage;
 
       mkShell =
         if nixPkgs.stdenv.isLinux then
-          opts: pkgs.mkShell (opts // {
-            env = (opts.env or { }) // {
-              # as seen on https://nixos.wiki/wiki/Locales
-              LOCALE_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
-            };
-          })
-        else pkgs.mkShell;
+          opts:
+          pkgs.mkShell (
+            opts
+            // {
+              env = (opts.env or { }) // {
+                # as seen on https://nixos.wiki/wiki/Locales
+                LOCALE_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
+              };
+            }
+          )
+        else
+          pkgs.mkShell;
 
       nyxRecursionHelper = callPackage ../../shared/recursion-helper.nix {
         inherit (pkgs.stdenv) system;
@@ -32,43 +44,44 @@ let
       # Matches build.yml and full-bump.yml
       pinnedNix = pkgs.nixVersions.latest;
 
-      builder = callPackage ../tools/builder
-        {
-          nix = pinnedNix;
-          inherit dry-build;
-        };
-      dry-build = callPackage ../tools/dry-build
-        {
-          allPackages = nyxPkgs;
-          flakeSelf = self;
-          inherit nyxRecursionHelper;
-          inherit (pkgs) nyxUtils;
-        };
-      documentation = callPackage ../tools/document
-        {
-          allPackages = nyxPkgs;
-          homeManagerModule = homeManagerModules.default;
-          inherit nixpkgs nyxRecursionHelper self nyxosConfiguration;
-          inherit (home-manager.lib) homeManagerConfiguration;
-        };
-      evaluated = callPackage ../tools/eval
-        {
-          allPackages = nyxPkgs;
-          inherit nyxRecursionHelper;
-        };
-      compared = callPackage ../tools/comparer
-        {
-          allPackages = nyxPkgs;
-          compareToFlake = flakes.compare-to;
-          inherit nyxRecursionHelper;
-        };
-      bumper = callPackage ../tools/bumper
-        {
-          allPackages = nyxPkgs;
-          inherit nyxRecursionHelper;
-          nix = pinnedNix;
-        };
-      linter = callPackage ../tools/linter { };
+      builder = callPackage ../tools/builder {
+        nix = pinnedNix;
+        inherit dry-build;
+      };
+      dry-build = callPackage ../tools/dry-build {
+        allPackages = nyxPkgs;
+        flakeSelf = self;
+        inherit nyxRecursionHelper;
+        inherit (pkgs) nyxUtils;
+      };
+      documentation = callPackage ../tools/document {
+        allPackages = nyxPkgs;
+        homeManagerModule = homeManagerModules.default;
+        inherit
+          nixpkgs
+          nyxRecursionHelper
+          self
+          nyxosConfiguration
+          ;
+        inherit (home-manager.lib) homeManagerConfiguration;
+      };
+      evaluated = callPackage ../tools/eval {
+        allPackages = nyxPkgs;
+        inherit nyxRecursionHelper;
+      };
+      compared = callPackage ../tools/comparer {
+        allPackages = nyxPkgs;
+        compareToFlake = flakes.compare-to;
+        inherit nyxRecursionHelper;
+      };
+      bumper = callPackage ../tools/bumper {
+        allPackages = nyxPkgs;
+        inherit nyxRecursionHelper;
+        nix = pinnedNix;
+      };
+      linter = callPackage ../tools/linter {
+        formatter = self.formatter.${pkgs.system};
+      };
     in
     {
       default = mkShell {
@@ -100,10 +113,7 @@ let
     };
 in
 {
-  x86_64-linux = mkShells packages.x86_64-linux
-    nixpkgs.legacyPackages.x86_64-linux;
-  aarch64-linux = mkShells packages.aarch64-linux
-    nixpkgs.legacyPackages.aarch64-linux;
-  aarch64-darwin = mkShells packages.aarch64-darwin
-    nixpkgs.legacyPackages.aarch64-darwin;
+  x86_64-linux = mkShells packages.x86_64-linux nixpkgs.legacyPackages.x86_64-linux;
+  aarch64-linux = mkShells packages.aarch64-linux nixpkgs.legacyPackages.aarch64-linux;
+  aarch64-darwin = mkShells packages.aarch64-darwin nixpkgs.legacyPackages.aarch64-darwin;
 }

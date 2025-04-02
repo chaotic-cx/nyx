@@ -1,20 +1,21 @@
-{ autoPatchelfHook
-, buildFHSEnvChroot
-, dpkg
-, fetchurl
-, lib
-, stdenv
-, sysctl
-, iptables
-, iproute2
-, procps
-, cacert
-, libxml2
-, libidn2
-, libnl
-, libcap_ng
-, zlib
-, wireguard-tools
+{
+  autoPatchelfHook,
+  buildFHSEnvChroot,
+  dpkg,
+  fetchurl,
+  lib,
+  stdenv,
+  sysctl,
+  iptables,
+  iproute2,
+  procps,
+  cacert,
+  libxml2,
+  libidn2,
+  libnl,
+  libcap_ng,
+  zlib,
+  wireguard-tools,
 }:
 
 let
@@ -66,8 +67,8 @@ let
     runScript = "nordvpnd";
 
     # hardcoded path to /sbin/ip
-    targetPkgs = pkgs:
-      with pkgs; [
+    targetPkgs =
+      pkgs: with pkgs; [
         nordVPNBase
         sysctl
         iptables

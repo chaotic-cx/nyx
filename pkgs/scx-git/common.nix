@@ -1,4 +1,4 @@
-{ lib, fetchFromGitHub, }:
+{ lib, fetchFromGitHub }:
 let
   versionInfo = lib.importJSON ./version.json;
 in

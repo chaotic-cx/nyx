@@ -1,63 +1,68 @@
-{ current
+{
+  current,
 
-, lib
-, stdenv
-, wrapQtAppsHook
-, alsa-lib
-, boost183
-, catch2_3
-, cmake
-, cpp-jwt
-, cubeb
-, discord-rpc
-, doxygen
-, enet
-, fetchTorGit
-, fetchurl
-, fetchzip
-, ffmpeg
-, fmt_11
-, glslang
-, httplib
-, inih
-, libjack2
-, libopus
-, libpulseaudio
-, libusb1
-, libva
-, libzip
-, lz4
-, nlohmann_json
-, perl
-, pkg-config
-, python3
-, qtbase
-, qtmultimedia
-, qttools
-, qtwayland
-, qtwebengine
-, rapidjson
-, SDL2
-, sndio
-, speexdsp
-, udev
-, vulkan-loader
-, zlib
-, zstd
+  lib,
+  stdenv,
+  wrapQtAppsHook,
+  alsa-lib,
+  boost183,
+  catch2_3,
+  cmake,
+  cpp-jwt,
+  cubeb,
+  discord-rpc,
+  doxygen,
+  enet,
+  fetchTorGit,
+  fetchurl,
+  fetchzip,
+  ffmpeg,
+  fmt_11,
+  glslang,
+  httplib,
+  inih,
+  libjack2,
+  libopus,
+  libpulseaudio,
+  libusb1,
+  libva,
+  libzip,
+  lz4,
+  nlohmann_json,
+  perl,
+  pkg-config,
+  python3,
+  qtbase,
+  qtmultimedia,
+  qttools,
+  qtwayland,
+  qtwebengine,
+  rapidjson,
+  SDL2,
+  sndio,
+  speexdsp,
+  udev,
+  vulkan-loader,
+  zlib,
+  zstd,
 }:
 
 let
-  compat-list = with current.compatList; fetchurl {
-    name = "yuzu-compat-list";
-    url = "https://raw.githubusercontent.com/flathub/org.yuzu_emu.yuzu/${rev}/compatibility_list.json";
-    inherit hash;
-  };
+  compat-list =
+    with current.compatList;
+    fetchurl {
+      name = "yuzu-compat-list";
+      url = "https://raw.githubusercontent.com/flathub/org.yuzu_emu.yuzu/${rev}/compatibility_list.json";
+      inherit hash;
+    };
 
-  tzinfo = with current.tzinfo; fetchzip {
-    url = "https://github.com/lat9nq/tzdb_to_nx/releases/download/${version}/${version}.zip";
-    stripRoot = false;
-    inherit hash;
-  };
+  tzinfo =
+    with current.tzinfo;
+    fetchzip {
+      url = "https://github.com/lat9nq/tzdb_to_nx/releases/download/${version}/${version}.zip";
+      stripRoot = false;
+      inherit hash;
+    };
 in
 stdenv.mkDerivation {
   pname = "torzu";

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.chaotic.mesa-git;
 
@@ -6,21 +11,26 @@ let
 
   replaceConfig = {
     system.replaceDependencies.replacements = [
-      { oldDependency = pkgs.mesa.out; newDependency = pkgs.mesa_git.out; }
-      { oldDependency = pkgs.pkgsi686Linux.mesa.out; newDependency = pkgs.mesa32_git.out; }
+      {
+        oldDependency = pkgs.mesa.out;
+        newDependency = pkgs.mesa_git.out;
+      }
+      {
+        oldDependency = pkgs.pkgsi686Linux.mesa.out;
+        newDependency = pkgs.mesa32_git.out;
+      }
     ];
   };
 
   commonConfig = {
-    hardware.graphics = with lib;
-      {
-        enable = mkForce true;
-        package = mkForce pkgs.mesa_git;
-        package32 = mkForce pkgs.mesa32_git;
-        extraPackages = mkForce cfg.extraPackages;
-        extraPackages32 = mkForce cfg.extraPackages32;
-        enable32Bit = mkForce has32;
-      };
+    hardware.graphics = with lib; {
+      enable = mkForce true;
+      package = mkForce pkgs.mesa_git;
+      package32 = mkForce pkgs.mesa32_git;
+      extraPackages = mkForce cfg.extraPackages;
+      extraPackages32 = mkForce cfg.extraPackages32;
+      enable32Bit = mkForce has32;
+    };
   };
 
   specialisationConfig = {
@@ -98,10 +108,12 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable (lib.mkMerge [
-    assertionConfig
-    (lib.mkIf cfg.fallbackSpecialisation specialisationConfig)
-    commonConfig
-    (lib.mkIf cfg.replaceBasePackage replaceConfig)
-  ]);
+  config = lib.mkIf cfg.enable (
+    lib.mkMerge [
+      assertionConfig
+      (lib.mkIf cfg.fallbackSpecialisation specialisationConfig)
+      commonConfig
+      (lib.mkIf cfg.replaceBasePackage replaceConfig)
+    ]
+  );
 }

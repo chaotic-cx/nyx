@@ -1,7 +1,8 @@
-{ final
-, gitOverride
-, prev
-, ...
+{
+  final,
+  gitOverride,
+  prev,
+  ...
 }:
 
 gitOverride {

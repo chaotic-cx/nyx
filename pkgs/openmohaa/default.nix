@@ -1,18 +1,19 @@
-{ lib
-, callPackage
-, llvmPackages_15
-, fetchFromGitHub
-, pkg-config
-, cmake
-, SDL2
-, openal
-, bison
-, curl
-, flex
-, libogg
-, libvorbis
-, libopus
-, openmohaaVersion
+{
+  lib,
+  callPackage,
+  llvmPackages_15,
+  fetchFromGitHub,
+  pkg-config,
+  cmake,
+  SDL2,
+  openal,
+  bison,
+  curl,
+  flex,
+  libogg,
+  libvorbis,
+  libopus,
+  openmohaaVersion,
 }:
 
 llvmPackages_15.stdenv.mkDerivation {
@@ -26,7 +27,12 @@ llvmPackages_15.stdenv.mkDerivation {
     inherit (openmohaaVersion) hash;
   };
 
-  nativeBuildInputs = [ cmake pkg-config bison flex ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    bison
+    flex
+  ];
   buildInputs = [
     SDL2
     curl

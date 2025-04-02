@@ -15,7 +15,11 @@ gitOverride {
   postOverride = prevAttrs: {
     postInstall =
       builtins.replaceStrings
-        [ "extra/alacritty.man" "extra/alacritty-msg.man" "install -Dm 644 alacritty.yml $out/share/doc/alacritty.yml" ]
+        [
+          "extra/alacritty.man"
+          "extra/alacritty-msg.man"
+          "install -Dm 644 alacritty.yml $out/share/doc/alacritty.yml"
+        ]
         [ "extra/alacritty.*" "extra/alacritty-msg.*" "" ]
         prevAttrs.postInstall;
   };

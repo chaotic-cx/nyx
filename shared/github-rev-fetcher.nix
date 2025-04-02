@@ -1,7 +1,9 @@
-{ writeShellScript
-, curl
-, jq
-}: ref:
+{
+  writeShellScript,
+  curl,
+  jq,
+}:
+ref:
 { owner, repo, ... }:
 
 writeShellScript "github-${owner}-${repo}-${ref}-rev-fetcher" ''
@@ -9,4 +11,3 @@ writeShellScript "github-${owner}-${repo}-${ref}-rev-fetcher" ''
 
   ${curl}/bin/curl -s 'https://api.github.com/repos/${owner}/${repo}/commits/${ref}' | ${jq}/bin/jq -r .sha
 ''
-

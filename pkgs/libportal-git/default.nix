@@ -1,4 +1,9 @@
-{ final, prev, gitOverride, ... }:
+{
+  final,
+  prev,
+  gitOverride,
+  ...
+}:
 
 gitOverride {
   nyxKey = "libportal_git";
@@ -12,8 +17,11 @@ gitOverride {
   };
 
   postOverride = prevAttrs: {
-    mesonFlags = with final; [
-      (lib.mesonEnable "backend-qt6" false)
-    ] ++ prevAttrs.mesonFlags;
+    mesonFlags =
+      with final;
+      [
+        (lib.mesonEnable "backend-qt6" false)
+      ]
+      ++ prevAttrs.mesonFlags;
   };
 }

@@ -1,25 +1,30 @@
-{ pname
-, nyxKey
-, versionPath
-, hasCargo ? false
-, hasSubmodules ? false
-, withLastModifiedDate ? false
-, withLastModified ? false
-, withBump ? false
-, withExtraCommands ? ""
-, gitUrl
-, fetchLatestRev
+{
+  pname,
+  nyxKey,
+  versionPath,
+  hasCargo ? false,
+  hasSubmodules ? false,
+  withLastModifiedDate ? false,
+  withLastModified ? false,
+  withBump ? false,
+  withExtraCommands ? "",
+  gitUrl,
+  fetchLatestRev,
   # from nyx:
-, nyx-generic-git-update
+  nyx-generic-git-update,
   # from nixpkgs:
-, writeShellScript
+  writeShellScript,
 }:
 
 let
-  moreThanABoolean = default: x:
-    if x == null || x == false then "0"
-    else if x == true then default
-    else x;
+  moreThanABoolean =
+    default: x:
+    if x == null || x == false then
+      "0"
+    else if x == true then
+      default
+    else
+      x;
 in
 writeShellScript "update-${pname}-git" ''
   set -euo pipefail

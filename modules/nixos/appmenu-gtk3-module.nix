@@ -1,18 +1,22 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.chaotic.appmenu-gtk3-module;
 in
 {
   options = with lib; {
-    chaotic.appmenu-gtk3-module.enable =
-      mkOption {
-        default = false;
-        example = true;
-        type = types.bool;
-        description = ''
-          Sets the proper environment variable to use appmenu-gtk3-module.
-        '';
-      };
+    chaotic.appmenu-gtk3-module.enable = mkOption {
+      default = false;
+      example = true;
+      type = types.bool;
+      description = ''
+        Sets the proper environment variable to use appmenu-gtk3-module.
+      '';
+    };
   };
   config = lib.mkIf cfg.enable {
     environment = {

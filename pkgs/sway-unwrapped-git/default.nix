@@ -1,4 +1,9 @@
-{ final, prev, gitOverride, ... }:
+{
+  final,
+  prev,
+  gitOverride,
+  ...
+}:
 
 gitOverride {
   newInputs = with final; {
@@ -21,9 +26,7 @@ gitOverride {
   ref = "master";
 
   postOverride = prevAttrs: {
-    mesonFlags =
-      builtins.filter (x: builtins.substring 0 10 x != "-Dxwayland")
-        prevAttrs.mesonFlags;
+    mesonFlags = builtins.filter (x: builtins.substring 0 10 x != "-Dxwayland") prevAttrs.mesonFlags;
     patches = [ ];
   };
 }

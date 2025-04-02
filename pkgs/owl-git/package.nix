@@ -1,18 +1,18 @@
-{ wayland-protocols
-, wayland-scanner
-, libxkbcommon
-, makeWrapper
-, pkg-config
-, libinput
-, wlroots_0_18
-, wayland
-, pixman
-, libxcb
-, libdrm
-, fetchFromGitHub
-, stdenv
-, lib
-,
+{
+  wayland-protocols,
+  wayland-scanner,
+  libxkbcommon,
+  makeWrapper,
+  pkg-config,
+  libinput,
+  wlroots_0_18,
+  wayland,
+  pixman,
+  libxcb,
+  libdrm,
+  fetchFromGitHub,
+  stdenv,
+  lib,
 }:
 
 stdenv.mkDerivation rec {

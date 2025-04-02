@@ -1,15 +1,16 @@
-{ writeShellScript
-, lib
-, coreutils
-, findutils
-, gnugrep
-, curl
-, jq
-, git
-, nix
-, nix-prefetch-git
-, moreutils
-, yq
+{
+  writeShellScript,
+  lib,
+  coreutils,
+  findutils,
+  gnugrep,
+  curl,
+  jq,
+  git,
+  nix,
+  nix-prefetch-git,
+  moreutils,
+  yq,
 }:
 let
   path = lib.makeBinPath [
@@ -52,4 +53,3 @@ writeShellScript "update-proton-ge-custom" ''
   git add $srcJson
   git commit -m "proton-ge-custom: ''${localBase}.''${localRelease} -> ''${latestBase}.''${latestRelease}"
 ''
-

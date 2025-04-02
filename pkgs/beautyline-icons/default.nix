@@ -1,12 +1,13 @@
-{ callPackage
-, fetchFromGitLab
-, gnome-icon-theme
-, gtk3
-, hicolor-icon-theme
-, jdupes
-, lib
-, stdenvNoCC
-, ...
+{
+  callPackage,
+  fetchFromGitLab,
+  gnome-icon-theme,
+  gtk3,
+  hicolor-icon-theme,
+  jdupes,
+  lib,
+  stdenvNoCC,
+  ...
 }:
 
 let
@@ -24,7 +25,10 @@ stdenvNoCC.mkDerivation rec {
 
   src = fetchFromGitLab srcMeta;
 
-  nativeBuildInputs = [ jdupes gtk3 ];
+  nativeBuildInputs = [
+    jdupes
+    gtk3
+  ];
 
   propagatedBuildInputs = [
     gnome-icon-theme

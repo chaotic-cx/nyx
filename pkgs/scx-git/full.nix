@@ -1,5 +1,6 @@
-{ final
-, scx
+{
+  final,
+  scx,
 }:
 final.scx_git.cscheds.overrideAttrs (oldAttrs: {
   inherit (scx.full) pname meta;

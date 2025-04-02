@@ -1,4 +1,11 @@
-{ final, prev, gitOverride, nyxUtils, rustPlatform_latest, ... }:
+{
+  final,
+  prev,
+  gitOverride,
+  nyxUtils,
+  rustPlatform_latest,
+  ...
+}:
 gitOverride (current: {
   nyxKey = "conduwuit_git";
   prev = prev.conduwuit;
@@ -17,7 +24,9 @@ gitOverride (current: {
   };
 
   postOverride = prevAttrs: {
-    meta = prevAttrs.meta // { mainProgram = "conduwuit"; };
+    meta = prevAttrs.meta // {
+      mainProgram = "conduwuit";
+    };
     # watermark
     env = prevAttrs.env // {
       CONDUWUIT_VERSION_EXTRA = "${nyxUtils.shorter current.rev}+nyx";
@@ -26,11 +35,23 @@ gitOverride (current: {
     buildNoDefaultFeatures = false;
     cargoBuildNoDefaultFeatures = false;
     cargoCheckNoDefaultFeatures = false;
-    buildFeatures = [ "blurhashing" "sentry_telemetry" ];
-    cargoBuildFeatures = [ "blurhashing" "sentry_telemetry" ];
-    cargoCheckFeatures = [ "blurhashing" "sentry_telemetry" ];
+    buildFeatures = [
+      "blurhashing"
+      "sentry_telemetry"
+    ];
+    cargoBuildFeatures = [
+      "blurhashing"
+      "sentry_telemetry"
+    ];
+    cargoCheckFeatures = [
+      "blurhashing"
+      "sentry_telemetry"
+    ];
     # autoPatchelfHook & buildInputs is needed when using Fenix
     nativeBuildInputs = prevAttrs.nativeBuildInputs ++ [ final.autoPatchelfHook ];
-    buildInputs = prevAttrs.buildInputs ++ [ final.rocksdb ] ++ (if final.stdenv.isLinux then [ final.libgcc.libgcc ] else [ ]);
+    buildInputs =
+      prevAttrs.buildInputs
+      ++ [ final.rocksdb ]
+      ++ (if final.stdenv.isLinux then [ final.libgcc.libgcc ] else [ ]);
   };
 })

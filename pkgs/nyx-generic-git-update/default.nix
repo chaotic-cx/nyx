@@ -1,15 +1,16 @@
-{ writeShellScriptBin
-, lib
-, coreutils
-, findutils
-, curl
-, gawk
-, jq
-, git
-, nix
-, nix-prefetch-git
-, moreutils
-, nyxUtils
+{
+  writeShellScriptBin,
+  lib,
+  coreutils,
+  findutils,
+  curl,
+  gawk,
+  jq,
+  git,
+  nix,
+  nix-prefetch-git,
+  moreutils,
+  nyxUtils,
 }:
 let
   path = lib.makeBinPath [
@@ -114,6 +115,9 @@ in
   [ -n "''${WITH_EXTRA:-}" ] && source "$WITH_EXTRA"
 
   git commit -m "''${_NYX_KEY}: ''${_LOCAL_VER:9} -> ''${_LATEST_VERSION:9}"
-'').overrideAttrs (_prevAttrs: {
-  meta = _prevAttrs.meta // { description = "Generic update-script for bleeding-edge GIT Nix derivations."; };
-})
+'').overrideAttrs
+  (_prevAttrs: {
+    meta = _prevAttrs.meta // {
+      description = "Generic update-script for bleeding-edge GIT Nix derivations.";
+    };
+  })

@@ -1,4 +1,9 @@
-{ final, prev, gitOverride, ... }:
+{
+  final,
+  prev,
+  gitOverride,
+  ...
+}:
 
 gitOverride {
   nyxKey = "river_git";

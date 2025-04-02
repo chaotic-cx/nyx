@@ -1,16 +1,17 @@
-{ writeShellScript
-, lib
-, coreutils
-, findutils
-, gnugrep
-, curl
-, jq
-, git
-, nix
-, nix-prefetch-git
-, moreutils
-, yq
-, packageToUpdate
+{
+  writeShellScript,
+  lib,
+  coreutils,
+  findutils,
+  gnugrep,
+  curl,
+  jq,
+  git,
+  nix,
+  nix-prefetch-git,
+  moreutils,
+  yq,
+  packageToUpdate,
 }:
 let
   path = lib.makeBinPath [
@@ -96,4 +97,3 @@ writeShellScript "update-vulkan-package" ''
   git add $srcJson
   git commit -m "vulkanPackages_latest.$key: $localTag -> $latestTag"
 ''
-

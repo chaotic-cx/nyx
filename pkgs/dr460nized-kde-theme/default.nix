@@ -1,11 +1,12 @@
-{ beautyline-icons
-, callPackage
-, fetchFromGitLab
-, fetchurl
-, lib
-, plasma-plugin-blurredwallpaper
-, stdenvNoCC
-, sweet-nova
+{
+  beautyline-icons,
+  callPackage,
+  fetchFromGitLab,
+  fetchurl,
+  lib,
+  plasma-plugin-blurredwallpaper,
+  stdenvNoCC,
+  sweet-nova,
 }:
 
 let
@@ -28,7 +29,11 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-hlt3hyPKqn88JryyqegEglf8Tu8rkPv3iARPIuYYy2Q=";
   };
 
-  buildInputs = [ beautyline-icons plasma-plugin-blurredwallpaper sweet-nova ];
+  buildInputs = [
+    beautyline-icons
+    plasma-plugin-blurredwallpaper
+    sweet-nova
+  ];
 
   installPhase = ''
     runHook preInstall

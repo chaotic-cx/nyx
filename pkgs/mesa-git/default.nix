@@ -1,11 +1,12 @@
-{ final
-, final64 ? final
-, flakes
-, prev
-, gitOverride
-, nyxUtils
-, mesaTestAttrs ? final
-, ...
+{
+  final,
+  final64 ? final,
+  flakes,
+  prev,
+  gitOverride,
+  nyxUtils,
+  mesaTestAttrs ? final,
+  ...
 }:
 
 let
@@ -17,12 +18,21 @@ gitOverride (current: {
       {
         wayland-protocols = final64.wayland-protocols_git;
         galliumDrivers = [ "all" ];
-      } // (if is32bit then with final64; {
-        libdrm = libdrm32_git;
-      } else with final; {
-        libdrm = libdrm_git;
-      })
-    else { };
+      }
+      // (
+        if is32bit then
+          with final64;
+          {
+            libdrm = libdrm32_git;
+          }
+        else
+          with final;
+          {
+            libdrm = libdrm_git;
+          }
+      )
+    else
+      { };
 
   nyxKey = if is32bit then "mesa32_git" else "mesa_git";
   prev = prev.mesa;
@@ -39,18 +49,19 @@ gitOverride (current: {
   version = builtins.substring 0 (builtins.stringLength prev.mesa.version) current.rev;
 
   postOverride = prevAttrs: {
-    patches = [ ./opencl.patch ./system-gbm.diff ];
+    patches = [
+      ./opencl.patch
+      ./system-gbm.diff
+    ];
 
     mesonFlags = nyxUtils.removeByPrefixes [ "-Dosmesa" "-Dgallium-opencl" ] prevAttrs.mesonFlags;
 
     # test and accessible information
     passthru = prevAttrs.passthru // {
-      tests.smoke-test = import ./test.nix
-        {
-          inherit (flakes) nixpkgs;
-          chaotic = flakes.self;
-        }
-        mesaTestAttrs;
+      tests.smoke-test = import ./test.nix {
+        inherit (flakes) nixpkgs;
+        chaotic = flakes.self;
+      } mesaTestAttrs;
     };
   };
 })

@@ -23,19 +23,32 @@
     };
   };
 
-  outputs = { self, nixpkgs, ... }@inputs:
+  outputs =
+    { self, nixpkgs, ... }@inputs:
     let
-      eachSystem = accu: system:
-        let pkgs = nixpkgs.legacyPackages.${system};
+      eachSystem =
+        accu: system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
         in
-        accu // {
+        accu
+        // {
           # Exposes the packages created by the overlay.
-          legacyPackages = (accu.legacyPackages or { }) // { ${system} = accu.utils.applyOverlay { inherit pkgs; }; };
-          packages = (accu.packages or { }) // { ${system} = accu.utils.applyOverlay { inherit pkgs; onlyDerivations = true; }; };
+          legacyPackages = (accu.legacyPackages or { }) // {
+            ${system} = accu.utils.applyOverlay { inherit pkgs; };
+          };
+          packages = (accu.packages or { }) // {
+            ${system} = accu.utils.applyOverlay {
+              inherit pkgs;
+              onlyDerivations = true;
+            };
+          };
 
           # I would prefer if we had something stricter, with attribute alphabetical
           # sorting, and optimized for git's diffing. But this is the closer we have.
-          formatter = (accu.formatter or { }) // { ${system} = pkgs.nixpkgs-fmt; };
+          formatter = (accu.formatter or { }) // {
+            ${system} = import ./maintenance/formatter.nix pkgs;
+          };
         };
 
       universals = {
@@ -50,15 +63,25 @@
         homeManagerModules = self.homeModules;
 
         # Dev stuff.
-        utils = import ./shared/utils.nix { nyxOverlay = self.overlays.default; inherit (nixpkgs) lib; };
+        utils = import ./shared/utils.nix {
+          nyxOverlay = self.overlays.default;
+          inherit (nixpkgs) lib;
+        };
         inherit (import ./flake.nix) nixConfig;
       };
     in
-    builtins.foldl' eachSystem universals [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" ];
+    builtins.foldl' eachSystem universals [
+      "x86_64-linux"
+      "aarch64-linux"
+      "aarch64-darwin"
+    ];
 
   # Allows the user to use our cache when using `nix run <thisFlake>`.
   nixConfig = {
-    extra-substituters = [ "https://nix-community.cachix.org/" "https://chaotic-nyx.cachix.org/" ];
+    extra-substituters = [
+      "https://nix-community.cachix.org/"
+      "https://chaotic-nyx.cachix.org/"
+    ];
     extra-trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="

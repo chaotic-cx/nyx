@@ -9,8 +9,10 @@ let
   hardenedVersions = importJSON ./versions-hardened.json;
 
   mkCachyKernel =
-    if final.stdenv.isDarwin then _: { kernel = final.hello; }
-    else attrs: final.callPackage ./packages-for.nix ({ versions = mainVersions; } // attrs);
+    if final.stdenv.isDarwin then
+      _attrs: { kernel = final.hello; }
+    else
+      attrs: final.callPackage ./packages-for.nix ({ versions = mainVersions; } // attrs);
 
   stdenvLLVM = final.callPackage ./lib/llvm-stdenv.nix { };
 
@@ -24,7 +26,12 @@ let
   llvmModuleOverlay = import ./lib/llvm-module-overlay.nix inputs stdenvLLVM;
 in
 {
-  inherit mainVersions rcVersions hardenedVersions mkCachyKernel;
+  inherit
+    mainVersions
+    rcVersions
+    hardenedVersions
+    mkCachyKernel
+    ;
 
   cachyos = mainKernel;
 
@@ -36,7 +43,9 @@ in
     withUpdateScript = "rc";
 
     # Prevent building kernel modules for rc kernel
-    packagesExtend = _kernel: _final: prev: prev // { recurseForDerivations = false; };
+    packagesExtend =
+      _kernel: _final: prev:
+      prev // { recurseForDerivations = false; };
   };
 
   cachyos-lto = mkCachyKernel {
@@ -48,11 +57,23 @@ in
 
     description = "Linux EEVDF-BORE scheduler Kernel by CachyOS built with LLVM and Thin LTO";
 
-    packagesExtend = kernel: _finalModules: builtins.mapAttrs (k: v:
-      if builtins.elem k [ "zenpower" "v4l2loopback" "zfs_cachyos" "virtualbox" "xone" ]
-      then llvmModuleOverlay kernel v
-      else v
-    );
+    packagesExtend =
+      kernel: _finalModules:
+      builtins.mapAttrs (
+        k: v:
+        if
+          builtins.elem k [
+            "zenpower"
+            "v4l2loopback"
+            "zfs_cachyos"
+            "virtualbox"
+            "xone"
+          ]
+        then
+          llvmModuleOverlay kernel v
+        else
+          v
+      );
   };
 
   cachyos-sched-ext = throw "\"sched-ext\" patches were merged with \"cachyos\" flavor.";

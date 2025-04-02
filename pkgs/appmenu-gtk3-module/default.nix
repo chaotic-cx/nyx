@@ -1,23 +1,27 @@
-{ stdenv
-, lib
-, fetchFromGitLab
-, meson
-, cmake
-, pkg-config
-, systemd
-, gtk-doc
-, docbook-xsl-nons
-, ninja
-, glib
-, gtk3
-, wrapGAppsHook
+{
+  stdenv,
+  lib,
+  fetchFromGitLab,
+  meson,
+  cmake,
+  pkg-config,
+  systemd,
+  gtk-doc,
+  docbook-xsl-nons,
+  ninja,
+  glib,
+  gtk3,
+  wrapGAppsHook,
 }:
 
 stdenv.mkDerivation rec {
   pname = "appmenu-gtk3-module";
   version = "0.7.6";
 
-  outputs = [ "out" "devdoc" ];
+  outputs = [
+    "out"
+    "devdoc"
+  ];
 
   src = fetchFromGitLab {
     owner = "vala-panel-project";

@@ -1,31 +1,34 @@
-{ lib
-, callPackage
-, importJSON ? lib.trivial.importJSON
-, nyx
-, fetchFromGitHub
-, fetchFromGitLab
-, fetchRevFromGitHub
-, fetchRevFromGitLab
-, fetchCargoVendor
-}: config:
+{
+  lib,
+  callPackage,
+  importJSON ? lib.trivial.importJSON,
+  nyx,
+  fetchFromGitHub,
+  fetchFromGitLab,
+  fetchRevFromGitHub,
+  fetchRevFromGitLab,
+  fetchCargoVendor,
+}:
+config:
 let
   arrange =
-    { nyxKey
-    , versionNyxPath
-    , prev
-    , fetcher
-    , fetcherData
-    , ref ? "main"
-    , version ? null
-    , newInputs ? null
-    , postOverride ? null
-    , preOverride ? null
-    , withUpdateScript ? true
-    , withLastModified ? false
-    , withLastModifiedDate ? false
-    , withBump ? false
-    , withCargoDeps ? null
-    , withExtraUpdateCommands ? ""
+    {
+      nyxKey,
+      versionNyxPath,
+      prev,
+      fetcher,
+      fetcherData,
+      ref ? "main",
+      version ? null,
+      newInputs ? null,
+      postOverride ? null,
+      preOverride ? null,
+      withUpdateScript ? true,
+      withLastModified ? false,
+      withLastModifiedDate ? false,
+      withBump ? false,
+      withCargoDeps ? null,
+      withExtraUpdateCommands ? "",
     }:
     let
       versionLocalPath = "${nyx}/${versionNyxPath}";
@@ -36,11 +39,15 @@ let
         inherit (current) rev hash;
       };
       fetchLatestRev =
-        if fetcher == "fetchFromGitHub" then fetchRevFromGitHub
-        else if fetcher == "fetchFromGitLab" then fetchRevFromGitLab
-        else throw "Unrecognized fetcher ${builtins.toString fetcher}";
+        if fetcher == "fetchFromGitHub" then
+          fetchRevFromGitHub
+        else if fetcher == "fetchFromGitLab" then
+          fetchRevFromGitLab
+        else
+          throw "Unrecognized fetcher ${builtins.toString fetcher}";
 
-      main = prevAttrs:
+      main =
+        prevAttrs:
         let
           src = fetchers.${fetcher} fullFetcherData;
 
@@ -48,7 +55,13 @@ let
 
           updateScript = callPackage ./git-update.nix {
             inherit (prevAttrs) pname;
-            inherit nyxKey hasCargo withLastModified withLastModifiedDate withBump;
+            inherit
+              nyxKey
+              hasCargo
+              withLastModified
+              withLastModifiedDate
+              withBump
+              ;
             hasSubmodules = fetcherData.fetchSubmodules or false;
             versionPath = versionNyxPath;
             fetchLatestRev = fetchLatestRev ref fullFetcherData;
@@ -58,59 +71,43 @@ let
 
           common = {
             inherit src;
-            version =
-              if version == null
-              then current.version
-              else version;
+            version = if version == null then current.version else version;
             passthru = (prevAttrs.passthru or { }) // {
-              updateScript =
-                if withUpdateScript
-                then updateScript
-                else null;
+              updateScript = if withUpdateScript then updateScript else null;
             };
           };
 
-          whenCargo =
-            lib.attrsets.optionalAttrs hasCargo {
-              cargoDeps =
-                if withCargoDeps == null then
-                  fetchCargoVendor
-                    {
-                      inherit src;
-                      inherit (prevAttrs.cargoDeps) name;
-                      sourceRoot = prevAttrs.cargoDeps.sourceRoot or null;
-                      patches = prevAttrs.cargoDeps.patches or [ ];
-                      preUnpack = prevAttrs.cargoDeps.preUnpack or null;
-                      unpackPhase = prevAttrs.cargoDeps.unpackPhase or null;
-                      postUnpack = prevAttrs.cargoDeps.postUnpack or null;
-                      hash = current.cargoHash;
-                    }
-                else withCargoDeps;
-            };
+          whenCargo = lib.attrsets.optionalAttrs hasCargo {
+            cargoDeps =
+              if withCargoDeps == null then
+                fetchCargoVendor {
+                  inherit src;
+                  inherit (prevAttrs.cargoDeps) name;
+                  sourceRoot = prevAttrs.cargoDeps.sourceRoot or null;
+                  patches = prevAttrs.cargoDeps.patches or [ ];
+                  preUnpack = prevAttrs.cargoDeps.preUnpack or null;
+                  unpackPhase = prevAttrs.cargoDeps.unpackPhase or null;
+                  postUnpack = prevAttrs.cargoDeps.postUnpack or null;
+                  hash = current.cargoHash;
+                }
+              else
+                withCargoDeps;
+          };
         in
         common // whenCargo;
 
-      optionalPreOverride = lib.lists.optional
-        (preOverride != null)
-        preOverride;
+      optionalPreOverride = lib.lists.optional (preOverride != null) preOverride;
 
-      optionalPostOverride = lib.lists.optional
-        (postOverride != null)
-        postOverride;
+      optionalPostOverride = lib.lists.optional (postOverride != null) postOverride;
     in
     {
-      final =
-        lib.lists.foldl
-          (accu: accu.overrideAttrs)
-          (if newInputs == null then prev else prev.override newInputs)
-          (optionalPreOverride ++ [ main ] ++ optionalPostOverride);
+      final = lib.lists.foldl (accu: accu.overrideAttrs) (
+        if newInputs == null then prev else prev.override newInputs
+      ) (optionalPreOverride ++ [ main ] ++ optionalPostOverride);
       inherit current;
     };
 
-  env =
-    if builtins.isFunction config
-    then config current
-    else config;
+  env = if builtins.isFunction config then config current else config;
 
   arranged = arrange env;
   inherit (arranged) current final;

@@ -1,21 +1,22 @@
-{ deadnix
-, findutils
-, nixpkgs-fmt
-, ripgrep
-, statix
-, writeShellScriptBin
+{
+  deadnix,
+  findutils,
+  formatter,
+  ripgrep,
+  statix,
+  writeShellScriptBin,
 }:
 let
   Find = "${findutils}/bin/find";
   Rg = "${ripgrep}/bin/rg";
-  Fmt = "${nixpkgs-fmt}/bin/nixpkgs-fmt";
+  Fmt = "${formatter}/bin/treefmt";
   Statix = "${statix}/bin/statix";
   Deadnix = "${deadnix}/bin/deadnix";
 in
 writeShellScriptBin "chaotic-nyx-lint" ''
   set -euo pipefail
 
-  ${Fmt} --check .
+  ${Fmt} --ci
   ${Statix} check .
   ${Deadnix} --fail .
 

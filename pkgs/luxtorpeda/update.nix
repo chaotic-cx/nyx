@@ -1,13 +1,14 @@
-{ writeShellScript
-, lib
-, coreutils
-, findutils
-, gnugrep
-, curl
-, jq
-, git
-, nix
-, moreutils
+{
+  writeShellScript,
+  lib,
+  coreutils,
+  findutils,
+  gnugrep,
+  curl,
+  jq,
+  git,
+  nix,
+  moreutils,
 }:
 let
   path = lib.makeBinPath [
@@ -49,4 +50,3 @@ writeShellScript "update-luxtorpeda" ''
   git add $srcJson
   git commit -m "luxtorpeda: $localVersion -> $latestVersion"
 ''
-

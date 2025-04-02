@@ -1,11 +1,12 @@
-{ writeShellScript
-, lib
-, coreutils
-, curl
-, git
-, jq
-, moreutils
-, nix
+{
+  writeShellScript,
+  lib,
+  coreutils,
+  curl,
+  git,
+  jq,
+  moreutils,
+  nix,
 }:
 let
   path = lib.makeBinPath [
@@ -52,4 +53,3 @@ writeShellScript "firefox-nightly-update" ''
   git add $VERSION_JSON
   git commit -m "firefox_nightly: $_LOCAL_VER-''${_LOCAL_REV::9} -> $_LATEST_VER-''${_LATEST_REV::9}"
 ''
-

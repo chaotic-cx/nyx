@@ -1,22 +1,24 @@
-{ allPackages
-, nyxRecursionHelper
-, flakeSelf
-, lib
-, nyxUtils
-, writeText
-, hostPlatform
+{
+  allPackages,
+  nyxRecursionHelper,
+  flakeSelf,
+  lib,
+  nyxUtils,
+  writeText,
+  hostPlatform,
 }:
 
 let
-  allPackagesList =
-    builtins.map (xsx: xsx.drv)
-      (lib.lists.filter (xsx: xsx.drv != null) packagesEval);
+  allPackagesList = builtins.map (xsx: xsx.drv) (
+    lib.lists.filter (xsx: xsx.drv != null) packagesEval
+  );
 
   inherit (hostPlatform) system;
 
   brokenOutPaths = builtins.attrValues (import "${flakeSelf}/maintenance/failures.${system}.nix");
 
-  allOuts = key: drv:
+  allOuts =
+    key: drv:
     let
       pair = output: {
         name = nyxRecursionHelper.join key output;
@@ -25,7 +27,8 @@ let
     in
     builtins.listToAttrs (map pair drv.outputs);
 
-  derivationMap = key: drv:
+  derivationMap =
+    key: drv:
     let
       deps = nyxUtils.internalDeps allPackagesList drv;
       depsCond = builtins.map (dep: nyxUtils.drvHash dep) deps;
@@ -33,7 +36,10 @@ let
       thisVar = nyxUtils.drvHash drv;
     in
     if builtins.elem mainOutPath brokenOutPaths then
-      doNotBuild key { broken = mainOutPath; inherit system; }
+      doNotBuild key {
+        broken = mainOutPath;
+        inherit system;
+      }
     else
       {
         cmd = {
@@ -46,39 +52,40 @@ let
         inherit deps drv;
       };
 
-  commentWarn = key: _v: message:
+  commentWarn =
+    key: _v: message:
     doNotBuild key { warn = message; };
 
-  doNotBuild = key: data:
-    {
-      cmd = {
-        build = false;
-        inherit key;
-      } // data;
-      drv = null;
-      deps = [ ];
-    };
+  doNotBuild = key: data: {
+    cmd = {
+      build = false;
+      inherit key;
+    } // data;
+    drv = null;
+    deps = [ ];
+  };
 
-  packagesEval =
-    lib.lists.flatten
-      (nyxRecursionHelper.derivations commentWarn derivationMap allPackages);
+  packagesEval = lib.lists.flatten (
+    nyxRecursionHelper.derivations commentWarn derivationMap allPackages
+  );
 
-  depFirstSorter = pkgA: pkgB:
-    if pkgA.drv == null || pkgB.drv == null then
-      false
-    else
-      nyxUtils.drvElem pkgA.drv pkgB.deps;
+  depFirstSorter =
+    pkgA: pkgB:
+    if pkgA.drv == null || pkgB.drv == null then false else nyxUtils.drvElem pkgA.drv pkgB.deps;
 
-  packagesEvalSorted =
-    lib.lists.toposort depFirstSorter packagesEval;
+  packagesEvalSorted = lib.lists.toposort depFirstSorter packagesEval;
 
-  packagesCmds =
-    builtins.map (pkg: pkg.cmd) packagesEvalSorted.result;
+  packagesCmds = builtins.map (pkg: pkg.cmd) packagesEvalSorted.result;
 
   finalJSON = writeText "chaotic-dry-build.json" (lib.generators.toJSON { } packagesCmds);
 in
 finalJSON.overrideAttrs (oldAttrs: {
   passthru = (oldAttrs.passthru or { }) // {
-    inherit packagesCmds system flakeSelf packagesEval;
+    inherit
+      packagesCmds
+      system
+      flakeSelf
+      packagesEval
+      ;
   };
 })

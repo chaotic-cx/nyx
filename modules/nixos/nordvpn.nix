@@ -1,6 +1,12 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-with lib; {
+with lib;
+{
   options.chaotic.nordvpn.enable = mkOption {
     type = types.bool;
     default = false;

@@ -1,8 +1,9 @@
-{ final
-, gitOverride
-, prev
-, flakes
-, ...
+{
+  final,
+  gitOverride,
+  prev,
+  flakes,
+  ...
 }:
 
 gitOverride {
@@ -22,12 +23,10 @@ gitOverride {
   postOverride = prevAttrs: {
     name = prevAttrs.name + ".99";
     passthru = prevAttrs.passthru // {
-      tests.smoke-test = import ./test.nix
-        {
-          inherit (flakes) nixpkgs;
-          chaotic = flakes.self;
-        }
-        final;
+      tests.smoke-test = import ./test.nix {
+        inherit (flakes) nixpkgs;
+        chaotic = flakes.self;
+      } final;
     };
   };
 }

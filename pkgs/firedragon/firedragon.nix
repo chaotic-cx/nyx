@@ -1,8 +1,9 @@
-{ fetchFromGitLab
-, fetchurl
-, lib
-, pkgs
-, ...
+{
+  fetchFromGitLab,
+  fetchurl,
+  lib,
+  pkgs,
+  ...
 }:
 let
   current = lib.trivial.importJSON ./version.json;

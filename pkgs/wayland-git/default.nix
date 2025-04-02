@@ -1,7 +1,14 @@
-{ final, prev, gitOverride, ... }:
+{
+  final,
+  prev,
+  gitOverride,
+  ...
+}:
 
 gitOverride {
-  newInputs = with final; { wayland-scanner = wayland-scanner_git; };
+  newInputs = with final; {
+    wayland-scanner = wayland-scanner_git;
+  };
 
   nyxKey = "wayland_git";
   prev = prev.wayland;

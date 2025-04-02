@@ -1,14 +1,15 @@
-{ writeShellScript
-, lib
-, coreutils
-, findutils
-, gnugrep
-, curl
-, jq
-, git
-, nix
-, nix-prefetch-git
-, moreutils
+{
+  writeShellScript,
+  lib,
+  coreutils,
+  findutils,
+  gnugrep,
+  curl,
+  jq,
+  git,
+  nix,
+  nix-prefetch-git,
+  moreutils,
 }:
 let
   path = lib.makeBinPath [
@@ -51,4 +52,3 @@ writeShellScript "update-openmohaa" ''
   git add $srcJson
   git commit -m "openmohaa: $localVersion -> $latestVersion"
 ''
-
