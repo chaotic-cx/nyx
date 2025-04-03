@@ -82,7 +82,8 @@ jobs:
           script: |
             if (process.env.FAILED_BUILDS_COUNT > 0) {
               var extratext = "";
-              core.setFailed("Build failures found!")
+              if (process.env.SAVE_FAILURES !== "true")
+                core.setFailed("Build failures found!");
               // Check if github actions triggered the event
               if (process.env.ACTOR == "github-actions[bot]")
                 extratext = `\nNew build failures found!`
@@ -108,6 +109,7 @@ jobs:
                 body: `All packages were built and cached successfully! (${process.env.UNBUILDABLE_COUNT} not suitable for building)`
               })
         env:
+          SAVE_FAILURES: ${{ inputs.commit-failures }}
           FAILED_BUILDS_COUNT: ${{ steps.build.outputs.FAILED_BUILDS_COUNT }}
           UNBUILDABLE_COUNT: ${{ steps.build.outputs.UNBUILDABLE_COUNT }}
           FAILED_BUILDS: ${{ steps.build.outputs.FAILED_BUILDS }}
