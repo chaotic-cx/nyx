@@ -17,6 +17,7 @@ gitOverride {
   };
   postOverride = prevAttrs: {
     doCheck = false;
+    dontVersionCheck = true;
     env = prevAttrs.env // {
       LIBGIT2_NO_VENDOR = "0";
     };
