@@ -8,18 +8,21 @@
 , coreutils
 , mbedtls_2
 , symlinkJoin
+, callPackage
 ,
 }:
 
+let
+  current = lib.importJSON ./version.json;
+in
 stdenv.mkDerivation (finalAttrs: {
   pname = "openrgb";
-  version = "1.0rc1-unstable-2025-04-09";
+  inherit (current) version;
 
   src = fetchFromGitLab {
     owner = "CalcProgrammer1";
     repo = "OpenRGB";
-    rev = "1f6be2648967f65ed2b95c6341895d0aa7c9b4ad";
-    hash = "sha256-36LOJpfQPIjo/XZ6gi86tge0Yb1wU35zQdIGfG37N/0=";
+    inherit (current) rev hash;
   };
 
   nativeBuildInputs = [
@@ -78,6 +81,14 @@ stdenv.mkDerivation (finalAttrs: {
         }/lib\\\""''
       ];
     });
+
+  passthru.updateScript = callPackage ../../shared/git-update.nix {
+    inherit (finalAttrs) pname;
+    nyxKey = "openrgb_git";
+    versionPath = "pkgs/openrgb-git/version.json";
+    fetchLatestRev = callPackage ../../shared/github-rev-fetcher.nix { } "master" finalAttrs.src;
+    gitUrl = finalAttrs.src.gitRepoUrl;
+  };
 
   meta = {
     description = "Open source RGB lighting control";
