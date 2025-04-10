@@ -1,15 +1,15 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, qt6Packages
-, libusb1
-, hidapi
-, pkg-config
-, coreutils
-, mbedtls_2
-, symlinkJoin
-, callPackage
-,
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  qt6Packages,
+  libusb1,
+  hidapi,
+  pkg-config,
+  coreutils,
+  mbedtls_2,
+  symlinkJoin,
+  callPackage,
 }:
 
 let
@@ -25,21 +25,25 @@ stdenv.mkDerivation (finalAttrs: {
     inherit (current) rev hash;
   };
 
-  nativeBuildInputs = [
-    pkg-config
-  ] ++ (with qt6Packages; [
-    qmake
-    wrapQtAppsHook
-  ]);
+  nativeBuildInputs =
+    [
+      pkg-config
+    ]
+    ++ (with qt6Packages; [
+      qmake
+      wrapQtAppsHook
+    ]);
 
-  buildInputs = [
-    libusb1
-    hidapi
-    mbedtls_2
-  ] ++ (with qt6Packages; [
-    qtbase
-    qttools
-  ]);
+  buildInputs =
+    [
+      libusb1
+      hidapi
+      mbedtls_2
+    ]
+    ++ (with qt6Packages; [
+      qtbase
+      qttools
+    ]);
 
   postPatch = ''
     patchShebangs scripts/build-udev-rules.sh
