@@ -1,14 +1,14 @@
-{
-  lib,
-  stdenv,
-  fetchFromGitLab,
-  libsForQt5,
-  libusb1,
-  hidapi,
-  pkg-config,
-  coreutils,
-  mbedtls_2,
-  symlinkJoin,
+{ lib
+, stdenv
+, fetchFromGitLab
+, qt6Packages
+, libusb1
+, hidapi
+, pkg-config
+, coreutils
+, mbedtls_2
+, symlinkJoin
+,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -22,24 +22,26 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-6zOyY2CcUUIyhrp2H2jBAJqcjAbppDUGewCZZSUUeHo=";
   };
 
-  nativeBuildInputs = with libsForQt5; [
-    qmake
+  nativeBuildInputs = [
     pkg-config
+  ] ++ (with qt6Packages; [
+    qmake
     wrapQtAppsHook
-  ];
+  ]);
 
-  buildInputs = with libsForQt5; [
+  buildInputs = [
     libusb1
     hidapi
     mbedtls_2
+  ] ++ (with qt6Packages; [
     qtbase
     qttools
-  ];
+  ]);
 
   postPatch = ''
     patchShebangs scripts/build-udev-rules.sh
     substituteInPlace scripts/build-udev-rules.sh \
-      --replace /bin/chmod "${coreutils}/bin/chmod"
+      --replace-fail /bin/chmod "${coreutils}/bin/chmod"
   '';
 
   doInstallCheck = true;
