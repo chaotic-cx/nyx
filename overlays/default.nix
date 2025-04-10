@@ -244,6 +244,8 @@ in
   };
   openmohaa_git = callOverride ../pkgs/openmohaa-git { };
 
+  openrgb_git = final.callPackage ../pkgs/openrgb-git { };
+
   openvr_git = callOverride ../pkgs/openvr-git { };
 
   owl-wlr_git = callOverride ../pkgs/owl-git { };
