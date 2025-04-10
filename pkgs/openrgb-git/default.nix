@@ -42,6 +42,8 @@ stdenv.mkDerivation (finalAttrs: {
     patchShebangs scripts/build-udev-rules.sh
     substituteInPlace scripts/build-udev-rules.sh \
       --replace-fail '/usr/bin/env chmod' "${coreutils}/bin/chmod"
+    substituteInPlace OpenRGB.pro \
+    --replace-fail "lrelease" "${qt6Packages.qttools.dev}/bin/lrelease"
   '';
 
   doInstallCheck = true;
