@@ -13,13 +13,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "openrgb";
-  version = "0.9-unstable-2025-02-13";
+  version = "1.0rc1-unstable-2025-04-09";
 
   src = fetchFromGitLab {
     owner = "CalcProgrammer1";
     repo = "OpenRGB";
-    rev = "bb6f8e2dddc1f5ba218275150b22f37b095b9e4f";
-    hash = "sha256-6zOyY2CcUUIyhrp2H2jBAJqcjAbppDUGewCZZSUUeHo=";
+    rev = "1f6be2648967f65ed2b95c6341895d0aa7c9b4ad";
+    hash = "sha256-36LOJpfQPIjo/XZ6gi86tge0Yb1wU35zQdIGfG37N/0=";
   };
 
   nativeBuildInputs = [
@@ -41,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
   postPatch = ''
     patchShebangs scripts/build-udev-rules.sh
     substituteInPlace scripts/build-udev-rules.sh \
-      --replace-fail /bin/chmod "${coreutils}/bin/chmod"
+      --replace-fail '/usr/bin/env chmod' "${coreutils}/bin/chmod"
   '';
 
   doInstallCheck = true;
