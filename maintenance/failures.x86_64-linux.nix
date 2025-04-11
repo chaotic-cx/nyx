@@ -1,7 +1,6 @@
 {
   "linuxPackages_cachyos.apfs" = "/nix/store/l189w3rw7kjh3ll8yg8csw5rsif40lp1-apfs-0.3.12-6.14.0";
   "linuxPackages_cachyos.ax99100" = "/nix/store/igc1p3rh5bm63jixws03raixn65vya5i-ax99100-1.8.0";
-  "linuxPackages_cachyos.broadcom_sta" = "/nix/store/9pla9qq9fh06z486vkaf6nb74aqg9f0m-broadcom-sta-6.30.223.271-6.14.0";
   "linuxPackages_cachyos.digimend" = "/nix/store/3yfgy3drk5xcjxvjfgy34hi57hz4grv6-digimend-13";
   "linuxPackages_cachyos.fwts-efi-runtime" = "/nix/store/is4vf1i3akf2jsd5agx5wg348nfd9hiy-fwts-efi-runtime-24.09.00-6.14.0";
   "linuxPackages_cachyos.gasket" = "/nix/store/nalnc48ljqb85hc410cicx0mjkw7x4sv-gasket-1.0-18-unstable-2024-04-25";
@@ -84,7 +83,7 @@
   "linuxPackages_cachyos-lto.asus-ec-sensors" = "/nix/store/q5b2hyg3h2njq6khc744adh70m588xzb-asus-ec-sensors-0.1.0-unstable-2025-01-10-6.14.0";
   "linuxPackages_cachyos-lto.asus-wmi-sensors" = "/nix/store/p5icyg1lf6in3gkjqc3xws21mh2297w1-asus-wmi-sensors-unstable-2019-11-07-6.14.0";
   "linuxPackages_cachyos-lto.ax99100" = "/nix/store/j2wqlsvpw5hjcwjwljfjnscbrvxrsbwf-ax99100-1.8.0";
-  "linuxPackages_cachyos-lto.broadcom_sta" = "/nix/store/l2yh4g9p195rm9qcgw9x78dpf5zfjhz9-broadcom-sta-6.30.223.271-6.14.0";
+  "linuxPackages_cachyos-lto.broadcom_sta" = "/nix/store/l5bki7kas4g0vrvmhakb148fhv3ihsaf-broadcom-sta-6.30.223.271-6.14.0";
   "linuxPackages_cachyos-lto.ch9344" = "/nix/store/3nypg99iqnc9a96i37da0zx21chgjf5q-ch9344-0-unstable-2024-11-15";
   "linuxPackages_cachyos-lto.chipsec" = "/nix/store/2xkbi93dm3p4cs3da0mmbabbzq3p6j4q-chipsec-1.10.6";
   "linuxPackages_cachyos-lto.corefreq" = "/nix/store/h82h668r96302i4dn5r42sg6f6pqn7v8-corefreq-2.0.1";
@@ -148,7 +147,8 @@
   "linuxPackages_cachyos-lto.vendor-reset" = "/nix/store/9fl9w4qh085w5s610khmsdv7kx88pvq2-vendor-reset-unstable-2024-04-16-6.14.0";
   "linuxPackages_cachyos-lto.virtualbox" = "/nix/store/aky6zav47hlaj7i4wq08kv8h0rzzdfah-virtualbox-modules-7.1.6a-6.14.0";
   "linuxPackages_cachyos-lto.virtualboxGuestAdditions" = "/nix/store/lf94q9b3n1am1gb4s0px8isvkw21hq8r-VirtualBox-GuestAdditions-7.1.6a-6.14.0";
-  "linuxPackages_cachyos-lto.vmware" = "/nix/store/ii27a8y8n4a5g3inlq3m5hmqy5n6bdyf-vmware-modules-workstation-17.6.1-unstable-2024-10-12-6.14.0";
+  "linuxPackages_cachyos-lto.vm-tools" = "/nix/store/pgx6ik4xnwy15lpqvmv1d54pmfn6hyla-mm-tools-6.12.22";
+  "linuxPackages_cachyos-lto.vmware" = "/nix/store/aa649b24gwiymmgxyg4jx4nks0krrizx-vmware-modules-workstation-17.6.3-6.14.0";
   "linuxPackages_cachyos-lto.x86_energy_perf_policy" = "/nix/store/59vdyfk7v3dcafmn4ykymc0yfkv0961h-x86_energy_perf_policy-6.14.0";
   "linuxPackages_cachyos-lto.xpad-noone" = "/nix/store/6ckgv6zsaa00mzg6hjy19gz7pgcz6546-xpad-noone-0-unstable-2024-01-10";
   "linuxPackages_cachyos-lto.yt6801" = "/nix/store/lrwkcm1dagsjbah146n2bsmsb9zk0j83-yt6801-1.0.29-20240812";
@@ -156,7 +156,6 @@
   "linuxPackages_cachyos-lto.zfs_cachyos" = "/nix/store/rkvp70aq6dyclx17p0idnlbmdm0n73ql-zfs-kernel-2.3.1-6.14.0";
   "linuxPackages_cachyos-server.apfs" = "/nix/store/9zh47v4j58lg4a33a1jz4b0xblxm57pd-apfs-0.3.12-6.14.0";
   "linuxPackages_cachyos-server.ax99100" = "/nix/store/c45ra2dn7zj0i0gy0kbm6ngqfcpzy46w-ax99100-1.8.0";
-  "linuxPackages_cachyos-server.broadcom_sta" = "/nix/store/vfbjs449zzbzdsqn4ibiifmgwr16sbcc-broadcom-sta-6.30.223.271-6.14.0";
   "linuxPackages_cachyos-server.digimend" = "/nix/store/i3sz3by1pfi7mbis8szdbycrh6lzmca9-digimend-13";
   "linuxPackages_cachyos-server.fwts-efi-runtime" = "/nix/store/1xgqm53cl03qvwiqdhbzfxpl1x0yr3ym-fwts-efi-runtime-24.09.00-6.14.0";
   "linuxPackages_cachyos-server.gasket" = "/nix/store/4dka07503vnkdbxcvsh9a6adv6klm2wn-gasket-1.0-18-unstable-2024-04-25";
