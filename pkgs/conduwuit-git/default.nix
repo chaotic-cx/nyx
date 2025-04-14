@@ -1,57 +1,111 @@
 {
-  final,
-  prev,
-  gitOverride,
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  bzip2,
+  zstd,
+  stdenv,
+  rocksdb,
+  callPackage,
+  testers,
+  autoPatchelfHook,
+  libgcc,
   nyxUtils,
-  rustPlatform_latest,
-  ...
+  # upstream conduwuit enables jemalloc by default, so we follow suit (except when using Fenix)
+  enableJemalloc ? false,
+  rust-jemalloc-sys,
+  enableLiburing ? stdenv.hostPlatform.isLinux,
+  liburing,
 }:
-gitOverride (current: {
-  nyxKey = "conduwuit_git";
-  prev = prev.conduwuit;
-
-  newInputs = {
-    rustPlatform = rustPlatform_latest;
-    # Needed when using Fenix
-    enableJemalloc = false;
+let
+  rust-jemalloc-sys' = rust-jemalloc-sys.override {
+    unprefixed = !stdenv.hostPlatform.isDarwin;
   };
+  rocksdb' = rocksdb.override {
+    inherit enableLiburing;
+    # rocksdb does not support prefixed jemalloc, which is required on darwin
+    enableJemalloc = enableJemalloc && !stdenv.hostPlatform.isDarwin;
+    jemalloc = rust-jemalloc-sys';
+  };
+  current = lib.importJSON ./version.json;
+in
+rustPlatform.buildRustPackage (finalAttrs: {
+  pname = "conduwuit";
+  inherit (current) version cargoHash;
 
-  versionNyxPath = "pkgs/conduwuit-git/version.json";
-  fetcher = "fetchFromGitHub";
-  fetcherData = {
+  src = fetchFromGitHub {
     owner = "girlbossceo";
     repo = "conduwuit";
+    inherit (current) rev hash;
   };
 
-  postOverride = prevAttrs: {
-    meta = prevAttrs.meta // {
-      mainProgram = "conduwuit";
+  useFetchCargoVendor = true;
+
+  nativeBuildInputs = [
+    pkg-config
+    rustPlatform.bindgenHook
+  ] ++ lib.optional stdenv.hostPlatform.isLinux autoPatchelfHook;
+
+  buildInputs =
+    [
+      bzip2
+      zstd
+      rocksdb
+    ]
+    ++ lib.optional stdenv.hostPlatform.isLinux libgcc.libgcc
+    ++ lib.optional enableJemalloc rust-jemalloc-sys'
+    ++ lib.optional enableLiburing liburing;
+
+  env = {
+    ZSTD_SYS_USE_PKG_CONFIG = true;
+    ROCKSDB_INCLUDE_DIR = "${rocksdb'}/include";
+    ROCKSDB_LIB_DIR = "${rocksdb'}/lib";
+    CONDUWUIT_VERSION_EXTRA = "${nyxUtils.shorter current.rev}+nyx";
+  };
+
+  # See https://github.com/girlbossceo/conduwuit/blob/main/src/main/Cargo.toml
+  # for available features.
+  # We enable all default features except jemalloc and io_uring, which
+  # we guard behind our own (default-enabled) flags.
+  # We need blurhashing, sentry requires opt-in during runtime (set `sentry = true` in your config)
+  buildNoDefaultFeatures = false;
+  cargoBuildNoDefaultFeatures = false;
+  cargoCheckNoDefaultFeatures = false;
+  buildFeatures = [
+    "blurhashing"
+    "sentry_telemetry"
+  ];
+  cargoBuildFeatures = [
+    "blurhashing"
+    "sentry_telemetry"
+  ];
+  cargoCheckFeatures = [
+    "blurhashing"
+    "sentry_telemetry"
+  ];
+
+  passthru.tests = {
+    version = testers.testVersion {
+      inherit (finalAttrs) version;
+      package = finalAttrs.finalPackage;
     };
-    # watermark
-    env = prevAttrs.env // {
-      CONDUWUIT_VERSION_EXTRA = "${nyxUtils.shorter current.rev}+nyx";
-    };
-    # We need blurhashing, sentry requires opt-in during runtime (set `sentry = true` in your config)
-    buildNoDefaultFeatures = false;
-    cargoBuildNoDefaultFeatures = false;
-    cargoCheckNoDefaultFeatures = false;
-    buildFeatures = [
-      "blurhashing"
-      "sentry_telemetry"
-    ];
-    cargoBuildFeatures = [
-      "blurhashing"
-      "sentry_telemetry"
-    ];
-    cargoCheckFeatures = [
-      "blurhashing"
-      "sentry_telemetry"
-    ];
-    # autoPatchelfHook & buildInputs is needed when using Fenix
-    nativeBuildInputs = prevAttrs.nativeBuildInputs ++ [ final.autoPatchelfHook ];
-    buildInputs =
-      prevAttrs.buildInputs
-      ++ [ final.rocksdb ]
-      ++ (if final.stdenv.isLinux then [ final.libgcc.libgcc ] else [ ]);
+  };
+
+  passthru.updateScript = callPackage ../../shared/git-update.nix {
+    inherit (finalAttrs) pname;
+    nyxKey = "conduwuit_git";
+    versionPath = "pkgs/conduwuit-git/version.json";
+    fetchLatestRev = callPackage ../../shared/github-rev-fetcher.nix { } "master" finalAttrs.src;
+    gitUrl = finalAttrs.src.gitRepoUrl;
+  };
+
+  meta = {
+    description = "Matrix homeserver written in Rust, forked from conduit";
+    homepage = "https://conduwuit.puppyirl.gay/";
+    changelog = "https://github.com/girlbossceo/conduwuit/releases";
+    license = lib.licenses.asl20;
+    maintainers = with lib.maintainers; [ pedrohlc ];
+    mainProgram = "conduwuit";
   };
 })
