@@ -13,7 +13,7 @@
   libgcc,
   nyxUtils,
   # upstream conduwuit enables jemalloc by default, so we follow suit (except when using Fenix)
-  enableJemalloc ? false,
+  enableJemalloc ? true,
   rust-jemalloc-sys,
   enableLiburing ? stdenv.hostPlatform.isLinux,
   liburing,
