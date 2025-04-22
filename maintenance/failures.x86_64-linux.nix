@@ -1,6 +1,4 @@
 {
-  "firefox-unwrapped_nightly" = "/nix/store/9k7s0hzycp7l2xp0109rpn7c3c8kfpw5-firefox-nightly-unwrapped-139.0a1";
-  "libbpf_git" = "/nix/store/jbrcrk9ypd1bw01b1xyqhqff335ay2d7-libbpf-unstable-20250402212425-4659eaa";
   "linuxPackages_cachyos.apfs" = "/nix/store/xh3ihmbngisfbcc9mc8gvyn04gd19xv6-apfs-0.3.12-6.14.3";
   "linuxPackages_cachyos.ax99100" = "/nix/store/w7kisbrh04kgizmc40mni71hdpc9x3d0-ax99100-1.8.0";
   "linuxPackages_cachyos.digimend" = "/nix/store/9ri522rvnc15ps30c2pfqipl8dqf9ai6-digimend-13";
@@ -192,9 +190,4 @@
   "linuxPackages_cachyos-server.veikk-linux-driver" = "/nix/store/x08ivfgb7rdrabjslmmpsqfxk6lv81yx-veikk-linux-driver-2.0";
   "linuxPackages_cachyos-server.virtualboxGuestAdditions" = "/nix/store/8gdvmxr4zndrl4brb2rcfcwwc4065wkv-VirtualBox-GuestAdditions-7.1.6a-6.14.3";
   "linuxPackages_cachyos-server.yt6801" = "/nix/store/zmf6b7276ndhr0h77g9c4j696fllq299-yt6801-1.0.29-20240812";
-  "mesa32_git" = "/nix/store/4244bkql60yq05g4l2xqbskx0a0475w1-mesa-c643f6";
-  "mesa_git" = "/nix/store/2j1kx424fc9x4slghl8yv25s86n6j4xc-mesa-c643f6";
-  "nut_git" = "/nix/store/8bm9li9801famd87h8iqr7qm2dxcjhc5-nut-unstable-20250421022626-735451f";
-  "telegram-desktop-unwrapped_git" = "/nix/store/sx7wgrh7k8wsklbrywpxamixkr1k7cla-telegram-desktop-unwrapped-unstable-20250411165119-9bdc19e";
-  "tg-owt_git" = "/nix/store/r7dyr894ybf139bkfzhlrz6vrlhziyfi-tg_owt-unstable-20250404102458-f5ee86e";
 }
