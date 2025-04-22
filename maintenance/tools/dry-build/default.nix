@@ -38,6 +38,7 @@ let
     if builtins.elem mainOutPath brokenOutPaths then
       doNotBuild key {
         broken = mainOutPath;
+        this = thisVar;
         inherit system;
       }
     else
