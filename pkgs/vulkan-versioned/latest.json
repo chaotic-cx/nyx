@@ -49,9 +49,9 @@
     "hash": "sha256-BvRRaXrmq00bFUovVzI5hpeTYZ0tSmsTSwZG4NPIC5A="
   },
   "vulkanExtensionLayer": {
-    "version": "1.4.312",
+    "version": "1.4.313",
     "rev": "v#{version}",
-    "hash": "sha256-D495z8kBh1gLTl/GoZXADRNsOx9jePQTubPN1AQSlV4=",
+    "hash": "sha256-OzttYUMK2VZr6JR5KAztZVfCgi2XSTcQkuoS0dBsy2U=",
     "badTag": "vulkan-sdk-1.3.290.0"
   },
   "vulkanUtilityLibraries": {
