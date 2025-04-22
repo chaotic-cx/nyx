@@ -195,5 +195,6 @@
   "mesa32_git" = "/nix/store/4244bkql60yq05g4l2xqbskx0a0475w1-mesa-c643f6";
   "mesa_git" = "/nix/store/2j1kx424fc9x4slghl8yv25s86n6j4xc-mesa-c643f6";
   "nut_git" = "/nix/store/8bm9li9801famd87h8iqr7qm2dxcjhc5-nut-unstable-20250421022626-735451f";
+  "telegram-desktop-unwrapped_git" = "/nix/store/sx7wgrh7k8wsklbrywpxamixkr1k7cla-telegram-desktop-unwrapped-unstable-20250411165119-9bdc19e";
   "tg-owt_git" = "/nix/store/r7dyr894ybf139bkfzhlrz6vrlhziyfi-tg_owt-unstable-20250404102458-f5ee86e";
 }
