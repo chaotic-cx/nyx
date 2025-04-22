@@ -57,7 +57,7 @@ let
       ''
     else if cmd ? broken then
       ''
-        echo "  \"${cmd.key}\" = \"${cmd.broken}\";" >> new-failures.nix
+        ${thisVar}=0 && echo "  \"${cmd.key}\" = \"${cmd.broken}\";" >> new-failures.nix
       ''
     else if cmd ? warn then
       ''
