@@ -42,11 +42,29 @@ in
       };
     };
 
-    package = lib.mkPackageOption pkgs "conduwuit-git" { };
+    package = lib.mkPackageOption pkgs "conduwuit_git" { };
 
     settings = lib.mkOption {
       type = lib.types.submodule {
-        freeformType = format.type;
+        # nixos-search's flake-info doesn't provide `pkgs.formats.*.type`, so I cloned its value from nixpkgs
+        freeformType =
+          with lib.types;
+          let
+            valueType =
+              oneOf [
+                bool
+                int
+                float
+                str
+                path
+                (attrsOf valueType)
+                (listOf valueType)
+              ]
+              // {
+                description = "TOML value";
+              };
+          in
+          valueType;
         options = {
           global.server_name = lib.mkOption {
             type = lib.types.nonEmptyStr;
