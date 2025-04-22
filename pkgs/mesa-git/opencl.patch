@@ -1,18 +1,18 @@
 diff --git a/meson.build b/meson.build
-index 07991a6..4c875b9 100644
+index cd802ab..c8f2fe6 100644
 --- a/meson.build
 +++ b/meson.build
-@@ -1900,7 +1900,7 @@ endif
+@@ -1847,7 +1847,7 @@ endif
  
  dep_clang = null_dep
- if with_clc or with_gallium_clover
+ if with_clc
 -  llvm_libdir = dep_llvm.get_variable(cmake : 'LLVM_LIBRARY_DIR', configtool: 'libdir')
 +  llvm_libdir = get_option('clang-libdir')
  
    dep_clang = cpp.find_library('clang-cpp', dirs : llvm_libdir, required : false)
  
 diff --git a/meson.options b/meson.options
-index 84e0f20..5b93b50 100644
+index 3dcbcfd..b144c17 100644
 --- a/meson.options
 +++ b/meson.options
 @@ -29,6 +29,13 @@ option(
@@ -29,19 +29,6 @@ index 84e0f20..5b93b50 100644
  option(
    'android-stub',
    type : 'boolean',
-diff --git a/src/gallium/targets/opencl/meson.build b/src/gallium/targets/opencl/meson.build
-index ab2c835..a59e88e 100644
---- a/src/gallium/targets/opencl/meson.build
-+++ b/src/gallium/targets/opencl/meson.build
-@@ -56,7 +56,7 @@ if with_opencl_icd
-     configuration : _config,
-     input : 'mesa.icd.in',
-     output : 'mesa.icd',
--    install : true,
-+    install : false,
-     install_tag : 'runtime',
-     install_dir : join_paths(get_option('sysconfdir'), 'OpenCL', 'vendors'),
-   )
 diff --git a/src/gallium/targets/rusticl/meson.build b/src/gallium/targets/rusticl/meson.build
 index 2b214ad..7f91939 100644
 --- a/src/gallium/targets/rusticl/meson.build

@@ -51,7 +51,6 @@ gitOverride (current: {
   postOverride = prevAttrs: {
     patches = [
       ./opencl.patch
-      ./system-gbm.diff
     ];
 
     mesonFlags = nyxUtils.removeByPrefixes [ "-Dosmesa" "-Dgallium-opencl" ] prevAttrs.mesonFlags;
