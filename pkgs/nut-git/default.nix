@@ -19,21 +19,21 @@ gitOverride {
   ref = "master";
 
   postOverride = prevAttrs: {
-    configureFlags = prevAttrs.configureFlags ++ [ "--with-dev" ];
-    buildInputs = with final; [ libgpiod_1 ] ++ prevAttrs.buildInputs;
     postPatch = ''
       substituteInPlace ./m4/nut_check_python.m4 \
         --replace-fail 'nut_cv_PYTHON3_SITE_PACKAGES=' \
           "nut_cv_PYTHON3_SITE_PACKAGES=\"$out/lib/python3.12/site-packages\" #"
     '';
-    postInstall =
-      builtins.replaceStrings [ "rm -r $out/share/solaris-init" ] [ "" ]
-        prevAttrs.postInstall;
+    configureFlags = prevAttrs.configureFlags ++ [
+      "--with-systemdsystempresetdir=$(out)/lib/systemd/system-preset"
+      # PyNUT is trying to touch PYTHONPATH (TODO: Find a real fix)
+      "--without-pynut"
+    ];
     # autoreconfHook seems to be broken for this one
     nativeBuildInputs =
       with final;
       [
-        python312
+        python3
         perl
       ]
       ++ prevAttrs.nativeBuildInputs;
