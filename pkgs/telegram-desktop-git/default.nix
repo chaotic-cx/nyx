@@ -27,4 +27,8 @@ gitOverride {
     fetchSubmodules = true;
   };
   ref = "dev";
+
+  postOverride = _prevAttrs: {
+    patches = [ ];
+  };
 }
