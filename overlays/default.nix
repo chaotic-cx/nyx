@@ -333,7 +333,8 @@ in
 
   zfs_cachyos = cachyosPackages.zfs;
 
-  zon2nix_zig_0_13 = multiOverride prev.zon2nix { zig_0_11 = final.zig_0_13; } (_prevAttrs: {
+  zon2nix_zig_0_13 = multiOverride prev.zon2nix { zig_0_14 = final.zig_0_13; } (_prevAttrs: {
+    version = "0.1.2";
     src = final.fetchFromGitHub {
       owner = "andreafeletto";
       repo = "zon2nix";
