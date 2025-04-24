@@ -41,7 +41,7 @@ let
     if cachyConfig.cpuSched == "eevdf" then
       [ ]
     else if cachyConfig.cpuSched == "hardened" then
-      [ "${patches-src}/${majorMinor}/sched/0001-bore-cachy.patch" ]
+      [ ] # BORE disabled in CachyOS/linux-cachyos/commit/4ffae8ab9947f35495dfa7b62b7a22f023488dfb
     else if (cachyConfig.cpuSched == "cachyos" || cachyConfig.cpuSched == "sched-ext") then
       lib.optionals (lib.strings.versionOlder majorMinor "6.12") [
         "${patches-src}/${majorMinor}/sched/0001-sched-ext.patch"
