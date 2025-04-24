@@ -101,7 +101,7 @@ writeShellScript "update-cachyos" ''
 
   ${lib.strings.concatMapStrings (flavor: ''
     cat "$(nix build '.#legacyPackages.x86_64-linux.linuxPackages_cachyos${flavor}.kernel.kconfigToNix' --no-link --print-out-paths)" \
-    > pkgs/linux-cachyos/config-nix/cachyos${flavor}.x86_64-linux.nix
+    > pkgs/linux-cachyos/config-nix/cachyos${flavor}.x86_64-linux.nix || true
   '') flavors}
 
   git add pkgs/linux-cachyos
