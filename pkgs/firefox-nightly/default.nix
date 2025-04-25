@@ -40,6 +40,7 @@ let
   postOverride = prevAttrs: {
     patches =
       nyxUtils.removeByBaseNames [
+        "firefox-mac-missing-vector-header.patch"
         "env_var_for_system_dir-ff133.patch"
         "no-buildconfig-ffx136.patch"
       ] prevAttrs.patches
