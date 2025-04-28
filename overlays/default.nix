@@ -225,6 +225,8 @@ in
     }).overrideAttrs
       (overrideDescription (old: old + " (includes vapoursynth-mvtools)"));
 
+  mwc_git = callOverride ../pkgs/mwc-git { };
+
   niri_git = callOverride ../pkgs/niri-git {
     niriPins = importJSON ../pkgs/niri-git/pins.json;
   };
@@ -245,8 +247,6 @@ in
   openrgb_git = final.callPackage ../pkgs/openrgb-git { };
 
   openvr_git = callOverride ../pkgs/openvr-git { };
-
-  owl-wlr_git = callOverride ../pkgs/owl-git { };
 
   pkgsx86_64_v2 = final.pkgsAMD64Microarchs.x86-64-v2;
   pkgsx86_64_v3 = final.pkgsAMD64Microarchs.x86-64-v3;

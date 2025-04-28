@@ -29,6 +29,7 @@ let
       withBump ? false,
       withCargoDeps ? null,
       withExtraUpdateCommands ? "",
+      extraPassthru ? { }
     }:
     let
       versionLocalPath = "${nyx}/${versionNyxPath}";
@@ -74,7 +75,7 @@ let
             version = if version == null then current.version else version;
             passthru = (prevAttrs.passthru or { }) // {
               updateScript = if withUpdateScript then updateScript else null;
-            };
+            } // extraPassthru;
           };
 
           whenCargo = lib.attrsets.optionalAttrs hasCargo {
