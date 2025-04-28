@@ -154,6 +154,8 @@ in
 
   dr460nized-kde-theme = final.callPackage ../pkgs/dr460nized-kde-theme { };
 
+  evil-helix_git = callOverride ../pkgs/helix-git { evil = true; };
+
   fetchTorGit = callOverride ../pkgs/fetchtorgit { };
 
   firedragon-unwrapped = final.callPackage ../pkgs/firedragon { };
