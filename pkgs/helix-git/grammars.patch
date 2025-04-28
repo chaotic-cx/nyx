@@ -1,0 +1,41 @@
+diff --git a/grammars.nix b/grammars.nix
+index bc99d21..72d3d54 100644
+--- a/grammars.nix
++++ b/grammars.nix
+@@ -39,16 +39,17 @@
+     else true;
+   grammarsToUse = builtins.filter useGrammar languagesConfig.grammar;
+   gitGrammars = builtins.filter isGitGrammar grammarsToUse;
++  fetch = {subpath ? null, ...}: params: params // { inherit (builtins.fetchTree params) narHash lastModified lastModifiedDate; inherit subpath; };
+   buildGrammar = grammar: let
+     gh = toGitHubFetcher grammar.source.git;
+-    sourceGit = builtins.fetchTree {
++    sourceGit = fetch grammar.source {
+       type = "git";
+       url = grammar.source.git;
+       rev = grammar.source.rev;
+       ref = grammar.source.ref or "HEAD";
+       shallow = true;
+     };
+-    sourceGitHub = builtins.fetchTree {
++    sourceGitHub = fetch grammar.source {
+       type = "github";
+       owner = gh.owner;
+       repo = gh.repo;
+@@ -127,12 +128,9 @@
+   overlaidGrammars =
+     lib.pipe extensibleGrammars
+     (builtins.map (overlay: grammar: grammar.extend overlay) grammarOverlays);
+-  grammarLinks =
++  grammarSrcs =
+     lib.mapAttrsToList
+-    (name: artifact: "ln -s ${artifact}/${name}.so $out/${name}.so")
++    (name: {src, ...}: src // { inherit name; })
+     (lib.filterAttrs (n: v: lib.isDerivation v) overlaidGrammars);
+ in
+-  runCommand "consolidated-helix-grammars" {} ''
+-    mkdir -p $out
+-    ${builtins.concatStringsSep "\n" grammarLinks}
+-  ''
++  builtins.toJSON grammarSrcs
+\ No newline at end of file

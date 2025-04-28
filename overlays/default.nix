@@ -178,6 +178,8 @@ in
     else
       throw "No gamescope-wsi32_git for non-x86";
 
+  helix_git = callOverride ../pkgs/helix-git { };
+
   jujutsu_git = callOverride ../pkgs/jujutsu-git { };
 
   lan-mouse_git = callOverride ../pkgs/lan-mouse-git { };
