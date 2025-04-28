@@ -86,7 +86,7 @@ gitOverride (current: {
         prevAttrs.postInstall
       )
       + ''
-        ln -s ${grammars} runtime/grammars
+        ln -s ${grammars} $out/lib/runtime/grammars
       '';
   };
 })
