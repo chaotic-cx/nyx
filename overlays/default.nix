@@ -281,6 +281,8 @@ in
 
   sdl_git = callOverride ../pkgs/sdl-git { };
 
+  shadps4_git = callOverride ../pkgs/shadps4-git { };
+
   spirv-headers_git = callOverride ../pkgs/spirv-headers-git { };
 
   scx_git = {
