@@ -22,7 +22,12 @@ gitOverride (current: {
   withUpdateScript = !isWSI;
 
   postOverride = prevAttrs: {
-    buildInputs = with final; [ luajit ] ++ prevAttrs.buildInputs;
+    patches = [ (final.fetchpatch2 {
+      # Safe while nixpkgs.stb.src.rev == subprojects/stb.wrap:revision
+      url = "https://github.com/ValveSoftware/gamescope/commit/72bae179ba2ebbbc91ed07c7f66e7e4964a4cd9e.patch";
+      hash = "sha256-aglfGvEuycNyPlaFYxqqvPAgFpWns3xZ3B2GiAefxtg=";
+      revert = true;
+    }) ] ++ prevAttrs.patches;
     postPatch =
       let
         shortRev = nyxUtils.shorter current.rev;
