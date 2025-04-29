@@ -16,6 +16,8 @@ let
   languages = final.lib.trivial.importJSON (if evil then ./languages-evil.json else ./languages.json);
   languagesFile = if evil then "languages-evil.json" else "languages.json";
 
+  grammarArtifact = source: final.callPackage ./grammar-artifact.nix { inherit makeGrammar source; };
+
   grammarLink =
     {
       name,
@@ -23,10 +25,7 @@ let
       subpath,
       ...
     }@source:
-    let
-      artifact = final.callPackage ./grammar-artifact.nix { inherit makeGrammar source; };
-    in
-    "ln -s ${artifact}/${name}.so $out/${name}.so";
+    "ln -s ${grammarArtifact source}/${name}.so $out/${name}.so";
 
   grammarLinks = builtins.map grammarLink languages;
 
@@ -41,13 +40,17 @@ gitOverride (current: {
 
   versionNyxPath = if evil then "pkgs/helix-git/version-evil.json" else "pkgs/helix-git/version.json";
   fetcher = "fetchFromGitHub";
-  fetcherData = if evil then {
-      owner = "usagi-flow";
-      repo = "evil-helix";
-  } else {
-    owner = "helix-editor";
-    repo = "helix";
-  };
+  fetcherData =
+    if evil then
+      {
+        owner = "usagi-flow";
+        repo = "evil-helix";
+      }
+    else
+      {
+        owner = "helix-editor";
+        repo = "helix";
+      };
   ref = if evil then "main" else "master";
 
   withExtraUpdateCommands = final.writeShellScript "bump-grammars" ''
@@ -55,7 +58,12 @@ gitOverride (current: {
     cp -r "$_LATEST_PATH/." "$_TMPDIR/"
 
     pushd "$_TMPDIR"
-    ${if evil then "rm -f grammars.nix && ${final.wget}/bin/wget 'https://raw.githubusercontent.com/helix-editor/helix/refs/heads/master/grammars.nix'" else ""}
+    ${
+      if evil then
+        "rm -f grammars.nix && ${final.wget}/bin/wget 'https://raw.githubusercontent.com/helix-editor/helix/refs/heads/master/grammars.nix'"
+      else
+        ""
+    }
     ${final.patch}/bin/patch -p1 -i "$_NYX_DIR/$_PKG_DIR/grammars.patch"
     ${final.nix}/bin/nix eval --impure --write-to ./languages.json --expr 'with import <nixpkgs> { }; callPackage ./grammars.nix { }'
     ${final.jq}/bin/jq . < ./languages.json > "$_NYX_DIR/$_PKG_DIR/${languagesFile}"
@@ -78,5 +86,14 @@ gitOverride (current: {
         ln -s ${grammars} $out/lib/runtime/grammars
       '';
     meta = if evil then final.evil-helix.meta else prevAttrs.meta;
+  };
+
+  extraPassthru = {
+    grammars = builtins.listToAttrs (
+      builtins.map (source: {
+        inherit (source) name;
+        value = grammarArtifact source;
+      }) languages
+    );
   };
 })
