@@ -24,24 +24,7 @@ let
       ...
     }@source:
     let
-      artifact =
-        (makeGrammar {
-          language = name;
-          version = rev;
-          src = builtins.fetchTree (
-            builtins.removeAttrs source [
-              "name"
-              "lastModified"
-              "lastModifiedDate"
-              "subpath"
-            ]
-          );
-          location = subpath;
-        }).overrideAttrs
-          (_prevAttrs: {
-            # qmljs-grammar has broken symlinks
-            dontCheckForBrokenSymlinks = true;
-          });
+      artifact = final.callPackage ./grammar-artifact.nix { inherit makeGrammar source; };
     in
     "ln -s ${artifact}/${name}.so $out/${name}.so";
 
