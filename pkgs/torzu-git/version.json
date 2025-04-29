@@ -1,8 +1,8 @@
 {
-  "version": "unstable-20241115-bb142c9",
-  "lastModified": "1731673009",
-  "rev": "bb142c965770e0f66eac5c7682defc7f26347a43",
-  "hash": "sha256-Wlt4jwOvfwwouIhEfps+3hveKF0cMJVT3vgieaRsJ1M=",
+  "version": "unstable-20250422-fd90833",
+  "lastModified": "1745338380",
+  "rev": "fd908334af592218e7b285055a4005634b3b62cf",
+  "hash": "sha256-mNe6NPM8sREMydrWdI05blWi3ECYmimWuj+PdTQf554=",
   "compatList": {
     "rev": "fc974b6e78105774dae5f68e712a6beb51b9db1e",
     "hash": "sha256:1hdsza3wf9a0yvj6h55gsl7xqvhafvbz1i8paz9kg7l49b0gnlh1"
