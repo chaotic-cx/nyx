@@ -97,7 +97,7 @@
   "linuxPackages_cachyos-lto.lttng-modules" = "/nix/store/s4c8yfs6k2hds5w1canwnq21qlvfk11y-lttng-modules-6.14.4-2.13.15";
   "linuxPackages_cachyos-lto.mba6x_bl" = "/nix/store/9lh7y2srgjgjw7jmm4r19vkhl4dl8s95-mba6x_bl-unstable-2017-12-30";
   "linuxPackages_cachyos-lto.mbp2018-bridge-drv" = "/nix/store/ji9cdmis2w7ab6ijb1d7pql5580kk9gz-mbp2018-bridge-drv-2020-01-31";
-  "linuxPackages_cachyos-lto.mm-tools" = "/nix/store/gklx1ikcbgjdaw60yv6p0v8h33prv1w7-mm-tools-6.12.25";
+  "linuxPackages_cachyos-lto.mm-tools" = "/nix/store/p7bd6y0k3dwlxhbfawbhswmpp553n9ld-mm-tools-6.12.26";
   "linuxPackages_cachyos-lto.mwprocapture" = "/nix/store/1618zmaj33x68djz7850lj0g0nwii5pb-mwprocapture-1.3.0.4390-6.14.4";
   "linuxPackages_cachyos-lto.netatop" = "/nix/store/fjcdrcgccfwpzjhx265al06zpwmrzbwc-netatop-6.14.4-3.1";
   "linuxPackages_cachyos-lto.new-lg4ff" = "/nix/store/q37f4p5lanf2kxfqhmfqix3952qyc2l9-new-lg4ff-0-unstable-2024-11-25";
@@ -141,13 +141,12 @@
   "linuxPackages_cachyos-lto.vendor-reset" = "/nix/store/rpd8aj7bhcxkbm53yln7bb0433w38shy-vendor-reset-unstable-2024-04-16-6.14.4";
   "linuxPackages_cachyos-lto.virtualbox" = "/nix/store/0ng42xxdnx47s96wyzg8bpj35f86piab-virtualbox-modules-7.1.8-6.14.4";
   "linuxPackages_cachyos-lto.virtualboxGuestAdditions" = "/nix/store/zjzd4hmgbm63hf17s1rzplxmc1ac79y2-VirtualBox-GuestAdditions-7.1.8-6.14.4";
-  "linuxPackages_cachyos-lto.vm-tools" = "/nix/store/gklx1ikcbgjdaw60yv6p0v8h33prv1w7-mm-tools-6.12.25";
   "linuxPackages_cachyos-lto.vmware" = "/nix/store/fq72zgq89ay4b3lfj4iad70fg6w4npl0-vmware-modules-workstation-17.6.3-6.14.4";
   "linuxPackages_cachyos-lto.x86_energy_perf_policy" = "/nix/store/g7f50nc7216a0r0mf28nsnilpa1yx71s-x86_energy_perf_policy-6.14.4";
   "linuxPackages_cachyos-lto.xpad-noone" = "/nix/store/jf305wjwjg9s6v5l0xw3klykjm1p4mih-xpad-noone-0-unstable-2024-01-10";
   "linuxPackages_cachyos-lto.yt6801" = "/nix/store/sq8mn6l4avdds5xjndmsch3wcyc7aqsz-yt6801-1.0.29-20240812";
   "linuxPackages_cachyos-lto.zenpower" = "/nix/store/ykbgigcinz6cg18r79p6qn38z8xpqhpb-zenpower-unstable-2025-02-28";
-  "linuxPackages_cachyos-lto.zfs_cachyos" = "/nix/store/6xz4qjam523x31p79bnhqlb4mg1kkhrg-zfs-kernel-2.3.1-6.14.4";
+  "linuxPackages_cachyos-lto.zfs_cachyos" = "/nix/store/x86vm1kz3c2snifm7ipijb9grhrgzjzy-zfs-kernel-2.3.2-6.14.4";
   "linuxPackages_cachyos-server.apfs" = "/nix/store/wx9wyz4zf9dzd1qpnp053s29jyk8kh43-apfs-0.3.12-6.14.4";
   "linuxPackages_cachyos-server.ax99100" = "/nix/store/dsi10yil0wd2gjvb3nqhkkib72fbdl4x-ax99100-1.8.0";
   "linuxPackages_cachyos-server.fwts-efi-runtime" = "/nix/store/g1b8s9rjpxy1g11cva1as2lg3nb1hs96-fwts-efi-runtime-24.09.00-6.14.4";
