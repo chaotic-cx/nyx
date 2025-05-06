@@ -23,16 +23,12 @@
       <li><a href="#running-packages-without-installing">Running packages (without installing)</a><br/></li>
       <li><a href="#binary-cache-notes">Binary Cache notes</a><br/></li>
       <li><a href="#flakehub-notes">FlakeHub notes</a><br/></li>
+      <li><a href="#using-sched-ext-schedulers">Using linux-cachyos with sched-ext</a><br/></li>
+      <li><a href="#using-with-read-only-pkgs">Using with read-only pkgs</a><br/></li>
+      <li><a href="#using-with-jovian">Using with Jovian</a><br/></li>
     </ul>
   </li>
   <li><a href="#lists-of-options-and-packages">Lists of options and packages</a></li>
-  <li>
-    <a href="#harder-stuff">Harder stuff</a><br/>
-    <ul>
-      <li><a href="#using-sched-ext-schedulers">Using linux-cachyos with sched-ext</a><br/></li>
-      <li><a href="#using-with-read-only-pkgs">Using with read-only pkgs</a><br/></li>
-    </ul>
-  </li>
   <li><a href="#notes">Notes</a></li>
   <li><a href="#why-am-i-building-a-kernel-basic-cache-troubleshooting">Why am I building a kernel? Basic cache troubleshooting</a></li>
 </ul>
@@ -50,21 +46,22 @@
 <p>We recommend integrating this repo using Flakes:</p>
 
 <pre lang="nix"><code class="language-nix">
+# flake.nix
 {
   description = "My configuration";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable"; # IMPORTANT
   };
 
   outputs = { nixpkgs, chaotic, ... }: {
     nixosConfigurations = {
-      hostname = nixpkgs.lib.nixosSystem {
+      hostname = nixpkgs.lib.nixosSystem { # Replace "hostname" with your system's hostname
         system = "x86_64-linux";
         modules = [
-          ./configuration.nix # Your system configuration.
-          chaotic.nixosModules.default # OUR DEFAULT MODULE
+          ./configuration.nix
+          chaotic.nixosModules.default # IMPORTANT
         ];
       };
     };
@@ -75,6 +72,7 @@
 <p>In your <code>configuration.nix</code> enable the packages and options that you prefer:</p>
 
 <pre lang="nix"><code class="language-nix">
+# configuration.nix
 { pkgs, ... }:
 {
   environment.systemPackages = [ pkgs.lan-mouse_git ];
@@ -92,6 +90,7 @@ But you'll have access to all packages, the cache, and the registry.</p>
 <p>We recommend integrating this repo using Flakes:</p>
 
 <pre lang="nix"><code class="language-nix">
+# flake.nix
 {
   description = "My configuration";
 
@@ -102,7 +101,7 @@ But you'll have access to all packages, the cache, and the registry.</p>
 
   outputs = { nixpkgs, chaotic, ... }: {
     nixosConfigurations = {
-      hostname = nixpkgs.lib.nixosSystem {
+      hostname = nixpkgs.lib.nixosSystem { # Replace "hostname" with your system's hostname
         system = "x86_64-linux";
         modules = [
           ./configuration.nix # Your system configuration.
@@ -119,6 +118,7 @@ But you'll have access to all packages, the cache, and the registry.</p>
 <p>In your <code>configuration.nix</code> enable the packages that you prefer:</p>
 
 <pre lang="nix"><code class="language-nix">
+# configuration.nix
 { pkgs, ... }:
 {
   environment.systemPackages = [ pkgs.lan-mouse_git ];
@@ -133,12 +133,13 @@ But you'll have access to all packages, the cache, and the registry.</p>
 <p>We recommend integrating this repo using Flakes:</p>
 
 <pre lang="nix"><code class="language-nix">
+# flake.nix
 {
   description = "My configuration";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable"; # IMPORTANT
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -146,12 +147,14 @@ But you'll have access to all packages, the cache, and the registry.</p>
   };
 
   outputs = { nixpkgs, chaotic, ... }: {
+    # ... other outputs
     homeConfigurations = {
-      hostname = home-manager.lib.homeManagerConfiguration {
+      # ... other configs
+      configName = home-manager.lib.homeManagerConfiguration { # Replace "configName" with a significant unique name
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
         modules = [
           ./home-manager/default.nix
-          chaotic.homeManagerModules.default # OUR DEFAULT MODULE
+          chaotic.homeManagerModules.default # IMPORTANT
         ];
       };
     };
@@ -162,6 +165,7 @@ But you'll have access to all packages, the cache, and the registry.</p>
 <p>In your <code>home-manager/default.nix</code> add a <code>nix.package</code>, and enable the desired packages:</p>
 
 <pre lang="nix"><code class="language-nix">
+# configuration.nix
 { pkgs, ... }:
 {
   nix.package = pkgs.nix;
@@ -190,6 +194,8 @@ We do this automatically, so we can gracefully update the cache's address and ke
 
 <p>If you want to use the cache right from the <strong>installation media</strong>, install your system using <code>nixos-install --flake /mnt/etc/nixos#mymachine --option 'extra-substituters' 'https://chaotic-nyx.cachix.org/' --option extra-trusted-public-keys "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="</code> (replace <code>mymachine</code> with your new host's name).</p>
 
+<p>We offer cache for <code>x86_64-linux</code>, <code>aarch64-linux</code>, and <code>aarch64-darwin</code>.</p>
+
 <h3 id="flakehub-notes">FlakeHub notes</h3>
 
 <a href="https://flakehub.com/flake/chaotic-cx/nyx"><img alt="FlakeHub" src="https://img.shields.io/endpoint?url=https://flakehub.com/f/chaotic-cx/nyx/badge" /></a>
@@ -197,20 +203,18 @@ We do this automatically, so we can gracefully update the cache's address and ke
 <p>Add chaotic to your <code>flake.nix</code>, make sure to use the rolling <code>*.tar.gz</code> to keep using the latest packages:</p>
 
 <pre lang="nix"><code class="language-nix">
+# flake.nix
 {
-  inputs.chaotic.url = "https://flakehub.com/f/chaotic-cx/nyx/*.tar.gz";
+  # ... description
+  inputs = {
+    # ... nixpkgs, home-manager, etc
+    chaotic.url = "https://flakehub.com/f/chaotic-cx/nyx/*.tar.gz";
+  };
+  # ... outputs
 }
 </code></pre>
 
 <p>Then follow one of the guides above.</p>
-
-<h2 id="lists-of-options-and-packages">Lists of options and packages</h2>
-
-<!-- cut here --><p>An always up-to-date list of all our options and packages is available at: <a href="https://www.nyx.chaotic.cx/#lists">List page</a>.</p><!-- cut here -->
-
-<h2 id="harder-stuff">Harder stuff</h2>
-
-<p>Some packages are harder to use, I'll go into details in the following paragraphs.</p>
 
 <h3 id="using-sched-ext-schedulers">Using sched-ext schedulers</h3>
 
@@ -219,6 +223,7 @@ We do this automatically, so we can gracefully update the cache's address and ke
 <p>Just add this to your configuration:</p>
 
 <pre lang="nix"><code class="language-nix">
+# configuration.nix
 {
   boot.kernelPackages = pkgs.linuxPackages_cachyos;
   services.scx.enable = true; # by default uses scx_rustland scheduler
@@ -250,6 +255,7 @@ enable_seq  hotplug_seq  nr_rejected  root  state  switch_all
 
 <p>You can choose a different scheduler too.</p>
 <pre lang="nix"><code class="language-nix">
+# configuration.nix
 {
   services.scx.scheduler = "scx_rusty";
 }
@@ -258,6 +264,7 @@ enable_seq  hotplug_seq  nr_rejected  root  state  switch_all
 <p> We also provide a git version of scx to stay up to date on the latest features. </p>
 
 <pre lang="nix"><code class="language-nix">
+# configuration.nix
 {
   services.scx.package = pkgs.scx_git.full;
 }
@@ -270,14 +277,16 @@ enable_seq  hotplug_seq  nr_rejected  root  state  switch_all
 <p>If you use <code>nixpkgs.nixosModules.readOnlyPkgs</code> in your setup, you need to disable our overlay module, and import the cache-friendly overlay directly instead.</p>
 
 <pre lang="nix"><code class="language-nix">
+# flake.nix
 {
-  # ...
+  # ... description, inputs
   outputs = { nixpkgs, chaotic, ... }: {
     nixosConfigurations = {
-      hostname = nixpkgs.lib.nixosSystem {
+      # ... other systems
+      hostname = nixpkgs.lib.nixosSystem { # Replace "hostname" with your system's hostname
         modules = [
           nixpkgs.nixosModules.readOnlyPkgs
-          # ...
+          # ... ./configuration.nix, ./hardware-configuration.nix, etc
           {
             nixpkgs.pkgs = import nixpkgs {
               system = "x86_64-linux";
@@ -286,7 +295,6 @@ enable_seq  hotplug_seq  nr_rejected  root  state  switch_all
             };
             chaotic.nyx.overlay.enable = false; # IMPORTANT
           }
-          # ...
           chaotic.nixosModules.default # IMPORTANT
         ];
       };
@@ -294,6 +302,29 @@ enable_seq  hotplug_seq  nr_rejected  root  state  switch_all
   };
 }
 </code></pre>
+
+<h3 id="using-with-jovian">Using with Jovian</h3>
+
+<p>We provide binary cache for most packages in <a href="https://github.com/Jovian-Experiments/Jovian-NixOS" target="_blank">Jovian NixOS</a>.</p>
+
+<p>Remember to read all our <a href="#binary-cache-notes">Binary Cache notes</a>, and you <b>must follow jovian through chaotic</b> to avoid hash mismatches:</p>
+
+<pre lang="nix"><code class="language-nix">
+# flake.nix
+{
+    # ... description
+    inputs = {
+      # ... nixpkgs, home-manager, etc
+      chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+      jovian.follows = "chaotic/jovian";
+    };
+    # ... outputs
+}
+</code></pre>
+
+<h2 id="lists-of-options-and-packages">Lists of options and packages</h2>
+
+<!-- cut here --><p>An always up-to-date list of all our options and packages is available at: <a href="https://www.nyx.chaotic.cx/#lists">List page</a>.</p><!-- cut here -->
 
 <h2 id="notes">Notes</h2>
 
