@@ -139,6 +139,11 @@ in
 
   nyx-generic-git-update = final.callPackage ../pkgs/nyx-generic-git-update { };
 
+  ags = import ../pkgs/ags {
+    inherit (prev) lib buildGoModule fetchFromGitHub;
+    pkgs = final;
+  };
+
   alacritty_git = callOverride ../pkgs/alacritty-git { };
 
   ananicy-rules-cachyos_git = callOverride ../pkgs/ananicy-cpp-rules { };
@@ -348,6 +353,13 @@ in
   torzu_git = final.kdePackages.callPackage ../pkgs/torzu-git {
     current = importJSON ../pkgs/torzu-git/version.json;
     inherit (final) fetchTorGit;
+  };
+
+  vo1ded-panel = import ../pkgs/vo1ded-panel {
+    pkgs = final;
+    agsBundle = import ../pkgs/ags/bundle.nix {
+      pkgs = final;
+    };
   };
 
   vulkanPackages_latest = callOverride ../pkgs/vulkan-versioned {
