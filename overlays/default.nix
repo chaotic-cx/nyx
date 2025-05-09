@@ -128,6 +128,11 @@ let
       }
     else
       { };
+
+  astal = import ../pkgs/astal {
+    inherit prev final;
+    inherit (final) callPackage fetchFromGitHub lib;
+  };
 in
 {
   inherit nyxUtils jovian-chaotic;
@@ -141,6 +146,24 @@ in
   applet-window-title = final.callPackage ../pkgs/applet-window-title { };
 
   appmenu-gtk3-module = final.callPackage ../pkgs/appmenu-gtk3-module { };
+
+  astal_io = astal.io;
+  astal3 = astal.astal3;
+  astal4 = astal.astal4;
+  astal_apps = astal.apps;
+  astal_auth = astal.auth;
+  astal_battery = astal.battery;
+  astal_bluetooth = astal.bluetooth;
+  astal_cava = astal.cava;
+  astal_greet = astal.greet;
+  astal_hyprland = astal.hyprland;
+  astal_mpris = astal.mpris;
+  astal_network = astal.network;
+  astal_notifd = astal.notifd;
+  astal_powerprofiles = astal.powerprofiles;
+  astal_river = astal.river;
+  astal_tray = astal.tray;
+  astal_wireplumber = astal.wireplumber;
 
   beautyline-icons = final.callPackage ../pkgs/beautyline-icons { };
 
