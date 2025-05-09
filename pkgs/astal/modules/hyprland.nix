@@ -7,7 +7,7 @@
 mkAstalPkg {
   inherit src;
   pname = "astal_hyprland";
-  packages = [pkgs.json-glib];
+  packages = [ pkgs.json-glib ];
 
   libname = "hyprland";
   authors = "Aylur";

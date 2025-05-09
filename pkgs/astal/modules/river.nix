@@ -7,7 +7,7 @@
 mkAstalPkg {
   inherit src;
   pname = "astal_river";
-  packages = [pkgs.json-glib];
+  packages = [ pkgs.json-glib ];
 
   libname = "river";
   authors = "kotontrion";

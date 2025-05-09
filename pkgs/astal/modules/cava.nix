@@ -3,7 +3,8 @@
   pkgs,
   src,
   ...
-}: let
+}:
+let
   libcava = pkgs.stdenv.mkDerivation rec {
     pname = "cava";
     version = "0.10.3";
@@ -45,13 +46,13 @@
     '';
   };
 in
-  mkAstalPkg {
-    inherit src;
-    pname = "astal_cava";
-    packages = [libcava];
+mkAstalPkg {
+  inherit src;
+  pname = "astal_cava";
+  packages = [ libcava ];
 
-    libname = "cava";
-    authors = "kotontrion";
-    gir-suffix = "Cava";
-    description = "Audio visualization library using cava";
-  }
+  libname = "cava";
+  authors = "kotontrion";
+  gir-suffix = "Cava";
+  description = "Audio visualization library using cava";
+}

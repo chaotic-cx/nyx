@@ -1,16 +1,25 @@
-baseSrc: {
+baseSrc:
+{
   pkgs,
-  isAstalPackage ? false
-}: let
-  inherit (builtins) elem elemAt readFile replaceStrings splitVersion toJSON;
+  isAstalPackage ? false,
+}:
+let
+  inherit (builtins)
+    elem
+    elemAt
+    readFile
+    replaceStrings
+    splitVersion
+    toJSON
+    ;
   inherit (pkgs.lib) filterAttrs;
 
-  readVer = file: replaceStrings ["\n"] [""] (readFile file);
+  readVer = file: replaceStrings [ "\n" ] [ "" ] (readFile file);
 
-  toTOML = (pkgs.formats.toml {}).generate;
+  toTOML = (pkgs.formats.toml { }).generate;
 
   docgen = pkgs.gi-docgen.overrideAttrs {
-    patches = [./gi-docgen.patch];
+    patches = [ ./gi-docgen.patch ];
   };
 
   dependency = {
@@ -47,107 +56,145 @@ baseSrc: {
   };
 
   urlmap = pkgs.writeText "urlmap" ''
-    baseURLs = ${toJSON [
-      ["GLib" "https://docs.gtk.org/glib/"]
-      ["GObject" "https://docs.gtk.org/gobject/"]
-      ["Gio" "https://docs.gtk.org/gio/"]
-      ["Gdk" "https://docs.gtk.org/gdk3/"]
-      ["Gtk" "https://docs.gtk.org/gtk3/"]
-      ["GdkPixbuf" "https://docs.gtk.org/gdk-pixbuf/"]
-      ["AstalIO" "https://aylur.github.io/libastal/io"]
+    baseURLs = ${
+      toJSON [
+        [
+          "GLib"
+          "https://docs.gtk.org/glib/"
+        ]
+        [
+          "GObject"
+          "https://docs.gtk.org/gobject/"
+        ]
+        [
+          "Gio"
+          "https://docs.gtk.org/gio/"
+        ]
+        [
+          "Gdk"
+          "https://docs.gtk.org/gdk3/"
+        ]
+        [
+          "Gtk"
+          "https://docs.gtk.org/gtk3/"
+        ]
+        [
+          "GdkPixbuf"
+          "https://docs.gtk.org/gdk-pixbuf/"
+        ]
+        [
+          "AstalIO"
+          "https://aylur.github.io/libastal/io"
+        ]
 
-      # FIXME: these are not gi-docgen generated, therefore links are broken
-      ["NM" "https://networkmanager.dev/docs/libnm/latest/"]
-      ["WP" "https://pipewire.pages.freedesktop.org/wireplumber/"]
-    ]}
+        # FIXME: these are not gi-docgen generated, therefore links are broken
+        [
+          "NM"
+          "https://networkmanager.dev/docs/libnm/latest/"
+        ]
+        [
+          "WP"
+          "https://pipewire.pages.freedesktop.org/wireplumber/"
+        ]
+      ]
+    }
   '';
 in
-  {
-    src,
-    pname,
-    libname,
-    gir-suffix,
-    authors,
-    description,
-    dependencies ? [],
-    repo-path ? libname,
-    website-path ? libname,
-    nativeBuildInputs ? [],
-    packages ? [],
-    postUnpack ? "",
-  }: let
-    version = readVer "${src}/version";
+{
+  src,
+  pname,
+  libname,
+  gir-suffix,
+  authors,
+  description,
+  dependencies ? [ ],
+  repo-path ? libname,
+  website-path ? libname,
+  nativeBuildInputs ? [ ],
+  packages ? [ ],
+  postUnpack ? "",
+}:
+let
+  version = readVer "${src}/version";
 
-    ver = splitVersion version;
-    api-ver = "${elemAt ver 0}.${elemAt ver 1}";
-    girName = "Astal${gir-suffix}-${api-ver}";
-  in
-    pkgs.stdenv.mkDerivation {
-      inherit pname src version;
-      outputs = ["out" "dev" "doc"];
+  ver = splitVersion version;
+  api-ver = "${elemAt ver 0}.${elemAt ver 1}";
+  girName = "Astal${gir-suffix}-${api-ver}";
+in
+pkgs.stdenv.mkDerivation {
+  inherit pname src version;
+  outputs = [
+    "out"
+    "dev"
+    "doc"
+  ];
 
-      nativeBuildInputs = with pkgs;
-        [
-          wrapGAppsHook
-          gobject-introspection
-          meson
-          pkg-config
-          ninja
-          vala
-          wayland
-          wayland-scanner
-          python3
-        ]
-        ++ nativeBuildInputs;
+  nativeBuildInputs =
+    with pkgs;
+    [
+      wrapGAppsHook
+      gobject-introspection
+      meson
+      pkg-config
+      ninja
+      vala
+      wayland
+      wayland-scanner
+      python3
+    ]
+    ++ nativeBuildInputs;
 
-      propagatedBuildInputs = with pkgs;
-        [
-          glib
-        ]
-        ++ packages;
+  propagatedBuildInputs =
+    with pkgs;
+    [
+      glib
+    ]
+    ++ packages;
 
-      postUnpack = ''
-        cp --remove-destination "${src}${if isAstalPackage then "/.." else ""}/../gir.py" $sourceRoot/gir.py
-        ${postUnpack}
-      '';
+  postUnpack = ''
+    cp --remove-destination "${src}${if isAstalPackage then "/.." else ""}/../gir.py" $sourceRoot/gir.py
+    ${postUnpack}
+  '';
 
-      postInstall = let
-        data = toTOML libname {
-          library = {
-            inherit description authors version;
-            license = "LGPL-2.1";
-            browse_url = "https://github.com/Aylur/astal/tree/main/lib/${repo-path}";
-            repository_url = "https://github.com/aylur/aylur.git";
-            website_url = "https://aylur.github.io/astal/guide/libraries/${website-path}";
-            dependencies = ["GObject-2.0"] ++ dependencies;
-          };
-
-          extra.urlmap_file = "urlmap.js";
-          dependencies =
-            {inherit (dependency) "GObject-2.0";}
-            // (filterAttrs (n: _: elem n dependencies) dependency);
+  postInstall =
+    let
+      data = toTOML libname {
+        library = {
+          inherit description authors version;
+          license = "LGPL-2.1";
+          browse_url = "https://github.com/Aylur/astal/tree/main/lib/${repo-path}";
+          repository_url = "https://github.com/aylur/aylur.git";
+          website_url = "https://aylur.github.io/astal/guide/libraries/${website-path}";
+          dependencies = [ "GObject-2.0" ] ++ dependencies;
         };
-      in ''
-        gir="${girName}.gir"
 
-        mkdir -p $out/share/doc/${website-path}
-        cat ${urlmap} > urlmap.js
-
-        if [ -d "src" ]; then
-          gir="src/$gir"
-        fi
-
-        ${docgen}/bin/gi-docgen generate --config ${data} $gir
-        mv ${girName}/* $out/share/doc/${website-path}
-      '';
-
-      passthru = {
-        inherit girName;
+        extra.urlmap_file = "urlmap.js";
+        dependencies = {
+          inherit (dependency) "GObject-2.0";
+        } // (filterAttrs (n: _: elem n dependencies) dependency);
       };
+    in
+    ''
+      gir="${girName}.gir"
 
-      meta = {
-        inherit description;
-        homepage = "https://aylur.github.io/astal";
-        license = pkgs.lib.licenses.lgpl21;
-      };
-    }
+      mkdir -p $out/share/doc/${website-path}
+      cat ${urlmap} > urlmap.js
+
+      if [ -d "src" ]; then
+        gir="src/$gir"
+      fi
+
+      ${docgen}/bin/gi-docgen generate --config ${data} $gir
+      mv ${girName}/* $out/share/doc/${website-path}
+    '';
+
+  passthru = {
+    inherit girName;
+  };
+
+  meta = {
+    inherit description;
+    homepage = "https://aylur.github.io/astal";
+    license = pkgs.lib.licenses.lgpl21;
+  };
+}

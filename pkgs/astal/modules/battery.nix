@@ -7,7 +7,7 @@
 mkAstalPkg {
   inherit src;
   pname = "astal_battery";
-  packages = [pkgs.json-glib];
+  packages = [ pkgs.json-glib ];
 
   libname = "battery";
   authors = "Aylur";

@@ -7,7 +7,7 @@
 mkAstalPkg {
   inherit src;
   pname = "astal_apps";
-  packages = [pkgs.json-glib];
+  packages = [ pkgs.json-glib ];
 
   libname = "apps";
   gir-suffix = "Apps";

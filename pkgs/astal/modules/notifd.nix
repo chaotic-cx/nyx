@@ -7,7 +7,10 @@
 mkAstalPkg {
   inherit src;
   pname = "astal_notifd";
-  packages = with pkgs; [json-glib gdk-pixbuf];
+  packages = with pkgs; [
+    json-glib
+    gdk-pixbuf
+  ];
 
   libname = "notifd";
   authors = "Aylur";

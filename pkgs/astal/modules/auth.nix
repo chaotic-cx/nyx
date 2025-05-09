@@ -7,7 +7,7 @@
 mkAstalPkg {
   inherit src;
   pname = "astal_auth";
-  packages = [pkgs.pam];
+  packages = [ pkgs.pam ];
 
   libname = "auth";
   gir-suffix = "Auth";

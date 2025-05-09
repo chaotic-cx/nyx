@@ -1,6 +1,6 @@
 {
   pkgs,
-  agsBundle
+  agsBundle,
 }:
 let
   current = pkgs.lib.trivial.importJSON ./version.json;

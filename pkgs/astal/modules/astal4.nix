@@ -18,6 +18,9 @@ mkAstalPkg {
   gir-suffix = "";
   authors = "Aylur";
   description = "Astal GTK4 widget library";
-  dependencies = ["AstalIO-0.1" "Gtk-4.0"];
+  dependencies = [
+    "AstalIO-0.1"
+    "Gtk-4.0"
+  ];
   repo-path = "astal/gtk4";
 }

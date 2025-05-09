@@ -1,4 +1,4 @@
-{mkAstalPkg, src, ...}:
+{ mkAstalPkg, src, ... }:
 mkAstalPkg {
   inherit src;
   pname = "astal_bluetooth";

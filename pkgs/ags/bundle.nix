@@ -1,11 +1,12 @@
 {
   pkgs,
-}@outer: {
+}@outer:
+{
   pkgs ? outer.pkgs,
   entry ? "app.ts",
   src,
   name,
-  extraPackages ? [],
+  extraPackages ? [ ],
   gtk4 ? false,
 }:
 pkgs.stdenvNoCC.mkDerivation {
@@ -29,23 +30,28 @@ pkgs.stdenvNoCC.mkDerivation {
 
   preFixup = ''
     gappsWrapperArgs+=(
-      --prefix PATH : ${with pkgs;
-      lib.makeBinPath (extraPackages
-        ++ [
-          dart-sass
-          fzf
-          gtk3
-        ])}
+      --prefix PATH : ${
+        with pkgs;
+        lib.makeBinPath (
+          extraPackages
+          ++ [
+            dart-sass
+            fzf
+            gtk3
+          ]
+        )
+      }
     )
 
     ${
-      if gtk4
-      then ''
-        gappsWrapperArgs+=(
-          --set LD_PRELOAD "${pkgs.gtk4-layer-shell}/lib/libgtk4-layer-shell.so"
-        )
-      ''
-      else ""
+      if gtk4 then
+        ''
+          gappsWrapperArgs+=(
+            --set LD_PRELOAD "${pkgs.gtk4-layer-shell}/lib/libgtk4-layer-shell.so"
+          )
+        ''
+      else
+        ""
     }
   '';
 

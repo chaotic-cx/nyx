@@ -3,7 +3,8 @@
   pkgs,
   src,
   ...
-}: let
+}:
+let
   vala-panel-appmenu = pkgs.fetchFromGitLab {
     owner = "vala-panel-project";
     repo = "vala-panel-appmenu";
@@ -30,13 +31,16 @@
     ];
   };
 in
-  mkAstalPkg {
-    inherit src;
-    pname = "astal_tray";
-    packages = [pkgs.json-glib appmenu-glib-translator];
+mkAstalPkg {
+  inherit src;
+  pname = "astal_tray";
+  packages = [
+    pkgs.json-glib
+    appmenu-glib-translator
+  ];
 
-    libname = "tray";
-    authors = "kotontrion";
-    gir-suffix = "Tray";
-    description = "StatusNotifierItem implementation";
-  }
+  libname = "tray";
+  authors = "kotontrion";
+  gir-suffix = "Tray";
+  description = "StatusNotifierItem implementation";
+}

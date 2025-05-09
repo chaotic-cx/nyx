@@ -1,9 +1,9 @@
 {
-prev,
-final,
-callPackage,
-fetchFromGitHub,
-lib
+  prev,
+  final,
+  callPackage,
+  fetchFromGitHub,
+  lib,
 }:
 let
   current = lib.trivial.importJSON ./version.json;
@@ -12,7 +12,8 @@ let
     owner = "Aylur";
     repo = "astal";
   };
-  mkPkg = src: astalSrc: isAstalPackage:
+  mkPkg =
+    src: astalSrc: isAstalPackage:
     import src {
       inherit final;
       src = astalSrc;

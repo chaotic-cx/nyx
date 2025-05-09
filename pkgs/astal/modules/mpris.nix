@@ -7,7 +7,10 @@
 mkAstalPkg {
   inherit src;
   pname = "astal_mpris";
-  packages = with pkgs; [gvfs json-glib];
+  packages = with pkgs; [
+    gvfs
+    json-glib
+  ];
 
   libname = "mpris";
   authors = "Aylur";
