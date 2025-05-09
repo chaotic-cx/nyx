@@ -1,4 +1,7 @@
-baseSrc: pkgs: let
+baseSrc: {
+  pkgs,
+  isAstalPackage ? false
+}: let
   inherit (builtins) elem elemAt readFile replaceStrings splitVersion toJSON;
   inherit (pkgs.lib) filterAttrs;
 
@@ -104,7 +107,7 @@ in
         ++ packages;
 
       postUnpack = ''
-        cp --remove-destination ${"${src}/../lib/gir.py"} $sourceRoot/gir.py
+        cp --remove-destination "${src}${if isAstalPackage then "/.." else ""}/../gir.py" $sourceRoot/gir.py
         ${postUnpack}
       '';
 
