@@ -38,4 +38,9 @@ in
   river = mkPkg ./modules/river.nix "${astalSrc}/lib/river";
   tray = mkPkg ./modules/tray.nix "${astalSrc}/lib/tray";
   wireplumber = mkPkg ./modules/wireplumber.nix "${astalSrc}/lib/wireplumber";
+
+  astal_gjs = import ./astal_gjs.nix {
+    pkgs = final;
+    src = "${astalSrc}/lang/gjs";
+  };
 }

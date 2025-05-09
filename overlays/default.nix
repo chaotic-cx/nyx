@@ -155,6 +155,7 @@ in
   astal_battery = astal.battery;
   astal_bluetooth = astal.bluetooth;
   astal_cava = astal.cava;
+  astal_gjs = astal.astal_gjs;
   astal_greet = astal.greet;
   astal_hyprland = astal.hyprland;
   astal_mpris = astal.mpris;
