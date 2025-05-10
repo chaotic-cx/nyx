@@ -1,8 +1,8 @@
 {
   "gfxreconstruct": {
-    "version": "1.4.313.0",
+    "version": "1.4.309.0",
     "rev": "vulkan-sdk-#{version}",
-    "hash": "sha256-N76n8zwTsSvemJRTOSywpnbbJiCGHFjhJcxnjmTaUQM="
+    "hash": "sha256-8Jxf0zmrk3Mek6e4frH5/gQV5+CEmRfPrNFneb5UHDI="
   },
   "glslang": {
     "version": "1.4.309.0",
