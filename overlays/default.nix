@@ -176,11 +176,7 @@ in
   };
 
   firefox-unwrapped_nightly = final.callPackage ../pkgs/firefox-nightly { };
-  firefox_nightly = final.wrapFirefox final.firefox-unwrapped_nightly {
-    nameSuffix = "-nightly";
-    wmClass = "firefox-nightly";
-    icon = "firefox-nightly";
-  };
+  firefox_nightly = final.wrapFirefox final.firefox-unwrapped_nightly { };
 
   gamescope_git = callOverride ../pkgs/gamescope-git { };
   gamescope-wsi_git = callOverride ../pkgs/gamescope-git { isWSI = true; };
