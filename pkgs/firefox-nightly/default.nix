@@ -14,8 +14,10 @@
 let
   mach = buildMozillaMach rec {
     pname = "firefox-nightly";
+    binaryName = "firefox-nightly";
     inherit (current) version;
     applicationName = "Firefox Nightly";
+    requireSigning = false;
     branding = "browser/branding/nightly";
     src = fetchurl {
       inherit (current) hash;
@@ -31,7 +33,7 @@ let
       broken = stdenv.buildPlatform.is32bit;
       maxSilent = 14400;
       license = lib.licenses.mpl20;
-      mainProgram = "firefox";
+      mainProgram = binaryName;
     };
 
     updateScript = callPackage ./update.nix { };
@@ -43,14 +45,13 @@ let
         "firefox-mac-missing-vector-header.patch"
         "env_var_for_system_dir-ff133.patch"
         "no-buildconfig-ffx136.patch"
+        "build-fix-RELRHACK_LINKER-setting-when-linker-name-i.patch"
+        "wasi-sdk-disable-reference-types.patch"
       ] prevAttrs.patches
       ++ [
         ./env_var_for_system_dir-ff-unstable.patch
         ./no-buildconfig-ffx-unstable.patch
       ];
-    env = (prevAttrs.env or { }) // {
-      MOZ_REQUIRE_SIGNING = "";
-    };
     # Fix missing icu_76::UnicodeSet symbols
     postPatch =
       prevAttrs.postPatch
