@@ -1,8 +1,7 @@
 {
   "firedragon" = "/nix/store/dymnvx4clhz2s70hnc4i86nmw5qqsyq5-firedragon-11.26.0-1";
   "firedragon-unwrapped" = "/nix/store/w2j7inczxys5j1yqk2drahc0qr0ywark-firedragon-unwrapped-11.26.0-1";
-  "firefox-unwrapped_nightly" = "/nix/store/y9l60fl7n4aacxmfc0i3f0y45lmrqzdz-firefox-nightly-unwrapped-140.0a1";
-  "firefox_nightly" = "/nix/store/drksslvvrmcvsggx9rss712pmmjpsj7l-firefox-140.0a1";
+  "firefox-unwrapped_nightly" = "/nix/store/y1zmlc7wb254n8m22cfc55m3yxpnm1in-firefox-nightly-unwrapped-140.0a1";
   "latencyflex-vulkan" = "/nix/store/4k36lhvbpn29g3bf2l521mmc68i7jcdb-latencyflex-vulkan-unstable-2023-07-03";
   "linuxPackages_cachyos.rtl8188eus-aircrack" = "/nix/store/gp86nfzf21anv4ilp8c3jyf5yrpmnwr1-rtl8188eus-aircrack-6.14.5-unstable-2024-09-18";
   "linuxPackages_cachyos.rtl8814au" = "/nix/store/67a96g6kjy8wsh84a22scq4lmp1k2zhc-rtl8814au-6.14.5-unstable-2024-05-26";
