@@ -21,8 +21,6 @@ let
   grammarLink =
     {
       name,
-      rev,
-      subpath,
       ...
     }@source:
     "ln -s ${grammarArtifact source}/${name}.so $out/${name}.so";

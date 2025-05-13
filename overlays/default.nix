@@ -119,7 +119,7 @@ let
           pkgs = prev;
         };
       in
-      (builtins.removeAttrs (base) [ "jovian-documentation" ])
+      (builtins.removeAttrs base [ "jovian-documentation" ])
       // {
         recurseForDerivations = true;
         linuxPackages_jovian = base.linuxPackages_jovian // {

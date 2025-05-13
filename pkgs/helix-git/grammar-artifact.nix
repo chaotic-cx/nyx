@@ -16,7 +16,7 @@ let
       shallow ? true,
       url ? null,
       ref ? "HEAD",
-    }@input:
+    }:
     if !shallow then
       throw "Not shallow is unsupported"
     else if ref != "HEAD" then
