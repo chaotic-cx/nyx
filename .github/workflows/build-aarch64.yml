@@ -30,6 +30,14 @@ jobs:
     outputs:
       pushed: ${{ steps.push.outcome == 'success' }}
     steps:
+      - name: Increase swapfile
+        run: |
+          sudo swapoff -a
+          sudo fallocate -l 15G /swapfile
+          sudo chmod 600 /swapfile
+          sudo mkswap /swapfile
+          sudo swapon /swapfile
+          sudo swapon --show
       # identical to build.yml
       - name: Install Nix
         uses: cachix/install-nix-action@v31
