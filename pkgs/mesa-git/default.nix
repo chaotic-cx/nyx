@@ -18,6 +18,16 @@ gitOverride (current: {
       {
         wayland-protocols = final64.wayland-protocols_git;
         galliumDrivers = [ "all" ];
+        directx-headers =
+          # https://gitlab.freedesktop.org/mesa/mesa/-/issues/13126
+          final.directx-headers.overrideAttrs (_prevAttrs: {
+            src = final.fetchFromGitHub {
+              owner = "microsoft";
+              repo = "DirectX-Headers";
+              rev = "v1.614.1";
+              hash = "sha256-CDmzKdV40EExLpOHPAUnytqG9x1+IGW4AZldfYs5YJk=";
+            };
+          });
       }
       // (
         if is32bit then
