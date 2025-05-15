@@ -29,7 +29,10 @@ gitOverride (current: {
     };
     installPhase =
       builtins.replaceStrings [ "zed-remote-server-stable-$version" ] [ "zed-remote-server-dev-build" ]
-        prevAttrs.installPhase;
+        (
+          builtins.replaceStrings [ "dev.zed.Zed.desktop" ] [ "dev.zed.Zed-Dev.desktop" ]
+            prevAttrs.installPhase
+        );
     # duplicated cargo deps is a mess
     patches =
       (nyxUtils.removeByBaseNames [
