@@ -8,7 +8,6 @@
   nss_git,
   nyxUtils,
   stdenv,
-  icu76,
 }:
 
 let
@@ -46,25 +45,15 @@ let
         "env_var_for_system_dir-ff133.patch"
         "no-buildconfig-ffx136.patch"
         "build-fix-RELRHACK_LINKER-setting-when-linker-name-i.patch"
-        "wasi-sdk-disable-reference-types.patch"
       ] prevAttrs.patches
       ++ [
         ./env_var_for_system_dir-ff-unstable.patch
         ./no-buildconfig-ffx-unstable.patch
       ];
-    # Fix missing icu_76::UnicodeSet symbols
-    postPatch =
-      prevAttrs.postPatch
-      + ''
-        sed -i 's/icu-i18n/icu-uc &/' js/moz.configure
-      '';
-    configureFlags = prevAttrs.configureFlags ++ [ "--with-system-icu" ];
-    buildInputs = prevAttrs.buildInputs ++ [ icu76 ];
   };
 
   newInputs = {
     nss_latest = nss_git;
-    icu73 = icu76;
   };
 in
 nyxUtils.multiOverride mach newInputs postOverride
