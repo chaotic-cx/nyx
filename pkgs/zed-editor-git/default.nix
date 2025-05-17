@@ -22,9 +22,19 @@ gitOverride (current: {
       RELEASE_VERSION = "";
       ZED_COMMIT_SHA = current.rev;
     };
+    preBuild =
+      (prevAttrs.preBuild or "")
+      + ''
+        echo nightly > crates/zed/RELEASE_CHANNEL
+      '';
     installPhase =
-      builtins.replaceStrings [ "zed-remote-server-stable-$version" ] [ "zed-remote-server-dev-build" ]
-        prevAttrs.installPhase;
+      builtins.replaceStrings
+        [ "zed-remote-server-stable-$version" ]
+        [ "zed-remote-server-nightly-build" ]
+        (
+          builtins.replaceStrings [ "dev.zed.Zed.desktop" ] [ "dev.zed.Zed-nightly.desktop" ]
+            prevAttrs.installPhase
+        );
     # Nothing wrong on it, just saving compilation time for me!
     dontCheck = true;
     doInstallCheck = false;
