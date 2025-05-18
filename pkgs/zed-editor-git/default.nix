@@ -31,9 +31,14 @@ gitOverride (current: {
       builtins.replaceStrings [ "zed-remote-server-stable-$version" ] [ "zed-remote-server-dev-build" ]
         prevAttrs.installPhase;
     # duplicated cargo deps is a mess
-    patches = (nyxUtils.removeByBaseNames [ "0001-linux-linker.patch" "0002-fix-duplicate-reqwest.patch" ] prevAttrs.patches) ++ [
-      ./0002-fix-duplicate-reqwest.patch
-    ];
+    patches =
+      (nyxUtils.removeByBaseNames [
+        "0001-linux-linker.patch"
+        "0002-fix-duplicate-reqwest.patch"
+      ] prevAttrs.patches)
+      ++ [
+        ./0002-fix-duplicate-reqwest.patch
+      ];
     # Nothing wrong on it, just saving compilation time for me!
     dontCheck = true;
     doInstallCheck = false;
