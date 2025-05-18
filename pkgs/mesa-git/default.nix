@@ -79,10 +79,13 @@ gitOverride (current: {
     ];
 
     postPatch =
-      prevAttrs.postPatch
-      + ''
-        ${copyRustDeps}
-      '';
+      if final.stdenv.isLinux then
+        prevAttrs.postPatch
+        + ''
+          ${copyRustDeps}
+        ''
+      else
+        prevAttrs.postPatch or "";
 
     mesonFlags = nyxUtils.removeByPrefixes [ "-Dosmesa" "-Dgallium-opencl" ] prevAttrs.mesonFlags;
 

@@ -23,6 +23,8 @@ rec {
               (
                 if (v.meta.broken or true) then
                   warnFn fullKey v "marked broken"
+                else if !(builtins.tryEval v.outPath).success then
+                  warnFn fullKey v "out eval broken"
                 else if
                   (
                     (v.meta.platforms or [ ]) != [ ]

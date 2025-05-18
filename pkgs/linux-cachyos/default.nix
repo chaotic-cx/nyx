@@ -8,9 +8,16 @@ let
   rcVersions = importJSON ./versions-rc.json;
   hardenedVersions = importJSON ./versions-hardened.json;
 
+  # aarch64-darwin evaluation hack
+  brokenDarwin = final.hello.overrideAttrs (prevAttrs: {
+    meta = prevAttrs.meta // {
+      platform = final.lib.platforms.linux;
+    };
+  });
+
   mkCachyKernel =
     if final.stdenv.isDarwin then
-      _attrs: { kernel = final.hello; }
+      _attrs: { kernel = brokenDarwin; }
     else
       attrs: final.callPackage ./packages-for.nix ({ versions = mainVersions; } // attrs);
 
@@ -106,7 +113,7 @@ in
   };
 
   zfs = final.zfs_2_3.overrideAttrs (prevAttrs: {
-    inherit (mainKernel.zfs_cachyos) src;
+    src = if final.stdenv.isDarwin then brokenDarwin else mainKernel.zfs_cachyos.src;
     patches = [ ];
     passthru = prevAttrs.passthru // {
       kernelModuleAttribute = "zfs_cachyos";
