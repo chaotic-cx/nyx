@@ -11,6 +11,21 @@
 
 let
   inherit (final.stdenv) is32bit;
+
+  rustDeps = [
+    {
+      pname = "rustc-hash";
+      version = "2.1.1";
+      hash = "sha256-3rQidUAExJ19STn7RtKNIpZrQUne2VVH7B1IO5UY91k=";
+    }
+  ];
+
+  copyRustDep = dep: ''
+    cp -R --no-preserve=mode,ownership ${final.fetchCrate dep} subprojects/${dep.pname}-${dep.version}
+    cp -R subprojects/packagefiles/${dep.pname}/* subprojects/${dep.pname}-${dep.version}/
+  '';
+
+  copyRustDeps = final.lib.concatStringsSep "\n" (builtins.map copyRustDep rustDeps);
 in
 gitOverride (current: {
   newInputs =
@@ -62,6 +77,12 @@ gitOverride (current: {
     patches = [
       ./opencl.patch
     ];
+
+    postPatch =
+      prevAttrs.postPatch
+      + ''
+        ${copyRustDeps}
+      '';
 
     mesonFlags = nyxUtils.removeByPrefixes [ "-Dosmesa" "-Dgallium-opencl" ] prevAttrs.mesonFlags;
 
