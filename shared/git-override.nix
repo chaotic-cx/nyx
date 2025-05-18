@@ -30,6 +30,7 @@ let
       withCargoDeps ? null,
       withExtraUpdateCommands ? "",
       extraPassthru ? { },
+      buildCargoDepsWithPatches ? null,
     }:
     let
       versionLocalPath = "${nyx}/${versionNyxPath}";
@@ -88,7 +89,11 @@ let
                   inherit src;
                   inherit (prevAttrs.cargoDeps) name;
                   sourceRoot = prevAttrs.cargoDeps.sourceRoot or null;
-                  patches = prevAttrs.cargoDeps.patches or [ ];
+                  patches =
+                    if buildCargoDepsWithPatches != null then
+                      buildCargoDepsWithPatches final
+                    else
+                      prevAttrs.cargoDeps.patches or [ ];
                   preUnpack = prevAttrs.cargoDeps.preUnpack or null;
                   unpackPhase = prevAttrs.cargoDeps.unpackPhase or null;
                   postUnpack = prevAttrs.cargoDeps.postUnpack or null;
@@ -103,12 +108,13 @@ let
       optionalPreOverride = lib.lists.optional (preOverride != null) preOverride;
 
       optionalPostOverride = lib.lists.optional (postOverride != null) postOverride;
-    in
-    {
+
       final = lib.lists.foldl (accu: accu.overrideAttrs) (
         if newInputs == null then prev else prev.override newInputs
       ) (optionalPreOverride ++ [ main ] ++ optionalPostOverride);
-      inherit current;
+    in
+    {
+      inherit final current;
     };
 
   env = if builtins.isFunction config then config current else config;

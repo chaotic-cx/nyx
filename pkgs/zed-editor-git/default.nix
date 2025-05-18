@@ -1,4 +1,9 @@
-{ prev, gitOverride, ... }:
+{
+  prev,
+  gitOverride,
+  nyxUtils,
+  ...
+}:
 
 gitOverride (current: {
   nyxKey = "zed-editor_git";
@@ -25,8 +30,14 @@ gitOverride (current: {
     installPhase =
       builtins.replaceStrings [ "zed-remote-server-stable-$version" ] [ "zed-remote-server-dev-build" ]
         prevAttrs.installPhase;
+    # duplicated cargo deps is a mess
+    patches = (nyxUtils.removeByBaseName "0002-fix-duplicate-reqwest.patch" prevAttrs.patches) ++ [
+      ./0002-fix-duplicate-reqwest.patch
+    ];
     # Nothing wrong on it, just saving compilation time for me!
     dontCheck = true;
     doInstallCheck = false;
   };
+
+  buildCargoDepsWithPatches = _finalDrv: [ ./0002-fix-duplicate-reqwest.patch ];
 })
