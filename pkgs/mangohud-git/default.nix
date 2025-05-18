@@ -29,20 +29,22 @@ gitOverride {
       ./preload-nix-workaround.patch
       (
         with final;
-        substituteAll {
+        replaceVarsWith {
           src = ./hardcode-dependencies.patch;
 
-          path = lib.makeBinPath [
-            coreutils
-            curl
-            gnugrep
-            gnused
-            mesa-demos
-            xdg-utils
-          ];
+          replacements = {
+            path = lib.makeBinPath [
+              coreutils
+              curl
+              gnugrep
+              gnused
+              mesa-demos
+              xdg-utils
+            ];
 
-          libdbus = dbus.lib;
-          inherit hwdata;
+            libdbus = dbus.lib;
+            inherit hwdata;
+          };
         }
       )
     ];

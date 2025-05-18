@@ -45,15 +45,18 @@ gitOverride {
       let
         hardcodePaths =
           with final;
-          (substituteAll {
+          (replaceVarsWith {
             src = ./hardcode-paths.patch;
-            avahi = "${avahi}/lib";
-            freeipmi = "${freeipmi}/lib";
-            libusb = "${libusb1}/lib";
-            neon = "${neon}/lib";
-            libmodbus = "${libmodbus}/lib";
-            netsnmp = "${net-snmp.lib}/lib";
-            libgpiod = "${libgpiod_1}/lib";
+
+            replacements = {
+              avahi = "${avahi}/lib";
+              freeipmi = "${freeipmi}/lib";
+              libusb = "${libusb1}/lib";
+              neon = "${neon}/lib";
+              libmodbus = "${libmodbus}/lib";
+              netsnmp = "${net-snmp.lib}/lib";
+              libgpiod = "${libgpiod_1}/lib";
+            };
           });
       in
       nyxUtils.removeByName "hardcode-paths.patch" prevAttrs.patches ++ [ hardcodePaths ];
