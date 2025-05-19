@@ -1,5 +1,4 @@
 {
-  "bytecode-viewer_git" = "/nix/store/1p504r5c572kr9ylvisr5hivkdrn0wj0-bytecode-viewer-unstable-20250514044914-5bb4343";
   "vulkanPackages_latest.vulkan-validation-layers" = "/nix/store/zfnj5l90vkkl2674nfdljbanyhqm2nr3-vulkan-validation-layers-1.4.314";
   "linuxPackages_cachyos.ax99100" = "/nix/store/fqdw4cd7vgcpm998g31sna7pa4wgjf7n-ax99100-1.8.0";
   "linuxPackages_cachyos.fwts-efi-runtime" = "/nix/store/dxxnhw698isvbppca2wbgddi8w7gf7g3-fwts-efi-runtime-24.09.00-6.14.7";
