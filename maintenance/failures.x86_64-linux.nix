@@ -168,6 +168,5 @@
   "linuxPackages_cachyos-server.v86d" = "/nix/store/6lsbarrnpc4rw4305mnw3zh8h3mv5kf4-v86d-0.1.10-6.14.7";
   "linuxPackages_cachyos-server.veikk-linux-driver" = "/nix/store/pmv1pv4n3jcqaswvn6m88zjm67cir232-veikk-linux-driver-2.0";
   "linuxPackages_cachyos-server.yt6801" = "/nix/store/18vlwl449rvb5yqz47zw9ny4j4j3zncp-yt6801-1.0.29-20240812";
-  "telegram-desktop-unwrapped_git" = "/nix/store/v5ipabkrhgfjsk7w9pkii7m08qnvg56f-telegram-desktop-unwrapped-unstable-20250518163239-d22afa3";
   "vulkanPackages_latest.gfxreconstruct" = "/nix/store/10b3pfxgbj6ljz2cb4r7kbp52r7p6nzs-gfxreconstruct-1.4.313.0";
 }

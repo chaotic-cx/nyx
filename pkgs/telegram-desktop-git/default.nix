@@ -28,7 +28,8 @@ gitOverride {
   };
   ref = "dev";
 
-  postOverride = _prevAttrs: {
+  postOverride = prevAttrs: {
     patches = [ ];
+    buildInputs = prevAttrs.buildInputs ++ [ final.tdlib_git ];
   };
 }
