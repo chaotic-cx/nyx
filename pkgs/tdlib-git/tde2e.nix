@@ -1,4 +1,4 @@
-{ final, nyxUtils, ... }:
+{ final, ... }:
 
 final.tdlib_git.overrideAttrs (prevAttrs: {
   pname = "tde2e";
