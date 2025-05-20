@@ -311,6 +311,7 @@ in
 
   swaylock-plugin_git = callOverride ../pkgs/swaylock-plugin-git { };
 
+  tde2e_git = callOverride ../pkgs/tdlib-git/tde2e.nix { };
   tdlib_git = callOverride ../pkgs/tdlib-git { };
   telegram-desktop-unwrapped_git = callOverride ../pkgs/telegram-desktop-git { };
   telegram-desktop_git = final.telegram-desktop.override {

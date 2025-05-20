@@ -30,6 +30,6 @@ gitOverride {
 
   postOverride = prevAttrs: {
     patches = [ ];
-    buildInputs = prevAttrs.buildInputs ++ [ final.tdlib_git ];
+    buildInputs = prevAttrs.buildInputs ++ [ final.tde2e_git ];
   };
 }
