@@ -7,11 +7,12 @@
   meson,
   ninja,
   pkg-config,
-  vulkanPackages_latest,
+  vulkan-headers,
+  vulkan-loader,
+  vulkan-validation-layers,
 }:
 
 let
-  inherit (vulkanPackages_latest) vulkan-headers vulkan-loader vulkan-validation-layers;
   vulkan-validation-layers-headers = runCommand "vulkan-validation-layers-headers" { } ''
     mkdir -p $out/vulkan
     cd $out/vulkan
