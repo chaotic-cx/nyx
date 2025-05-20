@@ -1,5 +1,4 @@
 {
-  final,
   prev,
   gitOverride,
   ...
@@ -18,11 +17,6 @@ gitOverride (current: {
   withLastModified = true;
 
   postOverride = prevAttrs: {
-    buildInputs =
-      with final;
-      prevAttrs.buildInputs
-      ++ lib.optional stdenv.hostPlatform.isDarwin darwin.apple_sdk.frameworks.ApplicationServices;
-
     preConfigure =
       ''
         export OUT_DIR="$out"
