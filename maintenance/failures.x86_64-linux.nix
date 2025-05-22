@@ -1,4 +1,5 @@
 {
+  "libbpf_git" = "/nix/store/pgkigzx5h1inhfr7kad3ph1gh5yqfv7k-libbpf-unstable-20250519170742-02bdeb7";
   "linuxPackages_cachyos.ax99100" = "/nix/store/fqdw4cd7vgcpm998g31sna7pa4wgjf7n-ax99100-1.8.0";
   "linuxPackages_cachyos.fwts-efi-runtime" = "/nix/store/dxxnhw698isvbppca2wbgddi8w7gf7g3-fwts-efi-runtime-24.09.00-6.14.7";
   "linuxPackages_cachyos.gasket" = "/nix/store/6ssjnf5wac93jmwkrbgj8da6n4k9754q-gasket-1.0-18-unstable-2024-04-25";
@@ -128,6 +129,7 @@
   "linuxPackages_cachyos-lto.vendor-reset" = "/nix/store/0p081yjagxkach7k52lsrndy6x5bx53d-vendor-reset-unstable-2024-04-16-6.14.7";
   "linuxPackages_cachyos-lto.virtualbox" = "/nix/store/kyzrlsg4mwbqgc79agmlpfnyg1d02rmd-virtualbox-modules-7.1.8-6.14.7";
   "linuxPackages_cachyos-lto.virtualboxGuestAdditions" = "/nix/store/5s6hqhazzs5gxz1d9fzib844ridri0hn-VirtualBox-GuestAdditions-7.1.8-6.14.7";
+  "linuxPackages_cachyos-lto.vm-tools" = "/nix/store/6ncbqnlfvkwsxpa6sz4v621knv438hwz-mm-tools-6.12.29";
   "linuxPackages_cachyos-lto.vmware" = "/nix/store/bn6nvyfrlfiqlmqs0ssmxrz5n0ccwdik-vmware-modules-workstation-17.6.3-6.14.7";
   "linuxPackages_cachyos-lto.x86_energy_perf_policy" = "/nix/store/rzqibi4xmglya55aafl2p5sf6q02qnrk-x86_energy_perf_policy-6.14.7";
   "linuxPackages_cachyos-lto.xpad-noone" = "/nix/store/ijgv2giywk3hax9fdpi9bcqsdnirrbdm-xpad-noone-0-unstable-2024-01-10";
@@ -166,5 +168,7 @@
   "linuxPackages_cachyos-server.v86d" = "/nix/store/6lsbarrnpc4rw4305mnw3zh8h3mv5kf4-v86d-0.1.10-6.14.7";
   "linuxPackages_cachyos-server.veikk-linux-driver" = "/nix/store/pmv1pv4n3jcqaswvn6m88zjm67cir232-veikk-linux-driver-2.0";
   "linuxPackages_cachyos-server.yt6801" = "/nix/store/18vlwl449rvb5yqz47zw9ny4j4j3zncp-yt6801-1.0.29-20240812";
+  "niri_git" = "/nix/store/n6kdhq89d32iyk4mrba1dpc5cq6vl4rj-niri-unstable-20250522083709-357f915";
   "vulkanPackages_latest.gfxreconstruct" = "/nix/store/10b3pfxgbj6ljz2cb4r7kbp52r7p6nzs-gfxreconstruct-1.4.313.0";
+  "zed-editor_git" = "/nix/store/s2f01hi1idzaqmspm4glwim0jdmhqmv9-zed-editor-unstable-20250522094826-1c9b818";
 }
