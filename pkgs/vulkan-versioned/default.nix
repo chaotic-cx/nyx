@@ -65,6 +65,12 @@ final.lib.makeScope final.newScope (self: {
         + ''
           rm cmake/FindSDL3.cmake
         '';
+      preFixup =
+        ''
+          substituteInPlace $out/lib/pkgconfig/openxr.pc \
+            --replace-fail 'libdir=''${exec_prefix}//nix' 'libdir=/nix'
+        ''
+        + (prevAttrs.preFixup or "");
     };
   };
 

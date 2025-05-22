@@ -128,6 +128,7 @@
   "linuxPackages_cachyos-lto.vendor-reset" = "/nix/store/0p081yjagxkach7k52lsrndy6x5bx53d-vendor-reset-unstable-2024-04-16-6.14.7";
   "linuxPackages_cachyos-lto.virtualbox" = "/nix/store/kyzrlsg4mwbqgc79agmlpfnyg1d02rmd-virtualbox-modules-7.1.8-6.14.7";
   "linuxPackages_cachyos-lto.virtualboxGuestAdditions" = "/nix/store/5s6hqhazzs5gxz1d9fzib844ridri0hn-VirtualBox-GuestAdditions-7.1.8-6.14.7";
+  "linuxPackages_cachyos-lto.vm-tools" = "/nix/store/6ncbqnlfvkwsxpa6sz4v621knv438hwz-mm-tools-6.12.29";
   "linuxPackages_cachyos-lto.vmware" = "/nix/store/bn6nvyfrlfiqlmqs0ssmxrz5n0ccwdik-vmware-modules-workstation-17.6.3-6.14.7";
   "linuxPackages_cachyos-lto.x86_energy_perf_policy" = "/nix/store/rzqibi4xmglya55aafl2p5sf6q02qnrk-x86_energy_perf_policy-6.14.7";
   "linuxPackages_cachyos-lto.xpad-noone" = "/nix/store/ijgv2giywk3hax9fdpi9bcqsdnirrbdm-xpad-noone-0-unstable-2024-01-10";
@@ -166,5 +167,4 @@
   "linuxPackages_cachyos-server.v86d" = "/nix/store/6lsbarrnpc4rw4305mnw3zh8h3mv5kf4-v86d-0.1.10-6.14.7";
   "linuxPackages_cachyos-server.veikk-linux-driver" = "/nix/store/pmv1pv4n3jcqaswvn6m88zjm67cir232-veikk-linux-driver-2.0";
   "linuxPackages_cachyos-server.yt6801" = "/nix/store/18vlwl449rvb5yqz47zw9ny4j4j3zncp-yt6801-1.0.29-20240812";
-  "vulkanPackages_latest.gfxreconstruct" = "/nix/store/10b3pfxgbj6ljz2cb4r7kbp52r7p6nzs-gfxreconstruct-1.4.313.0";
 }
