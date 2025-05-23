@@ -16,7 +16,6 @@ gitOverride (current: {
     repo = "zed";
     fetchSubmodules = true;
   };
-  ref = "main";
 
   preOverride = prevAttrs: {
     postPatch = builtins.replaceStrings [ prevAttrs.version ] [ "*" ] prevAttrs.postPatch;

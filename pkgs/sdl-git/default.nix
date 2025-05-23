@@ -10,5 +10,4 @@ gitOverride {
     owner = "libsdl-org";
     repo = "SDL";
   };
-  ref = "main";
 }
