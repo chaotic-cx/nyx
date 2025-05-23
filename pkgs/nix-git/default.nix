@@ -34,7 +34,6 @@ let
 
 in
 nixComponents_git.nix-everything.overrideAttrs (prevAttrs: {
-  tests = [ ];
   passthru = prevAttrs.passthru // {
     components = nixComponents_git;
     updateScript = final.callPackage ../../shared/git-update.nix {
