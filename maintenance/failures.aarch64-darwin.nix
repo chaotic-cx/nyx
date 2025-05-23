@@ -1,8 +1,8 @@
 {
-  "appmenu-gtk3-module" = "/nix/store/l1rp0jrhcyni68rqkhy5f0jwwa20fx38-appmenu-gtk3-module-0.7.6";
-  "discord-krisp" = "/nix/store/mn4y222grpviqa4mxbi8jgk8ps72whr6-discord-0.0.344";
+  "appmenu-gtk3-module" = "/nix/store/8mq5g4wdq61ksrhwcvdfkz57b1335dh4-appmenu-gtk3-module-0.7.6";
+  "discord-krisp" = "/nix/store/4karny7bwbs9p1d572mcbayiia4wllbg-discord-0.0.345";
   "libportal_git" = "/nix/store/5rl6aricj9dzscmgh7wa98g2jqgwanld-libportal-unstable-20250328122118-796053d";
   "vulkanPackages_latest.vulkan-validation-layers" = "/nix/store/xf5x97fvxh74gih53326nlz4a84wwfv0-vulkan-validation-layers-1.4.315";
-  "wayland_git" = "/nix/store/n0bcsbm1c5j5m6bvwllmvqqcz27rxlqj-wayland-unstable-20250315231207-6137c8c";
-  "zed-editor-fhs_git" = "/nix/store/gzx5m2v4mazskyq7yv4f3vssacl54ffy-zeditor";
+  "wayland_git" = "/nix/store/dqjhbkwwhhir3yjq62z1ldqf70rf58fl-wayland-unstable-20250520205752-9b169ff";
+  "zed-editor-fhs_git" = "/nix/store/jgfa2q2l5kswm8ww20hsh81jgba03jyq-zeditor";
 }
