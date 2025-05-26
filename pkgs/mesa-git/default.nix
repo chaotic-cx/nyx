@@ -87,7 +87,7 @@ gitOverride (current: {
       else
         prevAttrs.postPatch or "";
 
-    mesonFlags = nyxUtils.removeByPrefixes [ "-Dosmesa" "-Dgallium-opencl" ] prevAttrs.mesonFlags;
+    mesonFlags = nyxUtils.removeByPrefixes [ "-Dosmesa" "-Dgallium-opencl" "-Dgallium-nine" "-Dgallium-xa" ] prevAttrs.mesonFlags;
 
     # test and accessible information
     passthru = prevAttrs.passthru // {
