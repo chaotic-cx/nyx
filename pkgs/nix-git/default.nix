@@ -13,7 +13,7 @@ let
     inherit (current) rev hash;
   };
 
-  addFixes = finalScope: prevScope: {
+  addFixes = _finalScope: prevScope: {
     nix-store = prevScope.nix-store.overrideAttrs (prevAttrs: {
       # Hummm, this shouldn't be needed TODO: Investigate!
       buildInputs = prevAttrs.buildInputs ++ [ final.aws-sdk-cpp ];
