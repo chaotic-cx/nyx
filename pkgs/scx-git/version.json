@@ -3,7 +3,7 @@
     "version": "unstable-20250529083619-782ee64",
     "rev": "782ee64f7a9c2790ee07c031ce1eab01d075d20e",
     "hash": "sha256-G0JXQvw1UH5yiM08UyU0iHIMEI0uDnBQ9Bi0U1XpL7c=",
-    "cargoHash": ""
+    "cargoHash": "sha256-6SzyoUAqMxTpx4shefPPBK5ocwO5gTkWEwaaW77kNvE="
   },
   "bpftool": {
     "rev": "183e7010387d1fc9f08051426e9a9fbd5f8d409e",
