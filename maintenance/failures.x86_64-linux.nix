@@ -30,8 +30,6 @@
   "linuxPackages_cachyos.nvidia_x11_production" = "/nix/store/xkgxhcdh2b1jrp7kr4ngbi3d5z7g71jl-nvidia-x11-570.153.02-6.15.0";
   "linuxPackages_cachyos.nvidia_x11_vulkan_beta" = "/nix/store/5ccvkbd18hfahwh6nxjb48sa5la9s8fs-nvidia-x11-570.123.14-6.15.0";
   "linuxPackages_cachyos.nvidia_x11_vulkan_beta_open" = "/nix/store/c8jk8pr5mmz0vpnqq2ggvck1px53zx2l-nvidia-open-6.15.0-570.123.14";
-  "linuxPackages_cachyos.openafs" = "/nix/store/k6w3b6x82mr22170yy6hdasrp3xg3af3-openafs-1.8.13.2-6.15.0-cachyos";
-  "linuxPackages_cachyos.openafs_1_8" = "/nix/store/k6w3b6x82mr22170yy6hdasrp3xg3af3-openafs-1.8.13.2-6.15.0-cachyos";
   "linuxPackages_cachyos.openrazer" = "/nix/store/9dw2p47iwsxf0fyk0m8w9sqygf5k13fy-openrazer-3.10.1-6.15.0";
   "linuxPackages_cachyos.ply" = "/nix/store/chk6wxg01zm69hlppg27cvvg7nk6hpi8-ply-2.1.1-e25c913";
   "linuxPackages_cachyos.rtl8188eus-aircrack" = "/nix/store/qmqhz9hb4c5kz9fcw0rmw7hxahx9c2ni-rtl8188eus-aircrack-6.15.0-unstable-2024-09-18";
@@ -70,8 +68,7 @@
   "linuxPackages_cachyos-hardened.nvidia_dc_565" = "/nix/store/3m34jlzhybym92wwsnfih17b4v74h9h7-nvidia-dc-565.57.01-6.14.8";
   "linuxPackages_cachyos-hardened.nvidia_x11_legacy470" = "/nix/store/4gsgm7700jkpfyj87d9cr8rz9gwm1293-nvidia-x11-470.256.02-6.14.8";
   "linuxPackages_cachyos-hardened.nvidia_x11_legacy535" = "/nix/store/lvhf95fwv0clg8df15knvcfhd8fg4hw2-nvidia-x11-535.216.01-6.14.8";
-  "linuxPackages_cachyos-hardened.openafs" = "/nix/store/ibasxncqk03yj8a8ig3gz47z0vv69hi7-openafs-1.8.13.2-6.14.8-cachyos";
-  "linuxPackages_cachyos-hardened.openafs_1_8" = "/nix/store/ibasxncqk03yj8a8ig3gz47z0vv69hi7-openafs-1.8.13.2-6.14.8-cachyos";
+  "linuxPackages_cachyos-hardened.openafs" = "/nix/store/m4fdvx96675cbsv7cnd1514sddnzkx0d-openafs-1.8.13.2-6.14.8-cachyos";
   "linuxPackages_cachyos-hardened.ply" = "/nix/store/am7pq8jd92isczxp96w2klyyx2i04i1p-ply-2.1.1-e25c913";
   "linuxPackages_cachyos-hardened.rtl8188eus-aircrack" = "/nix/store/8sgpx1b7q4k8zbrwrywh7ak8ykiyhw0n-rtl8188eus-aircrack-6.14.8-unstable-2024-09-18";
   "linuxPackages_cachyos-hardened.rtl8723ds" = "/nix/store/wvgh7x07y2a3mvvgw5l5l04nw0a5d5b2-rtl8723ds-6.14.8-unstable-2023-11-14";
@@ -120,14 +117,17 @@
   "linuxPackages_cachyos-lto.new-lg4ff" = "/nix/store/7ggjmqs5w4nihjzjb9xrgr9jjjifq6qy-new-lg4ff-0-unstable-2024-11-25";
   "linuxPackages_cachyos-lto.nvidia_dc" = "/nix/store/iarsz2fgxlin4g2zcqz3wrdaxddkhxb0-nvidia-dc-565.57.01-6.15.0";
   "linuxPackages_cachyos-lto.nvidia_dc_535" = "/nix/store/rxwph0pgd725csrbkxw6k7s1z94qwchd-nvidia-dc-535.154.05-6.15.0";
+  "linuxPackages_cachyos-lto.nvidia_dc_565" = "/nix/store/iarsz2fgxlin4g2zcqz3wrdaxddkhxb0-nvidia-dc-565.57.01-6.15.0";
   "linuxPackages_cachyos-lto.nvidia_x11" = "/nix/store/wzjsi8alwzs99npvs5rn8y1cw3zc90jf-nvidia-x11-570.153.02-6.15.0";
   "linuxPackages_cachyos-lto.nvidia_x11_beta" = "/nix/store/w3b3h7bm5xdl00cjx727zkl88sl3y302-nvidia-x11-575.51.02-6.15.0";
   "linuxPackages_cachyos-lto.nvidia_x11_beta_open" = "/nix/store/bj6clma9djjzx06qs13mhbm73ixjhfyq-nvidia-open-6.15.0-575.51.02";
+  "linuxPackages_cachyos-lto.nvidia_x11_latest" = "/nix/store/wzjsi8alwzs99npvs5rn8y1cw3zc90jf-nvidia-x11-570.153.02-6.15.0";
   "linuxPackages_cachyos-lto.nvidia_x11_legacy470" = "/nix/store/xl8g7ai75m0jjr2ydb49bd8bzp5a5gq8-nvidia-x11-470.256.02-6.15.0";
   "linuxPackages_cachyos-lto.nvidia_x11_legacy535" = "/nix/store/a3j5pg0x90gcc4y9x7lnvrsgsryxfc1v-nvidia-x11-535.216.01-6.15.0";
+  "linuxPackages_cachyos-lto.nvidia_x11_production" = "/nix/store/wzjsi8alwzs99npvs5rn8y1cw3zc90jf-nvidia-x11-570.153.02-6.15.0";
   "linuxPackages_cachyos-lto.nvidia_x11_vulkan_beta" = "/nix/store/7r14chsssy587jrcizkmzacyz0m3cmdi-nvidia-x11-570.123.14-6.15.0";
   "linuxPackages_cachyos-lto.nvidia_x11_vulkan_beta_open" = "/nix/store/sgdf6kwdwi6wnw2bnbm2xvih2zkywz89-nvidia-open-6.15.0-570.123.14";
-  "linuxPackages_cachyos-lto.openafs" = "/nix/store/95pblxa0vqfmbr1k0dzc0jy6wdpq0p2d-openafs-1.8.13.2-6.15.0-cachyos";
+  "linuxPackages_cachyos-lto.openafs" = "/nix/store/k844qsg14l2bn3bin54m1svk9c0q0bpq-openafs-1.8.13.2-6.15.0-cachyos";
   "linuxPackages_cachyos-lto.openrazer" = "/nix/store/mvsbxdjd3k69350p87h2gkza8bpv8hx0-openrazer-3.10.1-6.15.0";
   "linuxPackages_cachyos-lto.perf" = "/nix/store/acy49425xvlqbsxb3w1n12hq5iywp7ld-perf-linux-6.15.0";
   "linuxPackages_cachyos-lto.ply" = "/nix/store/qmnjn16y0ij5v5ffhf2v44w02b8jcaph-ply-2.1.1-e25c913";
@@ -160,6 +160,7 @@
   "linuxPackages_cachyos-lto.vendor-reset" = "/nix/store/1pi2avyamybvxb537b7v44hchbvy797q-vendor-reset-unstable-2024-04-16-6.15.0";
   "linuxPackages_cachyos-lto.virtualbox" = "/nix/store/nlp2y51fhb0p6mnfjvfsvpwwd4kydidb-virtualbox-modules-7.1.8-6.15.0";
   "linuxPackages_cachyos-lto.virtualboxGuestAdditions" = "/nix/store/0syr4iphjc557zv4dsmlv1f86ky8gs0j-VirtualBox-GuestAdditions-7.1.8-6.15.0";
+  "linuxPackages_cachyos-lto.vm-tools" = "/nix/store/vhz8mlxv7apaiwm579g9g45df5cbykbq-mm-tools-6.12.30";
   "linuxPackages_cachyos-lto.vmware" = "/nix/store/4zprgdm4yl10g50qlb95a19bxx62xnsd-vmware-modules-workstation-17.6.3-6.15.0";
   "linuxPackages_cachyos-lto.x86_energy_perf_policy" = "/nix/store/5yfmhncmvg20vqfd2v3d6k44kf0scz32-x86_energy_perf_policy-6.15.0";
   "linuxPackages_cachyos-lto.xone" = "/nix/store/25bfbplbhll2yx9fv4xvchlxb882iii8-xone-0.3-unstable-2024-12-23";
@@ -198,8 +199,6 @@
   "linuxPackages_cachyos-server.nvidia_x11_production" = "/nix/store/3wk37rk7vv8hjlfwgfjflrgf8vfkgj69-nvidia-x11-570.153.02-6.15.0";
   "linuxPackages_cachyos-server.nvidia_x11_vulkan_beta" = "/nix/store/2vdswx77ryvv7kbjfmkg10n91pcgl3qa-nvidia-x11-570.123.14-6.15.0";
   "linuxPackages_cachyos-server.nvidia_x11_vulkan_beta_open" = "/nix/store/zi16083ap1acvfn11wjf7513k3y997zh-nvidia-open-6.15.0-570.123.14";
-  "linuxPackages_cachyos-server.openafs" = "/nix/store/zl478sdvrphry8zpf7w9cpbfbb7xf5j3-openafs-1.8.13.2-6.15.0-cachyos";
-  "linuxPackages_cachyos-server.openafs_1_8" = "/nix/store/zl478sdvrphry8zpf7w9cpbfbb7xf5j3-openafs-1.8.13.2-6.15.0-cachyos";
   "linuxPackages_cachyos-server.openrazer" = "/nix/store/06zax4mhvyq3bkh7vjqsyskmsnli5cqj-openrazer-3.10.1-6.15.0";
   "linuxPackages_cachyos-server.ply" = "/nix/store/chk6wxg01zm69hlppg27cvvg7nk6hpi8-ply-2.1.1-e25c913";
   "linuxPackages_cachyos-server.rtl8188eus-aircrack" = "/nix/store/ai7aqcxfymqrii947r8pv706bizr0fkm-rtl8188eus-aircrack-6.15.0-unstable-2024-09-18";
