@@ -1,8 +1,8 @@
 {
-  "firefoxVersion": "128.11.0",
+  "firefoxVersion": "128.12.0",
   "firedragonSource": {
-    "version": "11.26.2-1",
-    "hash": "sha256-pLHaeLWlvRMjKGnl07ZIlvyaq7M3HTQCzJdh5Q7fbgo="
+    "version": "11.27.0-1",
+    "hash": "sha256-lmBYtCa2GDALk9lU3gAZgg2z9JzKFrBBfby3vmAQ2qs="
   },
   "firedragonSettings": {
     "rev": "e861aa0527f4b5eea57ce5dddba64ed1a14b8927",
