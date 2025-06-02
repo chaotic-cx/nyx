@@ -188,12 +188,9 @@ We do this automatically, so we can gracefully update the cache's address and ke
 
 <p>If you dislike this behavior for any reason, you can disable it with <code>chaotic.nyx.cache.enable = false</code>.</p>
 
-<p><strong>Remember</strong>: If you want to fetch derivations from our cache, you'll need to enable our module and rebuild your system <strong>before</strong> adding these derivations to your configuration.</p>
+<p><strong>!!!!!!!!!:</strong>: You'll need to enable our module and rebuild your system <strong>before</strong> adding these derivations to your configuration. Another option, or if you want to use the cache right from the <strong>installation media</strong>, install your system adding <code>--option 'extra-substituters' 'https://chaotic-nyx.cachix.org/' --option extra-trusted-public-keys "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="</code> to the end of the <code>nixos-install</code> (or <code>nixos-rebuild</code>) command.</p>
 
 <p>Commands like <code>nix run ...</code>, <code>nix develop ...</code>, and others, when using our flake as input, will ask you to add the cache interactively when missing from your user's nix settings.</p>
-
-<p>If you want to use the cache right from the <strong>installation media</strong>, install your system using <code>nixos-install --flake /mnt/etc/nixos#mymachine --option 'extra-substituters' 'https://chaotic-nyx.cachix.org/' --option extra-trusted-public-keys "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="</code> (replace <code>mymachine</code> with your new host's name).</p>
-
 <p>We offer cache for <code>x86_64-linux</code>, <code>aarch64-linux</code>, and <code>aarch64-darwin</code>.</p>
 
 <h3 id="flakehub-notes">FlakeHub notes</h3>
