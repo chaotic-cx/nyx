@@ -312,13 +312,31 @@ enable_seq  hotplug_seq  nr_rejected  root  state  switch_all
 <pre lang="nix"><code class="language-nix">
 # flake.nix
 {
-    # ... description
-    inputs = {
-      # ... nixpkgs, home-manager, etc
-      chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
-      jovian.follows = "chaotic/jovian";
+  # ... description
+  inputs = {
+    # ... nixpkgs, home-manager, etc
+    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+    jovian.follows = "chaotic/jovian";
+  };
+
+  outputs = { nixpkgs, chaotic, jovian, ... }: {
+    nixosConfigurations = {
+      steamdeck = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          jovian.nixosModules.default
+          chaotic.nixosModules.default
+          ./configuration.nix
+          {
+            # This entre { ... } is an example of what could be inside ./configuration.nix
+            jovian.steam.enable = true;
+            jovian.steam.autoStart = true;
+            jovian.devices.steamdeck.enable = true;
+          }
+        ];
+      };
     };
-    # ... outputs
+  };
 }
 </code></pre>
 
