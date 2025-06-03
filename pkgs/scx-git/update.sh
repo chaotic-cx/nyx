@@ -48,7 +48,7 @@ echo "$message"
 
 echo "Updating cargoHash. This may take a while..."
 popd
-cargoHash=$((nix-build --attr scx_git.rustscheds 2>&1 || true) | awk '/got/{print $2}')
+cargoHash=$((nix-build --attr scx_git.rustscheds.cargoDeps 2>&1 || true) | gawk '/got/{print $2}')
 
 if [ -z "$cargoHash" ]; then
   echo "Failed to get cargoHash, please update it manually"
