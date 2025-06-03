@@ -1,7 +1,7 @@
 {
   "firedragon" = "/nix/store/ab2aszxzww5hvb8airz0svdxkqz5xndf-firedragon-11.27.0-1";
   "firedragon-unwrapped" = "/nix/store/b7irdn7d9920g34irrwrikjrvwqqs299-firedragon-unwrapped-11.27.0-1";
-  "firefox-unwrapped_nightly" = "/nix/store/r2qcbdarc52myvfi79k8lxsvxyspfr17-firefox-nightly-unwrapped-141.0a1";
+  "firefox-unwrapped_nightly" = "/nix/store/42j2ihl4h1vspixw6yfqh8wws7sci545-firefox-nightly-unwrapped-141.0a1";
   "latencyflex-vulkan" = "/nix/store/j6ad584s7mrbdckjv24d2zjxbq679ca4-latencyflex-vulkan-unstable-2023-07-03";
   "linuxPackages_cachyos.ply" = "/nix/store/axrs8hgria1wvn9h27ild4s3cv5liq3b-ply-2.1.1-e25c913";
   "linuxPackages_cachyos.rtl8188eus-aircrack" = "/nix/store/93z90p04k9k8cczvdgnmi5lx3arm503y-rtl8188eus-aircrack-6.15.0-unstable-2024-09-18";
@@ -20,6 +20,6 @@
   "linuxPackages_cachyos-server.rtl8814au" = "/nix/store/lfn78kxfcha56ljx5kqfgbfybhlq2g68-rtl8814au-6.15.0-unstable-2024-05-26";
   "linuxPackages_cachyos-server.systemtap" = "/nix/store/wwk7s729vfk3wm7x316x1k8fp98p1x2b-systemtap-5.2";
   "pwvucontrol_git" = "/nix/store/b6xdw278j2p6lwv0vy8pgbn0ypvz3a1v-pwvucontrol-unstable-20250525111507-7bf43c7";
-  "telegram-desktop-unwrapped_git" = "/nix/store/h7jr1mk98ibyp2ggmmihwdp6mj7a2kna-telegram-desktop-unwrapped-unstable-20250527065602-ab6375e";
-  "zed-editor_git" = "/nix/store/653bp8appkj97vvmjjcv6bqmrfgfkmca-zed-editor-unstable-20250602065857-22d75b7";
+  "telegram-desktop-unwrapped_git" = "/nix/store/gpfvynqqzi4jgy55rnad4153ndd7v43b-telegram-desktop-unwrapped-unstable-20250527065602-ab6375e";
+  "zed-editor_git" = "/nix/store/811x3chzb6la6qnjg2gxmkjslfbr43ch-zed-editor-unstable-20250603195130-522abe8";
 }
