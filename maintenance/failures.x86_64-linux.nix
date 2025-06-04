@@ -31,9 +31,8 @@
   "linuxPackages_cachyos.rtl8812au" = "/nix/store/lfpqpww6xb57k4nq9r334pd3h1ph5yfq-rtl8812au-6.15.0-unstable-2024-06-13";
   "linuxPackages_cachyos.rtl8814au" = "/nix/store/97jgib8ili5vx1j90sy9pl3hx942c1cl-rtl8814au-6.15.0-unstable-2024-05-26";
   "linuxPackages_cachyos.rtl8821au" = "/nix/store/c3syr6jfyrx9w8x47k72md90rrqdbl94-rtl8821au-6.15.0-unstable-2025-04-08";
-  "linuxPackages_cachyos.rtl8821ce" = "/nix/store/n828bi8nk70z7hyhz7x38pyp64dczdah-rtl8821ce-0-unstable-2025-05-02";
   "linuxPackages_cachyos.rtl8821cu" = "/nix/store/j4zwba7gsakivpfp3n4kzcbsc3a209g9-rtl8821cu-6.15.0-unstable-2024-09-27";
-  "linuxPackages_cachyos.rtl8852au" = "/nix/store/7yg9a72m80g5nibz5licd5zdq7qns5i5-rtl8852au-6.15.0-unstable-2024-05-06";
+  "linuxPackages_cachyos.rtl8852au" = "/nix/store/x4v9n9nmgpq44nvslhaqblmhi3y4iq8s-rtl8852au-6.15.0-unstable-2024-05-06";
   "linuxPackages_cachyos.rtl8852bu" = "/nix/store/bxmfnzx4kw26jk7mv3pglzk5kg3fdb69-rtl8852bu-6.15.0-unstable-2024-05-25";
   "linuxPackages_cachyos.rtl88x2bu" = "/nix/store/in1dnlgd1yzgvy4kbvd93l2gswb9acnr-rtl88x2bu-6.15.0-unstable-2024-06-09";
   "linuxPackages_cachyos.rtl88xxau-aircrack" = "/nix/store/v87kdgqq8zxf10r35jxba4k702h41x1p-rtl88xxau-aircrack-6.15.0-unstable-2024-04-09";
@@ -67,7 +66,6 @@
   "linuxPackages_cachyos-hardened.rtl8812au" = "/nix/store/3cdpg71aclc6znsc0f3d5kcxvdydx3i4-rtl8812au-6.14.8-unstable-2024-06-13";
   "linuxPackages_cachyos-hardened.rtl8814au" = "/nix/store/ccsvpv1f9y88246vqnwwqi0w01jgpvcg-rtl8814au-6.14.8-unstable-2024-05-26";
   "linuxPackages_cachyos-hardened.rtl8821cu" = "/nix/store/6rac7j71x41lrgspmrngr0dac8755hhm-rtl8821cu-6.14.8-unstable-2024-09-27";
-  "linuxPackages_cachyos-hardened.rtl8852au" = "/nix/store/5f6m6jqrbr46lalagz45cq0cv0cma78k-rtl8852au-6.14.8-unstable-2024-05-06";
   "linuxPackages_cachyos-hardened.rtl8852bu" = "/nix/store/ki2jbhjwpd4c5nx5l376xlf6chbvyf7q-rtl8852bu-6.14.8-unstable-2024-05-25";
   "linuxPackages_cachyos-hardened.rtl88x2bu" = "/nix/store/r0ljvbrp1i9c0qhpgax0w4l4iidz999l-rtl88x2bu-6.14.8-unstable-2024-06-09";
   "linuxPackages_cachyos-hardened.rtl88xxau-aircrack" = "/nix/store/43fqq3kw8fblsi9ahigx54b3di1kcmfd-rtl88xxau-aircrack-6.14.8-unstable-2024-04-09";
@@ -126,9 +124,8 @@
   "linuxPackages_cachyos-lto.rtl8812au" = "/nix/store/kpbnwpai16a1hf6qm6bmiv1z98fm9x9d-rtl8812au-6.15.0-unstable-2024-06-13";
   "linuxPackages_cachyos-lto.rtl8814au" = "/nix/store/byag0vi0msa3s105qg5d2mrxl35km46p-rtl8814au-6.15.0-unstable-2024-05-26";
   "linuxPackages_cachyos-lto.rtl8821au" = "/nix/store/n595vf5aa3pw5snxbjpxkyfsa4z70a51-rtl8821au-6.15.0-unstable-2025-04-08";
-  "linuxPackages_cachyos-lto.rtl8821ce" = "/nix/store/11mggr2qcqldcii537jhf4x3w3hr23p1-rtl8821ce-0-unstable-2025-05-02";
   "linuxPackages_cachyos-lto.rtl8821cu" = "/nix/store/ikxd08sfpvb76zrxwkq8xgrmzswfpii8-rtl8821cu-6.15.0-unstable-2024-09-27";
-  "linuxPackages_cachyos-lto.rtl8852au" = "/nix/store/lw4qjxb315fi5lppb6p1ga3xwg3rxapr-rtl8852au-6.15.0-unstable-2024-05-06";
+  "linuxPackages_cachyos-lto.rtl8852au" = "/nix/store/i6viikwd0mcxgk28fjwld8ix3jvwdw5w-rtl8852au-6.15.0-unstable-2024-05-06";
   "linuxPackages_cachyos-lto.rtl8852bu" = "/nix/store/qg5zypmbn5wcrvzc5kp055kgv7zwlv43-rtl8852bu-6.15.0-unstable-2024-05-25";
   "linuxPackages_cachyos-lto.rtl88x2bu" = "/nix/store/r6qf3qmhl1bqm3lfs3wkflx9ikckjr4l-rtl88x2bu-6.15.0-unstable-2024-06-09";
   "linuxPackages_cachyos-lto.rtl88xxau-aircrack" = "/nix/store/6cylqfcjxgqfqmyn06qr9q02p7i24r8l-rtl88xxau-aircrack-6.15.0-unstable-2024-04-09";
@@ -189,9 +186,8 @@
   "linuxPackages_cachyos-server.rtl8812au" = "/nix/store/vl9glyr8ns7vbrcfzlrab8ds8ds59qvf-rtl8812au-6.15.0-unstable-2024-06-13";
   "linuxPackages_cachyos-server.rtl8814au" = "/nix/store/ncaf746xd1vjhry9sn6qj4r6va15fwxq-rtl8814au-6.15.0-unstable-2024-05-26";
   "linuxPackages_cachyos-server.rtl8821au" = "/nix/store/nf0pwar8107z0l24l6l7q5yyzb80yrx3-rtl8821au-6.15.0-unstable-2025-04-08";
-  "linuxPackages_cachyos-server.rtl8821ce" = "/nix/store/3vz2zi8j4sfcd7v8qzr4fa03w68lk10p-rtl8821ce-0-unstable-2025-05-02";
   "linuxPackages_cachyos-server.rtl8821cu" = "/nix/store/azjsgrcxwqfczidxacn6f5ijhd7law3f-rtl8821cu-6.15.0-unstable-2024-09-27";
-  "linuxPackages_cachyos-server.rtl8852au" = "/nix/store/phnksnnv7jhsd4jmpgr32gfdf7j1whp1-rtl8852au-6.15.0-unstable-2024-05-06";
+  "linuxPackages_cachyos-server.rtl8852au" = "/nix/store/kkjw7k977f5qdza3q730v45fpx29lw3a-rtl8852au-6.15.0-unstable-2024-05-06";
   "linuxPackages_cachyos-server.rtl8852bu" = "/nix/store/7jljb8y9hdjp5h59czfdzypz9xdn2fgc-rtl8852bu-6.15.0-unstable-2024-05-25";
   "linuxPackages_cachyos-server.rtl88x2bu" = "/nix/store/a7c0crgvfq5jdp7l2fnza81v21kxgzl9-rtl88x2bu-6.15.0-unstable-2024-06-09";
   "linuxPackages_cachyos-server.rtl88xxau-aircrack" = "/nix/store/glgn8nl02z9sissjjijpd2z3kr8dl0n7-rtl88xxau-aircrack-6.15.0-unstable-2024-04-09";
@@ -204,7 +200,4 @@
   "linuxPackages_cachyos-server.virtualboxGuestAdditions" = "/nix/store/4mm2kxbw7g0ijcxj2m80qwfmaxmqvb9d-VirtualBox-GuestAdditions-7.1.8-6.15.0";
   "linuxPackages_cachyos-server.vmware" = "/nix/store/1xgip6ds1f23m5ds066k79s9496c6vca-vmware-modules-workstation-17.6.3-6.15.0";
   "linuxPackages_cachyos-server.yt6801" = "/nix/store/awfimacv8ac6x6js91sf8j78j7jr4v23-yt6801-1.0.29-20240812";
-  "qtile-extras_git" = "/nix/store/0nhh1jxg3gfl2zjp80gqk5ympsr0ijqn-python3.12-qtile-extras-0.31.99.99";
-  "qtile-module_git" = "/nix/store/3g5s2m8890483rzf106f51b69a65zpy6-python3.12-qtile-0.31.0.99.99";
-  "qtile_git" = "/nix/store/3g5s2m8890483rzf106f51b69a65zpy6-python3.12-qtile-0.31.0.99.99";
 }
