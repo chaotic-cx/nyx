@@ -5,6 +5,7 @@ let
     duckdns = import ./duckdns.nix;
     hdr = import ./hdr.nix;
     mesa-git = import ./mesa-git.nix;
+    nix-ld = import ./nix-ld.nix;
     nordvpn = import ./nordvpn.nix;
     nyx-cache = import ./nyx-cache.nix fromFlakes;
     nyx-overlay = import ../common/nyx-overlay.nix fromFlakes;
