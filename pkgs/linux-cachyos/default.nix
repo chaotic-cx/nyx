@@ -19,7 +19,14 @@ let
     if final.stdenv.isDarwin then
       _attrs: { kernel = brokenDarwin; }
     else
-      attrs: final.callPackage ./packages-for.nix ({ versions = mainVersions; } // attrs);
+      attrs:
+      final.callPackage ./packages-for.nix (
+        {
+          versions = mainVersions;
+          inherit inputs;
+        }
+        // attrs
+      );
 
   stdenvLLVM = final.callPackage ./lib/llvm-stdenv.nix { };
 

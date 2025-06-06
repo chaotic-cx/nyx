@@ -12,6 +12,10 @@
   kernelPatches ? [ ],
   features ? null,
   randstructSeed ? "",
+  # For tests
+  kernelPackages,
+  flakes,
+  final,
 }@inputs:
 let
   inherit (cachyConfig.versions.linux) version;
@@ -57,6 +61,13 @@ in
           netfilterRPFilter = true;
         };
         updateScript = null;
+        tests = (prevAttrs.passthru.tests or { }) // {
+          plymouth = import ./test.nix {
+            inherit kernelPackages;
+            inherit (flakes) nixpkgs;
+            chaotic = flakes.self;
+          } final;
+        };
       }
       // nyxUtils.optionalAttr "updateScript" (cachyConfig.withUpdateScript != null) (
         callPackage ./update.nix {

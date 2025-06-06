@@ -1,3 +1,5 @@
+# Run with:
+# nix build -L .#mesa_git.passthru.tests.smoke-test.driverInteractive && result/bin/nixos-test-driver
 {
   nixpkgs,
   chaotic,
