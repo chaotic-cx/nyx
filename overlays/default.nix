@@ -206,6 +206,7 @@ in
   linux_cachyos-hardened = drvDropUpdateScript cachyosPackages.cachyos-rc.kernel;
   linux_cachyos-rc = cachyosPackages.cachyos-rc.kernel;
   linux_cachyos-server = drvDropUpdateScript cachyosPackages.cachyos-server.kernel;
+  linux_cachyos-lto = cachyosPackages.cachyos-lto.kernel;
 
   linuxPackages_cachyos = cachyosPackages.cachyos;
   linuxPackages_cachyos-hardened = cachyosPackages.cachyos-hardened;

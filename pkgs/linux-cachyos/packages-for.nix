@@ -26,6 +26,8 @@
   withHDR ? true,
   withoutDebug ? false,
   description ? "Linux EEVDF-BORE scheduler Kernel by CachyOS with other patches and improvements",
+  # For tests
+  inputs,
 }:
 
 let
@@ -71,6 +73,9 @@ let
     kernelPatches = [ ];
     configfile = preparedConfigfile;
     config = linuxConfigTransfomed;
+    # For tests
+    inherit (inputs) flakes final;
+    kernelPackages = packagesWithRightPlatforms;
   };
 
   # CachyOS repeating stuff.
