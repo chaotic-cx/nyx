@@ -65,8 +65,8 @@ in
     description = "Linux EEVDF-BORE scheduler Kernel by CachyOS built with LLVM and Thin LTO";
 
     packagesExtend =
-      kernel: _finalModules:
-      builtins.mapAttrs (
+      kernel: _finalModules: prev:
+      (builtins.mapAttrs (
         k: v:
         if
           builtins.elem k [
@@ -80,7 +80,10 @@ in
           llvmModuleOverlay kernel v
         else
           v
-      );
+      ) prev)
+      // {
+        recurseForDerivations = false;
+      };
   };
 
   cachyos-sched-ext = throw "\"sched-ext\" patches were merged with \"cachyos\" flavor.";
