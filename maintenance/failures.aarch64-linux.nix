@@ -15,7 +15,6 @@
   "linuxPackages_cachyos-server.rtl8814au" = "/nix/store/blx786n8qzsa4y5vmhi6hmsq9qp6bzm0-rtl8814au-6.15.1-unstable-2024-05-26";
   "linuxPackages_cachyos-server.systemtap" = "/nix/store/pzsmkn04kx580cfh6bzgwzsblrxb2663-systemtap-5.2";
   "pwvucontrol_git" = "/nix/store/b6xdw278j2p6lwv0vy8pgbn0ypvz3a1v-pwvucontrol-unstable-20250525111507-7bf43c7";
-  "telegram-desktop-unwrapped_git" = "/nix/store/gpfvynqqzi4jgy55rnad4153ndd7v43b-telegram-desktop-unwrapped-unstable-20250527065602-ab6375e";
   "zed-editor-fhs_git" = "/nix/store/h0wnwai4dv2vlqsm4ga75gcms2yjc28i-zeditor";
   "zed-editor_git" = "/nix/store/pqwvj3wvy6wjl812klpcdbfp4pf351w4-zed-editor-unstable-20250605223130-d7015e5";
 }
