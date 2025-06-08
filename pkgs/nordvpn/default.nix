@@ -20,7 +20,7 @@
 
 let
   pname = "nordvpn";
-  version = "3.19.2";
+  version = "3.20.2";
 
   nordVPNBase = stdenv.mkDerivation {
     inherit pname version;
