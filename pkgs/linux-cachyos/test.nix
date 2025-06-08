@@ -29,7 +29,7 @@ import "${nixpkgs}/nixos/tests/make-test-python.nix" (
         virtualisation.qemu.package = lib.mkForce pkgs.qemu_full;
 
         boot = {
-          kernelPackages = kernelPackages;
+          inherit kernelPackages;
           # kernelPackages = pkgs.linuxPackages_latest;
 
           # Based on https://wiki.nixos.org/wiki/Plymouth
