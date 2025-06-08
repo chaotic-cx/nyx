@@ -27,7 +27,7 @@ let
 
     src = fetchurl {
       url = "https://repo.nordvpn.com/deb/nordvpn/debian/pool/main/n/nordvpn/nordvpn_${version}_amd64.deb";
-      hash = "sha256-V8SM91Q+DJelrEEipcnwI3BAvput79U13U908u6tjMw=";
+      hash = "sha256-2eLVr0aQpMhIMCrkyIRcCabXc197GJZ31Vl5BND7Di8=";
     };
 
     buildInputs = [
