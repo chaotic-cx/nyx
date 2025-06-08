@@ -1,5 +1,4 @@
 {
-  flakes,
   final,
   prev,
   gitOverride,
@@ -28,18 +27,6 @@ gitOverride {
       ++ (
         with final;
         let
-          kddockwidgets_qt6 =
-            (kdePackages.callPackage "${flakes.nixpkgs}/pkgs/development/libraries/kddockwidgets/default.nix" {
-              qtquickcontrols2 = null;
-              qtx11extras = null;
-            }).overrideAttrs
-              (_prevAttrs: {
-                cmakeFlags = [
-                  "-DKDDockWidgets_FRONTENDS='qtwidgets;qtquick'"
-                  "-DKDDockWidgets_QT6=true"
-                ];
-              });
-
           plutosvg_ = plutosvg.overrideAttrs (prevAttrs: {
             postInstall =
               (prevAttrs.postInstall or "")
@@ -50,7 +37,7 @@ gitOverride {
           });
         in
         [
-          kddockwidgets_qt6
+          kddockwidgets
           plutovg
           plutosvg_
         ]
