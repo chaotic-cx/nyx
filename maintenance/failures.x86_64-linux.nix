@@ -112,5 +112,4 @@
   "linuxPackages_cachyos-server.vmware" = "/nix/store/kplwqczvz5r7y1ski9bvq8kki4qh4wwr-vmware-modules-workstation-17.6.3-6.15.1";
   "linuxPackages_cachyos-server.yt6801" = "/nix/store/9p2h26hg2dgz4wyh5jby69nrf2ipzvsm-yt6801-1.0.29-20240812";
   "nix-lazytrees2_git" = "/nix/store/vga3xsrmcqif1rnyhmwymfrsd4b8jggx-nix-2.99pre20250607_c5b1be46+1";
-  "xdg-desktop-portal-wlr_git" = "/nix/store/7qx4flh0cjsns25s60d1g55q4s11ycq7-xdg-desktop-portal-wlr-unstable-20250607203804-5598c43";
 }

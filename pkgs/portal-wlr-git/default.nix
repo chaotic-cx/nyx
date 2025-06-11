@@ -25,6 +25,10 @@ gitOverride {
 
   postOverride = prevAttrs: {
     buildInputs = prevAttrs.buildInputs ++ (with final; [ libxkbcommon ]);
+    # https://github.com/emersion/xdg-desktop-portal-wlr/pull/325
     patches = [ ./remotedesktop.patch ] ++ (prevAttrs.patches or [ ]);
+    meta = prevAttrs.meta // {
+      description = prevAttrs.meta.description + " (includes RemoteDesktop patch)";
+    };
   };
 }
