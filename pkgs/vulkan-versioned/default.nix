@@ -154,6 +154,11 @@ final.lib.makeScope final.newScope (self: {
     owner = "LunarG";
     repo = "VulkanTools";
     fetchSubmodules = true;
+    extraAttrs = _prevAttrs: {
+      preConfigure = ''
+        patchShebangs scripts/*
+      '';
+    };
   };
 
   vulkan-utility-libraries = genericOverride {
