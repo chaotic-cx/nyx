@@ -2,6 +2,7 @@
   "firedragon" = "/nix/store/ab2aszxzww5hvb8airz0svdxkqz5xndf-firedragon-11.27.0-1";
   "firedragon-unwrapped" = "/nix/store/b7irdn7d9920g34irrwrikjrvwqqs299-firedragon-unwrapped-11.27.0-1";
   "firefox-unwrapped_nightly" = "/nix/store/4385igqazy0szp04kk6yb5g27s34fhhs-firefox-nightly-unwrapped-141.0a1";
+  "firefox_nightly" = "/nix/store/p0y6yx85ykildfdyzmskk5svkr5rbmzi-firefox-nightly-141.0a1";
   "latencyflex-vulkan" = "/nix/store/30h1ypybmpz0nm1267k91sya0swkp1rf-latencyflex-vulkan-unstable-2023-07-03";
   "linuxPackages_cachyos.rtl8188eus-aircrack" = "/nix/store/0mkbvkqmng9csyxn123f0vih315d4lpr-rtl8188eus-aircrack-6.15.2-unstable-2024-09-18";
   "linuxPackages_cachyos.rtl8814au" = "/nix/store/hpg40ip2bdagssa5b5h9v717ybk2klx1-rtl8814au-6.15.2-unstable-2024-05-26";
