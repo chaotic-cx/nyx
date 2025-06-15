@@ -14,9 +14,7 @@
   "linuxPackages_cachyos-server.rtl8188eus-aircrack" = "/nix/store/6yravd0c3nrpg3fwmv1nh91a846gx0ja-rtl8188eus-aircrack-6.15.2-unstable-2024-09-18";
   "linuxPackages_cachyos-server.rtl8814au" = "/nix/store/33zxjcfmsh1ml43m0ysnqjjrqgyjmapc-rtl8814au-6.15.2-unstable-2024-05-26";
   "linuxPackages_cachyos-server.systemtap" = "/nix/store/532vska3rfjfg2kgq8vash2lg1irjix1-systemtap-5.2";
-  "nix-lazytrees2_git" = "/nix/store/s21354s2ganzls4l3iisjnr8y4ivdf25-nix-2.99pre20250610_b3c1b70c+1";
+  "nix-lazytrees2_git" = "/nix/store/afgq99g0c10qwrhazzx407lxdksx6dxp-nix-2.99pre20250610_b3c1b70c+1";
   "pwvucontrol_git" = "/nix/store/b6xdw278j2p6lwv0vy8pgbn0ypvz3a1v-pwvucontrol-unstable-20250525111507-7bf43c7";
-  "telegram-desktop-unwrapped_git" = "/nix/store/k6zrad6q14mjpxr14kxvpgk5mbfkb5hz-telegram-desktop-unwrapped-unstable-20250610045612-2313349";
-  "zed-editor-fhs_git" = "/nix/store/iccyzhkw1rn1cc9ar7v6lvfqrrg46qpp-zeditor";
-  "zed-editor_git" = "/nix/store/l3c0annrqzkpq5iphxkb0d4ipacyakzl-zed-editor-unstable-20250609193748-c4fd9e1";
+  "zed-editor_git" = "/nix/store/yar2d0hn9rpxanyr8851va1xd3vvkw82-zed-editor-unstable-20250609193748-c4fd9e1";
 }
