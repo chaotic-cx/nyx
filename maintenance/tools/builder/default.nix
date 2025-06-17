@@ -47,13 +47,21 @@ let
         builtins.map (dep: "[ ${depVarQuoted dep} == '1' ] && ") cmd.deps
       );
       thisVar = depVar cmd.this;
+      knownIssue = cmd.issue or null;
     in
-    if cmd.build then
+    if knownIssue == "skip" then
+      ''
+        ${thisVar}=0 && echo "  \"${cmd.key}\" = \"skip\";" >> new-failures.nix
+      ''
+    else if cmd.build then
       ''
         _ALL_OUT_KEYS=(${allOutFlakeKey cmd.artifacts})
         _ALL_OUT_PATHS=(${allOutPaths cmd.artifacts})
+        _MAIN_OUT_PATH="${cmd.mainOutPath}"
+        _WHAT="${cmd.key}"
+        _KNOWN_ISSUE="${if knownIssue != null then cmd.issue else ""}"
         ${depsCond}[ -z ${depVarQuoted cmd.this} ] && ${thisVar}=0 && \
-        build "${cmd.key}" "${cmd.mainOutPath}" && ${thisVar}=1
+        build && ${thisVar}=1 || failure
       ''
     else if cmd ? broken then
       ''

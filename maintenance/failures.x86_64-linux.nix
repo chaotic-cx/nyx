@@ -105,5 +105,5 @@
   "linuxPackages_cachyos-server.veikk-linux-driver" = "/nix/store/4vnhd39g1rf8dg6ahpc1nk7km28sh4zl-veikk-linux-driver-2.0";
   "linuxPackages_cachyos-server.vmware" = "/nix/store/v5fx0pwfnkfayicga5san4b0x254n3p7-vmware-modules-workstation-17.6.3-6.15.2";
   "linuxPackages_cachyos-server.yt6801" = "/nix/store/cf9r667dirn6ny12vbm96cyxs411nnkl-yt6801-1.0.29-20240812";
-  "nix-lazytrees2_git" = "/nix/store/hkvd43k1a3c05a69rjcm1ymw8hdjc621-nix-2.99pre20250610_b3c1b70c+1";
+  "nix-lazytrees2_git" = "skip";
 }
