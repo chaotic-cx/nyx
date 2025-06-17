@@ -2,12 +2,17 @@
   prev,
   gitOverride,
   nyxUtils,
+  rustPlatform_latest,
   ...
 }:
 
 gitOverride (current: {
   nyxKey = "zed-editor_git";
   prev = prev.zed-editor;
+
+  newInputs = {
+    rustPlatform = rustPlatform_latest;
+  };
 
   versionNyxPath = "pkgs/zed-editor-git/version.json";
   fetcher = "fetchFromGitHub";

@@ -16,9 +16,9 @@
     };
     # Used by "schemas" output (for FlakeHub and "nix show", pinned)
     flake-schemas.url = "https://flakehub.com/f/DeterminateSystems/flake-schemas/=0.1.5.tar.gz";
-    # Latest rustc
-    fenix = {
-      url = "github:nix-community/fenix";
+    # Newer rustc
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
