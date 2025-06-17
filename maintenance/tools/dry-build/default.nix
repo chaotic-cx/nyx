@@ -15,7 +15,7 @@ let
 
   inherit (hostPlatform) system;
 
-  brokenOutPaths = builtins.attrValues (import "${flakeSelf}/maintenance/failures.${system}.nix");
+  failures = import "${flakeSelf}/maintenance/failures.${system}.nix";
 
   allOuts =
     key: drv:
@@ -34,8 +34,9 @@ let
       depsCond = builtins.map (dep: nyxUtils.drvHash dep) deps;
       mainOutPath = builtins.unsafeDiscardStringContext drv.outPath;
       thisVar = nyxUtils.drvHash drv;
+      failed = failures.${key} or null;
     in
-    if builtins.elem mainOutPath brokenOutPaths then
+    if mainOutPath == failed then
       doNotBuild key {
         broken = mainOutPath;
         this = thisVar;
@@ -48,6 +49,7 @@ let
           artifacts = allOuts key drv;
           deps = depsCond;
           this = thisVar;
+          issue = failed;
           inherit key mainOutPath system;
         };
         inherit deps drv;

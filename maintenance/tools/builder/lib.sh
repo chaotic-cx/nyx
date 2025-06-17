@@ -93,8 +93,6 @@ function zip_path() {
 
 # Per-derivation build function
 function build() {
-  _WHAT="${1:- アンノーン}"
-  _MAIN_OUT_PATH="${2:-/dev/null}"
   _FULL_TARGETS=("${_ALL_OUT_KEYS[@]/#/$NYX_SOURCE\#legacyPackages.${NYX_TARGET}.}")
 
   # If NYX_CHANGED_ONLY is set, only build changed derivations
@@ -175,12 +173,6 @@ function build() {
 
     # If the build fails
     else
-      # Add it to failures list
-      echo "$_WHAT" >> failures.txt
-
-      # Add it to the know-failures list (to skip it in later builds)
-      echo "  \"$_WHAT\" = \"$_MAIN_OUT_PATH\";" >> new-failures.nix
-
       # Stops the "BUILDING" message
       kill $_KEEPALIVE
 
@@ -191,6 +183,19 @@ function build() {
       return 1
     fi
   fi
+}
+
+# Registers that a new package failed
+function failure() {
+    # Add it to failures list
+    echo "$_WHAT" >> failures.txt
+
+    # Add it to the know-failures list (to skip it in later builds)
+    if [ -z "$_KNOWN_ISSUE" ]; then
+        echo "  \"$_WHAT\" = \"$_MAIN_OUT_PATH\";" >> new-failures.nix
+    else
+        echo "  \"$_WHAT\" = \"$_KNOWN_ISSUE\";" >> new-failures.nix
+    fi
 }
 
 # Run when building finishes, before deploying
