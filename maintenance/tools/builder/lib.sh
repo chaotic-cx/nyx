@@ -187,15 +187,20 @@ function build() {
 
 # Registers that a new package failed
 function failure() {
-    # Add it to failures list
-    echo "$_WHAT" >> failures.txt
+  # Duplicated package
+  if [ -n $_PREV ]; then
+    return 0
+  fi
 
-    # Add it to the know-failures list (to skip it in later builds)
-    if [ -z "$_KNOWN_ISSUE" ]; then
-        echo "  \"$_WHAT\" = \"$_MAIN_OUT_PATH\";" >> new-failures.nix
-    else
-        echo "  \"$_WHAT\" = \"$_KNOWN_ISSUE\";" >> new-failures.nix
-    fi
+  # Add it to failures list
+  echo "$_WHAT" >> failures.txt
+
+  # Add it to the know-failures list (to skip it in later builds)
+  if [ -z "$_KNOWN_ISSUE" ]; then
+    echo "  \"$_WHAT\" = \"$_MAIN_OUT_PATH\";" >> new-failures.nix
+  else
+    echo "  \"$_WHAT\" = \"$_KNOWN_ISSUE\";" >> new-failures.nix
+  fi
 }
 
 # Run when building finishes, before deploying

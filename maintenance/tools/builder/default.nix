@@ -60,7 +60,8 @@ let
         _MAIN_OUT_PATH="${cmd.mainOutPath}"
         _WHAT="${cmd.key}"
         _KNOWN_ISSUE="${if knownIssue != null then cmd.issue else ""}"
-        ${depsCond}[ -z ${depVarQuoted cmd.this} ] && ${thisVar}=0 && \
+        _PREV="${depVarQuoted cmd.this}"
+        ${depsCond}[ -z $_PREV ] && ${thisVar}=0 && \
         build && ${thisVar}=1 || failure
       ''
     else if cmd ? broken then
