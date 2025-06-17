@@ -31,6 +31,8 @@ gitOverride (current: {
           --replace-fail 'WSI] Surface' 'WSI ${shortRev}] Surface'
         substituteInPlace src/meson.build \
           --replace-fail "'git', 'describe', '--always', '--tags', '--dirty=+'" "'echo', '${current.rev}'"
+
+        patchShebangs default_extras_install.sh
       '';
   };
 })

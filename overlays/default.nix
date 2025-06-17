@@ -13,8 +13,8 @@
   nixpkgs ? flakes.nixpkgs,
   self ? flakes.self,
   selfOverlay ? self.overlays.default,
-  jovian ? flakes.jovian or null,
-  fenix ? flakes.fenix or null,
+  jovian ? flakes.jovian,
+  rust-overlay ? flakes.rust-overlay,
   nixpkgsExtraConfig ? { },
 }:
 final: prev:
@@ -74,18 +74,13 @@ let
     fetchRevFromGitLab = final.callPackage ../shared/gitlab-rev-fetcher.nix { };
   };
 
+  rustc_latest = rust-overlay.packages.${final.system}.rust;
+
   # Latest rust toolchain from Fenix
-  rustPlatform_latest =
-    if (fenix == null) then
-      final.rustPlatform
-    else
-      let
-        inherit (fenix.packages.${final.system}.latest) toolchain;
-      in
-      final.makeRustPlatform {
-        cargo = toolchain;
-        rustc = toolchain;
-      };
+  rustPlatform_latest = final.makeRustPlatform {
+    cargo = rustc_latest;
+    rustc = rustc_latest;
+  };
 
   # Too much variations
   cachyosPackages = callOverride ../pkgs/linux-cachyos { };
@@ -130,7 +125,7 @@ let
       { };
 in
 {
-  inherit nyxUtils jovian-chaotic;
+  inherit nyxUtils jovian-chaotic rustc_latest;
 
   nyx-generic-git-update = final.callPackage ../pkgs/nyx-generic-git-update { };
 
@@ -295,6 +290,8 @@ in
   qtile-extras_git = callOverride ../pkgs/qtile-extras-git { };
 
   river_git = callOverride ../pkgs/river-git { };
+
+  rustc_nightly = rust-overlay.packages.${final.system}.rust-nightly;
 
   sdl_git = callOverride ../pkgs/sdl-git { };
 
