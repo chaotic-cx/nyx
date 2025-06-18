@@ -15,5 +15,6 @@
   "linuxPackages_cachyos-server.systemtap" = "/nix/store/532vska3rfjfg2kgq8vash2lg1irjix1-systemtap-5.2";
   "nix-lazytrees2_git" = "skip";
   "pwvucontrol_git" = "/nix/store/b6xdw278j2p6lwv0vy8pgbn0ypvz3a1v-pwvucontrol-unstable-20250525111507-7bf43c7";
+  "servo_git" = "skip";
   "telegram-desktop-unwrapped_git" = "skip";
 }

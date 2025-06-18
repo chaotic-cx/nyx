@@ -293,6 +293,8 @@ in
 
   rustc_nightly = rust-overlay.packages.${final.system}.rust-nightly;
 
+  servo_git = callOverride ../pkgs/servo-git { };
+
   sdl_git = callOverride ../pkgs/sdl-git { };
 
   shadps4_git = callOverride ../pkgs/shadps4-git { };
