@@ -1,5 +1,4 @@
 {
-  "linuxPackages_cachyos.apfs" = "/nix/store/pj2zx4gd1c2zdpvijl77nq7frdn7l6sx-apfs-0.3.13-6.15.2";
   "linuxPackages_cachyos.ax99100" = "/nix/store/3syx40233z811yf2g04hrwyqjsjvv1g0-ax99100-1.8.0";
   "linuxPackages_cachyos.broadcom_sta" = "/nix/store/ki8p3aa1pp84c0ijach4kinni7lqmgpm-broadcom-sta-6.30.223.271-6.15.2";
   "linuxPackages_cachyos.ch9344" = "/nix/store/1qk0097bqv57rjhdggmw34ysidx1qy58-ch9344-0-unstable-2024-11-15";
@@ -37,7 +36,6 @@
   "linuxPackages_cachyos.systemtap" = "/nix/store/4cdmck2ylwgpgi9p0h2a717vlixbgcl6-systemtap-5.2";
   "linuxPackages_cachyos.veikk-linux-driver" = "/nix/store/x129z6ppz9wxkxb50ch6wrfzar6421cw-veikk-linux-driver-2.0";
   "linuxPackages_cachyos.vmware" = "/nix/store/iw6k90fkil3mc9bnprn6xnk3l10i55wn-vmware-modules-workstation-17.6.3-6.15.2";
-  "linuxPackages_cachyos.yt6801" = "/nix/store/vhwf30900i21246ghnbhmy1qhhnhhmrv-yt6801-1.0.29-20240812";
   "linuxPackages_cachyos-hardened.ax99100" = "/nix/store/rqjrprmnkfm62s3cvz1jkdihk15ycs74-ax99100-1.8.0";
   "linuxPackages_cachyos-hardened.fwts-efi-runtime" = "/nix/store/pv9nm5c2gad43fpxx09bhf9fgil4ddcy-fwts-efi-runtime-24.09.00-6.14.8";
   "linuxPackages_cachyos-hardened.gasket" = "/nix/store/2fpvg4idvdfz59172pg15bgyskz2sq8n-gasket-1.0-18-unstable-2024-04-25";
@@ -66,7 +64,6 @@
   "linuxPackages_cachyos-hardened.tbs" = "/nix/store/y91clfhydgln3iq1d6zckyifdh5gjlhy-tbs-20250510-6.14.8";
   "linuxPackages_cachyos-hardened.veikk-linux-driver" = "/nix/store/grdmix7p2qv2az5kv6sgmkw2lj5g73il-veikk-linux-driver-2.0";
   "linuxPackages_cachyos-hardened.yt6801" = "/nix/store/zmm16dadz8qnrk79qrfgrh3jnajzmy4i-yt6801-1.0.29-20240812";
-  "linuxPackages_cachyos-server.apfs" = "/nix/store/1fs6dz5yhjykwi6l22pav2a8mjxxwf2q-apfs-0.3.13-6.15.2";
   "linuxPackages_cachyos-server.ax99100" = "/nix/store/v70phwdbvass2qchgbq5ss29rab6hcpm-ax99100-1.8.0";
   "linuxPackages_cachyos-server.broadcom_sta" = "/nix/store/yddq489aw97i4dgbj9lkvbjiz9q0yh5q-broadcom-sta-6.30.223.271-6.15.2";
   "linuxPackages_cachyos-server.ch9344" = "/nix/store/lmyyr37k7gv5g2p4hib9v5lcgcxdc1aw-ch9344-0-unstable-2024-11-15";
@@ -104,6 +101,5 @@
   "linuxPackages_cachyos-server.systemtap" = "/nix/store/k52h2awrl5k16f1s099if947a9i1d7q6-systemtap-5.2";
   "linuxPackages_cachyos-server.veikk-linux-driver" = "/nix/store/4vnhd39g1rf8dg6ahpc1nk7km28sh4zl-veikk-linux-driver-2.0";
   "linuxPackages_cachyos-server.vmware" = "/nix/store/v5fx0pwfnkfayicga5san4b0x254n3p7-vmware-modules-workstation-17.6.3-6.15.2";
-  "linuxPackages_cachyos-server.yt6801" = "/nix/store/cf9r667dirn6ny12vbm96cyxs411nnkl-yt6801-1.0.29-20240812";
   "nix-lazytrees2_git" = "skip";
 }
