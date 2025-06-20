@@ -188,7 +188,7 @@ function build() {
 # Registers that a new package failed
 function failure() {
   # Duplicated package
-  if [ -n $_PREV ]; then
+  if [ -n "$_PREV" ]; then
     return 0
   fi
 
