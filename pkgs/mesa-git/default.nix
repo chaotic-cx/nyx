@@ -18,6 +18,16 @@ let
       version = "2.1.1";
       hash = "sha256-3rQidUAExJ19STn7RtKNIpZrQUne2VVH7B1IO5UY91k=";
     }
+    {
+      pname = "syn";
+      version = "2.0.87";
+      hash = "sha256-QYnGHt5ZzKUNaJpyaOYVR5yevNQWIebpuJcRXtg3VX0=";
+    }
+    {
+      pname = "quote";
+      version = "1.0.35";
+      hash = "sha256-B1J1BytAPRoiQMEWRh9+Lii8VElcN2bIdooQt9HBqHc=";
+    }
   ];
 
   copyRustDep = dep: ''
