@@ -5,8 +5,10 @@
   nyx,
   fetchFromGitHub,
   fetchFromGitLab,
+  fetchFromGitea,
   fetchRevFromGitHub,
   fetchRevFromGitLab,
+  fetchRevFromGitea,
   fetchCargoVendor,
 }:
 config:
@@ -36,7 +38,7 @@ let
       versionLocalPath = "${nyx}/${versionNyxPath}";
       current = importJSON versionLocalPath;
 
-      fetchers = { inherit fetchFromGitHub fetchFromGitLab; };
+      fetchers = { inherit fetchFromGitHub fetchFromGitLab fetchFromGitea; };
       fullFetcherData = fetcherData // {
         inherit (current) rev hash;
       };
@@ -45,6 +47,8 @@ let
           fetchRevFromGitHub
         else if fetcher == "fetchFromGitLab" then
           fetchRevFromGitLab
+        else if fetcher == "fetchFromGitea" then
+          fetchRevFromGitea
         else
           throw "Unrecognized fetcher ${builtins.toString fetcher}";
 
