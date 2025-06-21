@@ -19,11 +19,11 @@
 }:
 
 let
-  pname = "nordvpn";
   version = "3.20.2";
 
   nordVPNBase = stdenv.mkDerivation {
-    inherit pname version;
+    pname = "nordvpn-core";
+    inherit version;
 
     src = fetchurl {
       url = "https://repo.nordvpn.com/deb/nordvpn/debian/pool/main/n/nordvpn/nordvpn_${version}_amd64.deb";
@@ -31,7 +31,7 @@ let
     };
 
     buildInputs = [
-      libxml2
+      libxml2_13
       libidn2
       libnl
       libcap_ng
@@ -75,16 +75,21 @@ let
         iproute2
         procps
         cacert
-        libxml2
-        libidn2
-        zlib
         wireguard-tools
       ];
   };
 
+  libxml2_13 = libxml2.overrideAttrs rec {
+    version = "2.13.8";
+    src = fetchurl {
+      url = "mirror://gnome/sources/libxml2/${lib.versions.majorMinor version}/libxml2-${version}.tar.xz";
+      hash = "sha256-J3KUyzMRmrcbK8gfL0Rem8lDW4k60VuyzSsOhZoO6Eo=";
+    };
+  };
 in
 stdenv.mkDerivation {
-  inherit pname version;
+  pname = "nordvpn";
+  inherit version;
 
   dontUnpack = true;
   dontConfigure = true;

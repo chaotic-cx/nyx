@@ -94,6 +94,4 @@
   "linuxPackages_cachyos-server.yt6801" = "/nix/store/czdl1ayxqp66y2029mjs6ksfz8vii6hv-yt6801-1.0.29-20240812";
   "nix-lazytrees2_git" = "skip";
   "nordvpn" = "/nix/store/5ns0miviw9jd8dw3sana0kmly9yc5rar-nordvpn-3.20.2";
-  "river_git" = "/nix/store/xbfdlz55jgpn5xx11z346r6f6ixf2j5n-river-unstable-20250329144456-46f77f3";
-  "shadps4_git" = "/nix/store/yk6yqvp0i0fjsliw2q2hkj5sakpz5c6p-shadps4-unstable-20250618170400-2067018";
 }
