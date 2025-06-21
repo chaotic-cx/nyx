@@ -3,7 +3,6 @@
 {
   linkFarm,
   fetchzip,
-  fetchgit,
 }:
 
 linkFarm "zig-packages" [
