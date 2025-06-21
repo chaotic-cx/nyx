@@ -44,6 +44,20 @@
             };
           };
 
+          # Needed to build without impure
+          unrestrictedPackages = (accu.unrestrictedPackages or { }) // {
+            ${system} = accu.utils.applyOverlay {
+              pkgs = import nixpkgs {
+                inherit system;
+                config = {
+                  allowUnfree = true;
+                  allowUnsupportedSystem = true;
+                  nvidia.acceptLicense = true;
+                };
+              };
+            };
+          };
+
           # I would prefer if we had something stricter, with attribute alphabetical
           # sorting, and optimized for git's diffing. But this is the closer we have.
           formatter = (accu.formatter or { }) // {

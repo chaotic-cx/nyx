@@ -8,8 +8,8 @@ TEMP="${NYX_TEMP:-${TEMP}}"
 TEMPDIR="${NYX_TEMP:-${TEMPDIR}}"
 
 # Options
-NYX_ENV=('NIXPKGS_ALLOW_INSECURE=1' 'NIXPKGS_ALLOW_UNFREE=1' 'NIXPKGS_ALLOW_BROKEN=1')
-NYX_FLAGS="${NYX_FLAGS:---accept-flake-config --no-link --impure}"
+NYX_ENV=('NIXPKGS_ALLOW_BROKEN=1')
+NYX_FLAGS="${NYX_FLAGS:---accept-flake-config --no-link}"
 NYX_WD="${NYX_WD:-$(mktemp -d)}"
 NYX_HOME="${NYX_HOME:-$HOME/.nyx}"
 CACHIX_REPO="${CACHIX_REPO:-chaotic-nyx}"
@@ -67,7 +67,7 @@ function prepare() {
     _DIFF=$(cd "$NYX_SOURCE" \
         && sed -Ei'' "s|compare-to\.url = \"[^\"]*\";|compare-to.url = \"$NYX_CHANGED_ONLY\";|" './maintenance/flake.nix' \
         && nix build ./maintenance#devShells.${NYX_TARGET}.comparer.passthru.compared \
-        --no-link --print-out-paths --impure \
+        $NYX_FLAGS --print-out-paths \
       || exit 13)
 
     ln -s "$_DIFF" filter.txt
@@ -93,7 +93,7 @@ function zip_path() {
 
 # Per-derivation build function
 function build() {
-  _FULL_TARGETS=("${_ALL_OUT_KEYS[@]/#/$NYX_SOURCE\#legacyPackages.${NYX_TARGET}.}")
+  _FULL_TARGETS=("${_ALL_OUT_KEYS[@]/#/$NYX_SOURCE\#unrestrictedPackages.${NYX_TARGET}.}")
 
   # If NYX_CHANGED_ONLY is set, only build changed derivations
   if [ -f filter.txt ] && ! grep -Pq "^$_WHAT\$" filter.txt; then

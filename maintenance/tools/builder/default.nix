@@ -63,7 +63,7 @@ let
           if knownIssue != null && !lib.strings.isStorePath knownIssue then cmd.issue else ""
         }"
         _PREV=${depVarQuoted cmd.this}
-        ${depsCond}[ -z $_PREV ] && ${thisVar}=0 && \
+        ${depsCond}[ -z "$_PREV" ] && ${thisVar}=0 && \
         build && ${thisVar}=1 || failure
       ''
     else if cmd ? broken then

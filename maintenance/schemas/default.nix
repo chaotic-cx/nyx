@@ -24,6 +24,7 @@
     };
   };
   homeManagerModules = flake-schemas.schemas.homeModules;
+  unrestrictedPackages = flake-schemas.schemas.legacyPackages;
   utils = {
     version = 1;
     doc = ''
