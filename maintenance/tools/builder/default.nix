@@ -59,7 +59,9 @@ let
         _ALL_OUT_PATHS=(${allOutPaths cmd.artifacts})
         _MAIN_OUT_PATH="${cmd.mainOutPath}"
         _WHAT="${cmd.key}"
-        _KNOWN_ISSUE="${if knownIssue != null then cmd.issue else ""}"
+        _KNOWN_ISSUE="${
+          if knownIssue != null && !lib.strings.isStorePath knownIssue then cmd.issue else ""
+        }"
         _PREV=${depVarQuoted cmd.this}
         ${depsCond}[ -z $_PREV ] && ${thisVar}=0 && \
         build && ${thisVar}=1 || failure
