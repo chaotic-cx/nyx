@@ -363,7 +363,7 @@ in
     };
   });
 
-  zon2nix_zig_0_14 = multiOverride prev.zon2nix { zig_0_14 = final.zig_0_14; } (_prevAttrs: {
+  zon2nix_zig_0_14 = multiOverride prev.zon2nix { inherit (final) zig_0_14; } (_prevAttrs: {
     version = "0.1.2";
     src = final.fetchFromGitHub {
       owner = "andreafeletto";
