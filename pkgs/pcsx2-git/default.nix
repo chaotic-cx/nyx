@@ -1,5 +1,4 @@
 {
-  final,
   prev,
   gitOverride,
   ...
