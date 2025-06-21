@@ -67,11 +67,13 @@ let
       callPackage
       fetchFromGitHub
       fetchFromGitLab
+      fetchFromGitea
       ;
     inherit (final.rustPlatform) fetchCargoVendor;
     nyx = self;
     fetchRevFromGitHub = final.callPackage ../shared/github-rev-fetcher.nix { };
     fetchRevFromGitLab = final.callPackage ../shared/gitlab-rev-fetcher.nix { };
+    fetchRevFromGitea = final.callPackage ../shared/gitea-rev-fetcher.nix { };
   };
 
   rustc_latest = rust-overlay.packages.${final.system}.rust;
