@@ -54,9 +54,9 @@
     "hash": "sha256-WYlme5vEHpJHImfkGB+kmUY96fYia93WlfyutBfdxzk="
   },
   "vulkanUtilityLibraries": {
-    "version": "1.4.318",
+    "version": "1.4.319",
     "rev": "v#{version}",
-    "hash": "sha256-sBiiWL/+D9aRknqLA8GgAZ5hD2YLXN1NwTl6HvRoXkQ="
+    "hash": "sha256-pQJln43t4U1VXJ2mpdRoUhOKyBTH0QePIMOy5f/0GXU="
   },
   "vulkanValidationLayers": {
     "version": "1.4.318",
