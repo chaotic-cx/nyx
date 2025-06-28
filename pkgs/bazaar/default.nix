@@ -23,8 +23,6 @@
   stdenv,
   wrapGAppsHook4,
   json-glib,
-  curl,
-  fetchurl,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
