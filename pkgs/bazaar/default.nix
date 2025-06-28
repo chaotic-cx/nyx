@@ -1,7 +1,31 @@
-{ lib, blueprint-compiler, desktop-file-utils, fetchFromGitHub, flatpak
-, flatpak-xdg-utils, glib, libxmlb, libglycin, cmake, gobject-introspection
-, gtk4, libdex, libadwaita, appstream, meson, ninja, nix-update-script
-, pkg-config, libyaml, libsoup_3, stdenv, wrapGAppsHook4, json-glib, curl, fetchurl }:
+{
+  lib,
+  blueprint-compiler,
+  desktop-file-utils,
+  fetchFromGitHub,
+  flatpak,
+  flatpak-xdg-utils,
+  glib,
+  libxmlb,
+  libglycin,
+  cmake,
+  gobject-introspection,
+  gtk4,
+  libdex,
+  libadwaita,
+  appstream,
+  meson,
+  ninja,
+  nix-update-script,
+  pkg-config,
+  libyaml,
+  libsoup_3,
+  stdenv,
+  wrapGAppsHook4,
+  json-glib,
+  curl,
+  fetchurl,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "bazaar";

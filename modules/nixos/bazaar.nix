@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -7,7 +12,8 @@ let
 
   contentConfigFile = pkgs.writeText "bazaar-content.yml" cfg.contentConfig;
   blocklistFile = pkgs.writeText "bazaar-blocklist.txt" cfg.blocklist;
-in {
+in
+{
   options.services.bazaar = {
     enable = mkEnableOption "Bazaar service";
 
@@ -20,26 +26,26 @@ in {
     contentConfig = mkOption {
       type = types.str;
       default = ''
-      sections:
-        - title: "Bazaar for nix default selection"
-          subtitle: "You should change this with services.bazaar.contentConfig"
-          description: "These are some of my favorite apps!"
-          rows: 3
-          banner-fit: cover
-          appids:
-            - net.lutris.Lutris
-            - org.mozilla.firefox
-            - com.modrinth.ModrinthApp
-            - org.blender.Blender
-            - org.desmume.DeSmuME
-            - com.system76.Popsicle
-            - com.valvesoftware.Steam
-            - org.gimp.GIMP
-            - org.gnome.Builder
-            - org.gnome.Loupe
-            - org.inkscape.Inkscape
-            - org.kde.krita
-    '';
+        sections:
+          - title: "Bazaar for nix default selection"
+            subtitle: "You should change this with services.bazaar.contentConfig"
+            description: "These are some of my favorite apps!"
+            rows: 3
+            banner-fit: cover
+            appids:
+              - net.lutris.Lutris
+              - org.mozilla.firefox
+              - com.modrinth.ModrinthApp
+              - org.blender.Blender
+              - org.desmume.DeSmuME
+              - com.system76.Popsicle
+              - com.valvesoftware.Steam
+              - org.gimp.GIMP
+              - org.gnome.Builder
+              - org.gnome.Loupe
+              - org.inkscape.Inkscape
+              - org.kde.krita
+      '';
       description = "The bazaar configuration file content.";
     };
 
@@ -47,7 +53,7 @@ in {
       type = types.str;
       default = ''
 
-    '';
+      '';
       description = "The bazaar blocklist file content.";
     };
 
@@ -59,8 +65,7 @@ in {
       wantedBy = [ "default.target" ];
       serviceConfig = {
         Type = "simple";
-        ExecStart =
-          "${cfg.package}/bin/bazaar service --extra-content-config ${contentConfigFile} --extra-blocklist ${blocklistFile}";
+        ExecStart = "${cfg.package}/bin/bazaar service --extra-content-config ${contentConfigFile} --extra-blocklist ${blocklistFile}";
       };
     };
   };
