@@ -139,6 +139,8 @@ in
 
   appmenu-gtk3-module = final.callPackage ../pkgs/appmenu-gtk3-module { };
 
+  bazaar = final.callPackage ../pkgs/bazaar { };
+
   beautyline-icons = final.callPackage ../pkgs/beautyline-icons { };
 
   bpftools_full =

@@ -12,6 +12,7 @@ let
     zfs-impermanence-on-shutdown = import ./zfs-impermanence-on-shutdown.nix;
     owl-wlr = import ./owl-wlr.nix;
     conduwuit = import ./conduwuit.nix;
+    bazaar = import ./bazaar.nix;
   };
 
   default =
