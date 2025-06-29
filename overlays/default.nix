@@ -139,7 +139,7 @@ in
 
   appmenu-gtk3-module = final.callPackage ../pkgs/appmenu-gtk3-module { };
 
-  bazaar = final.callPackage ../pkgs/bazaar { };
+  bazaar_git = final.callPackage ../pkgs/bazaar-git { };
 
   beautyline-icons = final.callPackage ../pkgs/beautyline-icons { };
 

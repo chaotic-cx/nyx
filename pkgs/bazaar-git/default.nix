@@ -1,5 +1,6 @@
 {
   lib,
+  callPackage,
   blueprint-compiler,
   desktop-file-utils,
   fetchFromGitHub,
@@ -25,15 +26,17 @@
   json-glib,
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+let
+  current = lib.trivial.importJSON ./version.json;
+in
+stdenv.mkDerivation rec {
   pname = "bazaar";
-  version = "v0.1.0"; # First pre-release version
+  inherit (current) version;
 
   src = fetchFromGitHub {
+    inherit (current) rev hash;
     owner = "kolunmi";
     repo = "bazaar";
-    tag = finalAttrs.version;
-    hash = "sha256-QzzWj6KjyKNMBHQ/RqvUSL6QeokgvK2Fc+23kkt3SMM=";
   };
 
   nativeBuildInputs = [
@@ -62,7 +65,13 @@ stdenv.mkDerivation (finalAttrs: {
     libsoup_3
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = callPackage ../../shared/git-update.nix {
+    inherit pname;
+    nyxKey = "bazaar_git";
+    versionPath = "pkgs/bazaar-git/version.json";
+    fetchLatestRev = callPackage ../../shared/github-rev-fetcher.nix { } "master" src;
+    gitUrl = src.gitRepoUrl;
+  };
 
   meta = {
     changelog = "https://github.com/kolunmi/bazaar/commits/master/";
@@ -73,4 +82,4 @@ stdenv.mkDerivation (finalAttrs: {
     maintainers = with lib.maintainers; [ jumpyvi ];
     platforms = lib.platforms.linux;
   };
-})
+}
