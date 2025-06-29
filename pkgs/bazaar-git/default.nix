@@ -17,7 +17,6 @@
   appstream,
   meson,
   ninja,
-  nix-update-script,
   pkg-config,
   libyaml,
   libsoup_3,
