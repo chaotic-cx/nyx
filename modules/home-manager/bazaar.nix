@@ -28,7 +28,7 @@ in
       default = ''
         sections:
           - title: "Bazaar for nix default selection"
-            subtitle: "You should change this with services.bazaar.contentConfig"
+            subtitle: "You should change this with chaotic.bazaar.contentConfig in HomeManager"
             description: "These are some of my favorite apps!"
             rows: 3
             banner-fit: cover
