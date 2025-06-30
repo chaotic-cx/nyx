@@ -25,15 +25,15 @@
   };
   homeManagerModules = flake-schemas.schemas.homeModules;
   unrestrictedPackages = {
-      version = 1;
-      doc = ''
-        Same as legacyPackages, but with allowUnfree, allowUnsupported, and required licenses to build.
-      '';
-      inventory = _output: {
-        shortDescription = "Buildable attrset for CI.";
-        what = "attrset";
-      };
+    version = 1;
+    doc = ''
+      Same as legacyPackages, but with allowUnfree, allowUnsupported, and required licenses to build.
+    '';
+    inventory = _output: {
+      shortDescription = "Buildable attrset for CI.";
+      what = "attrset";
     };
+  };
   utils = {
     version = 1;
     doc = ''

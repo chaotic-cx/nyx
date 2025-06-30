@@ -8,19 +8,19 @@
 with lib;
 
 let
-  cfg = config.services.bazaar;
+  cfg = config.chaotic.bazaar;
 
   contentConfigFile = pkgs.writeText "bazaar-content.yml" cfg.contentConfig;
   blocklistFile = pkgs.writeText "bazaar-blocklist.txt" cfg.blocklist;
 in
 {
-  options.services.bazaar = {
-    enable = mkEnableOption "Bazaar service";
-
-    package = mkOption {
-      type = types.package;
-      default = pkgs.bazaar;
-      description = "The Bazaar package to use.";
+  options.chaotic.bazaar = {
+    enable = mkOption {
+      type = types.bool;
+      default = false;
+      description = ''
+        Whether to enable the user-wide bazaar daemon, required to run the graphical store.
+      '';
     };
 
     contentConfig = mkOption {
@@ -46,26 +46,29 @@ in
               - org.inkscape.Inkscape
               - org.kde.krita
       '';
-      description = "The bazaar configuration file content.";
+      description = ''
+        The bazaar configuration yaml file content. See https://github.com/kolunmi/bazaar
+      '';
     };
 
     blocklist = mkOption {
       type = types.str;
-      default = ''
-
-      '';
-      description = "The bazaar blocklist file content.";
+      default = "";
+      description = "The bazaar blocklist file content in plaintext";
     };
-
   };
 
   config = mkIf cfg.enable {
     systemd.user.services.bazaar = {
-      description = "Bazaar background service";
-      wantedBy = [ "default.target" ];
-      serviceConfig = {
+      Unit = {
+        Description = "Bazaar background service";
+      };
+      Install = {
+        WantedBy = [ "default.target" ];
+      };
+      Service = {
         Type = "simple";
-        ExecStart = "${cfg.package}/bin/bazaar service --extra-content-config ${contentConfigFile} --extra-blocklist ${blocklistFile}";
+        ExecStart = "${pkgs.bazaar_git}/bin/bazaar service --extra-content-config ${contentConfigFile} --extra-blocklist ${blocklistFile}";
       };
     };
   };
