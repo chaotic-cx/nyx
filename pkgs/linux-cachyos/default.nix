@@ -24,6 +24,7 @@ let
         {
           versions = mainVersions;
           inherit inputs;
+          cachyOverride = newAttrs: mkCachyKernel (attrs // newAttrs);
         }
         // attrs
       );

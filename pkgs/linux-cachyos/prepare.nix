@@ -63,6 +63,7 @@ let
   pkgbuildConfig =
     with cachyConfig;
     basicCachyConfig
+    ++ mArchConfig
     ++ cpuSchedConfig
     ++ [
       # _nr_cpus, defaults to empty, which later set this
@@ -116,6 +117,35 @@ let
 
   # _cachy_config, defaults to "y"
   basicCachyConfig = lib.optional cachyConfig.basicCachy "-e CACHY";
+
+  # _processor_opt config, defaults to ""
+  mArchConfig =
+    if cachyConfig.mArch == null then
+      [ ]
+    else if cachyConfig.mArch == "NATIVE" then
+      [
+        "-d GENERIC_CPU"
+        "-d MZEN4"
+        "-e X86_NATIVE_CPU"
+      ]
+    else if cachyConfig.mArch == "ZEN4" then
+      [
+        "-d GENERIC_CPU"
+        "-e MZEN4"
+        "-d X86_NATIVE_CPU"
+      ]
+    else if builtins.match "GENERIC_V[1-4]" cachyConfig.mArch != null then
+      let
+        v = lib.strings.removePrefix "GENERIC_V" cachyConfig.mArch;
+      in
+      [
+        "-e GENERIC_CPU"
+        "-d MZEN4"
+        "-d X86_NATIVE_CPU"
+        "--set-val X86_64_VERSION ${v}"
+      ]
+    else
+      throw "Unsuppoted cachyos mArch";
 
   # _cpusched, defaults to "cachyos"
   cpuSchedConfig =

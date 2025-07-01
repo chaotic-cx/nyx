@@ -12,9 +12,11 @@
   ogKernelConfigfile ? linuxPackages.kernel.passthru.configfile,
   withUpdateScript ? null,
   packagesExtend ? null,
+  cachyOverride,
   # those are set in their PKGBUILDs
   kernelPatches ? { },
   basicCachy ? true,
+  mArch ? null,
   cpuSched ? "cachyos",
   useLTO ? "none",
   ticksHz ? 500,
@@ -36,6 +38,7 @@ let
       taste
       versions
       basicCachy
+      mArch
       cpuSched
       useLTO
       ticksHz
@@ -79,7 +82,7 @@ let
   };
 
   # CachyOS repeating stuff.
-  addZFS = _finalAttrs: prevAttrs: {
+  addOurs = _finalAttrs: prevAttrs: {
     kernel_configfile = prevAttrs.kernel.configfile;
     zfs_cachyos = prevAttrs.zfs_2_3.overrideAttrs (prevAttrs: {
       src = fetchFromGitHub {
@@ -92,12 +95,16 @@ let
       };
       patches = [ ];
     });
+    inherit cachyOverride;
   };
 
   basePackages = linuxPackagesFor kernel;
-  packagesWithZFS = basePackages.extend addZFS;
+  packagesWithOurs = basePackages.extend addOurs;
   packagesWithExtend =
-    if packagesExtend == null then packagesWithZFS else packagesWithZFS.extend (packagesExtend kernel);
+    if packagesExtend == null then
+      packagesWithOurs
+    else
+      packagesWithOurs.extend (packagesExtend kernel);
   packagesWithRemovals = removeAttrs packagesWithExtend [
     "zfs"
     "zfs_2_1"
