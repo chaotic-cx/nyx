@@ -17,19 +17,20 @@
   <li>
     <a href="#how-to-use-it">How to use it</a><br/>
     <ul>
-      <li><a href="#on-nixos-unstable">On NixOS unstable</a><br/></li>
-      <li><a href="#on-nixos-stable">On NixOS stable</a><br/></li>
-      <li><a href="#on-home-manager">On Home-Manager</a><br/></li>
-      <li><a href="#running-packages-without-installing">Running packages (without installing)</a><br/></li>
-      <li><a href="#binary-cache-notes">Binary Cache notes</a><br/></li>
-      <li><a href="#flakehub-notes">FlakeHub notes</a><br/></li>
-      <li><a href="#using-sched-ext-schedulers">Using linux-cachyos with sched-ext</a><br/></li>
-      <li><a href="#using-with-read-only-pkgs">Using with read-only pkgs</a><br/></li>
-      <li><a href="#using-with-jovian">Using with Jovian</a><br/></li>
+      <li><a href="#on-nixos-unstable">On NixOS unstable</a></li>
+      <li><a href="#on-nixos-stable">On NixOS stable</a></li>
+      <li><a href="#on-home-manager">On Home-Manager</a></li>
+      <li><a href="#running-packages-without-installing">Running packages (without installing)</a></li>
+      <li><a href="#binary-cache-notes">Binary Cache notes</a></li>
+      <li><a href="#flakehub-notes">FlakeHub notes</a></li>
+      <li><a href="#using-sched-ext-schedulers">Using linux-cachyos with sched-ext</a></li>
+      <li><a href="#using-with-read-only-pkgs">Using with read-only pkgs</a></li>
+      <li><a href="#using-with-jovian">Using with Jovian</a></li>
     </ul>
   </li>
   <li><a href="#lists-of-options-and-packages">Lists of options and packages</a></li>
   <li><a href="#notes">Notes</a></li>
+  <li><a href="#criteria-for-new-packages">Criteria for new packages</a></li>
   <li><a href="#why-am-i-building-a-kernel-basic-cache-troubleshooting">Why am I building a kernel? Basic cache troubleshooting</a></li>
 </ul>
 
@@ -382,6 +383,26 @@ enable_seq  hotplug_seq  nr_rejected  root  state  switch_all
 <p>Other variations of <code>linuxPackages_cachyos</code> works without any issues. But, we don't build the ones in <code>linuxPackages_cachyos-rc</code>, they should work, but don't expect cache for them.</p>
 
 <p>You may install the CachyOS kernel directly using the default modules and overlays with <code>pkgs.linuxPackages_cachyos</code>. Alternatively, use <code>chaotic.legacyPackages.x86_64-linux.linuxPackages_cachyos</code> if you would like to use the package directly without using modules and overlay</p>
+
+<h3>CachyOS x86-64 microarchitecture optimisations</h3>
+
+<pre lang="nix"><code class="language-nix">
+{ pkgs, ... }:
+{
+  boot.kernelPackages = pkgs.linuxPackages_cachyos.cachyOverride { mArch = "GENERIC_V4"; };
+}
+</code></pre>
+
+<p>Use either <code>GENERIC_V2</code>, <code>GENERIC_V3</code>, <code>GENERIC_V4</code>, or <code>ZEN4</code>. We don't provide cache for these.</p>
+
+<h2 id="criteria-for-new-packages">Criteria for new packages</h2>
+
+<p>We'll only accept new packages given the following circumstances:</p>
+
+<ul>
+  <li>Package was rejected in Nixpkgs due to lack of stability or Nixpkgs cannot provide updates as fast as needed;</li>
+  <li>A derivation for it already exists, working without IFD.</li>
+</ul>
 
 <h2 id="why-am-i-building-a-kernel-basic-cache-troubleshooting">Why am I building a kernel? Basic cache troubleshooting</h2>
 
