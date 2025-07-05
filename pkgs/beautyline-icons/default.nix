@@ -55,7 +55,7 @@ stdenvNoCC.mkDerivation rec {
     nyxKey = "beautyline-icons";
     versionPath = "pkgs/beautyline-icons/version.json";
     fetchLatestRev = callPackage ../../shared/gitlab-rev-fetcher.nix { } "master" srcMeta;
-    gitUrl = src.gitRepoUrl;
+    prefetchUrl = src.url;
   };
 
   meta = with lib; {

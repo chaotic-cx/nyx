@@ -8,7 +8,7 @@
   withLastModified ? false,
   withBump ? false,
   withExtraCommands ? "",
-  gitUrl,
+  prefetchUrl,
   fetchLatestRev,
   # from nyx:
   nyx-generic-git-update,
@@ -39,5 +39,5 @@ writeShellScript "update-${pname}-git" ''
   WITH_EXTRA=${withExtraCommands} \
     exec "${nyx-generic-git-update}/bin/nyx-generic-update" \
     "${pname}" "${nyxKey}" "${versionPath}" \
-    "${gitUrl}" "$_LATEST_REV"
+    "${prefetchUrl}" "$_LATEST_REV"
 ''

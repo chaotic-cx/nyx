@@ -37,7 +37,7 @@ maven.buildMavenPackage rec {
     nyxKey = "bytecode-viewer_git";
     versionPath = "pkgs/bytecode-viewer-git/version.json";
     fetchLatestRev = callPackage ../../shared/github-rev-fetcher.nix { } "master" src;
-    gitUrl = src.gitRepoUrl;
+    prefetchUrl = src.url;
   };
 
   meta = with lib; {
