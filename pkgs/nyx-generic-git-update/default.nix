@@ -54,7 +54,7 @@ in
     _NIX_PREFETCH_ARGS+=(--fetch-submodules)
   fi
 
-  if [[ "$_GIT_URL" == "https://github.com"*".git" ]]; then
+  if [[ "$_GIT_URL" == "https://github.com"*".git" ]] &&  [ $HAS_SUBMODULES -eq 0 ]; then
     _URL="''${_GIT_URL%.git}/archive/$_LATEST_REV.tar.gz"
     _LATEST_META=$(nix flake prefetch --refresh --json "$_URL")
     _LATEST_HASH=$(echo $_LATEST_META | jq -r .hash)
