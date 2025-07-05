@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
     nyxKey = "bazaar_git";
     versionPath = "pkgs/bazaar-git/version.json";
     fetchLatestRev = callPackage ../../shared/github-rev-fetcher.nix { } "master" src;
-    gitUrl = src.gitRepoUrl;
+    prefetchUrl = src.url;
   };
 
   meta = {

@@ -71,7 +71,7 @@ let
             hasSubmodules = fetcherData.fetchSubmodules or false;
             versionPath = versionNyxPath;
             fetchLatestRev = fetchLatestRev ref fullFetcherData;
-            gitUrl = src.gitRepoUrl;
+            prefetchUrl = src.url;
             withExtraCommands = withExtraUpdateCommands;
           };
 

@@ -64,7 +64,7 @@ stdenvNoCC.mkDerivation rec {
     nyxKey = "dr460nized-kde-theme";
     versionPath = "pkgs/dr460nized-kde-theme/version.json";
     fetchLatestRev = callPackage ../../shared/gitlab-rev-fetcher.nix { } "main" srcMeta;
-    gitUrl = src.gitRepoUrl;
+    prefetchUrl = src.url;
   };
 
   meta = with lib; {

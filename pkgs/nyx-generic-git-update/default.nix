@@ -39,7 +39,7 @@ in
   _PNAME="$1"
   _NYX_KEY="$2"
   _VERSION_JSON="$3"
-  _GIT_URL="$4"
+  _URL="$4"
   _LATEST_REV="$5"
 
   _LOCAL_REV=$(jq -r .rev "$_VERSION_JSON")
@@ -54,12 +54,23 @@ in
     _NIX_PREFETCH_ARGS+=(--fetch-submodules)
   fi
 
-  _LATEST_GIT=$(nix-prefetch-git "''${_NIX_PREFETCH_ARGS[@]}" --rev "$_LATEST_REV" "$_GIT_URL")
+  if [[ "$_URL" == *".tar"* ]]; then
+    _LATEST_META=$(nix flake prefetch --json "$_URL")
+    _LATEST_HASH=$(echo $_LATEST_META | jq -r .hash)
+    _LATEST_DATE="@$(echo $_LATEST_META | jq -r .locked.lastModified)"
+    _LATEST_PATH=$(echo $_LATEST_META | jq -r .original.storePath)
+  elif [[ "$_URL" == *".git" ]]; then
+    _LATEST_META=$(nix-prefetch-git "''${_NIX_PREFETCH_ARGS[@]}" --rev "$_LATEST_REV" "$_URL")
+    _LATEST_HASH=$(echo $_LATEST_META | jq -r .hash)
+    _LATEST_DATE=$(echo $_LATEST_META | jq -r .date)
+    _LATEST_PATH=$(echo $_LATEST_META | jq -r .path)
+  else
+    echo 'Unsupported URL schema'
+    exit 9
+  fi
 
-  _LATEST_HASH=$(echo $_LATEST_GIT | jq -r .hash)
-  _LATEST_DATE=$(date -u --date=$(echo $_LATEST_GIT | jq -r .date) '+%Y%m%d%H%M%S')
-  _LATEST_VERSION="unstable-''${_LATEST_DATE}-''${_LATEST_REV:0:7}"
-  _LATEST_PATH=$(echo $_LATEST_GIT | jq -r .path)
+  _LATEST_DATE_YMDHMS=$(date -u --date="$_LATEST_DATE" '+%Y%m%d%H%M%S')
+  _LATEST_VERSION="unstable-''${_LATEST_DATE_YMDHMS}-''${_LATEST_REV:0:7}"
 
   JQ_ARGS=(
     --arg version "$_LATEST_VERSION"
@@ -74,10 +85,10 @@ in
   )
 
   if [ $WITH_LAST_DATE -eq 1 ]; then
-    JQ_ARGS+=(--arg date "$_LATEST_DATE")
+    JQ_ARGS+=(--arg date "$_LATEST_DATE_YMDHMS")
     JQ_OPS+=('| .lastModifiedDate = $date')
   elif [ $WITH_LAST_DATE -eq 3339 ]; then
-    _LATEST_3339=$(date -u -Isec --date=$(echo $_LATEST_GIT | jq -r .date))
+    _LATEST_3339=$(date -u -Isec --date="$_LATEST_DATE")
     JQ_ARGS+=(--arg date "$_LATEST_3339")
     JQ_OPS+=('| .lastModifiedDate = $date')
   fi
@@ -89,7 +100,7 @@ in
   fi
 
   if [ $WITH_LAST_STAMP -eq 1 ]; then
-    _LATEST_STAMP=$(date -u --date=$(echo $_LATEST_GIT | jq -r .date) '+%s')
+    _LATEST_STAMP=$(date -u --date="$_LATEST_DATE" '+%s')
     JQ_ARGS+=(--arg stamp "$_LATEST_STAMP")
     JQ_OPS+=('| .lastModified = $stamp')
   fi
