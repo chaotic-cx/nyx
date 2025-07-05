@@ -1,0 +1,22 @@
+diff --git i/toolkit/xre/nsXREDirProvider.cpp w/toolkit/xre/nsXREDirProvider.cpp
+index 06daa8b..6aa518d 100644
+--- i/toolkit/xre/nsXREDirProvider.cpp
++++ w/toolkit/xre/nsXREDirProvider.cpp
+@@ -11,6 +11,7 @@
+
+ #include "jsapi.h"
+ #include "xpcpublic.h"
++#include "prenv.h"
+ #include "prprf.h"
+
+ #include "nsIAppStartup.h"
+@@ -297,7 +298,8 @@ static nsresult GetSystemParentDirectory(nsIFile** aFile) {
+       "/usr/lib/mozilla"_ns
+ #    endif
+       ;
+-  rv = NS_NewNativeLocalFile(dirname, getter_AddRefs(localDir));
++  const char* pathVar = PR_GetEnv("MOZ_SYSTEM_DIR");
++  rv = NS_NewNativeLocalFile((pathVar && *pathVar) ? nsDependentCString(pathVar) : reinterpret_cast<const nsCString&>(dirname), getter_AddRefs(localDir));
+ #  endif
+
+   if (NS_SUCCEEDED(rv)) {

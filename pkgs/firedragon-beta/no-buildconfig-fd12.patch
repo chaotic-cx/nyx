@@ -1,0 +1,27 @@
+diff --git i/docshell/base/nsAboutRedirector.cpp w/docshell/base/nsAboutRedirector.cpp
+index df5658c..bdfaf3a 100644
+--- i/docshell/base/nsAboutRedirector.cpp
++++ w/docshell/base/nsAboutRedirector.cpp
+@@ -90,9 +90,6 @@ static const RedirEntry kRedirMap[] = {
+     {"addons", "chrome://mozapps/content/extensions/aboutaddons.html",
+      nsIAboutModule::ALLOW_SCRIPT | nsIAboutModule::IS_SECURE_CHROME_UI},
+ #endif
+-    {"buildconfig", "chrome://global/content/buildconfig.html",
+-     nsIAboutModule::URI_SAFE_FOR_UNTRUSTED_CONTENT |
+-         nsIAboutModule::IS_SECURE_CHROME_UI},
+     {"checkerboard", "chrome://global/content/aboutCheckerboard.html",
+      nsIAboutModule::URI_SAFE_FOR_UNTRUSTED_CONTENT |
+          nsIAboutModule::ALLOW_SCRIPT},
+diff --git i/toolkit/content/jar.mn w/toolkit/content/jar.mn
+index f94b88f..2a32cd9 100644
+--- i/toolkit/content/jar.mn
++++ w/toolkit/content/jar.mn
+@@ -43,8 +43,6 @@ toolkit.jar:
+    content/global/aboutUrlClassifier.js
+    content/global/aboutUrlClassifier.xhtml
+    content/global/aboutUrlClassifier.css
+-*   content/global/buildconfig.html
+-   content/global/buildconfig.css
+    content/global/contentAreaUtils.js
+    content/global/datepicker.xhtml
+ #ifndef MOZ_FENNEC

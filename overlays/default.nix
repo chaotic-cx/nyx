@@ -174,6 +174,12 @@ in
     libName = "firedragon";
   };
 
+  firedragon-beta-unwrapped = final.callPackage ../pkgs/firedragon-beta { };
+
+  firedragon-beta = final.wrapFirefox final.firedragon-beta-unwrapped {
+    libName = "firedragon-beta";
+  };
+
   firefox-unwrapped_nightly = final.callPackage ../pkgs/firefox-nightly { };
   firefox_nightly = final.wrapFirefox final.firefox-unwrapped_nightly { };
 
