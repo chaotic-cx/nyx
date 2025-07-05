@@ -1,4 +1,6 @@
 {
+  "bazaar_git" = "/nix/store/7vz6149shz8chiilw1dhm0cda3hl0qhg-bazaar-unstable-20250705040104-2a99cc8";
+  "libbpf_git" = "/nix/store/pi6bchwcapgmfrf6mxhs10llcqi53qqg-libbpf-unstable-20250616183004-5e3306e";
   "linuxPackages_cachyos.ax99100" = "/nix/store/kl9ihaxmdf840a8g1ghkmzplkf18h5vf-ax99100-1.8.0";
   "linuxPackages_cachyos.broadcom_sta" = "/nix/store/pz3yh581bd98fnmh6kmpl5d85f2bp1rk-broadcom-sta-6.30.223.271-6.15.4";
   "linuxPackages_cachyos.chipsec" = "/nix/store/hig4h52h7a3jqh9k9p5ql66qydc8xi19-chipsec-1.10.6";
@@ -67,5 +69,8 @@
   "linuxPackages_cachyos-server.rtl88x2bu" = "/nix/store/idm4xhyzln7lbakqa6ai6q4l9qi3949c-rtl88x2bu-6.15.4-unstable-2024-06-09";
   "linuxPackages_cachyos-server.rtl88xxau-aircrack" = "/nix/store/zqsj3m69yhrm5aw24gnskxc2ykjjxp7b-rtl88xxau-aircrack-6.15.4-unstable-2024-04-09";
   "linuxPackages_cachyos-server.yt6801" = "/nix/store/g7r5mvjwz6af0v05zihzzqp6vf0gpblk-yt6801-1.0.29-20240812";
+  "niri_git" = "/nix/store/lzbr5n9hwdn59ckn7nvgv683w4rfvpli-niri-unstable-20250618054947-37458d9";
   "nix-lazytrees2_git" = "skip";
+  "telegram-desktop-unwrapped_git" = "/nix/store/z3kdnbswf9xf3ngwkw9vj85czrvi7dr9-telegram-desktop-unwrapped-unstable-20250704162344-d205e3b";
+  "telegram-desktop_git" = "/nix/store/masv7g6x4ddb59q6vw6qgn76mgl1cj18-telegram-desktop-unstable-20250704162344-d205e3b";
 }
