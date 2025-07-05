@@ -39,7 +39,7 @@ in
   _PNAME="$1"
   _NYX_KEY="$2"
   _VERSION_JSON="$3"
-  _URL="$4"
+  _GIT_URL="$4"
   _LATEST_REV="$5"
 
   _LOCAL_REV=$(jq -r .rev "$_VERSION_JSON")
@@ -54,13 +54,14 @@ in
     _NIX_PREFETCH_ARGS+=(--fetch-submodules)
   fi
 
-  if [[ "$_URL" == *".tar"* ]]; then
-    _LATEST_META=$(nix flake prefetch --json "$_URL")
+  if [[ "$_GIT_URL" == "https://github.com"*".git" ]]; then
+    _URL="''${_GIT_URL%.git}/archive/$_LATEST_REV.tar.gz"
+    _LATEST_META=$(nix flake prefetch --refresh --json "$_URL")
     _LATEST_HASH=$(echo $_LATEST_META | jq -r .hash)
     _LATEST_DATE="@$(echo $_LATEST_META | jq -r .locked.lastModified)"
-    _LATEST_PATH=$(echo $_LATEST_META | jq -r .original.storePath)
-  elif [[ "$_URL" == *".git" ]]; then
-    _LATEST_META=$(nix-prefetch-git "''${_NIX_PREFETCH_ARGS[@]}" --rev "$_LATEST_REV" "$_URL")
+    _LATEST_PATH=$(echo $_LATEST_META | jq -r .storePath)
+  elif [[ "$_GIT_URL" == *".git" ]]; then
+    _LATEST_META=$(nix-prefetch-git "''${_NIX_PREFETCH_ARGS[@]}" --rev "$_LATEST_REV" "$_GIT_URL")
     _LATEST_HASH=$(echo $_LATEST_META | jq -r .hash)
     _LATEST_DATE=$(echo $_LATEST_META | jq -r .date)
     _LATEST_PATH=$(echo $_LATEST_META | jq -r .path)
@@ -68,6 +69,9 @@ in
     echo 'Unsupported URL schema'
     exit 9
   fi
+
+  echo "From: $_GIT_URL"
+  echo "Got: hash $_LATEST_HASH, date $_LATEST_DATE, path $_LATEST_PATH."
 
   _LATEST_DATE_YMDHMS=$(date -u --date="$_LATEST_DATE" '+%Y%m%d%H%M%S')
   _LATEST_VERSION="unstable-''${_LATEST_DATE_YMDHMS}-''${_LATEST_REV:0:7}"

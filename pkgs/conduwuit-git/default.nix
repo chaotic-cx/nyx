@@ -97,7 +97,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     nyxKey = "conduwuit_git";
     versionPath = "pkgs/conduwuit-git/version.json";
     fetchLatestRev = callPackage ../../shared/github-rev-fetcher.nix { } "master" finalAttrs.src;
-    prefetchUrl = finalAttrs.src.url;
+    gitUrl = finalAttrs.src.gitRepoUrl;
   };
 
   meta = {

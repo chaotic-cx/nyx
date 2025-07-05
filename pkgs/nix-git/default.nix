@@ -41,7 +41,7 @@ nixComponents_git.nix-everything.overrideAttrs (prevAttrs: {
       nyxKey = "nix_git";
       versionPath = "pkgs/nix-git/version.json";
       fetchLatestRev = final.callPackage ../../shared/github-rev-fetcher.nix { } "master" src;
-      prefetchUrl = src.url;
+      gitUrl = src.gitRepoUrl;
       withLastModifiedDate = true;
     };
   };

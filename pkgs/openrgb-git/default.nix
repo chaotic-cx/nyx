@@ -91,7 +91,7 @@ stdenv.mkDerivation (finalAttrs: {
     nyxKey = "openrgb_git";
     versionPath = "pkgs/openrgb-git/version.json";
     fetchLatestRev = callPackage ../../shared/github-rev-fetcher.nix { } "master" finalAttrs.src;
-    prefetchUrl = finalAttrs.src.url;
+    gitUrl = finalAttrs.src.gitRepoUrl;
   };
 
   meta = {
