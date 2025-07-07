@@ -45,6 +45,8 @@ let
         crashreporterSupport = false;
         enableOfficialBranding = false;
         pgoSupport = true;
+        # https://github.com/NixOS/nixpkgs/issues/418473
+        ltoSupport = false;
         privacySupport = true;
         webrtcSupport = true;
       }
