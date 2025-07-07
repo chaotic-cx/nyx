@@ -393,7 +393,7 @@ enable_seq  hotplug_seq  nr_rejected  root  state  switch_all
 }
 </code></pre>
 
-<p>Use either <code>GENERIC_V2</code>, <code>GENERIC_V3</code>, <code>GENERIC_V4</code>, or <code>ZEN4</code>. We don't provide cache for these.</p>
+<p>Use either <code>GENERIC_V2</code>, <code>GENERIC_V3</code>, <code>GENERIC_V4</code>, <code>ZEN4</code>, or <code>ZEN5</code>. We don't provide cache for these.</p>
 
 <h2 id="criteria-for-new-packages">Criteria for new packages</h2>
 
