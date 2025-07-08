@@ -70,6 +70,4 @@
   "nix-lazytrees2_git" = "skip";
   "telegram-desktop-unwrapped_git" = "/nix/store/8l63z2glgi07ina5cg4is5cwfzhv0i4d-telegram-desktop-unwrapped-unstable-20250704162344-d205e3b";
   "telegram-desktop_git" = "/nix/store/vszg5lflrv8nnfjrf7w0d06x4am7zv0a-telegram-desktop-unstable-20250704162344-d205e3b";
-  "zed-editor_git" = "/nix/store/8q0ilpzpaxhqnpfk42qkq34fr0gk9p60-zed-editor-unstable-20250707233632-4693f16";
-  "zed-editor-fhs_git" = "/nix/store/z3zz54vhhid1p0rhjj8n5nwk5zfk4xp6-zeditor";
 }
