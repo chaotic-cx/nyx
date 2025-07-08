@@ -6,6 +6,7 @@
   stdenv,
   kernel,
   ogKernelConfigfile,
+  commonMakeFlags,
 }:
 let
   inherit (cachyConfig.versions.linux) version;
@@ -110,10 +111,7 @@ let
     ++ damonConfig
     ++ ntSyncConfig
     ++ hdrConfig
-    ++ disableDebug
-
-  #_use_auto_optimization, defaults to "y" [but GENERIC to ""]
-  ;
+    ++ disableDebug;
 
   # _cachy_config, defaults to "y"
   basicCachyConfig = lib.optional cachyConfig.basicCachy "-e CACHY";
@@ -179,6 +177,7 @@ let
 
   # _use_llvm_lto, defaults to "none"
   ltoConfig =
+    assert (cachyConfig.useLTO == "none" || stdenv.cc.isClang);
     if cachyConfig.useLTO == "thin" then
       [
         "-e LTO"
@@ -310,13 +309,13 @@ let
         "-d LATENCYTOP"
         "-d DEBUG_PREEMPT"
       ];
-
-  makeEnv = if cachyConfig.useLTO != "none" then "make LLVM=1 LLVM_IAS=1" else "make";
 in
 stdenv.mkDerivation (finalAttrs: {
   inherit src patches;
   name = "linux-cachyos-config";
   nativeBuildInputs = kernel.nativeBuildInputs ++ kernel.buildInputs;
+
+  makeFlags = commonMakeFlags;
 
   postPhase = ''
     ${finalAttrs.passthru.extraVerPatch}
@@ -326,10 +325,10 @@ stdenv.mkDerivation (finalAttrs: {
     runHook preBuild
 
     cp "${config-src}/${cachyConfig.taste}/config" ".config"
-    ${makeEnv} olddefconfig
+    make $makeFlags olddefconfig
     patchShebangs scripts/config
     scripts/config ${lib.concatStringsSep " " pkgbuildConfig}
-    ${makeEnv} olddefconfig
+    make $makeFlags olddefconfig
 
     runHook postBuild
   '';
@@ -348,7 +347,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   passthru = {
-    inherit cachyConfig makeEnv stdenv;
+    inherit cachyConfig commonMakeFlags stdenv;
     kernelPatches = patches;
     extraVerPatch = ''
       sed -Ei"" 's/EXTRAVERSION = ?(.*)$/EXTRAVERSION = \1${cachyConfig.versions.suffix}/g' Makefile
