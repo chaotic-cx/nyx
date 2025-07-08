@@ -68,10 +68,6 @@
   "linuxPackages_cachyos-server.rtl88xxau-aircrack" = "/nix/store/7g7cs8hqc6qid3cy1mnl4wghrjczmjg2-rtl88xxau-aircrack-6.15.5-unstable-2024-04-09";
   "linuxPackages_cachyos-server.yt6801" = "/nix/store/8s97l1z3msr4jgf687l6hpvg0ylszp7q-yt6801-1.0.29-20240812";
   "nix-lazytrees2_git" = "skip";
-  "scx_git.cscheds" = "/nix/store/q1l8nkhj47h15qfhqhspbrsp95mavqi7-scx_cscheds-unstable-20250708002845-f80b94b-bin";
-  "scx_git.rustscheds" = "/nix/store/vplbavjsvq9cfgi81958rfs6sav920gb-scx_rustscheds-unstable-20250708002845-f80b94b";
-  "scx-full_git" = "/nix/store/7qwvjznb5864fi5mgp74mxv9h3rhr0cp-scx_full-unstable-20250708002845-f80b94b-bin";
-  "scx_git.full" = "/nix/store/7qwvjznb5864fi5mgp74mxv9h3rhr0cp-scx_full-unstable-20250708002845-f80b94b-bin";
   "telegram-desktop-unwrapped_git" = "/nix/store/8l63z2glgi07ina5cg4is5cwfzhv0i4d-telegram-desktop-unwrapped-unstable-20250704162344-d205e3b";
   "telegram-desktop_git" = "/nix/store/vszg5lflrv8nnfjrf7w0d06x4am7zv0a-telegram-desktop-unstable-20250704162344-d205e3b";
   "zed-editor_git" = "/nix/store/8q0ilpzpaxhqnpfk42qkq34fr0gk9p60-zed-editor-unstable-20250707233632-4693f16";
