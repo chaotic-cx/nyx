@@ -33,6 +33,17 @@
     "type": "github"
   },
   {
+    "lastModified": 1748702718,
+    "lastModifiedDate": "20250531144518",
+    "name": "alloy",
+    "narHash": "sha256-1ZQ9KkPBhK4pmkvZ7y1kEDeTs0y/fE3+2ea0cKCtQG8=",
+    "owner": "mattsre",
+    "repo": "tree-sitter-alloy",
+    "rev": "3e18eb4e97f06c57a3925f3d20bef6329a6eaef3",
+    "subpath": null,
+    "type": "github"
+  },
+  {
     "lastModified": 1729883235,
     "lastModifiedDate": "20241025190715",
     "name": "amber",
@@ -66,13 +77,13 @@
     "type": "github"
   },
   {
-    "lastModified": 1712878661,
-    "lastModifiedDate": "20240411233741",
+    "lastModified": 1731307936,
+    "lastModifiedDate": "20241111065216",
     "name": "bash",
-    "narHash": "sha256-sj1qYb42k0hXXcNCKg1hINYD11wDcVpnoPhZNtlYT6k=",
+    "narHash": "sha256-7N1PLVMJxwN5FzHW9NbXZTzGhvziwLCC8tDO3qdjtOo=",
     "owner": "tree-sitter",
     "repo": "tree-sitter-bash",
-    "rev": "f8fb3274f72a30896075585b32b0c54cad65c086",
+    "rev": "487734f87fd87118028a65a4599352fa99c9cde8",
     "subpath": null,
     "type": "github"
   },
@@ -177,6 +188,17 @@
     "type": "github"
   },
   {
+    "lastModified": 1749833388,
+    "lastModifiedDate": "20250613164948",
+    "name": "caddyfile",
+    "narHash": "sha256-WaCWKq3wqjhWdsUd2vAT/JPqaxbHhOsaZrCg6MeXZZw=",
+    "owner": "caddyserver",
+    "repo": "tree-sitter-caddyfile",
+    "rev": "b04bdb4ec53e40c44afbf001e15540f60a296aef",
+    "subpath": null,
+    "type": "github"
+  },
+  {
     "lastModified": 1737998716,
     "lastModifiedDate": "20250127172516",
     "name": "cairo",
@@ -217,6 +239,17 @@
     "owner": "Decurity",
     "repo": "tree-sitter-circom",
     "rev": "02150524228b1e6afef96949f2d6b7cc0aaf999e",
+    "subpath": null,
+    "type": "github"
+  },
+  {
+    "lastModified": 1734446215,
+    "lastModifiedDate": "20241217143655",
+    "name": "clarity",
+    "narHash": "sha256-7waqNMra5KRtnEXPUn2vDhNJRYvBn28MsVhVT6s9eE8=",
+    "owner": "xlittlerag",
+    "repo": "tree-sitter-clarity",
+    "rev": "7fa54825fdd971a1a676f885384f024fe2b7384a",
     "subpath": null,
     "type": "github"
   },
@@ -265,13 +298,24 @@
     "type": "github"
   },
   {
-    "lastModified": 1681576184,
-    "lastModifiedDate": "20230415162944",
+    "lastModified": 1746831642,
+    "lastModifiedDate": "20250509230042",
     "name": "cpp",
-    "narHash": "sha256-T+Ha2hlI7ucEsTYvDmk7xjHNEoyvnotp/1EWfyCwnWM=",
+    "narHash": "sha256-yU1bwDhwcqeKrho0bo4qclqDDm1EuZWHENI2PNYnxVs=",
     "owner": "tree-sitter",
     "repo": "tree-sitter-cpp",
-    "rev": "670404d7c689be1c868a46f919ba2a3912f2b7ef",
+    "rev": "56455f4245baf4ea4e0881c5169de69d7edd5ae7",
+    "subpath": null,
+    "type": "github"
+  },
+  {
+    "lastModified": 1750251029,
+    "lastModifiedDate": "20250618125029",
+    "name": "crystal",
+    "narHash": "sha256-jZiy007NtbIoj7eVryejr1ECjzLErSzT1GXq24A9+xE=",
+    "owner": "crystal-lang-tools",
+    "repo": "tree-sitter-crystal",
+    "rev": "76afc1f53518a2b68b51a5abcde01d268a9cb47c",
     "subpath": null,
     "type": "github"
   },
@@ -438,6 +482,17 @@
     "owner": "KMikeeU",
     "repo": "tree-sitter-dtd",
     "rev": "6116becb02a6b8e9588ef73d300a9ba4622e156f",
+    "subpath": null,
+    "type": "github"
+  },
+  {
+    "lastModified": 1746368296,
+    "lastModifiedDate": "20250504141816",
+    "name": "dunstrc",
+    "narHash": "sha256-yfjOly1NvdNIFc3zzFb8XSCA+IW9uIzjtQRhf4/NQzY=",
+    "owner": "rotmh",
+    "repo": "tree-sitter-dunstrc",
+    "rev": "9cb9d5cc51cf5e2a47bb2a0e2f2e519ff11c1431",
     "subpath": null,
     "type": "github"
   },
@@ -673,17 +728,6 @@
     "type": "github"
   },
   {
-    "lastModified": 1691156375,
-    "lastModifiedDate": "20230804133935",
-    "name": "git-commit",
-    "narHash": "sha256-KEbfZg8/Fn0BFLAf2rsLuScJGBk4K5ErclTvMFWESkc=",
-    "owner": "the-mikedavis",
-    "repo": "tree-sitter-git-commit",
-    "rev": "6f193a66e9aa872760823dff020960c6cedc37b3",
-    "subpath": null,
-    "type": "github"
-  },
-  {
     "lastModified": 1695734878,
     "lastModifiedDate": "20230926132758",
     "name": "git-config",
@@ -717,6 +761,17 @@
     "type": "github"
   },
   {
+    "lastModified": 1741853186,
+    "lastModifiedDate": "20250313080626",
+    "name": "gitcommit",
+    "narHash": "sha256-KYfcs99p03b0RiPYnZeKJf677fmVf658FLZcFk2v2Ws=",
+    "owner": "gbprod",
+    "repo": "tree-sitter-gitcommit",
+    "rev": "a716678c0f00645fed1e6f1d0eb221481dbd6f6d",
+    "subpath": null,
+    "type": "github"
+  },
+  {
     "lastModified": 1651706126,
     "lastModifiedDate": "20220504231526",
     "name": "gitignore",
@@ -728,13 +783,13 @@
     "type": "github"
   },
   {
-    "lastModified": 1721938542,
-    "lastModifiedDate": "20240725201542",
+    "lastModified": 1750521091,
+    "lastModifiedDate": "20250621155131",
     "name": "gleam",
-    "narHash": "sha256-SI3/gUksiRgUpCabsll6g0mUcm5iiNMTzxlxQxCujpY=",
+    "narHash": "sha256-SZ2LX068EaDXTtit+GQ7oxS7rDuVnFtCurp18/hMCcQ=",
     "owner": "gleam-lang",
     "repo": "tree-sitter-gleam",
-    "rev": "426e67087fd62be5f4533581b5916b2cf010fb5b",
+    "rev": "ee93c639dc82148d716919df336ad612fd33538e",
     "subpath": null,
     "type": "github"
   },
@@ -883,13 +938,13 @@
     "url": "https://git.sr.ht/~ecs/tree-sitter-hare"
   },
   {
-    "lastModified": 1695603910,
-    "lastModifiedDate": "20230925010510",
+    "lastModified": 1738310106,
+    "lastModifiedDate": "20250131075506",
     "name": "haskell",
-    "narHash": "sha256-XEfZSNnvF2BMOWwTfk6GXSnSpbKVfAYk7I3XbO1tIBg=",
+    "narHash": "sha256-0wmdbXHZbHkv4pTrB1fCbExx9E83l+zaocGa+SvQsZQ=",
     "owner": "tree-sitter",
     "repo": "tree-sitter-haskell",
-    "rev": "d7ac98f49e3ed7e17541256fe3881a967d7ffdd3",
+    "rev": "0975ef72fc3c47b530309ca93937d7d143523628",
     "subpath": null,
     "type": "github"
   },
@@ -960,13 +1015,13 @@
     "type": "github"
   },
   {
-    "lastModified": 1651852909,
-    "lastModifiedDate": "20220506160149",
+    "lastModified": 1738274998,
+    "lastModifiedDate": "20250130220958",
     "name": "html",
-    "narHash": "sha256-v84N9erFL+QMoxh1dtfVdAJ5iTCoiFcT3kQ2+yq8TXE=",
+    "narHash": "sha256-lNMiSDAQ49QpeyD1RzkIIUeRWdp2Wrv6+XQZdZ40c1g=",
     "owner": "tree-sitter",
     "repo": "tree-sitter-html",
-    "rev": "29f53d8f4f2335e61bf6418ab8958dac3282077a",
+    "rev": "cbb91a0ff3621245e890d1c50cc811bffb77a26b",
     "subpath": null,
     "type": "github"
   },
@@ -1320,6 +1375,17 @@
     "owner": "tree-sitter-grammars",
     "repo": "tree-sitter-lua",
     "rev": "88e446476a1e97a8724dff7a23e2d709855077f2",
+    "subpath": null,
+    "type": "github"
+  },
+  {
+    "lastModified": 1742061912,
+    "lastModifiedDate": "20250315180512",
+    "name": "luau",
+    "narHash": "sha256-a+TJFLt77G4UyvcLz5Nsc6gvsgCTwmpZDNyfN8YUJDc=",
+    "owner": "polychromatist",
+    "repo": "tree-sitter-luau",
+    "rev": "ec187cafba510cddac265329ca7831ec6f3b9955",
     "subpath": null,
     "type": "github"
   },
@@ -1733,6 +1799,17 @@
     "url": "https://codeberg.org/foxy/tree-sitter-prolog"
   },
   {
+    "lastModified": 1735838626,
+    "lastModifiedDate": "20250102172346",
+    "name": "properties",
+    "narHash": "sha256-4WgGbU6fthFH1DcvlQiqNGXucCfxA+hANZ7Y+r8eXHg=",
+    "owner": "tree-sitter-grammars",
+    "repo": "tree-sitter-properties",
+    "rev": "579b62f5ad8d96c2bb331f07d1408c92767531d9",
+    "subpath": null,
+    "type": "github"
+  },
+  {
     "lastModified": 1733767090,
     "lastModifiedDate": "20241209175810",
     "name": "proto",
@@ -1755,13 +1832,24 @@
     "type": "github"
   },
   {
-    "lastModified": 1699469711,
-    "lastModifiedDate": "20231108185511",
+    "lastModified": 1731851351,
+    "lastModifiedDate": "20241117134911",
+    "name": "pug",
+    "narHash": "sha256-Yk1oBv9Flz+QX5tyFZwx0y67I5qgbnLhwYuAvLi9eV8=",
+    "owner": "zealot128",
+    "repo": "tree-sitter-pug",
+    "rev": "13e9195370172c86a8b88184cc358b23b677cc46",
+    "subpath": null,
+    "type": "github"
+  },
+  {
+    "lastModified": 1750173340,
+    "lastModifiedDate": "20250617151540",
     "name": "purescript",
-    "narHash": "sha256-V9cuENH/tpXt9mfZqJ2v4dxJvbwEHU8Ri+UxQafWemY=",
+    "narHash": "sha256-tONS2Eai/eVDecn6ow4nN9F7++UjY6OAKezeCco8hYU=",
     "owner": "postsolar",
     "repo": "tree-sitter-purescript",
-    "rev": "5ef5592674ea42de75fc2792972e4ea0b6e3da6c",
+    "rev": "f541f95ffd6852fbbe88636317c613285bc105af",
     "subpath": null,
     "type": "github"
   },
@@ -1920,6 +2008,17 @@
     "type": "github"
   },
   {
+    "lastModified": 1749222397,
+    "lastModifiedDate": "20250606150637",
+    "name": "rust-format-args",
+    "narHash": "sha256-IOc2etC92RsZ02+TY+j+Wy19OY6rz8kI3q0D+BrdiCg=",
+    "owner": "nik-rev",
+    "repo": "tree-sitter-rust-format-args",
+    "rev": "84ffe550e261cf5ea40a0ec31849ba2443bae99f",
+    "subpath": null,
+    "type": "github"
+  },
+  {
     "lastModified": 1704216437,
     "lastModifiedDate": "20240102172717",
     "name": "scala",
@@ -1949,6 +2048,17 @@
     "owner": "serenadeai",
     "repo": "tree-sitter-scss",
     "rev": "c478c6868648eff49eb04a4df90d703dc45b312a",
+    "subpath": null,
+    "type": "github"
+  },
+  {
+    "lastModified": 1745061191,
+    "lastModifiedDate": "20250419111311",
+    "name": "slang",
+    "narHash": "sha256-Oj3Z1Zw1geM2jid7xg0041cYtStV+CRl7anXbIIGE5c=",
+    "owner": "tree-sitter-grammars",
+    "repo": "tree-sitter-slang",
+    "rev": "327b1b821c255867a4fb724c8eee48887e3d014b",
     "subpath": null,
     "type": "github"
   },
@@ -2285,13 +2395,13 @@
     "type": "github"
   },
   {
-    "lastModified": 1665425189,
-    "lastModifiedDate": "20221010180629",
+    "lastModified": 1718469057,
+    "lastModifiedDate": "20240615163057",
     "name": "twig",
-    "narHash": "sha256-caymM1TfhVskYgJlTEo26joL24pqQ7BI0eyhTyZQLp4=",
+    "narHash": "sha256-87jFYAAnblTeEdlXqTjyiiNee/OgasPam1b2xyKQIHY=",
     "owner": "gbprod",
     "repo": "tree-sitter-twig",
-    "rev": "807b293fec3fead64f54c64fdf6fb05516c032b9",
+    "rev": "085648e01d1422163a1702a44e72303b4e2a0bd1",
     "subpath": null,
     "type": "github"
   },
@@ -2362,13 +2472,13 @@
     "type": "github"
   },
   {
-    "lastModified": 1688447530,
-    "lastModifiedDate": "20230704051210",
+    "lastModified": 1745580975,
+    "lastModifiedDate": "20250425113615",
     "name": "v",
-    "narHash": "sha256-ERtjgmnXzXyuKLxVy6Pi89B59BaB87JIzZqaWMZPR9k=",
+    "narHash": "sha256-I6+4CRwLNFwozNRNE5+cbrOX8hBroCh90H2V7qo2gIo=",
     "owner": "vlang",
     "repo": "v-analyzer",
-    "rev": "e14fdf6e661b10edccc744102e4ccf0b187aa8ad",
+    "rev": "59a8889d84a293d7c0366d14c8dbb0eec24fe889",
     "subpath": "tree_sitter_v",
     "type": "github"
   },
