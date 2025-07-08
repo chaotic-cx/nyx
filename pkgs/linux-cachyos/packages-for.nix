@@ -9,10 +9,12 @@
   fetchFromGitHub,
   nyxUtils,
   lib,
+  buildPackages,
   ogKernelConfigfile ? linuxPackages.kernel.passthru.configfile,
   withUpdateScript ? null,
   packagesExtend ? null,
   cachyOverride,
+  extraMakeFlags ? [ ],
   # those are set in their PKGBUILDs
   kernelPatches ? { },
   basicCachy ? true,
@@ -28,7 +30,7 @@
   withHDR ? true,
   withoutDebug ? false,
   description ? "Linux EEVDF-BORE scheduler Kernel by CachyOS with other patches and improvements",
-  # For tests
+  # For flakes
   inputs,
 }:
 
@@ -64,6 +66,7 @@ let
       stdenv
       kernel
       ogKernelConfigfile
+      commonMakeFlags
       ;
   };
   kconfigToNix = callPackage ./lib/kconfig-to-nix.nix {
@@ -79,6 +82,15 @@ let
     # For tests
     inherit (inputs) flakes final;
     kernelPackages = packagesWithRightPlatforms;
+  };
+
+  commonMakeFlags = import "${inputs.flakes.nixpkgs}/pkgs/os-specific/linux/kernel/common-flags.nix" {
+    inherit
+      lib
+      stdenv
+      buildPackages
+      extraMakeFlags
+      ;
   };
 
   # CachyOS repeating stuff.
