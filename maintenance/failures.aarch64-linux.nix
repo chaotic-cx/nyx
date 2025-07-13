@@ -18,8 +18,8 @@
   "pwvucontrol_git" = "/nix/store/qxbsxrz0g15p6faj3bwbcmcyi7qsfl27-pwvucontrol-unstable-20250525111507-7bf43c7";
   "telegram-desktop-unwrapped_git" = "skip";
   "telegram-desktop_git" = "/nix/store/hmk2slzsxlb7kl4k94yxgibxa1ks0sax-telegram-desktop-unstable-20250709053350-6afd4dc";
-  "zed-editor_git" = "/nix/store/wd7cdyz376a5amqgnila5mks9m9a5hn9-zed-editor-unstable-20250711135121-3b9bb52";
-  "zed-editor-fhs_git" = "/nix/store/1pw0synk6pliac9938xyyyxf3hg3hnz0-zeditor";
+  "zed-editor_git" = "/nix/store/w215rp9aq7y3czxgjqaakbzlji0cz8h4-zed-editor-unstable-20250713004430-1cadff9";
+  "zed-editor-fhs_git" = "/nix/store/pk7jsw8ij00vm6y441561zqjvi09wjs8-zeditor";
   "zon2nix_zig_0_13" = "/nix/store/zvggd6787hvdg6lny7rxjmyp5ppgg67p-zon2nix-0.1.2";
   "zon2nix_zig_0_14" = "/nix/store/3s16gjw41ybbki2hv9grbv6d9ihrlmjb-zon2nix-0.1.2";
 }
