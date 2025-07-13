@@ -65,5 +65,4 @@
   "linuxPackages_cachyos-server.rtl88xxau-aircrack" = "/nix/store/zcmgxb056j74p1m1qz212qbq6d0vbz1h-rtl88xxau-aircrack-6.15.6-unstable-2024-04-09";
   "linuxPackages_cachyos-server.yt6801" = "/nix/store/499v7djmghd6jzjzc4527xph9gcy68hh-yt6801-1.0.29-20240812";
   "nix-lazytrees2_git" = "skip";
-  "vulkanPackages_latest.vulkan-validation-layers" = "/nix/store/5lyafsf8kq09qhvk7w3amkhxwf964px7-vulkan-validation-layers-1.4.321";
 }
