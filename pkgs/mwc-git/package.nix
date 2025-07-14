@@ -74,5 +74,6 @@ stdenv.mkDerivation rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ s0me1newithhand7s ];
     platforms = with lib; [ "x86_64-linux" ];
+    mainProgram = "mwc";
   };
 }
