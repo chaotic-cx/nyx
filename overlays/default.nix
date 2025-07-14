@@ -280,9 +280,27 @@ in
     ]
   );
 
-  proton-ge-custom = final.callPackage ../pkgs/proton-ge-custom {
-    protonGeTitle = "Proton-GE";
-    protonGeVersions = importJSON ../pkgs/proton-ge-custom/versions.json;
+  proton-cachyos = final.callPackage ../pkgs/proton-bin {
+    toolTitle = "Proton-CachyOS";
+    tarballPrefix = "proton-";
+    tarballSuffix = "-x86_64.tar.xz";
+    toolPattern = "proton-cachyos-.*";
+    releasePrefix = "cachyos-";
+    releaseSuffix = "-slr";
+    versionFilename = "cachyos-version.json";
+    owner = "CachyOS";
+    repo = "proton-cachyos";
+  };
+
+  proton-ge-custom = final.callPackage ../pkgs/proton-bin {
+    toolTitle = "Proton-GE";
+    tarballSuffix = ".tar.gz";
+    toolPattern = "GE-Proton.*";
+    releasePrefix = "GE-Proton";
+    releaseSuffix = "";
+    versionFilename = "ge-version.json";
+    owner = "GloriousEggroll";
+    repo = "proton-ge-custom";
   };
 
   pwvucontrol_git = callOverride ../pkgs/pwvucontrol-git {
