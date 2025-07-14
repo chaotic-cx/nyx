@@ -6,6 +6,7 @@ let
     hdr = import ./hdr.nix;
     mesa-git = import ./mesa-git.nix;
     nordvpn = import ./nordvpn.nix;
+    nyx-home-check = import ./nyx-home-check.nix;
     nyx-cache = import ./nyx-cache.nix fromFlakes;
     nyx-overlay = import ../common/nyx-overlay.nix fromFlakes;
     nyx-registry = import ../common/nyx-registry.nix fromFlakes;
