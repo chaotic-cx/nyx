@@ -292,6 +292,12 @@ in
     repo = "proton-cachyos";
   };
 
+  proton-cachyos_x86_64_v3 = final.proton-cachyos.override {
+    toolTitle = "Proton-CachyOS x86-64-v3";
+    tarballSuffix = "-x86_64_v3.tar.xz";
+    versionFilename = "cachyos-v3-version.json";
+  };
+
   proton-ge-custom = final.callPackage ../pkgs/proton-bin {
     toolTitle = "Proton-GE";
     tarballSuffix = ".tar.gz";
