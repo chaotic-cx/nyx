@@ -73,8 +73,7 @@ jobs:
           if [ "$SAVE_FAILURES" = "true" ]; then
             cp ${{ runner.temp }}/new-failures.nix ./maintenance/failures.aarch64-darwin.nix
             git add ./maintenance/failures.aarch64-darwin.nix
-            git commit --allow-empty -m "failures: update aarch64-darwin"
-            git push
+            git commit -m "failures: update aarch64-darwin" && git pull --rebase && git push || true
           fi
         env:
           NYX_WD: ${{ runner.temp }}

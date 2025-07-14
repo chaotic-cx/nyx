@@ -1,6 +1,17 @@
 name: Deploy All
 on:
   workflow_dispatch:
+    inputs:
+      commit-aarch64-failures:
+        description: Commit Aarch64 Linux failures.nix
+        required: false
+        default: true
+        type: boolean
+      commit-aarch64-darwin-failures:
+        description: Commit Aarch64 Darwin failures.nix
+        required: false
+        default: true
+        type: boolean
 
 permissions:
   contents: write
@@ -181,12 +192,12 @@ jobs:
     uses: ./.github/workflows/build-aarch64.yml
     if: needs.build.outputs.pushed == 'true'
     secrets: inherit
+    with:
+      commit-failures: ${{ inputs.commit-aarch64-failures }}
   build-aarch64-darwin:
-    needs: build-aarch64
+    needs: build
     uses: ./.github/workflows/build-aarch64-darwin.yml
     if: needs.build.outputs.pushed == 'true'
     secrets: inherit
-  # flakestry:
-  #   needs: docs
-  #   uses: ./.github/workflows/flakestry-publish-rolling.yml
-  #   if: needs.build.outputs.pushed == 'true'
+    with:
+      commit-failures: ${{ inputs.commit-aarch64-darwin-failures }}
