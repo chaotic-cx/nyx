@@ -3,19 +3,20 @@
   scx,
   scx-common,
   rustPlatform,
-  protobuf,
-  libseccomp,
 }:
 
 (scx.rustscheds.override {
   scx = final.scx_git;
 }).overrideAttrs
-  (prevAttrs: {
+  (_prevAttrs: {
     inherit (scx-common) version src patches;
     cargoDeps = rustPlatform.fetchCargoVendor {
       inherit (scx-common) src;
       hash = scx-common.cargoHash;
     };
-    nativeBuildInputs = prevAttrs.nativeBuildInputs ++ [ protobuf ];
-    buildInputs = prevAttrs.buildInputs ++ [ libseccomp ];
+    # Cherry-picks nixpkgs#424862
+    postPatch = ''
+      mkdir libbpf
+      cp -r ${final.scx_git.cscheds.dev}/libbpf/* libbpf/
+    '';
   })
