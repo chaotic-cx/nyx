@@ -1,12 +1,9 @@
 {
   scx,
   scx-common,
-  protobuf,
-  libseccomp,
-  llvmPackages,
 }:
 
-scx.cscheds.overrideAttrs (prevAttrs: {
+scx.cscheds.overrideAttrs (_prevAttrs: {
   inherit (scx-common)
     version
     src

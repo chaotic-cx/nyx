@@ -3,14 +3,12 @@
   scx,
   scx-common,
   rustPlatform,
-  protobuf,
-  libseccomp,
 }:
 
 (scx.rustscheds.override {
   scx = final.scx_git;
 }).overrideAttrs
-  (prevAttrs: {
+  (_prevAttrs: {
     inherit (scx-common) version src patches;
     cargoDeps = rustPlatform.fetchCargoVendor {
       inherit (scx-common) src;
