@@ -1,16 +1,16 @@
 {
   "scx": {
-    "version": "unstable-20250612191715-9ad9d1d",
-    "rev": "9ad9d1d9b989dd3a54eb38372bc8f3c13f3a857d",
-    "hash": "sha256-i1w8QPXsooNBw+HJu+7M01gOcsMBEFJRaCnToob4XTE=",
-    "cargoHash": "sha256-+JDe7l4wX2balOUD11M9z60JSaRyMaIO7Pw1NrjnE30="
+    "version": "unstable-20250717124830-d4dd7b1",
+    "rev": "d4dd7b1bc73028af5e9a65ee409633cd00b5c8f2",
+    "hash": "sha256-EC7zKmM0YIt0b/fed1LlqPMhbXJ6bdm5AEuQMIoO7vs=",
+    "cargoHash": "sha256-IP7M6U+TEEACPlw3vKRyRoIMxyCsDLw6j/NmPTjF/do="
   },
   "bpftool": {
     "rev": "183e7010387d1fc9f08051426e9a9fbd5f8d409e",
     "hash": "sha256-ZZly6csVWOmtLmld1fhSDUqyRgZx2gSMGXTaSASGv7c="
   },
   "libbpf": {
-    "rev": "c5f22aca0f3aa855daa159b2777472b35e721804",
-    "hash": "sha256-ggGVqAkdZt28KAx+LztVIYGxj0j79hKcPKmUy8TrJy8="
+    "rev": "b4fa3e39a77fd65574fb5f899486795fc3d89bd9",
+    "hash": "sha256-wlymVgcLlGCUOC92CkYU6QZZnqx8nidSfhr1pTiS8aM="
   }
 }
