@@ -16,6 +16,9 @@
       inherit (scx-common) src;
       hash = scx-common.cargoHash;
     };
-    nativeBuildInputs = prevAttrs.nativeBuildInputs ++ [ protobuf ];
-    buildInputs = prevAttrs.buildInputs ++ [ libseccomp ];
+    # Cherry-picks nixpkgs#424862
+    postPatch = ''
+      mkdir libbpf
+      cp -r ${final.scx_git.cscheds.dev}/libbpf/* libbpf/
+    '';
   })
