@@ -1,6 +1,5 @@
 {
   "linuxPackages_cachyos.ax99100" = "/nix/store/3ycqivxf7snzskbzy14d84a0k172wj2x-ax99100-1.8.0";
-  "linuxPackages_cachyos.broadcom_sta" = "/nix/store/wafbgjvcb7rsc6l2z6gvd9nyzwdv8km2-broadcom-sta-6.30.223.271-6.15.7";
   "linuxPackages_cachyos.chipsec" = "/nix/store/cipj9vnzy0bmfgrms5z9p60a25hvnacs-chipsec-1.10.6";
   "linuxPackages_cachyos.digimend" = "/nix/store/9yggl0nl2pd22sf1ykn2nxxqn7v22jy4-digimend-13-unstable-2025-01-02";
   "linuxPackages_cachyos.fwts-efi-runtime" = "/nix/store/g3wiyr3ccxm5dv0a60ma2yldql25jdc9-fwts-efi-runtime-24.09.00-6.15.7";
@@ -22,7 +21,6 @@
   "linuxPackages_cachyos.rtl8852au" = "/nix/store/96k5rc88ihlqpvfs6cx9q4s1imy8p2lp-rtl8852au-6.15.7-unstable-2024-05-06";
   "linuxPackages_cachyos.rtl88x2bu" = "/nix/store/jb55wy8qkzz57bcl05ywpyignv62a72a-rtl88x2bu-6.15.7-unstable-2024-06-09";
   "linuxPackages_cachyos.rtl88xxau-aircrack" = "/nix/store/9q030avbc4spgkqv091v0k0jkq1a1hb6-rtl88xxau-aircrack-6.15.7-unstable-2024-04-09";
-  "linuxPackages_cachyos.virtualbox" = "/nix/store/xka32wb1dah630y2zfb5s000v7515gz9-virtualbox-modules-7.1.10-6.15.7";
   "linuxPackages_cachyos.yt6801" = "/nix/store/c1ph76zr2av3bjv0mi7z3j429g8jd3lc-yt6801-1.0.29-20240812";
   "linuxPackages_cachyos-hardened.ax99100" = "/nix/store/m4k3lw55rhm7fc8rk26fjmrcv9gl8wfj-ax99100-1.8.0";
   "linuxPackages_cachyos-hardened.fwts-efi-runtime" = "/nix/store/mwr1qqn3qqymkxx4ql10dl8if4b4jbhj-fwts-efi-runtime-24.09.00-6.14.8";
@@ -40,10 +38,8 @@
   "linuxPackages_cachyos-hardened.rtl8812au" = "/nix/store/pl14idpbnd6w8r6l2p8vyfn9mwawxi5h-rtl8812au-6.14.8-unstable-2024-06-13";
   "linuxPackages_cachyos-hardened.rtl88x2bu" = "/nix/store/y8f4pqxqsj2d3z9vjmc0z0a2xriz8q8n-rtl88x2bu-6.14.8-unstable-2024-06-09";
   "linuxPackages_cachyos-hardened.rtl88xxau-aircrack" = "/nix/store/lbr23cb150wvjxr98hsaz4gia6nblp93-rtl88xxau-aircrack-6.14.8-unstable-2024-04-09";
-  "linuxPackages_cachyos-hardened.virtualbox" = "/nix/store/cnz9vbcb044z9k556pv8km16ivk2jiy4-virtualbox-modules-7.1.10-6.14.8";
   "linuxPackages_cachyos-hardened.yt6801" = "/nix/store/mw5xxfrg7bgcwfxx9kw8vwh00axi124s-yt6801-1.0.29-20240812";
   "linuxPackages_cachyos-server.ax99100" = "/nix/store/apif7xq9zgbxqb6gw5p16d71ay07qfaj-ax99100-1.8.0";
-  "linuxPackages_cachyos-server.broadcom_sta" = "/nix/store/ml9qc7zagmi5kmw1wyhb1lg5lhaiivws-broadcom-sta-6.30.223.271-6.15.7";
   "linuxPackages_cachyos-server.chipsec" = "/nix/store/4yy7pmqhc0w7rqb0farghlj515x2cgnc-chipsec-1.10.6";
   "linuxPackages_cachyos-server.digimend" = "/nix/store/rsg844aay3qvp15fxxm1pfgafdlhvw8z-digimend-13-unstable-2025-01-02";
   "linuxPackages_cachyos-server.fwts-efi-runtime" = "/nix/store/napmnxl9z7w6kbnk4lkvnqsc2lvmwjpd-fwts-efi-runtime-24.09.00-6.15.7";
@@ -65,11 +61,14 @@
   "linuxPackages_cachyos-server.rtl8852au" = "/nix/store/l4xc7zcwh0vybvcmxhpg84rmplfv711x-rtl8852au-6.15.7-unstable-2024-05-06";
   "linuxPackages_cachyos-server.rtl88x2bu" = "/nix/store/szmrnjaim3qixq830nnwy3qljq7ay7ab-rtl88x2bu-6.15.7-unstable-2024-06-09";
   "linuxPackages_cachyos-server.rtl88xxau-aircrack" = "/nix/store/mk9d5680svznw01g66f9j62nwgyp71sy-rtl88xxau-aircrack-6.15.7-unstable-2024-04-09";
-  "linuxPackages_cachyos-server.virtualbox" = "/nix/store/c2d850qf82k8s8hvidwsfwfdxly3h2ly-virtualbox-modules-7.1.10-6.15.7";
   "linuxPackages_cachyos-server.yt6801" = "/nix/store/v8s7i6878x53a75iip8vgjypaf9480i7-yt6801-1.0.29-20240812";
   "nix-lazytrees2_git" = "skip";
-  "nix_git" = "/nix/store/i415h4dybss65yx2pppyh7ncfm9r08sf-nix-2.99pre20250717_60c48b70";
+  "nix_git" = "/nix/store/0jd6ln0x24rkc65jz5ji00cxmi6098wa-nix-2.99pre20250717_60c48b70";
   "openrgb_git" = "/nix/store/0a33lf001lbviavijgz58xhl4y4jpwfd-openrgb-unstable-20250717165708-d0bcf06";
+  "scx_git.cscheds" = "/nix/store/94894qffg4z30za9zic8pjfggxrrqlgy-scx_cscheds-unstable-20250717124830-d4dd7b1-bin";
+  "scx_git.rustscheds" = "/nix/store/mwh161lnfqssg2z9rkzmhw50m96bhrws-scx_rustscheds-unstable-20250717124830-d4dd7b1";
+  "scx-full_git" = "/nix/store/b41kvxaxib0akc8qlvmdvmwpn250ay5j-scx_full-unstable-20250717124830-d4dd7b1-bin";
+  "scx_git.full" = "/nix/store/b41kvxaxib0akc8qlvmdvmwpn250ay5j-scx_full-unstable-20250717124830-d4dd7b1-bin";
   "vulkanPackages_latest.gfxreconstruct" = "/nix/store/l1lfgdvrxgcwkyd43xw8fyp7d8lhgd6h-gfxreconstruct-1.4.321.0";
   "vulkanPackages_latest.vulkan-extension-layer" = "/nix/store/hh8vrjgjnk1bpyrzdwz8p0fw097n14kf-vulkan-extension-layer-1.4.321.0";
 }
