@@ -16,8 +16,8 @@
     "hash": "sha256-qmJK29PtjDE4+6uF8Mj6noAcRoeM3rHWRbUvcr6JzI0="
   },
   "spirvHeaders": {
-    "version": "1.4.321pre",
-    "rev": "2a611a970fdbc41ac2e3e328802aed9985352dca",
+    "version": "1.4.321.0",
+    "rev": "vulkan-sdk-#{version}",
     "hash": "sha256-LRjMy9xtOErbJbMh+g2IKXfmo/hWpegZM72F8E122oY=",
     "badTag": "vulkan-sdk-1.4.313.0"
   },
