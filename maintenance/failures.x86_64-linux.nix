@@ -64,8 +64,10 @@
   "linuxPackages_cachyos-server.yt6801" = "/nix/store/v8s7i6878x53a75iip8vgjypaf9480i7-yt6801-1.0.29-20240812";
   "nix_git" = "/nix/store/0jd6ln0x24rkc65jz5ji00cxmi6098wa-nix-2.99pre20250717_60c48b70";
   "openrgb_git" = "/nix/store/0a33lf001lbviavijgz58xhl4y4jpwfd-openrgb-unstable-20250717165708-d0bcf06";
-  "scx_git.cscheds" = "/nix/store/94894qffg4z30za9zic8pjfggxrrqlgy-scx_cscheds-unstable-20250717124830-d4dd7b1-bin";
-  "scx_git.rustscheds" = "/nix/store/mwh161lnfqssg2z9rkzmhw50m96bhrws-scx_rustscheds-unstable-20250717124830-d4dd7b1";
   "scx-full_git" = "/nix/store/b41kvxaxib0akc8qlvmdvmwpn250ay5j-scx_full-unstable-20250717124830-d4dd7b1-bin";
+  "scx_git.cscheds" = "/nix/store/94894qffg4z30za9zic8pjfggxrrqlgy-scx_cscheds-unstable-20250717124830-d4dd7b1-bin";
   "scx_git.full" = "/nix/store/b41kvxaxib0akc8qlvmdvmwpn250ay5j-scx_full-unstable-20250717124830-d4dd7b1-bin";
+  "scx_git.rustscheds" = "/nix/store/mwh161lnfqssg2z9rkzmhw50m96bhrws-scx_rustscheds-unstable-20250717124830-d4dd7b1";
+  "vulkanPackages_latest.gfxreconstruct" = "/nix/store/l1lfgdvrxgcwkyd43xw8fyp7d8lhgd6h-gfxreconstruct-1.4.321.0";
+  "vulkanPackages_latest.vulkan-extension-layer" = "/nix/store/hh8vrjgjnk1bpyrzdwz8p0fw097n14kf-vulkan-extension-layer-1.4.321.0";
 }
