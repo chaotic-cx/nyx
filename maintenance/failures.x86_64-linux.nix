@@ -68,6 +68,4 @@
   "scx_git.rustscheds" = "/nix/store/mwh161lnfqssg2z9rkzmhw50m96bhrws-scx_rustscheds-unstable-20250717124830-d4dd7b1";
   "scx-full_git" = "/nix/store/b41kvxaxib0akc8qlvmdvmwpn250ay5j-scx_full-unstable-20250717124830-d4dd7b1-bin";
   "scx_git.full" = "/nix/store/b41kvxaxib0akc8qlvmdvmwpn250ay5j-scx_full-unstable-20250717124830-d4dd7b1-bin";
-  "vulkanPackages_latest.gfxreconstruct" = "/nix/store/l1lfgdvrxgcwkyd43xw8fyp7d8lhgd6h-gfxreconstruct-1.4.321.0";
-  "vulkanPackages_latest.vulkan-extension-layer" = "/nix/store/hh8vrjgjnk1bpyrzdwz8p0fw097n14kf-vulkan-extension-layer-1.4.321.0";
 }
