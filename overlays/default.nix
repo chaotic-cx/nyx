@@ -243,8 +243,6 @@ in
 
   nix_git = callOverride ../pkgs/nix-git { };
 
-  nix-lazytrees2_git = drvDropUpdateScript (callOverride ../pkgs/nix-lazytrees2-git { });
-
   nix-top_abandoned = final.callPackage ../pkgs/nix-top { };
 
   nordvpn = final.callPackage ../pkgs/nordvpn { };

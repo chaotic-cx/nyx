@@ -3,7 +3,6 @@
   "discord-krisp" = "/nix/store/dwxsl4yzl0447qmcxzdb8zfh9ypjkir5-discord-0.0.353";
   "libportal_git" = "/nix/store/yhxnzn5ilak6gkyxhkdkl19jzyyzc6sw-libportal-unstable-20250328122118-796053d";
   "mesa_git" = "/nix/store/gg8idalh6p877hlwir4fgc337485yqss-mesa-a333e7";
-  "nix-lazytrees2_git" = "skip";
   "wayland_git" = "skip";
   "zed-editor-fhs_git" = "skip";
 }

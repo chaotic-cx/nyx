@@ -62,7 +62,6 @@
   "linuxPackages_cachyos-server.rtl88x2bu" = "/nix/store/szmrnjaim3qixq830nnwy3qljq7ay7ab-rtl88x2bu-6.15.7-unstable-2024-06-09";
   "linuxPackages_cachyos-server.rtl88xxau-aircrack" = "/nix/store/mk9d5680svznw01g66f9j62nwgyp71sy-rtl88xxau-aircrack-6.15.7-unstable-2024-04-09";
   "linuxPackages_cachyos-server.yt6801" = "/nix/store/v8s7i6878x53a75iip8vgjypaf9480i7-yt6801-1.0.29-20240812";
-  "nix-lazytrees2_git" = "skip";
   "nix_git" = "/nix/store/0jd6ln0x24rkc65jz5ji00cxmi6098wa-nix-2.99pre20250717_60c48b70";
   "openrgb_git" = "/nix/store/0a33lf001lbviavijgz58xhl4y4jpwfd-openrgb-unstable-20250717165708-d0bcf06";
   "scx_git.cscheds" = "/nix/store/94894qffg4z30za9zic8pjfggxrrqlgy-scx_cscheds-unstable-20250717124830-d4dd7b1-bin";
