@@ -18,8 +18,10 @@
   "openrgb_git" = "/nix/store/97kabg61b0la1zg21vryj2b8p6lb0pif-openrgb-unstable-20250717165708-d0bcf06";
   "pwvucontrol_git" = "/nix/store/gzg6xxdpwqcm6hpfz6f8j1wnap5msaa0-pwvucontrol-unstable-20250525111507-7bf43c7";
   "telegram-desktop-unwrapped_git" = "skip";
-  "telegram-desktop_git" = "/nix/store/qgpa9bnk5i5ncp1gllban0bgn1qwcr2w-telegram-desktop-unstable-20250716064524-ea89a9f";
-  "zed-editor_git" = "/nix/store/glp7mb21g7nr47fa1h7hlmglwdz43iay-zed-editor-unstable-20250717234616-ed4deaa";
-  "zed-editor-fhs_git" = "/nix/store/3gm4n99xwsigrhayw66735178fwsff8i-zeditor";
+  "telegram-desktop_git" = "/nix/store/0imm63dbspwgwwyq7lfvr2k0bb6w7r42-telegram-desktop-unstable-20250716064524-ea89a9f";
+  "vulkanPackages_latest.gfxreconstruct" = "/nix/store/kri8yjzw5g48k9ggl0jfy91kpc1qm2cf-gfxreconstruct-1.4.321.0";
+  "vulkanPackages_latest.vulkan-extension-layer" = "/nix/store/kdjk9hnyw4p4q5vjkm2m75s3b5zf42dr-vulkan-extension-layer-1.4.321.0";
+  "zed-editor_git" = "/nix/store/mdbg21b3afpr5fgyrkjq90kid1wzdraj-zed-editor-unstable-20250717234616-ed4deaa";
+  "zed-editor-fhs_git" = "/nix/store/13yfy0j5qsllppwax15amlsx28gkrs3r-zeditor";
   "zfs_cachyos" = "/nix/store/pvmwrh5jh281694xn6r7yx8pp2azl5a1-zfs-user-2.3.3";
 }
