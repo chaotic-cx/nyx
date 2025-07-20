@@ -10,7 +10,7 @@
   pixman,
   libxcb,
   libdrm,
-  scenefx,
+  scenefx_0_2,
   libGL,
   meson,
   ninja,
@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     libxcb
     libdrm
     pixman
-    scenefx
+    scenefx_0_2
     libGL
   ];
 

@@ -325,6 +325,16 @@ in
 
   spirv-headers_git = callOverride ../pkgs/spirv-headers-git { };
 
+  scenefx_0_2 = multiOverride prev.scenefx { wlroots_0_19 = final.wlroots_0_18; } (_prevAttrs: rec {
+    version = "0.2.1";
+    src = final.fetchFromGitHub {
+      owner = "wlrfx";
+      repo = "scenefx";
+      tag = version;
+      hash = "sha256-BLIADMQwPJUtl6hFBhh5/xyYwLFDnNQz0RtgWO/Ua8s=";
+    };
+  });
+
   scx_git = {
     cscheds = final.callPackage ../pkgs/scx-git/cscheds.nix { inherit scx-common; };
     rustscheds = final.callPackage ../pkgs/scx-git/rustscheds.nix { inherit scx-common final; };
