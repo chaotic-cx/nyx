@@ -30,15 +30,14 @@ stdenv.mkDerivation {
     inherit (version) hash;
   };
 
-  buildCommand =
-    ''
-      mkdir -p $out/bin
-      tar -C $out/bin --strip=1 -x -f $src
-    ''
-    # Allow to keep the same name between updates
-    + lib.strings.optionalString (toolTitle != null) ''
-      sed -i -r 's|"${toolPattern}"|"${toolTitle}"|' $out/bin/compatibilitytool.vdf
-    '';
+  buildCommand = ''
+    mkdir -p $out/bin
+    tar -C $out/bin --strip=1 -x -f $src
+  ''
+  # Allow to keep the same name between updates
+  + lib.strings.optionalString (toolTitle != null) ''
+    sed -i -r 's|"${toolPattern}"|"${toolTitle}"|' $out/bin/compatibilitytool.vdf
+  '';
 
   passthru =
     if withUpdateScript then

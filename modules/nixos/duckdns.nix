@@ -116,7 +116,8 @@ in
           "AF_UNIX"
           "AF_INET"
           "AF_INET6"
-        ] ++ lib.optionals cfg.ipv6.enable [ "AF_NETLINK" ];
+        ]
+        ++ lib.optionals cfg.ipv6.enable [ "AF_NETLINK" ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         SystemCallArchitectures = "native";

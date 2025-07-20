@@ -40,25 +40,23 @@ override (
           hatchling
         ]
         ++ prevAttrs.nativeBuildInputs;
-      postPatch =
-        (prevAttrs.postPatch or "")
-        + ''
-                echo "
-          __version__ = '${datedVersion}'
+      postPatch = (prevAttrs.postPatch or "") + ''
+              echo "
+        __version__ = '${datedVersion}'
 
-          RELEASE_GIT_HEAD = '${current.rev}'
+        RELEASE_GIT_HEAD = '${current.rev}'
 
-          VARIANT = None
+        VARIANT = None
 
-          UPDATE_HINT = None
+        UPDATE_HINT = None
 
-          CHANNEL = 'master'
+        CHANNEL = 'master'
 
-          ORIGIN = 'chaotic-cx/nyx'
+        ORIGIN = 'chaotic-cx/nyx'
 
-          _pkg_version = '${datedVersion}'
-                " > yt_dlp/version.py
-        '';
+        _pkg_version = '${datedVersion}'
+              " > yt_dlp/version.py
+      '';
     };
   }
 )

@@ -17,11 +17,10 @@ gitOverride (current: {
   withLastModified = true;
 
   postOverride = prevAttrs: {
-    preConfigure =
-      ''
-        export OUT_DIR="$out"
-      ''
-      + (prevAttrs.preConfigure or "");
+    preConfigure = ''
+      export OUT_DIR="$out"
+    ''
+    + (prevAttrs.preConfigure or "");
 
     prePatch = "";
 

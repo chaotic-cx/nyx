@@ -52,12 +52,13 @@ let
     else
       throw "Unsupported cachyos _cpu_sched=${toString cachyConfig.cpuSched}";
 
-  patches =
-    [ "${patches-src}/${majorMinor}/all/0001-cachyos-base-all.patch" ]
-    ++ schedPatches
-    ++ lib.optional (
-      cachyConfig.cpuSched == "hardened"
-    ) "${patches-src}/${majorMinor}/misc/0001-hardened.patch";
+  patches = [
+    "${patches-src}/${majorMinor}/all/0001-cachyos-base-all.patch"
+  ]
+  ++ schedPatches
+  ++ lib.optional (
+    cachyConfig.cpuSched == "hardened"
+  ) "${patches-src}/${majorMinor}/misc/0001-hardened.patch";
 
   # There are some configurations set by the PKGBUILD
   pkgbuildConfig =

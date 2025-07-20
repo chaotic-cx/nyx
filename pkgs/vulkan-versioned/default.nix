@@ -60,17 +60,14 @@ final.lib.makeScope final.newScope (self: {
 
     extraAttrs = prevAttrs: {
       buildInputs = prevAttrs.buildInputs ++ [ final.sdl3 ];
-      postPatch =
-        (prevAttrs.postPatch or "")
-        + ''
-          rm cmake/FindSDL3.cmake
-        '';
-      preFixup =
-        ''
-          substituteInPlace $out/lib/pkgconfig/openxr.pc \
-            --replace-fail 'libdir=''${exec_prefix}//nix' 'libdir=/nix'
-        ''
-        + (prevAttrs.preFixup or "");
+      postPatch = (prevAttrs.postPatch or "") + ''
+        rm cmake/FindSDL3.cmake
+      '';
+      preFixup = ''
+        substituteInPlace $out/lib/pkgconfig/openxr.pc \
+          --replace-fail 'libdir=''${exec_prefix}//nix' 'libdir=/nix'
+      ''
+      + (prevAttrs.preFixup or "");
     };
   };
 

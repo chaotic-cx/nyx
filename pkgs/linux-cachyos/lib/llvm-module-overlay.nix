@@ -21,12 +21,11 @@ nyxUtils.multiOverride prevModule { stdenv = stdenvLLVM; } (
       if prevAttrs ? "${k}" then attrs // { "${k}" = fixKernelBuild prevAttrs."${k}"; } else attrs;
 
     baseFix = {
-      patchPhase =
-        ''
-          cp -r ${kernel.dev} ${tmpPath}
-          chmod -R +w ${tmpPath}
-        ''
-        + (prevAttrs.patchPhase or "");
+      patchPhase = ''
+        cp -r ${kernel.dev} ${tmpPath}
+        chmod -R +w ${tmpPath}
+      ''
+      + (prevAttrs.patchPhase or "");
       makeFlags = filteredMakeFlags ++ [
         "LLVM=1"
         "LLVM_IAS=1"

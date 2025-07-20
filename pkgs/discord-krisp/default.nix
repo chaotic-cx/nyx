@@ -17,14 +17,13 @@ let
   node_module = "\\$HOME/.config/discord/${prev.discord.version}/modules/discord_krisp/discord_krisp.node";
 in
 prev.discord.overrideAttrs (previousAttrs: {
-  postInstall =
-    previousAttrs.postInstall
-    + ''
-      wrapProgramShell $out/opt/${binaryName}/${binaryName} \
-      --run "${patch-krisp} ${node_module}"
-    '';
+  postInstall = previousAttrs.postInstall + ''
+    wrapProgramShell $out/opt/${binaryName}/${binaryName} \
+    --run "${patch-krisp} ${node_module}"
+  '';
   passthru = removeAttrs previousAttrs.passthru [ "updateScript" ];
   meta = {
     nyx.bypassLicense = true;
-  } // previousAttrs.meta;
+  }
+  // previousAttrs.meta;
 })

@@ -45,17 +45,17 @@ rustPlatform.buildRustPackage (finalAttrs: {
   nativeBuildInputs = [
     pkg-config
     rustPlatform.bindgenHook
-  ] ++ lib.optional stdenv.hostPlatform.isLinux autoPatchelfHook;
+  ]
+  ++ lib.optional stdenv.hostPlatform.isLinux autoPatchelfHook;
 
-  buildInputs =
-    [
-      bzip2
-      zstd
-      rocksdb
-    ]
-    ++ lib.optional stdenv.hostPlatform.isLinux libgcc.libgcc
-    ++ lib.optional enableJemalloc rust-jemalloc-sys'
-    ++ lib.optional enableLiburing liburing;
+  buildInputs = [
+    bzip2
+    zstd
+    rocksdb
+  ]
+  ++ lib.optional stdenv.hostPlatform.isLinux libgcc.libgcc
+  ++ lib.optional enableJemalloc rust-jemalloc-sys'
+  ++ lib.optional enableLiburing liburing;
 
   env = {
     ZSTD_SYS_USE_PKG_CONFIG = true;

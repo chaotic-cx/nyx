@@ -63,7 +63,8 @@ let
     cmd = {
       build = false;
       inherit key;
-    } // data;
+    }
+    // data;
     drv = null;
     deps = [ ];
   };
