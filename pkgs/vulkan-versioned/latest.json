@@ -28,9 +28,9 @@
     "badTag": "vulkan-sdk-1.4.321.0"
   },
   "vulkanHeaders": {
-    "version": "1.4.322",
+    "version": "1.4.323",
     "rev": "v#{version}",
-    "hash": "sha256-YDh67zrLl+ek7oJBQIfCHARa9yAzH8TsMLpGUtNQqjg="
+    "hash": "sha256-Z7r4vjztibpK35XvbExLJ4U2BkgW0L2+Fj7QMjzKwPA="
   },
   "vulkanLoader": {
     "version": "1.4.322",
