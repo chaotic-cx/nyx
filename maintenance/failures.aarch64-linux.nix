@@ -18,7 +18,7 @@
   "openrgb_git" = "/nix/store/97kabg61b0la1zg21vryj2b8p6lb0pif-openrgb-unstable-20250717165708-d0bcf06";
   "pwvucontrol_git" = "/nix/store/gzg6xxdpwqcm6hpfz6f8j1wnap5msaa0-pwvucontrol-unstable-20250525111507-7bf43c7";
   "telegram-desktop-unwrapped_git" = "skip";
-  "telegram-desktop_git" = "/nix/store/gak79xh67vhbaj2adnfzdmw9vwrfa3pc-telegram-desktop-unstable-20250721035148-e070af3";
+  "telegram-desktop_git" = "/nix/store/6bqhqd374vqvlnwz1rs2vp4nfvn3b65r-telegram-desktop-unstable-20250722113759-4c049d0";
   "vulkanPackages_latest.gfxreconstruct" = "/nix/store/kri8yjzw5g48k9ggl0jfy91kpc1qm2cf-gfxreconstruct-1.4.321.0";
   "vulkanPackages_latest.vulkan-extension-layer" = "/nix/store/kdjk9hnyw4p4q5vjkm2m75s3b5zf42dr-vulkan-extension-layer-1.4.321.0";
   "zed-editor-fhs_git" = "/nix/store/13yfy0j5qsllppwax15amlsx28gkrs3r-zeditor";
