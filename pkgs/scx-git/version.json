@@ -1,9 +1,9 @@
 {
   "scx": {
-    "version": "unstable-20250717124830-d4dd7b1",
-    "rev": "d4dd7b1bc73028af5e9a65ee409633cd00b5c8f2",
-    "hash": "sha256-EC7zKmM0YIt0b/fed1LlqPMhbXJ6bdm5AEuQMIoO7vs=",
-    "cargoHash": "sha256-IP7M6U+TEEACPlw3vKRyRoIMxyCsDLw6j/NmPTjF/do="
+    "version": "unstable-20250724184426-42a596a",
+    "rev": "42a596a63920ece3f5fe4ce81d6d1ac200eb8443",
+    "hash": "sha256-9HnHyWPtEHxzFfHprZmC5m9QA4C6CHNLIOhWawvevX8=",
+    "cargoHash": "sha256-KiCpGZTgaJQ7qy8ECS8qMGNtCqjzH197J46HgwEvFqw="
   },
   "bpftool": {
     "rev": "183e7010387d1fc9f08051426e9a9fbd5f8d409e",
