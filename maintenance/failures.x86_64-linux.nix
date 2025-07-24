@@ -62,12 +62,10 @@
   "linuxPackages_cachyos-server.rtl88x2bu" = "/nix/store/szmrnjaim3qixq830nnwy3qljq7ay7ab-rtl88x2bu-6.15.7-unstable-2024-06-09";
   "linuxPackages_cachyos-server.rtl88xxau-aircrack" = "/nix/store/mk9d5680svznw01g66f9j62nwgyp71sy-rtl88xxau-aircrack-6.15.7-unstable-2024-04-09";
   "linuxPackages_cachyos-server.yt6801" = "/nix/store/v8s7i6878x53a75iip8vgjypaf9480i7-yt6801-1.0.29-20240812";
-  "nix_git" = "/nix/store/0jd6ln0x24rkc65jz5ji00cxmi6098wa-nix-2.99pre20250717_60c48b70";
-  "openrgb_git" = "/nix/store/0a33lf001lbviavijgz58xhl4y4jpwfd-openrgb-unstable-20250717165708-d0bcf06";
-  "scx-full_git" = "/nix/store/b41kvxaxib0akc8qlvmdvmwpn250ay5j-scx_full-unstable-20250717124830-d4dd7b1-bin";
-  "scx_git.cscheds" = "/nix/store/94894qffg4z30za9zic8pjfggxrrqlgy-scx_cscheds-unstable-20250717124830-d4dd7b1-bin";
-  "scx_git.full" = "/nix/store/b41kvxaxib0akc8qlvmdvmwpn250ay5j-scx_full-unstable-20250717124830-d4dd7b1-bin";
-  "scx_git.rustscheds" = "/nix/store/mwh161lnfqssg2z9rkzmhw50m96bhrws-scx_rustscheds-unstable-20250717124830-d4dd7b1";
-  "vulkanPackages_latest.gfxreconstruct" = "/nix/store/l1lfgdvrxgcwkyd43xw8fyp7d8lhgd6h-gfxreconstruct-1.4.321.0";
-  "vulkanPackages_latest.vulkan-extension-layer" = "/nix/store/hh8vrjgjnk1bpyrzdwz8p0fw097n14kf-vulkan-extension-layer-1.4.321.0";
+  "nix_git" = "/nix/store/vf6vc4mhq52afcmpvn95ghmdq3lis33a-nix-2.99pre20250724_cbdb497c";
+  "openrgb_git" = "/nix/store/sxm8whxzmqcasskddbljjip9am80l70r-openrgb-unstable-20250724022228-a1d7a76";
+  "vulkanPackages_latest.gfxreconstruct" = "/nix/store/747i7rczbaiss3n11fr9qq02yxmzdd1g-gfxreconstruct-1.4.321.0";
+  "vulkanPackages_latest.vulkan-extension-layer" = "/nix/store/hsyqcwlhxw763hr4pwjr3c8a6j73s84w-vulkan-extension-layer-1.4.321.0";
+  "zed-editor_git" = "/nix/store/cf9p8pd6igdm9qkj5jcv4yc8qyxzzg84-zed-editor-unstable-20250724142958-7cdd808";
+  "zed-editor-fhs_git" = "/nix/store/lfqgr4zsd3vsxpa8mka880yfywcz4h2f-zeditor";
 }
