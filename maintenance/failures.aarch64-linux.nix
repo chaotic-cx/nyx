@@ -14,14 +14,14 @@
   "linuxPackages_cachyos-server.rtl8188eus-aircrack" = "/nix/store/kw3w1k4n5wgi6skgc63rizq8g2ba23bq-rtl8188eus-aircrack-6.15.7-unstable-2024-09-18";
   "linuxPackages_cachyos-server.rtl8814au" = "/nix/store/h7n5mmizac7m9l98vs8bwznl02f6rbvc-rtl8814au-6.15.7-unstable-2024-05-26";
   "linuxPackages_cachyos-server.systemtap" = "/nix/store/245i50qmaqpscg14m13fjpfqrq5bly9p-systemtap-5.2";
-  "nix_git" = "/nix/store/yff729v21shm4ghsa3qpr5pcljs19rkd-nix-2.99pre20250717_60c48b70";
-  "openrgb_git" = "/nix/store/97kabg61b0la1zg21vryj2b8p6lb0pif-openrgb-unstable-20250717165708-d0bcf06";
+  "nix_git" = "/nix/store/rg5awk2nkp65jbm2rjb9lzgi79alaads-nix-2.99pre20250724_cbdb497c";
+  "openrgb_git" = "/nix/store/lvrkb8jhp75gwnac55c5gipi4yfvq1ly-openrgb-unstable-20250724022228-a1d7a76";
   "pwvucontrol_git" = "/nix/store/gzg6xxdpwqcm6hpfz6f8j1wnap5msaa0-pwvucontrol-unstable-20250525111507-7bf43c7";
   "telegram-desktop-unwrapped_git" = "skip";
-  "telegram-desktop_git" = "/nix/store/6bqhqd374vqvlnwz1rs2vp4nfvn3b65r-telegram-desktop-unstable-20250722113759-4c049d0";
-  "vulkanPackages_latest.gfxreconstruct" = "/nix/store/kri8yjzw5g48k9ggl0jfy91kpc1qm2cf-gfxreconstruct-1.4.321.0";
-  "vulkanPackages_latest.vulkan-extension-layer" = "/nix/store/kdjk9hnyw4p4q5vjkm2m75s3b5zf42dr-vulkan-extension-layer-1.4.321.0";
-  "zed-editor-fhs_git" = "/nix/store/13yfy0j5qsllppwax15amlsx28gkrs3r-zeditor";
-  "zed-editor_git" = "/nix/store/mdbg21b3afpr5fgyrkjq90kid1wzdraj-zed-editor-unstable-20250717234616-ed4deaa";
+  "telegram-desktop_git" = "/nix/store/fyhxjw5fhzg113higy079ykjvfqsh35q-telegram-desktop-unstable-20250722113759-4c049d0";
+  "vulkanPackages_latest.gfxreconstruct" = "/nix/store/q3gwc1wa5cfs2wlsvmvbl88x626y17xx-gfxreconstruct-1.4.321.0";
+  "vulkanPackages_latest.vulkan-extension-layer" = "/nix/store/rr7qdzbxj07xb64pdlmy6slcyrxnr4id-vulkan-extension-layer-1.4.321.0";
+  "zed-editor_git" = "/nix/store/0g4g8h7n08pj9zbdvq5sc39lac7ap7sm-zed-editor-unstable-20250724222521-66acc26";
+  "zed-editor-fhs_git" = "/nix/store/a19zrd0w6lijl6ihqcbzi1gicg66pdyq-zeditor";
   "zfs_cachyos" = "/nix/store/pvmwrh5jh281694xn6r7yx8pp2azl5a1-zfs-user-2.3.3";
 }
