@@ -64,10 +64,6 @@
   "linuxPackages_cachyos-server.yt6801" = "/nix/store/v8s7i6878x53a75iip8vgjypaf9480i7-yt6801-1.0.29-20240812";
   "nix_git" = "/nix/store/vf6vc4mhq52afcmpvn95ghmdq3lis33a-nix-2.99pre20250724_cbdb497c";
   "openrgb_git" = "/nix/store/sxm8whxzmqcasskddbljjip9am80l70r-openrgb-unstable-20250724022228-a1d7a76";
-  "scx_git.cscheds" = "/nix/store/4ysbsfyvqyfxsqmqbjjvn7jv12m076v0-scx_cscheds-unstable-20250724184426-42a596a-bin";
-  "scx_git.rustscheds" = "/nix/store/bl7zfqpp7slw96awc4p8wizq5cmyramp-scx_rustscheds-unstable-20250724184426-42a596a";
-  "scx-full_git" = "/nix/store/aa11bx7905a9kyapc27xfjhzp91y2jdk-scx_full-unstable-20250724184426-42a596a-bin";
-  "scx_git.full" = "/nix/store/aa11bx7905a9kyapc27xfjhzp91y2jdk-scx_full-unstable-20250724184426-42a596a-bin";
   "vulkanPackages_latest.gfxreconstruct" = "/nix/store/747i7rczbaiss3n11fr9qq02yxmzdd1g-gfxreconstruct-1.4.321.0";
   "vulkanPackages_latest.vulkan-extension-layer" = "/nix/store/hsyqcwlhxw763hr4pwjr3c8a6j73s84w-vulkan-extension-layer-1.4.321.0";
 }
