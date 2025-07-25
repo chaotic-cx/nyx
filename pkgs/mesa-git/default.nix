@@ -53,6 +53,9 @@ gitOverride (current: {
               hash = "sha256-CDmzKdV40EExLpOHPAUnytqG9x1+IGW4AZldfYs5YJk=";
             };
           });
+        vulkanLayers = prev.mesa.vulkanLayers ++ [
+          "anti-lag"
+        ];
       }
       // (
         if is32bit then
