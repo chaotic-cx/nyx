@@ -135,6 +135,12 @@ let
         "-e MZEN4"
         "-d X86_NATIVE_CPU"
       ]
+    else if cachyConfig.mArch == "ZEN5" then
+      [
+        "-d GENERIC_CPU"
+        "-e MZEN5"
+        "-d X86_NATIVE_CPU"
+      ]
     else if builtins.match "GENERIC_V[1-4]" cachyConfig.mArch != null then
       let
         v = lib.strings.removePrefix "GENERIC_V" cachyConfig.mArch;
@@ -146,7 +152,7 @@ let
         "--set-val X86_64_VERSION ${v}"
       ]
     else
-      throw "Unsuppoted cachyos mArch";
+      throw "Unsupported cachyos mArch";
 
   # _cpusched, defaults to "cachyos"
   cpuSchedConfig =
