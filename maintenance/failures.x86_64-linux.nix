@@ -62,8 +62,6 @@
   "linuxPackages_cachyos-server.rtl88x2bu" = "/nix/store/kydhd82n03g8f0w3sjzw6kp8090i577z-rtl88x2bu-6.15.8-unstable-2024-06-09";
   "linuxPackages_cachyos-server.rtl88xxau-aircrack" = "/nix/store/i86nnf5yr20ss113qjbvcmlnrra6xnrc-rtl88xxau-aircrack-6.15.8-unstable-2024-04-09";
   "linuxPackages_cachyos-server.yt6801" = "/nix/store/819jchll3lxwchb1jr3jxagll7qp973f-yt6801-1.0.29-20240812";
-  "mesa32_git" = "/nix/store/370n50xd6fbnsf2wjbapxif22r6285fm-mesa-dd7126";
-  "mesa_git" = "/nix/store/2nm97kzq8hiqxry9sch50ib2jr4krlxa-mesa-dd7126";
   "nix_git" = "/nix/store/siiw96rsypb49y1lvicbqslkr985p559-nix-2.99pre20250725_7f4acb9f";
   "openrgb_git" = "/nix/store/va4023jjzzjc83fvyjs60986syvh5k4g-openrgb-unstable-20250726073638-d591383";
   "vulkanPackages_latest.gfxreconstruct" = "/nix/store/747i7rczbaiss3n11fr9qq02yxmzdd1g-gfxreconstruct-1.4.321.0";
