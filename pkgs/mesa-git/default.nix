@@ -93,7 +93,7 @@ gitOverride (current: {
 
     postPatch =
       if final.stdenv.isLinux then
-        (builtins.replaceStrings ["/* subprojects"] ["*-rs/* subprojects"] prevAttrs.postPatch)
+        (builtins.replaceStrings [ "/* subprojects" ] [ "*-rs/* subprojects" ] prevAttrs.postPatch)
         + ''
           ${copyRustDeps}
         ''
