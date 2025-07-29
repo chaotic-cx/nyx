@@ -226,8 +226,6 @@ in
   mesa32_git =
     if has32 then callOverride32 ../pkgs/mesa-git { } else throw "No mesa32_git for non-x86";
 
-  matrix-tuwunel = final.callPackage ../pkgs/tuwunel/package.nix { };
-
   mpv-vapoursynth =
     (final.mpv-unwrapped.wrapper {
       mpv = final.mpv-unwrapped.override {
