@@ -32,7 +32,7 @@ let
 
   copyRustDep = dep: ''
     cp -R --no-preserve=mode,ownership ${final.fetchCrate dep} subprojects/${dep.pname}-${dep.version}
-    cp -R subprojects/packagefiles/${dep.pname}/* subprojects/${dep.pname}-${dep.version}/
+    cp -R subprojects/packagefiles/${dep.pname}-${final.lib.versions.major dep.version}-rs/* subprojects/${dep.pname}-${dep.version}/
   '';
 
   copyRustDeps = final.lib.concatStringsSep "\n" (builtins.map copyRustDep rustDeps);
@@ -93,7 +93,7 @@ gitOverride (current: {
 
     postPatch =
       if final.stdenv.isLinux then
-        prevAttrs.postPatch
+        (builtins.replaceStrings ["/* subprojects"] ["*-rs/* subprojects"] prevAttrs.postPatch)
         + ''
           ${copyRustDeps}
         ''
