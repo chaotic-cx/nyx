@@ -40,8 +40,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     inherit (current) rev hash;
   };
 
-  useFetchCargoVendor = true;
-
   nativeBuildInputs = [
     pkg-config
     rustPlatform.bindgenHook
