@@ -42,7 +42,6 @@ gitOverride (current: {
     if final.stdenv.isLinux then
       {
         wayland-protocols = final64.wayland-protocols_git;
-        galliumDrivers = [ "all" ];
         directx-headers =
           # https://gitlab.freedesktop.org/mesa/mesa/-/issues/13126
           final.directx-headers.overrideAttrs (_prevAttrs: {
@@ -67,6 +66,9 @@ gitOverride (current: {
           with final;
           {
             libdrm = libdrm_git;
+            galliumDrivers =
+              # "rocket" is broken for 32bit
+              [ "all" ];
           }
       )
     else
