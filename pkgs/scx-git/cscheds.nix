@@ -12,9 +12,7 @@ scx.cscheds.overrideAttrs (_prevAttrs: {
     libbpf_src
     ;
   #
-  postPatch = (
-    builtins.replaceStrings [ "--replace-fail" ] [ "--replace-warn" ] _prevAttrs.postPatch
-  );
+  postPatch = builtins.replaceStrings [ "--replace-fail" ] [ "--replace-warn" ] _prevAttrs.postPatch;
   # Cherry-picks nixpkgs#424862
   preInstall = "";
   postFixup = ''
