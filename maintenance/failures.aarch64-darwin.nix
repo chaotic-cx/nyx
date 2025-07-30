@@ -1,8 +1,9 @@
 {
-  "appmenu-gtk3-module" = "/nix/store/4wvb2a3qn0lri9awsgn08ndqq6g4ap2a-appmenu-gtk3-module-0.7.6";
-  "discord-krisp" = "/nix/store/5m9ammb5v8gb96w7f1wb39sij2l2xvbv-discord-0.0.354";
-  "libportal_git" = "/nix/store/yhxnzn5ilak6gkyxhkdkl19jzyyzc6sw-libportal-unstable-20250328122118-796053d";
-  "mesa_git" = "/nix/store/9a4jf467dx3ln0f623g8mc45c88f0bwk-mesa-538562";
+  "appmenu-gtk3-module" = "/nix/store/h09dybzgn5m4gxk6hw5hh6qpd275vz4k-appmenu-gtk3-module-0.7.6";
+  "conduwuit_git" = "/nix/store/kj8axlkmyb2wiw42d64qdf029rma8wsv-conduwuit-unstable-20250409033854-d8311a5";
+  "discord-krisp" = "/nix/store/xiszmh6r774h2xbk5dfycm4j7mjlp8p3-discord-0.0.354";
+  "libportal_git" = "/nix/store/jvq2h1svpp4d7bbjcar8q81xc8m6cxgi-libportal-unstable-20250328122118-796053d";
+  "mesa_git" = "/nix/store/15a15q9xwiz46k92d8czz723vqja9rc4-mesa-da5f3a";
   "wayland_git" = "skip";
   "zed-editor-fhs_git" = "skip";
 }
