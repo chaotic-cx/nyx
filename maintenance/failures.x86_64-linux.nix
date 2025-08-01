@@ -91,7 +91,7 @@
   "linuxPackages_cachyos-server.vmware" = "/nix/store/isvajsk21pl05cj1f4mvr85zc9xwkvca-vmware-modules-workstation-17.6.3-20250608-6.16.0";
   "linuxPackages_cachyos-server.yt6801" = "/nix/store/44fqw26i79h5g5hniwgi70j8k70ki95l-yt6801-1.0.29-20240812";
   "linuxPackages_cachyos-server.zenergy" = "/nix/store/9jzg136lkj980vwpmiszlx7ic5j888i8-zenergy-0-unstable-2025-04-15";
-  "nix_git" = "/nix/store/grk1hph18rfryk0l4w2h11b13lcx7prg-nix-2.99pre20250728_47f5e5fb";
+  "nix_git" = "/nix/store/xjyn4j6vbbyk4sh0i2ayw3mcir94yhlm-nix-2.99pre20250728_47f5e5fb";
   "openrgb_git" = "/nix/store/p9z8b19v9g89whbagapyxm7g4xanl40x-openrgb-unstable-20250729021321-c6de7cf";
   "vulkanPackages_latest.gfxreconstruct" = "/nix/store/08wmh5gzwdb6gk38dz4lp414qlljywy6-gfxreconstruct-1.4.321.0";
   "vulkanPackages_latest.vulkan-extension-layer" = "/nix/store/f6s0gn02s1ra2502rlfxdlvqix9v05y9-vulkan-extension-layer-1.4.321.0";
