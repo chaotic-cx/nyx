@@ -19,14 +19,14 @@
   "openrgb_git" = "/nix/store/z8456fjbg7gdk3cmnhywaxhdim10grcn-openrgb-unstable-20250729021321-c6de7cf";
   "pwvucontrol_git" = "/nix/store/p2wkqaca4hh7fwij0n6ndgf10c9q1kb7-pwvucontrol-unstable-20250525111507-7bf43c7";
   "telegram-desktop-unwrapped_git" = "skip";
-  "telegram-desktop_git" = "/nix/store/q32vswkycf0jc56dbp1zz8hhvymbk5a2-telegram-desktop-unstable-20250729163754-472d9dd";
+  "telegram-desktop_git" = "/nix/store/33cz85k6akg01hz3d4arfgji4bg30mi4-telegram-desktop-unstable-20250731201534-3d4d3b0";
   "vulkanPackages_latest.gfxreconstruct" = "/nix/store/s4a4s9bd4f90iimpk0zxgv5y09ixvwvv-gfxreconstruct-1.4.321.0";
   "vulkanPackages_latest.glslang" = "/nix/store/1xqfpj7vqblv0nr90n024ma22yprzwxd-glslang-15.5-unstable-bin";
   "vulkanPackages_latest.vulkan-extension-layer" = "/nix/store/clzm91b02s5a0d4iz07shna1csg19k98-vulkan-extension-layer-1.4.321.0";
   "vulkanPackages_latest.vulkan-tools-lunarg" = "/nix/store/spmchzz273jdnb1z1ida3z58kqm2j6pn-vulkan-tools-lunarg-1.4.321.0";
   "vulkanPackages_latest.vulkan-validation-layers" = "/nix/store/q7ibx9acd5lchm0m8r4yhaa8aqr33n5v-vulkan-validation-layers-1.4.323";
-  "zed-editor_git" = "/nix/store/897b7q3wnyx055a0dp6cdasqw8d7acrp-zed-editor-unstable-20250731053218-5488398";
-  "zed-editor-fhs_git" = "/nix/store/mhpa7x0blsl35vkixcmzr6w4h5gl5hx6-zeditor";
+  "zed-editor_git" = "/nix/store/accql7n560y7jip38vwam525nd554kg4-zed-editor-unstable-20250801032523-f7f9059";
+  "zed-editor-fhs_git" = "/nix/store/slicgqxljfw6sihyjgjsfk0y43jdkifq-zeditor";
   "zfs_cachyos" = "/nix/store/rgsgj7ailx949dh74xly0y4rq8rnygjh-zfs-user-2.3.3";
   "zon2nix_zig_0_13" = "/nix/store/300kshgpsqry1ynxbwkcnqr2nyqamlrk-zon2nix-0.1.2";
   "zon2nix_zig_0_14" = "/nix/store/pdrl3011rdcmbd49pgqi9an4krcynv31-zon2nix-0.1.2";
