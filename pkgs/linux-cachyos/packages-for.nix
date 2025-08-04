@@ -94,6 +94,9 @@ let
         broken = false;
       };
       patches = [ ];
+      postPatch =
+        builtins.replaceStrings [ "grep --quiet '^Linux-Maximum:" ] [ "# " ]
+          prevAttrs.postPatch;
     });
     inherit cachyOverride;
   };
