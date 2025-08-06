@@ -1,8 +1,5 @@
 {
-  "bazaar_git" = "/nix/store/qh7zkgpf9wnz7p57h2r13a1nh93kxx8b-bazaar-unstable-20250805230705-d5b9178";
   "conduwuit_git" = "/nix/store/pqw00z17m4h51kh92qbl5gjlxlcw4a8j-conduwuit-unstable-20250409033854-d8311a5";
-  "firefox-unwrapped_nightly" = "/nix/store/14kawywbnmvknhnn2wj9b7n370i7aidb-firefox-nightly-unwrapped-143.0a1";
-  "firefox_nightly" = "/nix/store/8npgq8s1sq24x585dn935kzrzp8nrpn6-firefox-nightly-143.0a1";
   "linuxPackages_cachyos.apfs" = "/nix/store/hhl819idv4bjz0zjzf66dba57rdikam9-apfs-0.3.14-6.16.0";
   "linuxPackages_cachyos.ax99100" = "/nix/store/sf6gvb3imd66kw1mah9yy7qskwwjdph5-ax99100-1.8.0";
   "linuxPackages_cachyos.ch9344" = "/nix/store/qr3jl4nb78hn9rk27q4lla9kbs267rri-ch9344-2.3";
@@ -101,8 +98,6 @@
   "linuxPackages_cachyos-server.vmware" = "/nix/store/isvajsk21pl05cj1f4mvr85zc9xwkvca-vmware-modules-workstation-17.6.3-20250608-6.16.0";
   "linuxPackages_cachyos-server.yt6801" = "/nix/store/44fqw26i79h5g5hniwgi70j8k70ki95l-yt6801-1.0.29-20240812";
   "linuxPackages_cachyos-server.zenergy" = "/nix/store/9jzg136lkj980vwpmiszlx7ic5j888i8-zenergy-0-unstable-2025-04-15";
-  "mesa32_git" = "/nix/store/i8fycs0ag0y2nscigazgb175px6n6svm-mesa-668a60";
-  "mesa_git" = "/nix/store/nnlqlc0y0jbfqb6y5h0hanx316fv5bhn-mesa-668a60";
   "nix_git" = "/nix/store/a9k4hgrk958b98miv0awa0war4sih70x-nix-2.99pre20250806_664f06c9";
   "openrgb_git" = "/nix/store/mp91bfq8af4bvl0wdmd0z79an59xzxrx-openrgb-unstable-20250806054813-31ec06b";
   "vulkanPackages_latest.gfxreconstruct" = "/nix/store/hbggrwhn3kfgd68pvccx8dfbcjypd7r3-gfxreconstruct-1.4.321.0";
