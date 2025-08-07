@@ -1,5 +1,5 @@
 {
-  "conduwuit_git" = "/nix/store/nrivi7wfblmvnv46mvvlhy1hniicnm69-conduwuit-unstable-20250409033854-d8311a5";
+  "conduwuit_git" = "/nix/store/da2xr09pc01h774lrmjcvisy99hsb33h-conduwuit-unstable-20250409033854-d8311a5";
   "firedragon-unwrapped" = "skip";
   "firedragon" = "skip";
   "firefox-unwrapped_nightly" = "skip";
@@ -8,23 +8,21 @@
   "linuxPackages_cachyos.rtl8188eus-aircrack" = "/nix/store/agzzvdd10dvhr3dnb2gxjc6wlsmfvr5i-rtl8188eus-aircrack-6.16.0-unstable-2024-09-18";
   "linuxPackages_cachyos.rtl8814au" = "/nix/store/97jz8vkal6bk44hm21rplfdk7vkgrm9x-rtl8814au-6.16.0-unstable-2024-05-26";
   "linuxPackages_cachyos.systemtap" = "/nix/store/wg8k1vg1qdfxcvcas5s411sc0lfwqkmk-systemtap-5.2";
-  "linuxPackages_cachyos-hardened.rtl8188eus-aircrack" = "/nix/store/ng4mdalfz8xqcc1xbn80csp3rd72xpyh-rtl8188eus-aircrack-6.14.8-unstable-2024-09-18";
-  "linuxPackages_cachyos-hardened.rtl8814au" = "/nix/store/zl7zwy62qrdm591608ymwjwzj5dyd7kp-rtl8814au-6.14.8-unstable-2024-05-26";
-  "linuxPackages_cachyos-hardened.systemtap" = "/nix/store/yvl9wyb18szaw0xzccklfdr4hdf32n7k-systemtap-5.2";
-  "linuxPackages_cachyos-hardened.tbs" = "/nix/store/l9fw1bjsqndkxb78fmsx6ilnlph1cxaa-tbs-20250510-6.14.8";
+  "linuxPackages_cachyos-hardened.rtl8188eus-aircrack" = "/nix/store/bg3kwr97hbplf6far4f9h6c74j1y7iy5-rtl8188eus-aircrack-6.15.9-unstable-2024-09-18";
+  "linuxPackages_cachyos-hardened.rtl8814au" = "/nix/store/81ml8m8yscfmm53sp96c7184c1nkrcaw-rtl8814au-6.15.9-unstable-2024-05-26";
+  "linuxPackages_cachyos-hardened.systemtap" = "/nix/store/32hi7lmvyvlphvqyhmcd7pwxggl62qb5-systemtap-5.2";
   "linuxPackages_cachyos-server.rtl8188eus-aircrack" = "/nix/store/0gh99xs8ln5kk5x3gfbrbqyfx451ygyz-rtl8188eus-aircrack-6.16.0-unstable-2024-09-18";
   "linuxPackages_cachyos-server.rtl8814au" = "/nix/store/1wv7zwvxbjs329cqyp46dx6w7kv4lp8w-rtl8814au-6.16.0-unstable-2024-05-26";
   "linuxPackages_cachyos-server.systemtap" = "/nix/store/rykvh1sb2za4lyv95gs7gx12dx4rjnyp-systemtap-5.2";
-  "nix_git" = "/nix/store/4prlmsym456rm766xxzkwyjasazbghyp-nix-2.99pre20250728_47f5e5fb";
-  "openrgb_git" = "/nix/store/z8456fjbg7gdk3cmnhywaxhdim10grcn-openrgb-unstable-20250729021321-c6de7cf";
+  "nix_git" = "/nix/store/c4bqgx6rbl91akz8m9y18d9wp49frgf5-nix-2.99pre20250806_664f06c9";
+  "openrgb_git" = "/nix/store/2fdacfkhllynwvip7ipbcavhqgz05502-openrgb-unstable-20250806054813-31ec06b";
   "pwvucontrol_git" = "/nix/store/p2wkqaca4hh7fwij0n6ndgf10c9q1kb7-pwvucontrol-unstable-20250525111507-7bf43c7";
   "telegram-desktop-unwrapped_git" = "skip";
-  "telegram-desktop_git" = "/nix/store/bxmazbl0nlln2j466m37113xhjp6lkzj-telegram-desktop-unstable-20250801184455-54b8811";
-  "vulkanPackages_latest.gfxreconstruct" = "/nix/store/s4a4s9bd4f90iimpk0zxgv5y09ixvwvv-gfxreconstruct-1.4.321.0";
+  "telegram-desktop_git" = "/nix/store/d6pj6h6za0yrsv0d2rqpiy7agsav0x2l-telegram-desktop-unstable-20250806034333-00a396c";
+  "vulkanPackages_latest.gfxreconstruct" = "/nix/store/pqj3iws7m77ywbsnjxx671cr7zcsplsc-gfxreconstruct-1.4.321.0";
   "vulkanPackages_latest.glslang" = "/nix/store/1xqfpj7vqblv0nr90n024ma22yprzwxd-glslang-15.5-unstable-bin";
-  "vulkanPackages_latest.vulkan-extension-layer" = "/nix/store/clzm91b02s5a0d4iz07shna1csg19k98-vulkan-extension-layer-1.4.321.0";
-  "vulkanPackages_latest.vulkan-tools-lunarg" = "/nix/store/spmchzz273jdnb1z1ida3z58kqm2j6pn-vulkan-tools-lunarg-1.4.321.0";
-  "vulkanPackages_latest.vulkan-validation-layers" = "/nix/store/q7ibx9acd5lchm0m8r4yhaa8aqr33n5v-vulkan-validation-layers-1.4.323";
-  "zed-editor_git" = "/nix/store/sy90mrffzxn8si6lpahxr8v07sl07sz8-zed-editor-unstable-20250803055633-4417bfe";
-  "zed-editor-fhs_git" = "/nix/store/57sfbf90838hqzda80hsmlxqyq5rjni3-zeditor";
+  "vulkanPackages_latest.vulkan-extension-layer" = "/nix/store/qrs1js9czjvalcc5c95m2ycf97g8ybxb-vulkan-extension-layer-1.4.321.0";
+  "vulkanPackages_latest.vulkan-validation-layers" = "/nix/store/b8ak9gx0vzyd6r8x5z8znf1lyyw5gl0l-vulkan-validation-layers-1.4.324";
+  "zed-editor_git" = "/nix/store/v04j3vl0vk9y4hckh3yf3s98vb9q5k66-zed-editor-unstable-20250807154337-c1d1d1c";
+  "zed-editor-fhs_git" = "/nix/store/zlrwzkbj13mz4ij3y8c84m4jbf10zr7z-zeditor";
 }
