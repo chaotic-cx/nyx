@@ -46,7 +46,7 @@ let
       lib.optionals (lib.strings.versionOlder majorMinor "6.12") [
         "${patches-src}/${majorMinor}/sched/0001-sched-ext.patch"
       ]
-      ++ lib.optionals (cachyConfig.cpuSched == "cachyos") [
+      ++ lib.optionals (cachyConfig.cpuSched == "cachyos" && version != "6.17-rc1") [
         "${patches-src}/${majorMinor}/sched/0001-bore-cachy.patch"
       ]
     else
