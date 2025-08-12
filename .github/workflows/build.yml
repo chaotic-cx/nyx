@@ -100,7 +100,7 @@ jobs:
           install_options: --daemon
       # Checkout the main branch
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-tags: true
       - name: Configure sandboxing

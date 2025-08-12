@@ -27,7 +27,7 @@ jobs:
         with:
           extra_nix_config: "accept-flake-config = true"
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Build
         id: build
         run: |
