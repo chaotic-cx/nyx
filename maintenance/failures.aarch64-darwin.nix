@@ -3,9 +3,9 @@
   "conduwuit_git" = "/nix/store/h44sfaf22h89jaidsb0qwx0c7n412nf1-conduwuit-unstable-20250409033854-d8311a5";
   "discord-krisp" = "/nix/store/1d42wrr35w5kpqd4k8sgyj563zqx20jk-discord-0.0.355";
   "libportal_git" = "/nix/store/jvq2h1svpp4d7bbjcar8q81xc8m6cxgi-libportal-unstable-20250328122118-796053d";
-  "mesa_git" = "/nix/store/mg3pacx0n7fd4sd178klfz7wz1sifqmh-mesa-5649a0";
-  "nix_git" = "/nix/store/99fr5sg9vldr9yp0s82li9bd1dfzykmb-nix-2.99pre20250806_664f06c9";
-  "vulkanPackages_latest.vulkan-validation-layers" = "/nix/store/mf2adrwc8fwxi4hjlyjby8157l1d3ady-vulkan-validation-layers-1.4.324";
+  "telegram-desktop-unwrapped_git" = "/nix/store/fyp64x137jfj5jpk97xxkl6vqhqzbj0m-telegram-desktop-unwrapped-unstable-20250813071938-192a56e";
+  "telegram-desktop_git" = "/nix/store/nj8ap124q3g6rhvh710nfpf3g82qyqgv-telegram-desktop-unstable-20250813071938-192a56e";
+  "vulkanPackages_latest.vulkan-validation-layers" = "/nix/store/p8ifw2y7s6v62f4lvgckhmr50lrb7hzq-vulkan-validation-layers-1.4.325";
   "wayland_git" = "skip";
   "zed-editor-fhs_git" = "skip";
 }
