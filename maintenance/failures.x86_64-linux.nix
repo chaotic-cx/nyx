@@ -28,9 +28,7 @@
   "linuxPackages_cachyos.rtl8852bu" = "/nix/store/bkvjqvz63f04s75g3pxs5wbzbavj2rwv-rtl8852bu-6.16.0-unstable-2025-05-18";
   "linuxPackages_cachyos.rtl88x2bu" = "/nix/store/kp0ka219d3jqp84kwkr59irwbad86rqq-rtl88x2bu-6.16.0-unstable-2024-06-09";
   "linuxPackages_cachyos.rtl88xxau-aircrack" = "/nix/store/glv7xdy79xppi23p69fs22m0hdwqq6by-rtl88xxau-aircrack-6.16.0-unstable-2024-04-09";
-  "linuxPackages_cachyos.rtw88" = "/nix/store/f2162mnin40r2lc8p61g4zmx8inq2zpa-rtw88-0-unstable-2025-07-13";
   "linuxPackages_cachyos.vmm_clock" = "/nix/store/92bra4zrmi37fwymymk74fsv3rnwv55j-vmm_clock-0.2.1";
-  "linuxPackages_cachyos.vmware" = "/nix/store/ic3awdyr9nwbgmiadmydkjqhkm96jlnw-vmware-modules-workstation-17.6.3-20250608-6.16.0";
   "linuxPackages_cachyos.yt6801" = "/nix/store/w0w588nj7bhplsgmzxspw4kfp6cdar21-yt6801-1.0.30-20250430";
   "linuxPackages_cachyos.zenergy" = "/nix/store/yqhdch8x5gmck0b9y0r0ggg4w1dln5df-zenergy-0-unstable-2025-04-15";
   "linuxPackages_cachyos-hardened.ax99100" = "/nix/store/3vqdwh8f98xzldvab8w30jdln2dqcqb2-ax99100-1.8.0";
@@ -84,9 +82,7 @@
   "linuxPackages_cachyos-server.rtl8852bu" = "/nix/store/1hy2p9d33f6za2i3hin7gsp40rjsg5gp-rtl8852bu-6.16.0-unstable-2025-05-18";
   "linuxPackages_cachyos-server.rtl88x2bu" = "/nix/store/w2ld0n8v3pw10krhh56fcwv83a7vmw0j-rtl88x2bu-6.16.0-unstable-2024-06-09";
   "linuxPackages_cachyos-server.rtl88xxau-aircrack" = "/nix/store/22xk9yx05savx3i1k48yspcgmdq0r7qq-rtl88xxau-aircrack-6.16.0-unstable-2024-04-09";
-  "linuxPackages_cachyos-server.rtw88" = "/nix/store/d9qcgwkw1g10snqh7b8q10nq7jba5mlj-rtw88-0-unstable-2025-07-13";
   "linuxPackages_cachyos-server.vmm_clock" = "/nix/store/4mcc66jfgvy85qapvv7axcrqdm49605f-vmm_clock-0.2.1";
-  "linuxPackages_cachyos-server.vmware" = "/nix/store/ba1zh47s1nfwya7jk9pv5idb6kvcg07r-vmware-modules-workstation-17.6.3-20250608-6.16.0";
   "linuxPackages_cachyos-server.yt6801" = "/nix/store/z8sy6sm99vmxnqybw1816ac3gy3ab92q-yt6801-1.0.30-20250430";
   "linuxPackages_cachyos-server.zenergy" = "/nix/store/14si4x3k19h7yw38ycj3nmv9zimv61gc-zenergy-0-unstable-2025-04-15";
   "mesa32_git" = "/nix/store/dyjnsiyay7h62id4l6x020agba66890z-mesa-381cb2";
@@ -94,8 +90,8 @@
   "nix_git" = "/nix/store/s7v280rqyqimjc148gfis7j3h2b9whv5-nix-2.99pre20250813_cf7084a6";
   "openmohaa_git" = "/nix/store/s78ma4ngslvzc66rkynljqygns4xyp8i-openmohaa-unstable-20250813212004-2821102";
   "openrgb_git" = "/nix/store/m7mkavdhhxvb5jnc6azvqld1kpzyz1ww-openrgb-unstable-20250813223710-2dd013a";
-  "qtile-module_git" = "/nix/store/y97n4kyj5xaqw9nvpzxw3sp426cqm7c7-python3.13-qtile-0.33.0.99.99";
-  "qtile-extras_git" = "/nix/store/6kq748dp422njf1c5mqsr5lbaybin6jw-python3.13-qtile-extras-0.33.99.99";
+  "qtile-module_git" = "/nix/store/i5mmwwsjiavxmshyy1rx72a8kn5amyk5-python3.13-qtile-0.33.0.99.99";
+  "qtile-extras_git" = "/nix/store/5qm834qhwr7in8jp3npl08ik8xyfmg9p-python3.13-qtile-extras-0.33.99.99";
   "telegram-desktop-unwrapped_git" = "/nix/store/ljfbrc3389idx6nnik8x4gpfmvpbj9lf-telegram-desktop-unwrapped-unstable-20250813071938-192a56e";
   "telegram-desktop_git" = "/nix/store/ijc52f3vp1qn4wfxyfb5y1rk0wz2h9ag-telegram-desktop-unstable-20250813071938-192a56e";
   "vulkanPackages_latest.gfxreconstruct" = "/nix/store/50ih3wn1ip0za7az5narr139samfkxgm-gfxreconstruct-1.4.321.0";
