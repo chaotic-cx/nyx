@@ -14,9 +14,4 @@
       inherit (scx-common) src;
       hash = scx-common.cargoHash;
     };
-    # Cherry-picks nixpkgs#424862
-    postPatch = ''
-      mkdir libbpf
-      cp -r ${final.scx_git.cscheds.dev}/libbpf/* libbpf/
-    '';
   })

@@ -1,9 +1,10 @@
 {
   scx,
   scx-common,
+  lib,
 }:
 
-scx.cscheds.overrideAttrs (_prevAttrs: {
+scx.cscheds.overrideAttrs (prevAttrs: {
   inherit (scx-common)
     version
     src
@@ -11,12 +12,8 @@ scx.cscheds.overrideAttrs (_prevAttrs: {
     bpftools_src
     libbpf_src
     ;
-  #
-  postPatch = builtins.replaceStrings [ "--replace-fail" ] [ "--replace-warn" ] _prevAttrs.postPatch;
-  # Cherry-picks nixpkgs#424862
-  preInstall = "";
-  postFixup = ''
-    mkdir -p ${placeholder "dev"}
-    cp -r libbpf ${placeholder "dev"}
-  '';
+
+  postPatch = builtins.replaceStrings [ "--replace-fail" ] [ "--replace-warn" ] prevAttrs.postPatch;
+
+  mesonFlags = lib.lists.remove "-Dlibalpm=disabled" (lib.flatten prevAttrs.mesonFlags);
 })
