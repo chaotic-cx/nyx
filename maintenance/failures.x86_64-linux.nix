@@ -1,5 +1,4 @@
 {
-  "conduwuit_git" = "/nix/store/93pg9grlf04ydr5pdhsfakywnl4lsqzw-conduwuit-unstable-20250409033854-d8311a5";
   "linuxPackages_cachyos.apfs" = "/nix/store/nygcx9v208b8k5d70ldfnv6gkpf9c8v6-apfs-0.3.14-6.16.0";
   "linuxPackages_cachyos.ax99100" = "/nix/store/psppkyr3kpdq3i11bxzymwzqzmjdvcy0-ax99100-1.8.0";
   "linuxPackages_cachyos.chipsec" = "/nix/store/vr6cg7x2pnfwrs2g6qqjx9m7ialhqklz-chipsec-1.10.6";

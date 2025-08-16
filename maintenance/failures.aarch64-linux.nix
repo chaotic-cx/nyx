@@ -1,5 +1,4 @@
 {
-  "conduwuit_git" = "/nix/store/da2xr09pc01h774lrmjcvisy99hsb33h-conduwuit-unstable-20250409033854-d8311a5";
   "firedragon-unwrapped" = "skip";
   "firedragon" = "skip";
   "firefox-unwrapped_nightly" = "skip";

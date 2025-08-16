@@ -12,7 +12,6 @@ let
     nyx-registry = import ../common/nyx-registry.nix fromFlakes;
     zfs-impermanence-on-shutdown = import ./zfs-impermanence-on-shutdown.nix;
     owl-wlr = import ./owl-wlr.nix;
-    conduwuit = import ./conduwuit.nix;
   };
 
   default =

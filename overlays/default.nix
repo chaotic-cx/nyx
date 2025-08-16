@@ -155,8 +155,6 @@ in
 
   bytecode-viewer_git = final.callPackage ../pkgs/bytecode-viewer-git { };
 
-  conduwuit_git = final.callPackage ../pkgs/conduwuit-git { };
-
   discord-krisp = callOverride ../pkgs/discord-krisp { };
 
   distrobox_git = callOverride ../pkgs/distrobox-git { };
