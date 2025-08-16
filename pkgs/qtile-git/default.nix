@@ -22,6 +22,7 @@ gitOverride {
 
   postOverride = prevAttrs: {
     name = prevAttrs.name + ".99";
+    patches = [ ];
     passthru = prevAttrs.passthru // {
       tests.smoke-test = import ./test.nix {
         inherit (flakes) nixpkgs;
