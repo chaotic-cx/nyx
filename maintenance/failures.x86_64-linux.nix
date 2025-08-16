@@ -84,16 +84,7 @@
   "linuxPackages_cachyos-server.vmm_clock" = "/nix/store/4mcc66jfgvy85qapvv7axcrqdm49605f-vmm_clock-0.2.1";
   "linuxPackages_cachyos-server.yt6801" = "/nix/store/z8sy6sm99vmxnqybw1816ac3gy3ab92q-yt6801-1.0.30-20250430";
   "linuxPackages_cachyos-server.zenergy" = "/nix/store/14si4x3k19h7yw38ycj3nmv9zimv61gc-zenergy-0-unstable-2025-04-15";
-  "mesa32_git" = "/nix/store/dyjnsiyay7h62id4l6x020agba66890z-mesa-381cb2";
-  "mesa_git" = "/nix/store/18i87xi6iy2bsdm3phdvi1v4cmm1zvd9-mesa-381cb2";
   "nix_git" = "/nix/store/s7v280rqyqimjc148gfis7j3h2b9whv5-nix-2.99pre20250813_cf7084a6";
-  "openmohaa_git" = "/nix/store/s78ma4ngslvzc66rkynljqygns4xyp8i-openmohaa-unstable-20250813212004-2821102";
-  "openrgb_git" = "/nix/store/m7mkavdhhxvb5jnc6azvqld1kpzyz1ww-openrgb-unstable-20250813223710-2dd013a";
-  "qtile-module_git" = "/nix/store/i5mmwwsjiavxmshyy1rx72a8kn5amyk5-python3.13-qtile-0.33.0.99.99";
-  "qtile-extras_git" = "/nix/store/5qm834qhwr7in8jp3npl08ik8xyfmg9p-python3.13-qtile-extras-0.33.99.99";
-  "telegram-desktop-unwrapped_git" = "/nix/store/ljfbrc3389idx6nnik8x4gpfmvpbj9lf-telegram-desktop-unwrapped-unstable-20250813071938-192a56e";
-  "telegram-desktop_git" = "/nix/store/ijc52f3vp1qn4wfxyfb5y1rk0wz2h9ag-telegram-desktop-unstable-20250813071938-192a56e";
   "vulkanPackages_latest.gfxreconstruct" = "/nix/store/50ih3wn1ip0za7az5narr139samfkxgm-gfxreconstruct-1.4.321.0";
   "vulkanPackages_latest.vulkan-extension-layer" = "/nix/store/3xdbd378p44nk1j02kys5ql3a7x7a220-vulkan-extension-layer-1.4.321.0";
-  "vulkanPackages_latest.vulkan-validation-layers" = "/nix/store/656fbqz3dsbjzm6s342j30s5n0n8pyw9-vulkan-validation-layers-1.4.325";
 }
