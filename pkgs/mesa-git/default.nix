@@ -37,19 +37,21 @@ let
 
   copyRustDeps = final.lib.concatStringsSep "\n" (builtins.map copyRustDep rustDeps);
 
-  libdisplay-info_latest = if final.libdisplay-info.version == "0.2.0" then
-    final.libdisplay-info.overrideAttrs (_prevAttrs: rec {
-      version = "0.3.0";
+  libdisplay-info_latest =
+    if final.libdisplay-info.version == "0.2.0" then
+      final.libdisplay-info.overrideAttrs (_prevAttrs: rec {
+        version = "0.3.0";
 
-      src = final.fetchFromGitLab {
-        domain = "gitlab.freedesktop.org";
-        owner = "emersion";
-        repo = "libdisplay-info";
-        rev = version;
-        sha256 = "sha256-nXf2KGovNKvcchlHlzKBkAOeySMJXgxMpbi5z9gLrdc=";
-      };
-    })
-  else throw "Newer libdisplay-info in Nixpkgs";
+        src = final.fetchFromGitLab {
+          domain = "gitlab.freedesktop.org";
+          owner = "emersion";
+          repo = "libdisplay-info";
+          rev = version;
+          sha256 = "sha256-nXf2KGovNKvcchlHlzKBkAOeySMJXgxMpbi5z9gLrdc=";
+        };
+      })
+    else
+      throw "Newer libdisplay-info in Nixpkgs";
 in
 gitOverride (current: {
   newInputs =
