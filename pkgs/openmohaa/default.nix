@@ -45,7 +45,6 @@ llvmPackages_15.stdenv.mkDerivation {
   cmakeFlags = [
     "-DWITH_CLIENT=1"
     "-DUSE_INTERNAL_LIBS=0"
-    "-DUSE_FREETYPE=1"
     "-DUSE_OPENAL_DLOPEN=0"
     "-DUSE_CURL_DLOPEN=0"
   ];
