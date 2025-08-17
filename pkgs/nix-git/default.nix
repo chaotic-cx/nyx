@@ -14,9 +14,19 @@ let
   };
 
   addFixes = _finalScope: prevScope: {
-    nix-store = prevScope.nix-store.overrideAttrs (prevAttrs: {
-      # Hummm, this shouldn't be needed TODO: Investigate!
-      buildInputs = prevAttrs.buildInputs ++ [ final.aws-sdk-cpp ];
+    nix-store-tests = prevScope.nix-store-tests.overrideAttrs (prevAttrs: {
+      # I guess the "optionalString" in the derivation is missing a NOT in the predicate
+      passthru = prevAttrs.passthru // {
+        tests = prevAttrs.passthru.tests // {
+          run = prevAttrs.passthru.tests.run.overrideAttrs (testPrevAttrs: {
+            buildCommand = ''
+              export HOME="$PWD/home-dir"
+              mkdir -p "$HOME"
+            ''
+            + testPrevAttrs.buildCommand;
+          });
+        };
+      };
     });
   };
 
