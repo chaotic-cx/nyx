@@ -4,38 +4,12 @@
   flakes,
   prev,
   gitOverride,
-  nyxUtils,
   mesaTestAttrs ? final,
   ...
 }:
 
 let
   inherit (final.stdenv) is32bit;
-
-  rustDeps = [
-    {
-      pname = "rustc-hash";
-      version = "2.1.1";
-      hash = "sha256-3rQidUAExJ19STn7RtKNIpZrQUne2VVH7B1IO5UY91k=";
-    }
-    {
-      pname = "syn";
-      version = "2.0.87";
-      hash = "sha256-QYnGHt5ZzKUNaJpyaOYVR5yevNQWIebpuJcRXtg3VX0=";
-    }
-    {
-      pname = "quote";
-      version = "1.0.35";
-      hash = "sha256-B1J1BytAPRoiQMEWRh9+Lii8VElcN2bIdooQt9HBqHc=";
-    }
-  ];
-
-  copyRustDep = dep: ''
-    cp -R --no-preserve=mode,ownership ${final.fetchCrate dep} subprojects/${dep.pname}-${dep.version}
-    cp -R subprojects/packagefiles/${dep.pname}-${final.lib.versions.major dep.version}-rs/* subprojects/${dep.pname}-${dep.version}/
-  '';
-
-  copyRustDeps = final.lib.concatStringsSep "\n" (builtins.map copyRustDep rustDeps);
 
   libdisplay-info_latest =
     if final.libdisplay-info.version == "0.2.0" then
@@ -58,16 +32,6 @@ gitOverride (current: {
     if final.stdenv.isLinux then
       {
         wayland-protocols = final64.wayland-protocols_git;
-        directx-headers =
-          # https://gitlab.freedesktop.org/mesa/mesa/-/issues/13126
-          final.directx-headers.overrideAttrs (_prevAttrs: {
-            src = final.fetchFromGitHub {
-              owner = "microsoft";
-              repo = "DirectX-Headers";
-              rev = "v1.614.1";
-              hash = "sha256-CDmzKdV40EExLpOHPAUnytqG9x1+IGW4AZldfYs5YJk=";
-            };
-          });
         vulkanLayers = prev.mesa.vulkanLayers ++ [
           "anti-lag"
         ];
@@ -105,28 +69,6 @@ gitOverride (current: {
   version = builtins.substring 0 (builtins.stringLength prev.mesa.version) current.rev;
 
   postOverride = prevAttrs: {
-    patches = [
-      ./opencl.patch
-    ];
-
-    postPatch =
-      if final.stdenv.isLinux then
-        (builtins.replaceStrings [ "/* subprojects" ] [ "*-rs/* subprojects" ] prevAttrs.postPatch)
-        + ''
-          ${copyRustDeps}
-        ''
-      else
-        prevAttrs.postPatch or "";
-
-    mesonFlags =
-      (nyxUtils.removeByPrefixes [
-        "-Dosmesa"
-        "-Dgallium-opencl"
-        "-Dgallium-nine"
-        "-Dgallium-xa"
-      ] prevAttrs.mesonFlags)
-      ++ [ "-Dgallium-mediafoundation=disabled" ];
-
     buildInputs = prevAttrs.buildInputs ++ [ libdisplay-info_latest ];
 
     # test and accessible information
