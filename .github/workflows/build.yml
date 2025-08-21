@@ -128,6 +128,7 @@ jobs:
           EOF" >> $GITHUB_OUTPUT
         env:
           NYX_WD: ${{ runner.temp }}
+          NYX_PUSH_ALL: "1"
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
       - name: Update nyxpkgs-unstable
         if: (success() && (steps.check.outputs.cached == 'true' || steps.build.outputs.FAILED_BUILDS_COUNT == 0))

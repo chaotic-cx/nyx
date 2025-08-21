@@ -58,6 +58,7 @@ let
         _ALL_OUT_KEYS=(${allOutFlakeKey cmd.artifacts})
         _ALL_OUT_PATHS=(${allOutPaths cmd.artifacts})
         _MAIN_OUT_PATH="${cmd.mainOutPath}"
+        _MAIN_OUT_HASH=${cmd.thisOut}
         _WHAT="${cmd.key}"
         _KNOWN_ISSUE="${
           if knownIssue != null && !lib.strings.isStorePath knownIssue then cmd.issue else ""

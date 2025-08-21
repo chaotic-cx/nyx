@@ -51,13 +51,15 @@ function prepare() {
   # Download current list of cached packages
   if [ ! -e prev-cache.txt ]; then
     if [ -f prev-cache.json ]; then
+      echo "Re-using cached contents"
       jq -r '.[]' prev-cache.json > prev-cache.txt
-    elif [ -n "${CACHIX_AUTH_TOKEN:-}" ]; then
+    elif [ -n "${CACHIX_AUTH_TOKEN:-}" ] && [ -z "${NYX_SKIP_REPO_CONTENTS:-}" ]; then
       echo "Downloading current list of cached contents"
       curl -H "Authorization: Bearer $CACHIX_AUTH_TOKEN" \
         "https://app.cachix.org/api/v1/cache/${CACHIX_REPO}/contents" |\
           jq -r .[] > prev-cache.txt
     else
+      echo "Starting without cached contents"
       touch prev-cache.txt
     fi
   fi
@@ -81,7 +83,7 @@ function known-cached() {
 
 # Check if $1 is in the cache
 function cached() {
-  nix path-info "$2" --store "$1" >/dev/null 2>/dev/null
+  ( curl -s -o /dev/null -w "%{http_code}" -I "$1/$2.narinfo" | grep -qv '^404$') 2>/dev/null
 }
 
 # Helper to zip-merge _ALL_OUT_KEYS and _ALL_OUT_PATHS
@@ -111,7 +113,7 @@ function build() {
     return 0
 
   # If found in our's cache
-  elif [ -z "${NYX_REBUILD_ALL:-}" ] && [ -z "${CACHIX_AUTH_TOKEN:-}" ] && cached "https://${CACHIX_REPO}.cachix.org" "$_MAIN_OUT_PATH"; then
+  elif [ -z "${NYX_REBUILD_ALL:-}" ] && cached "https://${CACHIX_REPO}.cachix.org" "$_MAIN_OUT_HASH"; then
     echo "$_WHAT" >> cached.txt
     echo "$_MAIN_OUT_PATH" >> "${NYX_HOME}/cached.txt"
     echo -e "${Y} CACHED${W}"
@@ -119,7 +121,7 @@ function build() {
     return 0
 
   # If found in Nixpkgs's cache
-  elif cached 'https://cache.nixos.org' "$_MAIN_OUT_PATH"; then
+  elif cached 'https://cache.nixos.org' "$_MAIN_OUT_HASH"; then
     echo "$_WHAT" >> upstream.txt
     echo "$_MAIN_OUT_PATH" >> "${NYX_HOME}/cached.txt"
     echo -e "${Y} CACHED-UPSTREAM${W}"

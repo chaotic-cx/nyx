@@ -49,6 +49,7 @@ let
           artifacts = allOuts key drv;
           deps = depsCond;
           this = thisVar;
+          thisOut = nyxUtils.outHash drv;
           issue = failed;
           inherit key mainOutPath system;
         };
