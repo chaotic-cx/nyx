@@ -1,5 +1,4 @@
 {
-  "bazaar_git" = "/nix/store/jfra47gfpfmsss181n70jgfws3v7c4cd-bazaar-unstable-20250821120351-6ddafba";
   "linuxPackages_cachyos.apfs" = "/nix/store/84ycrgdq9fyb1p7642ckkfqzhs0i4yh2-apfs-0.3.14-6.16.2";
   "linuxPackages_cachyos.ax99100" = "/nix/store/zzdas392992273lx55xgvrlfiiik7rna-ax99100-1.8.0";
   "linuxPackages_cachyos.chipsec" = "/nix/store/2k7zqgbm7fxcr526gjawywkr5skaf70f-chipsec-1.10.6";
@@ -85,8 +84,8 @@
   "linuxPackages_cachyos-server.vmm_clock" = "/nix/store/7bkkzzswhilqib5wlda96jidgyh5473r-vmm_clock-0.2.1";
   "linuxPackages_cachyos-server.yt6801" = "/nix/store/50br93g1s4qrfy7k3zgilydl8ri3jq8v-yt6801-1.0.30-20250430";
   "linuxPackages_cachyos-server.zenergy" = "/nix/store/59xs2ibgqm3zn8j4gia0afmmbm7ghbgf-zenergy-0-unstable-2025-04-15";
-  "niri_git" = "/nix/store/6aba2pva634xassp9179x5b2fgka4a5p-niri-unstable-20250821072844-05337ce";
-  "nix_git" = "/nix/store/630pw3s69wsggb5y6d71jdmvklp9924i-nix-2.99pre20250821_d7612f35";
+  "niri_git" = "/nix/store/qcljl0afqzmsvi0hym9cxg5ydbj6lmza-niri-unstable-20250822161126-2865ec3";
+  "nix_git" = "/nix/store/x16iijdfiqfyncjyii138nyw4wh28l02-nix-2.99pre20250822_9c6019dd";
   "vulkanPackages_latest.gfxreconstruct" = "/nix/store/50ih3wn1ip0za7az5narr139samfkxgm-gfxreconstruct-1.4.321.0";
   "vulkanPackages_latest.vulkan-extension-layer" = "/nix/store/3xdbd378p44nk1j02kys5ql3a7x7a220-vulkan-extension-layer-1.4.321.0";
 }

@@ -4,6 +4,7 @@
   blueprint-compiler,
   desktop-file-utils,
   fetchFromGitHub,
+  fetchurl,
   flatpak,
   flatpak-xdg-utils,
   glib,
@@ -27,6 +28,18 @@
 
 let
   current = lib.trivial.importJSON ./version.json;
+
+  libdex_next =
+    if libdex.version == "0.10.1" then
+      libdex.overrideAttrs (_prevAttrs: rec {
+        version = "0.11.1";
+        src = fetchurl {
+          url = "mirror://gnome/sources/libdex/${lib.versions.majorMinor version}/libdex-${version}.tar.xz";
+          hash = "sha256-lCUKLYPm9z06yJcvGkOAFSNqRltWywBeDmv7nUlIc58=";
+        };
+      })
+    else
+      libdex;
 in
 stdenv.mkDerivation rec {
   pname = "bazaar";
@@ -55,7 +68,7 @@ stdenv.mkDerivation rec {
     glib
     gtk4
     libadwaita
-    libdex
+    libdex_next
     appstream
     libxmlb
     libglycin
