@@ -1,5 +1,4 @@
 {
-  "bazaar_git" = "/nix/store/l270zgyp8bma3gcfs9ddr251jdx4f780-bazaar-unstable-20250822153150-b9f3b1e";
   "linuxPackages_cachyos.apfs" = "/nix/store/84ycrgdq9fyb1p7642ckkfqzhs0i4yh2-apfs-0.3.14-6.16.2";
   "linuxPackages_cachyos.ax99100" = "/nix/store/zzdas392992273lx55xgvrlfiiik7rna-ax99100-1.8.0";
   "linuxPackages_cachyos.chipsec" = "/nix/store/2k7zqgbm7fxcr526gjawywkr5skaf70f-chipsec-1.10.6";
