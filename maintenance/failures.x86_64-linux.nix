@@ -86,7 +86,6 @@
   "linuxPackages_cachyos-server.zenergy" = "/nix/store/59xs2ibgqm3zn8j4gia0afmmbm7ghbgf-zenergy-0-unstable-2025-04-15";
   "niri_git" = "/nix/store/qcljl0afqzmsvi0hym9cxg5ydbj6lmza-niri-unstable-20250822161126-2865ec3";
   "nix_git" = "/nix/store/x16iijdfiqfyncjyii138nyw4wh28l02-nix-2.99pre20250822_9c6019dd";
-  "river_git" = "/nix/store/2dykxdgnn0znfvp2jnin2cwkyvfs48d2-river-unstable-20250822131150-88a8c45";
   "vulkanPackages_latest.gfxreconstruct" = "/nix/store/50ih3wn1ip0za7az5narr139samfkxgm-gfxreconstruct-1.4.321.0";
   "vulkanPackages_latest.vulkan-extension-layer" = "/nix/store/3xdbd378p44nk1j02kys5ql3a7x7a220-vulkan-extension-layer-1.4.321.0";
 }
