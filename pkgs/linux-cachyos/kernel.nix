@@ -60,6 +60,10 @@ in
           ia32Emulation = true;
           netfilterRPFilter = true;
         };
+        isLTS = false;
+        isZen = true;
+        isHardened = cachyConfig.cpuSched == "hardened";
+        isLibre = false;
         updateScript = null;
         tests = (prevAttrs.passthru.tests or { }) // {
           plymouth = import ./test.nix {
