@@ -42,15 +42,15 @@ writeShellScript "update-${repo}" ''
   localBase=$(jq -r .base < $srcJson)
   localRelease=$(jq -r .release < $srcJson)
 
-  latestVer=$(curl 'https://github.com/${owner}/${repo}/releases.atom' | xq -r '.feed.entry[].link."@href"' | grep -Po '(?<=/)${releasePrefix}[^/]+$' | head -n 1)
+  latestVer=$(curl 'https://github.com/${owner}/${repo}/releases.atom' | xq -r '.feed.entry[].link."@href"' | grep -Po '(?<=/)${releasePrefix}[^/]+${releaseSuffix}$' | head -n 1)
 
   if [ "${releasePrefix}''${localBase}-''${localRelease}${releaseSuffix}" == "$latestVer" ]; then
     exit 0
   fi
 
-  latestBase=$(echo $latestVer | grep -Po '(?<=${releasePrefix})[^-]+')
-  latestRelease=$(echo $latestVer | grep -Po '(?<=-)[^-]+$')
-  latestSha256=$(nix-prefetch-url --type sha256 "https://github.com/${owner}/${repo}/releases/download/''${latestVer}${releaseSuffix}/${tarballPrefix}''${latestVer}${releaseSuffix}${tarballSuffix}")
+  latestBase=$(echo $latestVer | grep -Po '(?<=^${releasePrefix})[^-]+')
+  latestRelease=$(echo $latestVer | grep -Po '(?<=-)[^-]+(?=${releaseSuffix}$)')
+  latestSha256=$(nix-prefetch-url --type sha256 "https://github.com/${owner}/${repo}/releases/download/''${latestVer}/${tarballPrefix}''${latestVer}${tarballSuffix}")
   latestHash=$(nix-hash --to-sri --type sha256 $latestSha256)
 
   jq \
