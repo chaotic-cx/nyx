@@ -21,6 +21,7 @@ gitOverride {
       ++ (with final; [
         freetype
         libmad
+        opusfile
       ]);
     cmakeFlags = prevAttrs.cmakeFlags ++ [ "-DUSE_INTERNAL_JPEG=1" ];
   };

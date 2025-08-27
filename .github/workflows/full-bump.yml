@@ -72,4 +72,5 @@ jobs:
         run: nix develop ./maintenance -c chaotic-nyx-build || [ $? -eq 42 ]
         env:
           NYX_WD: ${{ runner.temp }}
+          NYX_PUSH_ALL: "1"
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
