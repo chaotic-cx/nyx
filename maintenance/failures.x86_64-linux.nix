@@ -95,13 +95,14 @@
   "linuxPackages_cachyos-server.vmm_clock" = "/nix/store/ahdgjaaq3w73vi53gsrky1cyhq2pgw1y-vmm_clock-0.2.1";
   "linuxPackages_cachyos-server.yt6801" = "/nix/store/7mzff57k21hc2gry78298wcswvfmcsnz-yt6801-1.0.30-20250430";
   "linuxPackages_cachyos-server.zenergy" = "/nix/store/b7xhcpb0bgys4bv0nsbq8wyrwyrlfibi-zenergy-0-unstable-2025-04-15";
-  "niri_git" = "/nix/store/pai048yfrkaf9smd9hqiidvbq1938pch-niri-unstable-20250822161126-2865ec3";
-  "nix_git" = "/nix/store/9i6s2iiids4gyjci8kwqwva4skc3y3wk-nix-2.99pre20250823_c9211b0b";
+  "niri_git" = "/nix/store/9jcj98awil2z0dr6nvidwwk0crla6pya-niri-unstable-20250827142704-d9833fc";
+  "nix_git" = "/nix/store/1d4m71cy2bm9d44piajqfnwl5rwk8mwg-nix-2.99pre20250827_564593bc";
+  "openmohaa_git" = "/nix/store/zcbdkd8x2fscyck4hkf0rdaca1w1d7mn-openmohaa-unstable-20250826212942-f72e10a";
   "river_git" = "/nix/store/xhnh1pwb537i1vdfrppyx7qv7qkg6z8p-river-unstable-20250822131150-88a8c45";
-  "scx_git.cscheds" = "/nix/store/m7lz712fhrik4gqyf86d8s6a4kda88s9-scx_cscheds-unstable-20250815182649-dc7c785-bin";
-  "scx_git.rustscheds" = "/nix/store/f8x77hc3cy27bx4a2v2mvf9vzlcl662r-scx_rustscheds-unstable-20250815182649-dc7c785";
-  "scx-full_git" = "/nix/store/5jghad5620dfpk43d4jhaqv4j76dcdp9-scx_full-unstable-20250815182649-dc7c785-bin";
-  "scx_git.full" = "/nix/store/5jghad5620dfpk43d4jhaqv4j76dcdp9-scx_full-unstable-20250815182649-dc7c785-bin";
+  "scx_git.cscheds" = "/nix/store/cabdf2z40fy54m49xbx5mzjycfdl7k8r-scx_cscheds-unstable-20250827114744-71cd096-bin";
+  "scx_git.rustscheds" = "/nix/store/b5f94riv7qkrpynzx6bjjrgrs1qpxzjv-scx_rustscheds-unstable-20250827114744-71cd096";
+  "scx-full_git" = "/nix/store/8510jv9lqa73xlm6701llnssa2wfynmc-scx_full-unstable-20250827114744-71cd096-bin";
+  "scx_git.full" = "/nix/store/8510jv9lqa73xlm6701llnssa2wfynmc-scx_full-unstable-20250827114744-71cd096-bin";
   "vulkanPackages_latest.gfxreconstruct" = "/nix/store/sz446m0rnc3aqgf19y4wd5hxbdk6ih3h-gfxreconstruct-1.4.321.0";
   "vulkanPackages_latest.vulkan-extension-layer" = "/nix/store/qnlqpi4mmkw6pgphn7wdaikshi9zxs0x-vulkan-extension-layer-1.4.321.0";
 }
