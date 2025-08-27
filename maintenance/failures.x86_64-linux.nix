@@ -97,7 +97,6 @@
   "linuxPackages_cachyos-server.zenergy" = "/nix/store/b7xhcpb0bgys4bv0nsbq8wyrwyrlfibi-zenergy-0-unstable-2025-04-15";
   "niri_git" = "/nix/store/pai048yfrkaf9smd9hqiidvbq1938pch-niri-unstable-20250822161126-2865ec3";
   "nix_git" = "/nix/store/9i6s2iiids4gyjci8kwqwva4skc3y3wk-nix-2.99pre20250823_c9211b0b";
-  "proton-ge-custom" = "/nix/store/a3jwsambv1a94qbq02hpnsmsra9112i4-proton-ge-custom";
   "river_git" = "/nix/store/xhnh1pwb537i1vdfrppyx7qv7qkg6z8p-river-unstable-20250822131150-88a8c45";
   "scx_git.cscheds" = "/nix/store/m7lz712fhrik4gqyf86d8s6a4kda88s9-scx_cscheds-unstable-20250815182649-dc7c785-bin";
   "scx_git.rustscheds" = "/nix/store/f8x77hc3cy27bx4a2v2mvf9vzlcl662r-scx_rustscheds-unstable-20250815182649-dc7c785";

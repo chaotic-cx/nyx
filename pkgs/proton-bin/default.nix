@@ -1,6 +1,6 @@
 {
   callPackage,
-  stdenv,
+  stdenvNoCC,
   lib,
   fetchurl,
   withUpdateScript ? true,
@@ -21,7 +21,7 @@ let
   homepage = "https://github.com/${owner}/${repo}";
   url = "${homepage}/releases/download/${releaseVersion}/${tarballPrefix}${releaseVersion}${tarballSuffix}";
 in
-stdenv.mkDerivation {
+stdenvNoCC.mkDerivation {
   name = repo;
   version = "${version.base}.${version.release}";
 
