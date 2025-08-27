@@ -97,7 +97,6 @@
   "linuxPackages_cachyos-server.zenergy" = "/nix/store/b7xhcpb0bgys4bv0nsbq8wyrwyrlfibi-zenergy-0-unstable-2025-04-15";
   "niri_git" = "/nix/store/9jcj98awil2z0dr6nvidwwk0crla6pya-niri-unstable-20250827142704-d9833fc";
   "nix_git" = "/nix/store/1d4m71cy2bm9d44piajqfnwl5rwk8mwg-nix-2.99pre20250827_564593bc";
-  "openmohaa_git" = "/nix/store/zcbdkd8x2fscyck4hkf0rdaca1w1d7mn-openmohaa-unstable-20250826212942-f72e10a";
   "river_git" = "/nix/store/xhnh1pwb537i1vdfrppyx7qv7qkg6z8p-river-unstable-20250822131150-88a8c45";
   "vulkanPackages_latest.gfxreconstruct" = "/nix/store/sz446m0rnc3aqgf19y4wd5hxbdk6ih3h-gfxreconstruct-1.4.321.0";
   "vulkanPackages_latest.vulkan-extension-layer" = "/nix/store/qnlqpi4mmkw6pgphn7wdaikshi9zxs0x-vulkan-extension-layer-1.4.321.0";
