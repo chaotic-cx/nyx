@@ -384,24 +384,4 @@ in
   zed-editor-fhs_git = final.zed-editor_git.fhs;
 
   zfs_cachyos = cachyosPackages.zfs;
-
-  zon2nix_zig_0_13 = multiOverride prev.zon2nix { zig_0_14 = final.zig_0_13; } (_prevAttrs: {
-    version = "0.1.2";
-    src = final.fetchFromGitHub {
-      owner = "andreafeletto";
-      repo = "zon2nix";
-      rev = "5413d1afd430cc175de297fd09f26c2a9beef075";
-      hash = "sha256-lgtM6Wu9vh3OxGI5iw7npfh6f9yJIpRh8oJsosxnJiU=";
-    };
-  });
-
-  zon2nix_zig_0_14 = multiOverride prev.zon2nix { inherit (final) zig_0_14; } (_prevAttrs: {
-    version = "0.1.2";
-    src = final.fetchFromGitHub {
-      owner = "andreafeletto";
-      repo = "zon2nix";
-      rev = "5413d1afd430cc175de297fd09f26c2a9beef075";
-      hash = "sha256-lgtM6Wu9vh3OxGI5iw7npfh6f9yJIpRh8oJsosxnJiU=";
-    };
-  });
 }

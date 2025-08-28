@@ -9,7 +9,7 @@ gitOverride {
   nyxKey = "river_git";
   prev = prev.river;
 
-  newInputs = { };
+  newInputs = with final; { zig_0_14 = zig_0_15; };
 
   versionNyxPath = "pkgs/river-git/version.json";
   fetcher = "fetchFromGitea";
@@ -23,7 +23,7 @@ gitOverride {
 
   withExtraUpdateCommands = final.writeShellScript "bump-zig-zon" ''
     pushd "$_LATEST_PATH"
-    ${final.zon2nix_zig_0_14}/bin/zon2nix > "$_NYX_DIR/$_PKG_DIR/build.zig.zon.nix"
+    ${final.zon2nix}/bin/zon2nix > "$_NYX_DIR/$_PKG_DIR/build.zig.zon.nix"
     popd
 
     git add "$_PKG_DIR/build.zig.zon.nix"
