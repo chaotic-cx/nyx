@@ -41,11 +41,9 @@ let
   postOverride = prevAttrs: {
     patches =
       nyxUtils.removeByBaseNames [
-        "firefox-mac-missing-vector-header.patch"
-        "env_var_for_system_dir-ff133.patch"
-        "no-buildconfig-ffx136.patch"
-        "build-fix-RELRHACK_LINKER-setting-when-linker-name-i.patch"
-        "139-relax-apple-sdk.patch"
+        "136-no-buildconfig.patch"
+        "133-env-var-for-system-dir.patch"
+        "142-relax-apple-sdk.patch"
       ] prevAttrs.patches
       ++ [
         ./env_var_for_system_dir-ff-unstable.patch
