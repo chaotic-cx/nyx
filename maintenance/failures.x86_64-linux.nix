@@ -1,4 +1,6 @@
 {
+  "firefox-unwrapped_nightly" = "/nix/store/ihrh17kpjydnk9nd79gncdx1arlb4834-firefox-nightly-unwrapped-144.0a1";
+  "firefox_nightly" = "/nix/store/1lnxak0qv1jd0p1j5fr1g59prx6asw6i-firefox-nightly-144.0a1";
   "linuxPackages_cachyos.apfs" = "/nix/store/djjwcm5ai0dfc24055pw26slzkgjyi6z-apfs-0.3.14-6.16.3";
   "linuxPackages_cachyos.ax99100" = "/nix/store/17l792qincsvrqbm456mjcq5fxj9rwgf-ax99100-1.8.0";
   "linuxPackages_cachyos.chipsec" = "/nix/store/98f7cl7fji5n15cc2ifzsl4fm31rkkr6-chipsec-1.10.6";
@@ -30,7 +32,6 @@
   "linuxPackages_cachyos.rtl88xxau-aircrack" = "/nix/store/hk6l6lzidq11gp01p8kwlmd5a7cs0wax-rtl88xxau-aircrack-6.16.3-unstable-2024-04-09";
   "linuxPackages_cachyos.shufflecake" = "/nix/store/3hxdn8x1bm9ymdsa64xirbmqn7niw4gr-shufflecake";
   "linuxPackages_cachyos.tmon" = "/nix/store/cflgaarmhmmlxhhrmgni5hbpnn4zsvfs-tmon-6.16.3";
-  "linuxPackages_cachyos.v4l2loopback" = "/nix/store/1wjyfmkywc2p6p8120nkssvsz5kldnjz-v4l2loopback-0.15.1-6.16.3";
   "linuxPackages_cachyos.vmm_clock" = "/nix/store/i71cxwhapjffadfb5mak26c7pgfmrfvw-vmm_clock-0.2.1";
   "linuxPackages_cachyos.yt6801" = "/nix/store/bjh73qc399qqnqw1w0ad8zyg9nvrfg0c-yt6801-1.0.30-20250430";
   "linuxPackages_cachyos.zenergy" = "/nix/store/6251p043l8n4h5xq6sz9rl67src5h2y0-zenergy-0-unstable-2025-04-15";
@@ -58,7 +59,6 @@
   "linuxPackages_cachyos-hardened.rtl88xxau-aircrack" = "/nix/store/4vb212rv6r88c7idkgzlvhsc3hxnmd03-rtl88xxau-aircrack-6.15.9-unstable-2024-04-09";
   "linuxPackages_cachyos-hardened.shufflecake" = "/nix/store/xdydspjfwl7c9v9zagfxyfh44r2f7cgy-shufflecake";
   "linuxPackages_cachyos-hardened.tmon" = "/nix/store/r53lb9gqz0v67kf9pfcgnnr61sr1ijpf-tmon-6.15.9";
-  "linuxPackages_cachyos-hardened.v4l2loopback" = "/nix/store/7ys80fxp92y6qs50cdfdh8rsk38i87hw-v4l2loopback-0.15.1-6.15.9";
   "linuxPackages_cachyos-hardened.yt6801" = "/nix/store/ijys9ij39gmf7x1ab6skn3qmflm8l0i9-yt6801-1.0.30-20250430";
   "linuxPackages_cachyos-server.apfs" = "/nix/store/jvl912v261vaj95f36k96ixrbpl87q79-apfs-0.3.14-6.16.3";
   "linuxPackages_cachyos-server.ax99100" = "/nix/store/sdkg7ys9szjxh932aqa76qayd9qa8z2n-ax99100-1.8.0";
@@ -91,16 +91,15 @@
   "linuxPackages_cachyos-server.rtl88xxau-aircrack" = "/nix/store/i75fpiy606zckvjlppwz5cy2m46gs9pl-rtl88xxau-aircrack-6.16.3-unstable-2024-04-09";
   "linuxPackages_cachyos-server.shufflecake" = "/nix/store/05ywyqwh7lqs6zynkjmammz6awagcmds-shufflecake";
   "linuxPackages_cachyos-server.tmon" = "/nix/store/r6hy1ywb7h822hgnn38ylic5xvnlyk3q-tmon-6.16.3";
-  "linuxPackages_cachyos-server.v4l2loopback" = "/nix/store/x9wxc8sfvc1pbp8y4jclybzjgglmxg8k-v4l2loopback-0.15.1-6.16.3";
   "linuxPackages_cachyos-server.vmm_clock" = "/nix/store/ahdgjaaq3w73vi53gsrky1cyhq2pgw1y-vmm_clock-0.2.1";
   "linuxPackages_cachyos-server.yt6801" = "/nix/store/7mzff57k21hc2gry78298wcswvfmcsnz-yt6801-1.0.30-20250430";
   "linuxPackages_cachyos-server.zenergy" = "/nix/store/b7xhcpb0bgys4bv0nsbq8wyrwyrlfibi-zenergy-0-unstable-2025-04-15";
   "niri_git" = "/nix/store/9jcj98awil2z0dr6nvidwwk0crla6pya-niri-unstable-20250827142704-d9833fc";
   "nix_git" = "/nix/store/1d4m71cy2bm9d44piajqfnwl5rwk8mwg-nix-2.99pre20250827_564593bc";
   "river_git" = "/nix/store/xhnh1pwb537i1vdfrppyx7qv7qkg6z8p-river-unstable-20250822131150-88a8c45";
-  "scx_git.rustscheds" = "/nix/store/f7sc528grkjff3n959gka5krw5sk7jcf-scx_rustscheds-unstable-20250827114744-71cd096";
-  "scx-full_git" = "/nix/store/qv48zq5zlhry8r8n0a5zj5f86dick96r-scx_full-unstable-20250827114744-71cd096-bin";
-  "scx_git.full" = "/nix/store/qv48zq5zlhry8r8n0a5zj5f86dick96r-scx_full-unstable-20250827114744-71cd096-bin";
+  "scx_git.rustscheds" = "/nix/store/v9v4yniafw99c6cdql8vd8zzf3hplj8d-scx_rustscheds-unstable-20250827114744-71cd096";
+  "scx-full_git" = "/nix/store/qsjif6cznin2vhm81viqxsvb5xh1p3jd-scx_full-unstable-20250827114744-71cd096-bin";
+  "scx_git.full" = "/nix/store/qsjif6cznin2vhm81viqxsvb5xh1p3jd-scx_full-unstable-20250827114744-71cd096-bin";
   "vulkanPackages_latest.gfxreconstruct" = "/nix/store/sz446m0rnc3aqgf19y4wd5hxbdk6ih3h-gfxreconstruct-1.4.321.0";
   "vulkanPackages_latest.vulkan-extension-layer" = "/nix/store/qnlqpi4mmkw6pgphn7wdaikshi9zxs0x-vulkan-extension-layer-1.4.321.0";
 }
