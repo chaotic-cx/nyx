@@ -1,17 +1,13 @@
 {
-  final,
   scx,
   scx-common,
   rustPlatform,
 }:
 
-(scx.rustscheds.override {
-  scx = final.scx_git;
-}).overrideAttrs
-  (_prevAttrs: {
-    inherit (scx-common) version src patches;
-    cargoDeps = rustPlatform.fetchCargoVendor {
-      inherit (scx-common) src;
-      hash = scx-common.cargoHash;
-    };
-  })
+(scx.rustscheds.overrideAttrs (_prevAttrs: {
+  inherit (scx-common) version src patches;
+  cargoDeps = rustPlatform.fetchCargoVendor {
+    inherit (scx-common) src;
+    hash = scx-common.cargoHash;
+  };
+}))
