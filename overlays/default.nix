@@ -335,7 +335,7 @@ in
 
   scx_git = {
     cscheds = final.callPackage ../pkgs/scx-git/cscheds.nix { inherit scx-common; };
-    rustscheds = final.callPackage ../pkgs/scx-git/rustscheds.nix { inherit scx-common final; };
+    rustscheds = final.callPackage ../pkgs/scx-git/rustscheds.nix { inherit scx-common; };
     full = final.callPackage ../pkgs/scx-git/full.nix { inherit final; };
     recurseForDerivations = true;
   };
