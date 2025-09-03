@@ -1,11 +1,9 @@
 {
   scx,
   scx-common,
-  bash,
-  lib,
 }:
 
-scx.cscheds.overrideAttrs (prevAttrs: {
+scx.cscheds.overrideAttrs (_prevAttrs: {
   inherit (scx-common)
     version
     src
