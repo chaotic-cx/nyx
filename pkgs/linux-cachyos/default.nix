@@ -1,6 +1,7 @@
-{ final, ... }@inputs:
+{ final, flakes, ... }@inputs:
 
 let
+  inherit (final.stdenv) isDarwin;
   inherit (final.lib.trivial) importJSON;
 
   # CachyOS repeating stuff.
@@ -16,11 +17,14 @@ let
   });
 
   mkCachyKernel =
-    if final.stdenv.isDarwin then
+    if isDarwin then
       _attrs: { kernel = brokenDarwin; }
     else
-      attrs:
-      final.callPackage ./packages-for.nix (
+      {
+        callPackage ? final.callPackage,
+        ...
+      }@attrs:
+      callPackage ./packages-for.nix (
         {
           versions = mainVersions;
           inherit inputs;
@@ -29,16 +33,12 @@ let
         // attrs
       );
 
-  stdenvLLVM = final.callPackage ./lib/llvm-stdenv.nix { };
-
   mainKernel = mkCachyKernel {
     taste = "linux-cachyos";
     configPath = ./config-nix/cachyos.x86_64-linux.nix;
     # since all flavors use the same versions.json, we just need the updateScript in one of them
     withUpdateScript = "stable";
   };
-
-  llvmModuleOverlay = import ./lib/llvm-module-overlay.nix inputs stdenvLLVM;
 in
 {
   inherit
@@ -67,31 +67,10 @@ in
     taste = "linux-cachyos";
     configPath = ./config-nix/cachyos-lto.x86_64-linux.nix;
 
-    stdenv = stdenvLLVM;
+    inherit (final.pkgsLLVM.extend flakes.self.overlays.default) callPackage;
     useLTO = "thin";
 
     description = "Linux EEVDF-BORE scheduler Kernel by CachyOS built with LLVM and Thin LTO";
-
-    packagesExtend =
-      kernel: _finalModules: prev:
-      (builtins.mapAttrs (
-        k: v:
-        if
-          builtins.elem k [
-            "zenpower"
-            "v4l2loopback"
-            "zfs_cachyos"
-            "virtualbox"
-            "xone"
-          ]
-        then
-          llvmModuleOverlay kernel v
-        else
-          v
-      ) prev)
-      // {
-        recurseForDerivations = false;
-      };
   };
 
   cachyos-sched-ext = throw "\"sched-ext\" patches were merged with \"cachyos\" flavor.";
@@ -124,7 +103,7 @@ in
   };
 
   zfs = final.zfs_2_3.overrideAttrs (prevAttrs: {
-    src = if final.stdenv.isDarwin then brokenDarwin else mainKernel.zfs_cachyos.src;
+    src = if isDarwin then brokenDarwin else mainKernel.zfs_cachyos.src;
     patches = [ ];
     passthru = prevAttrs.passthru // {
       kernelModuleAttribute = "zfs_cachyos";
