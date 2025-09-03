@@ -134,6 +134,7 @@ let
 
   supportedPlatforms = [
     (with lib.systems.inspect.patterns; isx86_64 // isLinux)
+    (with lib.systems.inspect.patterns; isx86 // isLinux)
     "x86_64-linux"
   ];
 

@@ -380,9 +380,9 @@ enable_seq  hotplug_seq  nr_rejected  root  state  switch_all
 
 <h3>CachyOS kernels</h3>
 
-<p>Even though we provide <code>linuxPackages_cachyos-lto</code>, we don't maintain the kernel modules in it. Nixpkgs, where the derivations originate from, doesn't provide kernels built with Clang. Consequentially, adding later support for all the kernel modules available in Nixpkgs wouldn't be easy. Presently, <code>xone</code> is the only one guaranteed to work, and <strong>ZFS is known to not work</strong>.</p>
+<p>Even though we provide <code>linuxPackages_cachyos{,-hardened,-lto,-rc,-server}</code>, we don't maintain the kernel modules in them. With the exception of <code>*.zfs_cachyos</code>. Before reporting errors first check if their upstream works. e.g.: <code>nix build nixpkgs#linuxPackages_6_16.systemtap</code> (for GCC kernels) and  <code>nix build nixpkgs#pkgsLLVM.linuxPackages_6_16.systemtap</code> (for LTO kernels).</p>
 
-<p>Other variations of <code>linuxPackages_cachyos</code> works without any issues. But, we don't build the ones in <code>linuxPackages_cachyos-rc</code>, they should work, but don't expect cache for them.</p>
+<p>We cache all modules from <code>linuxPackages_cachyos{,-hardened,-lto,-server}</code>, but not from <code>linuxPackages_cachyos-rc</code>.</p>
 
 <p>You may install the CachyOS kernel directly using the default modules and overlays with <code>pkgs.linuxPackages_cachyos</code>. Alternatively, use <code>chaotic.legacyPackages.x86_64-linux.linuxPackages_cachyos</code> if you would like to use the package directly without using modules and overlay</p>
 
