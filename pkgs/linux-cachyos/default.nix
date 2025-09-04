@@ -33,7 +33,7 @@ let
         // attrs
       );
 
-  mainKernel = mkCachyKernel {
+  gccKernel = mkCachyKernel {
     taste = "linux-cachyos";
     configPath = ./config-nix/cachyos.x86_64-linux.nix;
     # since all flavors use the same versions.json, we just need the updateScript in one of them
@@ -48,7 +48,7 @@ in
     mkCachyKernel
     ;
 
-  cachyos = mainKernel;
+  cachyos-gcc = gccKernel;
 
   cachyos-rc = mkCachyKernel {
     taste = "linux-cachyos-rc";
@@ -103,7 +103,7 @@ in
   };
 
   zfs = final.zfs_2_3.overrideAttrs (prevAttrs: {
-    src = if isDarwin then brokenDarwin else mainKernel.zfs_cachyos.src;
+    src = if isDarwin then brokenDarwin else gccKernel.zfs_cachyos.src;
     patches = [ ];
     passthru = prevAttrs.passthru // {
       kernelModuleAttribute = "zfs_cachyos";

@@ -199,17 +199,19 @@ in
 
   libportal_git = callOverride ../pkgs/libportal-git { };
 
-  linux_cachyos = drvDropUpdateScript cachyosPackages.cachyos.kernel;
+  linux_cachyos = drvDropUpdateScript cachyosPackages.cachyos-lto.kernel;
+  linux_cachyos-lto = drvDropUpdateScript cachyosPackages.cachyos-lto.kernel;
+  linux_cachyos-gcc = drvDropUpdateScript cachyosPackages.cachyos-gcc.kernel;
+  linux_cachyos-server = drvDropUpdateScript cachyosPackages.cachyos-server.kernel;
   linux_cachyos-hardened = drvDropUpdateScript cachyosPackages.cachyos-hardened.kernel;
   linux_cachyos-rc = cachyosPackages.cachyos-rc.kernel;
-  linux_cachyos-server = drvDropUpdateScript cachyosPackages.cachyos-server.kernel;
-  linux_cachyos-lto = cachyosPackages.cachyos-lto.kernel;
 
-  linuxPackages_cachyos = cachyosPackages.cachyos;
-  linuxPackages_cachyos-hardened = cachyosPackages.cachyos-hardened;
+  linuxPackages_cachyos = cachyosPackages.cachyos-lto;
   linuxPackages_cachyos-lto = cachyosPackages.cachyos-lto;
-  linuxPackages_cachyos-rc = cachyosPackages.cachyos-rc;
+  linuxPackages_cachyos-gcc = cachyosPackages.cachyos-gcc;
   linuxPackages_cachyos-server = cachyosPackages.cachyos-server;
+  linuxPackages_cachyos-hardened = cachyosPackages.cachyos-hardened;
+  linuxPackages_cachyos-rc = cachyosPackages.cachyos-rc;
 
   luxtorpeda = final.callPackage ../pkgs/luxtorpeda {
     luxtorpedaVersion = importJSON ../pkgs/luxtorpeda/version.json;
