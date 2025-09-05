@@ -5,19 +5,24 @@
   ...
 }:
 let
+  inherit (final.lib.attrsets) optionalAttrs;
+
   genericOverride =
     {
       origin,
-      key ? repo,
+      key ? origin.pname,
+      id ? repo,
       owner,
       repo,
       fetchSubmodules ? false,
+      withUpdateScript ? true,
       extraInput ? null,
       extraAttrs ? null,
+      knownGoods ? null,
     }:
     (if extraInput == null then origin else origin.override extraInput).overrideAttrs (
       prevAttrs:
-      with vulkanVersions.${key};
+      with vulkanVersions.${id};
       {
         inherit version;
         src = final.fetchFromGitHub {
@@ -29,18 +34,22 @@ let
             ;
           rev = builtins.replaceStrings [ "#{version}" ] [ version ] rev;
         };
-        passthru = (prevAttrs.passthru or { }) // {
-          updateScript = final.callPackage ./update.nix {
-            packageToUpdate = {
-              inherit
-                key
-                owner
-                repo
-                fetchSubmodules
-                ;
+        passthru =
+          (prevAttrs.passthru or { })
+          // optionalAttrs withUpdateScript {
+            updateScript = final.callPackage ./update.nix {
+              packageToUpdate = {
+                inherit
+                  key
+                  id
+                  owner
+                  repo
+                  fetchSubmodules
+                  knownGoods
+                  ;
+              };
             };
           };
-        };
       }
       // (if extraAttrs == null then { } else (extraAttrs prevAttrs))
     );
@@ -76,41 +85,45 @@ final.lib.makeScope final.newScope (self: {
     extraInput = { inherit (self) spirv-headers spirv-tools; };
     owner = "KhronosGroup";
     repo = "glslang";
+
+    # updated by validation-layer
+    withUpdateScript = false;
   };
 
   spirv-cross = genericOverride {
     origin = prev.spirv-cross;
-    key = "spirvCross";
     owner = "KhronosGroup";
     repo = "SPIRV-Cross";
   };
 
   spirv-headers = genericOverride {
     origin = prev.spirv-headers;
-    key = "spirvHeaders";
     owner = "KhronosGroup";
     repo = "SPIRV-Headers";
+
+    # updated by validation-layer
+    withUpdateScript = false;
   };
 
   spirv-tools = genericOverride {
     origin = prev.spirv-tools;
     extraInput = { inherit (self) spirv-headers; };
-    key = "spirvTools";
     owner = "KhronosGroup";
     repo = "SPIRV-Tools";
+
+    # updated by validation-layer
+    withUpdateScript = false;
   };
 
   vulkan-extension-layer = genericOverride {
     origin = prev.vulkan-extension-layer;
     extraInput = { inherit (self) vulkan-headers vulkan-utility-libraries; };
-    key = "vulkanExtensionLayer";
     owner = "KhronosGroup";
     repo = "Vulkan-ExtensionLayer";
   };
 
   vulkan-headers = genericOverride {
     origin = prev.vulkan-headers;
-    key = "vulkanHeaders";
     owner = "KhronosGroup";
     repo = "Vulkan-Headers";
   };
@@ -118,7 +131,6 @@ final.lib.makeScope final.newScope (self: {
   vulkan-loader = genericOverride {
     origin = prev.vulkan-loader;
     extraInput = { inherit (self) vulkan-headers; };
-    key = "vulkanLoader";
     owner = "KhronosGroup";
     repo = "Vulkan-Loader";
     extraAttrs = prevAttrs: {
@@ -131,7 +143,6 @@ final.lib.makeScope final.newScope (self: {
   vulkan-volk = genericOverride {
     origin = prev.vulkan-volk;
     extraInput = { inherit (self) vulkan-headers; };
-    key = "volk";
     owner = "zeux";
     repo = "volk";
   };
@@ -139,15 +150,14 @@ final.lib.makeScope final.newScope (self: {
   vulkan-tools = genericOverride {
     origin = prev.vulkan-tools;
     extraInput = { inherit (self) vulkan-headers vulkan-loader vulkan-volk; };
-    key = "vulkanTools";
     owner = "KhronosGroup";
     repo = "Vulkan-Tools";
   };
 
   vulkan-tools-lunarg = genericOverride {
+    id = "LunarG-Tools";
     origin = prev.vulkan-tools-lunarg;
     extraInput = { inherit (self) vulkan-headers vulkan-loader vulkan-utility-libraries; };
-    key = "vulkanToolsLunarG";
     owner = "LunarG";
     repo = "VulkanTools";
     fetchSubmodules = true;
@@ -161,7 +171,6 @@ final.lib.makeScope final.newScope (self: {
   vulkan-utility-libraries = genericOverride {
     origin = prev.vulkan-utility-libraries;
     extraInput = { inherit (self) vulkan-headers; };
-    key = "vulkanUtilityLibraries";
     owner = "KhronosGroup";
     repo = "Vulkan-Utility-Libraries";
   };
@@ -177,8 +186,13 @@ final.lib.makeScope final.newScope (self: {
         spirv-tools
         ;
     };
-    key = "vulkanValidationLayers";
     owner = "KhronosGroup";
     repo = "Vulkan-ValidationLayers";
+
+    knownGoods = [
+      "SPIRV-Headers"
+      "SPIRV-Tools"
+      "glslang"
+    ];
   };
 })

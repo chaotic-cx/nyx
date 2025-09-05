@@ -14,6 +14,8 @@
   packageToUpdate,
 }:
 let
+  inherit (lib.strings) escapeShellArgs;
+
   path = lib.makeBinPath [
     coreutils
     curl
@@ -31,6 +33,7 @@ writeShellScript "update-vulkan-package" ''
   set -euo pipefail
 
   key="${packageToUpdate.key}"
+  id="${packageToUpdate.id}"
   repo="${packageToUpdate.owner}/${packageToUpdate.repo}"
 
   PATH=${path}
@@ -47,9 +50,9 @@ writeShellScript "update-vulkan-package" ''
   ARGS=()
   REPLACES=()
 
-  localVersion=$(jq -r .$key.version "$srcJson")
-  localRev=$(jq -r .$key.rev "$srcJson")
-  badTag=$(jq -r .$key.badTag "$srcJson")
+  localVersion=$(jq -r ".\"$id\".version" "$srcJson")
+  localRev=$(jq -r ".\"$id\".rev" "$srcJson")
+  badTag=$(jq -r ".\"$id\".badTag" "$srcJson")
   localTag=''${localRev//#\{version\}/$localVersion}
 
   latestTag=$(curl "https://github.com/$repo/tags.atom" | xq -r '.feed.entry[0].link."@href"' | grep -Po '(?<=/)[^/]+$')
@@ -63,37 +66,60 @@ writeShellScript "update-vulkan-package" ''
   elif [[ "$latestTag" =~ oxr-exp-(.+) ]]; then
     exit 0
   elif [[ "$latestTag" =~ ^vulkan-sdk-(.+) ]]; then
-    ARGS+=('--arg' "''${key}Version" "''${BASH_REMATCH[1]}")
-    REPLACES+=(".$key.rev = \"vulkan-sdk-#{version}\"")
+    export cleanVersion="''${BASH_REMATCH[1]}"
+    REPLACES+=(".\"$id\".rev = \"vulkan-sdk-#{version}\"")
   elif [[ "$latestTag" =~ ^v(.+) ]]; then
-    ARGS+=('--arg' "''${key}Version" "''${BASH_REMATCH[1]}")
-    REPLACES+=(".$key.rev = \"v#{version}\"")
+    export cleanVersion="''${BASH_REMATCH[1]}"
+    REPLACES+=(".\"$id\".rev = \"v#{version}\"")
   elif [[ "$latestTag" =~ ^sdk-(.+) ]]; then
-    ARGS+=('--arg' "''${key}Version" "''${BASH_REMATCH[1]}")
-    REPLACES+=(".$key.rev = \"sdk-#{version}\"")
+    export cleanVersion="''${BASH_REMATCH[1]}"
+    REPLACES+=(".\"$id\".rev = \"sdk-#{version}\"")
   elif [[ "$latestTag" =~ [^-]+ ]]; then
-    ARGS+=('--arg' "''${key}Version" "$latestTag")
-    REPLACES+=(".$key.rev = \"#{version}\"")
+    export cleanVersion="$latestTag"
+    REPLACES+=(".\"$id\".rev = \"#{version}\"")
   else
     echo "Unrecognized version in tag $latestTag" > /dev/stderr
     exit 1
   fi
-  REPLACES+=(".$key.version = \$''${key}Version")
+  ARGS+=('--arg' 'version' "$cleanVersion")
+  REPLACES+=(".\"$id\".version = \$version")
 
-  latestHash=$(nix-prefetch-git --quiet \
+  prefetch=$(
+    nix-prefetch-git --quiet \
       --rev "$latestTag" \
       "https://github.com/$repo.git" \
-      ${if packageToUpdate.fetchSubmodules then "--fetch-submodules" else ""} |\
-    jq -r .hash \
+      ${if packageToUpdate.fetchSubmodules then "--fetch-submodules" else ""} \
+  )
+  latestHash=$(echo "$prefetch" |\
+    jq -r '.hash' \
   )
 
-  ARGS+=('--arg' "''${key}Hash" "$latestHash")
-  REPLACES+=(".$key.hash = \$''${key}Hash")
+  ARGS+=('--arg' 'hash' "$latestHash")
+  REPLACES+=(".\"$id\".hash = \$hash")
 
   jq "''${ARGS[@]}" \
     "$(join_by ' | ' "''${REPLACES[@]}")" \
     "$srcJson" | sponge "$srcJson"
-
   git add $srcJson
-  git commit -m "vulkanPackages_latest.$key: $localTag -> $latestTag"
+
+  if [ ${if packageToUpdate.knownGoods != null then "true" else "false"} ]; then
+    path=$(echo "$prefetch" | jq -r .path)
+    knownGood="$path/scripts/known_good.json"
+    for sub in ${escapeShellArgs packageToUpdate.knownGoods}; do
+      subUrl=$(jq -r ".repos[] | select(.name == \""$sub"\") | .url" "$knownGood")
+      subRev=$(jq -r ".repos[] | select(.name == \""$sub"\") | .commit" "$knownGood")
+      subHash=$(
+        nix-prefetch-git --quiet \
+          --rev "$subRev" \
+          "$subUrl" | \
+          jq -r '.hash' \
+      )
+      jq --arg 'version' "$cleanVersion-unstable" --arg 'rev' "$subRev" --arg 'hash' "$subHash" \
+        ".\"$sub\".version = \$version | .\"$sub\".rev = \$rev | .\"$sub\".hash = \$hash" \
+        "$srcJson" | sponge "$srcJson"
+      git add $srcJson
+    done
+  fi
+
+  git commit -m "vulkanPackages_latest.$key: $localTag -> $cleanVersion"
 ''
