@@ -18,6 +18,7 @@ let
       withUpdateScript ? true,
       extraInput ? null,
       extraAttrs ? null,
+      knownGoods ? null,
     }:
     (if extraInput == null then origin else origin.override extraInput).overrideAttrs (
       prevAttrs:
@@ -44,6 +45,7 @@ let
                   owner
                   repo
                   fetchSubmodules
+                  knownGoods
                   ;
               };
             };
@@ -186,5 +188,11 @@ final.lib.makeScope final.newScope (self: {
     };
     owner = "KhronosGroup";
     repo = "Vulkan-ValidationLayers";
+
+    knownGoods = [
+      "SPIRV-Headers"
+      "SPIRV-Tools"
+      "glslang"
+    ];
   };
 })

@@ -7,8 +7,7 @@
   "glslang": {
     "version": "15.5-unstable",
     "rev": "f43df42fe69bb38d43625b53e0706bbee43d74b4",
-    "hash": "sha256-Wvwmc1XZ7tp99RFJLMe0KCNJbwkrZdAxzlA+j2Pn8As=",
-    "badTag": "main-tot"
+    "hash": "sha256-Wvwmc1XZ7tp99RFJLMe0KCNJbwkrZdAxzlA+j2Pn8As="
   },
   "SPIRV-Cross": {
     "version": "1.4.321.0",
@@ -18,14 +17,12 @@
   "SPIRV-Headers": {
     "version": "1.4.325-unstable",
     "rev": "de1807b7cfa8e722979d5ab7b7445b258dbc1836",
-    "hash": "sha256-sr+F9qhKUy0J9qlwLay1wC8ISc7CBvEXQtmn+QTHiVo=",
-    "badTag": "vulkan-sdk-1.4.321.0"
+    "hash": "sha256-sr+F9qhKUy0J9qlwLay1wC8ISc7CBvEXQtmn+QTHiVo="
   },
   "SPIRV-Tools": {
     "version": "1.4.325-unstable",
     "rev": "cb2f796b2d6da09a4fea123b061f177f767e63c8",
-    "hash": "sha256-jjkXT2PlFJ2rBEqRJ4rhSXK6X0hmeRrxeslCai+lHZE=",
-    "badTag": "vulkan-sdk-1.4.321.0"
+    "hash": "sha256-jjkXT2PlFJ2rBEqRJ4rhSXK6X0hmeRrxeslCai+lHZE="
   },
   "Vulkan-Headers": {
     "version": "1.4.325",

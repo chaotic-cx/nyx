@@ -14,6 +14,8 @@
   packageToUpdate,
 }:
 let
+  inherit (lib.strings) escapeShellArgs;
+
   path = lib.makeBinPath [
     coreutils
     curl
@@ -64,27 +66,31 @@ writeShellScript "update-vulkan-package" ''
   elif [[ "$latestTag" =~ oxr-exp-(.+) ]]; then
     exit 0
   elif [[ "$latestTag" =~ ^vulkan-sdk-(.+) ]]; then
-    ARGS+=('--arg' 'version' "''${BASH_REMATCH[1]}")
+    export cleanVersion="''${BASH_REMATCH[1]}"
     REPLACES+=(".\"$id\".rev = \"vulkan-sdk-#{version}\"")
   elif [[ "$latestTag" =~ ^v(.+) ]]; then
-    ARGS+=('--arg' 'version' "''${BASH_REMATCH[1]}")
+    export cleanVersion="''${BASH_REMATCH[1]}"
     REPLACES+=(".\"$id\".rev = \"v#{version}\"")
   elif [[ "$latestTag" =~ ^sdk-(.+) ]]; then
-    ARGS+=('--arg' 'version' "''${BASH_REMATCH[1]}")
+    export cleanVersion="''${BASH_REMATCH[1]}"
     REPLACES+=(".\"$id\".rev = \"sdk-#{version}\"")
   elif [[ "$latestTag" =~ [^-]+ ]]; then
-    ARGS+=('--arg' 'version' "$latestTag")
+    export cleanVersion="$latestTag"
     REPLACES+=(".\"$id\".rev = \"#{version}\"")
   else
     echo "Unrecognized version in tag $latestTag" > /dev/stderr
     exit 1
   fi
+  ARGS+=('--arg' 'version' "$cleanVersion")
   REPLACES+=(".\"$id\".version = \$version")
 
-  latestHash=$(nix-prefetch-git --quiet \
+  prefetch=$(
+    nix-prefetch-git --quiet \
       --rev "$latestTag" \
       "https://github.com/$repo.git" \
-      ${if packageToUpdate.fetchSubmodules then "--fetch-submodules" else ""} |\
+      ${if packageToUpdate.fetchSubmodules then "--fetch-submodules" else ""} \
+  )
+  latestHash=$(echo "$prefetch" |\
     jq -r '.hash' \
   )
 
@@ -96,5 +102,24 @@ writeShellScript "update-vulkan-package" ''
     "$srcJson" | sponge "$srcJson"
   git add $srcJson
 
-  git commit -m "vulkanPackages_latest.$key: $localTag -> $latestTag"
+  if [ ${if packageToUpdate.knownGoods != null then "true" else "false"} ]; then
+    path=$(echo "$prefetch" | jq -r .path)
+    knownGood="$path/scripts/known_good.json"
+    for sub in ${escapeShellArgs packageToUpdate.knownGoods}; do
+      subUrl=$(jq -r ".repos[] | select(.name == \""$sub"\") | .url" "$knownGood")
+      subRev=$(jq -r ".repos[] | select(.name == \""$sub"\") | .commit" "$knownGood")
+      subHash=$(
+        nix-prefetch-git --quiet \
+          --rev "$subRev" \
+          "$subUrl" | \
+          jq -r '.hash' \
+      )
+      jq --arg 'version' "$cleanVersion-unstable" --arg 'rev' "$subRev" --arg 'hash' "$subHash" \
+        ".\"$sub\".version = \$version | .\"$sub\".rev = \$rev | .\"$sub\".hash = \$hash" \
+        "$srcJson" | sponge "$srcJson"
+      git add $srcJson
+    done
+  fi
+
+  git commit -m "vulkanPackages_latest.$key: $localTag -> $cleanVersion"
 ''
