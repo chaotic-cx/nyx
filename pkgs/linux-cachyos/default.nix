@@ -67,7 +67,7 @@ in
     taste = "linux-cachyos";
     configPath = ./config-nix/cachyos-lto.x86_64-linux.nix;
 
-    inherit (final.pkgsLLVM.extend flakes.self.overlays.default) stdenv linuxManualConfig linuxPackages linuxPackagesFor;
+    inherit (final.pkgsLLVM.extend flakes.self.overlays.default) stdenv linuxManualConfig;
     useLTO = "thin";
 
     description = "Linux EEVDF-BORE scheduler Kernel by CachyOS built with LLVM and Thin LTO";
