@@ -1,6 +1,4 @@
 {
-  "firefox-unwrapped_nightly" = "/nix/store/37c9k97jzgb86zc3i8pknzlc4kgliyi5-firefox-nightly-unwrapped-144.0a1";
-  "firefox_nightly" = "/nix/store/qgfsac8gns71gm3bcbsy1zblx6ijmd77-firefox-nightly-144.0a1";
   "linuxPackages_cachyos.amdgpu-i2c" = "/nix/store/3w6dqd4qvv1vlxip8chazywlnyw2iw34-amdgpu-i2c-x86_64-unknown-linux-gnu-0-unstable-2024-12-16";
   "linuxPackages_cachyos.apfs" = "/nix/store/i19b8kw3999193jbv8gs5337rkpmj5jm-apfs-x86_64-unknown-linux-gnu-0.3.14-6.16.5";
   "linuxPackages_cachyos.ax99100" = "/nix/store/2ks2lalcpm0p7bswllqzlsqiwrn8hdza-ax99100-x86_64-unknown-linux-gnu-1.8.0";
@@ -21,15 +19,11 @@
   "linuxPackages_cachyos.mbp2018-bridge-drv" = "/nix/store/nmxcds8x8viqbyif7sb8k4nzfcnca1cz-mbp2018-bridge-drv-x86_64-unknown-linux-gnu-2020-01-31";
   "linuxPackages_cachyos.mm-tools" = "/nix/store/29a03391dhxk8capiskmgld8yl1cg6k9-mm-tools-x86_64-unknown-linux-gnu-6.12.44";
   "linuxPackages_cachyos.netatop" = "/nix/store/5bjill9ry0yc3l6fp2h9jy1dk7d5x49a-netatop-6.16.5-3.1-x86_64-unknown-linux-gnu";
-  "linuxPackages_cachyos.nvidia_dc_535" = "/nix/store/xma9k9zpm9b8bsrraj1h4liss6phpfdb-nvidia-dc-535.154.05-6.16.5-x86_64-unknown-linux-gnu";
-  "linuxPackages_cachyos.nvidia_dc_565" = "/nix/store/qb5vb4ihpajq3s9w62rdq15vvb8qxjil-nvidia-dc-565.57.01-6.16.5-x86_64-unknown-linux-gnu";
-  "linuxPackages_cachyos.nvidia_x11_legacy470" = "/nix/store/5ymgzliyrkqb66201gd52jmfcp7dx24d-nvidia-x11-470.256.02-6.16.5-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos.oci-seccomp-bpf-hook" = "/nix/store/vpsyy50p8j4hdhwxcpry7x0dqb9ynxvv-oci-seccomp-bpf-hook-x86_64-unknown-linux-gnu-1.2.11";
   "linuxPackages_cachyos.odp-dpdk" = "/nix/store/f85kgnnxzjwddv6453cpq273r9xw2af0-odp-dpdk-x86_64-unknown-linux-gnu-1.46.0.0_DPDK_22.11";
   "linuxPackages_cachyos.openafs" = "/nix/store/cvbyi8xk7s9y2pjhi7cl9d6mcfn4ad2m-openafs-x86_64-unknown-linux-gnu-1.8.13.2-6.16.5-cachyos";
   "linuxPackages_cachyos.openrazer" = "/nix/store/kqjrapdwyb96n16w116zy9kpd60rpnrp-openrazer-x86_64-unknown-linux-gnu-3.10.3-6.16.5";
   "linuxPackages_cachyos.opensnitch-ebpf" = "/nix/store/ijqw735jr21z070min9xx0ahhq219id7-opensnitch_ebpf-x86_64-unknown-linux-gnu-1.7.2-6.16.5";
-  "linuxPackages_cachyos.perf" = "/nix/store/j8zdl8jwvr8c7myai6v0rccz7lym9v5g-perf-linux-x86_64-unknown-linux-gnu-6.16.5";
   "linuxPackages_cachyos.pktgen" = "/nix/store/rphykh6c8lvv0m78x3lbhjqcp9clxjk7-pktgen-x86_64-unknown-linux-gnu-24.10.3";
   "linuxPackages_cachyos.rr-zen_workaround" = "/nix/store/k0844k0s23ipm1b1lp2gln63c4fl9niw-rr-zen_workaround-x86_64-unknown-linux-gnu-5.9.0";
   "linuxPackages_cachyos.rtl8188eus-aircrack" = "/nix/store/3hlkwv4xg914197cnbjyyz3lhg6zchhv-rtl8188eus-aircrack-x86_64-unknown-linux-gnu-6.16.5-unstable-2024-09-18";
@@ -62,7 +56,6 @@
   "linuxPackages_cachyos.yt6801" = "/nix/store/5acril5791wxqqvv11i9chdms75av6zj-yt6801-x86_64-unknown-linux-gnu-1.0.30-20250430";
   "linuxPackages_cachyos.zenergy" = "/nix/store/lw033y6p62ppnmxh7jha1zalswhra0r7-zenergy-x86_64-unknown-linux-gnu-0-unstable-2025-04-15";
   "linuxPackages_cachyos.zenpower" = "/nix/store/mjagcfafi2mls4smzhzb30wgqmds5xn4-zenpower-x86_64-unknown-linux-gnu-unstable-2025-06-17";
-  "linuxPackages_cachyos.zfs_cachyos" = "/nix/store/zm1ly4q0ybv06hyrbp6vmkbw5qmkc9sf-zfs-kernel-2.3.4-6.16.5-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos-gcc.apfs" = "/nix/store/98y73cyy3vv0iw73h3b8iwvawjmabl64-apfs-0.3.14-6.16.5";
   "linuxPackages_cachyos-gcc.ax99100" = "/nix/store/sws8d4w2ahl8f4cvvxy8j764hp5v07p7-ax99100-1.8.0";
   "linuxPackages_cachyos-gcc.chipsec" = "/nix/store/ys7bjb5dcsbs5qpnk3naa0bq1czi0jsn-chipsec-1.10.6";
@@ -158,13 +151,6 @@
   "linuxPackages_cachyos-server.vmm_clock" = "/nix/store/8m3m3zbm7954a0fa15j5daryp1788yv2-vmm_clock-0.2.1";
   "linuxPackages_cachyos-server.yt6801" = "/nix/store/299ahi2744vhdn0nwckhnckm25cnr7zn-yt6801-1.0.30-20250430";
   "linuxPackages_cachyos-server.zenergy" = "/nix/store/657cs3h0ah0304frkl6kbd5ymcmwnvhc-zenergy-0-unstable-2025-04-15";
-  "nix_git" = "/nix/store/zz6k0gxni9w3q5zzx2wl7x6mcapwqndg-nix-2.99pre20250905_49e9c14e";
-  "nut_git" = "/nix/store/70b1m02afxvh93a20gjb0l2533n8dyja-nut-unstable-20250905085222-bda34b1";
-  "qtile-extras_git" = "/nix/store/sdcckjwgfjqza626z60psh0z1abc8x46-python3.13-qtile-extras-0.33.99.99";
-  "telegram-desktop-unwrapped_git" = "/nix/store/lh3n1v3icgn6yvj46q8gv5cv0i1c4rgb-telegram-desktop-unwrapped-unstable-20250904100537-08a64f0";
-  "telegram-desktop_git" = "/nix/store/8mgd5vbgkb3kgjr3fnwq6ihvbxbldxgn-telegram-desktop-unstable-20250904100537-08a64f0";
   "vulkanPackages_latest.gfxreconstruct" = "/nix/store/xk8gw4pva6pinrsdp7ld28gqcid4l0mr-gfxreconstruct-1.4.321.0";
   "vulkanPackages_latest.vulkan-extension-layer" = "/nix/store/hphjsrz18b3a1nb3glx05yb9zd5fz7as-vulkan-extension-layer-1.4.321.0";
-  "zed-editor_git" = "/nix/store/zagzn56wlv8bcjrrvr0mhkhgg25drid2-zed-editor-unstable-20250905111957-16c4fd4";
-  "zed-editor-fhs_git" = "/nix/store/m42pzkh2bj7p140x8mafcva6d2zhp7b3-zeditor";
 }
