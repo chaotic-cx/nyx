@@ -1,8 +1,14 @@
-{ final, flakes, ... }@inputs:
+{
+  final,
+  flakes,
+  nyxUtils,
+  ...
+}@inputs:
 
 let
   inherit (final.stdenv) isDarwin;
   inherit (final.lib.trivial) importJSON;
+  inherit (nyxUtils) markBroken overrideFull;
 
   # CachyOS repeating stuff.
   mainVersions = importJSON ./versions.json;
@@ -69,6 +75,30 @@ in
 
     inherit (final.pkgsLLVM.extend flakes.self.overlays.default) callPackage;
     useLTO = "thin";
+
+    packagesExtend =
+      _kernel: _finalModules: prev:
+      let
+        fixNoVideo =
+          prevDrv:
+          prevDrv.overrideAttrs (prevAttrs: {
+            passthru = prevAttrs.passthru // {
+              settings = overrideFull (final // final.xorg) prevAttrs.passthru.settings;
+            };
+          });
+      in
+      with prev;
+      {
+        nvidia_x11 = fixNoVideo nvidia_x11;
+        nvidia_x11_beta = fixNoVideo nvidia_x11_beta;
+        nvidia_x11_latest = fixNoVideo nvidia_x11_latest;
+        nvidia_x11_legacy535 = fixNoVideo nvidia_x11_legacy535;
+        nvidia_dc_535 = markBroken nvidia_dc_535;
+        nvidia_dc_565 = markBroken nvidia_dc_565;
+        nvidia_x11_legacy470 = markBroken nvidia_x11_legacy470;
+        perf = markBroken perf;
+        zfs_cachyos = markBroken zfs_cachyos;
+      };
 
     description = "Linux EEVDF-BORE scheduler Kernel by CachyOS built with LLVM and Thin LTO";
   };

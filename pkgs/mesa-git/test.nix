@@ -22,6 +22,20 @@ import "${nixpkgs}/nixos/tests/make-test-python.nix" (
           chaotic.nixosModules.default
           "${nixpkgs}/nixos/tests/common/user-account.nix"
         ];
+
+        boot.kernelPackages = pkgs.linuxPackages_cachyos;
+
+        boot.kernelModules = [
+          "i2c-dev"
+          "dpdk-kmods"
+          "v4l2loopback"
+          "xpad-noone"
+        ];
+
+        services.printing.enable = true;
+
+        services.xserver.videoDrivers = [ "nvidia" ];
+
         chaotic.mesa-git.enable = true;
 
         virtualisation.qemu.options = [

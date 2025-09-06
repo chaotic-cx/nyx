@@ -82,6 +82,15 @@ rec {
       inherit src;
     });
 
+  # Don't waste user's time.
+  markBroken =
+    drv:
+    drv.overrideAttrs (prevAttrs: {
+      meta = (prevAttrs.meta or { }) // {
+        broken = true;
+      };
+    });
+
   # Helps when overriding both inputs and outputs attrs.
   multiOverride = prev: newInputs: (prev.override newInputs).overrideAttrs;
 
@@ -100,6 +109,15 @@ rec {
       description = descriptionMap prevAttrs.meta.description;
     };
   };
+
+  # Helps replacing all the dependencies in a derivation.
+  overrideFull =
+    newScope: prev:
+    let
+      args = prev.override.__functionArgs;
+      values = lib.attrsets.genAttrs (builtins.attrNames args) (arg: newScope.${arg} or args.${arg});
+    in
+    prev.override values;
 
   # Helps removing attrs.
   rejectAttr = x: lib.attrsets.filterAttrs (k: _v: k != x);
