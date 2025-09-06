@@ -77,7 +77,7 @@ in
     useLTO = "thin";
 
     packagesExtend =
-      _kernel: _finalModules: prev:
+      kernel: _finalModules: prev:
       let
         fixNoVideo =
           prevDrv:
@@ -98,6 +98,14 @@ in
         nvidia_x11_legacy470 = markBroken nvidia_x11_legacy470;
         # perf needs systemtap fixed first
         perf = markBroken perf;
+        zenpower = zenpower.overrideAttrs (prevAttrs: {
+          makeFlags =
+            prevAttrs.makeFlags
+            ++ kernel.commonMakeFlags
+            ++ [
+              "KBUILD_CFLAGS="
+            ];
+        });
       };
 
     zfsOverride = {
