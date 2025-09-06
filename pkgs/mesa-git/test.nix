@@ -23,19 +23,22 @@ import "${nixpkgs}/nixos/tests/make-test-python.nix" (
           "${nixpkgs}/nixos/tests/common/user-account.nix"
         ];
 
+        # Stuff to test linux-cachyos
         boot.kernelPackages = pkgs.linuxPackages_cachyos;
-
         boot.kernelModules = [
           "i2c-dev"
           "dpdk-kmods"
           "v4l2loopback"
           "xpad-noone"
         ];
-
-        services.printing.enable = true;
-
         services.xserver.videoDrivers = [ "nvidia" ];
 
+        # Stuff to test zfs_cachyos
+        boot.supportedFilesystems.zfs = true;
+        boot.zfs.package = pkgs.zfs_cachyos;
+        networking.hostId = "318e2410";
+
+        # Stuff to test mesa-git
         chaotic.mesa-git.enable = true;
 
         virtualisation.qemu.options = [
