@@ -5,7 +5,7 @@
 }@inputs:
 
 let
-  inherit (final.stdenv) isDarwin;
+  inherit (final.stdenv) isx86_64 isLinux;
   inherit (final.lib.trivial) importJSON;
 
   # CachyOS repeating stuff.
@@ -13,16 +13,23 @@ let
   rcVersions = importJSON ./versions-rc.json;
   hardenedVersions = importJSON ./versions-hardened.json;
 
-  # aarch64-darwin evaluation hack
-  brokenDarwin = final.hello.overrideAttrs (prevAttrs: {
+  # Evaluation hack
+  brokenReplacement = final.hello.overrideAttrs (prevAttrs: {
     meta = prevAttrs.meta // {
-      platform = final.lib.platforms.linux;
+      platform = [ ];
+      broken = true;
     };
   });
 
+  isUnsupported = !isx86_64 || !isLinux;
+
   mkCachyKernel =
-    if isDarwin then
-      _attrs: { kernel = brokenDarwin; }
+    if isUnsupported then
+      # Evaluation hack
+      _attrs: {
+        kernel = brokenReplacement;
+        recurseForDerivations = false;
+      }
     else
       {
         callPackage ? final.callPackage,
@@ -135,13 +142,13 @@ in
   };
 
   zfs = final.zfs_2_3.overrideAttrs (prevAttrs: {
-    src = if isDarwin then brokenDarwin else gccKernel.zfs_cachyos.src;
+    src = if isUnsupported then brokenReplacement else gccKernel.zfs_cachyos.src;
     patches = [ ];
     passthru = prevAttrs.passthru // {
       kernelModuleAttribute = "zfs_cachyos";
     };
     postPatch =
-      builtins.replaceStrings [ "grep --quiet '^Linux-Maximum:" ] [ "# " ]
+      builtins.replaceStrings [ "grep --quiet '^Linux-M" ] [ "# " ]
         prevAttrs.postPatch;
   });
 }
