@@ -105,7 +105,7 @@ let
           kernelMinSupportedMajorMinor = "1.0";
           kernelMaxSupportedMajorMinor = "99.99";
           enableUnsupportedExperimentalKernel = true;
-          version = prevAttrs.zfs_2_3.version;
+          inherit (prevAttrs.zfs_2_3) version;
           tests = { };
           maintainers = with lib.maintainers; [
             pedrohlc

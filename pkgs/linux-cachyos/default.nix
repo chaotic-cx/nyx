@@ -1,14 +1,12 @@
 {
   final,
   flakes,
-  nyxUtils,
   ...
 }@inputs:
 
 let
   inherit (final.stdenv) isDarwin;
   inherit (final.lib.trivial) importJSON;
-  inherit (nyxUtils) markBroken overrideFull;
 
   # CachyOS repeating stuff.
   mainVersions = importJSON ./versions.json;
@@ -76,37 +74,7 @@ in
     inherit (final.pkgsLLVM.extend flakes.self.overlays.default) callPackage;
     useLTO = "thin";
 
-    packagesExtend =
-      kernel: _finalModules: prev:
-      let
-        fixNoVideo =
-          prevDrv:
-          prevDrv.overrideAttrs (prevAttrs: {
-            passthru = prevAttrs.passthru // {
-              settings = overrideFull (final // final.xorg) prevAttrs.passthru.settings;
-            };
-          });
-      in
-      with prev;
-      {
-        nvidia_x11 = fixNoVideo nvidia_x11;
-        nvidia_x11_beta = fixNoVideo nvidia_x11_beta;
-        nvidia_x11_latest = fixNoVideo nvidia_x11_latest;
-        nvidia_x11_legacy535 = fixNoVideo nvidia_x11_legacy535;
-        nvidia_dc_535 = markBroken nvidia_dc_535;
-        nvidia_dc_565 = markBroken nvidia_dc_565;
-        nvidia_x11_legacy470 = markBroken nvidia_x11_legacy470;
-        # perf needs systemtap fixed first
-        perf = markBroken perf;
-        zenpower = zenpower.overrideAttrs (prevAttrs: {
-          makeFlags =
-            prevAttrs.makeFlags
-            ++ kernel.commonMakeFlags
-            ++ [
-              "KBUILD_CFLAGS="
-            ];
-        });
-      };
+    packagesExtend = import ./lib/llvm-module-overlay.nix inputs;
 
     zfsOverride = {
       inherit (final)
