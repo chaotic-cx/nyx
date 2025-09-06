@@ -35,7 +35,7 @@ let
         versionsFile = "versions.json";
         suffix = "";
         flavors = [
-          ""
+          "-gcc"
           "-lto"
           "-server"
         ];
