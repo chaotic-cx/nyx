@@ -4,6 +4,7 @@
   configPath,
   versions,
   callPackage,
+  linuxManualConfig,
   linuxPackages,
   linuxPackagesFor,
   fetchFromGitHub,
@@ -75,7 +76,7 @@ let
   linuxConfigTransfomed = import configPath;
 
   kernel = callPackage ./kernel.nix {
-    inherit cachyConfig stdenv kconfigToNix;
+    inherit cachyConfig stdenv kconfigToNix linuxManualConfig;
     kernelPatches = [ ];
     configfile = preparedConfigfile;
     config = linuxConfigTransfomed;
