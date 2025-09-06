@@ -96,9 +96,35 @@ in
         nvidia_dc_535 = markBroken nvidia_dc_535;
         nvidia_dc_565 = markBroken nvidia_dc_565;
         nvidia_x11_legacy470 = markBroken nvidia_x11_legacy470;
+        # perf needs systemtap fixed first
         perf = markBroken perf;
-        zfs_cachyos = markBroken zfs_cachyos;
       };
+
+    zfsOverride = {
+      inherit (final)
+        autoreconfHook269
+        util-linux
+        coreutils
+        perl
+        zlib
+        libuuid
+        python3
+        attr
+        openssl
+        libtirpc
+        nfs-utils
+        gawk
+        gnugrep
+        gnused
+        systemd
+        smartmontools
+        sysstat
+        pkg-config
+        curl
+        pam
+        nix-update-script
+        ;
+    };
 
     description = "Linux EEVDF-BORE scheduler Kernel by CachyOS built with LLVM and Thin LTO";
   };

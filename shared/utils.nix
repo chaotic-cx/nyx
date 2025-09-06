@@ -115,7 +115,8 @@ rec {
     newScope: prev:
     let
       args = prev.override.__functionArgs;
-      values = lib.attrsets.genAttrs (builtins.attrNames args) (arg: newScope.${arg} or args.${arg});
+      names = builtins.filter (arg: builtins.hasAttr arg newScope) (builtins.attrNames args);
+      values = lib.attrsets.genAttrs names (arg: builtins.getAttr arg newScope);
     in
     prev.override values;
 

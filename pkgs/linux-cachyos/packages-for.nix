@@ -15,6 +15,7 @@
   packagesExtend ? null,
   cachyOverride,
   extraMakeFlags ? [ ],
+  zfsOverride ? { },
   # those are set in their PKGBUILDs
   kernelPatches ? { },
   basicCachy ? true,
@@ -94,22 +95,33 @@ let
   };
 
   # CachyOS repeating stuff.
-  addOurs = _finalAttrs: prevAttrs: {
+  addOurs = finalAttrs: prevAttrs: {
     kernel_configfile = prevAttrs.kernel.configfile;
-    zfs_cachyos = prevAttrs.zfs_2_3.overrideAttrs (prevAttrs: {
-      src = fetchFromGitHub {
-        owner = "cachyos";
-        repo = "zfs";
-        inherit (versions.zfs) rev hash;
-      };
-      meta = prevAttrs.meta // {
-        broken = false;
-      };
-      patches = [ ];
-      postPatch =
-        builtins.replaceStrings [ "grep --quiet '^Linux-Maximum:" ] [ "# " ]
-          prevAttrs.postPatch;
-    });
+    zfs_cachyos =
+      (finalAttrs.callPackage "${inputs.flakes.nixpkgs}/pkgs/os-specific/linux/zfs/generic.nix"
+        zfsOverride
+        {
+          kernelModuleAttribute = "zfs_cachyos";
+          kernelMinSupportedMajorMinor = "1.0";
+          kernelMaxSupportedMajorMinor = "99.99";
+          enableUnsupportedExperimentalKernel = true;
+          version = prevAttrs.zfs_2_3.version;
+          tests = { };
+          maintainers = with lib.maintainers; [
+            pedrohlc
+          ];
+          hash = "";
+        }
+      ).overrideAttrs
+        (prevAttrs: {
+          src = fetchFromGitHub {
+            owner = "cachyos";
+            repo = "zfs";
+            inherit (versions.zfs) rev hash;
+          };
+          patches = [ ];
+          postPatch = builtins.replaceStrings [ "grep --quiet '^Linux-M" ] [ "# " ] prevAttrs.postPatch;
+        });
     inherit cachyOverride;
   };
 
