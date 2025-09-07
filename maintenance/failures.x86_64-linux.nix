@@ -1,4 +1,6 @@
 {
+  "firefox-unwrapped_nightly" = "/nix/store/9ybryj2am3040949k6inh9a2797wd7iw-firefox-nightly-unwrapped-144.0a1";
+  "firefox_nightly" = "/nix/store/kcrirblsm6r74kf7n2hd38p2sxiw61qc-firefox-nightly-144.0a1";
   "linuxPackages_cachyos.amdgpu-i2c" = "/nix/store/3w6dqd4qvv1vlxip8chazywlnyw2iw34-amdgpu-i2c-x86_64-unknown-linux-gnu-0-unstable-2024-12-16";
   "linuxPackages_cachyos.apfs" = "/nix/store/i19b8kw3999193jbv8gs5337rkpmj5jm-apfs-x86_64-unknown-linux-gnu-0.3.14-6.16.5";
   "linuxPackages_cachyos.ax99100" = "/nix/store/2ks2lalcpm0p7bswllqzlsqiwrn8hdza-ax99100-x86_64-unknown-linux-gnu-1.8.0";
@@ -55,7 +57,6 @@
   "linuxPackages_cachyos.xpadneo" = "/nix/store/89y0zd47nrwpyi0hncvfhikxskpz6dbw-xpadneo-x86_64-unknown-linux-gnu-0.9.7";
   "linuxPackages_cachyos.yt6801" = "/nix/store/5acril5791wxqqvv11i9chdms75av6zj-yt6801-x86_64-unknown-linux-gnu-1.0.30-20250430";
   "linuxPackages_cachyos.zenergy" = "/nix/store/lw033y6p62ppnmxh7jha1zalswhra0r7-zenergy-x86_64-unknown-linux-gnu-0-unstable-2025-04-15";
-  "linuxPackages_cachyos.zenpower" = "/nix/store/mjagcfafi2mls4smzhzb30wgqmds5xn4-zenpower-x86_64-unknown-linux-gnu-unstable-2025-06-17";
   "linuxPackages_cachyos-gcc.apfs" = "/nix/store/98y73cyy3vv0iw73h3b8iwvawjmabl64-apfs-0.3.14-6.16.5";
   "linuxPackages_cachyos-gcc.ax99100" = "/nix/store/sws8d4w2ahl8f4cvvxy8j764hp5v07p7-ax99100-1.8.0";
   "linuxPackages_cachyos-gcc.chipsec" = "/nix/store/ys7bjb5dcsbs5qpnk3naa0bq1czi0jsn-chipsec-1.10.6";
@@ -151,6 +152,13 @@
   "linuxPackages_cachyos-server.vmm_clock" = "/nix/store/8m3m3zbm7954a0fa15j5daryp1788yv2-vmm_clock-0.2.1";
   "linuxPackages_cachyos-server.yt6801" = "/nix/store/299ahi2744vhdn0nwckhnckm25cnr7zn-yt6801-1.0.30-20250430";
   "linuxPackages_cachyos-server.zenergy" = "/nix/store/657cs3h0ah0304frkl6kbd5ymcmwnvhc-zenergy-0-unstable-2025-04-15";
+  "nix_git" = "/nix/store/mdsg1nxsdwwks2js47qc8zg0xd6khr3i-nix-2.99pre20250906_12b6d8d2";
+  "nut_git" = "/nix/store/ixi1s704k22594z681brgp4amm810fhj-nut-unstable-20250906223916-009fbbd";
+  "qtile-extras_git" = "/nix/store/sdcckjwgfjqza626z60psh0z1abc8x46-python3.13-qtile-extras-0.33.99.99";
+  "telegram-desktop-unwrapped_git" = "/nix/store/har763avfcwa6aj00xqbw7zcsck5cv3x-telegram-desktop-unwrapped-unstable-20250906160521-929032d";
+  "telegram-desktop_git" = "/nix/store/xbbihydwapc2v9zh9019pxs4bgv3mpmy-telegram-desktop-unstable-20250906160521-929032d";
   "vulkanPackages_latest.gfxreconstruct" = "/nix/store/xk8gw4pva6pinrsdp7ld28gqcid4l0mr-gfxreconstruct-1.4.321.0";
   "vulkanPackages_latest.vulkan-extension-layer" = "/nix/store/hphjsrz18b3a1nb3glx05yb9zd5fz7as-vulkan-extension-layer-1.4.321.0";
+  "zed-editor_git" = "/nix/store/0p6bjavy32wl283ycdw8svcx6bkbx9ix-zed-editor-unstable-20250906203155-5c30578";
+  "zed-editor-fhs_git" = "/nix/store/slrq6c00xzycr1llpyrfx0rdiv3qhpp2-zeditor";
 }
