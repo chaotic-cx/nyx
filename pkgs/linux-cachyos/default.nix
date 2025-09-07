@@ -147,8 +147,6 @@ in
     passthru = prevAttrs.passthru // {
       kernelModuleAttribute = "zfs_cachyos";
     };
-    postPatch =
-      builtins.replaceStrings [ "grep --quiet '^Linux-M" ] [ "# " ]
-        prevAttrs.postPatch;
+    postPatch = builtins.replaceStrings [ "grep --quiet '^Linux-M" ] [ "# " ] prevAttrs.postPatch;
   });
 }

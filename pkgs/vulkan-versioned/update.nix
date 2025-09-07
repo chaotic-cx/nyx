@@ -102,10 +102,13 @@ writeShellScript "update-vulkan-package" ''
     "$srcJson" | sponge "$srcJson"
   git add $srcJson
 
-  if [ ${if packageToUpdate.knownGoods != null then "true" else "false"} ]; then
+  knownGoods=(${
+    if packageToUpdate.knownGoods != null then escapeShellArgs packageToUpdate.knownGoods else ""
+  })
+  if [[ ''${#knownGoods[@]} > 0 ]]; then
     path=$(echo "$prefetch" | jq -r .path)
     knownGood="$path/scripts/known_good.json"
-    for sub in ${escapeShellArgs packageToUpdate.knownGoods}; do
+    for sub in "''${knownGoods[@]}"; do
       subUrl=$(jq -r ".repos[] | select(.name == \""$sub"\") | .url" "$knownGood")
       subRev=$(jq -r ".repos[] | select(.name == \""$sub"\") | .commit" "$knownGood")
       subHash=$(
