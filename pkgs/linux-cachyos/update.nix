@@ -55,6 +55,13 @@ let
         flavors = [ "-hardened" ];
         srcUrl = releaseSrcUrl;
       }
+    else if withUpdateScript == "lts" then
+      {
+        versionsFile = "versions-lts.json";
+        suffix = "-lts";
+        flavors = [ "-lts" ];
+        srcUrl = releaseSrcUrl;
+      }
     else
       throw "Unsupported update-script for linux-cachyos";
 in
