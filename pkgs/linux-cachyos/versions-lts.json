@@ -1,0 +1,19 @@
+{
+  "suffix": "-cachyos",
+  "linux": {
+    "version": "6.12.45",
+    "hash": "TBA"
+  },
+  "config": {
+    "rev": "TBA",
+    "hash": "TBA"
+  },
+  "patches": {
+    "rev": "TBA",
+    "hash": "TBA"
+  },
+  "zfs": {
+    "rev": "TBA",
+    "hash": "TBA"
+  }
+}

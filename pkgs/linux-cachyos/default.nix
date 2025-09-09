@@ -10,6 +10,7 @@ let
 
   # CachyOS repeating stuff.
   mainVersions = importJSON ./versions.json;
+  ltsVersions = importJSON ./versions-lts.json;
   rcVersions = importJSON ./versions-rc.json;
   hardenedVersions = importJSON ./versions-hardened.json;
 
@@ -60,6 +61,19 @@ in
     ;
 
   cachyos-gcc = gccKernel;
+
+  cachyos-lts = mkCachyKernel {
+    taste = "linux-cachyos-lts";
+    configPath = ./config-nix/cachyos-lts.x86_64-linux.nix;
+
+    versions = ltsVersions;
+    withUpdateScript = "lts";
+
+    # Prevent building kernel modules for LTS kernel
+    packagesExtend =
+      _kernel: _final: prev:
+      prev // { recurseForDerivations = false; };
+  };
 
   cachyos-rc = mkCachyKernel {
     taste = "linux-cachyos-rc";
