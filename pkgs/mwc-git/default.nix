@@ -1,6 +1,5 @@
 {
   final,
-  prev,
   gitOverride,
   ...
 }:

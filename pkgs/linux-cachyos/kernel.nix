@@ -16,7 +16,7 @@
   kernelPackages,
   flakes,
   final,
-}@inputs:
+}:
 let
   inherit (cachyConfig.versions.linux) version;
 in
@@ -34,7 +34,7 @@ in
   allowImportFromDerivation = false;
 
   kernelPatches =
-    inputs.kernelPatches
+    kernelPatches
     ++ builtins.map (filename: {
       name = builtins.baseNameOf filename;
       patch = filename;

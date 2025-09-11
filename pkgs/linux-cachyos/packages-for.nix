@@ -17,7 +17,6 @@
   extraMakeFlags ? [ ],
   zfsOverride ? { },
   # those are set in their PKGBUILDs
-  kernelPatches ? { },
   basicCachy ? true,
   mArch ? null,
   cpuSched ? "cachyos",
