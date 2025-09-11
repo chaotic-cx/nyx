@@ -1,8 +1,8 @@
 diff --git a/Cargo.lock b/Cargo.lock
-index 2c65131..c2230ee 100644
+index 82e1b20..714bd0d 100644
 --- a/Cargo.lock
 +++ b/Cargo.lock
-@@ -2073,7 +2073,7 @@ dependencies = [
+@@ -2172,7 +2172,7 @@ dependencies = [
   "bitflags 2.9.0",
   "cexpr",
   "clang-sys",
@@ -11,16 +11,25 @@ index 2c65131..c2230ee 100644
   "lazy_static",
   "lazycell",
   "log",
-@@ -8880,7 +8880,7 @@ dependencies = [
+@@ -7946,7 +7946,7 @@ dependencies = [
+  "http-body 1.0.1",
+  "log",
+  "parking_lot",
+- "reqwest 0.12.15 (git+https://github.com/zed-industries/reqwest.git?rev=951c770a32f1998d6e999cef3e59e0013e6c4415)",
++ "reqwest 0.12.15",
+  "serde",
+  "serde_json",
+  "url",
+@@ -8885,7 +8885,7 @@ dependencies = [
   "referencing",
   "regex",
-  "regex-syntax 0.8.5",
+  "regex-syntax",
 - "reqwest 0.12.15 (registry+https://github.com/rust-lang/crates.io-index)",
 + "reqwest 0.12.15",
   "serde",
   "serde_json",
   "uuid-simd",
-@@ -9364,7 +9364,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
+@@ -9427,7 +9427,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
  checksum = "fc2f4eb4bc735547cfed7c0a4922cbd04a4655978c09b54f1f7b228750664c34"
  dependencies = [
   "cfg-if",
@@ -29,7 +38,7 @@ index 2c65131..c2230ee 100644
  ]
  
  [[package]]
-@@ -9569,7 +9569,7 @@ dependencies = [
+@@ -9647,7 +9647,7 @@ dependencies = [
   "prost 0.9.0",
   "prost-build 0.9.0",
   "prost-types 0.9.0",
@@ -38,7 +47,7 @@ index 2c65131..c2230ee 100644
   "serde",
   "workspace-hack",
  ]
-@@ -12663,7 +12663,7 @@ checksum = "22505a5c94da8e3b7c2996394d1c933236c4d743e81a410bcca4e6989fc066a4"
+@@ -12821,7 +12821,7 @@ checksum = "22505a5c94da8e3b7c2996394d1c933236c4d743e81a410bcca4e6989fc066a4"
  dependencies = [
   "bytes 1.10.1",
   "heck 0.5.0",
@@ -47,7 +56,7 @@ index 2c65131..c2230ee 100644
   "log",
   "multimap 0.10.0",
   "once_cell",
-@@ -12696,7 +12696,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
+@@ -12854,7 +12854,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
  checksum = "81bddcdb20abf9501610992b6759a4c888aef7d1a7247ef75e2404275ac24af1"
  dependencies = [
   "anyhow",
@@ -56,7 +65,7 @@ index 2c65131..c2230ee 100644
   "proc-macro2",
   "quote",
   "syn 2.0.101",
-@@ -13549,43 +13549,6 @@ dependencies = [
+@@ -13665,43 +13665,6 @@ dependencies = [
   "winreg 0.50.0",
  ]
  
@@ -100,7 +109,7 @@ index 2c65131..c2230ee 100644
  [[package]]
  name = "reqwest"
  version = "0.12.15"
-@@ -13594,6 +13557,7 @@ dependencies = [
+@@ -13710,6 +13673,7 @@ dependencies = [
   "base64 0.22.1",
   "bytes 1.10.1",
   "encoding_rs",
@@ -108,16 +117,16 @@ index 2c65131..c2230ee 100644
   "futures-core",
   "futures-util",
   "h2 0.4.9",
-@@ -13646,7 +13610,7 @@ dependencies = [
+@@ -13763,7 +13727,7 @@ dependencies = [
   "http_client_tls",
   "log",
   "regex",
 - "reqwest 0.12.15 (git+https://github.com/zed-industries/reqwest.git?rev=951c770a32f1998d6e999cef3e59e0013e6c4415)",
 + "reqwest 0.12.15",
   "serde",
-  "smol",
   "tokio",
-@@ -18694,7 +18658,7 @@ version = "0.1.9"
+  "workspace-hack",
+@@ -18973,7 +18937,7 @@ version = "0.1.9"
  source = "registry+https://github.com/rust-lang/crates.io-index"
  checksum = "cf221c93e13a30d793f7645a0e7762c55d169dbb0a49671918a2319d289b10bb"
  dependencies = [
@@ -126,11 +135,20 @@ index 2c65131..c2230ee 100644
  ]
  
  [[package]]
+@@ -20592,7 +20556,7 @@ dependencies = [
+  "release_channel",
+  "remote",
+  "repl",
+- "reqwest 0.12.15 (git+https://github.com/zed-industries/reqwest.git?rev=951c770a32f1998d6e999cef3e59e0013e6c4415)",
++ "reqwest 0.12.15",
+  "reqwest_client",
+  "rope",
+  "search",
 diff --git a/Cargo.toml b/Cargo.toml
-index 9062950..a9a434c 100644
+index e1eca76..1ca7f0b 100644
 --- a/Cargo.toml
 +++ b/Cargo.toml
-@@ -712,6 +712,7 @@ features = [
+@@ -761,6 +761,7 @@ features = [
  notify = { git = "https://github.com/zed-industries/notify.git", rev = "bbb9ea5ae52b253e095737847e367c30653a2e96" }
  notify-types = { git = "https://github.com/zed-industries/notify.git", rev = "bbb9ea5ae52b253e095737847e367c30653a2e96" }
  windows-capture = { git = "https://github.com/zed-industries/windows-capture.git", rev = "f0d6c1b6691db75461b732f6d5ff56eed002eeb9" }
