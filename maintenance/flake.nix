@@ -11,11 +11,11 @@
   };
   outputs =
     {
-      self,
       chaotic,
       compare-to,
       systems,
       yafas,
+      ...
     }:
     let
       inputs = chaotic.inputs // {
