@@ -1,7 +1,7 @@
 {
   lib,
   callPackage,
-  llvmPackages_15,
+  llvmPackages,
   fetchFromGitHub,
   pkg-config,
   cmake,
@@ -16,7 +16,7 @@
   openmohaaVersion,
 }:
 
-llvmPackages_15.stdenv.mkDerivation {
+llvmPackages.stdenv.mkDerivation {
   pname = "openmohaa";
   inherit (openmohaaVersion) version;
 
