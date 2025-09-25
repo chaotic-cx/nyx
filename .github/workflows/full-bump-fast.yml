@@ -1,4 +1,4 @@
-name: Bump all packages (slow)
+name: Bump all packages (fast)
 on:
   workflow_dispatch:
     inputs:
@@ -52,17 +52,4 @@ jobs:
           NYX_SOURCE: ${{ github.workspace }}
           GH_TOKEN: ${{ github.token }}
           NYX_BUMPN: ${{ inputs.bumpNumber }}
-      # similar to build.yml
-      - name: Download cache list
-        run: |
-          curl -vfo "${{ runner.temp }}/prev-cache.json" -H "Authorization: Bearer ${{ secrets.CACHIX_AUTH_TOKEN_SUPREME }}" \
-            'https://app.cachix.org/api/v1/cache/chaotic-nyx/contents'
-      # similar to build.yml
-      - name: Cache
-        id: cache
-        if: (success() && inputs.kissMeKissMeKissMe != 'true')
-        run: nix develop ./maintenance -c chaotic-nyx-build || [ $? -eq 42 ]
-        env:
-          NYX_WD: ${{ runner.temp }}
-          NYX_PUSH_ALL: "1"
-          CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          NYX_BUMP_REVERT: 0
