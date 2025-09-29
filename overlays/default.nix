@@ -143,6 +143,8 @@ in
 
   beautyline-icons = final.callPackage ../pkgs/beautyline-icons { };
 
+  bees_git = callOverride ../pkgs/bees-git { };
+
   bpftools_full =
     if isLinux then
       final.callPackage ../pkgs/bpftools-full { }
