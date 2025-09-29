@@ -2,6 +2,7 @@
   final,
   prev,
   vulkanVersions,
+  nyxUtils,
   ...
 }:
 let
@@ -152,6 +153,9 @@ final.lib.makeScope final.newScope (self: {
     extraInput = { inherit (self) vulkan-headers vulkan-loader vulkan-volk; };
     owner = "KhronosGroup";
     repo = "Vulkan-Tools";
+    extraAttrs = prevAttrs: {
+      cmakeFlags = nyxUtils.replaceStartingWith "-DBUILD_CUBE=" "ON" prevAttrs.cmakeFlags;
+    };
   };
 
   vulkan-tools-lunarg = genericOverride {
