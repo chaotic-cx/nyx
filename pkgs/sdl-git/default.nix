@@ -12,6 +12,10 @@ gitOverride {
   };
 
   postOverride = prev: {
-    postPatch = builtins.replaceStrings [ "src/video/wayland/SDL_waylandmessagebox.c" ] [ "src/dialog/unix/SDL_zenitymessagebox.c" ] prev.postPatch;
+    postPatch =
+      builtins.replaceStrings
+        [ "src/video/wayland/SDL_waylandmessagebox.c" ]
+        [ "src/dialog/unix/SDL_zenitymessagebox.c" ]
+        prev.postPatch;
   };
 }
