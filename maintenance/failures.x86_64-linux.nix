@@ -18,7 +18,7 @@
   "linuxPackages_cachyos.lttng-modules" = "/nix/store/nmp9bj6qx4w5bsw9ya2x7i9s2j4fndxb-lttng-modules-6.16.9-x86_64-unknown-linux-gnu-2.13.15";
   "linuxPackages_cachyos.mba6x_bl" = "/nix/store/9yyd9il48c5skjjy31xvvgani076jlp7-mba6x_bl-x86_64-unknown-linux-gnu-unstable-2017-12-30";
   "linuxPackages_cachyos.mbp2018-bridge-drv" = "/nix/store/7rjsbnw3w54ra616asd1yxx5mfh3h863-mbp2018-bridge-drv-x86_64-unknown-linux-gnu-2020-01-31";
-  "linuxPackages_cachyos.mm-tools" = "/nix/store/8rnxm8bfip3yqgk2qhdl1ia6db095hm2-mm-tools-x86_64-unknown-linux-gnu-6.12.48";
+  "linuxPackages_cachyos.mm-tools" = "/nix/store/y2mhbn7xj9b0cb4p726541h0069q7r9d-mm-tools-x86_64-unknown-linux-gnu-6.12.49";
   "linuxPackages_cachyos.netatop" = "/nix/store/lb1q35gcsb1c54ycsyrwlvvs1mqyz92q-netatop-6.16.9-3.1-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos.oci-seccomp-bpf-hook" = "/nix/store/cmmf5vyrkqa4z54bq6zhkddd1ph6j6yv-oci-seccomp-bpf-hook-x86_64-unknown-linux-gnu-1.2.11";
   "linuxPackages_cachyos.odp-dpdk" = "/nix/store/p5m0cbghkbxzhibsxwkpww333f8qw3f8-odp-dpdk-x86_64-unknown-linux-gnu-1.46.0.0_DPDK_22.11";
