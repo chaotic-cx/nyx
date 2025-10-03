@@ -1,5 +1,5 @@
 {
-  "bazaar_git" = "/nix/store/hwl8m219smip1mw8bf5ibs96a1726yrs-bazaar-unstable-20251001063554-d5f0758";
+  "bazaar_git" = "/nix/store/4dx2fh583a9z7qpq6w4rzg6qfyjryg66-bazaar-unstable-20251002235051-7d1dbef";
   "libbpf_git" = "/nix/store/v8l3cr5hwz65izif3gw39sgival3wihr-libbpf-unstable-20250827000439-3f07747";
   "linuxPackages_cachyos.amdgpu-i2c" = "/nix/store/37ir9z5pfxkp55svixwfnr3k90nxa4h3-amdgpu-i2c-x86_64-unknown-linux-gnu-0-unstable-2024-12-16";
   "linuxPackages_cachyos.apfs" = "/nix/store/n18qipx93lbb82k91rbqxld1zrxd1dwy-apfs-x86_64-unknown-linux-gnu-0.3.15-6.17.0";
@@ -154,9 +154,9 @@
   "linuxPackages_cachyos-server.shufflecake" = "/nix/store/pblzidfar2jxl474i6rp52b482s5sjrh-shufflecake";
   "linuxPackages_cachyos-server.vmm_clock" = "/nix/store/glwvzs5k1fx8v3m84hinxpv9nvlfwbqr-vmm_clock-0.2.1";
   "linuxPackages_cachyos-server.yt6801" = "/nix/store/j4gy5bwj82jpfhl6iaadds59zi72sl1d-yt6801-1.0.30-20250430";
-  "nut_git" = "/nix/store/31h6d0xwpnf7azv69fznvdzpvrn56mgq-nut-unstable-20250930145339-90c3514";
+  "nut_git" = "/nix/store/1f2m76m7fc4wdwlnncjxqrw41zkd3k1y-nut-unstable-20251002085018-a456b00";
   "qtile-extras_git" = "/nix/store/giw4nypg7wrgszs00iw6yr48grfjjai9-python3.13-qtile-extras-0.33.99.99";
   "vulkanPackages_latest.gfxreconstruct" = "/nix/store/iwrs6z8955ril9lrzbknawswyi9j8ng1-gfxreconstruct-1.4.321.0";
-  "zed-editor_git" = "/nix/store/45qkpk32s57y1mlfj3lhs0bfrizzl57c-zed-editor-unstable-20251001121534-f2df497";
-  "zed-editor-fhs_git" = "/nix/store/jzblbfj7vk5qnsmfr8swwcna59m9dw4r-zeditor";
+  "zed-editor_git" = "/nix/store/zr7nhdm9fk7xfam7z5817ch27a0rjc12-zed-editor-unstable-20251003123224-1b94d74";
+  "zed-editor-fhs_git" = "/nix/store/w1mzdgxcjriimf4bgy6krfy0wdj49a6b-zeditor";
 }
