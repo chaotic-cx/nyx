@@ -163,9 +163,4 @@
   "linuxPackages_cachyos-server.vmm_clock" = "/nix/store/1msjh87ndkknm2lrgmmxjicrrxrj9fdp-vmm_clock-0.2.1";
   "linuxPackages_cachyos-server.yt6801" = "/nix/store/1c22fcclaj0a60zzdg0pwa2q2idqzvkp-yt6801-1.0.30-20250430";
   "qtile-extras_git" = "/nix/store/0dp3dl725mrav52nm4i43fgzm43ncnaw-python3.13-qtile-extras-0.33.99.99";
-  "shadps4_git" = "/nix/store/qv2bp5wgspa286l64r53y0drw67d2dqr-shadps4-unstable-20251008084946-999960a";
-  "telegram-desktop-unwrapped_git" = "/nix/store/wiw8jp51ijb86wz5hw9aliq3vh811wpa-telegram-desktop-unwrapped-unstable-20251006170519-147439a";
-  "telegram-desktop_git" = "/nix/store/dcybjdgwvgigbpl7i5hbs0lhk18mdfr4-telegram-desktop-unstable-20251006170519-147439a";
-  "tg-owt_git" = "/nix/store/k1y6m2ms0bns4f2fvjjw98zl665xw4s1-tg_owt-unstable-20250914110511-5c5c712";
-  "torzu_git" = "/nix/store/gj51z1w1dgkvmn5iss9bg0cr807si5yd-torzu-unstable-20250422-fd90833";
 }
