@@ -4,6 +4,7 @@
   flakes,
   prev,
   gitOverride,
+  nyxUtils,
   mesaTestAttrs ? final,
   ...
 }:
@@ -70,6 +71,8 @@ gitOverride (current: {
 
   postOverride = prevAttrs: {
     buildInputs = prevAttrs.buildInputs ++ [ libdisplay-info_latest ];
+
+    patches = nyxUtils.removeByBaseName "gallivm-llvm-21.patch" prevAttrs.patches;
 
     # test and accessible information
     passthru = prevAttrs.passthru // {

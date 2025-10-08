@@ -139,8 +139,6 @@ in
 
   appmenu-gtk3-module = final.callPackage ../pkgs/appmenu-gtk3-module { };
 
-  bazaar_git = final.callPackage ../pkgs/bazaar-git { };
-
   beautyline-icons = final.callPackage ../pkgs/beautyline-icons { };
 
   bees_git = callOverride ../pkgs/bees-git { };
@@ -250,8 +248,6 @@ in
   nix-top_abandoned = final.callPackage ../pkgs/nix-top { };
 
   nordvpn = final.callPackage ../pkgs/nordvpn { };
-
-  nut_git = callOverride ../pkgs/nut-git { };
 
   nss_git = callOverride ../pkgs/nss-git { };
 
