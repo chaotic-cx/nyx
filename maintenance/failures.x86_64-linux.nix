@@ -1,8 +1,6 @@
 {
-  "bytecode-viewer_git" = "/nix/store/mlvg3r1grmx7w43irlw6fvxgmpx1vkyl-bytecode-viewer-unstable-20251006050804-a5a0f36";
-  "firedragon-unwrapped" = "/nix/store/ydifclijzj85m3rsvqhf8x4xcflsz267-firedragon-unwrapped-11.30.0-1";
   "firedragon" = "/nix/store/r65mjy5rj6wljw7q24rbby05njfgbgy1-firedragon-11.30.0-1";
-  "libbpf_git" = "/nix/store/s8gnirnm26zqa8i5cjmr1p4gxpgfi1rx-libbpf-unstable-20251006225927-3d451d9";
+  "firedragon-unwrapped" = "/nix/store/ydifclijzj85m3rsvqhf8x4xcflsz267-firedragon-unwrapped-11.30.0-1";
   "linuxPackages_cachyos.amdgpu-i2c" = "/nix/store/g3yqyfz003rwa451p9awnsicrmln9vz6-amdgpu-i2c-x86_64-unknown-linux-gnu-0-unstable-2024-12-16";
   "linuxPackages_cachyos.apfs" = "/nix/store/rbgrc3al6ncv3irhpv94rz8am3c162yc-apfs-x86_64-unknown-linux-gnu-0.3.15-6.17.1";
   "linuxPackages_cachyos.ax99100" = "/nix/store/qirskz00qzixhszn6psj0a2xyk1bsb4q-ax99100-x86_64-unknown-linux-gnu-1.8.0";
@@ -164,15 +162,10 @@
   "linuxPackages_cachyos-server.virtualbox" = "/nix/store/wlil31yh14cymq9p48n023wsiwcsfkay-virtualbox-modules-7.2.0-6.17.1";
   "linuxPackages_cachyos-server.vmm_clock" = "/nix/store/1msjh87ndkknm2lrgmmxjicrrxrj9fdp-vmm_clock-0.2.1";
   "linuxPackages_cachyos-server.yt6801" = "/nix/store/1c22fcclaj0a60zzdg0pwa2q2idqzvkp-yt6801-1.0.30-20250430";
-  "mesa32_git" = "/nix/store/g2bs304ab6flgg7rlznw0rvsnkqsdb19-mesa-01d174";
-  "mesa_git" = "/nix/store/9idxf5higqy5y99b6r3w2nl214cvi4x1-mesa-01d174";
   "qtile-extras_git" = "/nix/store/0dp3dl725mrav52nm4i43fgzm43ncnaw-python3.13-qtile-extras-0.33.99.99";
   "shadps4_git" = "/nix/store/qv2bp5wgspa286l64r53y0drw67d2dqr-shadps4-unstable-20251008084946-999960a";
-  "tg-owt_git" = "/nix/store/k1y6m2ms0bns4f2fvjjw98zl665xw4s1-tg_owt-unstable-20250914110511-5c5c712";
   "telegram-desktop-unwrapped_git" = "/nix/store/wiw8jp51ijb86wz5hw9aliq3vh811wpa-telegram-desktop-unwrapped-unstable-20251006170519-147439a";
   "telegram-desktop_git" = "/nix/store/dcybjdgwvgigbpl7i5hbs0lhk18mdfr4-telegram-desktop-unstable-20251006170519-147439a";
+  "tg-owt_git" = "/nix/store/k1y6m2ms0bns4f2fvjjw98zl665xw4s1-tg_owt-unstable-20250914110511-5c5c712";
   "torzu_git" = "/nix/store/gj51z1w1dgkvmn5iss9bg0cr807si5yd-torzu-unstable-20250422-fd90833";
-  "vulkanPackages_latest.gfxreconstruct" = "/nix/store/s0w9f38wzr0q4mjx4fzz0rnr17b9j7rh-gfxreconstruct-1.4.328.0";
-  "zed-editor_git" = "/nix/store/q6s26904ps0hjsg4s6n6bgfiffyk7qqs-zed-editor-unstable-20251008104743-7185670";
-  "zed-editor-fhs_git" = "/nix/store/8nv21izaflwbhw1g3zdazi17j3skk5l9-zeditor";
 }

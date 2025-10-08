@@ -10,7 +10,6 @@
   cmake,
   cpp-jwt,
   cubeb,
-  discord-rpc,
   doxygen,
   enet,
   fetchTorGit,
@@ -90,7 +89,7 @@ stdenv.mkDerivation {
     catch2_3
     cpp-jwt
     cubeb
-    discord-rpc
+    # broken: discord-rpc (cmake 3.5)
     # intentionally omitted: dynarmic - prefer vendored version for compatibility
     enet
     ffmpeg
@@ -127,6 +126,8 @@ stdenv.mkDerivation {
   dontFixCmake = true;
 
   cmakeFlags = [
+    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5"
+
     # actually has a noticeable performance impact
     "-DYUZU_ENABLE_LTO=ON"
 
