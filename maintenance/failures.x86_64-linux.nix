@@ -166,7 +166,6 @@
   "linuxPackages_cachyos-server.yt6801" = "/nix/store/1c22fcclaj0a60zzdg0pwa2q2idqzvkp-yt6801-1.0.30-20250430";
   "mesa32_git" = "/nix/store/g2bs304ab6flgg7rlznw0rvsnkqsdb19-mesa-01d174";
   "mesa_git" = "/nix/store/9idxf5higqy5y99b6r3w2nl214cvi4x1-mesa-01d174";
-  "nut_git" = "/nix/store/3zscmc9ifwkxxlavxrlpyf06g9ghx0yd-nut-unstable-20251008102423-fe4851f";
   "qtile-extras_git" = "/nix/store/0dp3dl725mrav52nm4i43fgzm43ncnaw-python3.13-qtile-extras-0.33.99.99";
   "shadps4_git" = "/nix/store/qv2bp5wgspa286l64r53y0drw67d2dqr-shadps4-unstable-20251008084946-999960a";
   "tg-owt_git" = "/nix/store/k1y6m2ms0bns4f2fvjjw98zl665xw4s1-tg_owt-unstable-20250914110511-5c5c712";

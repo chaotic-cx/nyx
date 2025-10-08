@@ -5,7 +5,6 @@
   "firefox_nightly" = "skip";
   "latencyflex-vulkan" = "/nix/store/6rgmia9m5gk02m4123b92za1h96lz044-latencyflex-vulkan-unstable-2023-07-03";
   "libbpf_git" = "/nix/store/k2zi98y3l78ch4r1gc3cb11vnpqyqj53-libbpf-unstable-20250827000439-3f07747";
-  "nut_git" = "/nix/store/rhj7frs87hjagmawzd0sn5pky0d3xw3i-nut-unstable-20250923142943-87008cf";
   "pwvucontrol_git" = "/nix/store/iqkwh10nhqqxpf4vkzhj48yi9v22nbzr-pwvucontrol-unstable-20250525111507-7bf43c7";
   "qtile-extras_git" = "/nix/store/acn0950d2fdyspkws3v0vs4jlj1b2wxj-python3.13-qtile-extras-0.33.99.99";
   "telegram-desktop-unwrapped_git" = "skip";

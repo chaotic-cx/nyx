@@ -249,8 +249,6 @@ in
 
   nordvpn = final.callPackage ../pkgs/nordvpn { };
 
-  nut_git = callOverride ../pkgs/nut-git { };
-
   nss_git = callOverride ../pkgs/nss-git { };
 
   openmohaa = final.callPackage ../pkgs/openmohaa {
