@@ -1,5 +1,4 @@
 {
-  "bazaar_git" = "/nix/store/vnb5hwxgcwdmh5hgxdk2x1svwqvvyvp8-bazaar-unstable-20250924083842-ce8b8b5";
   "firedragon-unwrapped" = "skip";
   "firedragon" = "skip";
   "firefox-unwrapped_nightly" = "skip";

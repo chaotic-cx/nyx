@@ -1,5 +1,4 @@
 {
-  "bazaar_git" = "/nix/store/bkpqb5xbd9shfxnjlxyj8s65x0yq3lba-bazaar-unstable-20251008002212-071c48a";
   "bytecode-viewer_git" = "/nix/store/mlvg3r1grmx7w43irlw6fvxgmpx1vkyl-bytecode-viewer-unstable-20251006050804-a5a0f36";
   "firedragon-unwrapped" = "/nix/store/ydifclijzj85m3rsvqhf8x4xcflsz267-firedragon-unwrapped-11.30.0-1";
   "firedragon" = "/nix/store/r65mjy5rj6wljw7q24rbby05njfgbgy1-firedragon-11.30.0-1";
