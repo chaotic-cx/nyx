@@ -11,4 +11,8 @@ gitOverride {
     repo = "libbpf";
   };
   ref = "master";
+
+  postOverride = _prevAttrs: {
+    patches = [ ];
+  };
 }
