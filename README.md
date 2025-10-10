@@ -342,7 +342,7 @@ enable_seq  hotplug_seq  nr_rejected  root  state  switch_all
 
 <h2 id="lists-of-options-and-packages">Lists of options and packages</h2>
 
-<!-- cut here --><p>An always up-to-date list of all our options and packages is available at: <a href="https://www.nyx.chaotic.cx/#lists">List page</a>.</p><!-- cut here -->
+<!-- cut here --><p>An always up-to-date list of all our options and packages is available at: <a href="https://www.nyx.chaotic.cx/#lists-of-options-and-packages">List page</a>.</p><!-- cut here -->
 
 <h2 id="notes">Notes</h2>
 
