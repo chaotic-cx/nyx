@@ -110,12 +110,11 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    inherit binaryName;
+    inherit binaryName gtk3;
     applicationName = "FireDragon";
     libName = "firedragon-catppuccin-bin-${finalAttrs.version}";
     ffmpegSupport = true;
     gssSupport = true;
-    gtk3 = gtk3;
   };
 
   meta = {
