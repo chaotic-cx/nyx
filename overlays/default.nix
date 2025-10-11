@@ -170,6 +170,11 @@ in
     pname = "firedragon-bin";
   };
 
+  firedragon-catppuccin-bin-unwrapped = final.callPackage ../pkgs/firedragon-catppuccin-bin { };
+  firedragon-catppuccin-bin = final.wrapFirefox final.firedragon-catppuccin-bin-unwrapped {
+    pname = "firedragon-catppuccin-bin";
+  };
+
   firefox-unwrapped_nightly = final.callPackage ../pkgs/firefox-nightly { };
   firefox_nightly = final.wrapFirefox final.firefox-unwrapped_nightly { };
 
