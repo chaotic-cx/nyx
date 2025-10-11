@@ -168,11 +168,17 @@ in
   firedragon-bin-unwrapped = final.callPackage ../pkgs/firedragon-bin { };
   firedragon-bin = final.wrapFirefox final.firedragon-bin-unwrapped {
     pname = "firedragon-bin";
+    extraPoliciesFiles = [
+      "${final.firedragon-bin-unwrapped}/lib/firedragon-bin-${final.firedragon-bin-unwrapped.version}/distribution/policies.json"
+    ];
   };
 
   firedragon-catppuccin-bin-unwrapped = final.callPackage ../pkgs/firedragon-catppuccin-bin { };
   firedragon-catppuccin-bin = final.wrapFirefox final.firedragon-catppuccin-bin-unwrapped {
     pname = "firedragon-catppuccin-bin";
+    extraPoliciesFiles = [
+      "${final.firedragon-catppuccin-bin-unwrapped}/lib/firedragon-catppuccin-bin-${final.firedragon-catppuccin-bin-unwrapped.version}/distribution/policies.json"
+    ];
   };
 
   firefox-unwrapped_nightly = final.callPackage ../pkgs/firefox-nightly { };

@@ -1,4 +1,5 @@
 {
+  callPackage,
   lib,
   stdenv,
   fetchurl,
@@ -22,12 +23,6 @@ let
   inherit (lib.importJSON ./version.json) version sources;
 
   binaryName = "firedragon";
-  policies = {
-    DisableAppUpdate = true;
-  };
-
-  policiesJson = writeText "firedragon-policies.json" (builtins.toJSON { inherit policies; });
-
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "firedragon-catppuccin-bin-unwrapped";
@@ -99,10 +94,6 @@ stdenv.mkDerivation (finalAttrs: {
         mkdir -p "$prefix/lib" "$prefix/bin"
         cp -r . "$prefix/lib/firedragon-catppuccin-bin-${finalAttrs.version}"
         ln -s "$prefix/lib/firedragon-catppuccin-bin-${finalAttrs.version}/firedragon" "$out/bin/${binaryName}"
-
-        # See: https://github.com/mozilla/policy-templates/blob/master/README.md
-        mkdir -p "$out/lib/firedragon-catppuccin-bin-${finalAttrs.version}/distribution";
-        ln -s ${policiesJson} "$out/lib/firedragon-catppuccin-bin-${finalAttrs.version}/distribution/policies.json";
       ''
   )
   + ''
@@ -115,6 +106,7 @@ stdenv.mkDerivation (finalAttrs: {
     libName = "firedragon-catppuccin-bin-${finalAttrs.version}";
     ffmpegSupport = true;
     gssSupport = true;
+    updateScript = callPackage ./update.nix { };
   };
 
   meta = {
