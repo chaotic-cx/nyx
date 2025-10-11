@@ -199,7 +199,7 @@ in
 
   libportal_git = callOverride ../pkgs/libportal-git { };
 
-  linux_cachyos = drvDropUpdateScript cachyosPackages.cachyos-lto.kernel;
+  linux_cachyos = drvDropUpdateScript cachyosPackages.cachyos-gcc.kernel;
   linux_cachyos-lto = drvDropUpdateScript cachyosPackages.cachyos-lto.kernel;
   linux_cachyos-gcc = drvDropUpdateScript cachyosPackages.cachyos-gcc.kernel;
   linux_cachyos-server = drvDropUpdateScript cachyosPackages.cachyos-server.kernel;
@@ -207,7 +207,7 @@ in
   linux_cachyos-rc = cachyosPackages.cachyos-rc.kernel;
   linux_cachyos-lts = cachyosPackages.cachyos-lts.kernel;
 
-  linuxPackages_cachyos = cachyosPackages.cachyos-lto;
+  linuxPackages_cachyos = cachyosPackages.cachyos-gcc;
   linuxPackages_cachyos-lto = cachyosPackages.cachyos-lto;
   linuxPackages_cachyos-gcc = cachyosPackages.cachyos-gcc;
   linuxPackages_cachyos-server = cachyosPackages.cachyos-server;
