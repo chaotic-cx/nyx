@@ -165,11 +165,9 @@ in
 
   fetchTorGit = callOverride ../pkgs/fetchtorgit { };
 
-  firedragon-unwrapped = final.callPackage ../pkgs/firedragon { };
-
-  firedragon = final.wrapFirefox final.firedragon-unwrapped {
-    inherit (final.firedragon-unwrapped) extraPrefsFiles extraPoliciesFiles;
-    libName = "firedragon";
+  firedragon-bin-unwrapped = final.callPackage ../pkgs/firedragon-bin { };
+  firedragon-bin = final.wrapFirefox final.firedragon-bin-unwrapped {
+    pname = "firedragon-bin";
   };
 
   firefox-unwrapped_nightly = final.callPackage ../pkgs/firefox-nightly { };
