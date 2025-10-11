@@ -16,7 +16,6 @@
   adwaita-icon-theme,
   patchelfUnstable, # have to use patchelfUnstable to support --no-clobber-old-sections
   undmg,
-  writeText,
 }:
 
 let
