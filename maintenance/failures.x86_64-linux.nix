@@ -4,7 +4,7 @@
   "linuxPackages_cachyos.amdgpu-i2c" = "/nix/store/g3yqyfz003rwa451p9awnsicrmln9vz6-amdgpu-i2c-x86_64-unknown-linux-gnu-0-unstable-2024-12-16";
   "linuxPackages_cachyos.apfs" = "/nix/store/rbgrc3al6ncv3irhpv94rz8am3c162yc-apfs-x86_64-unknown-linux-gnu-0.3.15-6.17.1";
   "linuxPackages_cachyos.ax99100" = "/nix/store/qirskz00qzixhszn6psj0a2xyk1bsb4q-ax99100-x86_64-unknown-linux-gnu-1.8.0";
-  "linuxPackages_cachyos.bcachefs" = "/nix/store/glpylkq33yida6pxdywh60yjw47ngb94-bcachefs-x86_64-unknown-linux-gnu-6.17.1-1.31.6";
+  "linuxPackages_cachyos.bcachefs" = "/nix/store/rvc1cdlrxc3lfjnp02cxkqp5ad56iv26-bcachefs-x86_64-unknown-linux-gnu-6.17.1-1.31.7";
   "linuxPackages_cachyos.bcc" = "/nix/store/bik32gagnpqrhr15yjjag5bay1qviym1-bcc-0.35.0-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos.bpftrace" = "/nix/store/66glxhj5fm4693j2bx31mza7ql87ab4a-bpftrace-x86_64-unknown-linux-gnu-0.23.5";
   "linuxPackages_cachyos.chipsec" = "/nix/store/fqw3hvmq5x73dprv0bn0ml4npbknbg7a-chipsec-1.10.6-x86_64-unknown-linux-gnu";
