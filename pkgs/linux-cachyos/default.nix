@@ -103,6 +103,7 @@ in
         util-linux
         coreutils
         perl
+        udevCheckHook
         zlib
         libuuid
         python3

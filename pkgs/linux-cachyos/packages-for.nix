@@ -110,6 +110,7 @@ let
             pedrohlc
           ];
           hash = "";
+          extraPatches = prevAttrs.zfs_2_3.patches;
         }
       ).overrideAttrs
         (prevAttrs: {
@@ -118,7 +119,6 @@ let
             repo = "zfs";
             inherit (versions.zfs) rev hash;
           };
-          patches = [ ];
           postPatch = builtins.replaceStrings [ "grep --quiet '^Linux-M" ] [ "# " ] prevAttrs.postPatch;
         });
     inherit cachyOverride;
