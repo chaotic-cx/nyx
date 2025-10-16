@@ -147,9 +147,9 @@
   "linuxPackages_cachyos-server.shufflecake" = "/nix/store/kch1wfxp3lra55yqxhpx8ncq36szkx07-shufflecake";
   "linuxPackages_cachyos-server.vmm_clock" = "/nix/store/yhxlpx1hsyh8vr38lac3hw0wkf6b3r7j-vmm_clock-0.2.1";
   "linuxPackages_cachyos-server.yt6801" = "/nix/store/gakknwzpyqc380j54s18cj4nygwc83ik-yt6801-1.0.30-20250430";
-  "mesa32_git" = "/nix/store/0iqnbv1b0dpqrqrz8khgg16b20zd3jzr-mesa-84d8e6";
-  "mesa_git" = "/nix/store/dl9rd4if17ym5v2q0wpgaph7sg9dj42z-mesa-84d8e6";
+  "mesa32_git" = "/nix/store/q8n3kn65ysvvs0r77wxjxdi64a90788g-mesa-a2e428";
+  "mesa_git" = "/nix/store/34zl32jf6j2cszl3ybmqavv5v99cmlf9-mesa-a2e428";
   "qtile-extras_git" = "/nix/store/h3ardf2p09n40sg9ccf96q8l417f6p4y-python3.13-qtile-extras-0.33.99.99";
-  "zed-editor_git" = "/nix/store/qaw2f7gmmfp14m6875krzi2fyfaykx7k-zed-editor-unstable-20251015233326-83f9f9d";
-  "zed-editor-fhs_git" = "/nix/store/k91gapxiy7619clm8p40wkznslwp01gn-zeditor";
+  "zed-editor_git" = "/nix/store/9sf2231nl0b2l6mqv0n7fpmr313g0j0f-zed-editor-unstable-20251003123224-1b94d74";
+  "zed-editor-fhs_git" = "/nix/store/k3s1a3wzn4sanya626zk0fxsfy1m13h0-zeditor";
 }
