@@ -72,9 +72,12 @@ gitOverride (current: {
   postOverride = prevAttrs: {
     buildInputs = prevAttrs.buildInputs ++ [ libdisplay-info_latest ];
 
-    patches = nyxUtils.removeByBaseName "gallivm-llvm-21.patch" prevAttrs.patches;
+    patches = nyxUtils.removeByBaseName "gallivm-llvm-21.patch" (prevAttrs.patches or [ ]);
 
-    mesonFlags = builtins.map (builtins.replaceStrings [ "imagination-experimental" ] [ "imagination" ]) prevAttrs.mesonFlags;
+    mesonFlags = builtins.map (builtins.replaceStrings
+      [ "imagination-experimental" ]
+      [ "imagination" ]
+    ) prevAttrs.mesonFlags;
 
     # test and accessible information
     passthru = prevAttrs.passthru // {

@@ -1,7 +1,6 @@
 {
   prev,
   gitOverride,
-  nyxUtils,
   rustPlatform_latest,
   ...
 }:
