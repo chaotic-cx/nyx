@@ -92,7 +92,7 @@ in
     taste = "linux-cachyos";
     configPath = ./config-nix/cachyos-lto.x86_64-linux.nix;
 
-    inherit (final.pkgsLLVM.extend flakes.self.overlays.default) callPackage;
+    inherit (import ./lib/llvm-pkgs.nix flakes final) callPackage;
     useLTO = "thin";
 
     packagesExtend = import ./lib/llvm-module-overlay.nix inputs;
