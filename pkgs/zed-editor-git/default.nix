@@ -37,15 +37,7 @@ gitOverride (current: {
           builtins.replaceStrings [ "dev.zed.Zed.desktop" ] [ "dev.zed.Zed-Dev.desktop" ]
             prevAttrs.installPhase
         );
-    # duplicated cargo deps is a mess
-    patches =
-      (nyxUtils.removeByBaseNames [
-        "0001-linux-linker.patch"
-        "0002-fix-duplicate-reqwest.patch"
-      ] prevAttrs.patches)
-      ++ [
-        ./0002-fix-duplicate-reqwest.patch
-      ];
+    patches = [ ./0002-use-patched-reqwest.patch ];
     # Nothing wrong on it, just saving compilation time for me!
     dontCheck = true;
     doInstallCheck = false;
