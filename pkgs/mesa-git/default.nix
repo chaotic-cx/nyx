@@ -74,6 +74,8 @@ gitOverride (current: {
 
     patches = nyxUtils.removeByBaseName "gallivm-llvm-21.patch" prevAttrs.patches;
 
+    mesonFlags = builtins.map (builtins.replaceStrings [ "imagination-experimental" ] [ "imagination" ]) prevAttrs.mesonFlags;
+
     # test and accessible information
     passthru = prevAttrs.passthru // {
       tests.smoke-test = import ./test.nix {
