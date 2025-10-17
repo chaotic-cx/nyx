@@ -1,9 +1,12 @@
 {
-  "appmenu-gtk3-module" = "/nix/store/ln6kyvgkvjx75r7kf7rvq7kplbwlaxs9-appmenu-gtk3-module-0.7.6";
-  "discord-krisp" = "/nix/store/rf1nkp6g48zw2h029k92l3wf9qp3d613-discord-0.0.359";
-  "libportal_git" = "/nix/store/sq9q3ipm9s5bw3qnpp54l1zgcgl76cp0-libportal-unstable-20250328122118-796053d";
-  "mesa_git" = "/nix/store/zwjpi50hiwgcbi2gin2j3w9f5ahfnq5p-mesa-06dbd4";
-  "vulkanPackages_latest.vulkan-tools" = "/nix/store/qcl6whv8wwr3qscgjbf9g77dkmkvjsvi-vulkan-tools-1.4.328";
+  "appmenu-gtk3-module" = "/nix/store/byjiiyy2cmyw2ww154jqyfp02wnqq1im-appmenu-gtk3-module-0.7.6";
+  "discord-krisp" = "/nix/store/chfhlccp453mhcmrlyppirjmc190m6x3-discord-0.0.362";
+  "firedragon-bin" = "/nix/store/svnsp6b5pf6h96yj9iramybp64mycnic-firedragon-bin-12.5.0.1";
+  "firedragon-catppuccin-bin" = "/nix/store/ibz0vxwyr8ink34ql8dy071akrdip9hs-firedragon-catppuccin-bin-12.5.0.1";
+  "libportal_git" = "/nix/store/h9503d45b53f0d325j1nf9rqagjpagpv-libportal-unstable-20251009154520-086cc57";
+  "mesa_git" = "/nix/store/rljcib24hzvzfrfbcmglmvs7qvpnr7qp-mesa-a2e428";
+  "mpv-vapoursynth" = "/nix/store/na5s1zmhkxln0bz4pi5gamb2mp140zyk-mpv-with-scripts-0.40.0";
+  "vulkanPackages_latest.vulkan-tools" = "/nix/store/g2sk06pdc6blgn5hpibpvdf6l7x29xgv-vulkan-tools-1.4.329";
+  "zed-editor_git" = "/nix/store/pi8dpmkaw6v3iizwi9d9qr1f3dahxh36-zed-editor-unstable-20251016163631-25172f9";
   "zed-editor-fhs_git" = "skip";
-  "zed-editor_git" = "/nix/store/x2pf74lwfyk32a1krk1fqjjixc8w03bf-zed-editor-unstable-20250927090104-e13b88e";
 }
