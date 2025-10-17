@@ -65,7 +65,6 @@
   "linuxPackages_cachyos-lto.dpdk" = "/nix/store/ari1xpbhk9w89z9fxycgkb4w73p9jz8w-dpdk-x86_64-unknown-linux-gnu-25.07";
   "linuxPackages_cachyos-lto.ecapture" = "/nix/store/9p13nxs5rb6iygk4hm9s2hp00fpwqd9w-ecapture-x86_64-unknown-linux-gnu-1.4.2";
   "linuxPackages_cachyos-lto.ena" = "/nix/store/hss9ihkcyn47fhy4dfdy4439nz8v35hg-ena-2.15.0-6.17.3-x86_64-unknown-linux-gnu";
-  "linuxPackages_cachyos-lto.evdi" = "/nix/store/qlhic2p2h5f0pjbyvx3cr66zxfysg6n8-evdi-x86_64-unknown-linux-gnu-1.14.11";
   "linuxPackages_cachyos-lto.fwts-efi-runtime" = "/nix/store/rc0acnpp4jcmln1l879b4iwv2hl75l25-fwts-efi-runtime-x86_64-unknown-linux-gnu-24.09.00-6.17.3";
   "linuxPackages_cachyos-lto.hid-ite8291r3" = "/nix/store/xwik6vi6wmxq7z8lrls6bhx6ig57k1s7-hid-ite8291r3-x86_64-unknown-linux-gnu-unstable-2022-06-01";
   "linuxPackages_cachyos-lto.linux-gpib" = "/nix/store/fsv15isbwfx5cwbknydsqh4df1xr8clm-linux-gpib-kernel-x86_64-unknown-linux-gnu-4.3.6";
@@ -100,13 +99,12 @@
   "linuxPackages_cachyos-lto.shufflecake" = "/nix/store/w5pm5qciaiappx7g9mq9c96bw4srhhib-shufflecake-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos-lto.system76-acpi" = "/nix/store/sb3b5qr237v7gx8gk54nkxfhl6rwwhfw-system76-acpi-module-1.0.2-6.17.3-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos-lto.system76-power" = "/nix/store/n1qcnjlyl2snv24msx0aj4r7gb0wp2s7-system76-power-x86_64-unknown-linux-gnu-1.2.7";
-  "linuxPackages_cachyos-lto.system76-scheduler" = "/nix/store/swp6ydandkrc3fdmpz5vpj32ypqzf9c7-system76-scheduler-x86_64-unknown-linux-gnu-2.0.2";
   "linuxPackages_cachyos-lto.systemtap" = "/nix/store/6w8k5sqi75ffz9ssr8f3wb1yfrk17l9n-systemtap-5.2";
   "linuxPackages_cachyos-lto.tp_smapi" = "/nix/store/h38snadvya0y6wglfzg6ydv9p9x04xhd-tp_smapi-0.45-6.17.3-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos-lto.turbostat" = "/nix/store/x479nw78sw4sc9gbw98ppkh4lsw6ds1r-turbostat-x86_64-unknown-linux-gnu-6.17.3";
   "linuxPackages_cachyos-lto.usbip" = "/nix/store/6lakhjix1dk9y25cg4bga3l3sni6jcp3-usbip-linux-x86_64-unknown-linux-gnu-6.17.3-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos-lto.v86d" = "/nix/store/8hrzsgy54q4fni1xh9d3lwlblirxd6qa-v86d-x86_64-unknown-linux-gnu-0.1.10-6.17.3";
-  "linuxPackages_cachyos-lto.virtualbox" = "/nix/store/wzkli5jk6q9dnl6dq2m98xmhqb3zm483-virtualbox-modules-x86_64-unknown-linux-gnu-7.2.2-6.17.3";
+  "linuxPackages_cachyos-lto.virtualbox" = "/nix/store/zs68jm1ig6n87mq4dfaagv1q0p0h5gax-virtualbox-modules-x86_64-unknown-linux-gnu-7.2.2-6.17.3";
   "linuxPackages_cachyos-lto.virtualboxGuestAdditions" = "/nix/store/7z4j2p305cld4iir99wfksfvf9yk6wis-VirtualBox-GuestAdditions-x86_64-unknown-linux-gnu-7.2.2-6.17.3";
   "linuxPackages_cachyos-lto.vmm_clock" = "/nix/store/iakc7bkg970c3dhh9aqzb5m7ppwc12vh-vmm_clock-x86_64-unknown-linux-gnu-0.2.1";
   "linuxPackages_cachyos-lto.vmware" = "/nix/store/bw8h1bp265ncwb7xs6cfx5vpcznwikkh-vmware-modules-x86_64-unknown-linux-gnu-workstation-17.6.3-20250728-6.17.3";
