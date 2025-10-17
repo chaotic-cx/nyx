@@ -60,8 +60,15 @@ with prevModules;
   );
   # perf needs systemtap fixed first
   perf = markBroken perf;
-  virtualbox = virtualbox.override {
+  virtualbox = multiOverride virtualbox {
     inherit (final) virtualbox;
+  } (prevAttrs: {
+    makeFlags =
+      prevAttrs.makeFlags
+      ++ kernel.commonMakeFlags;
+  });
+  xpadneo = xpadneo.override {
+    inherit (final) bluez;
   };
   zenpower = zenpower.overrideAttrs (prevAttrs: {
     makeFlags =
