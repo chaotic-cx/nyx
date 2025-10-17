@@ -104,12 +104,10 @@
   "linuxPackages_cachyos-lto.turbostat" = "/nix/store/x479nw78sw4sc9gbw98ppkh4lsw6ds1r-turbostat-x86_64-unknown-linux-gnu-6.17.3";
   "linuxPackages_cachyos-lto.usbip" = "/nix/store/6lakhjix1dk9y25cg4bga3l3sni6jcp3-usbip-linux-x86_64-unknown-linux-gnu-6.17.3-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos-lto.v86d" = "/nix/store/8hrzsgy54q4fni1xh9d3lwlblirxd6qa-v86d-x86_64-unknown-linux-gnu-0.1.10-6.17.3";
-  "linuxPackages_cachyos-lto.virtualbox" = "/nix/store/zs68jm1ig6n87mq4dfaagv1q0p0h5gax-virtualbox-modules-x86_64-unknown-linux-gnu-7.2.2-6.17.3";
   "linuxPackages_cachyos-lto.virtualboxGuestAdditions" = "/nix/store/7z4j2p305cld4iir99wfksfvf9yk6wis-VirtualBox-GuestAdditions-x86_64-unknown-linux-gnu-7.2.2-6.17.3";
   "linuxPackages_cachyos-lto.vmm_clock" = "/nix/store/iakc7bkg970c3dhh9aqzb5m7ppwc12vh-vmm_clock-x86_64-unknown-linux-gnu-0.2.1";
   "linuxPackages_cachyos-lto.vmware" = "/nix/store/bw8h1bp265ncwb7xs6cfx5vpcznwikkh-vmware-modules-x86_64-unknown-linux-gnu-workstation-17.6.3-20250728-6.17.3";
   "linuxPackages_cachyos-lto.x86_energy_perf_policy" = "/nix/store/v1255x94a7jws7pdfladaqn6lfib4183-x86_energy_perf_policy-x86_64-unknown-linux-gnu-6.17.3";
-  "linuxPackages_cachyos-lto.xpadneo" = "/nix/store/gxb3a8lgyknrgdhsfhk7rfh8sbxnxbwc-xpadneo-x86_64-unknown-linux-gnu-0.9.7";
   "linuxPackages_cachyos-lto.yt6801" = "/nix/store/7dyrdqvdh4ga992hk1ria4klbz1ig91y-yt6801-x86_64-unknown-linux-gnu-1.0.30-20250430";
   "linuxPackages_cachyos-server.apfs" = "/nix/store/clwhmg04ka1a6z0ypnzqln5gyv24wq5a-apfs-0.3.15-6.17.3";
   "linuxPackages_cachyos-server.ax99100" = "/nix/store/kgamrmya6dj6qy9139xqh5phgpaxilsv-ax99100-1.8.0";
