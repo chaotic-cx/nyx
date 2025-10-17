@@ -1,8 +1,13 @@
-flakes: pkgs:
+{
+  final,
+  flakes,
+  nyxUtils,
+  ...
+}:
 
-(pkgs.pkgsLLVM.extend flakes.self.overlays.default).extend (
-  final: prev: {
-    inherit (pkgs)
+(final.pkgsLLVM.extend flakes.self.overlays.default).extend (
+  _finalLLVM: prevLLVM: {
+    inherit (final)
       dbus
       libdrm
       libgbm
@@ -12,5 +17,6 @@ flakes: pkgs:
       wayland
       xorg
       ;
+    cups = nyxUtils.markBroken prevLLVM.cups;
   }
 )

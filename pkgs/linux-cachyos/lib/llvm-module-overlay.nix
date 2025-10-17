@@ -1,8 +1,8 @@
 { final, nyxUtils, ... }:
-kernel: _finalModules: prev:
+kernel: _finalModules: prevModules:
 
 let
-  inherit (nyxUtils) markBroken overrideFull;
+  inherit (nyxUtils) markBroken overrideFull multiOverride;
 
   fixNoVideo =
     prevDrv:
@@ -12,8 +12,32 @@ let
       };
     });
 in
-with prev;
+with prevModules;
 {
+  evdi =
+    multiOverride prevModules.evdi
+      {
+        inherit (final) python3;
+      }
+      (prevAttrs: rec {
+        env = prevAttrs.env // {
+          CFLAGS = "";
+        };
+        makeFlags = prevAttrs.makeFlags ++ [
+          "CFLAGS=${
+            builtins.replaceStrings [ "discarded-qualifiers" ] [ "ignored-qualifiers" ] prevAttrs.env.CFLAGS
+          }"
+        ];
+        postPatch = ''
+          substituteInPlace Makefile \
+            --replace-fail 'discarded-qualifiers' 'ignored-qualifiers'
+        '';
+        # Don't build userspace stuff
+        postBuild = "";
+        installPhase =
+          builtins.replaceStrings [ "install -Dm755 library/libevdi.so" ] [ "#" ]
+            prevAttrs.installPhase;
+      });
   nvidia_x11 = fixNoVideo nvidia_x11;
   nvidia_x11_beta = fixNoVideo nvidia_x11_beta;
   nvidia_x11_latest = fixNoVideo nvidia_x11_latest;
@@ -36,6 +60,9 @@ with prev;
   );
   # perf needs systemtap fixed first
   perf = markBroken perf;
+  virtualbox = virtualbox.override {
+    inherit (final) virtualbox;
+  };
   zenpower = zenpower.overrideAttrs (prevAttrs: {
     makeFlags =
       prevAttrs.makeFlags

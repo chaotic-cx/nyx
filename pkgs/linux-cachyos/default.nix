@@ -1,6 +1,5 @@
 {
   final,
-  flakes,
   ...
 }@inputs:
 
@@ -92,7 +91,7 @@ in
     taste = "linux-cachyos";
     configPath = ./config-nix/cachyos-lto.x86_64-linux.nix;
 
-    inherit (import ./lib/llvm-pkgs.nix flakes final) callPackage;
+    inherit (import ./lib/llvm-pkgs.nix inputs) callPackage;
     useLTO = "thin";
 
     packagesExtend = import ./lib/llvm-module-overlay.nix inputs;
