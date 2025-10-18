@@ -194,9 +194,6 @@ in
 
   helix_git = callOverride ../pkgs/helix-git { };
 
-  # Here only for caching while waiting nixpkgs#451188
-  rocmPackages_hipblas = prev.rocmPackages.hipblas;
-
   jujutsu_git = callOverride ../pkgs/jujutsu-git { };
 
   lan-mouse_git = callOverride ../pkgs/lan-mouse-git { };
