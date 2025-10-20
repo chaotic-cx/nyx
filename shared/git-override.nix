@@ -29,10 +29,9 @@ let
       withLastModified ? false,
       withLastModifiedDate ? false,
       withBump ? false,
-      withCargoDeps ? null,
       withExtraUpdateCommands ? "",
+      cargoDepsOverride ? (x: x),
       extraPassthru ? { },
-      buildCargoDepsWithPatches ? null,
     }:
     let
       versionLocalPath = "${nyx}/${versionNyxPath}";
@@ -87,24 +86,16 @@ let
           };
 
           whenCargo = lib.attrsets.optionalAttrs hasCargo {
-            cargoDeps =
-              if withCargoDeps == null then
-                fetchCargoVendor {
-                  inherit src;
-                  inherit (prevAttrs.cargoDeps) name;
-                  sourceRoot = prevAttrs.cargoDeps.sourceRoot or null;
-                  patches =
-                    if buildCargoDepsWithPatches != null then
-                      buildCargoDepsWithPatches final
-                    else
-                      prevAttrs.cargoDeps.patches or [ ];
-                  preUnpack = prevAttrs.cargoDeps.preUnpack or null;
-                  unpackPhase = prevAttrs.cargoDeps.unpackPhase or null;
-                  postUnpack = prevAttrs.cargoDeps.postUnpack or null;
-                  hash = current.cargoHash;
-                }
-              else
-                withCargoDeps;
+            cargoDeps = fetchCargoVendor (cargoDepsOverride {
+              inherit src;
+              inherit (prevAttrs.cargoDeps) name;
+              sourceRoot = prevAttrs.cargoDeps.sourceRoot or null;
+              patches = prevAttrs.cargoDeps.patches or [ ];
+              preUnpack = prevAttrs.cargoDeps.preUnpack or null;
+              unpackPhase = prevAttrs.cargoDeps.unpackPhase or null;
+              postUnpack = prevAttrs.cargoDeps.postUnpack or null;
+              hash = current.cargoHash;
+            });
           };
         in
         common // whenCargo;

@@ -21,10 +21,6 @@ gitOverride (current: {
     fetchSubmodules = true;
   };
 
-  preOverride = prevAttrs: {
-    postPatch = builtins.replaceStrings [ prevAttrs.version ] [ "*" ] prevAttrs.postPatch;
-  };
-
   postOverride = prevAttrs: {
     env = prevAttrs.env // {
       RELEASE_VERSION = "";
@@ -36,11 +32,17 @@ gitOverride (current: {
           builtins.replaceStrings [ "dev.zed.Zed.desktop" ] [ "dev.zed.Zed-Dev.desktop" ]
             prevAttrs.installPhase
         );
-    patches = [ ./0002-use-patched-reqwest.patch ];
     # Nothing wrong on it, just saving compilation time for me!
     dontCheck = true;
     doInstallCheck = false;
   };
 
-  buildCargoDepsWithPatches = finalDrv: finalDrv.patches;
+  cargoDepsOverride =
+    cargoArgs:
+    cargoArgs
+    // {
+      postBuild = ''
+        rm -r $out/git/*/candle-book/
+      '';
+    };
 })
