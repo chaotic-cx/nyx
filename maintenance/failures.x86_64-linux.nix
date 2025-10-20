@@ -139,9 +139,4 @@
   "linuxPackages_cachyos-server.yt6801" = "/nix/store/gakknwzpyqc380j54s18cj4nygwc83ik-yt6801-1.0.30-20250430";
   "nix_git" = "/nix/store/45lh1mkz9rqwcixw3l8fzph4qrlcxb8k-nix-2.99pre20251019_d0fb03c3";
   "qtile-extras_git" = "/nix/store/c8q258swzr8ay4daywral903jyy9xiqb-python3.13-qtile-extras-0.33.99.99";
-  "wlroots_git" = "/nix/store/ij2sbmg1py8lyr2isrnjc12h654s2j5r-wlroots-unstable-20251018183601-989cffe";
-  "sway-unwrapped_git" = "/nix/store/yqf27h7rvfg14cgvb57pki1ac9kchgw0-sway-unwrapped-unstable-20251018165546-b7eb617";
-  "sway_git" = "/nix/store/hfiv6d9f9xwypy636m9gdnxsmwby3aps-sway-unstable-20251018165546-b7eb617";
-  "zed-editor_git" = "/nix/store/csijj577xqgka16xjry3mgl47bs14kfc-zed-editor-unstable-20251020094634-36210e7";
-  "zed-editor-fhs_git" = "/nix/store/hwz7nbkwly6bj4bkrps9mbc34s0257d9-zeditor";
 }
