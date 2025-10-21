@@ -23,7 +23,7 @@ let
       name,
       ...
     }@source:
-    "ln -s ${grammarArtifact source}/${name}.so $out/${name}.so";
+    "ln -s ${grammarArtifact source}/parser $out/${name}.so";
 
   grammarLinks = builtins.map grammarLink languages;
 
