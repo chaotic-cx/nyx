@@ -97,9 +97,6 @@ let
       ;
   };
 
-  # Common stuff for scx-schedulers
-  scx-common = final.callPackage ../pkgs/scx-git/common.nix { };
-
   # Required for 32-bit packages
   has32 = final.stdenv.hostPlatform.isLinux && final.stdenv.hostPlatform.isx86;
 
@@ -356,12 +353,7 @@ in
     };
   });
 
-  scx_git = {
-    cscheds = final.callPackage ../pkgs/scx-git/cscheds.nix { inherit scx-common; };
-    rustscheds = final.callPackage ../pkgs/scx-git/rustscheds.nix { inherit scx-common; };
-    full = final.callPackage ../pkgs/scx-git/full.nix { inherit final; };
-    recurseForDerivations = true;
-  };
+  scx_git = final.lib.warn "scx_git no longer is maintained and is an alias of scx from Nixpkgs." prev.scx;
 
   scx-full_git = drvDropUpdateScript final.scx_git.full;
 
