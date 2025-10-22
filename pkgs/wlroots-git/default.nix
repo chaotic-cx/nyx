@@ -3,7 +3,6 @@
   final,
   prev,
   gitOverride,
-  nyxUtils,
   ...
 }:
 
