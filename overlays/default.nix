@@ -353,7 +353,7 @@ in
     };
   });
 
-  scx_git = final.lib.warn "scx_git no longer is maintained and is an alias of scx from Nixpkgs." prev.scx;
+  scx_git = final.lib.warn "scx_git no longer is maintained and is an alias of scx from Nixpkgs." (final.dontRecurseIntoAttrs final.scx);
 
   scx-full_git = drvDropUpdateScript final.scx_git.full;
 
