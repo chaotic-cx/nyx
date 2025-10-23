@@ -6692,7 +6692,7 @@
   "CONFIG_HIDRAW" = "y";
   "CONFIG_UHID" = "m";
   "CONFIG_HID_GENERIC" = "y";
-  "CONFIG_HID_HAPTIC" = "m";
+  "CONFIG_HID_HAPTIC" = "y";
   "CONFIG_HID_A4TECH" = "m";
   "CONFIG_HID_ACCUTOUCH" = "m";
   "CONFIG_HID_ACRUX" = "m";
