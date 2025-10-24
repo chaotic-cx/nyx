@@ -2,15 +2,13 @@
   "firefox-unwrapped_nightly" = "skip";
   "firefox_nightly" = "skip";
   "latencyflex-vulkan" = "/nix/store/jkvkpdl7m6m4cwx5sm8l77s926sj6ji1-latencyflex-vulkan-unstable-2023-07-03";
-  "mesa_git" = "/nix/store/5nfj2miq83pvn1kfr7mgxyxcb22qj9sq-mesa-aa0f40";
   "niri_git" = "/nix/store/zh74ca45fzy48l8g1hx330yncvwf1hda-niri-unstable-20251020060229-b3245b8";
-  "nix_git" = "/nix/store/1mvvrmc88qak3139q6l49h8kwqjqc59r-nix-2.99pre20251022_115dea10";
-  "qtile-extras_git" = "/nix/store/80vw864s8f7lwb2ldh7sgsnj9d3qf5wl-python3.13-qtile-extras-0.33.99.99";
+  "nix_git" = "/nix/store/v74ry4a5ahgv70c6rsr4f4zlwwhlwmyk-nix-2.99pre20251024_925c0fa4";
+  "qtile-extras_git" = "/nix/store/qn415jvlv2ld4b9lnynk0j1ahpq00r83-python3.13-qtile-extras-0.33.99.99";
   "rustc_latest" = "/nix/store/nk17bgyvgnf60b06ppnx6s7fml4f7aql-rust-default-1.90.0";
-  "rustc_nightly" = "/nix/store/ic28zpmbkh8wlcalfd3zlp6pcqncpz8j-rust-default-1.92.0-nightly-2025-10-22";
   "tdlib_git" = "/nix/store/h16y6wzj62asnsjvkpcnf2hig9iv4k9g-tdlib-unstable-20251022172234-dd1b761";
   "telegram-desktop-unwrapped_git" = "skip";
-  "telegram-desktop_git" = "/nix/store/n6qkdy844nvg4psgflmipp0kzxlx5a93-telegram-desktop-unstable-20251022180237-6e8ac60";
+  "telegram-desktop_git" = "/nix/store/rsahx0n8wbw4fm88dwn9md4f7cmbd970-telegram-desktop-unstable-20251024115358-66a34bc";
   "tg-owt_git" = "/nix/store/n7fr8yc03210csw5715vq6y46x2hds36-tg_owt-unstable-20250914110511-5c5c712";
   "vulkanPackages_latest.gfxreconstruct" = "/nix/store/rds1f1vkp974v9r618vw9c5ngfyb6b57-gfxreconstruct-1.4.328.1";
   "vulkanPackages_latest.glslang" = "/nix/store/c6hd8g7v5hcc533j2dhfnrsccpw2p1rm-glslang-1.4.328.1-unstable-bin";
@@ -23,8 +21,7 @@
   "vulkanPackages_latest.vulkan-utility-libraries" = "/nix/store/qg36sd0z721bqp0vhanc9ly3phv6wcrg-vulkan-utility-libraries-1.4.329";
   "vulkanPackages_latest.vulkan-validation-layers" = "/nix/store/2vkmggf4makbjwhq0r1ygv0qijashf7r-vulkan-validation-layers-1.4.328.1";
   "vulkanPackages_latest.vulkan-volk" = "/nix/store/yalcnlb7ifn5d467qfcqkp04df0lyl36-volk-1.4.328.1";
-  "xdg-desktop-portal-wlr_git" = "/nix/store/kjq51icgdb0blyw8rhykxdbz30vwwaaa-xdg-desktop-portal-wlr-unstable-20251021122444-0ab4f6f";
   "yt-dlp_git" = "/nix/store/zqbs2l2mq0xpimvxsfw0m1j70061fhjz-yt-dlp-unstable-20251022194216-a75399d";
-  "zed-editor-fhs_git" = "/nix/store/d21k4ww5nqv8843y6j9nkphxnrfh8q9c-zeditor";
-  "zed-editor_git" = "/nix/store/9v581kqrlq2nlablh58rg36v8irx20pm-zed-editor-unstable-20251023002351-f9e0642";
+  "zed-editor_git" = "/nix/store/i3paphpzivk7hl2l8rw1gxngdn3x7jc3-zed-editor-unstable-20251024134423-fcd690d";
+  "zed-editor-fhs_git" = "/nix/store/a8wg3lrykf1niwavgg8g3zr1p720b0zm-zeditor";
 }
