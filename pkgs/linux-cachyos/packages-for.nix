@@ -110,7 +110,7 @@ let
             pedrohlc
           ];
           hash = "";
-          extraPatches = prevAttrs.zfs_2_3.patches;
+          extraPatches = [ ];
         }
       ).overrideAttrs
         (prevAttrs: {
