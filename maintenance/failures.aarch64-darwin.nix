@@ -1,12 +1,11 @@
 {
-  "appmenu-gtk3-module" = "/nix/store/byjiiyy2cmyw2ww154jqyfp02wnqq1im-appmenu-gtk3-module-0.7.6";
-  "discord-krisp" = "/nix/store/chfhlccp453mhcmrlyppirjmc190m6x3-discord-0.0.362";
-  "firedragon-bin" = "/nix/store/sqy4zjcaal36w3qbm98jpbrmg64sz1f4-firedragon-bin-12.5.1";
-  "firedragon-catppuccin-bin" = "/nix/store/f950561jv6p6lm25q55l3by111q1figg-firedragon-catppuccin-bin-12.5.1";
-  "libportal_git" = "/nix/store/h9503d45b53f0d325j1nf9rqagjpagpv-libportal-unstable-20251009154520-086cc57";
-  "mesa_git" = "/nix/store/gmn75sfiwwv0g0sx420258hwzrw7nwa3-mesa-ba293e";
-  "mpv-vapoursynth" = "/nix/store/7nj2lcw4n2cbrkp2l6xrvv8mxdqwmcwb-mpv-with-scripts-0.40.0";
-  "nix_git" = "/nix/store/nl41agp6iywwds7z0ig14cs1yj7djfmf-nix-2.99pre20251019_d0fb03c3";
-  "vulkanPackages_latest.vulkan-tools" = "/nix/store/g2sk06pdc6blgn5hpibpvdf6l7x29xgv-vulkan-tools-1.4.329";
+  "appmenu-gtk3-module" = "/nix/store/pl5b5ik2ad72spzd44zw97y9mrixzsqj-appmenu-gtk3-module-0.7.6";
+  "discord-krisp" = "/nix/store/w44cjnz7wyml355bvc4lzygz59j0fh6s-discord-0.0.362";
+  "firedragon-bin" = "/nix/store/7yr1dh7x9n0dvg3fjf09zg406rg1r1kx-firedragon-bin-12.5.1";
+  "firedragon-catppuccin-bin" = "/nix/store/3jd8sbcbn4qjs6lr6823j113yvf9sdg0-firedragon-catppuccin-bin-12.5.1";
+  "libportal_git" = "/nix/store/nk6cyfyfyp14lxlabb9n6lr16yhh2miq-libportal-unstable-20251009154520-086cc57";
+  "mpv-vapoursynth" = "/nix/store/zrk9hgr0f0wp7ysb8a7dl6pigqpmjlv7-mpv-with-scripts-0.40.0";
+  "nix_git" = "/nix/store/xvbhcjcdzji1kvrd5w3c31l551lczanm-nix-2.99pre20251022_115dea10";
+  "vulkanPackages_latest.vulkan-tools" = "/nix/store/1jc3cnnsxllw32vj2jdngy3fhyb9w6yr-vulkan-tools-1.4.329";
   "zed-editor-fhs_git" = "skip";
 }
