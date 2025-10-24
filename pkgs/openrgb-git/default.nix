@@ -7,7 +7,7 @@
   hidapi,
   pkg-config,
   coreutils,
-  mbedtls_2,
+  mbedtls,
   symlinkJoin,
   callPackage,
 }:
@@ -36,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
   buildInputs = [
     libusb1
     hidapi
-    mbedtls_2
+    mbedtls
   ]
   ++ (with qt6Packages; [
     qtbase
@@ -49,7 +49,6 @@ stdenv.mkDerivation (finalAttrs: {
       --replace-fail '/usr/bin/env chmod' "${coreutils}/bin/chmod"
     substituteInPlace OpenRGB.pro \
       --replace-fail "lrelease" "${qt6Packages.qttools.dev}/bin/lrelease" \
-      --replace-fail 'systemd_service.path=/' 'systemd_service.path=$$PREFIX/'
   '';
 
   doInstallCheck = true;
