@@ -116,7 +116,7 @@ jobs:
           ACTOR: ${{ github.actor }}
       - name: Upload logs
         if: ((success() || failure()) && steps.build.outcome != 'skipped')
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: logs
           path: |
