@@ -56,7 +56,12 @@ gitOverride (current: {
   postOverride = prevAttrs: {
     buildInputs = prevAttrs.buildInputs ++ [ final.libdisplay-info ];
 
-    patches = nyxUtils.removeByBaseName "gallivm-llvm-21.patch" (prevAttrs.patches or [ ]);
+    patches = (nyxUtils.removeByBaseName "gallivm-llvm-21.patch" (prevAttrs.patches or [ ])) ++ [
+      (final64.fetchpatch2 {
+        url = "https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/38153.patch";
+        hash = "sha256-jmynrYPXkHLY9774vkTuUyU3SyA2BoalelG1w0lwa/E=";
+      })
+    ];
 
     mesonFlags = builtins.map (builtins.replaceStrings
       [ "imagination-experimental" ]
