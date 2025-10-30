@@ -11,22 +11,6 @@
 
 let
   inherit (final.stdenv) is32bit;
-
-  libdisplay-info_latest =
-    if final.libdisplay-info.version == "0.2.0" then
-      final.libdisplay-info.overrideAttrs (_prevAttrs: rec {
-        version = "0.3.0";
-
-        src = final.fetchFromGitLab {
-          domain = "gitlab.freedesktop.org";
-          owner = "emersion";
-          repo = "libdisplay-info";
-          rev = version;
-          sha256 = "sha256-nXf2KGovNKvcchlHlzKBkAOeySMJXgxMpbi5z9gLrdc=";
-        };
-      })
-    else
-      throw "Newer libdisplay-info in Nixpkgs";
 in
 gitOverride (current: {
   newInputs =
@@ -70,7 +54,7 @@ gitOverride (current: {
   version = builtins.substring 0 (builtins.stringLength prev.mesa.version) current.rev;
 
   postOverride = prevAttrs: {
-    buildInputs = prevAttrs.buildInputs ++ [ libdisplay-info_latest ];
+    buildInputs = prevAttrs.buildInputs ++ [ final.libdisplay-info ];
 
     patches = nyxUtils.removeByBaseName "gallivm-llvm-21.patch" (prevAttrs.patches or [ ]);
 
