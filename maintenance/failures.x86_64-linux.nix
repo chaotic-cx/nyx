@@ -1,7 +1,7 @@
 {
   "bytecode-viewer_git" = "/nix/store/m68kkaiib0i0rl6bq4ijppvq1l8445x5-bytecode-viewer-unstable-20251006050804-a5a0f36";
-  "firefox-unwrapped_nightly" = "/nix/store/hwp3v9hfr87b2jqfz1dyfka25vlr5jvd-firefox-nightly-unwrapped-146.0a1";
-  "firefox_nightly" = "/nix/store/j8pdm5v6jm8hjivq0x5pwxknycy8m4ra-firefox-nightly-146.0a1";
+  "firefox-unwrapped_nightly" = "/nix/store/lws8d3vx30xqy19rzwvnaaah0h6vws2x-firefox-nightly-unwrapped-146.0a1";
+  "firefox_nightly" = "/nix/store/ybj1r4p6hk3jkp30g669s36ypfvifdxx-firefox-nightly-146.0a1";
   "libportal_git" = "/nix/store/3dy622j73ggb5kwzmfwpc7fr043m392q-libportal-unstable-20251009154520-086cc57";
   "linuxPackages_cachyos.apfs" = "/nix/store/rha5jp39sxkhmwrhqr7rqbph1li3y3kh-apfs-0.3.15-6.17.5";
   "linuxPackages_cachyos.ax99100" = "/nix/store/mcvc9j4h8yb94hprqji27b1ax36s49ad-ax99100-1.8.0";
@@ -107,7 +107,7 @@
   "linuxPackages_cachyos-lto.turbostat" = "/nix/store/46ywz0z5i6x4l328k0aqkv8wbqz6gi7x-turbostat-x86_64-unknown-linux-gnu-6.17.5";
   "linuxPackages_cachyos-lto.usbip" = "/nix/store/b6zw9kk2gfq1b4znz11f004p41vazs6b-usbip-linux-x86_64-unknown-linux-gnu-6.17.5-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos-lto.v86d" = "/nix/store/nz4zvm8y91m7gsl7zn5irxqjnvz3r4hi-v86d-x86_64-unknown-linux-gnu-0.1.10-6.17.5";
-  "linuxPackages_cachyos-lto.virtualboxGuestAdditions" = "/nix/store/yw63jxzk4nfk5p13bnqcpxcak0mmrviy-VirtualBox-GuestAdditions-x86_64-unknown-linux-gnu-7.2.2-6.17.5";
+  "linuxPackages_cachyos-lto.virtualboxGuestAdditions" = "/nix/store/pd4gf97qjd9ai7yzfas5qxjhqv99vrsb-VirtualBox-GuestAdditions-x86_64-unknown-linux-gnu-7.2.2-6.17.5";
   "linuxPackages_cachyos-lto.vmm_clock" = "/nix/store/9gix1acg79jh1l3cs6m71inydiq9c3mg-vmm_clock-x86_64-unknown-linux-gnu-0.2.1";
   "linuxPackages_cachyos-lto.vmware" = "/nix/store/gqqpk8z2qvqi0sr0dwbik8rxs060zn5j-vmware-modules-x86_64-unknown-linux-gnu-workstation-17.6.3-20250728-6.17.5";
   "linuxPackages_cachyos-lto.x86_energy_perf_policy" = "/nix/store/slz18jfsc1szqsi0iw13649gh8a72x3c-x86_energy_perf_policy-x86_64-unknown-linux-gnu-6.17.5";
@@ -142,11 +142,10 @@
   "linuxPackages_cachyos-server.shufflecake" = "/nix/store/zgvr32lwvhcxb2chyng5inh651ll7yq4-shufflecake";
   "linuxPackages_cachyos-server.vmm_clock" = "/nix/store/wb0ms15chpgrjb0lwd2n93g719lwrcgm-vmm_clock-0.2.1";
   "linuxPackages_cachyos-server.yt6801" = "/nix/store/vlk9bz57x2bc1cmsycdmvppcxl7dkly2-yt6801-1.0.30-20250430";
-  "mesa32_git" = "/nix/store/zvzjj9ynn0272jqjyxhj3gx6lfinib1v-mesa-09e091";
-  "mesa_git" = "/nix/store/ig88bdi1r7czv7v1sqmayh2xrxrshhs0-mesa-09e091";
-  "nix_git" = "/nix/store/5d104vm9pwbrbg05v0jryly8a5hk93wx-nix-2.99pre20251025_bef3c37c";
-  "nordvpn" = "/nix/store/gxm6hwvk0g84ypyip3hivsc3xb61xrfr-nordvpn-3.20.2";
+  "nix_git" = "/nix/store/hik5v3y5ri1q0gwy4l42yb2i5z9r3ici-nix-2.99pre20251029_bffbdcfd";
+  "nordvpn" = "/nix/store/6a20pmnpqwdn4fcj4cqv9jfv2y7r0mfv-nordvpn-3.20.2";
   "pwvucontrol_git" = "/nix/store/2zjmh9l392ai510g9w02ypqqv718gk7i-pwvucontrol-unstable-20251025184757-e410a03";
-  "qtile-extras_git" = "/nix/store/w0wxih2fm8vw9rbz53igf7wizs34lkx4-python3.13-qtile-extras-0.33.99.99";
+  "qtile-extras_git" = "/nix/store/y93slfrl0c4biavzjyxjb7sy2kb8vmqi-python3.13-qtile-extras-0.33.99.99";
+  "sdl_git" = "/nix/store/a8pyjd8k092p1bvivsbwbg1a2qrkdp0k-sdl3-unstable-20251029210549-d9ca045-lib";
   "torzu_git" = "/nix/store/vr11cpa9l228gqd9wyn7mk3hs0n5fx51-torzu-unstable-20250422-fd90833";
 }
