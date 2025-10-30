@@ -1,4 +1,6 @@
 {
+  flakeSelf,
+  nixpkgs,
   lib,
   coreutils,
   gh,
@@ -46,8 +48,9 @@ writeShellScriptBin "chaotic-nyx-bumper" ''
   #!/usr/bin/env bash
   set -euo pipefail
 
-  # Cleanup PATH for reproducibility.
+  # Cleanup PATHs for reproducibility.
   PATH="${path}"
+  NIX_PATH="chaotic=${flakeSelf}:nixpkgs=${nixpkgs}"
 
   # All the required functions
   source ${./lib.sh}

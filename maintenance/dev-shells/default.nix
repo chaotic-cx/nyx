@@ -76,8 +76,9 @@ let
       };
       bumper = callPackage ../tools/bumper {
         allPackages = nyxPkgs;
-        inherit nyxRecursionHelper;
         nix = pinnedNix;
+        flakeSelf = self;
+        inherit nyxRecursionHelper nixpkgs;
       };
       linter = callPackage ../tools/linter {
         formatter = self.formatter.${pkgs.system};
