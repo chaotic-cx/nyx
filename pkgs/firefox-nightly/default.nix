@@ -11,6 +11,8 @@
 }:
 
 let
+  rust-cbindgen-updated = callPackage ./rust-cbindgen.nix { };
+
   mach = buildMozillaMach rec {
     pname = "firefox-nightly";
     binaryName = "firefox-nightly";
@@ -49,6 +51,9 @@ let
         ./env_var_for_system_dir-ff-unstable.patch
         ./no-buildconfig-ffx-unstable.patch
       ];
+    nativeBuildInputs = builtins.map (
+      pkg: if pkg.pname or "" == "rust-cbindgen" then rust-cbindgen-updated else pkg
+    ) prevAttrs.nativeBuildInputs;
   };
 
   newInputs = {
