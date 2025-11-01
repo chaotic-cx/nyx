@@ -38,7 +38,7 @@ let
           pkgs.mkShell;
 
       nyxRecursionHelper = callPackage ../../shared/recursion-helper.nix {
-        inherit (pkgs.stdenv) system;
+        inherit (pkgs.stdenv.hostPlatform) system;
       };
 
       # Matches build.yml and full-bump.yml
@@ -81,7 +81,7 @@ let
         inherit nyxRecursionHelper nixpkgs;
       };
       linter = callPackage ../tools/linter {
-        formatter = self.formatter.${pkgs.system};
+        formatter = self.formatter.${pkgs.stdenv.hostPlatform.system};
       };
     in
     {

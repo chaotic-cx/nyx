@@ -76,7 +76,7 @@ let
     fetchRevFromGitea = final.callPackage ../shared/gitea-rev-fetcher.nix { };
   };
 
-  rustc_latest = rust-overlay.packages.${final.system}.rust;
+  rustc_latest = rust-overlay.packages.${final.stdenv.hostPlatform.system}.rust;
 
   # Latest rust toolchain from Fenix
   rustPlatform_latest = final.makeRustPlatform {
@@ -335,7 +335,7 @@ in
 
   river_git = callOverride ../pkgs/river-git { };
 
-  rustc_nightly = rust-overlay.packages.${final.system}.rust-nightly;
+  rustc_nightly = rust-overlay.packages.${final.stdenv.hostPlatform.system}.rust-nightly;
 
   sdl_git = callOverride ../pkgs/sdl-git { };
 
@@ -353,8 +353,9 @@ in
     };
   });
 
+  # temporary fix:
   scx_git = final.lib.warn "scx_git no longer is maintained and is an alias of scx from Nixpkgs." (
-    final.dontRecurseIntoAttrs final.scx
+    final.lib.dontRecurseIntoAttrs final.scx
   );
 
   scx-full_git = drvDropUpdateScript final.scx_git.full;

@@ -5,7 +5,7 @@
     "hash": "sha256-XbGj6JzjNuFDkMpf8oZPzZAuLd931IUB+urR6JsetA0="
   },
   "glslang": {
-    "version": "1.4.330-unstable",
+    "version": "1.4.331-unstable",
     "rev": "8e1494f9d742a27b54193ecd9475dcb2ef23b8b7",
     "hash": "sha256-DPeh0li3t5r+JnrnFXlSqAKc5Vpxo5+EIV8JEeVaORc="
   },
@@ -15,29 +15,29 @@
     "hash": "sha256-Fq2Kw8KOlh35hRZy5EnPtWAjazun4vdTk/HyhY76GRM="
   },
   "SPIRV-Headers": {
-    "version": "1.4.330-unstable",
+    "version": "1.4.331-unstable",
     "rev": "9268f3057354a2cb65991ba5f38b16d81e803692",
     "hash": "sha256-NECkIWUCrMdsmMfzmAT6i11h3rLSZeDcItKaSuqPXhw="
   },
   "SPIRV-Tools": {
-    "version": "1.4.330-unstable",
+    "version": "1.4.331-unstable",
     "rev": "6d43afe9a0ef71712d8cec5b0ce0cd3570d1fd41",
     "hash": "sha256-LM+F1l2IAhzS41Pq4FvI400c8m0sZp5ydNc2eV+lrTI="
   },
   "Vulkan-Headers": {
-    "version": "1.4.330",
+    "version": "1.4.331",
     "rev": "v#{version}",
-    "hash": "sha256-4AY/BxwTUtzgDTv22HjAvTso0K06QKCYRle3xKeShLs="
+    "hash": "sha256-R6jiJr9j/lchFmZk7xqI0rpG7RPcovuOwYD8jUcqcJY="
   },
   "Vulkan-Loader": {
-    "version": "1.4.330",
+    "version": "1.4.331",
     "rev": "v#{version}",
-    "hash": "sha256-mHaeM/3YgrNFKMU/Q2A3BgWkSvAcizSW5ZoGRoy+gcg="
+    "hash": "sha256-tRV3MNos/zqGKRUUJrBEn31cbnM73tg40YML48AGRk4="
   },
   "Vulkan-Tools": {
-    "version": "1.4.330",
+    "version": "1.4.331",
     "rev": "v#{version}",
-    "hash": "sha256-hInSJsfPuI7U74rEqFQf6De1QoBkFjAnGLFE91uyJ5s=",
+    "hash": "sha256-Af/3NFgHTJkEGrBNTJABT4seMLHw7e5qrBafNkeHi34=",
     "badTag": "vulkan-sdk-1.3.280.0"
   },
   "LunarG-Tools": {
@@ -51,14 +51,14 @@
     "hash": "sha256-J9l20abn7meSF0WnCh3cepYKQh10ezb0mAKzc0HAo1w="
   },
   "Vulkan-Utility-Libraries": {
-    "version": "1.4.330",
+    "version": "1.4.331",
     "rev": "v#{version}",
-    "hash": "sha256-7SYRTJLLkC1OXDZ/llNRpVKhQeNak2IFxrHNJKRfrLk="
+    "hash": "sha256-r13YxlBk9Hp1TmOPpEr16mU+SVHB16zlge4GpDiPaaM="
   },
   "Vulkan-ValidationLayers": {
-    "version": "1.4.330",
+    "version": "1.4.331",
     "rev": "v#{version}",
-    "hash": "sha256-ffFG2mqZdMnIe5X6t7ulaLos0S5lxilgQN1x66BuMiY=",
+    "hash": "sha256-32g5hqn4yiipBq8S7QzmQC/+SGq574VEPmzfiIo01TU=",
     "badTag": "snapshot-2025wk20"
   },
   "volk": {

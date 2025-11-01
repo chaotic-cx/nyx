@@ -33,6 +33,17 @@
     "type": "github"
   },
   {
+    "lastModified": 1748702718,
+    "lastModifiedDate": "20250531144518",
+    "name": "alloy",
+    "narHash": "sha256-1ZQ9KkPBhK4pmkvZ7y1kEDeTs0y/fE3+2ea0cKCtQG8=",
+    "owner": "mattsre",
+    "repo": "tree-sitter-alloy",
+    "rev": "3e18eb4e97f06c57a3925f3d20bef6329a6eaef3",
+    "subpath": null,
+    "type": "github"
+  },
+  {
     "lastModified": 1729883235,
     "lastModifiedDate": "20241025190715",
     "name": "amber",
@@ -66,13 +77,13 @@
     "type": "github"
   },
   {
-    "lastModified": 1712878661,
-    "lastModifiedDate": "20240411233741",
+    "lastModified": 1731307936,
+    "lastModifiedDate": "20241111065216",
     "name": "bash",
-    "narHash": "sha256-sj1qYb42k0hXXcNCKg1hINYD11wDcVpnoPhZNtlYT6k=",
+    "narHash": "sha256-7N1PLVMJxwN5FzHW9NbXZTzGhvziwLCC8tDO3qdjtOo=",
     "owner": "tree-sitter",
     "repo": "tree-sitter-bash",
-    "rev": "f8fb3274f72a30896075585b32b0c54cad65c086",
+    "rev": "487734f87fd87118028a65a4599352fa99c9cde8",
     "subpath": null,
     "type": "github"
   },
@@ -166,24 +177,35 @@
     "type": "github"
   },
   {
-    "lastModified": 1663317975,
-    "lastModifiedDate": "20220916084615",
+    "lastModified": 1739562233,
+    "lastModifiedDate": "20250214194353",
     "name": "c-sharp",
-    "narHash": "sha256-4R6+15ZbtC/LtSHpk7DqcMiFYjht+062Av31spK07rc=",
+    "narHash": "sha256-ORhtfxQ6N72UjFx6WRfdYpkM9mVkTkxQ3PX3ydjIvX4=",
     "owner": "tree-sitter",
     "repo": "tree-sitter-c-sharp",
-    "rev": "5b60f99545fea00a33bbfae5be956f684c4c69e2",
+    "rev": "b5eb5742f6a7e9438bee22ce8026d6b927be2cd7",
     "subpath": null,
     "type": "github"
   },
   {
-    "lastModified": 1719842819,
-    "lastModifiedDate": "20240701140659",
+    "lastModified": 1749833388,
+    "lastModifiedDate": "20250613164948",
+    "name": "caddyfile",
+    "narHash": "sha256-WaCWKq3wqjhWdsUd2vAT/JPqaxbHhOsaZrCg6MeXZZw=",
+    "owner": "caddyserver",
+    "repo": "tree-sitter-caddyfile",
+    "rev": "b04bdb4ec53e40c44afbf001e15540f60a296aef",
+    "subpath": null,
+    "type": "github"
+  },
+  {
+    "lastModified": 1737998716,
+    "lastModifiedDate": "20250127172516",
     "name": "cairo",
-    "narHash": "sha256-p9OwkR/usEIptU7YNpg6qmyGL++FRnszUI5cngEz0qo=",
+    "narHash": "sha256-Ikn8KE5OflDl3x7uCTrkHTaKXZ2J09mInOyg9f5wRKo=",
     "owner": "starkware-libs",
     "repo": "tree-sitter-cairo",
-    "rev": "e3a0212261c125cb38248458cd856c0ffee2b398",
+    "rev": "4c6a25680546761b80a710ead1dd34e76c203125",
     "subpath": null,
     "type": "github"
   },
@@ -217,6 +239,17 @@
     "owner": "Decurity",
     "repo": "tree-sitter-circom",
     "rev": "02150524228b1e6afef96949f2d6b7cc0aaf999e",
+    "subpath": null,
+    "type": "github"
+  },
+  {
+    "lastModified": 1734446215,
+    "lastModifiedDate": "20241217143655",
+    "name": "clarity",
+    "narHash": "sha256-7waqNMra5KRtnEXPUn2vDhNJRYvBn28MsVhVT6s9eE8=",
+    "owner": "xlittlerag",
+    "repo": "tree-sitter-clarity",
+    "rev": "7fa54825fdd971a1a676f885384f024fe2b7384a",
     "subpath": null,
     "type": "github"
   },
@@ -265,13 +298,24 @@
     "type": "github"
   },
   {
-    "lastModified": 1681576184,
-    "lastModifiedDate": "20230415162944",
+    "lastModified": 1746831642,
+    "lastModifiedDate": "20250509230042",
     "name": "cpp",
-    "narHash": "sha256-T+Ha2hlI7ucEsTYvDmk7xjHNEoyvnotp/1EWfyCwnWM=",
+    "narHash": "sha256-yU1bwDhwcqeKrho0bo4qclqDDm1EuZWHENI2PNYnxVs=",
     "owner": "tree-sitter",
     "repo": "tree-sitter-cpp",
-    "rev": "670404d7c689be1c868a46f919ba2a3912f2b7ef",
+    "rev": "56455f4245baf4ea4e0881c5169de69d7edd5ae7",
+    "subpath": null,
+    "type": "github"
+  },
+  {
+    "lastModified": 1750251029,
+    "lastModifiedDate": "20250618125029",
+    "name": "crystal",
+    "narHash": "sha256-jZiy007NtbIoj7eVryejr1ECjzLErSzT1GXq24A9+xE=",
+    "owner": "crystal-lang-tools",
+    "repo": "tree-sitter-crystal",
+    "rev": "76afc1f53518a2b68b51a5abcde01d268a9cb47c",
     "subpath": null,
     "type": "github"
   },
@@ -287,13 +331,24 @@
     "type": "github"
   },
   {
-    "lastModified": 1652345817,
-    "lastModifiedDate": "20220512085657",
+    "lastModified": 1718954381,
+    "lastModifiedDate": "20240621071941",
+    "name": "csv",
+    "narHash": "sha256-p0qH7twC3yN8QIrnr0TKx2Nb7qTaDclhFGePR8qLXHU=",
+    "owner": "weartist",
+    "repo": "rainbow-csv-tree-sitter",
+    "rev": "d3dbf916446131417e4c2ea9eb8591b23b466d27",
+    "subpath": null,
+    "type": "github"
+  },
+  {
+    "lastModified": 1710238968,
+    "lastModifiedDate": "20240312102248",
     "name": "cue",
-    "narHash": "sha256-KXU35ScaJHXsHg9/TVLMMHuX77kU7Llm94badOOklZU=",
+    "narHash": "sha256-uV7Tl41PCU+8uJa693km5xvysvbptbT7LvGyYIelspk=",
     "owner": "eonpatapon",
     "repo": "tree-sitter-cue",
-    "rev": "61843e3beebf19417e4fede4e8be4df1084317ad",
+    "rev": "8a5f273bfa281c66354da562f2307c2d394b6c81",
     "subpath": null,
     "type": "github"
   },
@@ -342,6 +397,18 @@
     "type": "github"
   },
   {
+    "lastModified": 1743481111,
+    "lastModifiedDate": "20250401041831",
+    "name": "debian",
+    "narHash": "sha256-VjWoF5oI+K101xKvF+MDsy1+eCkkUytn39PHKqOCkjo=",
+    "ref": "HEAD",
+    "rev": "9b3f4b78c45aab8a2f25a5f9e7bbc00995bc3dde",
+    "shallow": true,
+    "subpath": null,
+    "type": "git",
+    "url": "https://gitlab.com/MggMuggins/tree-sitter-debian"
+  },
+  {
     "lastModified": 1648077946,
     "lastModifiedDate": "20220323232546",
     "name": "devicetree",
@@ -375,6 +442,17 @@
     "type": "github"
   },
   {
+    "lastModified": 1738236253,
+    "lastModifiedDate": "20250130112413",
+    "name": "djot",
+    "narHash": "sha256-Mp2y2YaaSPptZnc84GKiMQh4gHrJofm7SgPOMwYRx7w=",
+    "owner": "treeman",
+    "repo": "tree-sitter-djot",
+    "rev": "67e6e23ba7be81a4373e0f49e21207bdc32d12a5",
+    "subpath": null,
+    "type": "github"
+  },
+  {
     "lastModified": 1715265058,
     "lastModifiedDate": "20240509143058",
     "name": "dockerfile",
@@ -404,6 +482,17 @@
     "owner": "KMikeeU",
     "repo": "tree-sitter-dtd",
     "rev": "6116becb02a6b8e9588ef73d300a9ba4622e156f",
+    "subpath": null,
+    "type": "github"
+  },
+  {
+    "lastModified": 1746368296,
+    "lastModifiedDate": "20250504141816",
+    "name": "dunstrc",
+    "narHash": "sha256-yfjOly1NvdNIFc3zzFb8XSCA+IW9uIzjtQRhf4/NQzY=",
+    "owner": "rotmh",
+    "repo": "tree-sitter-dunstrc",
+    "rev": "9cb9d5cc51cf5e2a47bb2a0e2f2e519ff11c1431",
     "subpath": null,
     "type": "github"
   },
@@ -452,13 +541,13 @@
     "type": "github"
   },
   {
-    "lastModified": 1665948007,
-    "lastModifiedDate": "20221016192007",
+    "lastModified": 1733755995,
+    "lastModifiedDate": "20241209145315",
     "name": "elixir",
-    "narHash": "sha256-BxFqSZIrDQFMCl+t88/j6ykpdD+ag5uIIWLrEWcHDMQ=",
+    "narHash": "sha256-OM2RWQNdYMltYwmbU5f4ZK5a8Wx4JxBMYx9R5n2B4jg=",
     "owner": "elixir-lang",
     "repo": "tree-sitter-elixir",
-    "rev": "b20eaa75565243c50be5e35e253d8beb58f45d56",
+    "rev": "02a6f7fd4be28dd94ee4dd2ca19cb777053ea74e",
     "subpath": null,
     "type": "github"
   },
@@ -496,13 +585,13 @@
     "type": "github"
   },
   {
-    "lastModified": 1708269785,
-    "lastModifiedDate": "20240218152305",
+    "lastModified": 1738804132,
+    "lastModifiedDate": "20250206010852",
     "name": "erlang",
-    "narHash": "sha256-rv/jh9c7YHar6+CpEUPAxtiVO3S7t4+9ewHund+BXqc=",
+    "narHash": "sha256-5fF0ZAOzq3j6aqv2t8u9dfUtu1YuycSono1nkz9/GgA=",
     "owner": "the-mikedavis",
     "repo": "tree-sitter-erlang",
-    "rev": "9d4b36a76d5519e3dbf1ec4f4b61bb1a293f584c",
+    "rev": "33a3e4f1fa77a3e1a2736813f4b27c358f6c0b63",
     "subpath": null,
     "type": "github"
   },
@@ -518,6 +607,28 @@
     "type": "github"
   },
   {
+    "lastModified": 1717164842,
+    "lastModifiedDate": "20240531141402",
+    "name": "fennel",
+    "narHash": "sha256-0LusII7BPGFQTyEkxZi6h9HUDF0eHvGwA4fiQE2h3YQ=",
+    "owner": "alexmozaidze",
+    "repo": "tree-sitter-fennel",
+    "rev": "cfbfa478dc2dbef267ee94ae4323d9c886f45e94",
+    "subpath": null,
+    "type": "github"
+  },
+  {
+    "lastModified": 1734600657,
+    "lastModifiedDate": "20241219093057",
+    "name": "fga",
+    "narHash": "sha256-3wcmVNq22uB1Fx5PLSzgKs9FEQKZmkwAKsxOqo3SdDs=",
+    "owner": "matoous",
+    "repo": "tree-sitter-fga",
+    "rev": "5005e8dd976e1f67beb3d23204580eb6f8b4c965",
+    "subpath": null,
+    "type": "github"
+  },
+  {
     "lastModified": 1708697374,
     "lastModifiedDate": "20240223140934",
     "name": "fidl",
@@ -529,13 +640,13 @@
     "type": "github"
   },
   {
-    "lastModified": 1661110288,
-    "lastModifiedDate": "20220821193128",
+    "lastModified": 1712079918,
+    "lastModifiedDate": "20240402174518",
     "name": "fish",
-    "narHash": "sha256-oJuCd+2mTCEP/rNQzweShc7TZiqwKBIDRQqnV8VqQ4s=",
+    "narHash": "sha256-D7s3ZsHQeGf+pYdbXvi5GMFqbkgajBuqTQwvjnjnrVo=",
     "owner": "ram02z",
     "repo": "tree-sitter-fish",
-    "rev": "84436cf24c2b3176bfbb220922a0fdbd0141e406",
+    "rev": "a78aef9abc395c600c38a037ac779afc7e3cc9e0",
     "subpath": null,
     "type": "github"
   },
@@ -606,13 +717,13 @@
     "type": "github"
   },
   {
-    "lastModified": 1691156375,
-    "lastModifiedDate": "20230804133935",
-    "name": "git-commit",
-    "narHash": "sha256-KEbfZg8/Fn0BFLAf2rsLuScJGBk4K5ErclTvMFWESkc=",
-    "owner": "the-mikedavis",
-    "repo": "tree-sitter-git-commit",
-    "rev": "6f193a66e9aa872760823dff020960c6cedc37b3",
+    "lastModified": 1738056938,
+    "lastModifiedDate": "20250128093538",
+    "name": "ghostty",
+    "narHash": "sha256-JejaX7aABfszSvbon/lahgWSf4VtcGMWYxpsDGK9o88=",
+    "owner": "bezhermoso",
+    "repo": "tree-sitter-ghostty",
+    "rev": "8438a93b44367e962b2ea3a3b6511885bebd196a",
     "subpath": null,
     "type": "github"
   },
@@ -650,6 +761,17 @@
     "type": "github"
   },
   {
+    "lastModified": 1741853186,
+    "lastModifiedDate": "20250313080626",
+    "name": "gitcommit",
+    "narHash": "sha256-KYfcs99p03b0RiPYnZeKJf677fmVf658FLZcFk2v2Ws=",
+    "owner": "gbprod",
+    "repo": "tree-sitter-gitcommit",
+    "rev": "a716678c0f00645fed1e6f1d0eb221481dbd6f6d",
+    "subpath": null,
+    "type": "github"
+  },
+  {
     "lastModified": 1651706126,
     "lastModifiedDate": "20220504231526",
     "name": "gitignore",
@@ -661,13 +783,13 @@
     "type": "github"
   },
   {
-    "lastModified": 1721938542,
-    "lastModifiedDate": "20240725201542",
+    "lastModified": 1750521091,
+    "lastModifiedDate": "20250621155131",
     "name": "gleam",
-    "narHash": "sha256-SI3/gUksiRgUpCabsll6g0mUcm5iiNMTzxlxQxCujpY=",
+    "narHash": "sha256-SZ2LX068EaDXTtit+GQ7oxS7rDuVnFtCurp18/hMCcQ=",
     "owner": "gleam-lang",
     "repo": "tree-sitter-gleam",
-    "rev": "426e67087fd62be5f4533581b5916b2cf010fb5b",
+    "rev": "ee93c639dc82148d716919df336ad612fd33538e",
     "subpath": null,
     "type": "github"
   },
@@ -727,13 +849,13 @@
     "type": "github"
   },
   {
-    "lastModified": 1649178059,
-    "lastModifiedDate": "20220405170059",
+    "lastModified": 1736698394,
+    "lastModifiedDate": "20250112161314",
     "name": "gomod",
-    "narHash": "sha256-S8hjFK60dpRdmqlRJq8GbJGrpFo4j/OzDaRqyBvHMyc=",
+    "narHash": "sha256-KD6Fio9qie3wbGAvQaYsMdYOK1QjnRrGExt1oL/6mis=",
     "owner": "camdencheek",
     "repo": "tree-sitter-go-mod",
-    "rev": "e8f51f8e4363a3d9a427e8f63f4c1bbc5ef5d8d0",
+    "rev": "6efb59652d30e0e9cd5f3b3a669afd6f1a926d3c",
     "subpath": null,
     "type": "github"
   },
@@ -782,6 +904,17 @@
     "type": "github"
   },
   {
+    "lastModified": 1734316909,
+    "lastModifiedDate": "20241216024149",
+    "name": "gren",
+    "narHash": "sha256-42NfFE/QQi1LacquvGHaR3tGVeaU2n/q7tMhwV5+w4E=",
+    "owner": "MaeBrooks",
+    "repo": "tree-sitter-gren",
+    "rev": "76554f4f2339f5a24eed19c58f2079b51c694152",
+    "subpath": null,
+    "type": "github"
+  },
+  {
     "lastModified": 1707258662,
     "lastModifiedDate": "20240206223102",
     "name": "groovy",
@@ -793,13 +926,13 @@
     "type": "github"
   },
   {
-    "lastModified": 1695603910,
-    "lastModifiedDate": "20230925010510",
+    "lastModified": 1738310106,
+    "lastModifiedDate": "20250131075506",
     "name": "haskell",
-    "narHash": "sha256-XEfZSNnvF2BMOWwTfk6GXSnSpbKVfAYk7I3XbO1tIBg=",
+    "narHash": "sha256-0wmdbXHZbHkv4pTrB1fCbExx9E83l+zaocGa+SvQsZQ=",
     "owner": "tree-sitter",
     "repo": "tree-sitter-haskell",
-    "rev": "d7ac98f49e3ed7e17541256fe3881a967d7ffdd3",
+    "rev": "0975ef72fc3c47b530309ca93937d7d143523628",
     "subpath": null,
     "type": "github"
   },
@@ -870,13 +1003,24 @@
     "type": "github"
   },
   {
-    "lastModified": 1651852909,
-    "lastModifiedDate": "20220506160149",
+    "lastModified": 1738274998,
+    "lastModifiedDate": "20250130220958",
     "name": "html",
-    "narHash": "sha256-v84N9erFL+QMoxh1dtfVdAJ5iTCoiFcT3kQ2+yq8TXE=",
+    "narHash": "sha256-lNMiSDAQ49QpeyD1RzkIIUeRWdp2Wrv6+XQZdZ40c1g=",
     "owner": "tree-sitter",
     "repo": "tree-sitter-html",
-    "rev": "29f53d8f4f2335e61bf6418ab8958dac3282077a",
+    "rev": "cbb91a0ff3621245e890d1c50cc811bffb77a26b",
+    "subpath": null,
+    "type": "github"
+  },
+  {
+    "lastModified": 1744826893,
+    "lastModifiedDate": "20250416180813",
+    "name": "htmldjango",
+    "narHash": "sha256-sQV7olTaQ68wixzvKV44myVvDUXXjBZh9N3jvDFUSvE=",
+    "owner": "interdependence",
+    "repo": "tree-sitter-htmldjango",
+    "rev": "3a643167ad9afac5d61e092f08ff5b054576fadf",
     "subpath": null,
     "type": "github"
   },
@@ -914,13 +1058,24 @@
     "type": "github"
   },
   {
-    "lastModified": 1667230271,
-    "lastModifiedDate": "20221031153111",
+    "lastModified": 1741697356,
+    "lastModifiedDate": "20250311124916",
     "name": "ini",
-    "narHash": "sha256-xk76/qazx2Stctj17KFMTy8Bv6mMSFZHpgPvhAMS4yM=",
+    "narHash": "sha256-kWCaOIC81GP5EHCqzPZP9EUgYy39CZ6/8TVS6soB6Wo=",
     "owner": "justinmk",
     "repo": "tree-sitter-ini",
-    "rev": "4d247fb876b4ae6b347687de4a179511bf67fcbc",
+    "rev": "32b31863f222bf22eb43b07d4e9be8017e36fb31",
+    "subpath": null,
+    "type": "github"
+  },
+  {
+    "lastModified": 1738700179,
+    "lastModifiedDate": "20250204201619",
+    "name": "ink",
+    "narHash": "sha256-aVSaj9cS0fHRp6SIfjSL2FiZmchL5OksRbKVC8eCAxo=",
+    "owner": "rhizoome",
+    "repo": "tree-sitter-ink",
+    "rev": "8486e9b1627b0bc6b2deb9ee8102277a7c1281ac",
     "subpath": null,
     "type": "github"
   },
@@ -980,13 +1135,13 @@
     "type": "github"
   },
   {
-    "lastModified": 1735037177,
-    "lastModifiedDate": "20241224104617",
+    "lastModified": 1740060315,
+    "lastModifiedDate": "20250220140515",
     "name": "jjdescription",
-    "narHash": "sha256-bGigRiCb+DkmrcQ6iMY+APsbAqaRKb0OGJCx/vXtFbE=",
+    "narHash": "sha256-HPghz3mOukXrY0KQllOR7Kkl2U3+ukPBrXWKnJCwsqI=",
     "owner": "kareigu",
     "repo": "tree-sitter-jjdescription",
-    "rev": "d09205b52b5a0165b588a793e366c1116468d86f",
+    "rev": "1613b8c85b6ead48464d73668f39910dcbb41911",
     "subpath": null,
     "type": "github"
   },
@@ -1046,24 +1201,24 @@
     "type": "github"
   },
   {
-    "lastModified": 1667341842,
-    "lastModifiedDate": "20221101223042",
+    "lastModified": 1707955391,
+    "lastModifiedDate": "20240215000311",
     "name": "julia",
-    "narHash": "sha256-G619Zlb2uL2PskYKNqoG6XXBxRipeGFU4eOLw7u3BRo=",
+    "narHash": "sha256-jrQjVPLb6SfePxEJV1GgFgLslGxgdmdb8bJy6VHOEbs=",
     "owner": "tree-sitter",
     "repo": "tree-sitter-julia",
-    "rev": "8fb38abff74652c4faddbf04d2d5bbbc6b4bae25",
+    "rev": "e84f10db8eeb8b9807786bfc658808edaa1b4fa2",
     "subpath": null,
     "type": "github"
   },
   {
-    "lastModified": 1732746219,
-    "lastModifiedDate": "20241127222339",
+    "lastModified": 1739033247,
+    "lastModifiedDate": "20250208164727",
     "name": "just",
-    "narHash": "sha256-Ui7yHfbVQc7UFbauRGWtCwyOP3lpJ5j1ZSffEUNwM9E=",
+    "narHash": "sha256-rTcdpSxCUOhS7oM8tbQsVxageiEgYopjBSbQf+cLdJY=",
     "owner": "poliorcetics",
     "repo": "tree-sitter-just",
-    "rev": "180bb15d64c63585c4f65c551350048f21987bcb",
+    "rev": "8d03cfdd7ab89ff76d935827de1b93450fa0ec0a",
     "subpath": null,
     "type": "github"
   },
@@ -1090,13 +1245,13 @@
     "type": "github"
   },
   {
-    "lastModified": 1641337334,
-    "lastModifiedDate": "20220104230214",
+    "lastModified": 1737510162,
+    "lastModifiedDate": "20250122014242",
     "name": "kotlin",
-    "narHash": "sha256-aRMqhmZKbKoggtBOgtFIq0xTP+PgeD3Qz6DPJsAFPRQ=",
+    "narHash": "sha256-7REd272fpCP/ggzg7wLf5DS6QX9SIO9YGPdvj2c2w58=",
     "owner": "fwcd",
     "repo": "tree-sitter-kotlin",
-    "rev": "a4f71eb9b8c9b19ded3e0e9470be4b1b77c2b569",
+    "rev": "c4ddea359a7ff4d92360b2efcd6cfce5dc25afe6",
     "subpath": null,
     "type": "github"
   },
@@ -1223,6 +1378,28 @@
     "type": "github"
   },
   {
+    "lastModified": 1742061912,
+    "lastModifiedDate": "20250315180512",
+    "name": "luau",
+    "narHash": "sha256-a+TJFLt77G4UyvcLz5Nsc6gvsgCTwmpZDNyfN8YUJDc=",
+    "owner": "polychromatist",
+    "repo": "tree-sitter-luau",
+    "rev": "ec187cafba510cddac265329ca7831ec6f3b9955",
+    "subpath": null,
+    "type": "github"
+  },
+  {
+    "lastModified": 1740415117,
+    "lastModifiedDate": "20250224163837",
+    "name": "mail",
+    "narHash": "sha256-qdqswVQeThHDQahUr1HNF/TIP+1X0eMWch1SfBvXQA0=",
+    "owner": "ficcdaf",
+    "repo": "tree-sitter-mail",
+    "rev": "8e60f38efbae1cc5f22833ae13c5500dd0f3b12f",
+    "subpath": null,
+    "type": "github"
+  },
+  {
     "lastModified": 1639674857,
     "lastModifiedDate": "20211216171417",
     "name": "make",
@@ -1267,13 +1444,13 @@
     "type": "github"
   },
   {
-    "lastModified": 1692710620,
-    "lastModifiedDate": "20230822132340",
+    "lastModified": 1736754393,
+    "lastModifiedDate": "20250113074633",
     "name": "matlab",
-    "narHash": "sha256-H6eCCZtE1MbSpHyvdcVbG3piBijM499imiNDIhCoTJA=",
+    "narHash": "sha256-U3ZcZgI4ZjBNzk08s9lVdB968AlOQec2Dcy+qb0blZ0=",
     "owner": "acristoffers",
     "repo": "tree-sitter-matlab",
-    "rev": "6071891a8c39600203eba20513666cf93b4d650a",
+    "rev": "b0a0198b182574cd3ca0447264c83331901b9338",
     "subpath": null,
     "type": "github"
   },
@@ -1411,13 +1588,13 @@
     "type": "github"
   },
   {
-    "lastModified": 1712712091,
-    "lastModifiedDate": "20240410012131",
+    "lastModified": 1748069855,
+    "lastModifiedDate": "20250524065735",
     "name": "odin",
-    "narHash": "sha256-D/+ls8a5efAy3sBaH1eGEifEwBRmz+6bYIMGNji949Q=",
+    "narHash": "sha256-Pv/X6xgJeVjgIuBXIgZT4/vVrytnl1mMiKjMMjH/qQo=",
     "owner": "tree-sitter-grammars",
     "repo": "tree-sitter-odin",
-    "rev": "b5f668ef8918aab13812ce73acd89fe191fb8c5e",
+    "rev": "6c6b07e354a52f8f2a9bc776cbc262a74e74fd26",
     "subpath": null,
     "type": "github"
   },
@@ -1444,13 +1621,13 @@
     "type": "github"
   },
   {
-    "lastModified": 1654050871,
-    "lastModifiedDate": "20220601023431",
+    "lastModified": 1737577647,
+    "lastModifiedDate": "20250122202727",
     "name": "openscad",
-    "narHash": "sha256-t4DLUecUtBSD/5pYjTfrTJ9Uy5NomDRJITElFE5rNa4=",
-    "owner": "bollian",
+    "narHash": "sha256-4rCKvF3UewZEUZOcEIcTRm79//2vCO33BTi2gLGnlFQ=",
+    "owner": "openscad",
     "repo": "tree-sitter-openscad",
-    "rev": "5c3ce93df0ac1da7197cf6ae125aade26d6b8972",
+    "rev": "acc196e969a169cadd8b7f8d9f81ff2d30e3e253",
     "subpath": null,
     "type": "github"
   },
@@ -1609,6 +1786,29 @@
     "type": "github"
   },
   {
+    "lastModified": 1742749762,
+    "lastModifiedDate": "20250323170922",
+    "name": "prolog",
+    "narHash": "sha256-SEqqmkfV/wsr1ObcBN5My29RY9TWfxnQlsnEEIZyR18=",
+    "ref": "HEAD",
+    "rev": "d8d415f6a1cf80ca138524bcc395810b176d40fa",
+    "shallow": true,
+    "subpath": "grammars/prolog",
+    "type": "git",
+    "url": "https://codeberg.org/foxy/tree-sitter-prolog"
+  },
+  {
+    "lastModified": 1735838626,
+    "lastModifiedDate": "20250102172346",
+    "name": "properties",
+    "narHash": "sha256-4WgGbU6fthFH1DcvlQiqNGXucCfxA+hANZ7Y+r8eXHg=",
+    "owner": "tree-sitter-grammars",
+    "repo": "tree-sitter-properties",
+    "rev": "579b62f5ad8d96c2bb331f07d1408c92767531d9",
+    "subpath": null,
+    "type": "github"
+  },
+  {
     "lastModified": 1733767090,
     "lastModifiedDate": "20241209175810",
     "name": "proto",
@@ -1631,13 +1831,24 @@
     "type": "github"
   },
   {
-    "lastModified": 1699469711,
-    "lastModifiedDate": "20231108185511",
+    "lastModified": 1731851351,
+    "lastModifiedDate": "20241117134911",
+    "name": "pug",
+    "narHash": "sha256-Yk1oBv9Flz+QX5tyFZwx0y67I5qgbnLhwYuAvLi9eV8=",
+    "owner": "zealot128",
+    "repo": "tree-sitter-pug",
+    "rev": "13e9195370172c86a8b88184cc358b23b677cc46",
+    "subpath": null,
+    "type": "github"
+  },
+  {
+    "lastModified": 1750173340,
+    "lastModifiedDate": "20250617151540",
     "name": "purescript",
-    "narHash": "sha256-V9cuENH/tpXt9mfZqJ2v4dxJvbwEHU8Ri+UxQafWemY=",
+    "narHash": "sha256-tONS2Eai/eVDecn6ow4nN9F7++UjY6OAKezeCco8hYU=",
     "owner": "postsolar",
     "repo": "tree-sitter-purescript",
-    "rev": "5ef5592674ea42de75fc2792972e4ea0b6e3da6c",
+    "rev": "f541f95ffd6852fbbe88636317c613285bc105af",
     "subpath": null,
     "type": "github"
   },
@@ -1649,6 +1860,17 @@
     "owner": "tree-sitter",
     "repo": "tree-sitter-python",
     "rev": "4bfdd9033a2225cc95032ce77066b7aeca9e2efc",
+    "subpath": null,
+    "type": "github"
+  },
+  {
+    "lastModified": 1731299644,
+    "lastModifiedDate": "20241111043404",
+    "name": "ql",
+    "narHash": "sha256-mJ/bj09mT1WTaiKoXiRXDM7dkenf5hv2ArXieeTVe6I=",
+    "owner": "tree-sitter",
+    "repo": "tree-sitter-ql",
+    "rev": "1fd627a4e8bff8c24c11987474bd33112bead857",
     "subpath": null,
     "type": "github"
   },
@@ -1741,13 +1963,13 @@
     "type": "github"
   },
   {
-    "lastModified": 1652043165,
-    "lastModifiedDate": "20220508205245",
+    "lastModified": 1714947760,
+    "lastModifiedDate": "20240505222240",
     "name": "ron",
-    "narHash": "sha256-DoVJE1eOXytzWd+9/jktvL3RnRAEIhvsaoxSH+t2kPg=",
-    "owner": "zee-editor",
+    "narHash": "sha256-Sp0g6AWKHNjyUmL5k3RIU+5KtfICfg3o/DH77XRRyI0=",
+    "owner": "tree-sitter-grammars",
     "repo": "tree-sitter-ron",
-    "rev": "7762d709a0f7c1f9e269d0125a2e8a7a69006146",
+    "rev": "78938553b93075e638035f624973083451b29055",
     "subpath": null,
     "type": "github"
   },
@@ -1774,13 +1996,24 @@
     "type": "github"
   },
   {
-    "lastModified": 1714951718,
-    "lastModifiedDate": "20240505232838",
+    "lastModified": 1734583731,
+    "lastModifiedDate": "20241219044851",
     "name": "rust",
-    "narHash": "sha256-mwnikq3s7Ien68DYT3p9oVGy7xjBgtiJMHAwMj5HXHI=",
+    "narHash": "sha256-HV7zMwO3ZMaHqX5cV43iwuC+QM7ecApZ2U/hbXuM34c=",
     "owner": "tree-sitter",
     "repo": "tree-sitter-rust",
-    "rev": "9c84af007b0f144954adb26b3f336495cbb320a7",
+    "rev": "1f63b33efee17e833e0ea29266dd3d713e27e321",
+    "subpath": null,
+    "type": "github"
+  },
+  {
+    "lastModified": 1749222397,
+    "lastModifiedDate": "20250606150637",
+    "name": "rust-format-args",
+    "narHash": "sha256-IOc2etC92RsZ02+TY+j+Wy19OY6rz8kI3q0D+BrdiCg=",
+    "owner": "nik-rev",
+    "repo": "tree-sitter-rust-format-args",
+    "rev": "84ffe550e261cf5ea40a0ec31849ba2443bae99f",
     "subpath": null,
     "type": "github"
   },
@@ -1814,6 +2047,17 @@
     "owner": "serenadeai",
     "repo": "tree-sitter-scss",
     "rev": "c478c6868648eff49eb04a4df90d703dc45b312a",
+    "subpath": null,
+    "type": "github"
+  },
+  {
+    "lastModified": 1745061191,
+    "lastModifiedDate": "20250419111311",
+    "name": "slang",
+    "narHash": "sha256-Oj3Z1Zw1geM2jid7xg0041cYtStV+CRl7anXbIIGE5c=",
+    "owner": "tree-sitter-grammars",
+    "repo": "tree-sitter-slang",
+    "rev": "327b1b821c255867a4fb724c8eee48887e3d014b",
     "subpath": null,
     "type": "github"
   },
@@ -1873,23 +2117,34 @@
     "type": "github"
   },
   {
-    "lastModified": 1712662483,
-    "lastModifiedDate": "20240409113443",
+    "lastModified": 1734088829,
+    "lastModifiedDate": "20241213112029",
     "name": "solidity",
-    "narHash": "sha256-F+Ipvk9k5JgsYnItDyGBypD3cKKqoqw3uGbA5H62LPI=",
+    "narHash": "sha256-Tt8lXaHrRFbbATUoWK+Y9FZohY1IeDTCXaaom4yZYb4=",
     "owner": "JoranHonig",
     "repo": "tree-sitter-solidity",
-    "rev": "08338dcee32603383fcef08f36321900bb7a354b",
+    "rev": "f7f5251a3f5b1d04f0799b3571b12918af177fc8",
     "subpath": null,
     "type": "github"
   },
   {
-    "lastModified": 1730376121,
-    "lastModifiedDate": "20241031120201",
+    "lastModified": 1737328245,
+    "lastModifiedDate": "20250119231045",
+    "name": "sourcepawn",
+    "narHash": "sha256-u8/wM2Dj+uO3g24MsGZfH9zkABCEaWWFI8EX3fxuljk=",
+    "owner": "nilshelmig",
+    "repo": "tree-sitter-sourcepawn",
+    "rev": "f2af8d0dc14c6790130cceb2a20027eb41a8297c",
+    "subpath": null,
+    "type": "github"
+  },
+  {
+    "lastModified": 1737198624,
+    "lastModifiedDate": "20250118111024",
     "name": "spade",
-    "narHash": "sha256-cjEHojPhO4tv6Z4xcpp0Gyjq8Hdn6B5HfGt8du8Kddw=",
+    "narHash": "sha256-nn1jZduKVfFXnnQyT+rm/+7U/Ewe+K3+RlEBmTB4WfQ=",
     "ref": "HEAD",
-    "rev": "4d5b141017c61fe7e168e0a5c5721ee62b0d9572",
+    "rev": "78bf09a88fc1d396f66b69879f908fc6bd2e6934",
     "shallow": true,
     "subpath": null,
     "type": "git",
@@ -1907,13 +2162,13 @@
     "type": "github"
   },
   {
-    "lastModified": 1707942284,
-    "lastModifiedDate": "20240214202444",
+    "lastModified": 1735504712,
+    "lastModifiedDate": "20241229203832",
     "name": "sql",
-    "narHash": "sha256-aNxUvmj4AMO744fsSOsvQcNEtHYuQDephKha/hSphh0=",
+    "narHash": "sha256-uEiwHIlLC6AyqD3/fH9KmXMdgQUb30MwBGrjPoyAPbc=",
     "owner": "DerekStride",
     "repo": "tree-sitter-sql",
-    "rev": "da2d1eff425b146d3c8cab7be8dfa98b11d896dc",
+    "rev": "b9d109588d5b5ed986c857464830c2f0bef53f18",
     "subpath": null,
     "type": "github"
   },
@@ -1951,13 +2206,13 @@
     "type": "github"
   },
   {
-    "lastModified": 1680542998,
-    "lastModifiedDate": "20230403172958",
+    "lastModified": 1725680056,
+    "lastModifiedDate": "20240907033416",
     "name": "svelte",
-    "narHash": "sha256-novNVlLVHYIfjmC7W+F/1F0RxW6dd27/DwQ3n5UO6c4=",
+    "narHash": "sha256-ZXEg3HLE9hTEK/7eYRQzn7Rtyk0ETooW/h0ghBKdVhI=",
     "owner": "Himujjal",
     "repo": "tree-sitter-svelte",
-    "rev": "be7f2e7db1fc19f0852265ec60923fc058380739",
+    "rev": "60ea1d673a1a3eeeb597e098d9ada9ed0c79ef4b",
     "subpath": null,
     "type": "github"
   },
@@ -2062,6 +2317,17 @@
     "type": "github"
   },
   {
+    "lastModified": 1735514178,
+    "lastModifiedDate": "20241229231618",
+    "name": "tera",
+    "narHash": "sha256-R8IeM7VA9ndKcpDXVfaPQKBzSpOmB4ECo1Pm1Lzo5lM=",
+    "owner": "uncenter",
+    "repo": "tree-sitter-tera",
+    "rev": "e8d679a29c03e64656463a892a30da626e19ed8e",
+    "subpath": null,
+    "type": "github"
+  },
+  {
     "lastModified": 1729097797,
     "lastModifiedDate": "20241016165637",
     "name": "textproto",
@@ -2080,6 +2346,17 @@
     "owner": "tree-sitter-grammars",
     "repo": "tree-sitter-thrift",
     "rev": "68fd0d80943a828d9e6f49c58a74be1e9ca142cf",
+    "subpath": null,
+    "type": "github"
+  },
+  {
+    "lastModified": 1740609069,
+    "lastModifiedDate": "20250226223109",
+    "name": "tlaplus",
+    "narHash": "sha256-Oc+VYBLP1XcfMTWmcYyJRXzq1Ty838TnF2fPGIsjtOE=",
+    "owner": "tlaplus-community",
+    "repo": "tree-sitter-tlaplus",
+    "rev": "4ba91b07b97741a67f61221d0d50e6d962e4987e",
     "subpath": null,
     "type": "github"
   },
@@ -2117,13 +2394,13 @@
     "type": "github"
   },
   {
-    "lastModified": 1665425189,
-    "lastModifiedDate": "20221010180629",
+    "lastModified": 1718469057,
+    "lastModifiedDate": "20240615163057",
     "name": "twig",
-    "narHash": "sha256-caymM1TfhVskYgJlTEo26joL24pqQ7BI0eyhTyZQLp4=",
+    "narHash": "sha256-87jFYAAnblTeEdlXqTjyiiNee/OgasPam1b2xyKQIHY=",
     "owner": "gbprod",
     "repo": "tree-sitter-twig",
-    "rev": "807b293fec3fead64f54c64fdf6fb05516c032b9",
+    "rev": "085648e01d1422163a1702a44e72303b4e2a0bd1",
     "subpath": null,
     "type": "github"
   },
@@ -2194,13 +2471,13 @@
     "type": "github"
   },
   {
-    "lastModified": 1688447530,
-    "lastModifiedDate": "20230704051210",
+    "lastModified": 1745580975,
+    "lastModifiedDate": "20250425113615",
     "name": "v",
-    "narHash": "sha256-ERtjgmnXzXyuKLxVy6Pi89B59BaB87JIzZqaWMZPR9k=",
+    "narHash": "sha256-I6+4CRwLNFwozNRNE5+cbrOX8hBroCh90H2V7qo2gIo=",
     "owner": "vlang",
     "repo": "v-analyzer",
-    "rev": "e14fdf6e661b10edccc744102e4ccf0b187aa8ad",
+    "rev": "59a8889d84a293d7c0366d14c8dbb0eec24fe889",
     "subpath": "tree_sitter_v",
     "type": "github"
   },
@@ -2238,13 +2515,13 @@
     "type": "github"
   },
   {
-    "lastModified": 1663527180,
-    "lastModifiedDate": "20220918185300",
+    "lastModified": 1741536678,
+    "lastModifiedDate": "20250309161118",
     "name": "vhdl",
-    "narHash": "sha256-xNRFsGT6tSde0IRgyWfhcvpXp8OPH1A6VuVhX1qnTpA=",
-    "owner": "teburd",
+    "narHash": "sha256-wMVuixeG95CwehBr5I9MuGnvM9VAszroNVPo5MGPGF8=",
+    "owner": "jpt13653903",
     "repo": "tree-sitter-vhdl",
-    "rev": "c57313adee2231100db0a7880033f6865deeadb2",
+    "rev": "32d3e3daa745bf9f1665676f323be968444619e1",
     "subpath": null,
     "type": "github"
   },
@@ -2290,6 +2567,28 @@
     "repo": "tree-sitter-wasm",
     "rev": "2ca28a9f9d709847bf7a3de0942a84e912f59088",
     "subpath": "wat",
+    "type": "github"
+  },
+  {
+    "lastModified": 1742424783,
+    "lastModifiedDate": "20250319225303",
+    "name": "werk",
+    "narHash": "sha256-VPY1fMYGSF1+87ia+d7b7l8PzNIoKwAbAT+yw5KHjjQ=",
+    "owner": "little-bonsai",
+    "repo": "tree-sitter-werk",
+    "rev": "92b0f7fe98465c4c435794a58e961306193d1c1e",
+    "subpath": null,
+    "type": "github"
+  },
+  {
+    "lastModified": 1739550761,
+    "lastModifiedDate": "20250214163241",
+    "name": "wesl",
+    "narHash": "sha256-n9yob5tDyWalSAPjH2a3BFcH4Zqd6rwb+V/Qbvaxt7c=",
+    "owner": "wgsl-tooling-wg",
+    "repo": "tree-sitter-wesl",
+    "rev": "94ee6122680ef8ce2173853ca7c99f7aaeeda8ce",
+    "subpath": null,
     "type": "github"
   },
   {
@@ -2359,6 +2658,17 @@
     "type": "github"
   },
   {
+    "lastModified": 1733966175,
+    "lastModifiedDate": "20241212011615",
+    "name": "yara",
+    "narHash": "sha256-twcbL2fKOE0PdiEboSIObzAedljZ3arBm6QQUw/W5HQ=",
+    "owner": "egibs",
+    "repo": "tree-sitter-yara",
+    "rev": "eb3ede203275c38000177f72ec0f9965312806ef",
+    "subpath": null,
+    "type": "github"
+  },
+  {
     "lastModified": 1678411455,
     "lastModifiedDate": "20230310012415",
     "name": "yuck",
@@ -2370,13 +2680,13 @@
     "type": "github"
   },
   {
-    "lastModified": 1682412666,
-    "lastModifiedDate": "20230425085106",
+    "lastModified": 1727037006,
+    "lastModifiedDate": "20240922203006",
     "name": "zig",
-    "narHash": "sha256-a3W7eBUN4V3HD3YPr1+3tpuWQfIQy1Wu8qxCQx0hEnI=",
-    "owner": "maxxnino",
+    "narHash": "sha256-iyb79SiMsV94RrWH/1Oi2aKBiX5io0Dp+zZf8qWZHwg=",
+    "owner": "tree-sitter-grammars",
     "repo": "tree-sitter-zig",
-    "rev": "0d08703e4c3f426ec61695d7617415fff97029bd",
+    "rev": "eb7d58c2dc4fbeea4745019dee8df013034ae66b",
     "subpath": null,
     "type": "github"
   }
