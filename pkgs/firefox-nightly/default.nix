@@ -8,10 +8,27 @@
   nss_git,
   nyxUtils,
   stdenv,
+  # temporary fix:
+  rust-cbindgen,
+  fetchFromGitHub,
 }:
 
 let
-  rust-cbindgen-updated = callPackage ./rust-cbindgen.nix { };
+  rust-cbindgen_latest =
+    if rust-cbindgen.version == "0.29.0" then
+      rust-cbindgen.overrideAttrs (_: rec {
+        version = "0.29.1";
+
+        src = fetchFromGitHub {
+          owner = "mozilla";
+          repo = "cbindgen";
+          rev = "v${version}";
+          hash = "sha256-w1vLgdyxyZNnPQUJL6yYPHhB99svsryVkwelblEAisQ=";
+        };
+
+      })
+    else
+      rust-cbindgen;
 
   mach = buildMozillaMach rec {
     pname = "firefox-nightly";
@@ -52,7 +69,7 @@ let
         ./no-buildconfig-ffx-unstable.patch
       ];
     nativeBuildInputs = builtins.map (
-      pkg: if pkg.pname or "" == "rust-cbindgen" then rust-cbindgen-updated else pkg
+      pkg: if pkg.pname or "" == "rust-cbindgen" then rust-cbindgen_latest else pkg
     ) prevAttrs.nativeBuildInputs;
   };
 
