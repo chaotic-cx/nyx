@@ -146,8 +146,6 @@
   "linuxPackages_cachyos-server.shufflecake" = "/nix/store/5vk5lhznj2m322ikdwsg972fib0yll5a-shufflecake";
   "linuxPackages_cachyos-server.vmm_clock" = "/nix/store/xllwn0nr7ccn0p7hbbknh5b7zm8ky6w8-vmm_clock-0.2.1";
   "linuxPackages_cachyos-server.yt6801" = "/nix/store/sryjrd8g56w5r0blqwh76rcr9gj57a0k-yt6801-1.0.30-20250430";
-  "mesa32_git" = "/nix/store/9kw61rp592ryv3mplcafi30z7bl1d0k4-mesa-2e8b89";
-  "mesa_git" = "/nix/store/pcy1dxaxl3r3bh1ngz9g1nby5spp8vmr-mesa-2e8b89";
   "nix_git" = "/nix/store/nwg0girzas4pg1h9if5qr5jfq2qs2lc8-nix-2.99pre20251031_9d1907ff";
   "nordvpn" = "/nix/store/6a20pmnpqwdn4fcj4cqv9jfv2y7r0mfv-nordvpn-3.20.2";
   "pwvucontrol_git" = "/nix/store/2zjmh9l392ai510g9w02ypqqv718gk7i-pwvucontrol-unstable-20251025184757-e410a03";
