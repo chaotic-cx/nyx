@@ -5,7 +5,7 @@
   lib,
   nyxUtils,
   writeText,
-  hostPlatform,
+  stdenv,
 }:
 
 let
@@ -13,7 +13,7 @@ let
     lib.lists.filter (xsx: xsx.drv != null) packagesEval
   );
 
-  inherit (hostPlatform) system;
+  inherit (stdenv.hostPlatform) system;
 
   failures = import "${flakeSelf}/maintenance/failures.${system}.nix";
 

@@ -139,6 +139,10 @@ let
     "zfs_unstable"
     "lkrg"
     "drbd"
+    # these kernelPackages.* are now pkgs.*
+    "system76-power"
+    "system76-scheduler"
+    "perf"
   ];
   packagesWithoutUpdateScript = nyxUtils.dropAttrsUpdateScript packagesWithRemovals;
   packagesWithRightPlatforms = nyxUtils.setAttrsPlatforms supportedPlatforms packagesWithoutUpdateScript;
