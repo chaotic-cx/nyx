@@ -11,12 +11,13 @@
   # temporary fix:
   rust-cbindgen,
   fetchFromGitHub,
+  rustPlatform,
 }:
 
 let
   rust-cbindgen_latest =
     if rust-cbindgen.version == "0.29.0" then
-      rust-cbindgen.overrideAttrs (_: rec {
+      rust-cbindgen.overrideAttrs (prevAttrs: rec {
         version = "0.29.1";
 
         src = fetchFromGitHub {
@@ -26,6 +27,11 @@ let
           hash = "sha256-w1vLgdyxyZNnPQUJL6yYPHhB99svsryVkwelblEAisQ=";
         };
 
+        cargoDeps = rustPlatform.fetchCargoVendor {
+          inherit src;
+          inherit (prevAttrs.cargoDeps) name;
+          hash = "sha256-POpdgDlBzHs4/fgV1SWSWcxVrn0UTTfvqYBRGqwD98s=";
+        };
       })
     else
       rust-cbindgen;
@@ -71,6 +77,10 @@ let
     nativeBuildInputs = builtins.map (
       pkg: if pkg.pname or "" == "rust-cbindgen" then rust-cbindgen_latest else pkg
     ) prevAttrs.nativeBuildInputs;
+
+    passthru = prevAttrs.passthru // {
+      rust-cbindgen = rust-cbindgen_latest;
+    };
   };
 
   newInputs = {
