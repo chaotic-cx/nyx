@@ -1,7 +1,5 @@
 {
   "bytecode-viewer_git" = "/nix/store/m68kkaiib0i0rl6bq4ijppvq1l8445x5-bytecode-viewer-unstable-20251006050804-a5a0f36";
-  "firefox-unwrapped_nightly" = "/nix/store/1jm023s3j1qqbbwmxmqfq7qx76bv43fw-firefox-nightly-unwrapped-146.0a1";
-  "firefox_nightly" = "/nix/store/956wz0fj06lhdx2mpmmwm1cbbzn7n5j0-firefox-nightly-146.0a1";
   "libportal_git" = "/nix/store/3dy622j73ggb5kwzmfwpc7fr043m392q-libportal-unstable-20251009154520-086cc57";
   "linuxPackages_cachyos.apfs" = "/nix/store/y3s2p9p19w668nbg9snbn0f4p618r0qr-apfs-0.3.15-6.17.7";
   "linuxPackages_cachyos.ax99100" = "/nix/store/dcpvjs4f5d5989sc99i02v2r602dfaca-ax99100-1.8.0";
