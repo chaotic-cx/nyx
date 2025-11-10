@@ -11,7 +11,7 @@
   ninja,
   glib,
   gtk3,
-  wrapGAppsHook,
+  wrapGAppsHook3,
 }:
 
 stdenv.mkDerivation rec {
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     gtk-doc
     docbook-xsl-nons
     ninja
-    wrapGAppsHook
+    wrapGAppsHook3
   ];
 
   buildInputs = [ gtk3 ];
