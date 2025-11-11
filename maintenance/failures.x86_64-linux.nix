@@ -131,6 +131,6 @@
   "linuxPackages_cachyos-server.yt6801" = "/nix/store/05k5iji7iyjy0rmlzm3d4fck67l1j5dn-yt6801-1.0.30-20250430";
   "pwvucontrol_git" = "/nix/store/2zjmh9l392ai510g9w02ypqqv718gk7i-pwvucontrol-unstable-20251025184757-e410a03";
   "qtile-extras_git" = "/nix/store/9lnvzjpkz147cwlfv0cd5dbzal91sfiv-python3.13-qtile-extras-0.33.99.99";
-  "sdl_git" = "/nix/store/dd38p6r9il30rql85ppg6zvad060zfv5-sdl3-unstable-20251109112403-2bc886d-lib";
+  "sdl_git" = "/nix/store/v1p3dyq4ksq5mif220ivxl9wryyi8b56-sdl3-unstable-20251109215935-f3d3981-lib";
   "torzu_git" = "/nix/store/vr11cpa9l228gqd9wyn7mk3hs0n5fx51-torzu-unstable-20250422-fd90833";
 }
