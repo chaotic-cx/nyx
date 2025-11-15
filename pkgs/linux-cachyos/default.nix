@@ -13,6 +13,45 @@ let
   rcVersions = importJSON ./versions-rc.json;
   hardenedVersions = importJSON ./versions-hardened.json;
 
+  ltoKernelAttrs = {
+    taste = "linux-cachyos";
+    configPath = ./config-nix/cachyos-lto.x86_64-linux.nix;
+
+    inherit (import ./lib/llvm-pkgs.nix inputs) callPackage;
+    useLTO = "thin";
+
+    packagesExtend = import ./lib/llvm-module-overlay.nix inputs;
+
+    zfsOverride = {
+      inherit (final)
+        autoreconfHook269
+        util-linux
+        coreutils
+        perl
+        udevCheckHook
+        zlib
+        libuuid
+        python3
+        attr
+        openssl
+        libtirpc
+        nfs-utils
+        gawk
+        gnugrep
+        gnused
+        systemd
+        smartmontools
+        sysstat
+        pkg-config
+        curl
+        pam
+        nix-update-script
+        ;
+    };
+
+    description = "Linux EEVDF-BORE scheduler Kernel by CachyOS built with LLVM and Thin LTO";
+  };
+
   # Evaluation hack
   brokenReplacement = final.hello.overrideAttrs (prevAttrs: {
     meta = prevAttrs.meta // {
@@ -86,45 +125,14 @@ in
       _kernel: _final: prev:
       prev // { recurseForDerivations = false; };
   };
+  cachyos-lto = mkCachyKernel ltoKernelAttrs;
 
-  cachyos-lto = mkCachyKernel {
-    taste = "linux-cachyos";
-    configPath = ./config-nix/cachyos-lto.x86_64-linux.nix;
-
-    inherit (import ./lib/llvm-pkgs.nix inputs) callPackage;
-    useLTO = "thin";
-
-    packagesExtend = import ./lib/llvm-module-overlay.nix inputs;
-
-    zfsOverride = {
-      inherit (final)
-        autoreconfHook269
-        util-linux
-        coreutils
-        perl
-        udevCheckHook
-        zlib
-        libuuid
-        python3
-        attr
-        openssl
-        libtirpc
-        nfs-utils
-        gawk
-        gnugrep
-        gnused
-        systemd
-        smartmontools
-        sysstat
-        pkg-config
-        curl
-        pam
-        nix-update-script
-        ;
-    };
-
-    description = "Linux EEVDF-BORE scheduler Kernel by CachyOS built with LLVM and Thin LTO";
-  };
+  cachyos-lto-znver4 = mkCachyKernel (
+    ltoKernelAttrs
+    // {
+      configPath = ./config-nix/cachyos-znver4.x86_64-linux.nix;
+    }
+  );
 
   cachyos-sched-ext = throw "\"sched-ext\" patches were merged with \"cachyos\" flavor.";
 
