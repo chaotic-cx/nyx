@@ -61,6 +61,21 @@ in
 
   cachyos-gcc = gccKernel;
 
+  cachyos-gcc-v3 = mkCachyKernel {
+    taste = "linux-cachyos-gcc-v3";
+    configPath = ./config-nix/cachyos-gcc-v3.x86_64-linux.nix;
+  };
+
+  cachyos-gcc-v4 = mkCachyKernel {
+    taste = "linux-cachyos-gcc-v4";
+    configPath = ./config-nix/cachyos-gcc-v4.x86_64-linux.nix;
+  };
+
+  cachyos-gcc-znver3 = mkCachyKernel {
+    taste = "linux-cachyos-gcc-znver3";
+    configPath = ./config-nix/cachyos-gcc-znver3.x86_64-linux.nix;
+  };
+
   cachyos-lts = mkCachyKernel {
     taste = "linux-cachyos-lts";
     configPath = ./config-nix/cachyos-lts.x86_64-linux.nix;
