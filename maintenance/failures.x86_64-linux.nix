@@ -10,12 +10,6 @@
   "linuxPackages_cachyos.nvidia_dc_535" = "/nix/store/sky83iw2x7mwbd43l5hz14s5cnqr74s3-nvidia-dc-535.154.05-6.17.8";
   "linuxPackages_cachyos.nvidia_dc_565" = "/nix/store/wmd5pbfhcw7zmbscvzxcd5jgd0pydqs8-nvidia-dc-565.57.01-6.17.8";
   "linuxPackages_cachyos.odp-dpdk" = "/nix/store/knsj63ccqcyygjg8isgmnij6f2fb8v6i-odp-dpdk-1.46.0.0_DPDK_22.11";
-  "linuxPackages_cachyos.rtl8188eus-aircrack" = "/nix/store/cx10wjl9szwyrd2axn75yrs716adwlxz-rtl8188eus-aircrack-6.17.8-unstable-2024-09-18";
-  "linuxPackages_cachyos.rtl8192eu" = "/nix/store/i9czjivdvqgxsac1p6jf9qrb999mixj2-rtl8192eu-6.17.8-4.4.1.20250504";
-  "linuxPackages_cachyos.rtl8723ds" = "/nix/store/06sp5d5x6j6qvlp51rvnwk1xwcwfbdp1-rtl8723ds-6.17.8-unstable-2023-11-14";
-  "linuxPackages_cachyos.rtl8852au" = "/nix/store/h9j17a9x7n6pdxdivczfwzzj8gxja1fy-rtl8852au-6.17.8-unstable-2024-05-06";
-  "linuxPackages_cachyos.rtl88x2bu" = "/nix/store/ycgsbyyqfyfwbhxx0b9463mlx9x231b4-rtl88x2bu-6.17.8-unstable-2024-06-09";
-  "linuxPackages_cachyos.rtl88xxau-aircrack" = "/nix/store/plya8vcjl0j3i9dsbi3mxy6lnz9x4805-rtl88xxau-aircrack-6.17.8-unstable-2024-04-09";
   "linuxPackages_cachyos.vmm_clock" = "/nix/store/gw2i4vvgdympywk9wz3ddw6difli7bv1-vmm_clock-0.2.1";
   "linuxPackages_cachyos.yt6801" = "/nix/store/fvxw3ncd09zj8d4q30mawair1qnmsl3w-yt6801-1.0.30-20250430";
   "linuxPackages_cachyos-hardened.chipsec" = "/nix/store/ch7q521xhxi0vqz1bggg01l0pzb00yjl-chipsec-1.10.6";
@@ -30,7 +24,7 @@
   "linuxPackages_cachyos-hardened.rtl8192eu" = "/nix/store/34j17k9fb7nb42c177277g8k02w3zczf-rtl8192eu-6.16.12-4.4.1.20250504";
   "linuxPackages_cachyos-hardened.rtl8723ds" = "/nix/store/kcrg8cxnqqx2ribwj3c2mic2plsvn4h8-rtl8723ds-6.16.12-unstable-2023-11-14";
   "linuxPackages_cachyos-hardened.rtl8852au" = "/nix/store/fkkc1cy0xf149g2ai4db9c16awf2838x-rtl8852au-6.16.12-unstable-2024-05-06";
-  "linuxPackages_cachyos-hardened.rtl88x2bu" = "/nix/store/72xkg281jv399b2d7ddg023gfh41i2wg-rtl88x2bu-6.16.12-unstable-2024-06-09";
+  "linuxPackages_cachyos-hardened.rtl88x2bu" = "/nix/store/2qwz9g3l1903xpgvbdx1nnjxvhzlbh6m-rtl88x2bu-6.16.12-unstable-2025-05-29";
   "linuxPackages_cachyos-hardened.rtl88xxau-aircrack" = "/nix/store/j84k9jx1s8fjdainirm5g1mv1181whcr-rtl88xxau-aircrack-6.16.12-unstable-2024-04-09";
   "linuxPackages_cachyos-hardened.vmm_clock" = "/nix/store/1hksafl0d8ak51ji02rs844whizqsk2q-vmm_clock-0.2.1";
   "linuxPackages_cachyos-hardened.yt6801" = "/nix/store/dn4wifi1sawc4l87jyh1d0c6giq5m6f0-yt6801-1.0.30-20250430";
@@ -58,14 +52,8 @@
   "linuxPackages_cachyos-lto.opensnitch-ebpf" = "/nix/store/pymb6ml0xarmvrsgfpsggss1yjc8a49i-opensnitch_ebpf-x86_64-unknown-linux-gnu-1.7.2-6.17.8";
   "linuxPackages_cachyos-lto.pktgen" = "/nix/store/lcgc4dn64y2b0a2f85iyqab7bp60p950-pktgen-x86_64-unknown-linux-gnu-24.10.3";
   "linuxPackages_cachyos-lto.rr-zen_workaround" = "/nix/store/5mzb9p842bsyy67azz9ff4xf33hljn99-rr-zen_workaround-x86_64-unknown-linux-gnu-5.9.0";
-  "linuxPackages_cachyos-lto.rtl8188eus-aircrack" = "/nix/store/by80q3ylsy34h0hzsg6ckj3i4lrj9drk-rtl8188eus-aircrack-x86_64-unknown-linux-gnu-6.17.8-unstable-2024-09-18";
-  "linuxPackages_cachyos-lto.rtl8192eu" = "/nix/store/ffxz753aywp6a63y1q45vxr7sbp7jma2-rtl8192eu-x86_64-unknown-linux-gnu-6.17.8-4.4.1.20250504";
-  "linuxPackages_cachyos-lto.rtl8723ds" = "/nix/store/5jq3v6ad9s5a0aq456x9k0aq26gn3sy5-rtl8723ds-x86_64-unknown-linux-gnu-6.17.8-unstable-2023-11-14";
   "linuxPackages_cachyos-lto.rtl8821cu" = "/nix/store/l0lg12yha6sisypc3xr4bqm34mx3x2lw-rtl8821cu-x86_64-unknown-linux-gnu-6.17.8-unstable-2025-10-09";
-  "linuxPackages_cachyos-lto.rtl8852au" = "/nix/store/acbhn2f6rx8486vscdjz5bng38vq3a87-rtl8852au-x86_64-unknown-linux-gnu-6.17.8-unstable-2024-05-06";
   "linuxPackages_cachyos-lto.rtl8852bu" = "/nix/store/i6za81nyg9qaijmiz5x62nvw490ccis6-rtl8852bu-x86_64-unknown-linux-gnu-6.17.8-unstable-2025-05-18";
-  "linuxPackages_cachyos-lto.rtl88x2bu" = "/nix/store/iqys409d1k57w2pdng8pm22lyg8fazps-rtl88x2bu-x86_64-unknown-linux-gnu-6.17.8-unstable-2024-06-09";
-  "linuxPackages_cachyos-lto.rtl88xxau-aircrack" = "/nix/store/zg5gdg7y84cs0k5hm053lk1bfikhy6xn-rtl88xxau-aircrack-x86_64-unknown-linux-gnu-6.17.8-unstable-2024-04-09";
   "linuxPackages_cachyos-lto.ryzen-smu" = "/nix/store/ilb2v6ayc320g2rnh7qza2yc5cap1f6f-ryzen-smu-6.17.8-x86_64-unknown-linux-gnu-0.1.5-unstable-2025-06-04";
   "linuxPackages_cachyos-lto.shufflecake" = "/nix/store/hpvn7lpj8ghznka5l82w4jr8x6jxs2g1-shufflecake-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos-lto.system76-acpi" = "/nix/store/idbdqa00n24lkbgq9b9dv6zmgxkqzwjk-system76-acpi-module-1.0.2-6.17.8-x86_64-unknown-linux-gnu";
@@ -87,16 +75,11 @@
   "linuxPackages_cachyos-server.nvidia_dc" = "/nix/store/hhsq2hhw1bk4vriskz0q2msgcrfcr27l-nvidia-dc-570.172.08-6.17.8";
   "linuxPackages_cachyos-server.nvidia_dc_535" = "/nix/store/lmhzmzab1h01fs34h8p6acz6p3bnyak3-nvidia-dc-535.154.05-6.17.8";
   "linuxPackages_cachyos-server.nvidia_dc_565" = "/nix/store/6xb0hm281if17sj8cpkgljyw3liywv2v-nvidia-dc-565.57.01-6.17.8";
-  "linuxPackages_cachyos-server.rtl8188eus-aircrack" = "/nix/store/0clmnz2b6dblz1zanpnjrc9s3283acpl-rtl8188eus-aircrack-6.17.8-unstable-2024-09-18";
-  "linuxPackages_cachyos-server.rtl8192eu" = "/nix/store/4p0kxqjhnwks1lhzrp07zvsz3af2n9ag-rtl8192eu-6.17.8-4.4.1.20250504";
-  "linuxPackages_cachyos-server.rtl8723ds" = "/nix/store/qs215iyh1afs87pg0mikaaq7rj5qcdi3-rtl8723ds-6.17.8-unstable-2023-11-14";
-  "linuxPackages_cachyos-server.rtl8852au" = "/nix/store/1rly136sdrjq6sfh1c8a36ial7lvnflz-rtl8852au-6.17.8-unstable-2024-05-06";
-  "linuxPackages_cachyos-server.rtl88x2bu" = "/nix/store/63rly2dqk622kiwii33v929jigmq62fv-rtl88x2bu-6.17.8-unstable-2024-06-09";
-  "linuxPackages_cachyos-server.rtl88xxau-aircrack" = "/nix/store/b041n0dnwp6k7hpw0bw8q3bhh8vy27i7-rtl88xxau-aircrack-6.17.8-unstable-2024-04-09";
   "linuxPackages_cachyos-server.vmm_clock" = "/nix/store/l4hnd3ik1ld69pbr4634058xy60nqsmn-vmm_clock-0.2.1";
   "linuxPackages_cachyos-server.yt6801" = "/nix/store/b8c724ynvyazp3by230fajzx2gxi5fll-yt6801-1.0.30-20250430";
   "pwvucontrol_git" = "/nix/store/fa55s62z2wpdw17xwli3n78hz7hvg8x7-pwvucontrol-unstable-20251025184757-e410a03";
-  "qtile-extras_git" = "/nix/store/6d1f3z34hwcwp9n7dgszd7vcbfm13l5w-python3.13-qtile-extras-0.33.99.99";
-  "sdl_git" = "/nix/store/1snz06jc6f3wk20pbavcyr2afb2sq7qj-sdl3-unstable-20251114081833-879f081-lib";
+  "qtile-extras_git" = "/nix/store/j53nqzbl5finh1hff2pv9039wbwnh6j5-python3.13-qtile-extras-0.33.99.99";
+  "sdl_git" = "/nix/store/1xi01vbdya7qc5an5sh2ncycn5wp211j-sdl3-unstable-20251118190610-908216b-lib";
+  "shadps4_git" = "/nix/store/pcmvaaw0iip8ykn2gqhrisnlwxq7wgwj-shadps4-unstable-20251118064651-3f86c2e";
   "torzu_git" = "/nix/store/ajnx6wcdacm1d0gah7kf2li0q55hd6f4-torzu-unstable-20250422-fd90833";
 }
