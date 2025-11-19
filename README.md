@@ -83,12 +83,12 @@
 
 <h3 id="on-nixos-stable">On NixOS stable</h3>
 
+<p>Chaotic-Nyx is <strong>NOT</strong> compatible with NixOS 25.05 and older.</p>
+
 <p>This tutorial does not apply for users using NixOS unstable channel. This tutorial is for 24.11 and other stable channels.</p>
 
 <p>You won't have access to all the modules and options available to unstable users, as those are prone to breaking due to the divergence between the channels.
 But you'll have access to all packages, the cache, and the registry.</p>
-
-<p>Our CachyOS kernel builds are known to be broken with nixos-25.05 (and older) due to breaking changes applied to nixos-25.11+ in <a href="https://github.com/NixOS/nixpkgs/pull/423933" target="_blank">nixpkgs#423933</a>. Those changes won't be backported. A workaround can be found in <a href="https://github.com/chaotic-cx/nyx/issues/1158#issuecomment-3216945109" target="_blank">this issue</a>.</p>
 
 <p>We recommend integrating this repo using Flakes:</p>
 
