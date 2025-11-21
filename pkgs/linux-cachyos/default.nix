@@ -13,6 +13,11 @@ let
   rcVersions = importJSON ./versions-rc.json;
   hardenedVersions = importJSON ./versions-hardened.json;
 
+  ltoKernelAttrs = {
+    taste = "linux-cachyos";
+    configPath = ./config-nix/cachyos-lto.x86_64-linux.nix;
+  };
+
   # Evaluation hack
   brokenReplacement = final.hello.overrideAttrs (prevAttrs: {
     meta = prevAttrs.meta // {
@@ -86,6 +91,13 @@ in
       _kernel: _final: prev:
       prev // { recurseForDerivations = false; };
   };
+
+  cachyos-lto-znver4 = mkCachyKernel (
+    ltoKernelAttrs
+    // {
+      mArch = "ZEN4";
+    }
+  );
 
   cachyos-lto = mkCachyKernel {
     taste = "linux-cachyos";
