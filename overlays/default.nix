@@ -314,6 +314,30 @@ in
     versionFilename = "cachyos-v4-version.json";
   };
 
+  proton-cachyos_nightly_x86_64_v3 = final.proton-cachyos.override {
+    toolTitle = "Proton-CachyOS Nightly x86-64-v3";
+    tarballSuffix = "-x86_64_v3.tar.xz";
+    url = "https://nightly.link/CachyOS/proton-cachyos/actions/runs/19506926176/proton-cachyos-10.0-20251112-base-131-g471736d4-x86_64_v3.tar.xz.zip";
+    version = {
+      base = "10.0";
+      release = "20251112";
+      hash = "sha256-3wkekFESoLgVYdCvMSEWL6nBRytsScUrwpn7zzNLqYE=";
+    };
+    withUpdateScript = false;
+  };
+
+  proton-cachyos_nightly_x86_64_v4 = final.proton-cachyos.override {
+    toolTitle = "Proton-CachyOS Nightly x86-64-v4";
+    tarballSuffix = "-x86_64_v4.tar.xz";
+    url = "https://nightly.link/CachyOS/proton-cachyos/actions/runs/19506926176/proton-cachyos-10.0-20251112-base-131-g471736d4-x86_64_v4.tar.xz.zip";
+    version = {
+      base = "10.0";
+      release = "20251112";
+      hash = "sha256-0dmK5HnFyN/V1aicCkRiubVkAtW1X1XJZTVljhuWn1w=";
+    };
+    withUpdateScript = false;
+  };
+
   proton-ge-custom = final.callPackage ../pkgs/proton-bin {
     toolTitle = "Proton-GE";
     tarballSuffix = ".tar.gz";

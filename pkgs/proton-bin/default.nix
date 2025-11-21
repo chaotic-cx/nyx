@@ -3,6 +3,12 @@
   stdenvNoCC,
   lib,
   fetchurl,
+  fetchzip,
+  # Required
+  versionFilename,
+  owner,
+  repo,
+  # Optional
   withUpdateScript ? true,
   toolTitle ? null,
   toolPattern ? "proton-.*",
@@ -10,29 +16,37 @@
   tarballSuffix ? "",
   releasePrefix ? "proton-",
   releaseSuffix ? "",
-  versionFilename,
-  owner,
-  repo,
   version ? lib.trivial.importJSON ./${versionFilename},
+  releaseVersion ? "${releasePrefix}${version.base}-${version.release}${releaseSuffix}",
+  homepage ? "https://github.com/${owner}/${repo}",
+  url ? "${homepage}/releases/download/${releaseVersion}/${tarballPrefix}${releaseVersion}${tarballSuffix}",
 }:
 
 let
-  releaseVersion = "${releasePrefix}${version.base}-${version.release}${releaseSuffix}";
-  homepage = "https://github.com/${owner}/${repo}";
-  url = "${homepage}/releases/download/${releaseVersion}/${tarballPrefix}${releaseVersion}${tarballSuffix}";
+  intake =
+    if lib.strings.hasSuffix ".zip" url then
+      {
+        fetcher = fetchzip;
+        input = "$src/*.tar.xz";
+      }
+    else
+      {
+        fetcher = fetchurl;
+        input = "$src";
+      };
 in
 stdenvNoCC.mkDerivation {
   name = repo;
   version = "${version.base}.${version.release}";
 
-  src = fetchurl {
+  src = intake.fetcher {
     inherit url;
     inherit (version) hash;
   };
 
   buildCommand = ''
     mkdir -p $out/bin
-    tar -C $out/bin --strip=1 -x -f $src
+    tar -C $out/bin --strip=1 -x -f ${intake.input}
   ''
   # Allow to keep the same name between updates
   + lib.strings.optionalString (toolTitle != null) ''
