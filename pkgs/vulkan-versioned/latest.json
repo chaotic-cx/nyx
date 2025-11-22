@@ -5,7 +5,7 @@
     "hash": "sha256-XbGj6JzjNuFDkMpf8oZPzZAuLd931IUB+urR6JsetA0="
   },
   "glslang": {
-    "version": "1.4.333-unstable",
+    "version": "1.4.334-unstable",
     "rev": "e2ab21f20bade6b85cace3b94485d31337dfe9ef",
     "hash": "sha256-IVhMXIUPBMZrfhmz8S+ot8rBVuheSMPh2OvMI4vu1gs="
   },
@@ -15,12 +15,12 @@
     "hash": "sha256-Fq2Kw8KOlh35hRZy5EnPtWAjazun4vdTk/HyhY76GRM="
   },
   "SPIRV-Headers": {
-    "version": "1.4.333-unstable",
+    "version": "1.4.334-unstable",
     "rev": "f2e4bd213104fe323a01e935df56557328d37ac8",
     "hash": "sha256-crnMPW5l64KMxHnn8KkMsNNrjLfKoBWoNqQB4KkinIc="
   },
   "SPIRV-Tools": {
-    "version": "1.4.333-unstable",
+    "version": "1.4.334-unstable",
     "rev": "5a7edbe46ac96121ff5ed53878376584a8b3d5ba",
     "hash": "sha256-DWgRQeduM0BAsc65d+UAe65H6p8iK8WZJAtbyhJoa4s="
   },
@@ -56,9 +56,9 @@
     "hash": "sha256-rP+p8Bqw0v1UudDHUk+z4MwiTQzerMNeoE3KW5XOLbo="
   },
   "Vulkan-ValidationLayers": {
-    "version": "1.4.333",
+    "version": "1.4.334",
     "rev": "v#{version}",
-    "hash": "sha256-tMQjXySZB43ec7s/FG35EKRKovEWQWoMxqh8WQObavg=",
+    "hash": "sha256-7OZ4rUBtTP4oFd5f4e/5LzRGi4rA8se+XwJ/Bjf7nv0=",
     "badTag": "snapshot-2025wk20"
   },
   "volk": {
