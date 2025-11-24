@@ -24,7 +24,7 @@ jobs:
           extra_nix_config: |
             accept-flake-config = true
             system-features = big-parallel gccarch-x86-64-v3
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Update nixpkgs flake
         run: nix flake lock --update-input nixpkgs || exit 1; git diff --exit-code flake.lock && exit 1 || exit 0
         continue-on-error: true

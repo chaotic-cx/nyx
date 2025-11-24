@@ -33,7 +33,7 @@ jobs:
             system-features = big-parallel gccarch-x86-64-v3
           install_options: --daemon
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
       - name: Configure sandboxing

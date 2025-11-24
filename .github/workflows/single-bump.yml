@@ -30,7 +30,7 @@ jobs:
             system-features = big-parallel gccarch-x86-64-v3
           install_options: --daemon
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - name: Configure sandboxing
         run: |
           sed -i -e '/^build-users-group =/d' -e 's/max-jobs =.*/max-jobs = 8/g' /etc/nix/nix.conf
