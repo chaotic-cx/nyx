@@ -35,9 +35,9 @@
     "hash": "sha256-h7w6Fup+nyf9/cdmv/sibzaMVmQGUNjD+pyEQm5e6+M="
   },
   "Vulkan-Tools": {
-    "version": "1.4.333",
+    "version": "1.4.334",
     "rev": "v#{version}",
-    "hash": "sha256-hVMv4uWruODTFo+YVpsbzxW0ZWfLPrnRD6eddrpEAlM=",
+    "hash": "sha256-1xwyOMJokxAKaTlIA+/eZSf3FNwEE7TFw6Ijllinv4U=",
     "badTag": "vulkan-sdk-1.3.280.0"
   },
   "LunarG-Tools": {
