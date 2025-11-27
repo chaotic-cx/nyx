@@ -21,7 +21,7 @@ jobs:
             system-features = big-parallel gccarch-x86-64-v3
           nix_path: "nixpkgs=channel:nixpkgs-unstable"
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           ref: ${{ github.event.pull_request.head.sha }}
       - name: Run linter
