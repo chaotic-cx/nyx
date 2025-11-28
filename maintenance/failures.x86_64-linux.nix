@@ -1,4 +1,6 @@
 {
+  "firefox-unwrapped_nightly" = "/nix/store/g9s6pl33iyr1rhsnwbb55clg8qjx27aq-firefox-nightly-unwrapped-147.0a1";
+  "firefox_nightly" = "/nix/store/ifyl1zlqla1686wfbb2ni80qa97924vr-firefox-nightly-147.0a1";
   "libportal_git" = "/nix/store/3yb9y89g0gpdyjaj3b922l88vk5x8vdq-libportal-unstable-20251009154520-086cc57";
   "linuxPackages_cachyos.chipsec" = "/nix/store/mkrbnzfmi1ragxa7k0gia7y13jzinmj0-chipsec-1.10.6";
   "linuxPackages_cachyos.digimend" = "/nix/store/a6vhbj2gzc14h13cf6i5amgg9xgaa6q0-digimend-13-unstable-2025-01-02";
@@ -69,10 +71,8 @@
   "linuxPackages_cachyos-server.vmm_clock" = "/nix/store/23r8gvydnw4d6xqsk6wv80mpradqg7by-vmm_clock-0.2.1";
   "linuxPackages_cachyos-server.yt6801" = "/nix/store/3dpmyfk97divkx0d9p1h5425lg2sxh4s-yt6801-1.0.30-20250430";
   "pwvucontrol_git" = "/nix/store/2lh0w6w16nhc0fjky9fp467j5115kw02-pwvucontrol-unstable-20251025184757-e410a03";
-  "qtile-extras_git" = "/nix/store/qpncbdlh7lm0lzmbi145q31qhaxkpgly-python3.13-qtile-extras-0.33.99.99";
-  "sdl_git" = "/nix/store/hzxni6hcjn3pf48g25jr2dsprcvakb5p-sdl3-unstable-20251125032913-24fe3c4-lib";
+  "qtile-extras_git" = "/nix/store/grzp0shy11z9khx4ykqbh935sgdlw5vf-python3.13-qtile-extras-0.33.99.99";
+  "sdl_git" = "/nix/store/psdpl9gxqw6v8rf23aqsbfbmn2s2dkfq-sdl3-unstable-20251126204122-625d090-lib";
   "shadps4_git" = "/nix/store/n4c6izsa8is3hak5xqjmymq3c4m9xzrf-shadps4-unstable-20251125075139-1394852";
-  "telegram-desktop-unwrapped_git" = "/nix/store/vg0vz5mmb3pl1hbm96yqb1s28f186cm4-telegram-desktop-unwrapped-unstable-20251125135025-712ef33";
-  "telegram-desktop_git" = "/nix/store/3dsq6fbz628gkisy9ph0v70cy14h8ic8-telegram-desktop-unstable-20251125135025-712ef33";
   "torzu_git" = "/nix/store/v7zikvwydrfnp4mn4761gkib4p6fa5s3-torzu-unstable-20250422-fd90833";
 }
