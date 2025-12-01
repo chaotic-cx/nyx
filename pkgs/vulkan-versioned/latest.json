@@ -41,9 +41,9 @@
     "badTag": "vulkan-sdk-1.3.280.0"
   },
   "LunarG-Tools": {
-    "version": "1.4.333",
+    "version": "1.4.335",
     "rev": "v#{version}",
-    "hash": "sha256-TyG+Ha917jnKZFshYZJFQ92fEG6KtOMqmfWixlqodiI="
+    "hash": "sha256-ks6CwyYamxhTHkHknPDAtILzwAOCP5HxrRPnGAP+dHM="
   },
   "Vulkan-ExtensionLayer": {
     "version": "1.4.333",
