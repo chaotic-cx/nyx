@@ -25,9 +25,9 @@
     "hash": "sha256-DWgRQeduM0BAsc65d+UAe65H6p8iK8WZJAtbyhJoa4s="
   },
   "Vulkan-Headers": {
-    "version": "1.4.334",
+    "version": "1.4.335",
     "rev": "v#{version}",
-    "hash": "sha256-yuINyOugmlb4o6akLAMU9t3R2ArK9ddbuUZPyKOl56s="
+    "hash": "sha256-DIePLzDoImnaso0WYUv819wSDeA7Zy1I/tYAbsALXKg="
   },
   "Vulkan-Loader": {
     "version": "1.4.334",
