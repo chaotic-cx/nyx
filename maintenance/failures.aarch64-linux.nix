@@ -1,13 +1,14 @@
 {
   "alacritty_git" = "/nix/store/2myb38kkbbdbdmh9r74dbm9p5ly18fr9-alacritty-unstable-20251124185322-52031ea";
+  "bpftools_full" = "/nix/store/bs7s3qs1k97vv4md65776l6pa4cdg5yp-bpftools-6.18";
   "firefox-unwrapped_nightly" = "skip";
   "firefox_nightly" = "skip";
   "latencyflex-vulkan" = "/nix/store/mqvmiry4k28b7f966h8g31cq4np2vnfi-latencyflex-vulkan-unstable-2023-07-03";
   "libportal_git" = "/nix/store/rjx1jslb2grf5km5r7vppbkdacfjfshj-libportal-unstable-20251009154520-086cc57";
   "niri_git" = "/nix/store/5h8izgmhbibrdx2mf2cxx6ky9djd5wci-niri-unstable-20251202122301-f874b2f";
   "pwvucontrol_git" = "/nix/store/a8n46c8kvx6jppyg1lw3lwbk2kra7gfg-pwvucontrol-unstable-20251025184757-e410a03";
-  "qtile-extras_git" = "/nix/store/6rkaprcka4n07l09pl4gq2kwldd6id2f-python3.13-qtile-extras-0.33.99.99";
-  "sdl_git" = "/nix/store/c699md4cpf15v97vb1q9c2kf0y6jz5jm-sdl3-unstable-20251202123600-6217672-lib";
+  "qtile-extras_git" = "/nix/store/bn41ahpafxiqb3y9z6im37hpa60nz5yi-python3.13-qtile-extras-0.33.99.99";
+  "sdl_git" = "/nix/store/0gls7ii8j26nh462b6dqxcb5kqk2nild-sdl3-unstable-20251203221711-70c2f57-lib";
   "tdlib_git" = "/nix/store/xfgk18yai54jbhwgjgx107air8s0y2vp-tdlib-unstable-20251126142644-f0d04d3";
   "telegram-desktop-unwrapped_git" = "skip";
   "telegram-desktop_git" = "/nix/store/7m24b4hkkjhp2rf21382sgsxl3rjv03a-telegram-desktop-unstable-20251201153947-d74074a";
@@ -18,6 +19,6 @@
   "vulkanPackages_latest.vulkan-validation-layers" = "/nix/store/dnl88kf7kag24by0m9y7d46x52dhs1fs-vulkan-validation-layers-1.4.333";
   "xdg-desktop-portal-wlr_git" = "/nix/store/f45lkp09vhs2183slag0n1q40hmm1lmp-xdg-desktop-portal-wlr-unstable-20251126234826-57014c4";
   "yt-dlp_git" = "/nix/store/703mas4yl635v6fri4wpmhp1h2pkkq4i-yt-dlp-unstable-20251201050122-017d76e";
-  "zed-editor_git" = "/nix/store/j9x6awkl0labdyy10qzs9nx533bppb4z-zed-editor-unstable-20251202120428-4f5cc0a";
-  "zed-editor-fhs_git" = "/nix/store/ng3bs4bqm1fhzh1wzp8k3m6l3ckhkij7-zeditor";
+  "zed-editor_git" = "/nix/store/zk2p0n33p0n9jd3hkvyd1sjmk0n1f2ns-zed-editor-unstable-20251203222504-8ad3a15";
+  "zed-editor-fhs_git" = "/nix/store/fq6zk8ys0r0aisxl1b87wx54m88vjyjy-zeditor";
 }
