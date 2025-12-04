@@ -1,7 +1,8 @@
 {
   "alacritty_git" = "/nix/store/kd8dwd52r0b759qb55qb4ml6gi05d29v-alacritty-unstable-20251124185322-52031ea";
-  "firefox-unwrapped_nightly" = "/nix/store/fwg801y352s5bkn3l2kjlgaidgfpw7l1-firefox-nightly-unwrapped-147.0a1";
-  "firefox_nightly" = "/nix/store/3aklmync3fda861fz5wwdgkik43hska9-firefox-nightly-147.0a1";
+  "bpftools_full" = "/nix/store/cnwnj96myx6j2dnfdsfgrn1a9f9fcw0b-bpftools-6.18";
+  "firefox-unwrapped_nightly" = "/nix/store/26j7qj560wr9f04zzbvkm6b5cidd49qa-firefox-nightly-unwrapped-147.0a1";
+  "firefox_nightly" = "/nix/store/j12fns5c1asz5ww3jah73n3a0a4r5r1y-firefox-nightly-147.0a1";
   "libportal_git" = "/nix/store/3yb9y89g0gpdyjaj3b922l88vk5x8vdq-libportal-unstable-20251009154520-086cc57";
   "linuxPackages_cachyos.cryptodev" = "/nix/store/rv4514pidkkx7zq3f5pvi08k2z6xfpii-cryptodev-linux-1.14";
   "linuxPackages_cachyos.digimend" = "/nix/store/msqd7ds59af66bhqlb23g8fvs97r028b-digimend-13-unstable-2025-01-02";
@@ -51,7 +52,7 @@
   "linuxPackages_cachyos-lto.liquidtux" = "/nix/store/cij51vi1b5lcyv6bvzaqicl3m1vjaqcz-liquidtux-0.1.0-unstable-2025-01-16-6.18.0-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos-lto.mba6x_bl" = "/nix/store/115jzwh0rk0wby1bklxxgy4f9yfpyvb7-mba6x_bl-x86_64-unknown-linux-gnu-unstable-2017-12-30";
   "linuxPackages_cachyos-lto.mbp2018-bridge-drv" = "/nix/store/mkg99cjgvlf1nwikb2dryd21k8zys5a9-mbp2018-bridge-drv-x86_64-unknown-linux-gnu-2020-01-31";
-  "linuxPackages_cachyos-lto.mm-tools" = "/nix/store/vbz1kmrclil9m3fl8dprs8cab1hb6zjd-mm-tools-x86_64-unknown-linux-gnu-6.12.59";
+  "linuxPackages_cachyos-lto.mm-tools" = "/nix/store/6az5rf73pw9xkvcfbbck52fifr0lk5dj-mm-tools-x86_64-unknown-linux-gnu-6.12.60";
   "linuxPackages_cachyos-lto.netatop" = "/nix/store/qnfbn2f44wzkhj1gch05q8yry29bq4my-netatop-6.18.0-3.2.2-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos-lto.nvidiaPackages.dc" = "/nix/store/1a9rl2jkyisqq6phwnyd5p2xfzrms8s5-nvidia-dc-570.172.08-6.18.0-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos-lto.nvidia_x11_beta_open" = "/nix/store/38xnia00i0ccqxrwhdpndvmd4ngf1i5z-nvidia-open-x86_64-unknown-linux-gnu-6.18.0-580.105.08";
@@ -102,8 +103,8 @@
   "linuxPackages_cachyos-server.xpadneo" = "/nix/store/br4pd5s0zgh1gs8n6x1ykfp9amhxmx0f-xpadneo-0.9.7";
   "linuxPackages_cachyos-server.yt6801" = "/nix/store/7p0qm65vdb1jb21qlhxq7ln8q994blvx-yt6801-1.0.30-20250430";
   "pwvucontrol_git" = "/nix/store/2lh0w6w16nhc0fjky9fp467j5115kw02-pwvucontrol-unstable-20251025184757-e410a03";
-  "qtile-extras_git" = "/nix/store/msg9x04zjvvnv7p1gz7iw16inrmkq42q-python3.13-qtile-extras-0.33.99.99";
-  "sdl_git" = "/nix/store/vw9mfgspksx0vpd99pdb8pj5h8hnnrdx-sdl3-unstable-20251202123600-6217672-lib";
-  "shadps4_git" = "/nix/store/byq5cr1j0g7ck982cx9zi7vz35djn9zk-shadps4-unstable-20251202085011-b135a05";
+  "qtile-extras_git" = "/nix/store/wcnfhlm3fzyp5xcibbk91cx0lkwdsi3c-python3.13-qtile-extras-0.33.99.99";
+  "sdl_git" = "/nix/store/a8vzavcc4c2yn7jgfvfkskdy37x31gqi-sdl3-unstable-20251203221711-70c2f57-lib";
+  "shadps4_git" = "/nix/store/xbr167s5ia3pmj2apnq3yb0xqqh73mbk-shadps4-unstable-20251203130519-98fd068";
   "torzu_git" = "/nix/store/v7zikvwydrfnp4mn4761gkib4p6fa5s3-torzu-unstable-20250422-fd90833";
 }
