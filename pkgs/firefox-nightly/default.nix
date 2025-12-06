@@ -13,6 +13,7 @@
   fetchFromGitHub,
   rustPlatform,
   apple-sdk_26,
+  icu78,
 }:
 
 let
@@ -92,6 +93,7 @@ let
 
   newInputs = {
     nss_latest = nss_git;
+    icu77 = icu78;
   };
 in
 nyxUtils.multiOverride mach newInputs postOverride
