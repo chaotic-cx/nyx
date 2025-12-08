@@ -1,5 +1,5 @@
 {
-  "alacritty_git" = "/nix/store/kd8dwd52r0b759qb55qb4ml6gi05d29v-alacritty-unstable-20251124185322-52031ea";
+  "alacritty_git" = "/nix/store/ngfavaxl74ringjx6qv0djmc1j5j5vbs-alacritty-unstable-20251205152756-1837203";
   "bpftools_full" = "/nix/store/cnwnj96myx6j2dnfdsfgrn1a9f9fcw0b-bpftools-6.18";
   "libportal_git" = "/nix/store/3yb9y89g0gpdyjaj3b922l88vk5x8vdq-libportal-unstable-20251009154520-086cc57";
   "linuxPackages_cachyos.cryptodev" = "/nix/store/rv4514pidkkx7zq3f5pvi08k2z6xfpii-cryptodev-linux-1.14";
@@ -98,8 +98,8 @@
   "linuxPackages_cachyos-server.xpadneo" = "/nix/store/br4pd5s0zgh1gs8n6x1ykfp9amhxmx0f-xpadneo-0.9.7";
   "linuxPackages_cachyos-server.yt6801" = "/nix/store/7p0qm65vdb1jb21qlhxq7ln8q994blvx-yt6801-1.0.30-20250430";
   "pwvucontrol_git" = "/nix/store/2lh0w6w16nhc0fjky9fp467j5115kw02-pwvucontrol-unstable-20251025184757-e410a03";
-  "qtile-extras_git" = "/nix/store/wcnfhlm3fzyp5xcibbk91cx0lkwdsi3c-python3.13-qtile-extras-0.33.99.99";
-  "sdl_git" = "/nix/store/a8vzavcc4c2yn7jgfvfkskdy37x31gqi-sdl3-unstable-20251203221711-70c2f57-lib";
-  "shadps4_git" = "/nix/store/xbr167s5ia3pmj2apnq3yb0xqqh73mbk-shadps4-unstable-20251203130519-98fd068";
+  "qtile-extras_git" = "/nix/store/f4w9mn8rdmhvp2lxwn2dsdi0y3m8f1qv-python3.13-qtile-extras-0.33.99.99";
+  "sdl_git" = "/nix/store/m3rnarvdcg1vxr73kd8w8jbi5y94nj5r-sdl3-unstable-20251208021213-9918d6c-lib";
+  "shadps4_git" = "/nix/store/bjkxv533gcl9xgsw62brmx9sd68lyhpv-shadps4-unstable-20251207215651-2a5910e";
   "torzu_git" = "/nix/store/v7zikvwydrfnp4mn4761gkib4p6fa5s3-torzu-unstable-20250422-fd90833";
 }
