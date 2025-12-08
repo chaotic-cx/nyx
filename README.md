@@ -7,3 +7,10 @@
 <h2 id="lists-of-options-and-packages">Lists of options and packages</h2>
 
 <!-- cut here --><p>A list of the last options and packages is available at: <a href="https://www.nyx.chaotic.cx/#lists-of-options-and-packages">List page</a>.</p><!-- cut here -->
+
+<h2 id="lists-of-options-and-packages">Special Thanks</h2>
+
+Special thanks for:
+- The [50 contributors](https://github.com/chaotic-cx/nyx/graphs/contributors);
+- Sponsors:  Silvan, Kai, Elite, and Keenan;
+- Everybody that provided feedback through Github, Telegram, and Matrix. 
