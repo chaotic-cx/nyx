@@ -2939,7 +2939,6 @@
   "CONFIG_8139TOO" = "m";
   "CONFIG_8139TOO_TUNE_TWISTER" = "y";
   "CONFIG_8139TOO_8129" = "y";
-  "CONFIG_R8125" = "m";
   "CONFIG_R8169" = "m";
   "CONFIG_R8169_LEDS" = "y";
   "CONFIG_RTASE" = "m";
