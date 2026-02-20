@@ -112,6 +112,7 @@ gitOverride (current: {
         prevAttrs.postInstall
       )
       + ''
+        mkdir -p $out/lib/runtime
         ln -s ${grammars} $out/lib/runtime/grammars
       '';
     meta = if evil then final.evil-helix.meta else prevAttrs.meta;
