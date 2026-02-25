@@ -1,21 +1,21 @@
 {
-  "version": "12.8.1",
+  "version": "12.8.2",
   "sources": {
     "aarch64-linux": {
-      "url": "https://gitlab.com/garuda-linux/firedragon/firedragon12/-/releases/v12.8.1/downloads/firedragon-linux-arm64.tar.xz",
-      "sha256": "1c1f18ls3yrb6m0mkm7l9yrhw4fwymvmv43c6kjsksh8wszkdwmp"
+      "url": "https://gitlab.com/garuda-linux/firedragon/firedragon12/-/releases/v12.8.2/downloads/firedragon-linux-arm64.tar.xz",
+      "sha256": "0824q43mxavm2qw2na7dg6cpp4djqrg9379mfpzqnpns9fij3v3n"
     },
     "x86_64-linux": {
-      "url": "https://gitlab.com/garuda-linux/firedragon/firedragon12/-/releases/v12.8.1/downloads/firedragon-linux-x64.tar.xz",
-      "sha256": "15pkyg9br0m27kyjvs1f3mg70h6s8xhjsp60fciy2awrhmar5vcx"
+      "url": "https://gitlab.com/garuda-linux/firedragon/firedragon12/-/releases/v12.8.2/downloads/firedragon-linux-x64.tar.xz",
+      "sha256": "1ib8ahbq8dnb2xswliq4gvzwwr13lzlxj8wd5k85fsn91nc95hys"
     },
     "aarch64-darwin": {
-      "url": "https://gitlab.com/garuda-linux/firedragon/firedragon12/-/releases/v12.8.1/downloads/firedragon-darwin-arm64.dmg",
-      "sha256": "1fc2m1bpf9438d7kfb8a6lygvb5cvdf40pi58dccrqq7zkw0z56r"
+      "url": "https://gitlab.com/garuda-linux/firedragon/firedragon12/-/releases/v12.8.2/downloads/firedragon-darwin-arm64.dmg",
+      "sha256": "0wzfy5jsxibz4g8dv00pyf0zk1gmq1pfsxb5xkmy12py908507mq"
     },
     "x86_64-darwin": {
-      "url": "https://gitlab.com/garuda-linux/firedragon/firedragon12/-/releases/v12.8.1/downloads/firedragon-darwin-x64.dmg",
-      "sha256": "0x1amh7c8952rbnp5ggk6hdagdj3i7276kbvv4pn9y0i053dz188"
+      "url": "https://gitlab.com/garuda-linux/firedragon/firedragon12/-/releases/v12.8.2/downloads/firedragon-darwin-x64.dmg",
+      "sha256": "15h34wlhm92zq5cwh81qx2dnz6k54pcbv5sbmchpj6b67hnbcvzb"
     }
   }
 }
