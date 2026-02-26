@@ -1,21 +1,21 @@
 {
-  "version": "12.8.2",
+  "version": "12.8.3",
   "sources": {
     "aarch64-linux": {
-      "url": "https://gitlab.com/garuda-linux/firedragon/firedragon12/-/releases/v12.8.2/downloads/firedragon-catppuccin-linux-arm64.tar.xz",
-      "sha256": "150w0q1q58i937qx8vq8vrksmadq0gpj0dgxm4kvffkbz0cnm5mx"
+      "url": "https://gitlab.com/garuda-linux/firedragon/firedragon12/-/releases/v12.8.3/downloads/firedragon-catppuccin-linux-arm64.tar.xz",
+      "sha256": "1hv1gpp7ff9x6pkqg33xkjrpv6bhbbqsmnlkqwr9pwah01jkf52k"
     },
     "x86_64-linux": {
-      "url": "https://gitlab.com/garuda-linux/firedragon/firedragon12/-/releases/v12.8.2/downloads/firedragon-catppuccin-linux-x64.tar.xz",
-      "sha256": "0nz354j5p8bj5w5h3w24mlkv4418ghj25s21a82j8w6543jjnppg"
+      "url": "https://gitlab.com/garuda-linux/firedragon/firedragon12/-/releases/v12.8.3/downloads/firedragon-catppuccin-linux-x64.tar.xz",
+      "sha256": "11wsjbdwfllrq5cr7w16y7mdl7ablpcdihsv4q9hk33l73zd53zb"
     },
     "aarch64-darwin": {
-      "url": "https://gitlab.com/garuda-linux/firedragon/firedragon12/-/releases/v12.8.2/downloads/firedragon-catppuccin-darwin-arm64.dmg",
-      "sha256": "0gn4h231m2n1dsb4zd0bxzcxhlm24hvsszd5yqh23pypkkh7h2a9"
+      "url": "https://gitlab.com/garuda-linux/firedragon/firedragon12/-/releases/v12.8.3/downloads/firedragon-catppuccin-darwin-arm64.dmg",
+      "sha256": "1b8iq8ix8ixbzw1ghdwv4p1y7yihk8imf96q38l4kxsrppkf329g"
     },
     "x86_64-darwin": {
-      "url": "https://gitlab.com/garuda-linux/firedragon/firedragon12/-/releases/v12.8.2/downloads/firedragon-catppuccin-darwin-x64.dmg",
-      "sha256": "0q4bijb2xk0nfg8wppksy3x7hbfyr0r5pzngz0gzi9qaaj40xbyn"
+      "url": "https://gitlab.com/garuda-linux/firedragon/firedragon12/-/releases/v12.8.3/downloads/firedragon-catppuccin-darwin-x64.dmg",
+      "sha256": "102nf1vj9ljg3yiyxxscjdrr3cljnb3ck63kqd8vigcyqlhvr5ca"
     }
   }
 }
