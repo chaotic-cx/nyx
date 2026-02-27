@@ -13,7 +13,7 @@ gitOverride {
   versionNyxPath = "pkgs/niri-git/version.json";
   fetcher = "fetchFromGitHub";
   fetcherData = {
-    owner = "YaLTeR";
+    owner = "niri-wm";
     repo = "niri";
   };
 
