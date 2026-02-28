@@ -1,5 +1,5 @@
 {
-  writeShellScript,
+  writeShellScriptBin,
   lib,
   coreutils,
   findutils,
@@ -57,17 +57,13 @@ let
     };
   };
 
-  major =
-    if variants ? ${withUpdateScript} then
-      variants.${withUpdateScript}
-    else
-      throw "Unsupported update-script for linux-cachyos";
+  major = variants.${withUpdateScript} or (throw "Unsupported update-script for linux-cachyos");
 
 in
 
 with major;
 
-writeShellScript "update-cachyos" ''
+writeShellScriptBin "update-cachyos" ''
   set -euo pipefail
   PATH=${path}
 
@@ -164,7 +160,7 @@ writeShellScript "update-cachyos" ''
   jq \
     --arg latestVer "$latestVer" \
     --arg latestHash "$latestHash" \
-    --arg latestTagrel "$latestTagrel" \
+    --argjson latestTagrel "$latestTagrel" \
     --arg configRev "$configRev" \
     --arg configHash "$configHash" \
     --arg patchesRev "$patchesRev" \
