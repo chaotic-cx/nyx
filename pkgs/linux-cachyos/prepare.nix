@@ -28,7 +28,7 @@ let
   src =
     if cachyConfig.versions.linux ? tagrel then
       let
-        tagrel = cachyConfig.versions.linux.tagrel;
+        inherit (cachyConfig.versions.linux) tagrel;
         srctag = "cachyos-${version}-${toString tagrel}";
       in
       fetchurl {

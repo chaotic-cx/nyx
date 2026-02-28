@@ -42,7 +42,7 @@ let
   grammarArtifact =
     source:
     (final.callPackage ./grammar-artifact.nix { inherit makeGrammar source; }).overrideAttrs (
-      _:
+      _ignored:
       final.lib.optionalAttrs (source.name == "qmljs") {
         dontCheckForBrokenSymlinks = true;
       }
