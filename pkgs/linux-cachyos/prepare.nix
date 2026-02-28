@@ -24,10 +24,15 @@ let
     inherit (cachyConfig.versions.config) rev hash;
   };
 
+  # Use GitHub releases tarball (PR #700) if tagrel is provided
   src =
-    if cachyConfig.taste == "linux-cachyos-rc" then
+    if cachyConfig.versions.linux ? tagrel then
+      let
+        tagrel = cachyConfig.versions.linux.tagrel;
+        srctag = "cachyos-${version}-${toString tagrel}";
+      in
       fetchurl {
-        url = "https://git.kernel.org/torvalds/t/linux-${version}.tar.gz";
+        url = "https://github.com/CachyOS/linux/releases/download/${srctag}/${srctag}.tar.gz";
         inherit (cachyConfig.versions.linux) hash;
       }
     else
@@ -53,13 +58,15 @@ let
     else
       throw "Unsupported cachyos _cpu_sched=${toString cachyConfig.cpuSched}";
 
-  patches = [
-    "${patches-src}/${majorMinor}/all/0001-cachyos-base-all.patch"
-  ]
-  ++ schedPatches
-  ++ lib.optional (
-    cachyConfig.cpuSched == "hardened"
-  ) "${patches-src}/${majorMinor}/misc/0001-hardened.patch";
+  # If tagrel is provided, base patch is in the GitHub release tarball
+  patches =
+    lib.optionals (!(cachyConfig.versions.linux ? tagrel)) [
+      "${patches-src}/${majorMinor}/all/0001-cachyos-base-all.patch"
+    ]
+    ++ schedPatches
+    ++ lib.optional (
+      cachyConfig.cpuSched == "hardened"
+    ) "${patches-src}/${majorMinor}/misc/0001-hardened.patch";
 
   # There are some configurations set by the PKGBUILD
   pkgbuildConfig =
