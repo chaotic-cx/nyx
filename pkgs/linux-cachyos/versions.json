@@ -4,7 +4,8 @@
   "_linux": "pkgver from config's PKGBUILD",
   "linux": {
     "version": "6.19.4",
-    "hash": "sha256-J5s7xMEdGAWpyhZlJyIH09GYXjju/+/VD3q5kP6JyKw="
+    "hash": "sha256-Q4kB8iGo+G9tQwW13n4JZ5paPiQgblffJijUkKBuSok=",
+    "tagrel": "2"
   },
   "_config": "latest commit from https://github.com/CachyOS/linux-cachyos/commits/master/linux-cachyos",
   "config": {
