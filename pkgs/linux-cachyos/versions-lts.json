@@ -2,7 +2,8 @@
   "suffix": "-cachyos",
   "linux": {
     "version": "6.18.14",
-    "hash": "sha256-jRk0pyoYXxvmtW462Oox/Zo4H/7ANGxp8GyQ13bafLg="
+    "hash": "sha256-nyC3h5RMHQEgQthxV5JMx7ja+Q8S3vG567It6qPxq10=",
+    "tagrel": "1"
   },
   "config": {
     "rev": "2ec81c9098229de0b8d8e346f665d4a2ec0b807e",
