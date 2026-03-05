@@ -18,7 +18,12 @@
   final,
 }:
 let
-  inherit (cachyConfig.versions.linux) version;
+  version = cachyConfig.versions.linux.version;
+  # Fix: properly stringify derivation to get script path
+  updaterScript =
+    if cachyConfig.withUpdateScript != null
+    then (callPackage ./update.nix { inherit (cachyConfig) withUpdateScript; }) + "/update-cachyos"
+    else null;
 in
 (linuxManualConfig {
   inherit
@@ -73,9 +78,5 @@ in
           } final;
         };
       }
-      // nyxUtils.optionalAttr "updateScript" (cachyConfig.withUpdateScript != null) (
-        callPackage ./update.nix {
-          inherit (cachyConfig) withUpdateScript;
-        }
-      );
+      // nyxUtils.optionalAttr "updateScript" (cachyConfig.withUpdateScript != null) updaterScript;
   })
