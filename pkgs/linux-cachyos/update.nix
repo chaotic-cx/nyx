@@ -1,5 +1,5 @@
 {
-  writeShellScriptBin,
+  writeShellScript,
   lib,
   coreutils,
   findutils,
@@ -63,7 +63,7 @@ in
 
 with major;
 
-writeShellScriptBin "update-cachyos" ''
+writeShellScript "update-cachyos" ''
   set -euo pipefail
   PATH=${path}
 
