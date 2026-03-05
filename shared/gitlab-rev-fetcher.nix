@@ -26,5 +26,13 @@ in
 writeShellScript "gitlab-${repo}-${ref}-rev-fetcher" ''
   set -euo pipefail
 
-  ${curl}/bin/curl -s 'https://${domain}/api/v4/projects/${escapedSlug}/repository/commits?ref_name=${ref}' | ${jq}/bin/jq -r .[0].id
+  ${curl}/bin/curl \
+    -sS \
+    -L \
+    --fail \
+    --retry 3 \
+    --retry-delay 2 \
+    --retry-connrefused \
+    "https://${domain}/api/v4/projects/${escapedSlug}/repository/commits?ref_name=${ref}" \
+  | ${jq}/bin/jq -er '.[0].id'
 ''
