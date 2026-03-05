@@ -113,9 +113,12 @@ let
           pkgs = prev;
         };
         # Helper to remove updateScript from a package
-        removeUpdateScript = pkg:
+        removeUpdateScript =
+          pkg:
           if (pkg.passthru.updateScript or null) != null then
-            pkg.overrideAttrs (prev: { passthru = builtins.removeAttrs prev.passthru [ "updateScript" ]; })
+            pkg.overrideAttrs (prev: {
+              passthru = builtins.removeAttrs prev.passthru [ "updateScript" ];
+            })
           else
             pkg;
         # Remove updateScript from all jovian-chaotic packages (they use nix-update incorrectly)
@@ -435,5 +438,5 @@ in
   };
   zed-editor-fhs_git = final.zed-editor_git.fhs;
 
-  zfs_cachyos = cachyosPackages.zfs;
+  zfs_cachyos = nyxUtils.drvDropUpdateScript cachyosPackages.zfs;
 }
