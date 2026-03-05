@@ -112,11 +112,19 @@ let
           replace = true;
           pkgs = prev;
         };
+        # Helper to remove updateScript from a package
+        removeUpdateScript = pkg:
+          if (pkg.passthru.updateScript or null) != null then
+            pkg.overrideAttrs (prev: { passthru = builtins.removeAttrs prev.passthru [ "updateScript" ]; })
+          else
+            pkg;
+        # Remove updateScript from all jovian-chaotic packages (they use nix-update incorrectly)
+        jovianWithoutUpdateScript = builtins.mapAttrs (_k: v: removeUpdateScript v) base;
       in
-      (builtins.removeAttrs base [ "jovian-documentation" ])
+      (builtins.removeAttrs jovianWithoutUpdateScript [ "jovian-documentation" ])
       // {
         recurseForDerivations = true;
-        linuxPackages_jovian = base.linuxPackages_jovian // {
+        linuxPackages_jovian = jovianWithoutUpdateScript.linuxPackages_jovian // {
           recurseForDerivations = false;
         };
       }
