@@ -9,9 +9,6 @@ let
   inherit (final.stdenv) is32bit;
 in
 gitOverride {
-  newInputs = with final; {
-    mangohud32 = mangohud32_git;
-  };
   nyxKey = if is32bit then "mangohud32_git" else "mangohud_git";
   prev = prev.mangohud;
 
