@@ -19,10 +19,9 @@
 }:
 let
   version = cachyConfig.versions.linux.version;
-  # Fix: properly stringify derivation to get script path
   updaterScript =
     if cachyConfig.withUpdateScript != null then
-      (callPackage ./update.nix { inherit (cachyConfig) withUpdateScript; }) + "/update-cachyos"
+      callPackage ./update.nix { inherit (cachyConfig) withUpdateScript; }
     else
       null;
 in
