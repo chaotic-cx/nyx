@@ -22,7 +22,6 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Install Nix
-        if: steps.check.outputs.cached != 'true'
         uses: cachix/install-nix-action@v31
         with:
           extra_nix_config: "accept-flake-config = true"
@@ -34,7 +33,6 @@ jobs:
           set -euo pipefail
           mkdir result
           nix develop \
-            --override-input chaotic "github:chaotic-cx/nyx/${GITHUB_SHA}" \
             ./maintenance#document -c 'true' \
             | \
             xargs -i@ cp @ result/index.html

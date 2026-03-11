@@ -17,32 +17,26 @@ concurrency:
 
 jobs:
   deploy:
-    runs-on: nyxbuilder
+    runs-on: ubuntu-latest
     timeout-minutes: 1440
     steps:
-      # identical to build.yml
       - name: Install Nix
         uses: cachix/install-nix-action@v31
         with:
           extra_nix_config: |
             accept-flake-config = true
-            sandbox-fallback = false
-            system-features = big-parallel gccarch-x86-64-v3
           install_options: --daemon
       - name: Checkout
         uses: actions/checkout@v6
-      - name: Configure sandboxing
-        run: |
-          sed -i -e '/^build-users-group =/d' -e 's/max-jobs =.*/max-jobs = 8/g' /etc/nix/nix.conf
-          nix eval ./maintenance#_dev.nixConfig --json | jq -r 'to_entries[] | "\(.key) = \(.value | join(" "))"' >> /etc/nix/nix.conf
-      # config to commit
-      - name: Bat-signal
+        with:
+          fetch-depth: 0
+      - name: Configure git
         run: |
           set -e
-          git config --global user.name 'Chaotic Github Actions'
-          git config --global user.email 'actions@chaotic.cx'
+          git config --global user.name 'loner'
+          git config --global user.email '2788892716@qq.com'
       # the bump itself
-      - name: Wiggle, wiggle, wiggle
+      - name: Bump package
         run: |
           git checkout -b "bump-${TARGETPKG}-$(date '+%Y%m%d')"
           nix build ".#${TARGETPKG}.updateScript"
