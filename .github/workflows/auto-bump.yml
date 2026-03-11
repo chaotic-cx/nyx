@@ -45,6 +45,7 @@ jobs:
         env:
           NYX_SOURCE: ${{ github.workspace }}
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           NYX_BUMPN: ${{ inputs.bumpNumber }}
           NYX_BUMP_REVERT: 0
 
