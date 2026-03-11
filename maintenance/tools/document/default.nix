@@ -17,10 +17,11 @@ let
     let
       lines = lib.strings.splitString "\n" garnixConfig;
       # Filter: must start with "    - \"" and not be commented (not start with "#")
-      activeIncludeLines = lib.lists.filter
-        (line: lib.strings.hasPrefix "    - \"" line && !(lib.strings.hasPrefix "    #" line))
-        lines;
-      extractName = line:
+      activeIncludeLines = lib.lists.filter (
+        line: lib.strings.hasPrefix "    - \"" line && !(lib.strings.hasPrefix "    #" line)
+      ) lines;
+      extractName =
+        line:
         let
           matched = builtins.match ".*\"packages\\.[^\"]+\\.([^\"]+)\"" line;
         in
@@ -140,7 +141,8 @@ let
   homeManagerEvalFlat = lib.lists.flatten homeManagerEval;
 
   # Generate cached packages table rows from garnix.yaml
-  getCachedPackage = name:
+  getCachedPackage =
+    name:
     if allPackages ? ${name} then
       let
         pkg = allPackages.${name};

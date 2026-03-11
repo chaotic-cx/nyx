@@ -10,4 +10,5 @@ builds:
     # Packages
     - "packages.x86_64-linux.evil-helix_git"
     - "packages.x86_64-linux.xdg-desktop-portal-wlr_git"
+    - "packages.x86_64-linux.ghostty_git"
   exclude: []
