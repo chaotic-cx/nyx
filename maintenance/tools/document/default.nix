@@ -11,6 +11,23 @@
   writeText,
 }:
 let
+  # Parse cached package names from garnix.yaml (only uncommented lines)
+  garnixConfig = builtins.readFile ../../../garnix.yaml;
+  garnixIncludes =
+    let
+      lines = lib.strings.splitString "\n" garnixConfig;
+      # Filter: must start with "    - \"" and not be commented (not start with "#")
+      activeIncludeLines = lib.lists.filter
+        (line: lib.strings.hasPrefix "    - \"" line && !(lib.strings.hasPrefix "    #" line))
+        lines;
+      extractName = line:
+        let
+          matched = builtins.match ".*\"packages\\.[^\"]+\\.([^\"]+)\"" line;
+        in
+        if matched != null then builtins.head matched else null;
+    in
+    lib.lists.filter (name: name != null) (map extractName activeIncludeLines);
+
   derivationMap =
     k: v:
     let
@@ -122,9 +139,43 @@ let
 
   homeManagerEvalFlat = lib.lists.flatten homeManagerEval;
 
+  # Generate cached packages table rows from garnix.yaml
+  getCachedPackage = name:
+    if allPackages ? ${name} then
+      let
+        pkg = allPackages.${name};
+        description = pkg.meta.description or "-";
+        homepage =
+          if (builtins.stringLength (pkg.meta.homepage or "") > 0) then
+            "<a href=\"${pkg.meta.homepage}\" target=\"_blank\">${pkg.meta.homepage}</a>"
+          else
+            "";
+      in
+      ''
+        <tr>
+          <td><code>${name}</code></td>
+          <td><code>${pkg.version or "-"}</code></td>
+          <td>${description}<br/>${homepage}</td>
+        </tr>
+      ''
+    else
+      "";
+
+  cachedPackagesRows = map getCachedPackage garnixIncludes;
+
   tables = {
+    t0-cached-packages = {
+      title = "Cached Packages";
+      headers = [
+        "Name"
+        "Version"
+        "Description"
+      ];
+      rows = cachedPackagesRows;
+      overflow = false;
+    };
     t1-packages = {
-      title = "Packages";
+      title = "All Packages (Reference)";
       headers = [
         "Name"
         "Version"
@@ -203,14 +254,13 @@ writeText "chaotic-documented.html" ''
   <!DOCTYPE html><html>
   <head lang="en">
     <meta charset="UTF-8" />
-    <title>Chaotic-Nyx</title>
+    <title>Nyx Loner - CachyOS Kernel Cache</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" property="og:description"
-      content="Nix flake for bleeding-edge and unreleased packages." />
-    <meta property="og:url" content="https://www.nyx.chaotic.cx" />
+      content="A minimal fork of Chaotic-Nyx, providing pre-built CachyOS kernel packages via Garnix CI." />
+    <meta property="og:url" content="https://github.com/lonerOrz/nyx-loner" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Chaotic-Nyx" />
-    <meta property="og:image" content="https://gist.githubusercontent.com/PedroHLC/f6eaa9dfcf190e18b753e98fd265c8d3/raw/nix-frog-with-capes-web.svg" />
+    <meta property="og:title" content="Nyx Loner" />
     <link rel="icon" href="https://avatars.githubusercontent.com/u/130499842?v=4" type="image/jpeg" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gridjs@6.2.0/dist/theme/mermaid.min.css" />
     <link rel="stylesheet" href="https://lab.pedrohlc.com/bucket/gridjs-mermaid-auto.css" />
@@ -239,12 +289,12 @@ writeText "chaotic-documented.html" ''
     </style>
   </head><body><div style="max-width: 140rem; margin: 0 auto">
     ${builtins.head readme}
-    <p>Built and cached against <a href="https://github.com/NixOS/nixpkgs/tree/${nixpkgs.rev}" target="_blank"><code>github:nixos/nixpkgs/${nixpkgs.rev}</code></a> (${getVersion nixpkgs}).</p>
+    <p>Built with Garnix CI against <a href="https://github.com/NixOS/nixpkgs/tree/${nixpkgs.rev}" target="_blank"><code>github:nixos/nixpkgs/${nixpkgs.rev}</code></a> (${getVersion nixpkgs}).</p>
     <ul>${renderIndex tables}</ul>
     ${renderTables tables}
     ${lib.lists.last readme}
     <h2>About this page</h2>
-    <p>Generated for <a href="https://github.com/chaotic-cx/nyx/tree/${self.rev or "nyxpkgs-unstable"}"><code>github:chaotic-cx/nyx/${self.rev or "nyxpkgs-unstable"}</code></a> from (${getVersion self}).</p>
+    <p>Generated for <a href="https://github.com/lonerOrz/nyx-loner/tree/${self.rev or "main"}"><code>github:lonerOrz/nyx-loner/${self.rev or "main"}</code></a> from (${getVersion self}).</p>
     <script type="module">
       import {
         Grid,
