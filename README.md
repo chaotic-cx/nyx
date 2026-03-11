@@ -25,8 +25,6 @@
       <li><a href="#on-home-manager">On Home-Manager</a></li>
       <li><a href="#running-packages-without-installing">Running packages (without installing)</a></li>
       <li><a href="#binary-cache-notes">Binary Cache notes</a></li>
-      <li><a href="#using-sched-ext-schedulers">Using linux-cachyos with sched-ext</a></li>
-      <li><a href="#using-with-read-only-pkgs">Using with read-only pkgs</a></li>
     </ul>
   </li>
   <li><a href="#lists-of-options-and-packages">Lists of options and packages</a></li>
@@ -179,74 +177,18 @@ The cache is automatically built and deployed for the following architectures:</
   <li><code>x86_64-linux</code></li>
 </ul>
 
-<p>To use the cache, add the following to your <code>/etc/nix/nix.conf</code>:</p>
-
-<pre lang="text"><code class="language-text">
-extra-substituters = https://cache.garnix.io
-extra-trusted-public-keys = cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=
-</code></pre>
-
-<p>Or if you use flakes, the cache will be automatically available when you add this flake to your inputs and enable the overlay as described in the <a href="#how-to-use-it">How to use it</a> section.</p>
-
-<p>For the list of cached packages and detailed usage instructions, see <a href="https://lonerorz.github.io/nyx-loner/">the documentation page</a>.</p>
-
-<h3 id="using-sched-ext-schedulers">Using sched-ext schedulers</h3>
-
-<p> From version 6.12 onwards, sched-ext support is officially available on the upstream kernel. You can use the latest kernel (<code>pkgs.linuxPackages_latest</code>) or our provided CachyOS kernel (<code>pkgs.linuxPackages_cachyos</code>). </p>
-
-<p>Just add this to your configuration:</p>
+<p>To use the cache, add the following to your <code>configuration.nix</code>:</p>
 
 <pre lang="nix"><code class="language-nix">
-# configuration.nix
-{
-  boot.kernelPackages = pkgs.linuxPackages_cachyos;
-  services.scx.enable = true; # by default uses scx_rustland scheduler
-}
+     nix = {
+      substituters = [
+        "https://cache.garnix.io" # add garnix cache
+      ];
+      trusted-public-keys = [
+        "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+      ];
+    };
 </code></pre>
-
-<p> Then, reboot with the new configuration, check if the scheduler is running: </p>
-
-<pre lang="text"><code class="language-text">
-╰─λ systemctl status scx.service
-</code></pre>
-
-<p> If this is not working, check if the current kernel support <code>sched-ext</code> feature. </p>
-
-<pre lang="text"><code class="language-text">
-╰─λ ls /sys/kernel/sched_ext/
-enable_seq  hotplug_seq  nr_rejected  root  state  switch_all
-</code></pre>
-
-<p> You can also manually start a scheduler like: </p>
-
-<pre lang="text"><code class="language-text">
-╰─λ sudo scx_rusty
-21:38:53 [INFO] CPUs: online/possible = 24/32
-21:38:53 [INFO] DOM[00] cpumask 00000000FF03F03F (20 cpus)
-21:38:53 [INFO] DOM[01] cpumask 0000000000FC0FC0 (12 cpus)
-21:38:53 [INFO] Rusty Scheduler Attached
-</code></pre>
-
-<p>You can choose a different scheduler too.</p>
-<pre lang="nix"><code class="language-nix">
-# configuration.nix
-{
-  services.scx.scheduler = "scx_rusty";
-}
-</code></pre>
-
-<p> We also provide a git version of scx to stay up to date on the latest features. </p>
-
-<pre lang="nix"><code class="language-nix">
-# configuration.nix
-{
-  services.scx.package = pkgs.scx_git.full;
-}
-</code></pre>
-
-<p>There are other scx_* binaries for you to play with, or head to <a href="https://github.com/sched-ext/scx" target="_blank">github.com/sched-ext/scx</a> for instructions on how to write one of your own.</p>
-
-<h3 id="using-with-read-only-pkgs">Using with read-only pkgs</h3>
 
 <h2 id="lists-of-options-and-packages">Lists of options and packages</h2>
 
