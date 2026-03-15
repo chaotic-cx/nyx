@@ -61,10 +61,13 @@ let
     mkdir -p $out
     ${builtins.concatStringsSep "\n" grammarLinks}
   '';
+
+  # Base package to override - use helix-unwrapped from nixpkgs
+  basePkg = prev.helix-unwrapped;
 in
 gitOverride (current: {
   nyxKey = if evil then "evil-helix_git" else "helix_git";
-  prev = prev.helix;
+  prev = basePkg;
 
   versionNyxPath = if evil then "pkgs/helix-git/version-evil.json" else "pkgs/helix-git/version.json";
   fetcher = "fetchFromGitHub";
@@ -103,19 +106,31 @@ gitOverride (current: {
 
   postOverride = prevAttrs: {
     dontVersionCheck = true;
-    env = prevAttrs.env // {
+    nativeBuildInputs = (prevAttrs.nativeBuildInputs or basePkg.nativeBuildInputs or [ ]) ++ [
+      final.makeBinaryWrapper
+    ];
+    # env is passed to cargo build - must disable auto grammar fetch at compile time
+    env = (basePkg.env or { }) // {
       HELIX_NIX_BUILD_REV = current.rev;
       HELIX_DISABLE_AUTO_GRAMMAR_BUILD = "1";
     };
-    postInstall =
-      (builtins.replaceStrings [ "runtime/grammars/sources" ] [ "runtime/grammars" ]
-        prevAttrs.postInstall
-      )
-      + ''
-        mkdir -p $out/lib/runtime
-        ln -s ${grammars} $out/lib/runtime/grammars
-      '';
-    meta = if evil then final.evil-helix.meta else prevAttrs.meta;
+    postInstall = (basePkg.postInstall or "") + ''
+      runtimeDir=$out/lib/runtime
+      mkdir -p $runtimeDir
+
+      # 1. Copy complete runtime files (themes, tutor, queries, etc.)
+      cp -r --no-preserve=mode ${prevAttrs.src}/runtime/* $runtimeDir/
+
+      # 2. Remove source grammar directory and link our pre-built grammars
+      rm -rf $runtimeDir/grammars
+      ln -s ${grammars} $runtimeDir/grammars
+
+      # 3. Wrap binary with runtime path and disable auto grammar build at runtime
+      wrapProgram $out/bin/hx \
+        --set HELIX_RUNTIME "$runtimeDir" \
+        --set HELIX_DISABLE_AUTO_GRAMMAR_BUILD "1"
+    '';
+    meta = if evil then final.evil-helix.meta else (prev.helix.meta or prevAttrs.meta or basePkg.meta);
   };
 
   extraPassthru = {
