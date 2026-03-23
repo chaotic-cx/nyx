@@ -34,10 +34,18 @@ let
   };
 
   vulkan-headers = rec {
-    version = "1.4.345";
+    version = "1.4.346";
     src = final.fetchurl {
       url = "https://github.com/KhronosGroup/Vulkan-Headers/archive/v${version}.tar.gz";
-      hash = "sha256-meGSBd8XLDMinxi1V0ySWLxz6iKex9awTao1eyQw9sg=";
+      hash = "sha256-W7d/XXtGDiVanlGv/ADWQ1SYa1XPV32OqyhSnK0B/IA=";
+    };
+  };
+
+  vulkan-utility-libraries = rec {
+    version = "1.4.346";
+    src = final.fetchurl {
+      url = "https://github.com/KhronosGroup/Vulkan-Utility-Libraries/archive/v${version}.tar.gz";
+      hash = "sha256-Ny61JRA+y046BNAwsql3jrxnhTu9yCzmdH3jdX1DKtk=";
     };
   };
 in
@@ -79,6 +87,12 @@ gitOverride {
         tar -xzf ${vulkan-headers.src} -C vulkan-src --strip-components=1
         cp -R vulkan-src Vulkan-Headers-${vulkan-headers.version}
         rm -rf vulkan-src
+
+        # Extract vulkan-utility-libraries
+        mkdir vulkan-utility-libraries-src
+        tar -xzf ${vulkan-utility-libraries.src} -C vulkan-utility-libraries-src --strip-components=1
+        cp -R vulkan-utility-libraries-src Vulkan-Utility-Libraries-${vulkan-utility-libraries.version}
+        rm -rf vulkan-utility-libraries-src
       )
     '';
 
@@ -110,10 +124,16 @@ gitOverride {
         mv imgui-${imgui.version} imgui
         mv implot-${implot.version} implot
         mv Vulkan-Headers-${vulkan-headers.version} vulkan-headers
+        mv Vulkan-Utility-Libraries-${vulkan-utility-libraries.version} vulkan-utility-libraries
 
         # Use bundled meson.build for vulkan-headers if available
         if [ -d packagefiles/vulkan-headers ]; then
           cp packagefiles/vulkan-headers/meson.build vulkan-headers/
+        fi
+
+        # Use bundled meson.build for vulkan-utility-libraries if available
+        if [ -d packagefiles/vulkan-utility-libraries ]; then
+          cp packagefiles/vulkan-utility-libraries/meson.build vulkan-utility-libraries/
         fi
       )
     '';
