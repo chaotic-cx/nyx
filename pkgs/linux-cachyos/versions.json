@@ -3,14 +3,14 @@
   "suffix": "-cachyos",
   "_linux": "pkgver from config's PKGBUILD",
   "linux": {
-    "version": "6.19.9",
-    "hash": "sha256-mY8VUppidlazcb61xo12Rt7yAAgIzmkarnBCBntcOew=",
+    "version": "6.19.10",
+    "hash": "sha256-6JC1cfFr0OsY+MMV8mQE0w/uljkZpYFXmyJ3S9JylQg=",
     "tagrel": 1
   },
   "_config": "latest commit from https://github.com/CachyOS/linux-cachyos/commits/master/linux-cachyos",
   "config": {
-    "rev": "f7ce1a650782de6d35e9b7635dce828abde329b3",
-    "hash": "sha256-R/nDokGSTiwujg+TfihuL7UQ01527beT8FKXC6bD42U="
+    "rev": "de746a9cd1caa808e95805641a9117029e173b34",
+    "hash": "sha256-gYjAjM227djBliD0ovfNZ6fBGhT2lpUOyMTjnaFNZLc="
   },
   "_patches": "latest commit from https://github.com/CachyOS/kernel-patches/commits/master/x.y",
   "patches": {
