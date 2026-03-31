@@ -74,62 +74,91 @@ writeShellScript "update-cachyos" ''
   localVer=$(jq -r .linux.version < "$srcJson")
   localTagrel=$(jq -r '.linux.tagrel // -1' < "$srcJson")
 
-  fetch_srcinfo() {
+  fetch_pkgbuild() {
     curl -fsSL \
-      "https://raw.githubusercontent.com/CachyOS/linux-cachyos/master/linux-cachyos${suffix}/.SRCINFO"
+      "https://raw.githubusercontent.com/CachyOS/linux-cachyos/master/linux-cachyos${suffix}/PKGBUILD"
   }
 
   parse_version() {
     awk -F= '
-      /^[[:space:]]*pkgver[[:space:]]*=/ {
+      /^[[:space:]]*_major[[:space:]]*=/ {
         gsub(/[[:space:]]/, "", $2)
-        v=$2
+        major=$2
+      }
+      /^[[:space:]]*_minor[[:space:]]*=/ {
+        gsub(/[[:space:]]/, "", $2)
+        minor=$2
+      }
+      /^[[:space:]]*_rcver[[:space:]]*=/ {
+        gsub(/[[:space:]]/, "", $2)
+        rcver=$2
+      }
+      /^[[:space:]]*_ltsver[[:space:]]*=/ {
+        gsub(/[[:space:]]/, "", $2)
+        ltsver=$2
       }
       END {
-        gsub(/\.rc/, "-rc", v)
-        print v
+        if (rcver != "") {
+          print major "-" rcver
+        } else if (ltsver != "") {
+          print major "." ltsver
+        } else {
+          print major "." minor
+        }
       }
     '
   }
 
-  # parse_source_url() {
-  #   awk '
-  #     /^[[:space:]]*source = https:\/\/github.com\/CachyOS\/linux\/releases\/download/ {
-  #       print $3; exit
-  #     }
-  #   '
-  # }
-
-  parse_source_url() {
-    grep -m1 -E 'source = https://github.com/CachyOS/linux/releases/download/' \
-    | sed -E 's/^[[:space:]]*source = //'
+  parse_tagrel() {
+    awk -F= '
+      /^[[:space:]]*_tagrel[[:space:]]*=/ {
+        gsub(/[[:space:]]/, "", $2)
+        print $2
+        exit
+      }
+    '
   }
 
-  parse_tagrel_from_url() {
-    filename="''${1##*/}"
-    filename="''${filename%.tar.gz}"
-    filename="''${filename%.tar.xz}"
-    tagrel="''${filename##*-}"
-
-    [[ "$tagrel" =~ ^[0-9]+$ ]] || {
-      echo "Invalid tagrel: $tagrel"
-      exit 1
-    }
-
-    echo "$tagrel"
+  parse_srctag() {
+    awk -F= '
+      /^[[:space:]]*_major[[:space:]]*=/ {
+        gsub(/[[:space:]]/, "", $2)
+        major=$2
+      }
+      /^[[:space:]]*_minor[[:space:]]*=/ {
+        gsub(/[[:space:]]/, "", $2)
+        minor=$2
+      }
+      /^[[:space:]]*_rcver[[:space:]]*=/ {
+        gsub(/[[:space:]]/, "", $2)
+        rcver=$2
+      }
+      /^[[:space:]]*_ltsver[[:space:]]*=/ {
+        gsub(/[[:space:]]/, "", $2)
+        ltsver=$2
+      }
+      /^[[:space:]]*_tagrel[[:space:]]*=/ {
+        gsub(/[[:space:]]/, "", $2)
+        tagrel=$2
+      }
+      END {
+        if (rcver != "") {
+          print "cachyos-" major "-" rcver "-" tagrel
+        } else if (ltsver != "") {
+          print "cachyos-" major "." ltsver "-" tagrel
+        } else {
+          print "cachyos-" major "." minor "-" tagrel
+        }
+      }
+    '
   }
 
-  srcinfo=$(fetch_srcinfo)
+  pkgbuild=$(fetch_pkgbuild)
 
-  latestVer=$(printf "%s\n" "$srcinfo" | parse_version)
-  srcUrl=$(printf "%s\n" "$srcinfo" | parse_source_url)
-
-  [[ -n "$srcUrl" ]] || {
-    echo "Failed to parse source URL"
-    exit 1
-  }
-
-  latestTagrel=$(parse_tagrel_from_url "$srcUrl")
+  latestVer=$(printf "%s\n" "$pkgbuild" | parse_version)
+  latestTagrel=$(printf "%s\n" "$pkgbuild" | parse_tagrel)
+  srcTag=$(printf "%s\n" "$pkgbuild" | parse_srctag)
+  srcUrl="https://github.com/CachyOS/linux/releases/download/''${srcTag}/''${srcTag}.tar.gz"
 
   if [[ "$localVer" == "$latestVer" && "$localTagrel" == "$latestTagrel" ]]; then
     exit 0
