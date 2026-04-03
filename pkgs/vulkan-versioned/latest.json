@@ -25,14 +25,14 @@
     "hash": "sha256-SwMa4fxPMW6hMhWe899KgrupTTGqwQ7/v0dhDOj4+Io="
   },
   "Vulkan-Headers": {
-    "version": "1.4.347",
+    "version": "1.4.348",
     "rev": "v#{version}",
-    "hash": "sha256-cd9Dnm/Tal+9lFZE9oGElm80fD1XM1SMWvFYBvx9mQY="
+    "hash": "sha256-/yolWlC7ruRiJ0gSdCoSlqL9+j2uJAh+o+H0OG37pq4="
   },
   "Vulkan-Loader": {
-    "version": "1.4.347",
+    "version": "1.4.348",
     "rev": "v#{version}",
-    "hash": "sha256-Kp0RRzwxqrhlM34Q6YZCUxZt5uGqSQTDdWj5uSmjvVw="
+    "hash": "sha256-8ParcURRRU3eS9Oej/vHTwOwvYy3HsVJsKh2wQLKUgM="
   },
   "Vulkan-Tools": {
     "version": "1.4.347",
@@ -51,9 +51,9 @@
     "hash": "sha256-Qj2sZ9O3WNDb7thv5PzWmONIKBO6hXwz0wQ0PobFgvg="
   },
   "Vulkan-Utility-Libraries": {
-    "version": "1.4.347",
+    "version": "1.4.348",
     "rev": "v#{version}",
-    "hash": "sha256-S4qJ7gyzaIKFc55+i4HUb9E7xIeRpIuKQ3J6+HnuJto="
+    "hash": "sha256-B3GXmwJEvnGcER5DJt0FGrwqNi3t8iV6VgX8uOrExlU="
   },
   "Vulkan-ValidationLayers": {
     "version": "1.4.347",
