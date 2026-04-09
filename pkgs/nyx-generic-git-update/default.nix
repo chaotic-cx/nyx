@@ -5,6 +5,8 @@
   findutils,
   curl,
   gawk,
+  gnugrep,
+  gnused,
   jq,
   git,
   nix,
@@ -18,6 +20,8 @@ let
     coreutils
     curl
     findutils
+    gnugrep
+    gnused
     jq
     moreutils
     git
@@ -119,7 +123,7 @@ in
     "$_VERSION_JSON" | sponge "$_VERSION_JSON"
 
   if [ $HAS_CARGO -eq 1 ]; then
-    _LATEST_CARGO_HASH=$((nix build .#''${_NYX_KEY}.cargoDeps 2>&1 || true) | awk '/got/{print $2}')
+    _LATEST_CARGO_HASH=$(nix build .#''${_NYX_KEY}.cargoDeps 2>&1 | grep "got:" | awk '{print $2}' || true)
     jq --arg cargo "$_LATEST_CARGO_HASH" \
       '.cargoHash = $cargo' \
       "$_VERSION_JSON" | sponge "$_VERSION_JSON"
@@ -129,7 +133,13 @@ in
 
   [ -n "''${WITH_EXTRA:-}" ] && source "$WITH_EXTRA"
 
-  git commit -m "''${_NYX_KEY}: ''${_LOCAL_VER:9} -> ''${_LATEST_VERSION:9}"
+  # Conditionally disable GPG signing via env var
+  _GIT_COMMIT_OPTS=()
+  if [[ "''${NYX_NO_GPG_SIGN:-}" == "1" ]]; then
+    _GIT_COMMIT_OPTS+=(--no-gpg-sign)
+  fi
+
+  git commit "''${_GIT_COMMIT_OPTS[@]}" -m "''${_NYX_KEY}: ''${_LOCAL_VER:9} -> ''${_LATEST_VERSION:9}"
 '').overrideAttrs
   (_prevAttrs: {
     meta = _prevAttrs.meta // {
