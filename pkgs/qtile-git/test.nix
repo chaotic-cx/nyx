@@ -54,10 +54,8 @@ import "${nixpkgs}/nixos/tests/make-test-python.nix" (
             };
           };
         };
-        chaotic.qtile.enable = true;
       };
 
-    # TODO: TODO
     testScript = ''
       start_all()
     '';
