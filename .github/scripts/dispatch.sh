@@ -159,7 +159,11 @@ for pkg in "${VALID_PKGS[@]}"; do
         "pr-number": $pr,
         packages: $pkg,
         "post-result": "true",
-        "upload-cachix": "true"
+        "upload-cachix": "false",
+        "x86_64-linux": "true",
+        "aarch64-linux": "false",
+        "x86_64-darwin": "no",
+        "aarch64-darwin": "no"
       }
     }')
 

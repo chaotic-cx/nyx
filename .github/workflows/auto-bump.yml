@@ -48,6 +48,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           NYX_BUMPN: ${{ inputs.bumpNumber }}
           NYX_BUMP_REVERT: 0
+          NYX_NO_GPG_SIGN: "1"
 
       - name: Add labels to the created PR
         if: success()
