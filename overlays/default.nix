@@ -368,13 +368,6 @@ in
     };
   });
 
-  # temporary fix:
-  scx_git = final.lib.warn "scx_git no longer is maintained and is an alias of scx from Nixpkgs." (
-    final.lib.dontRecurseIntoAttrs final.scx
-  );
-
-  scx-full_git = drvDropUpdateScript final.scx_git.full;
-
   sway-unwrapped_git = callOverride ../pkgs/sway-unwrapped-git { };
   sway_git = prev.sway.override {
     sway-unwrapped = final.sway-unwrapped_git;
