@@ -5,9 +5,6 @@
 # - Composed names are separated with minus: `lan-mouse`
 # - Versions/patches are suffixed with an underline: `mesa_git`, `libei_0_5`, `linux_hdr`
 
-# NOTE:
-# - `*_next` packages will be removed once merged into nixpkgs-unstable.
-
 {
   flakes,
   nixpkgs ? flakes.nixpkgs,
