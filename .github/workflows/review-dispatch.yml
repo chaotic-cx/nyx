@@ -9,8 +9,6 @@ permissions:
 jobs:
   detect-and-dispatch:
     runs-on: ubuntu-latest
-    # Only run on Bump PRs
-    if: ${{ startsWith(github.head_ref, 'bump/') }}
     steps:
       - name: Install Nix
         uses: cachix/install-nix-action@v31
