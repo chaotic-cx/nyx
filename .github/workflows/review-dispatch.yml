@@ -55,5 +55,6 @@ jobs:
             --head "$RUNNER_TEMP/new.json" \
             --repo "${{ github.repository }}" \
             --pr "${{ github.event.pull_request.number }}"
+        working-directory: pr
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
