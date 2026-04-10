@@ -22,5 +22,12 @@ gitOverride {
     owner = "shadps4-emu";
     repo = "shadPS4";
     fetchSubmodules = true;
+    leaveDotGit = true;
+    postFetch = ''
+      cd "$out"
+      git rev-parse --short=8 HEAD > COMMIT
+      date -u -d "@$(git log -1 --pretty=%ct)" "+%Y-%m-%dT%H:%M:%SZ" > SOURCE_DATE_EPOCH
+      find "$out" -name .git -print0 | xargs -0 rm -rf
+    '';
   };
 }
