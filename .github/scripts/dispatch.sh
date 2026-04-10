@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Compares two JSON fingerprints and dispatches a build job for EACH changed package.
+# Compares two JSON fingerprints and dispatches a SINGLE build job with ALL changed packages.
 #
 # Usage: ./dispatch.sh --base <old.json> --head <new.json> [options]
 #
@@ -133,9 +133,9 @@ printf "→ %s\n" "${VALID_PKGS[@]}"
 echo ""
 
 # -----------------------------
-# 3. Dispatch Loop (One Run Per Package)
+# 3. Single Dispatch (All Packages as Matrix)
 # -----------------------------
-DISPATCH_URL="https://api.github.com/repos/${WORKFLOW_REPO}/actions/workflows/${WORKFLOW_FILE}/dispatches"
+echo "→ Dispatching: ${VALID_PKGS[*]}"
 
 # cleanup temp file on exit
 cleanup() {
@@ -143,61 +143,59 @@ cleanup() {
 }
 trap cleanup EXIT
 
-for pkg in "${VALID_PKGS[@]}"; do
-  echo "→ Dispatching $pkg"
+# Comma-separated for GitHub workflow input
+DISPATCH_URL="https://api.github.com/repos/${WORKFLOW_REPO}/actions/workflows/${WORKFLOW_FILE}/dispatches"
+PACKAGES_CSV=$(IFS=','; echo "${VALID_PKGS[*]}")
 
-  # CRITICAL: inputs values MUST be strings
-  payload=$(jq -n \
-    --arg repo "$REPO" \
-    --arg pr "$PR" \
-    --arg pkg "$pkg" \
-    --arg ref "$REF" \
-    '{
-      ref: $ref,
-      inputs: {
-        repo: $repo,
-        "pr-number": $pr,
-        packages: $pkg,
-        "post-result": "true",
-        "upload-cachix": "false",
-        "x86_64-linux": "true",
-        "aarch64-linux": "false",
-        "x86_64-darwin": "no",
-        "aarch64-darwin": "no"
-      }
-    }')
+# CRITICAL: inputs values MUST be strings
+payload=$(jq -n \
+  --arg repo "$REPO" \
+  --arg pr "$PR" \
+  --arg pkgs "$PACKAGES_CSV" \
+  --arg ref "$REF" \
+  '{
+    ref: $ref,
+    inputs: {
+      repo: $repo,
+      "pr-number": $pr,
+      packages: $pkgs,
+      "post-result": "true",
+      "upload-cachix": "false",
+      "x86_64-linux": "true",
+      "aarch64-linux": "false",
+      "x86_64-darwin": "no",
+      "aarch64-darwin": "no"
+    }
+  }')
 
-  if [[ "$DRY_RUN" -eq 1 ]]; then
-    echo "$payload" | jq .
-    continue
+if [[ "$DRY_RUN" -eq 1 ]]; then
+  echo "$payload" | jq .
+  exit 0
+fi
+
+RESPONSE=$(mktemp)
+
+# simple retry (handles transient GitHub API / network issues)
+for attempt in 1 2 3; do
+  status=$(curl -s -o "$RESPONSE" -w "%{http_code}" -X POST \
+    -H "Accept: application/vnd.github+json" \
+    -H "Authorization: Bearer $AUTH_TOKEN" \
+    -H "Content-Type: application/json" \
+    "$DISPATCH_URL" \
+    -d "$payload")
+
+  if [[ "$status" -eq 204 ]]; then
+    echo "✅ Dispatched ${#VALID_PKGS[@]} package(s) successfully"
+    exit 0
   fi
 
-  RESPONSE=$(mktemp)
+  echo "❌ Failed (HTTP $status) [attempt $attempt]" >&2
+  cat "$RESPONSE" >&2
 
-  # simple retry (handles transient GitHub API / network issues)
-  for attempt in 1 2 3; do
-    status=$(curl -s -o "$RESPONSE" -w "%{http_code}" -X POST \
-      -H "Accept: application/vnd.github+json" \
-      -H "Authorization: Bearer $AUTH_TOKEN" \
-      -H "Content-Type: application/json" \
-      "$DISPATCH_URL" \
-      -d "$payload")
-
-    if [[ "$status" -eq 204 ]]; then
-      echo "  ✅ OK"
-      break
-    fi
-
-    echo "  ❌ Failed (HTTP $status) [attempt $attempt]" >&2
-    cat "$RESPONSE" >&2
-
-    if [[ "$attempt" -lt 3 ]]; then
-      sleep $((attempt * 2))
-    fi
-  done
-
-  sleep 0.5
+  if [[ "$attempt" -lt 3 ]]; then
+    sleep $((attempt * 2))
+  fi
 done
 
-echo ""
-echo "✅ All dispatches completed."
+echo "❌ All retries exhausted" >&2
+exit 1
