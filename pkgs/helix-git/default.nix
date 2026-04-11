@@ -98,13 +98,19 @@ gitOverride (current: {
     ${final.patch}/bin/patch -p1 -i "$_NYX_DIR/$_PKG_DIR/grammars.patch"
     NIX_PATH="nixpkgs=${flakes.nixpkgs}:$NIX_PATH" \
       ${final.nix}/bin/nix eval --impure --write-to ./languages.json --expr 'with import <nixpkgs> { }; callPackage ./grammars.nix { }'
-    ${final.jq}/bin/jq . < ./languages.json > "$_NYX_DIR/$_PKG_DIR/${languagesFile}"
+    ${final.jq}/bin/jq 'map(
+      . + {version: ("0-unstable-" + .lastModifiedDate[0:4] + "-" + .lastModifiedDate[4:6] + "-" + .lastModifiedDate[6:8])}
+    )' < ./languages.json > "$_NYX_DIR/$_PKG_DIR/${languagesFile}"
     popd
 
     git add "$_PKG_DIR/${languagesFile}"
   '';
 
   postOverride = prevAttrs: {
+    # Clear inherited patches: the mdbook-0.5-support.patch from nixpkgs was
+    # which now uses backticks (`<n>`) instead of raw angle brackets.
+    patches = [ ];
+
     dontVersionCheck = true;
     nativeBuildInputs = (prevAttrs.nativeBuildInputs or basePkg.nativeBuildInputs or [ ]) ++ [
       final.makeBinaryWrapper
