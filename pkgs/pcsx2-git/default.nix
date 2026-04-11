@@ -25,8 +25,9 @@ gitOverride {
     {
       postPatch = ''
         substituteInPlace cmake/Pcsx2Utils.cmake \
-          --replace-regex 'set\\(PCSX2_GIT_TAG "[^"]*"\\)' \
-                          'set(PCSX2_GIT_TAG "${gitTag}")'
+          --replace-fail 'set(PCSX2_GIT_TAG "")' 'set(PCSX2_GIT_TAG "${gitTag}")'
       '';
+
+      buildInputs = old.buildInputs or [ ] ++ [ prev.rapidyaml ];
     };
 }
