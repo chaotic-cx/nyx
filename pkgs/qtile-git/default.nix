@@ -24,6 +24,10 @@ gitOverride {
     name = prevAttrs.name + ".99";
     patches = [ ];
     postPatch = "";
+    disabledTests = (prevAttrs.disabledTests or [ ]) ++ [
+      # fork in multi-threaded parent causes child deadlock
+      "test_stepping_between_groups_should_skip_scratchpads"
+    ];
     passthru = prevAttrs.passthru // {
       tests.smoke-test = import ./test.nix {
         inherit (flakes) nixpkgs;
