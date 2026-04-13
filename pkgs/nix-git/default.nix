@@ -14,6 +14,18 @@ let
   };
 
   addFixes = _finalScope: prevScope: {
+    # nix-util's meson.build requires libzstd but nixpkgs doesn't include it
+    nix-util = prevScope.nix-util.overrideAttrs (prevAttrs: {
+      nativeBuildInputs = prevAttrs.nativeBuildInputs ++ [ final.pkg-config ];
+      buildInputs = prevAttrs.buildInputs ++ [ final.zstd ];
+    });
+
+    # nix-util-tests also requires libzstd
+    nix-util-tests = prevScope.nix-util-tests.overrideAttrs (prevAttrs: {
+      nativeBuildInputs = prevAttrs.nativeBuildInputs ++ [ final.pkg-config ];
+      buildInputs = prevAttrs.buildInputs ++ [ final.zstd ];
+    });
+
     nix-store-tests = prevScope.nix-store-tests.overrideAttrs (prevAttrs: {
       # I guess the "optionalString" in the derivation is missing a NOT in the predicate
       passthru = prevAttrs.passthru // {
