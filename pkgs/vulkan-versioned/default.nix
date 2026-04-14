@@ -85,6 +85,13 @@ final.lib.makeScope final.newScope (self: {
 
     # updated by validation-layer
     withUpdateScript = false;
+
+    # Removed the obsolete external-gtest.patch which is now upstream.
+    extraAttrs = prevAttrs: {
+      patches = builtins.filter (p: !final.lib.hasSuffix "external-gtest.patch" (toString p)) (
+        prevAttrs.patches or [ ]
+      );
+    };
   };
 
   spirv-cross = genericOverride {
@@ -196,13 +203,20 @@ final.lib.makeScope final.newScope (self: {
     ];
 
     extraAttrs = prevAttrs: {
-      nativeBuildInputs = prevAttrs.nativeBuildInputs or [ ] ++ [ final.python3 ];
+      nativeBuildInputs = prevAttrs.nativeBuildInputs or [ ] ++ [
+        final.python3
+      ];
 
       buildInputs =
         (prevAttrs.buildInputs or [ ])
         ++ final.lib.optionals final.stdenv.hostPlatform.isLinux [
           final.libxext
         ];
+
+      cmakeFlags = (prevAttrs.cmakeFlags or [ ]) ++ [
+        # Disable the internal update_deps.py script.
+        "-DUPDATE_DEPS=OFF"
+      ];
     };
   };
 })
