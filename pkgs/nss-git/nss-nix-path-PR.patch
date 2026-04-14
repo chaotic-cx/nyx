@@ -1,0 +1,76 @@
+diff --git a/cmd/shlibsign/shlibsign.c b/cmd/shlibsign/shlibsign.c
+index b47d59d..cbda64a 100644
+--- a/cmd/shlibsign/shlibsign.c
++++ b/cmd/shlibsign/shlibsign.c
+@@ -1722,6 +1722,8 @@ main(int argc, char **argv)
+         goto cleanup;
+     }
+     lib = PR_LoadLibrary(libname);
++    if (!lib)
++        lib = PR_LoadLibrary(NIX_NSS_LIBDIR "libsoftokn3.so");
+     assert(lib != NULL);
+     if (!lib) {
+         PR_fprintf(PR_STDERR, "loading softokn3 failed");
+diff --git a/lib/pk11wrap/pk11load.c b/lib/pk11wrap/pk11load.c
+index 51ca21f..31ed6d8 100644
+--- a/lib/pk11wrap/pk11load.c
++++ b/lib/pk11wrap/pk11load.c
+@@ -473,6 +473,15 @@ secmod_DetermineModuleFunctionList(SECMODModule *mod)
+ #else
+         library = PR_LoadLibrary(mod->dllName);
+ #endif // defined(_WIN32)
++#ifndef NSS_STATIC_SOFTOKEN
++        if ((library == NULL) &&
++            !rindex(mod->dllName, PR_GetDirectorySeparator())) {
++            library = PORT_LoadLibraryFromOrigin(my_shlib_name,
++                (PRFuncPtr) &softoken_LoadDSO,
++                mod->dllName);
++        }
++#endif
++
+         mod->library = (void *)library;
+ 
+         if (library == NULL) {
+diff --git a/lib/util/secload.c b/lib/util/secload.c
+index 1cebae4..9194bb7 100644
+--- a/lib/util/secload.c
++++ b/lib/util/secload.c
+@@ -70,9 +70,14 @@ loader_LoadLibInReferenceDir(const char* referencePath, const char* name)
+ 
+     /* Remove the trailing filename from referencePath and add the new one */
+     c = strrchr(referencePath, PR_GetDirectorySeparator());
++    if (!c) { /* referencePath doesn't contain a / means that dladdr gave us argv[0]
++               * and program was called from $PATH. Hack to get libs from NIX_NSS_LIBDIR */
++        referencePath = NIX_NSS_LIBDIR;
++        c = (char*) &referencePath[sizeof(NIX_NSS_LIBDIR) - 1]; /* last / */
++    }
+     if (c) {
+         size_t referencePathSize = 1 + c - referencePath;
+-        fullName = (char*)PORT_Alloc(strlen(name) + referencePathSize + 1);
++        fullName = (char*) PORT_Alloc(strlen(name) + referencePathSize + 5);
+         if (fullName) {
+             memcpy(fullName, referencePath, referencePathSize);
+             strcpy(fullName + referencePathSize, name);
+@@ -82,6 +87,11 @@ loader_LoadLibInReferenceDir(const char* referencePath, const char* name)
+ #endif
+             libSpec.type = PR_LibSpec_Pathname;
+             libSpec.value.pathname = fullName;
++            if ((referencePathSize >= 4) &&
++                (strncmp(fullName + referencePathSize - 4, "bin", 3) == 0)) {
++                memcpy(fullName + referencePathSize -4, "lib", 3);
++            }
++            strcpy(fullName + referencePathSize, name);
+             dlh = PR_LoadLibraryWithFlags(libSpec, PR_LD_NOW | PR_LD_LOCAL
+ #ifdef PR_LD_ALT_SEARCH_PATH
+                                                        /* allow library's dependencies to be found in the same directory
+@@ -89,6 +99,10 @@ loader_LoadLibInReferenceDir(const char* referencePath, const char* name)
+                                                        | PR_LD_ALT_SEARCH_PATH
+ #endif
+             );
++            if (!dlh) {
++                strcpy(fullName + referencePathSize, name);
++                dlh = PR_LoadLibraryWithFlags(libSpec, PR_LD_NOW | PR_LD_LOCAL);
++            }
+             PORT_Free(fullName);
+         }
+     }
