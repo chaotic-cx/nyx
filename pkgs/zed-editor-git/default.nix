@@ -26,6 +26,15 @@ gitOverride (current: {
       RELEASE_VERSION = "";
       ZED_COMMIT_SHA = current.rev;
     };
+
+    nativeCheckInputs = (prevAttrs.nativeCheckInputs or [ ]) ++ [
+      prev.writableTmpDirAsHomeHook
+    ];
+
+    checkFlags = (prevAttrs.checkFlags or [ ]) ++ [
+      "--test-threads=1"
+    ];
+
     installPhase =
       builtins.replaceStrings [ "zed-remote-server-stable-$version" ] [ "zed-remote-server-dev-build" ]
         (
