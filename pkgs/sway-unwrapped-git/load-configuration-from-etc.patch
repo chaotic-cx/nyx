@@ -1,0 +1,26 @@
+diff --git a/meson.build b/meson.build
+index 17d65c3..8f1e52f 100644
+--- a/meson.build
++++ b/meson.build
+@@ -155,6 +155,7 @@ if scdoc.found()
+ endif
+ 
+ add_project_arguments('-DSYSCONFDIR="/@0@"'.format(join_paths(prefix, sysconfdir)), language : 'c')
++add_project_arguments('-DNIX_SYSCONFDIR="/@0@"'.format(sysconfdir), language : 'c')
+ 
+ version = '"@0@"'.format(meson.project_version())
+ git = find_program('git', native: true, required: false)
+diff --git a/sway/config.c b/sway/config.c
+index d579022..d66dbfe 100644
+--- a/sway/config.c
++++ b/sway/config.c
+@@ -392,7 +392,8 @@ static char *get_config_path(void) {
+ 		{ .prefix = home, .config_folder = ".i3"},
+ 		{ .prefix = config_home, .config_folder = "i3"},
+ 		{ .prefix = SYSCONFDIR, .config_folder = "sway"},
+-		{ .prefix = SYSCONFDIR, .config_folder = "i3"}
++		{ .prefix = SYSCONFDIR, .config_folder = "i3"},
++		{ .prefix = NIX_SYSCONFDIR, .config_folder = "sway"},
+ 	};
+ 
+ 	size_t num_config_paths = sizeof(config_paths)/sizeof(config_paths[0]);
