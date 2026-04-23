@@ -24,4 +24,13 @@ gitOverride {
     repo = "sway";
   };
   ref = "master";
+
+  postOverride = prevAttrs: {
+    patches =
+      (builtins.filter (p: !prev.lib.hasSuffix "load-configuration-from-etc.patch" (toString p)) (
+        prevAttrs.patches or [ ]
+      ))
+      # Adapted patch for NIX_SYSCONFDIR fallback
+      ++ [ ./load-configuration-from-etc.patch ];
+  };
 }
