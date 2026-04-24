@@ -9,16 +9,9 @@ let
   # Dynamically generate deps from source build.zig.zon.nix
   generateDeps =
     src:
-    import "${src}/build.zig.zon.nix" {
-      inherit (final)
-        lib
-        linkFarm
-        fetchurl
-        fetchgit
-        runCommandLocal
-        ;
-      zig_0_15 = final.zig_0_15;
+    final.callPackage (src + "/build.zig.zon.nix") {
       name = "ghostty-git-zig-deps";
+      zig_0_15 = final.zig_0_15;
     };
 in
 gitOverride {
