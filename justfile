@@ -10,3 +10,12 @@
       --skip-cached \
       --eval-workers 2 \
       --eval-max-memory-size 15360
+
+@build target:
+    NIXPKGS_ALLOW_UNFREE=1 nix build \
+                     --impure \
+                     --keep-going \
+                     -L \
+                     --no-link \
+                     --accept-flake-config \
+                     .#{{ target }}
