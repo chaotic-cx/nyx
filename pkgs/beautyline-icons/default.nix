@@ -1,29 +1,36 @@
 {
+  lib,
+  stdenvNoCC,
+
+  fetchgit,
   callPackage,
-  fetchFromGitLab,
+
   gnome-icon-theme,
   gtk3,
   hicolor-icon-theme,
   jdupes,
-  lib,
-  stdenvNoCC,
-  ...
 }:
 
 let
   current = lib.trivial.importJSON ./version.json;
+
   srcMeta = {
-    inherit (current) rev hash;
     group = "garuda-linux";
     owner = "themes-and-settings/artwork";
     repo = "beautyline";
   };
+
+  gitUrl = "https://gitlab.com/${srcMeta.group}/${srcMeta.owner}/${srcMeta.repo}.git";
 in
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "BeautyLine";
   inherit (current) version;
 
-  src = fetchFromGitLab srcMeta;
+  src = fetchgit {
+    url = gitUrl;
+    rev = current.rev;
+    sha256 = current.hash;
+  };
 
   nativeBuildInputs = [
     jdupes
@@ -42,27 +49,27 @@ stdenvNoCC.mkDerivation rec {
 
   installPhase = ''
     runHook preInstall
-    mkdir -p $out/share/icons/${pname}
-    cp -r * $out/share/icons/${pname}/
-    rm $out/share/icons/${pname}/README.md
-    gtk-update-icon-cache $out/share/icons/${pname}
+    mkdir -p $out/share/icons/${finalAttrs.pname}
+    cp -r * $out/share/icons/${finalAttrs.pname}/
+    rm $out/share/icons/${finalAttrs.pname}/README.md
+    gtk-update-icon-cache $out/share/icons/${finalAttrs.pname}
     jdupes --link-soft --recurse $out/share
     runHook postInstall
   '';
 
   passthru.updateScript = callPackage ../../shared/git-update.nix {
-    inherit pname;
+    pname = finalAttrs.pname;
     nyxKey = "beautyline-icons";
     versionPath = "pkgs/beautyline-icons/version.json";
     fetchLatestRev = callPackage ../../shared/gitlab-rev-fetcher.nix { } "master" srcMeta;
-    gitUrl = src.gitRepoUrl;
+    inherit gitUrl;
   };
 
-  meta = with lib; {
+  meta = {
     description = "BeautyLine icon theme mixed with Sweet icons";
     homepage = "https://gitlab.com/garuda-linux/themes-and-settings/artwork/beautyline";
-    license = licenses.gpl3;
-    maintainers = [ maintainers.dr460nf1r3 ];
-    platforms = platforms.linux;
+    license = lib.licenses.gpl3;
+    maintainers = [ lib.maintainers.dr460nf1r3 ];
+    platforms = lib.platforms.linux;
   };
-}
+})

@@ -1,10 +1,11 @@
 {
   lib,
-  callPackage,
   fetchFromGitHub,
+  callPackage,
+
+  maven,
   jre,
   makeWrapper,
-  maven,
 }:
 
 let
@@ -20,7 +21,7 @@ maven.buildMavenPackage rec {
     repo = "bytecode-viewer";
   };
 
-  mvnHash = "sha256-BhkOfz7Np277qZlviupRRmEV4vOWf/IMZQA7QxPEgvE=";
+  mvnHash = "sha256-lp5kOspQWstT+b2Xg0RsTCIJ6wjbw5b+Yn/wZWIfDhc=";
 
   nativeBuildInputs = [ makeWrapper ];
 
@@ -40,10 +41,10 @@ maven.buildMavenPackage rec {
     gitUrl = src.gitRepoUrl;
   };
 
-  meta = with lib; {
+  meta = {
     description = "An advanced yet user friendly Java reverse engineering suite";
     homepage = "https://bytecodeviewer.com/";
-    license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ pedrohlc ];
+    license = lib.licenses.gpl3Plus;
+    maintainers = with lib.maintainers; [ pedrohlc ];
   };
 }
