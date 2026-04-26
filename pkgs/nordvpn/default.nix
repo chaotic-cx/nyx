@@ -16,10 +16,13 @@
   libcap_ng,
   sqlite,
   wireguard-tools,
+  writeShellScript,
 }:
 
 let
-  version = "4.6.0";
+  current = lib.trivial.importJSON ./version.json;
+
+  version = current.version;
 
   nordVPNBase = stdenv.mkDerivation {
     pname = "nordvpn-core";
@@ -27,7 +30,7 @@ let
 
     src = fetchurl {
       url = "https://repo.nordvpn.com/deb/nordvpn/debian/pool/main/n/nordvpn/nordvpn_${version}_amd64.deb";
-      hash = "sha256-t+kvgKzjLJY0PK9eg6Edv9+opVrqWUl9WMRIuHDJQuM=";
+      hash = current.hash;
     };
 
     buildInputs = [
@@ -96,6 +99,32 @@ stdenv.mkDerivation {
     ln -s ${nordVPNBase}/share/* $out/share/
     ln -s ${nordVPNBase}/var $out/
     runHook postInstall
+  '';
+
+  passthru.updateScript = writeShellScript "update-nordvpn" ''
+      set -euo pipefail
+
+      INDEX="https://repo.nordvpn.com/deb/nordvpn/debian/dists/stable/main/binary-amd64/Packages.gz"
+
+      VERSION=$(
+        curl -s "$INDEX" \
+        | gunzip \
+        | awk '/^Package: nordvpn$/{p=1} p&&/^Version:/{print $2; p=0}' \
+        | sort -V \
+        | tail -1
+      )
+
+      URL="https://repo.nordvpn.com/deb/nordvpn/debian/pool/main/n/nordvpn/nordvpn_''${VERSION}_amd64.deb"
+
+      RAW=$(nix-prefetch-url "$URL")
+      HASH=$(nix hash convert --to sri sha256:$RAW)
+
+      cat > pkgs/nordvpn/version.json <<EOF
+    {
+      "version": "$VERSION",
+      "hash": "$HASH"
+    }
+    EOF
   '';
 
   meta = with lib; {
