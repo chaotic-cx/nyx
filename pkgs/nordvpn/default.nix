@@ -19,7 +19,7 @@
 }:
 
 let
-  version = "4.2.1";
+  version = "4.6.0";
 
   nordVPNBase = stdenv.mkDerivation {
     pname = "nordvpn-core";
@@ -27,7 +27,7 @@ let
 
     src = fetchurl {
       url = "https://repo.nordvpn.com/deb/nordvpn/debian/pool/main/n/nordvpn/nordvpn_${version}_amd64.deb";
-      hash = "sha256-DMyNPc08txvkAB3QKK4ViHomsr3Z3l6JerUQ0zuRlro=";
+      hash = "sha256-t+kvgKzjLJY0PK9eg6Edv9+opVrqWUl9WMRIuHDJQuM=";
     };
 
     buildInputs = [
