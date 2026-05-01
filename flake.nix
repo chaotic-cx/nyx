@@ -3,7 +3,7 @@
 
   inputs = {
     # For all users
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     # Used by "homeManagerModules" (for HM users)
     home-manager = {
       url = "github:nix-community/home-manager";
