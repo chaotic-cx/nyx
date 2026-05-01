@@ -15,6 +15,13 @@ let
 
   updater = final.callPackage ./update.nix { inherit variant; };
 
+  # Select the appropriate CachyOS Linux packages based on the variant
+  cachyosLinuxPackages =
+    if variant == "stable" then
+      final.linuxPackages_cachyos
+    else
+      final."linuxPackages_cachyos-${variant}";
+
   # Mirrors the logic in pkgs/linux-cachyos/lib/llvm-module-overlay.nix
   fixNoVideo =
     prevDrv:
@@ -26,7 +33,7 @@ let
     });
 in
 fixNoVideo (
-  prev.linuxPackages.nvidiaPackages.mkDriver {
+  cachyosLinuxPackages.nvidiaPackages.mkDriver {
     inherit (versions) version;
     sha256_64bit = versions.hash;
     sha256_aarch64 = versions.aarch64Hash;
