@@ -7,6 +7,8 @@ builds:
     # - "packages.x86_64-linux.linux_cachyos-lts"
     # - "packages.x86_64-linux.linux_cachyos-rc"
     # - "packages.x86_64-linux.linux_cachyos-server"
+    # Nvidia Packages
+    - "packages.x86_64-linux.nvidia_cachyos*"
     # Packages
     - "packages.x86_64-linux.evil-helix_git"
     - "packages.x86_64-linux.xdg-desktop-portal-wlr_git"

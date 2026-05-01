@@ -246,6 +246,14 @@ in
   mesa32_git =
     if has32 then callOverride32 ../pkgs/mesa-git { } else throw "No mesa32_git for non-x86";
 
+  nvidia_cachyos = callOverride ../pkgs/nvidia-cachyos { };
+  nvidia_cachyos-gcc = final.nvidia_cachyos;
+  nvidia_cachyos-lto = final.nvidia_cachyos;
+  nvidia_cachyos-rc = callOverride ../pkgs/nvidia-cachyos { variant = "rc"; };
+  nvidia_cachyos-server = callOverride ../pkgs/nvidia-cachyos { variant = "server"; };
+  nvidia_cachyos-hardened = callOverride ../pkgs/nvidia-cachyos { variant = "hardened"; };
+  nvidia_cachyos-lts = callOverride ../pkgs/nvidia-cachyos { variant = "lts"; };
+
   mpv-vapoursynth =
     (final.mpv-unwrapped.wrapper {
       mpv = final.mpv-unwrapped.override {

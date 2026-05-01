@@ -53,6 +53,7 @@ with prevModules;
       stable = fixNoVideo stable;
       beta = fixNoVideo beta;
       vulkan_beta = fixNoVideo vulkan_beta;
+      cachyos = final.nvidia_cachyos;
       latest = fixNoVideo latest;
       legacy_535 = fixNoVideo legacy_535;
       legacy_470 = markBroken legacy_470;

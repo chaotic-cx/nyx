@@ -121,6 +121,16 @@ let
           };
           postPatch = builtins.replaceStrings [ "grep --quiet '^Linux-M" ] [ "# " ] prevAttrs.postPatch;
         });
+    nvidiaPackages = prevAttrs.nvidiaPackages.extend (
+      _finalNV: _prevNV: {
+        cachyos =
+          let
+            suffix = lib.strings.removePrefix "linux-cachyos" taste;
+            attrName = "nvidia_cachyos${suffix}";
+          in
+          inputs.final.${attrName};
+      }
+    );
     inherit cachyOverride;
   };
 
