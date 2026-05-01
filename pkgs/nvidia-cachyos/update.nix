@@ -45,10 +45,14 @@ writeShellScript "update-nvidia-cachyos-${variant}" ''
     nix-prefetch-url --type sha256 "$1" | xargs nix-hash --to-sri --type sha256
   }
 
+  fetch_hash_unpack() {
+    nix-prefetch-url --unpack --type sha256 "$1" | xargs nix-hash --to-sri --type sha256
+  }
+
   mainHash=$(fetch_hash "https://download.nvidia.com/XFree86/Linux-x86_64/$latestVer/NVIDIA-Linux-x86_64-$latestVer.run")
   aarch64Hash=$(fetch_hash "https://download.nvidia.com/XFree86/Linux-aarch64/$latestVer/NVIDIA-Linux-aarch64-$latestVer.run")
   openHash=$(fetch_hash "https://github.com/NVIDIA/open-gpu-kernel-modules/archive/$latestVer.tar.gz")
-  settingsHash=$(fetch_hash "https://download.nvidia.com/XFree86/nvidia-settings/nvidia-settings-$latestVer.tar.bz2")
+  settingsHash=$(fetch_hash_unpack "https://github.com/NVIDIA/nvidia-settings/archive/$latestVer.tar.gz")
   persistencedHash=$(fetch_hash "https://download.nvidia.com/XFree86/nvidia-persistenced/nvidia-persistenced-$latestVer.tar.bz2")
 
   jq \
