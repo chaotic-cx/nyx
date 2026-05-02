@@ -55,6 +55,10 @@ let
 
 in
 nixComponents_git.nix-everything.overrideAttrs (prevAttrs: {
+  # Disable all tests for this git version of Nix.
+  # Setting doCheck=false on nix-everything prevents checkInputs (which include
+  # nix-util-tests, nix-functional-tests, etc.) from being built and run.
+  doCheck = false;
   passthru = prevAttrs.passthru // {
     components = nixComponents_git;
     updateScript = final.callPackage ../../shared/git-update.nix {
