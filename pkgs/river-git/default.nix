@@ -31,10 +31,5 @@ gitOverride {
     # river outputs its own dev version (e.g. "0.3.16-dev") from the zig build,
     # which never matches the Nix-side "unstable-YYYYMMDD-rev" format.
     doInstallCheck = false;
-    nativeBuildInputs =
-      if builtins.elem prev.zig_0_15 (prevAttrs.nativeBuildInputs or [ ]) then
-        (builtins.filter (pkg: pkg != prev.zig_0_15) prevAttrs.nativeBuildInputs) ++ [ final.zig_0_16 ]
-      else
-        builtins.trace "river-classic: upstream no longer uses zig_0_15, overlay skipped" prev.nativeBuildInputs;
   };
 }
