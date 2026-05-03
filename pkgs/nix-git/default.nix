@@ -40,6 +40,14 @@ let
         };
       };
     });
+
+    # Upstream Nix removed src/perl in commit 2c26a23a (PR #15783):
+    # 1. nix-serve is deprecated, and Hydra CI was the only active user of Perl bindings
+    # 2. Perl bindings have been moved to the Hydra repo, no longer part of Nix core
+    # 3. Override this component as an empty package to avoid build errors with latest Nix git
+    nix-perl-bindings = final.runCommand "nix-perl-bindings-disabled" { } ''
+      mkdir -p $out
+    '';
   };
 
   nixComponents_git =
