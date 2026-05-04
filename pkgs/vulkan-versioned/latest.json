@@ -62,8 +62,8 @@
     "badTag": "snapshot-2025wk20"
   },
   "volk": {
-    "version": "1.4.341.0",
-    "rev": "vulkan-sdk-#{version}",
-    "hash": "sha256-jAXUwejUJGc8H+2lDGLHIlrI0sdzQbnJ+ZNbZHYdFX8="
+    "version": "1.4.350",
+    "rev": "#{version}",
+    "hash": "sha256-7JsOWhMTnxeJfsTVgnnHQt5gYJ8tqELT+s3VDHTPof8="
   }
 }
