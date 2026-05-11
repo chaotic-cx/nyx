@@ -32,16 +32,23 @@ let
       };
     });
 in
-fixNoVideo (
-  cachyosLinuxPackages.nvidiaPackages.mkDriver {
-    inherit (versions) version;
-    sha256_64bit = versions.hash;
-    sha256_aarch64 = versions.aarch64Hash;
-    openSha256 = versions.openHash;
-    settingsSha256 = versions.settingsHash;
-    persistencedSha256 = versions.persistencedHash;
 
-    # Add any CachyOS specific patches if needed in the future
-    patches = [ ];
-  }
-)
+if cachyosLinuxPackages ? nvidiaPackages then
+  fixNoVideo (
+    cachyosLinuxPackages.nvidiaPackages.mkDriver {
+      inherit (versions) version;
+      sha256_64bit = versions.hash;
+      sha256_aarch64 = versions.aarch64Hash;
+      openSha256 = versions.openHash;
+      settingsSha256 = versions.settingsHash;
+      persistencedSha256 = versions.persistencedHash;
+
+      # Add any CachyOS specific patches if needed in the future
+      patches = [ ];
+    }
+  )
+else
+  final.runCommand "unsupported-nvidia-cachyos" { } ''
+    mkdir -p $out
+    echo "nvidia-cachyos is unsupported on ${final.system}" > $out/README
+  ''

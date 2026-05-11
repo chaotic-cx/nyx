@@ -34,5 +34,13 @@ gitOverride (current: {
 
         patchShebangs default_extras_install.sh
       '';
+
+    # gamescope master already includes this wlroots patch
+    # filter it to keep git builds working
+    patches =
+      let
+        obsoletePatch = "54e844748029d4874e14d0c086d50092c04c8899";
+      in
+      builtins.filter (p: !(prev.lib.hasInfix obsoletePatch (builtins.toString p))) prevAttrs.patches;
   };
 })

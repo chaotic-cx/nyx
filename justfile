@@ -11,11 +11,16 @@
       --eval-workers 2 \
       --eval-max-memory-size 15360
 
-@build target:
-    NIXPKGS_ALLOW_UNFREE=1 nix build \
-                     --impure \
-                     --keep-going \
-                     -L \
-                     --no-link \
-                     --accept-flake-config \
-                     .#{{ target }}
+build target=`nix eval --impure --raw --expr '
+  builtins.concatStringsSep "\n"
+    (builtins.attrNames
+      (builtins.getFlake (toString ./.))
+        .packages.${builtins.currentSystem})
+' | fzf`:
+    NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1 NIXPKGS_ALLOW_UNFREE=1 nix build \
+        --impure \
+        --keep-going \
+        -L \
+        --no-link \
+        --accept-flake-config \
+        .#{{target}}
