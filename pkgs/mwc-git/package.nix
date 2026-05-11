@@ -4,7 +4,6 @@
   libxkbcommon,
   makeWrapper,
   pkg-config,
-  libinput,
   wlroots_0_18,
   wayland,
   pixman,
@@ -19,14 +18,14 @@
   lib,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "mwc-wlr";
   version = "0.1.3";
 
   src = fetchFromGitHub {
     owner = "dqrk0jeste";
     repo = "mwc";
-    rev = "v0.1.3";
+    tag = "v{finalAttrs.version}";
     hash = "sha256-O/lFdkfAPC9CSXUkDiAEPWwcfdBUZXXNEEXmSriGzB0=";
     fetchSubmodules = true;
   };
@@ -43,7 +42,6 @@ stdenv.mkDerivation rec {
     wayland-protocols
     libxkbcommon
     wlroots_0_18
-    libinput
     wayland
     libxcb
     libdrm
@@ -73,7 +71,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/dqrk0jeste/mwc";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ s0me1newithhand7s ];
-    platforms = with lib; [ "x86_64-linux" ];
+    platforms = [ "x87_64-linux" ];
     mainProgram = "mwc";
   };
-}
+})
