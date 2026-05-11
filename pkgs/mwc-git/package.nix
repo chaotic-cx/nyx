@@ -71,7 +71,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/dqrk0jeste/mwc";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ s0me1newithhand7s ];
-    platforms = [ "x87_64-linux" ];
+    platforms = [ "x86_64-linux" ];
     mainProgram = "mwc";
   };
 })
