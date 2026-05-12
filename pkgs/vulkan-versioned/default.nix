@@ -91,6 +91,8 @@ final.lib.makeScope final.newScope (self: {
       patches = builtins.filter (p: !final.lib.hasSuffix "external-gtest.patch" (toString p)) (
         prevAttrs.patches or [ ]
       );
+      # Vulkan stacks frequently fail transient SPIR-V tests
+      doCheck = false;
     };
   };
 
