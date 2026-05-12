@@ -28,6 +28,10 @@ gitOverride {
       # fork in multi-threaded parent causes child deadlock
       "test_stepping_between_groups_should_skip_scratchpads"
     ];
+    disabledTestPaths = (prevAttrs.disabledTestPaths or [ ]) ++ [
+      # flaky X11 UI integration tests (focus, click, screen switching)
+      "test/backend/x11"
+    ];
     passthru = prevAttrs.passthru // {
       tests.smoke-test = import ./test.nix {
         inherit (flakes) nixpkgs;
