@@ -265,9 +265,7 @@ in
 
   mwc_git = callOverride ../pkgs/mwc-git { };
 
-  niri_git = callOverride ../pkgs/niri-git {
-    niriPins = importJSON ../pkgs/niri-git/pins.json;
-  };
+  niri_git = callOverride ../pkgs/niri-git { };
 
   nix_git = callOverride ../pkgs/nix-git { };
 
@@ -345,9 +343,7 @@ in
     repo = "proton-ge-custom";
   };
 
-  pwvucontrol_git = callOverride ../pkgs/pwvucontrol-git {
-    pwvucontrolPins = importJSON ../pkgs/pwvucontrol-git/pins.json;
-  };
+  pwvucontrol_git = callOverride ../pkgs/pwvucontrol-git { };
 
   qtile_git = with final; python311Packages.toPythonApplication qtile-module_git;
   qtile-module_git = callOverride ../pkgs/qtile-git { };
@@ -399,9 +395,7 @@ in
 
   yt-dlp_git = callOverride ../pkgs/yt-dlp-git { };
 
-  zed-editor_git = callOverride ../pkgs/zed-editor-git {
-    zedPins = importJSON ../pkgs/zed-editor-git/pins.json;
-  };
+  zed-editor_git = callOverride ../pkgs/zed-editor-git { };
   zed-editor-fhs_git = final.zed-editor_git.fhs;
 
   zfs_cachyos = nyxUtils.drvDropUpdateScript cachyosPackages.zfs;
