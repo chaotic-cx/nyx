@@ -23,17 +23,30 @@ while [[ $# -gt 0 ]]; do
 done
 
 FILTER_EXPR='
-  pkgs: builtins.mapAttrs (n: v:
-    if v.type or null == "derivation"
-    then v.drvPath
-    else null
-  ) pkgs
+  pkgs: let
+    flatten = prefix: attrs: builtins.foldl'"'"' (
+      acc: name: let
+        r = builtins.tryEval (builtins.getAttr name attrs);
+      in
+        if !r.success then acc else
+        let v = r.value; in
+        if !builtins.isAttrs v then acc else
+        let key = if prefix == "" then name else "${prefix}.${name}"; in
+        if v.type or "" == "derivation" then
+          let d = builtins.tryEval v.drvPath; in
+          if d.success then acc // { ${key} = d.value; } else acc
+        else if v.recurseForDerivations or false then
+          acc // flatten key v
+        else
+          acc
+    ) {} (builtins.attrNames attrs);
+  in flatten "" pkgs
 '
 
 if [[ "${DEBUG:-}" == "1" ]]; then
-  nix eval $NIX_FLAGS --json "${TARGET}#packages.${SYSTEM}" \
+  nix eval $NIX_FLAGS --json "${TARGET}#legacyPackages.${SYSTEM}" \
     --apply "$FILTER_EXPR"
 else
-  nix eval $NIX_FLAGS --json "${TARGET}#packages.${SYSTEM}" \
+  nix eval $NIX_FLAGS --json "${TARGET}#legacyPackages.${SYSTEM}" \
     --apply "$FILTER_EXPR" 2>/dev/null
 fi | jq 'with_entries(select(.value != null))'
