@@ -69,11 +69,6 @@ final.lib.makeScope final.newScope (self: {
     fetchSubmodules = true;
 
     extraAttrs = prevAttrs: {
-      preFixup = ''
-        substituteInPlace $out/lib/pkgconfig/openxr.pc \
-          --replace-fail 'libdir=''${exec_prefix}//nix' 'libdir=/nix'
-      ''
-      + (prevAttrs.preFixup or "");
     };
   };
 
