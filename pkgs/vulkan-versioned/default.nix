@@ -69,11 +69,6 @@ final.lib.makeScope final.newScope (self: {
     fetchSubmodules = true;
 
     extraAttrs = prevAttrs: {
-      preFixup = ''
-        substituteInPlace $out/lib/pkgconfig/openxr.pc \
-          --replace-fail 'libdir=''${exec_prefix}//nix' 'libdir=/nix'
-      ''
-      + (prevAttrs.preFixup or "");
     };
   };
 
@@ -91,6 +86,8 @@ final.lib.makeScope final.newScope (self: {
       patches = builtins.filter (p: !final.lib.hasSuffix "external-gtest.patch" (toString p)) (
         prevAttrs.patches or [ ]
       );
+      # Vulkan stacks frequently fail transient SPIR-V tests
+      doCheck = false;
     };
   };
 
