@@ -19,6 +19,7 @@ let
 
     inherit (import ./lib/llvm-pkgs.nix inputs) callPackage;
     useLTO = "thin";
+    stdenv = final.clangStdenv;
 
     packagesExtend = import ./lib/llvm-module-overlay.nix inputs;
 
