@@ -151,7 +151,7 @@ let
         "--set-val X86_64_VERSION ${v}"
       ]
     else
-      throw "Unsuppoted cachyos mArch";
+      throw "Unsupported cachyos mArch";
 
   # _cpusched, defaults to "cachyos"
   cpuSchedConfig =
