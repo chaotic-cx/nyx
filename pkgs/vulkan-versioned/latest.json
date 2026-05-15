@@ -5,9 +5,9 @@
     "hash": "sha256-Qp4msQ8yzbOQIk9tFEDZ47+u/8yFiKPZ5H/oqyy+qZw="
   },
   "glslang": {
-    "version": "1.4.350.0-unstable",
-    "rev": "275822a6261ee689aadb1da5f09a0ec2f058685c",
-    "hash": "sha256-wclcJ0NfqFXSUHGVsxjn2I8XxWbrkzOB4WXqsN1XtmE="
+    "version": "1.4.352-unstable",
+    "rev": "d561f02e83fcbd13331dbd2750666c31bc7fc036",
+    "hash": "sha256-+1VfNKnvNXFZWuF7+FD9JA9vrHdF/KiIsa2RAiYwTWI="
   },
   "SPIRV-Cross": {
     "version": "1.4.350.0",
@@ -15,14 +15,14 @@
     "hash": "sha256-JdVAS5uVSfe0mOGtyodkgmvgD4of9Amq8PbDSAtgaXc="
   },
   "SPIRV-Headers": {
-    "version": "1.4.350.0-unstable",
-    "rev": "ad9184e76a66b1001c29db9b0a3e87f646c64de0",
-    "hash": "sha256-nwzhJlkdN8DaExHvnuVc5rZmlrkPYb7Qmj1fx3O5Zpw="
+    "version": "1.4.352-unstable",
+    "rev": "fe44b2002bf7871e2e92fc001bc9f6e09f92194f",
+    "hash": "sha256-INsf983o0TARjf1D4q6cEFhBveByM9l64dVhxEypOMo="
   },
   "SPIRV-Tools": {
-    "version": "1.4.350.0-unstable",
-    "rev": "0539c81f69a3daeb706fd3477dca61435b475156",
-    "hash": "sha256-tR3POZH/LXaAljMUS9aHBBvIvlr6o7d6+YUtJCRMS1w="
+    "version": "1.4.352-unstable",
+    "rev": "18b08af19b08515d5a1749adbdb05bc4369a57ed",
+    "hash": "sha256-tEbqXBuv5wFvODTETRor06Szj1LyCU/PEMgrY4/eEVE="
   },
   "Vulkan-Headers": {
     "version": "1.4.352",
@@ -56,9 +56,9 @@
     "hash": "sha256-eHQVpU2ibiWtixgf6TR9YJ6VJy/IjA4dRHuSxTQkiwc="
   },
   "Vulkan-ValidationLayers": {
-    "version": "1.4.350.0",
-    "rev": "vulkan-sdk-#{version}",
-    "hash": "sha256-3qUZP/R29eqTR4IAWH6jBGgmRqE0d1ahcdKbxUOAmTY=",
+    "version": "1.4.352",
+    "rev": "v#{version}",
+    "hash": "sha256-BSNUIGSybkAgMBM+mcrXxKQ/etS79gLNwWbOAlK401c=",
     "badTag": "snapshot-2025wk20"
   },
   "volk": {
