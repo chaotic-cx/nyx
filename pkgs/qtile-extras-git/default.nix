@@ -32,5 +32,6 @@ gitOverride {
     };
 
     doCheck = false;
+    checkPhase = "true";
   };
 }
