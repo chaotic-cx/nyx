@@ -2,9 +2,9 @@
   flakes,
   nixpkgsConfig ? null,
 }:
-userFinal: _userPrev:
+final: _prev:
 let
-  inherit (userFinal) stdenv;
+  inherit (final) stdenv;
   inherit (stdenv.hostPlatform) system;
 
   isCross = stdenv.buildPlatform != stdenv.hostPlatform;
@@ -12,7 +12,7 @@ let
   config =
     if nixpkgsConfig == null then flakes.nixpkgs.legacyPackages.${system}.config else nixpkgsConfig;
 
-  prev =
+  prevPkgs =
     if isCross then
       import "${flakes.nixpkgs}" {
         inherit config;
@@ -25,4 +25,4 @@ let
         localSystem = flakes.nixpkgs.legacyPackages."${system}".stdenv.hostPlatform;
       };
 in
-flakes.self.utils.applyOverlay { pkgs = prev; }
+flakes.self.utils.applyOverlay { pkgs = prevPkgs; }

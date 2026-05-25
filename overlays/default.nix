@@ -5,9 +5,6 @@
 # - Composed names are separated with minus: `lan-mouse`
 # - Versions/patches are suffixed with an underline: `mesa_git`, `libei_0_5`, `linux_hdr`
 
-# NOTE:
-# - `*_next` packages will be removed once merged into nixpkgs-unstable.
-
 {
   flakes,
   nixpkgs ? flakes.nixpkgs,
@@ -112,11 +109,22 @@ let
           replace = true;
           pkgs = prev;
         };
+        # Helper to remove updateScript from a package
+        removeUpdateScript =
+          pkg:
+          if (pkg.passthru.updateScript or null) != null then
+            pkg.overrideAttrs (prev: {
+              passthru = builtins.removeAttrs prev.passthru [ "updateScript" ];
+            })
+          else
+            pkg;
+        # Remove updateScript from all jovian-chaotic packages (they use nix-update incorrectly)
+        jovianWithoutUpdateScript = builtins.mapAttrs (_k: v: removeUpdateScript v) base;
       in
-      (builtins.removeAttrs base [ "jovian-documentation" ])
+      (builtins.removeAttrs jovianWithoutUpdateScript [ "jovian-documentation" ])
       // {
         recurseForDerivations = true;
-        linuxPackages_jovian = base.linuxPackages_jovian // {
+        linuxPackages_jovian = jovianWithoutUpdateScript.linuxPackages_jovian // {
           recurseForDerivations = false;
         };
       }
@@ -189,6 +197,8 @@ in
     else
       throw "No gamescope-wsi32_git for non-x86";
 
+  ghostty_git = callOverride ../pkgs/ghostty-git { };
+
   helix_git = callOverride ../pkgs/helix-git { };
 
   jujutsu_git = callOverride ../pkgs/jujutsu-git { };
@@ -236,6 +246,14 @@ in
   mesa32_git =
     if has32 then callOverride32 ../pkgs/mesa-git { } else throw "No mesa32_git for non-x86";
 
+  nvidia_cachyos = callOverride ../pkgs/nvidia-cachyos { };
+  nvidia_cachyos-gcc = final.nvidia_cachyos;
+  nvidia_cachyos-lto = final.nvidia_cachyos;
+  nvidia_cachyos-rc = callOverride ../pkgs/nvidia-cachyos { variant = "rc"; };
+  nvidia_cachyos-server = callOverride ../pkgs/nvidia-cachyos { variant = "server"; };
+  nvidia_cachyos-hardened = callOverride ../pkgs/nvidia-cachyos { variant = "hardened"; };
+  nvidia_cachyos-lts = callOverride ../pkgs/nvidia-cachyos { variant = "lts"; };
+
   mpv-vapoursynth =
     (final.mpv-unwrapped.wrapper {
       mpv = final.mpv-unwrapped.override {
@@ -247,9 +265,7 @@ in
 
   mwc_git = callOverride ../pkgs/mwc-git { };
 
-  niri_git = callOverride ../pkgs/niri-git {
-    niriPins = importJSON ../pkgs/niri-git/pins.json;
-  };
+  niri_git = callOverride ../pkgs/niri-git { };
 
   nix_git = callOverride ../pkgs/nix-git { };
 
@@ -316,30 +332,6 @@ in
     versionFilename = "cachyos-v4-version.json";
   };
 
-  proton-cachyos_nightly_x86_64_v3 = final.proton-cachyos.override {
-    toolTitle = "Proton-CachyOS Nightly x86-64-v3";
-    tarballSuffix = "-x86_64_v3.tar.xz";
-    url = "https://nightly.link/CachyOS/proton-cachyos/actions/runs/19506926176/proton-cachyos-10.0-20251112-base-131-g471736d4-x86_64_v3.tar.xz.zip";
-    version = {
-      base = "10.0";
-      release = "20251112";
-      hash = "sha256-3wkekFESoLgVYdCvMSEWL6nBRytsScUrwpn7zzNLqYE=";
-    };
-    withUpdateScript = false;
-  };
-
-  proton-cachyos_nightly_x86_64_v4 = final.proton-cachyos.override {
-    toolTitle = "Proton-CachyOS Nightly x86-64-v4";
-    tarballSuffix = "-x86_64_v4.tar.xz";
-    url = "https://nightly.link/CachyOS/proton-cachyos/actions/runs/19506926176/proton-cachyos-10.0-20251112-base-131-g471736d4-x86_64_v4.tar.xz.zip";
-    version = {
-      base = "10.0";
-      release = "20251112";
-      hash = "sha256-0dmK5HnFyN/V1aicCkRiubVkAtW1X1XJZTVljhuWn1w=";
-    };
-    withUpdateScript = false;
-  };
-
   proton-ge-custom = final.callPackage ../pkgs/proton-bin {
     toolTitle = "Proton-GE";
     tarballSuffix = ".tar.gz";
@@ -351,9 +343,7 @@ in
     repo = "proton-ge-custom";
   };
 
-  pwvucontrol_git = callOverride ../pkgs/pwvucontrol-git {
-    pwvucontrolPins = importJSON ../pkgs/pwvucontrol-git/pins.json;
-  };
+  pwvucontrol_git = callOverride ../pkgs/pwvucontrol-git { };
 
   qtile_git = with final; python311Packages.toPythonApplication qtile-module_git;
   qtile-module_git = callOverride ../pkgs/qtile-git { };
@@ -368,23 +358,6 @@ in
   shadps4_git = callOverride ../pkgs/shadps4-git { };
 
   spirv-headers_git = callOverride ../pkgs/spirv-headers-git { };
-
-  scenefx_0_2 = multiOverride prev.scenefx { wlroots_0_19 = final.wlroots_0_18; } (_prevAttrs: rec {
-    version = "0.2.1";
-    src = final.fetchFromGitHub {
-      owner = "wlrfx";
-      repo = "scenefx";
-      tag = version;
-      hash = "sha256-BLIADMQwPJUtl6hFBhh5/xyYwLFDnNQz0RtgWO/Ua8s=";
-    };
-  });
-
-  # temporary fix:
-  scx_git = final.lib.warn "scx_git no longer is maintained and is an alias of scx from Nixpkgs." (
-    final.lib.dontRecurseIntoAttrs final.scx
-  );
-
-  scx-full_git = drvDropUpdateScript final.scx_git.full;
 
   sway-unwrapped_git = callOverride ../pkgs/sway-unwrapped-git { };
   sway_git = prev.sway.override {
@@ -422,10 +395,8 @@ in
 
   yt-dlp_git = callOverride ../pkgs/yt-dlp-git { };
 
-  zed-editor_git = callOverride ../pkgs/zed-editor-git {
-    zedPins = importJSON ../pkgs/zed-editor-git/pins.json;
-  };
+  zed-editor_git = callOverride ../pkgs/zed-editor-git { };
   zed-editor-fhs_git = final.zed-editor_git.fhs;
 
-  zfs_cachyos = cachyosPackages.zfs;
+  zfs_cachyos = nyxUtils.drvDropUpdateScript cachyosPackages.zfs;
 }

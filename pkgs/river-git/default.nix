@@ -7,21 +7,16 @@
 
 gitOverride {
   nyxKey = "river_git";
-  prev = prev.river;
-
-  newInputs = with final; {
-    zig_0_14 = zig_0_15;
-  };
+  prev = prev.river-classic;
 
   versionNyxPath = "pkgs/river-git/version.json";
   fetcher = "fetchFromGitea";
   fetcherData = {
     owner = "river";
-    repo = "river";
+    repo = "river-classic";
     domain = "codeberg.org";
     fetchSubmodules = true;
   };
-  ref = "0.3.x";
 
   withExtraUpdateCommands = final.writeShellScript "bump-zig-zon" ''
     pushd "$_LATEST_PATH"
@@ -31,7 +26,10 @@ gitOverride {
     git add "$_PKG_DIR/build.zig.zon.nix"
   '';
 
-  postOverride = _prevAttrs: {
+  postOverride = prevAttrs: {
     deps = final.callPackage ./build.zig.zon.nix { };
+    # river outputs its own dev version (e.g. "0.3.16-dev") from the zig build,
+    # which never matches the Nix-side "unstable-YYYYMMDD-rev" format.
+    doInstallCheck = false;
   };
 }

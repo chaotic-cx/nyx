@@ -19,6 +19,7 @@ let
 
     inherit (import ./lib/llvm-pkgs.nix inputs) callPackage;
     useLTO = "thin";
+    stdenv = final.clangStdenv;
 
     packagesExtend = import ./lib/llvm-module-overlay.nix inputs;
 
@@ -163,7 +164,7 @@ in
     withHDR = false;
   };
 
-  zfs = final.zfs_2_3.overrideAttrs (prevAttrs: {
+  zfs = final.zfs_2_4.overrideAttrs (prevAttrs: {
     src = if isUnsupported then brokenReplacement else gccKernel.zfs_cachyos.src;
     patches = [ ];
     passthru = prevAttrs.passthru // {

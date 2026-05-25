@@ -14,6 +14,18 @@ let
   };
 
   addFixes = _finalScope: prevScope: {
+    # nix-util's meson.build requires libzstd but nixpkgs doesn't include it
+    nix-util = prevScope.nix-util.overrideAttrs (prevAttrs: {
+      nativeBuildInputs = prevAttrs.nativeBuildInputs ++ [ final.pkg-config ];
+      buildInputs = prevAttrs.buildInputs ++ [ final.zstd ];
+    });
+
+    # nix-util-tests also requires libzstd
+    nix-util-tests = prevScope.nix-util-tests.overrideAttrs (prevAttrs: {
+      nativeBuildInputs = prevAttrs.nativeBuildInputs ++ [ final.pkg-config ];
+      buildInputs = prevAttrs.buildInputs ++ [ final.zstd ];
+    });
+
     nix-store-tests = prevScope.nix-store-tests.overrideAttrs (prevAttrs: {
       # I guess the "optionalString" in the derivation is missing a NOT in the predicate
       passthru = prevAttrs.passthru // {
@@ -28,14 +40,21 @@ let
         };
       };
     });
+
+    # Upstream Nix removed src/perl in commit 2c26a23a (PR #15783):
+    # 1. nix-serve is deprecated, and Hydra CI was the only active user of Perl bindings
+    # 2. Perl bindings have been moved to the Hydra repo, no longer part of Nix core
+    # 3. Override this component as an empty package to avoid build errors with latest Nix git
+    nix-perl-bindings = final.runCommand "nix-perl-bindings-disabled" { } ''
+      mkdir -p $out
+    '';
   };
 
   nixComponents_git =
     (final.nixDependencies.callPackage
       "${flakes.nixpkgs}/pkgs/tools/package-management/nix/modular/packages.nix"
-      rec {
+      {
         inherit version src;
-        maintainers = [ final.lib.maintainers.pedrohlc ];
         teams = [ ];
         otherSplices = final.generateSplicesForNixComponents "nixComponents_git";
       }
@@ -44,6 +63,10 @@ let
 
 in
 nixComponents_git.nix-everything.overrideAttrs (prevAttrs: {
+  # Disable all tests for this git version of Nix.
+  # Setting doCheck=false on nix-everything prevents checkInputs (which include
+  # nix-util-tests, nix-functional-tests, etc.) from being built and run.
+  doCheck = false;
   passthru = prevAttrs.passthru // {
     components = nixComponents_git;
     updateScript = final.callPackage ../../shared/git-update.nix {

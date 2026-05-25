@@ -104,7 +104,7 @@ let
           kernelMinSupportedMajorMinor = "1.0";
           kernelMaxSupportedMajorMinor = "99.99";
           enableUnsupportedExperimentalKernel = true;
-          inherit (prevAttrs.zfs_2_3) version;
+          inherit (prevAttrs.zfs_2_4) version;
           tests = { };
           maintainers = with lib.maintainers; [
             pedrohlc
@@ -121,6 +121,16 @@ let
           };
           postPatch = builtins.replaceStrings [ "grep --quiet '^Linux-M" ] [ "# " ] prevAttrs.postPatch;
         });
+    nvidiaPackages = prevAttrs.nvidiaPackages.extend (
+      _finalNV: _prevNV: {
+        cachyos =
+          let
+            suffix = lib.strings.removePrefix "linux-cachyos" taste;
+            attrName = "nvidia_cachyos${suffix}";
+          in
+          inputs.final.${attrName};
+      }
+    );
     inherit cachyOverride;
   };
 
@@ -136,6 +146,7 @@ let
     "zfs_2_1"
     "zfs_2_2"
     "zfs_2_3"
+    "zfs_2_4"
     "zfs_unstable"
     "lkrg"
     "drbd"

@@ -13,12 +13,19 @@ gitOverride {
   versionNyxPath = "pkgs/niri-git/version.json";
   fetcher = "fetchFromGitHub";
   fetcherData = {
-    owner = "YaLTeR";
+    owner = "niri-wm";
     repo = "niri";
   };
 
   postOverride = prevAttrs: {
     buildInputs = [ final.libdisplay-info ] ++ prevAttrs.buildInputs;
+    postPatch = ''
+      patchShebangs resources/niri-session
+
+      substituteInPlace resources/niri.service \
+        --replace-fail 'ExecStart=niri ' \
+                       'ExecStart=${placeholder "out"}/bin/niri '
+    '';
     patches = nyxUtils.removeByURL "https://github.com/YaLTeR/niri/commit/1951d2a9f262196a706f2645efb18dac3c4d6839.patch" prevAttrs.patches;
     nativeInstallCheckInputs = [ ];
   };

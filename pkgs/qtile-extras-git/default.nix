@@ -31,10 +31,7 @@ gitOverride {
       platforms = final.lib.platforms.linux;
     };
 
-    postPatch = ''
-      for f in test/*/test_*.py test/*/*/test_*.py; do
-        echo "" > "$f"
-      done
-    '';
+    doCheck = false;
+    checkPhase = "true";
   };
 }

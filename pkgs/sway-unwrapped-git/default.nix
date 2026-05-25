@@ -8,10 +8,10 @@
 gitOverride {
   newInputs = with final; {
     libdrm = libdrm_git;
-    wlroots = wlroots_git;
     wayland = wayland_git;
     wayland-protocols = wayland-protocols_git;
     wayland-scanner = wayland-scanner_git;
+    wlroots_0_19 = final.wlroots_git;
   };
 
   nyxKey = "sway-unwrapped_git";
@@ -24,4 +24,13 @@ gitOverride {
     repo = "sway";
   };
   ref = "master";
+
+  postOverride = prevAttrs: {
+    patches =
+      (builtins.filter (p: !prev.lib.hasSuffix "load-configuration-from-etc.patch" (toString p)) (
+        prevAttrs.patches or [ ]
+      ))
+      # Adapted patch for NIX_SYSCONFDIR fallback
+      ++ [ ./load-configuration-from-etc.patch ];
+  };
 }

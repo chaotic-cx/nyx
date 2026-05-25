@@ -5,6 +5,7 @@
   findutils,
   gnugrep,
   gnused,
+  gawk,
   curl,
   jq,
   git,
@@ -13,6 +14,7 @@
   moreutils,
   withUpdateScript,
 }:
+
 let
   path = lib.makeBinPath [
     coreutils
@@ -20,6 +22,7 @@ let
     findutils
     gnugrep
     gnused
+    gawk
     jq
     moreutils
     git
@@ -27,90 +30,195 @@ let
     nix
   ];
 
-  releaseSrcUrl = "https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-\${latestVer%.0}.tar.xz";
+  variants = {
+    stable = {
+      versionsFile = "versions.json";
+      suffix = "";
+      flavors = [
+        "-gcc"
+        "-lto"
+        "-server"
+      ];
+    };
+    rc = {
+      versionsFile = "versions-rc.json";
+      suffix = "-rc";
+      flavors = [ "-rc" ];
+    };
+    hardened = {
+      versionsFile = "versions-hardened.json";
+      suffix = "-hardened";
+      flavors = [ "-hardened" ];
+    };
+    lts = {
+      versionsFile = "versions-lts.json";
+      suffix = "-lts";
+      flavors = [ "-lts" ];
+    };
+  };
 
-  major =
-    if withUpdateScript == "stable" then
-      {
-        versionsFile = "versions.json";
-        suffix = "";
-        flavors = [
-          "-gcc"
-          "-lto"
-          "-server"
-        ];
-        srcUrl = releaseSrcUrl;
-      }
-    else if withUpdateScript == "rc" then
-      {
-        versionsFile = "versions-rc.json";
-        suffix = "-rc";
-        flavors = [ "-rc" ];
-        srcUrl = "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/snapshot/linux-\${latestVer%.0}.tar.gz";
-      }
-    else if withUpdateScript == "hardened" then
-      {
-        versionsFile = "versions-hardened.json";
-        suffix = "-hardened";
-        flavors = [ "-hardened" ];
-        srcUrl = releaseSrcUrl;
-      }
-    else if withUpdateScript == "lts" then
-      {
-        versionsFile = "versions-lts.json";
-        suffix = "-lts";
-        flavors = [ "-lts" ];
-        srcUrl = releaseSrcUrl;
-      }
-    else
-      throw "Unsupported update-script for linux-cachyos";
+  major = variants.${withUpdateScript} or (throw "Unsupported update-script for linux-cachyos");
+
 in
+
 with major;
+
 writeShellScript "update-cachyos" ''
   set -euo pipefail
   PATH=${path}
 
-  srcJson=pkgs/linux-cachyos/${versionsFile}
-  localVer=$(jq -r .linux.version < $srcJson)
+  echo "USING LOCAL UPDATE SCRIPT"
 
-  latestVer=$(curl 'https://raw.githubusercontent.com/CachyOS/linux-cachyos/master/linux-cachyos${suffix}/.SRCINFO' | grep -Po '(?<=pkgver = )(.+)$' | sed 's/\.rc/-rc/')
+  srcJson="pkgs/linux-cachyos/${versionsFile}"
 
-  if [ "$localVer" == "$latestVer" ]; then
+  localVer=$(jq -r .linux.version < "$srcJson")
+  localTagrel=$(jq -r '.linux.tagrel // -1' < "$srcJson")
+
+  fetch_pkgbuild() {
+    curl -fsSL \
+      "https://raw.githubusercontent.com/CachyOS/linux-cachyos/master/linux-cachyos${suffix}/PKGBUILD"
+  }
+
+  parse_version() {
+    awk -F= '
+      /^[[:space:]]*_major[[:space:]]*=/ {
+        gsub(/[[:space:]]/, "", $2)
+        major=$2
+      }
+      /^[[:space:]]*_minor[[:space:]]*=/ {
+        gsub(/[[:space:]]/, "", $2)
+        minor=$2
+      }
+      /^[[:space:]]*_rcver[[:space:]]*=/ {
+        gsub(/[[:space:]]/, "", $2)
+        rcver=$2
+      }
+      /^[[:space:]]*_ltsver[[:space:]]*=/ {
+        gsub(/[[:space:]]/, "", $2)
+        ltsver=$2
+      }
+      END {
+        if (rcver != "") {
+          print major "-" rcver
+        } else if (ltsver != "") {
+          print major "." ltsver
+        } else {
+          print major "." minor
+        }
+      }
+    '
+  }
+
+  parse_tagrel() {
+    awk -F= '
+      /^[[:space:]]*_tagrel[[:space:]]*=/ {
+        gsub(/[[:space:]]/, "", $2)
+        print $2
+        exit
+      }
+    '
+  }
+
+  parse_srctag() {
+    awk -F= '
+      /^[[:space:]]*_major[[:space:]]*=/ {
+        gsub(/[[:space:]]/, "", $2)
+        major=$2
+      }
+      /^[[:space:]]*_minor[[:space:]]*=/ {
+        gsub(/[[:space:]]/, "", $2)
+        minor=$2
+      }
+      /^[[:space:]]*_rcver[[:space:]]*=/ {
+        gsub(/[[:space:]]/, "", $2)
+        rcver=$2
+      }
+      /^[[:space:]]*_ltsver[[:space:]]*=/ {
+        gsub(/[[:space:]]/, "", $2)
+        ltsver=$2
+      }
+      /^[[:space:]]*_tagrel[[:space:]]*=/ {
+        gsub(/[[:space:]]/, "", $2)
+        tagrel=$2
+      }
+      END {
+        if (rcver != "") {
+          print "cachyos-" major "-" rcver "-" tagrel
+        } else if (ltsver != "") {
+          print "cachyos-" major "." ltsver "-" tagrel
+        } else {
+          print "cachyos-" major "." minor "-" tagrel
+        }
+      }
+    '
+  }
+
+  pkgbuild=$(fetch_pkgbuild)
+
+  latestVer=$(printf "%s\n" "$pkgbuild" | parse_version)
+  latestTagrel=$(printf "%s\n" "$pkgbuild" | parse_tagrel)
+  srcTag=$(printf "%s\n" "$pkgbuild" | parse_srctag)
+  srcUrl="https://github.com/CachyOS/linux/releases/download/''${srcTag}/''${srcTag}.tar.gz"
+
+  if [[ "$localVer" == "$latestVer" && "$localTagrel" == "$latestTagrel" ]]; then
     exit 0
   fi
 
-  latestSha256=$(nix-prefetch-url --type sha256 "${srcUrl}")
-  latestHash=$(nix-hash --to-sri --type sha256 $latestSha256)
+  latestHash=$(nix-prefetch-url --type sha256 "$srcUrl" \
+    | xargs nix-hash --to-sri --type sha256)
 
-  configRepo=$(nix-prefetch-git --quiet 'https://github.com/CachyOS/linux-cachyos.git')
-  configRev=$(echo "$configRepo" | jq -r .rev)
-  configHash=$(echo "$configRepo" | jq -r .hash)
-  configPath=$(echo "$configRepo" | jq -r .path)
+  prefetch_git() {
+    nix-prefetch-git --quiet "$@" | jq -r '.rev + " " + .hash'
+  }
 
-  patchesRepo=$(nix-prefetch-git --quiet 'https://github.com/CachyOS/kernel-patches.git')
-  patchesRev=$(echo "$patchesRepo" | jq -r .rev)
-  patchesHash=$(echo "$patchesRepo" | jq -r .hash)
+  read rev hash < <(prefetch_git https://github.com/CachyOS/linux-cachyos.git)
+  configRev=$rev
+  configHash=$hash
 
-  zfsRev=$(grep -Po '(?<=zfs.git#commit=)([^"]+)' $configPath/linux-cachyos${suffix}/PKGBUILD)
-  zfsRepo=$(nix-prefetch-git --quiet 'https://github.com/CachyOS/zfs.git' --rev $zfsRev)
-  zfsHash=$(echo "$zfsRepo" | jq -r .hash)
+  configPath=$(nix-prefetch-git --quiet https://github.com/CachyOS/linux-cachyos.git | jq -r .path)
+
+  read rev hash < <(prefetch_git https://github.com/CachyOS/kernel-patches.git)
+  patchesRev=$rev
+  patchesHash=$hash
+
+  zfsRev=$(grep -Po '(?<=zfs.git#commit=)([^"]+)' \
+    "$configPath/linux-cachyos${suffix}/PKGBUILD")
+
+  read _ zfsHash < <(prefetch_git https://github.com/CachyOS/zfs.git --rev "$zfsRev")
 
   jq \
-    --arg latestVer "$latestVer" --arg latestHash "$latestHash" \
-    --arg configRev "$configRev" --arg configHash "$configHash" \
-    --arg patchesRev "$patchesRev" --arg patchesHash "$patchesHash" \
-    --arg zfsRev "$zfsRev" --arg zfsHash "$zfsHash" \
-    ".linux.version = \$latestVer | .linux.hash = \$latestHash |\
-     .config.rev = \$configRev | .config.hash = \$configHash |\
-     .patches.rev = \$patchesRev | .patches.hash = \$patchesHash |\
-     .zfs.rev = \$zfsRev | .zfs.hash = \$zfsHash" \
-    "$srcJson" | sponge "$srcJson"
+    --arg latestVer "$latestVer" \
+    --arg latestHash "$latestHash" \
+    --argjson latestTagrel "$latestTagrel" \
+    --arg configRev "$configRev" \
+    --arg configHash "$configHash" \
+    --arg patchesRev "$patchesRev" \
+    --arg patchesHash "$patchesHash" \
+    --arg zfsRev "$zfsRev" \
+    --arg zfsHash "$zfsHash" \
+    '
+      .linux.version = $latestVer |
+      .linux.hash = $latestHash |
+      .linux.tagrel = $latestTagrel |
+      .config.rev = $configRev |
+      .config.hash = $configHash |
+      .patches.rev = $patchesRev |
+      .patches.hash = $patchesHash |
+      .zfs.rev = $zfsRev |
+      .zfs.hash = $zfsHash
+    ' "$srcJson" | sponge "$srcJson"
 
   ${lib.strings.concatMapStrings (flavor: ''
-    cat "$(nix build '.#legacyPackages.x86_64-linux.linuxPackages_cachyos${flavor}.kernel.kconfigToNix' --no-link --print-out-paths)" \
-    > pkgs/linux-cachyos/config-nix/cachyos${flavor}.x86_64-linux.nix || true
+    out=$(nix build \
+      ".#legacyPackages.x86_64-linux.linuxPackages_cachyos${flavor}.kernel.kconfigToNix" \
+      --no-link --print-out-paths 2>/dev/null) || true
+
+    if [ -n "$out" ] && [ -f "$out" ]; then
+      cat "$out" > pkgs/linux-cachyos/config-nix/cachyos${flavor}.x86_64-linux.nix
+    fi
   '') flavors}
 
   git add pkgs/linux-cachyos
-  git commit -m "linux_cachyos${suffix}: $localVer -> $latestVer"
+  git commit -m \
+    "linux_cachyos${suffix}: $localVer-$localTagrel -> $latestVer-$latestTagrel"
 ''

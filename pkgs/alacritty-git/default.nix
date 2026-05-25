@@ -13,6 +13,13 @@ gitOverride {
   ref = "master";
 
   postOverride = prevAttrs: {
+    # versionCheckHook (inherited from upstream nixpkgs) checks that
+    # `alacritty --version` outputs the Nix-side $version string.
+    # However, Alacritty always prints the semver from its Cargo.toml
+    # (e.g. "alacritty 0.18.0-dev"), which never matches our
+    # "unstable-YYYYMMDD-rev" version format, so the check always fails.
+    doInstallCheck = false;
+
     postInstall =
       builtins.replaceStrings
         [

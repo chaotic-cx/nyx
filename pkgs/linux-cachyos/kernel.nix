@@ -18,7 +18,12 @@
   final,
 }:
 let
-  inherit (cachyConfig.versions.linux) version;
+  version = cachyConfig.versions.linux.version;
+  updaterScript =
+    if cachyConfig.withUpdateScript != null then
+      callPackage ./update.nix { inherit (cachyConfig) withUpdateScript; }
+    else
+      null;
 in
 (linuxManualConfig {
   inherit
@@ -73,9 +78,5 @@ in
           } final;
         };
       }
-      // nyxUtils.optionalAttr "updateScript" (cachyConfig.withUpdateScript != null) (
-        callPackage ./update.nix {
-          inherit (cachyConfig) withUpdateScript;
-        }
-      );
+      // nyxUtils.optionalAttr "updateScript" (cachyConfig.withUpdateScript != null) updaterScript;
   })
