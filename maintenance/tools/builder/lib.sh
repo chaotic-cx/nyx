@@ -1,11 +1,11 @@
 set -euo pipefail
 
 # Replace temporary paths (when using $NYX_TEMP)
-TMPDIR="${NYX_TEMP:-${TMPDIR}}"
-NIX_BUILD_TOP="${NYX_TEMP:-${NIX_BUILD_TOP}}"
-TMP="${NYX_TEMP:-${TMP}}"
-TEMP="${NYX_TEMP:-${TEMP}}"
-TEMPDIR="${NYX_TEMP:-${TEMPDIR}}"
+TMPDIR="${NYX_TEMP:-${TMPDIR:-/tmp}}"
+NIX_BUILD_TOP="${NYX_TEMP:-${NIX_BUILD_TOP:-${TMPDIR}}}"
+TMP="${NYX_TEMP:-${TMP:-${TMPDIR}}}"
+TEMP="${NYX_TEMP:-${TEMP:-${TMPDIR}}}"
+TEMPDIR="${NYX_TEMP:-${TEMPDIR:-${TMPDIR}}}"
 
 # Options
 NYX_ENV=('NIXPKGS_ALLOW_BROKEN=1')
@@ -166,7 +166,7 @@ function build() {
         sleep 1
         cachix push "$CACHIX_REPO" "${_ALL_OUT_PATHS[@]}"
         echo $_TO_PIN | xargs -n 2 \
-          cachix -v pin "$CACHIX_REPO" --keep-revisions 7
+          cachix -v pin "$CACHIX_REPO" --keep-revisions 2
         printf '%s\n' "${_ALL_OUT_PATHS[@]}" >> "${NYX_HOME}/cached.txt"
       fi
 
@@ -235,7 +235,7 @@ function deploy() {
     # Pin packages
     if [ -e to-pin.txt ]; then
       cat to-pin.txt | xargs -n 2 \
-        cachix -v pin "$CACHIX_REPO" --keep-revisions 7
+        cachix -v pin "$CACHIX_REPO" --keep-revisions 2
     fi
 
     # Locally tag everything as cached

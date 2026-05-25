@@ -1,0 +1,75 @@
+name: Deploy
+on:
+  merge_group:
+  workflow_dispatch:
+    inputs:
+      commit-x86_64-linux-failures:
+        description: Commit X86-64 Linux failures.nix
+        required: false
+        default: true
+        type: boolean
+      commit-aarch64-linux-failures:
+        description: Commit Aarch64 Linux failures.nix
+        required: false
+        default: true
+        type: boolean
+      commit-aarch64-darwin-failures:
+        description: Commit Aarch64 Darwin failures.nix
+        required: false
+        default: true
+        type: boolean
+
+permissions:
+  contents: write
+  # requirements for docs:
+  pages: write
+  id-token: write
+  actions: read
+  # requirement for the workflow building other systems:
+  pull-requests: write
+
+jobs:
+  build:
+    uses: ./.github/workflows/build-all-x86_64-linux.yml
+    secrets: inherit
+    with:
+      commit-failures: ${{ inputs.commit-x86_64-linux-failures || false }}
+  deploy:
+    needs: build
+    if: needs.build.outputs.built == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    outputs:
+      pushed: ${{ steps.push.outcome == 'success' }}
+    steps:
+      # Checkout the main branch
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-tags: true
+      - name: Update nyxpkgs-unstable
+        id: push
+        run: |
+          git push origin HEAD:nyxpkgs-unstable --force
+  docs:
+    needs: deploy
+    uses: ./.github/workflows/document.yml
+    if: needs.deploy.outputs.pushed == 'true'
+  flakehub:
+    needs: docs
+    uses: ./.github/workflows/flakehub-publish-rolling.yml
+    if: needs.docs.outputs.built == 'true'
+  build-aarch64-linux:
+    needs: build
+    uses: ./.github/workflows/build-all-aarch64-linux.yml
+    if: needs.build.outputs.built == 'true'
+    secrets: inherit
+    with:
+      commit-failures: ${{ inputs.commit-aarch64-linux-failures || false }}
+  build-aarch64-darwin:
+    needs: build
+    uses: ./.github/workflows/build-all-aarch64-darwin.yml
+    if: needs.build.outputs.built == 'true'
+    secrets: inherit
+    with:
+      commit-failures: ${{ inputs.commit-aarch64-darwin-failures || false }}

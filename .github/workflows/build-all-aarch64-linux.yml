@@ -20,7 +20,7 @@ permissions:
   pull-requests: write
 
 concurrency:
-  group: nyx-aarch64-linux-build
+  group: ${{ github.workflow }}
   cancel-in-progress: false
 
 jobs:
@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-24.04-arm
     timeout-minutes: 1440
     outputs:
-      pushed: ${{ steps.push.outcome == 'success' }}
+      built: ${{ steps.build.outcome == 'success' }}
     steps:
       - name: Increase swapfile
         run: |
@@ -69,7 +69,7 @@ jobs:
         if: (success())
         id: build
         run: |
-          nix develop ./maintenance -c chaotic-nyx-build || [ $? -eq 42 ]
+          nix run ./maintenance#chaotic-nyx.builder || [ $? -eq 42 ]
           failed_builds="$(cat ${{ runner.temp }}/failures.txt | sed 's/^/    <li>/; s/$/<\/li>/')"
           failed_builds_count="$(cat ${{ runner.temp }}/failures.txt | wc -l)"
           unbuildable_count="$(cat ${{ runner.temp }}/eval-failures.txt | wc -l)"

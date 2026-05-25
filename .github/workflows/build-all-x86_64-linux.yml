@@ -1,4 +1,4 @@
-name: Build Aarch64 Darwin
+name: Build x86-64 Linux
 on:
   workflow_call:
     inputs:
@@ -20,15 +20,15 @@ permissions:
   pull-requests: write
 
 concurrency:
-  group: nyx-aarch64-darwin-build
+  group: ${{ github.workflow }}
   cancel-in-progress: false
 
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: nyxbuilder
     timeout-minutes: 1440
     outputs:
-      pushed: ${{ steps.push.outcome == 'success' }}
+      built: ${{ steps.build.outcome == 'success' }}
     steps:
       # identical to build.yml
       - name: Install Nix
@@ -37,14 +37,16 @@ jobs:
           extra_nix_config: |
             accept-flake-config = true
             sandbox-fallback = false
-            system-features = big-parallel
-            substituters = https://nix-community.cachix.org/ https://nix-community.cachix.org/ https://chaotic-nyx.cachix.org/ https://cache.nixos.org/
-            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8=
+            system-features = big-parallel gccarch-x86-64-v3
           install_options: --daemon
       - name: Checkout
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
+      - name: Configure sandboxing
+        run: |
+          sed -i -e '/^build-users-group =/d' -e 's/max-jobs =.*/max-jobs = 8/g' /etc/nix/nix.conf
+          nix eval ./maintenance#_dev.nixConfig --json | jq -r 'to_entries[] | "\(.key) = \(.value | join(" "))"' >> /etc/nix/nix.conf
       # config to commit
       - name: Bat-signal
         run: |
@@ -61,7 +63,7 @@ jobs:
         if: (success())
         id: build
         run: |
-          nix develop ./maintenance -c chaotic-nyx-build || [ $? -eq 42 ]
+          nix run ./maintenance#chaotic-nyx.builder || [ $? -eq 42 ]
           failed_builds="$(cat ${{ runner.temp }}/failures.txt | sed 's/^/    <li>/; s/$/<\/li>/')"
           failed_builds_count="$(cat ${{ runner.temp }}/failures.txt | wc -l)"
           unbuildable_count="$(cat ${{ runner.temp }}/eval-failures.txt | wc -l)"
@@ -71,9 +73,9 @@ jobs:
           $failed_builds
           EOF" >> $GITHUB_OUTPUT
           if [ "$SAVE_FAILURES" = "true" ]; then
-            cp ${{ runner.temp }}/new-failures.nix ./maintenance/failures.aarch64-darwin.nix
-            git add ./maintenance/failures.aarch64-darwin.nix
-            git commit -m "failures: update aarch64-darwin" && git pull --rebase && git push || true
+            cp ${{ runner.temp }}/new-failures.nix ./maintenance/failures.x86_64-linux.nix
+            git add ./maintenance/failures.x86_64-linux.nix
+            git commit -m "failures: update x86_64-linux" && git push || true
           fi
         env:
           NYX_WD: ${{ runner.temp }}
@@ -98,7 +100,7 @@ jobs:
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 commit_sha: context.sha,
-                body: `Failed to build ${process.env.FAILED_BUILDS_COUNT} aarch64-darwin packages:
+                body: `Failed to build ${process.env.FAILED_BUILDS_COUNT} packages:
             <details>
               <summary>${process.env.FAILED_BUILDS_COUNT} packages failed</summary>
               <ul>
@@ -111,7 +113,7 @@ jobs:
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 commit_sha: context.sha,
-                body: `All aarch64-darwin packages were built and cached successfully! (${process.env.UNBUILDABLE_COUNT} not suitable for building)`
+                body: `All packages were built and cached successfully! (${process.env.UNBUILDABLE_COUNT} not suitable for building)`
               })
         env:
           SAVE_FAILURES: ${{ inputs.commit-failures }}
@@ -123,7 +125,7 @@ jobs:
         if: ((success() || failure()) && steps.build.outcome != 'skipped')
         uses: actions/upload-artifact@v5
         with:
-          name: aarch64-darwin-logs
+          name: logs
           path: |
             ${{ runner.temp }}/*.txt
             ${{ runner.temp }}/*.nix

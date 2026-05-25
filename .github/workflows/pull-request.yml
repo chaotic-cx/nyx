@@ -25,7 +25,7 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
       - name: Run linter
-        run: nix develop ./maintenance#linter -c 'chaotic-nyx-lint'
+        run: nix run ./maintenance#chaotic-nyx.linter
         id: linter
         working-directory: ${{ github.workspace }}
   organize:

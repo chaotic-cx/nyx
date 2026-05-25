@@ -12,7 +12,7 @@ permissions:
   pull-requests: write
 
 concurrency:
-  group: nyx-single-bump
+  group: ${{ github.workflow }}-${{ inputs.bumpWhat }}
   cancel-in-progress: false
 
 jobs:

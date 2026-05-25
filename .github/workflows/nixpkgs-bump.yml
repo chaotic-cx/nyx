@@ -5,13 +5,12 @@ on:
   repository_dispatch:
     types: [nixpkgs-update]
 
-
 permissions:
   contents: write
   actions: write
 
 concurrency:
-  group: nyx-main-bump
+  group: ${{ github.workflow }}
   cancel-in-progress: true
 
 jobs:

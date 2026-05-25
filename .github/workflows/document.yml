@@ -10,13 +10,15 @@ permissions:
   actions: read
 
 concurrency:
-  group: nyx-main-document
+  group: ${{ github.workflow }}
   cancel-in-progress: true
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     timeout-minutes: 120
+    outputs:
+      built: ${{ steps.build.outcome == 'success' }}
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -33,15 +35,15 @@ jobs:
         run: |
           set -euo pipefail
           mkdir result
-          nix develop \
+          nix build --no-link --print-out-paths \
             --override-input chaotic "github:chaotic-cx/nyx/${GITHUB_SHA}" \
-            ./maintenance#document -c 'true' \
+            ./maintenance#chaotic-nyx.documentation \
             | \
             xargs -i@ cp @ result/index.html
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          path: 'result'
+          path: "result"
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

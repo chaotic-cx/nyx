@@ -24,7 +24,7 @@
       };
       final = chaotic // {
         schemas = import ./schemas { flakes = inputs; };
-        devShells = import ./dev-shells { flakes = inputs; };
+        legacyPackages = import ./dev-pkgs chaotic.legacyPackages { flakes = inputs; };
         _dev = import ./dev {
           flakes = inputs;
           inherit (chaotic) nixConfig utils;
