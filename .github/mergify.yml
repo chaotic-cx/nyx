@@ -12,5 +12,18 @@ pull_request_rules:
       update:
       merge:
         method: rebase
+
+  - name: auto merge self pr
+    conditions:
+      - and:
+          - author=lonerOrz
+          - label=loner_pr
+          - label=build-pr-success
+          - check-success=flake check
+          - check-success=All Garnix checks
+    actions:
+      merge:
+        method: rebase
+
 merge_protections_settings:
   reporting_method: check-runs
