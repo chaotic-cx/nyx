@@ -290,17 +290,22 @@ in
   pkgsx86_64_v3 = final.pkgsAMD64Microarchs.x86-64-v3;
   pkgsx86_64_v4 = final.pkgsAMD64Microarchs.x86-64-v4;
 
-  pkgsAMD64Microarchs = builtins.mapAttrs (arch: _inferiors: makeMicroarchPkgs "x86_64" arch) (
-    builtins.removeAttrs final.lib.systems.architectures.inferiors [
-      "default"
-      "armv5te"
-      "armv6"
-      "armv7-a"
-      "armv8-a"
-      "mips32"
-      "loongson2f"
-    ]
-  );
+  pkgsAMD64Microarchs =
+    builtins.mapAttrs (arch: _inferiors: makeMicroarchPkgs "x86_64" arch) (
+      builtins.removeAttrs final.lib.systems.architectures.inferiors [
+        "default"
+        "armv5te"
+        "armv6"
+        "armv7-a"
+        "armv8-a"
+        "mips32"
+        "loongson2f"
+      ]
+    )
+    // {
+      recurseForDerivations = false;
+      _description = "Nixpkgs + Chaotic-Nyx packages built for many AMD64 microarchitecture.";
+    };
 
   proton-cachyos = final.callPackage ../pkgs/proton-bin {
     toolTitle = "Proton-CachyOS";
