@@ -46,15 +46,15 @@ jobs:
           echo "matrix=$MATRIX_JSON" >> "$GITHUB_OUTPUT"
 
   run-bumps:
-    name: Bump ${{ matrix.package }}
+    name: Bump ${{ matrix.packages }}
     needs: generate-matrix
     strategy:
-      fail-fast: false # Ensure one package failing doesn't cancel all other bumps
+      fail-fast: false # Ensure one package group failing doesn't cancel all other bumps
       matrix:
-        package: ${{ fromJson(needs.generate-matrix.outputs.matrix) }}
+        packages: ${{ fromJson(needs.generate-matrix.outputs.matrix) }}
 
     # Call your existing reusable workflow
-    uses: ./.github/workflows/single-bump.yml
+    uses: ./.github/workflows/group-bump.yml
     with:
-      bumpWhat: ${{ matrix.package }}
+      bumpWhat: ${{ toJSON(matrix.packages) }}
     secrets: inherit # Pass secrets down if single-bump.yml needs a GH_TOKEN for PRs

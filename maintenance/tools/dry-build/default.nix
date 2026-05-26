@@ -51,6 +51,7 @@ let
           this = thisVar;
           thisOut = nyxUtils.outHash drv;
           issue = failed;
+          updatable = (drv.updateScript or null) != null;
           inherit key mainOutPath system;
         };
         inherit deps drv;
@@ -83,6 +84,24 @@ let
   packagesCmds = builtins.map (pkg: pkg.cmd) packagesEvalSorted.result;
 
   finalJSON = writeText "chaotic-dry-build.json" (lib.generators.toJSON { } packagesCmds);
+
+  buildStatus = lib.lists.partition (cmd: cmd.build == true) packagesCmds;
+
+  uniqBuildable = nyxUtils.uniqueByString (pkg: pkg.this) buildStatus.right;
+
+  groupedBuildable = lib.lists.foldl' (
+    acc: cmd:
+    let
+      isConnected = group: lib.lists.any (gCmd: builtins.elem gCmd.this cmd.deps) group;
+
+      partitions = lib.lists.partition isConnected acc;
+
+      mergedGroup = lib.lists.flatten partitions.right ++ [ cmd ];
+    in
+    partitions.wrong ++ [ mergedGroup ]
+  ) [ ] uniqBuildable;
+
+  unbuildableGroup = buildStatus.wrong;
 in
 finalJSON.overrideAttrs (oldAttrs: {
   passthru = (oldAttrs.passthru or { }) // {
@@ -91,6 +110,8 @@ finalJSON.overrideAttrs (oldAttrs: {
       system
       flakeSelf
       packagesEval
+      groupedBuildable
+      unbuildableGroup
       ;
   };
 })

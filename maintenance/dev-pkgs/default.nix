@@ -53,18 +53,13 @@ let
           ;
         inherit (home-manager.lib) homeManagerConfiguration;
       };
-      evaluated = callPackage ../tools/eval {
-        allPackages = nyxPkgs;
-        inherit nyxRecursionHelper;
-      };
       compared = callPackage ../tools/comparer {
         allPackages = nyxPkgs;
         compareToFlake = flakes.compare-to;
         inherit nyxRecursionHelper;
       };
       bump-matrix = callPackage ../tools/bump-matrix {
-        allPackages = nyxPkgs;
-        inherit nyxRecursionHelper;
+        inherit dry-build;
       };
       linter = callPackage ../tools/linter {
         formatter = self.formatter.${pkgs.stdenv.hostPlatform.system};

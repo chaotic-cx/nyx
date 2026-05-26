@@ -1,21 +1,15 @@
 {
   lib,
   writeText,
-  allPackages,
-  nyxRecursionHelper,
+  dry-build,
 }:
 let
-  inherit (lib.strings) escapeShellArg;
-  inherit (lib.lists) flatten;
+  inherit (dry-build.passthru) groupedBuildable;
 
-  evalResult = k: v: if ((v.updateScript or null) != null) then escapeShellArg k else null;
+  filteredGroups = builtins.map (builtins.filter (xs: xs.updatable)) groupedBuildable;
 
-  skip =
-    _k: _v: _message:
-    null;
+  updatableGroups = builtins.filter (xs: xs != [ ]) filteredGroups;
 
-  packagesEval = nyxRecursionHelper.derivationsLimited 2 skip evalResult allPackages;
-
-  packagesEvalSorted = builtins.filter (x: x != null) (flatten packagesEval);
+  groupedUpdatableKeys = builtins.map (builtins.map (x: x.key)) updatableGroups;
 in
-writeText "chaotic-bump-matrix.json" (lib.generators.toJSON { } packagesEvalSorted)
+writeText "chaotic-bump-matrix.json" (lib.generators.toJSON { } groupedUpdatableKeys)
