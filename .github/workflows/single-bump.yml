@@ -1,5 +1,11 @@
 name: Bump one package
 on:
+  workflow_call:
+    inputs:
+      bumpWhat:
+        description: What do you want to bump
+        required: true
+        type: string
   workflow_dispatch:
     inputs:
       bumpWhat:
@@ -13,11 +19,11 @@ permissions:
 
 concurrency:
   group: ${{ github.workflow }}-${{ inputs.bumpWhat }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   deploy:
-    runs-on: nyxbuilder
+    runs-on: ubuntu-latest
     timeout-minutes: 1440
     steps:
       # identical to build.yml
@@ -41,13 +47,66 @@ jobs:
           set -e
           git config --global user.name 'Chaotic Github Actions'
           git config --global user.email 'actions@chaotic.cx'
-      # the bump itself
-      - name: Wiggle, wiggle, wiggle
+      - name: Update, Rebase & PR
         run: |
-          git checkout -b "bump-${TARGETPKG}-$(date '+%Y%m%d')"
+          set -euo pipefail
+
+          BRANCH_NAME="bump/${TARGETPKG}"
+
+          # Run the update script directly on top of the latest default branch
           nix build ".#${TARGETPKG}.updateScript"
           bash ./result
-          git push origin "bump-${TARGETPKG}-$(date '+%Y%m%d')" -u
+
+          # Stage changes
+          git add -A
+
+          # Check against main: Did the script actually change anything?
+          if git diff --staged --quiet; then
+            echo "${TARGETPKG} is already up to date on main. No bump needed!"
+            exit 0
+          fi
+
+          # Check against remote branch: Is this exact state already pushed?
+          # If the branch exists remotely, fetch it and compare the file trees.
+          if git ls-remote --exit-code --heads origin "$BRANCH_NAME" > /dev/null; then
+            echo "Branch $BRANCH_NAME exists remotely. Fetching to compare..."
+            git fetch origin "$BRANCH_NAME"
+
+            # If the staged files exactly match the remote branch, we do nothing.
+            if git diff --staged "origin/$BRANCH_NAME" --quiet; then
+              echo "The exact same update is already pushed, and main hasn't changed."
+              echo "Avoiding noisy force-push!"
+              exit 0
+            fi
+            echo "Differences found (either main moved or new package version). Proceeding to push..."
+          fi
+
+          # Commit the new bump (This creates a new commit parented to the latest main)
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH_NAME"
+          git commit -m "chore: bump ${TARGETPKG}"
+
+          # Force push (Creates new branch or overwrites existing for an auto-rebase)
+          git push origin "$BRANCH_NAME" --force
+
+          # Check if the PR is already open
+          PR_EXISTS=$(gh pr list --head "$BRANCH_NAME" --state open --json number | jq length)
+
+          # Create the PR and trigger the merge queue
+          if [ "$PR_EXISTS" -eq 0 ]; then
+            echo "Creating a new PR for ${TARGETPKG}..."
+            gh pr create \
+              --title "chore: bump ${TARGETPKG}" \
+              --body "Automated package bump for \`${TARGETPKG}\` triggered by Nix evaluation." \
+              --head "$BRANCH_NAME" \
+              --base main
+
+            echo "Adding PR to the merge queue..."
+            gh pr merge "$BRANCH_NAME" --auto
+          else
+            echo "PR already exists. It has now been cleanly rebased and updated!"
+          fi
         env:
           GH_TOKEN: ${{ github.token }}
           TARGETPKG: ${{ inputs.bumpWhat }}

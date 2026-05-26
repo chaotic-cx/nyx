@@ -1,0 +1,60 @@
+name: Bump all packages
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+jobs:
+  generate-matrix:
+    name: Generate Update Matrix
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      # identical to build.yml
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            accept-flake-config = true
+            sandbox-fallback = false
+            system-features = big-parallel gccarch-x86-64-v3
+          install_options: --daemon
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build and extract matrix
+        id: set-matrix
+        run: |
+          # Build the derivation and capture the resulting store path
+          OUT_PATH=$(nix build --no-link --print-out-paths ./maintenance#chaotic-nyx.bump-matrix)
+
+          #  Read the contents of the generated file
+          MATRIX_JSON=$(jq -c . "$OUT_PATH")
+
+          # Write to GitHub step outputs
+          echo "matrix=$MATRIX_JSON" >> "$GITHUB_OUTPUT"
+
+  run-bumps:
+    name: Bump ${{ matrix.package }}
+    needs: generate-matrix
+    strategy:
+      fail-fast: false # Ensure one package failing doesn't cancel all other bumps
+      matrix:
+        package: ${{ fromJson(needs.generate-matrix.outputs.matrix) }}
+
+    # Call your existing reusable workflow
+    uses: ./.github/workflows/single-bump.yml
+    with:
+      bumpWhat: ${{ matrix.package }}
+    secrets: inherit # Pass secrets down if single-bump.yml needs a GH_TOKEN for PRs

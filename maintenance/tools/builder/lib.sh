@@ -68,7 +68,7 @@ function prepare() {
   if [ -n "${NYX_CHANGED_ONLY:-}" ]; then
     _DIFF=$(cd "$NYX_SOURCE" \
         && sed -Ei'' "s|compare-to\.url = \"[^\"]*\";|compare-to.url = \"$NYX_CHANGED_ONLY\";|" './maintenance/flake.nix' \
-        && nix build ./maintenance#devShells.${NYX_TARGET}.comparer.passthru.compared \
+        && nix build ./maintenance#legacyPackages.${NYX_TARGET}.chaotic-nyx.compared \
         $NYX_FLAGS --print-out-paths \
       || exit 13)
 

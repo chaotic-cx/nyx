@@ -62,11 +62,9 @@ let
         compareToFlake = flakes.compare-to;
         inherit nyxRecursionHelper;
       };
-      bumper = callPackage ../tools/bumper {
+      bump-matrix = callPackage ../tools/bump-matrix {
         allPackages = nyxPkgs;
-        nix = pinnedNix;
-        flakeSelf = self;
-        inherit nyxRecursionHelper nixpkgs;
+        inherit nyxRecursionHelper;
       };
       linter = callPackage ../tools/linter {
         formatter = self.formatter.${pkgs.stdenv.hostPlatform.system};
