@@ -217,10 +217,10 @@ in
 
   linux_cachyos = drvDropUpdateScript cachyosPackages.cachyos-gcc.kernel;
   linux_cachyos-lto = drvDropUpdateScript cachyosPackages.cachyos-lto.kernel;
-  linux_cachyos-lto-znver4 = drvDropUpdateScript cachyosPackages.cachyos-lto-znver4.kernel;
+  linux_cachyos-lto-znver4 = cachyosPackages.cachyos-lto-znver4.kernel;
   linux_cachyos-gcc = drvDropUpdateScript cachyosPackages.cachyos-gcc.kernel;
-  linux_cachyos-server = drvDropUpdateScript cachyosPackages.cachyos-server.kernel;
-  linux_cachyos-hardened = drvDropUpdateScript cachyosPackages.cachyos-hardened.kernel;
+  linux_cachyos-server = cachyosPackages.cachyos-server.kernel;
+  linux_cachyos-hardened = cachyosPackages.cachyos-hardened.kernel;
   linux_cachyos-rc = cachyosPackages.cachyos-rc.kernel;
   linux_cachyos-lts = cachyosPackages.cachyos-lts.kernel;
 
