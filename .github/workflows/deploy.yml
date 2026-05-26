@@ -1,6 +1,7 @@
 name: Deploy
 on:
   merge_group:
+    branches: [main]
   workflow_dispatch:
     inputs:
       commit-x86_64-linux-failures:
@@ -30,6 +31,8 @@ permissions:
 
 jobs:
   build:
+    # Skip it if github try to force it over an unexpected trigger
+    if: github.event_name == 'merge_group' || github.event_name == 'workflow_dispatch'
     uses: ./.github/workflows/build-all-x86_64-linux.yml
     secrets: inherit
     with:
