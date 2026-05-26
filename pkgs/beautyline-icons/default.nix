@@ -28,7 +28,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   src = fetchgit {
     url = gitUrl;
-    rev = current.rev;
+    inherit (current) rev;
     sha256 = current.hash;
   };
 
@@ -58,7 +58,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   '';
 
   passthru.updateScript = callPackage ../../shared/git-update.nix {
-    pname = finalAttrs.pname;
+    inherit (finalAttrs) pname;
     nyxKey = "beautyline-icons";
     versionPath = "pkgs/beautyline-icons/version.json";
     fetchLatestRev = callPackage ../../shared/gitlab-rev-fetcher.nix { } "master" srcMeta;

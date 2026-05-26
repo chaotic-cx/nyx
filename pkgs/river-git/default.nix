@@ -26,7 +26,7 @@ gitOverride {
     git add "$_PKG_DIR/build.zig.zon.nix"
   '';
 
-  postOverride = prevAttrs: {
+  postOverride = _prevAttrs: {
     deps = final.callPackage ./build.zig.zon.nix { };
     # river outputs its own dev version (e.g. "0.3.16-dev") from the zig build,
     # which never matches the Nix-side "unstable-YYYYMMDD-rev" format.

@@ -22,7 +22,7 @@
 let
   current = lib.trivial.importJSON ./version.json;
 
-  version = current.version;
+  inherit (current) version;
 
   nordVPNBase = stdenv.mkDerivation {
     pname = "nordvpn-core";
@@ -30,7 +30,7 @@ let
 
     src = fetchurl {
       url = "https://repo.nordvpn.com/deb/nordvpn/debian/pool/main/n/nordvpn/nordvpn_${version}_amd64.deb";
-      hash = current.hash;
+      inherit (current) hash;
     };
 
     buildInputs = [

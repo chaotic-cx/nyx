@@ -25,7 +25,8 @@ gitOverride {
       ++ prevAttrs.mesonFlags;
 
     patches = builtins.filter (
-      p: !(prev.lib.hasSuffix "libportal-fix-qt6.9-private-api-usage.patch" (baseNameOf (toString p)))
+      patch:
+      !(prev.lib.hasSuffix "libportal-fix-qt6.9-private-api-usage.patch" (baseNameOf (toString patch)))
     ) (prevAttrs.patches or [ ]);
   };
 }

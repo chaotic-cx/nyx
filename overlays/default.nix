@@ -119,7 +119,7 @@ let
           else
             pkg;
         # Remove updateScript from all jovian-chaotic packages (they use nix-update incorrectly)
-        jovianWithoutUpdateScript = builtins.mapAttrs (_k: v: removeUpdateScript v) base;
+        jovianWithoutUpdateScript = builtins.mapAttrs (_k: removeUpdateScript) base;
       in
       (builtins.removeAttrs jovianWithoutUpdateScript [ "jovian-documentation" ])
       // {

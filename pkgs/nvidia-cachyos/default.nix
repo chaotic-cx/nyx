@@ -1,6 +1,5 @@
 {
   final,
-  prev,
   nyxUtils,
   variant ? "stable",
   ...

@@ -105,7 +105,7 @@ gitOverride {
             [
               (placeholder "out")
             ]
-            ++ final.lib.optional (final.stdenv.hostPlatform.isx86_64) final.pkgsi686Linux.mangohud
+            ++ final.lib.optional final.stdenv.hostPlatform.isx86_64 final.pkgsi686Linux.mangohud
           )
         } \
         --subst-var-by version "${prevAttrs.version}" \
