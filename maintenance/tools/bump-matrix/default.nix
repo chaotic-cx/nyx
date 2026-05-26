@@ -5,7 +5,7 @@
   nyxRecursionHelper,
 }:
 let
-  inherit (lib.strings) concatStringsSep escapeShellArg;
+  inherit (lib.strings) escapeShellArg;
   inherit (lib.lists) flatten;
 
   evalResult = k: v: if ((v.updateScript or null) != null) then escapeShellArg k else null;
