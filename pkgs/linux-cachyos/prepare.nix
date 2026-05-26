@@ -53,7 +53,16 @@ let
         "${patches-src}/${majorMinor}/sched/0001-sched-ext.patch"
       ]
       ++ lib.optionals (cachyConfig.cpuSched == "cachyos" && version != "6.17-rc1") [
-        "${patches-src}/${majorMinor}/sched/0001-bore-cachy.patch"
+        (
+          if
+            version == "6.18.33"
+            && toString (cachyConfig.versions.linux.tagrel or "") == "1"
+            && cachyConfig.taste == "linux-cachyos-lts"
+          then
+            "${./0001-bore-cachy.patch}"
+          else
+            "${patches-src}/${majorMinor}/sched/0001-bore-cachy.patch"
+        )
       ]
     else
       throw "Unsupported cachyos _cpu_sched=${toString cachyConfig.cpuSched}";
