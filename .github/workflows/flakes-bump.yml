@@ -1,30 +1,21 @@
-name: Bump package group
+name: Bump flakes
+
 on:
   workflow_call:
-    inputs:
-      bumpWhat:
-        description: What do you want to bump (JSON array)
-        required: true
-        type: string
   workflow_dispatch:
-    inputs:
-      bumpWhat:
-        description: What do you want to bump (JSON array)
-        required: true
-        type: string
 
 permissions:
   contents: write
   pull-requests: write
 
 concurrency:
-  group: ${{ github.workflow }}-${{ inputs.bumpWhat }}
+  group: ${{ github.workflow }}
   cancel-in-progress: true
 
 jobs:
-  group-bump:
+  flakes-bump:
     runs-on: ubuntu-latest
-    timeout-minutes: 1440
+    timeout-minutes: 20
     steps:
       # identical to build.yml
       - name: Install Nix
@@ -32,9 +23,7 @@ jobs:
         with:
           extra_nix_config: |
             accept-flake-config = true
-            sandbox-fallback = false
             system-features = big-parallel gccarch-x86-64-v3
-          install_options: --daemon
       - name: Checkout
         uses: actions/checkout@v6
       # config to commit
@@ -43,43 +32,21 @@ jobs:
           set -e
           git config --global user.name 'Chaotic Github Actions'
           git config --global user.email 'actions@chaotic.cx'
+      # based on group-bump.yml
       - name: Update, Rebase & PR
         run: |
           set -euo pipefail
 
-          # Extract the first package name to use for branches, commits, and PRs
-          FIRST_PKG=$(echo "$TARGETPKG" | jq -r '.[0]')
-          BRANCH_NAME="bump/${FIRST_PKG}"
+          BRANCH_NAME="bump/flakes"
+          DATE=$(date +%Y%m%d)
 
-          # Create and switch to the bump branch BEFORE running scripts
-          # so auto-commits go straight onto this branch
           git checkout -b "$BRANCH_NAME"
 
-          # Record the state of the branch before updates
-          START_COMMIT=$(git rev-parse HEAD)
+          nix flake update || exit 1
+          git diff --exit-code flake.lock && exit 0
 
-          # Loop through every package in the JSON array and run its update script
-          for PKG in $(echo "$TARGETPKG" | jq -r '.[]'); do
-            echo "Running updateScript for $PKG..."
-            nix build ".#${PKG}.updateScript"
-            bash ./result
-          done
-
-          # Catch-all: Stage and commit anything if a script didn't auto-commit
           git add -A
-          if ! git diff --staged --quiet; then
-            echo "Committing unstaged changes..."
-            git commit -m "chore: bump ${FIRST_PKG} (and group)"
-          fi
-
-          # Record the state of the branch after updates
-          END_COMMIT=$(git rev-parse HEAD)
-
-          # Check against main: Did the commit hash change?
-          if [ "$START_COMMIT" = "$END_COMMIT" ]; then
-            echo "${FIRST_PKG} (and its group) is already up to date. No bump needed!"
-            exit 0
-          fi
+          git commit -m "flakes: bump $DATE"
 
           # Check against remote branch: Is this exact state already pushed?
           if git ls-remote --exit-code --heads origin "$BRANCH_NAME" > /dev/null; then
@@ -103,10 +70,10 @@ jobs:
 
           # Create the PR and trigger the merge queue
           if [ "$PR_EXISTS" -eq 0 ]; then
-            echo "Creating a new PR for ${FIRST_PKG}..."
+            echo "Creating a new PR"
             gh pr create \
-              --title "chore: bump ${FIRST_PKG}" \
-              --body "Automated package bump for \`${TARGETPKG}\`." \
+              --title "flakes: bump $DATE" \
+              --body "Automated flakes bump." \
               --head "$BRANCH_NAME" \
               --base main
           else
@@ -117,4 +84,3 @@ jobs:
           gh pr merge "$BRANCH_NAME" --auto --merge
         env:
           GH_TOKEN: ${{ github.token }}
-          TARGETPKG: ${{ inputs.bumpWhat }}
