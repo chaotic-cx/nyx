@@ -176,6 +176,32 @@ rec {
   # For revs
   shorter = builtins.substring 0 7;
 
+  # For deduplicating lists
+  uniqueByString =
+    pred: list:
+    (builtins.foldl'
+      (
+        acc: element:
+        let
+          key = pred element;
+        in
+        if acc.keys ? ${key} then
+          acc
+        else
+          {
+            keys = acc.keys // {
+              ${key} = true;
+            };
+            result = acc.result ++ [ element ];
+          }
+      )
+      {
+        keys = { };
+        result = [ ];
+      }
+      list
+    ).result;
+
   # Like `lib.fakeHash`, but beautier.
   unreachableHash = "sha256-2342234223422342234223422342234223422342069=";
 

@@ -4,6 +4,7 @@ base:
   homeManagerModules ? self.homeManagerModules,
   nixpkgs ? flakes.nixpkgs,
   home-manager ? flakes.home-manager,
+  niks3 ? flakes.niks3,
   packages ? self._dev.legacyPackages,
   self ? flakes.self,
   nyxosConfiguration ? self._dev.system.x86_64-linux,
@@ -36,11 +37,19 @@ let
         nix = pinnedNix;
         inherit dry-build;
       };
+      builder-arg1 = callPackage ../tools/builder {
+        nix = pinnedNix;
+        inherit dry-build;
+        outsourceBuildJobs = "\"$1\"";
+      };
       dry-build = callPackage ../tools/dry-build {
         allPackages = nyxPkgs;
         flakeSelf = self;
         inherit nyxRecursionHelper;
         inherit (pkgs) nyxUtils;
+      };
+      build-matrix = callPackage ../tools/build-matrix {
+        inherit builder;
       };
       documentation = callPackage ../tools/document {
         allPackages = nyxPkgs;
@@ -53,27 +62,23 @@ let
           ;
         inherit (home-manager.lib) homeManagerConfiguration;
       };
-      evaluated = callPackage ../tools/eval {
-        allPackages = nyxPkgs;
-        inherit nyxRecursionHelper;
-      };
       compared = callPackage ../tools/comparer {
         allPackages = nyxPkgs;
         compareToFlake = flakes.compare-to;
         inherit nyxRecursionHelper;
       };
-      bumper = callPackage ../tools/bumper {
-        allPackages = nyxPkgs;
-        nix = pinnedNix;
-        flakeSelf = self;
-        inherit nyxRecursionHelper nixpkgs;
+      bump-matrix = callPackage ../tools/bump-matrix {
+        inherit dry-build;
       };
       linter = callPackage ../tools/linter {
         formatter = self.formatter.${pkgs.stdenv.hostPlatform.system};
       };
     };
 
-  mkDevPackagesSet = nyxPkgs: nixPkgs: { chaotic-nyx = mkDevPackages nyxPkgs nixPkgs; };
+  mkDevPackagesSet = nyxPkgs: nixPkgs: {
+    chaotic-nyx = mkDevPackages nyxPkgs nixPkgs;
+    inherit (niks3.packages.${nixPkgs.stdenv.hostPlatform.system}) niks3;
+  };
 in
 base
 // {

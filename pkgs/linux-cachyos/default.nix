@@ -90,6 +90,10 @@ let
     # since all flavors use the same versions.json, we just need the updateScript in one of them
     withUpdateScript = "stable";
   };
+
+  preventBuildingKernelModules =
+    _kernel: _final: prev:
+    prev // { recurseForDerivations = false; };
 in
 {
   inherit
@@ -108,10 +112,7 @@ in
     versions = ltsVersions;
     withUpdateScript = "lts";
 
-    # Prevent building kernel modules for LTS kernel
-    packagesExtend =
-      _kernel: _final: prev:
-      prev // { recurseForDerivations = false; };
+    packagesExtend = preventBuildingKernelModules;
   };
 
   cachyos-rc = mkCachyKernel {
@@ -132,6 +133,8 @@ in
     ltoKernelAttrs
     // {
       configPath = ./config-nix/cachyos-znver4.x86_64-linux.nix;
+
+      packagesExtend = preventBuildingKernelModules;
     }
   );
 
@@ -150,6 +153,8 @@ in
     withNTSync = false;
     withHDR = false;
     description = "Linux EEVDF scheduler Kernel by CachyOS targeted for Servers";
+
+    packagesExtend = preventBuildingKernelModules;
   };
 
   cachyos-hardened = mkCachyKernel {
@@ -162,6 +167,8 @@ in
 
     withNTSync = false;
     withHDR = false;
+
+    packagesExtend = preventBuildingKernelModules;
   };
 
   zfs = final.zfs_2_4.overrideAttrs (prevAttrs: {

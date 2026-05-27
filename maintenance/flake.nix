@@ -8,6 +8,10 @@
       inputs.systems.follows = "systems";
       inputs.flake-schemas.follows = "chaotic/flake-schemas";
     };
+    niks3 = {
+      url = "github:Mic92/niks3/v1.6.0";
+      inputs.nixpkgs.follows = "chaotic/nixpkgs";
+    };
   };
   outputs =
     {
@@ -15,6 +19,7 @@
       compare-to,
       systems,
       yafas,
+      niks3,
       ...
     }:
     let
@@ -24,7 +29,10 @@
       };
       final = chaotic // {
         schemas = import ./schemas { flakes = inputs; };
-        legacyPackages = import ./dev-pkgs chaotic.legacyPackages { flakes = inputs; };
+        legacyPackages = import ./dev-pkgs chaotic.legacyPackages {
+          flakes = inputs;
+          inherit niks3;
+        };
         _dev = import ./dev {
           flakes = inputs;
           inherit (chaotic) nixConfig utils;

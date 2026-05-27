@@ -14,7 +14,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  deploy:
+  push-pages:
+    name: Build and push documentation pages
     runs-on: ubuntu-latest
     timeout-minutes: 120
     outputs:
@@ -46,4 +47,4 @@ jobs:
           path: "result"
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5

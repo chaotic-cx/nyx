@@ -11,7 +11,7 @@ let
     src:
     final.callPackage (src + "/build.zig.zon.nix") {
       name = "ghostty-git-zig-deps";
-      zig_0_15 = final.zig_0_15;
+      inherit (final) zig_0_15;
     };
 in
 gitOverride {

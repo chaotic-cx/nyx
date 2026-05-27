@@ -54,10 +54,10 @@ gitOverride (current: {
     # gamescope master already includes these patches
     # filter them to keep git builds working
     patches = builtins.filter (
-      p:
+      patch:
       let
-        lib = prev.lib;
-        path = toString p;
+        inherit (prev) lib;
+        path = toString patch;
       in
       !(lib.hasInfix "shaders-path" path)
       && !(lib.hasInfix "54e844748029d4874e14d0c086d50092c04c8899" path)

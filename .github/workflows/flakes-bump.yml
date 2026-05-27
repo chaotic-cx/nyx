@@ -1,0 +1,89 @@
+name: Bump flakes
+
+on:
+  workflow_call:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0,8,16 * * *"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
+jobs:
+  flakes-bump:
+    name: Bump flakes
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      # identical to build.yml
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            accept-flake-config = true
+            system-features = big-parallel gccarch-x86-64-v3
+      - name: Checkout
+        uses: actions/checkout@v6
+      # config to commit
+      - name: Bat-signal
+        run: |
+          set -e
+          git config --global user.name 'Chaotic Github Actions'
+          git config --global user.email 'actions@chaotic.cx'
+      # based on group-bump.yml
+      - name: Update, Rebase & PR
+        run: |
+          set -euo pipefail
+
+          BRANCH_NAME="bump/flakes"
+          DATE=$(date +%Y%m%d)
+
+          git checkout -b "$BRANCH_NAME"
+
+          nix flake update || exit 1
+          git diff --exit-code flake.lock && exit 0
+
+          git add -A
+          git commit -m "flakes: bump $DATE"
+
+          # Check against remote branch: Is this exact state already pushed?
+          if git ls-remote --exit-code --heads origin "$BRANCH_NAME" > /dev/null; then
+            echo "Branch $BRANCH_NAME exists remotely. Fetching to compare..."
+            git fetch origin "$BRANCH_NAME"
+
+            # Compare the actual file tree of our new HEAD to the remote branch.
+            # This ignores commit timestamps and checks if the code is exactly the same.
+            if git diff HEAD "origin/$BRANCH_NAME" --quiet; then
+              echo "The exact same update is already pushed. Avoiding noisy force-push!"
+              exit 0
+            fi
+            echo "Differences found. Proceeding to push..."
+          fi
+
+          # Force push to the branch
+          git push origin "$BRANCH_NAME" --force
+
+          # Check if the PR is already open
+          PR_EXISTS=$(gh pr list --head "$BRANCH_NAME" --state open --json number | jq length)
+
+          # Create the PR and trigger the merge queue
+          if [ "$PR_EXISTS" -eq 0 ]; then
+            echo "Creating a new PR"
+            gh pr create \
+              --title "chore: bump flakes" \
+              --body "Automated flakes bump." \
+              --head "$BRANCH_NAME" \
+              --base main
+          else
+            echo "PR already exists. It has now been cleanly rebased and updated!"
+          fi
+
+          # Trigger auto-merge for the PR using a standard merge commit
+          gh pr merge "$BRANCH_NAME" --auto --merge
+        env:
+          GH_TOKEN: ${{ github.token }}

@@ -18,7 +18,7 @@
   lib,
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation (_finalAttrs: {
   pname = "mwc-wlr";
   version = "0.1.3";
 

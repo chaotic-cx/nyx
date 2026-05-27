@@ -24,7 +24,8 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build:
+  build-all-aarch64-linux:
+    name: Build-all Aarch64 Linux
     runs-on: ubuntu-24.04-arm
     timeout-minutes: 1440
     outputs:
@@ -46,8 +47,8 @@ jobs:
             accept-flake-config = true
             sandbox-fallback = false
             system-features = big-parallel
-            substituters = https://nix-community.cachix.org/ https://nix-community.cachix.org/ https://chaotic-nyx.cachix.org/ https://cache.nixos.org/
-            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8=
+            substituters = https://nyx-cache.chaotic.cx/ https://cache.nixos.org/
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nyx-cache.chaotic.cx:dJxTrgMC3V3cFfyIiBQDQorG6k1LsqurH/srpMSq7qk=
           install_options: --daemon
       - name: Checkout
         uses: actions/checkout@v6
@@ -61,9 +62,18 @@ jobs:
           git config --global user.email 'actions@chaotic.cx'
       # similar to build.yml
       - name: Download cache list
+        continue-on-error: true
         run: |
-          curl -vfo "${{ runner.temp }}/prev-cache.json" -H "Authorization: Bearer ${{ secrets.CACHIX_AUTH_TOKEN_SUPREME }}" \
-            'https://app.cachix.org/api/v1/cache/chaotic-nyx/contents'
+          curl -vfo "${{ runner.temp }}/prev-cache.json" -H "Authorization: Bearer ${{ secrets.NIKS3_TOKEN }}" \
+            'https://nyx-niks3.chaotic.cx/api/contents'
+      - name: Create niks3 auth-token
+        run: |
+          export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
+          mkdir -p $XDG_CONFIG_HOME/niks3/
+          printf "%s" "$NIKS3_TOKEN" > $XDG_CONFIG_HOME/niks3/auth-token
+          wc $XDG_CONFIG_HOME/niks3/auth-token
+        env:
+          NIKS3_TOKEN: ${{ secrets.NIKS3_TOKEN }}
       # the building
       - name: Build
         if: (success())
@@ -81,16 +91,16 @@ jobs:
           if [ "$SAVE_FAILURES" = "true" ]; then
             cp ${{ runner.temp }}/new-failures.nix ./maintenance/failures.aarch64-linux.nix
             git add ./maintenance/failures.aarch64-linux.nix
-            git commit -m "failures: update aarch64-linux" && git push || true
+            git commit -m "failures: update aarch64-linux" && git pull --rebase && git push || true
           fi
         env:
           NYX_WD: ${{ runner.temp }}
           NYX_PUSH_ALL: "1"
-          CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          NIKS3_TOKEN: ${{ secrets.NIKS3_TOKEN }}
           SAVE_FAILURES: ${{ inputs.commit-failures }}
       - name: Comment on commit
         if: (success())
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           script: |
             if (process.env.FAILED_BUILDS_COUNT > 0) {
@@ -129,7 +139,7 @@ jobs:
           ACTOR: ${{ github.actor }}
       - name: Upload logs
         if: ((success() || failure()) && steps.build.outcome != 'skipped')
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: aarch64-logs
           path: |

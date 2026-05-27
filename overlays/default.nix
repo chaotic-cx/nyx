@@ -119,7 +119,7 @@ let
           else
             pkg;
         # Remove updateScript from all jovian-chaotic packages (they use nix-update incorrectly)
-        jovianWithoutUpdateScript = builtins.mapAttrs (_k: v: removeUpdateScript v) base;
+        jovianWithoutUpdateScript = builtins.mapAttrs (_k: removeUpdateScript) base;
       in
       (builtins.removeAttrs jovianWithoutUpdateScript [ "jovian-documentation" ])
       // {
@@ -217,10 +217,10 @@ in
 
   linux_cachyos = drvDropUpdateScript cachyosPackages.cachyos-gcc.kernel;
   linux_cachyos-lto = drvDropUpdateScript cachyosPackages.cachyos-lto.kernel;
-  linux_cachyos-lto-znver4 = drvDropUpdateScript cachyosPackages.cachyos-lto-znver4.kernel;
+  linux_cachyos-lto-znver4 = cachyosPackages.cachyos-lto-znver4.kernel;
   linux_cachyos-gcc = drvDropUpdateScript cachyosPackages.cachyos-gcc.kernel;
-  linux_cachyos-server = drvDropUpdateScript cachyosPackages.cachyos-server.kernel;
-  linux_cachyos-hardened = drvDropUpdateScript cachyosPackages.cachyos-hardened.kernel;
+  linux_cachyos-server = cachyosPackages.cachyos-server.kernel;
+  linux_cachyos-hardened = cachyosPackages.cachyos-hardened.kernel;
   linux_cachyos-rc = cachyosPackages.cachyos-rc.kernel;
   linux_cachyos-lts = cachyosPackages.cachyos-lts.kernel;
 
@@ -290,17 +290,22 @@ in
   pkgsx86_64_v3 = final.pkgsAMD64Microarchs.x86-64-v3;
   pkgsx86_64_v4 = final.pkgsAMD64Microarchs.x86-64-v4;
 
-  pkgsAMD64Microarchs = builtins.mapAttrs (arch: _inferiors: makeMicroarchPkgs "x86_64" arch) (
-    builtins.removeAttrs final.lib.systems.architectures.inferiors [
-      "default"
-      "armv5te"
-      "armv6"
-      "armv7-a"
-      "armv8-a"
-      "mips32"
-      "loongson2f"
-    ]
-  );
+  pkgsAMD64Microarchs =
+    builtins.mapAttrs (arch: _inferiors: makeMicroarchPkgs "x86_64" arch) (
+      builtins.removeAttrs final.lib.systems.architectures.inferiors [
+        "default"
+        "armv5te"
+        "armv6"
+        "armv7-a"
+        "armv8-a"
+        "mips32"
+        "loongson2f"
+      ]
+    )
+    // {
+      recurseForDerivations = false;
+      _description = "Nixpkgs + Chaotic-Nyx packages built for many AMD64 microarchitecture.";
+    };
 
   proton-cachyos = final.callPackage ../pkgs/proton-bin {
     toolTitle = "Proton-CachyOS";

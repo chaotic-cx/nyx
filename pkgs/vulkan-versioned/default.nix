@@ -67,9 +67,6 @@ final.lib.makeScope final.newScope (self: {
     owner = "LunarG";
     repo = "gfxreconstruct";
     fetchSubmodules = true;
-
-    extraAttrs = prevAttrs: {
-    };
   };
 
   glslang = genericOverride {
