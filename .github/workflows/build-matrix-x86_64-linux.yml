@@ -1,0 +1,122 @@
+name: Build (Matrix) x86-64 Linux
+on:
+  merge_group:
+    branches: [main]
+  workflow_call:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+jobs:
+  generate-matrix:
+    name: Generate Build Matrix
+    if: github.event_name == 'merge_group' || github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_call'
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      # identical to build.yml
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            accept-flake-config = true
+            sandbox-fallback = false
+            system-features = big-parallel gccarch-x86-64-v3
+          install_options: --daemon
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build and extract matrix
+        id: set-matrix
+        run: |
+          # Build the derivation and capture the resulting store path
+          OUT_PATH=$(nix build --no-link --print-out-paths ./maintenance#chaotic-nyx.build-matrix)
+
+          #  Read the contents of the generated file
+          MATRIX_JSON=$(jq -c . "$OUT_PATH")
+
+          # Write to GitHub step outputs
+          echo "matrix=$MATRIX_JSON" >> "$GITHUB_OUTPUT"
+
+  run-build:
+    needs: generate-matrix
+    strategy:
+      fail-fast: false # Ensure one package group failing doesn't cancel all other bumps
+      max-parallel: 12
+      matrix:
+        script_content: ${{ fromJson(needs.generate-matrix.outputs.matrix) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 1440
+    outputs:
+      built: ${{ steps.build.outcome == 'success' }}
+    steps:
+      - name: Write matrix content to a shell script
+        env:
+          # 1. Map the matrix context to an environment variable
+          SCRIPT: ${{ matrix.script_content }}
+        run: |
+          printf "%s" "$SCRIPT" > "$HOME/building.sh"
+          wc "$HOME/building.sh"
+      # identical to build.yml
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            accept-flake-config = true
+            sandbox-fallback = false
+            system-features = big-parallel gccarch-x86-64-v3
+            substituters = https://nyx-cache.chaotic.cx/ https://cache.nixos.org/
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nyx-cache.chaotic.cx:dJxTrgMC3V3cFfyIiBQDQorG6k1LsqurH/srpMSq7qk=
+          install_options: --daemon
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      # similar to build.yml
+      - name: Download cache list
+        continue-on-error: true
+        run: |
+          curl -vfo "${{ runner.temp }}/prev-cache.json" -H "Authorization: Bearer ${{ secrets.NIKS3_TOKEN }}" \
+            'https://nyx-niks3.chaotic.cx/api/contents'
+      - name: Create niks3 auth-token
+        run: |
+          export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
+          mkdir -p $XDG_CONFIG_HOME/niks3/
+          printf "%s" "$NIKS3_TOKEN" > $XDG_CONFIG_HOME/niks3/auth-token
+          wc $XDG_CONFIG_HOME/niks3/auth-token
+        env:
+          NIKS3_TOKEN: ${{ secrets.NIKS3_TOKEN }}
+      # the building
+      - name: Build
+        if: (success())
+        id: build
+        run: |
+          nix run ./maintenance#chaotic-nyx.builder-arg1 -- "$HOME/building.sh" || [ $? -eq 42 ]
+          failed_builds="$(cat ${{ runner.temp }}/failures.txt | sed 's/^/    <li>/; s/$/<\/li>/')"
+          failed_builds_count="$(cat ${{ runner.temp }}/failures.txt | wc -l)"
+          unbuildable_count="$(cat ${{ runner.temp }}/eval-failures.txt | wc -l)"
+          echo "FAILED_BUILDS_COUNT=$failed_builds_count
+          UNBUILDABLE_COUNT=$unbuildable_count
+          FAILED_BUILDS<<EOF
+          $failed_builds
+          EOF" >> $GITHUB_OUTPUT
+        env:
+          NYX_WD: ${{ runner.temp }}
+          NYX_PUSH_ALL: "1"
+          NIKS3_TOKEN: ${{ secrets.NIKS3_TOKEN }}
+      - name: Upload logs
+        if: ((success() || failure()) && steps.build.outcome != 'skipped')
+        uses: actions/upload-artifact@v5
+        with:
+          name: logs
+          path: |
+            ${{ runner.temp }}/*.txt
+            ${{ runner.temp }}/*.nix

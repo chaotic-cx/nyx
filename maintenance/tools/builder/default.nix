@@ -1,6 +1,9 @@
 # The smallest and KISSer continuos-deploy I was able to create.
 {
   dry-build,
+  outsourceBuildJobs ? null,
+  subset ? dry-build.passthru.packagesCmds,
+
   lib,
 
   coreutils-full,
@@ -8,6 +11,7 @@
   curl,
   findutils,
   git,
+  gawk,
   gnugrep,
   gnused,
   jq,
@@ -22,13 +26,14 @@ let
     curl
     findutils
     git # cachix requires "git" in PATH
+    gawk
     gnugrep
     gnused
     jq
     nix
   ];
 
-  packagesCmds = map cmdMap dry-build.passthru.packagesCmds;
+  packagesCmds = map cmdMap subset;
   inherit (dry-build.passthru) system flakeSelf;
 
   quote = x: "\"${x}\"";
@@ -80,8 +85,24 @@ let
         echo "${cmd.key}: unexplained skip" >> eval-failures.txt
       '';
 
+  buildJobs =
+    if outsourceBuildJobs == null then
+      lib.strings.concatStringsSep "\n" packagesCmds
+    else
+      "source ${outsourceBuildJobs}";
+
+  make =
+    script:
+    (writeShellScriptBin "chaotic-nyx-build" script).overrideAttrs (oldAttrs: {
+      passthru = (oldAttrs.passthru or { }) // {
+        inherit
+          packagesCmds
+          dry-build
+          ;
+      };
+    });
 in
-writeShellScriptBin "chaotic-nyx-build" ''
+make ''
   # Cleanup PATH for reproducibility.
   PATH="${path}"
 
@@ -96,20 +117,21 @@ writeShellScriptBin "chaotic-nyx-build" ''
   # Build jobs
   function build-jobs() {
     set +u
-    ${lib.strings.concatStringsSep "\n" packagesCmds}
+
+    ${buildJobs}
 
     return 0
   }
 
   # Phases system
   function default-phases () {
-    prepare
-    build-jobs
-    finish
-    deploy
+    prepare "$@"
+    build-jobs "$@"
+    finish "$@"
+    deploy "$@"
   }
   PHASES=''${PHASES:-default-phases};
-  for phase in $PHASES; do $phase; done
+  for phase in $PHASES; do $phase "$@"; done
 
   # Useless exit but informative when running with "bash -x"
   exit 0

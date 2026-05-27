@@ -37,11 +37,19 @@ let
         nix = pinnedNix;
         inherit dry-build;
       };
+      builder-arg1 = callPackage ../tools/builder {
+        nix = pinnedNix;
+        inherit dry-build;
+        outsourceBuildJobs = "\"$1\"";
+      };
       dry-build = callPackage ../tools/dry-build {
         allPackages = nyxPkgs;
         flakeSelf = self;
         inherit nyxRecursionHelper;
         inherit (pkgs) nyxUtils;
+      };
+      build-matrix = callPackage ../tools/build-matrix {
+        inherit builder;
       };
       documentation = callPackage ../tools/document {
         allPackages = nyxPkgs;
