@@ -6,13 +6,16 @@ NIX_BUILD_TOP="${NYX_TEMP:-${NIX_BUILD_TOP:-${TMPDIR}}}"
 TMP="${NYX_TEMP:-${TMP:-${TMPDIR}}}"
 TEMP="${NYX_TEMP:-${TEMP:-${TMPDIR}}}"
 TEMPDIR="${NYX_TEMP:-${TEMPDIR:-${TMPDIR}}}"
+XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 
 # Options
 NYX_ENV=('NIXPKGS_ALLOW_BROKEN=1')
 NYX_FLAGS="${NYX_FLAGS:---accept-flake-config --no-link}"
 NYX_WD="${NYX_WD:-$(mktemp -d)}"
 NYX_HOME="${NYX_HOME:-$HOME/.nyx}"
-CACHIX_REPO="${CACHIX_REPO:-chaotic-nyx}"
+NYX_CACHE_URL=${NYX_CACHE_URL:-https://nyx-cache.chaotic.cx}
+export NIKS3_SERVER_URL="${NIKS3_SERVER_URL:-https://nyx-niks3.chaotic.cx}"
+export NIKS3_AUTH_TOKEN_FILE=${NIKS3_AUTH_TOKEN_FILE:-$XDG_CONFIG_HOME/niks3/auth-token}
 
 # Colors
 R='\033[0;31m'
@@ -43,9 +46,9 @@ function prepare() {
   touch push.txt errors.txt success.txt failures.txt cached.txt upstream.txt eval-failures.txt
   echo "{" > new-failures.nix
 
-  # Warn if we don't have automated cachix
-  if [ -z "${CACHIX_AUTH_TOKEN:-}" ] && [ -z "${CACHIX_SIGNING_KEY:-}" ]; then
-    echo_warning "No key for cachix -- building anyway."
+  # Warn if we don't have cache push
+  if [ ! -f "$NIKS3_AUTH_TOKEN_FILE" ]; then
+    echo_warning "No key for cache push in \"$NIKS3_AUTH_TOKEN_FILE\" -- building anyway."
   fi
 
   # Download current list of cached packages
@@ -53,11 +56,11 @@ function prepare() {
     if [ -f prev-cache.json ]; then
       echo "Re-using cached contents"
       jq -r '.[]' prev-cache.json > prev-cache.txt
-    elif [ -n "${CACHIX_AUTH_TOKEN:-}" ] && [ -z "${NYX_SKIP_REPO_CONTENTS:-}" ]; then
+    elif [ -f "$NIKS3_AUTH_TOKEN_FILE" ]; then
       echo "Downloading current list of cached contents"
-      curl -H "Authorization: Bearer $CACHIX_AUTH_TOKEN" \
-        "https://app.cachix.org/api/v1/cache/${CACHIX_REPO}/contents" |\
-          jq -r .[] > prev-cache.txt
+      (awk '{print "header = \"Authorization: Bearer " $0 "\""}' "$NIKS3_AUTH_TOKEN_FILE" |\
+        curl -K - "$NIKS3_SERVER_URL/api/contents" |\
+          jq -r .[] > prev-cache.txt) || true
     else
       echo "Starting without cached contents"
       touch prev-cache.txt
@@ -113,7 +116,7 @@ function build() {
     return 0
 
   # If found in our's cache
-  elif [ -z "${NYX_REBUILD_ALL:-}" ] && cached "https://${CACHIX_REPO}.cachix.org" "$_MAIN_OUT_HASH"; then
+  elif [ -z "${NYX_REBUILD_ALL:-}" ] && cached "${NYX_CACHE_URL}" "$_MAIN_OUT_HASH"; then
     echo "$_WHAT" >> cached.txt
     echo "$_MAIN_OUT_PATH" >> "${NYX_HOME}/cached.txt"
     echo -e "${Y} CACHED${W}"
@@ -162,11 +165,10 @@ function build() {
       echo $_TO_PIN | tee -a to-pin.txt >> full-pin.txt
 
       # If NYX_PUSH_ALL, push & pin it here and now
-      if [ -n "${NYX_PUSH_ALL:-}" ] && ([ -n "${CACHIX_AUTH_TOKEN:-}" ] || [ -n "${CACHIX_SIGNING_KEY:-}" ]); then
+      if [ -n "${NYX_PUSH_ALL:-}" ] && [ -f "$NIKS3_AUTH_TOKEN_FILE" ]; then
         sleep 1
-        cachix push "$CACHIX_REPO" "${_ALL_OUT_PATHS[@]}"
-        echo $_TO_PIN | xargs -n 2 \
-          cachix -v pin "$CACHIX_REPO" --keep-revisions 2
+        niks3 push "${_ALL_OUT_PATHS[@]}"
+        #echo $_TO_PIN | xargs -n 2 niks3 pin
         printf '%s\n' "${_ALL_OUT_PATHS[@]}" >> "${NYX_HOME}/cached.txt"
       fi
 
@@ -222,21 +224,20 @@ function no-fail() {
 
 # Push logic
 function deploy() {
-  if [ -z "${CACHIX_AUTH_TOKEN:-}" ] && [ -z "${CACHIX_SIGNING_KEY:-}" ]; then
-    echo_error "No key for cachix -- failing to deploy."
+    if [ ! -f "$NIKS3_AUTH_TOKEN_FILE" ]; then
+    echo_error "No key for cache push -- failing to deploy."
     exit 23
   elif [ -n "${NYX_PUSH_ANYWAY:-}" ] || [ -s push.txt ]; then
     # Let nix digest store paths first
     sleep 10
 
     # Push all new deriations with compression
-    cat push.txt | cachix push "$CACHIX_REPO"
+    cat push.txt | niks3 push
 
     # Pin packages
-    if [ -e to-pin.txt ]; then
-      cat to-pin.txt | xargs -n 2 \
-        cachix -v pin "$CACHIX_REPO" --keep-revisions 2
-    fi
+    #if [ -e to-pin.txt ]; then
+    #  cat to-pin.txt | xargs -n 2 niks3 pin
+    #fi
 
     # Locally tag everything as cached
     cat push.txt >> "${NYX_HOME}/cached.txt"

@@ -191,7 +191,7 @@ We do this automatically, so we can gracefully update the cache's address and ke
 
 <p>If you dislike this behavior for any reason, you can disable it with <code>chaotic.nyx.cache.enable = false</code>.</p>
 
-<p><strong>!!!!!!!!!:</strong>: You'll need to enable our module and rebuild your system <strong>before</strong> adding these derivations to your configuration. Another option, or if you want to use the cache right from the <strong>installation media</strong>, install your system adding <code>--option 'extra-substituters' 'https://chaotic-nyx.cachix.org/' --option extra-trusted-public-keys "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="</code> to the end of the <code>nixos-install</code> (or <code>nixos-rebuild</code>) command.</p>
+<p><strong>!!!!!!!!!:</strong>: You'll need to enable our module and rebuild your system <strong>before</strong> adding these derivations to your configuration. Another option, or if you want to use the cache right from the <strong>installation media</strong>, install your system adding <code>--option 'extra-substituters' 'https://nyx-cache.chaotic.cx/' --option extra-trusted-public-keys "nyx-cache.chaotic.cx:dJxTrgMC3V3cFfyIiBQDQorG6k1LsqurH/srpMSq7qk="</code> to the end of the <code>nixos-install</code> (or <code>nixos-rebuild</code>) command.</p>
 
 <p>Commands like <code>nix run ...</code>, <code>nix develop ...</code>, and others, when using our flake as input, will ask you to add the cache interactively when missing from your user's nix settings.</p>
 <p>We offer cache for <code>x86_64-linux</code>, <code>aarch64-linux</code>, and <code>aarch64-darwin</code>.</p>
@@ -430,17 +430,15 @@ enable_seq  hotplug_seq  nr_rejected  root  state  switch_all
 <p>If they all match, and you're still rebuilding the kernel, copy the hash from the result above, then change it in the following <code>curl</code> command:</p>
 
 <pre lang="text"><code class="language-text">
-╰─λ curl -L 'https://chaotic-nyx.cachix.org/441qhriiz5fa4l3xvvjw3h4bps7xfk08.narinfo'
-StorePath: /nix/store/441qhriiz5fa4l3xvvjw3h4bps7xfk08-linux-6.8.7
-URL: nar/e5ccded34e4608448c49d3e9fdc92441cd564ae629a4b93fd3f8a334bca7c71d.nar.zst
+╰─λ curl -L 'http://nyx-cache.chaotic.cx/3w8ad8iysc2v0ic8m3ffrid4j7m20p27.narinfo'
+StorePath: /nix/store/3w8ad8iysc2v0ic8m3ffrid4j7m20p27-libdrm-b8b7c57-bin
+URL: nar/0529rfk9kp4ff0w0ljfa88mz46f8iq51sb020jdw7qb6z17n477m.nar.zst
 Compression: zstd
-FileHash: sha256:e5ccded34e4608448c49d3e9fdc92441cd564ae629a4b93fd3f8a334bca7c71d
-FileSize: 172226528
-NarHash: sha256:1v410bnc3qazxscwxvm80c40i0fxzp0amvp93y0y4x3kikdwz035
-NarSize: 184989384
-References:
-Deriver: snb6mg44fflzp3vm5fh4ybxa5j4nlfa5-linux-6.8.7.drv
-Sig: chaotic-nyx.cachix.org-1:L0D5GiJf/VEc1brcqYSB+vzYDDV6ZoDP59b+0mrX3bm2b5bbvtH3xOR4XEXy7QILYoIx2Pd64qWN+6okOMQZCA==
+NarHash: sha256:0529rfk9kp4ff0w0ljfa88mz46f8iq51sb020jdw7qb6z17n477m
+NarSize: 550808
+References: 57iz36553175g3178pvxjij8z5rcsd4n-glibc-2.42-61 zyiv5lp015g94xjw499wapk121qcarc1-libdrm-b8b7c57
+Deriver: 79g0hvd6lmg76gyl7sqwvac38dxnlbg1-libdrm-b8b7c57.drv
+Sig: nyx-cache.chaotic.cx:6q6x88p+CMjaa42DBYs7Fi4OYxrTj/nlpaK2BbHb68ke0TEKpXOaSUsCUybazLbv2snUWgA9jGs/E4NtJxp9CA==
 </code></pre>
 
 <p>If the command above fails without an 404, then you have an issue with your internet connection. If it fails with 404, then tag <code>pedrohlc</code> (Matrix, Telegram or GitHub), he really broke the cache.</p>
@@ -451,8 +449,8 @@ Sig: chaotic-nyx.cachix.org-1:L0D5GiJf/VEc1brcqYSB+vzYDDV6ZoDP59b+0mrX3bm2b5bbvt
 
 <pre lang="text"><code class="language-text">
 ╰─λ grep chaotic /etc/nix/nix.conf
-substituters = https://nix-community.cachix.org/ https://chaotic-nyx.cachix.org/ https://cache.garnix.io https://cache.nixos.org/
-trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8= cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=
+substituters = https://nyx-cache.chaotic.cx/ https://cache.nixos.org/
+trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nyx-cache.chaotic.cx:dJxTrgMC3V3cFfyIiBQDQorG6k1LsqurH/srpMSq7qk=
 </code></pre>
 
 <p>An outdated nix-daemon can happen when you change nix settings, then nixos-rebuilt your system, but you didn't restart the nix-daemon service. The easiest way to fix it is to reboot.</p>

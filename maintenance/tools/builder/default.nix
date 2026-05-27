@@ -4,7 +4,7 @@
   lib,
 
   coreutils-full,
-  cachix,
+  niks3,
   curl,
   findutils,
   git,
@@ -18,7 +18,7 @@
 let
   path = lib.makeBinPath [
     coreutils-full
-    cachix
+    niks3
     curl
     findutils
     git # cachix requires "git" in PATH

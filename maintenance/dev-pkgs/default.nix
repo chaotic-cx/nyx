@@ -4,6 +4,7 @@ base:
   homeManagerModules ? self.homeManagerModules,
   nixpkgs ? flakes.nixpkgs,
   home-manager ? flakes.home-manager,
+  niks3 ? flakes.niks3,
   packages ? self._dev.legacyPackages,
   self ? flakes.self,
   nyxosConfiguration ? self._dev.system.x86_64-linux,
@@ -66,7 +67,10 @@ let
       };
     };
 
-  mkDevPackagesSet = nyxPkgs: nixPkgs: { chaotic-nyx = mkDevPackages nyxPkgs nixPkgs; };
+  mkDevPackagesSet = nyxPkgs: nixPkgs: {
+    chaotic-nyx = mkDevPackages nyxPkgs nixPkgs;
+    inherit (niks3.packages.${nixPkgs.stdenv.hostPlatform.system}) niks3;
+  };
 in
 base
 // {

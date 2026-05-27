@@ -30,27 +30,44 @@ jobs:
           fetch-depth: true
       # similar to build.yml
       - name: Download cache list
+        continue-on-error: true
         run: |
-          curl -vfo "${{ runner.temp }}/prev-cache.json" -H "Authorization: Bearer ${{ secrets.CACHIX_AUTH_TOKEN_SUPREME }}" \
-            'https://app.cachix.org/api/v1/cache/chaotic-nyx/contents'
+          curl -vfo "${{ runner.temp }}/prev-cache.json" -H "Authorization: Bearer ${{ secrets.NIKS3_TOKEN }}" \
+            'https://nyx-niks3.chaotic.cx/api/contents'
       - name: Configure sandboxing
         run: |
           sed -i -e '/^build-users-group =/d' -e 's/max-jobs =.*/max-jobs = 8/g' /etc/nix/nix.conf
           nix eval ./maintenance#_dev.nixConfig --json | jq -r 'to_entries[] | "\(.key) = \(.value | join(" "))"' >> /etc/nix/nix.conf
+      - name: Create niks3 auth-token
+        run: |
+          export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
+          mkdir -p $XDG_CONFIG_HOME/niks3/
+          printf "%s" "$NIKS3_TOKEN" > $XDG_CONFIG_HOME/niks3/auth-token
+          wc $XDG_CONFIG_HOME/niks3/auth-token
+        env:
+          NIKS3_TOKEN: ${{ secrets.NIKS3_TOKEN }}
       - name: Build packages
         run: nix run ./maintenance#chaotic-nyx.builder || [ $? -eq 23 ]
         env:
           NYX_SOURCE: ${{ github.workspace }}
           NYX_CHANGED_ONLY: "github:${{ github.repository }}/${{ github.event.pull_request.base.ref }}"
           NYX_WD: ${{ runner.temp }}
+      - name: Create niks3 auth-token
+        run: |
+          export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
+          mkdir -p $XDG_CONFIG_HOME/niks3/
+          printf "%s" "$NIKS3_TOKEN" > $XDG_CONFIG_HOME/niks3/auth-token
+          wc $XDG_CONFIG_HOME/niks3/auth-token
+        env:
+          NIKS3_TOKEN: ${{ secrets.NIKS3_TOKEN }}
       - name: Upload to cachix
         id: upload
         run: |
           cat "${{ runner.temp }}/push.txt" | \
-            nix run --inputs-from . nixpkgs#cachix -- push chaotic-nyx
-          [ -e "${{ runner.temp }}/to-pin.txt" ] && \
-            (cat "${{ runner.temp }}/to-pin.txt" | xargs -n 2 \
-              nix run --inputs-from . nixpkgs#cachix -- -v pin chaotic-nyx --keep-revisions 2)
+            nix run ./maintenance#niks3 -- push
+          #[ -e "${{ runner.temp }}/to-pin.txt" ] && \
+          #  (cat "${{ runner.temp }}/to-pin.txt" | xargs -n 2 \
+          #    nix run ./maintenance#niks3 -- pin)
           failed_builds="$(cat ${{ runner.temp }}/failures.txt | sed 's/^/    <li>/; s/$/<\/li>/')"
           failed_builds_count="$(cat ${{ runner.temp }}/failures.txt | wc -l)"
           echo "FAILED_BUILDS_COUNT=$failed_builds_count
@@ -58,7 +75,7 @@ jobs:
           $failed_builds
           EOF" >> $GITHUB_OUTPUT
         env:
-          CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          NIKS3_SERVER_URL: https://nyx-niks3.chaotic.cx
   organize:
     runs-on: ubuntu-latest
     needs: [build]

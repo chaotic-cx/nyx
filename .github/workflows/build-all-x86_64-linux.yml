@@ -58,9 +58,18 @@ jobs:
           git config --global user.email 'actions@chaotic.cx'
       # similar to build.yml
       - name: Download cache list
+        continue-on-error: true
         run: |
-          curl -vfo "${{ runner.temp }}/prev-cache.json" -H "Authorization: Bearer ${{ secrets.CACHIX_AUTH_TOKEN_SUPREME }}" \
-            'https://app.cachix.org/api/v1/cache/chaotic-nyx/contents'
+          curl -vfo "${{ runner.temp }}/prev-cache.json" -H "Authorization: Bearer ${{ secrets.NIKS3_TOKEN }}" \
+            'https://nyx-niks3.chaotic.cx/api/contents'
+      - name: Create niks3 auth-token
+        run: |
+          export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
+          mkdir -p $XDG_CONFIG_HOME/niks3/
+          printf "%s" "$NIKS3_TOKEN" > $XDG_CONFIG_HOME/niks3/auth-token
+          wc $XDG_CONFIG_HOME/niks3/auth-token
+        env:
+          NIKS3_TOKEN: ${{ secrets.NIKS3_TOKEN }}
       # the building
       - name: Build
         if: (success())
@@ -83,7 +92,7 @@ jobs:
         env:
           NYX_WD: ${{ runner.temp }}
           NYX_PUSH_ALL: "1"
-          CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          NIKS3_TOKEN: ${{ secrets.NIKS3_TOKEN }}
           SAVE_FAILURES: ${{ inputs.commit-failures || false }}
       - name: Comment on commit
         if: (success())
