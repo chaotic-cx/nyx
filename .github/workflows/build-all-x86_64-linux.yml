@@ -1,5 +1,7 @@
 name: Build x86-64 Linux
 on:
+  merge_group:
+    branches: [main]
   workflow_call:
     inputs:
       commit-failures:
@@ -25,6 +27,7 @@ concurrency:
 
 jobs:
   build:
+    if: github.event_name == 'merge_group' || github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_call'
     runs-on: nyxbuilder
     timeout-minutes: 1440
     outputs:
@@ -81,7 +84,7 @@ jobs:
           NYX_WD: ${{ runner.temp }}
           NYX_PUSH_ALL: "1"
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
-          SAVE_FAILURES: ${{ inputs.commit-failures }}
+          SAVE_FAILURES: ${{ inputs.commit-failures || false }}
       - name: Comment on commit
         if: (success())
         uses: actions/github-script@v8
@@ -116,7 +119,7 @@ jobs:
                 body: `All packages were built and cached successfully! (${process.env.UNBUILDABLE_COUNT} not suitable for building)`
               })
         env:
-          SAVE_FAILURES: ${{ inputs.commit-failures }}
+          SAVE_FAILURES: ${{ inputs.commit-failures || false }}
           FAILED_BUILDS_COUNT: ${{ steps.build.outputs.FAILED_BUILDS_COUNT }}
           UNBUILDABLE_COUNT: ${{ steps.build.outputs.UNBUILDABLE_COUNT }}
           FAILED_BUILDS: ${{ steps.build.outputs.FAILED_BUILDS }}

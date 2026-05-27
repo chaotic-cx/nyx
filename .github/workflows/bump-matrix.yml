@@ -1,9 +1,10 @@
 name: Bump all packages
 
 on:
+  workflow_call:
   workflow_dispatch:
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "0 1 * * *"
 
 permissions:
   contents: write

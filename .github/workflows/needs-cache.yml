@@ -47,8 +47,7 @@ jobs:
         id: upload
         run: |
           cat "${{ runner.temp }}/push.txt" | \
-            nix run --inputs-from . nixpkgs#cachix -- \
-              push chaotic-nyx --compression-method zstd
+            nix run --inputs-from . nixpkgs#cachix -- push chaotic-nyx
           [ -e "${{ runner.temp }}/to-pin.txt" ] && \
             (cat "${{ runner.temp }}/to-pin.txt" | xargs -n 2 \
               nix run --inputs-from . nixpkgs#cachix -- -v pin chaotic-nyx --keep-revisions 2)
