@@ -97,7 +97,7 @@ jobs:
           SAVE_FAILURES: ${{ inputs.commit-failures || false }}
       - name: Comment on commit
         if: (success())
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           script: |
             if (process.env.FAILED_BUILDS_COUNT > 0) {
