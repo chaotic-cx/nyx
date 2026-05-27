@@ -87,7 +87,7 @@ jobs:
     steps:
       - name: Set labels
         continue-on-error: true
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         env:
           FAILED_BUILDS_COUNT: ${{ needs.pr-build.outputs.FAILED_BUILDS_COUNT }}
           FAILED_BUILDS: ${{ needs.pr-build.outputs.FAILED_BUILDS }}
