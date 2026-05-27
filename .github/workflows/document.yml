@@ -42,7 +42,7 @@ jobs:
             | \
             xargs -i@ cp @ result/index.html
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v5
         with:
           path: "result"
       - name: Deploy to GitHub Pages
