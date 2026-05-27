@@ -32,7 +32,7 @@ jobs:
           install_options: --daemon
 
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Build and extract matrix
         id: set-matrix
