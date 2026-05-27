@@ -8,7 +8,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
+  pr-build:
+    name: Build PR
     if: github.event.label.name == 'needs-cache'
     outputs:
       FAILED_BUILDS_COUNT: ${{ steps.upload.outputs.FAILED_BUILDS_COUNT }}
@@ -76,10 +77,11 @@ jobs:
           EOF" >> $GITHUB_OUTPUT
         env:
           NIKS3_SERVER_URL: https://nyx-niks3.chaotic.cx
-  organize:
+  pr-build-organize:
+    name: Organize Built PR
     runs-on: ubuntu-latest
-    needs: [build]
-    if: (!cancelled() && needs.build.result != 'skipped')
+    needs: [pr-build]
+    if: (!cancelled() && needs.pr-build.result != 'skipped')
     permissions:
       pull-requests: write
     steps:
@@ -87,8 +89,8 @@ jobs:
         continue-on-error: true
         uses: actions/github-script@v8
         env:
-          FAILED_BUILDS_COUNT: ${{ needs.build.outputs.FAILED_BUILDS_COUNT }}
-          FAILED_BUILDS: ${{ needs.build.outputs.FAILED_BUILDS }}
+          FAILED_BUILDS_COUNT: ${{ needs.pr-build.outputs.FAILED_BUILDS_COUNT }}
+          FAILED_BUILDS: ${{ needs.pr-build.outputs.FAILED_BUILDS }}
         with:
           script: |
             github.rest.issues.removeLabel({
@@ -97,7 +99,7 @@ jobs:
               repo: context.repo.repo,
               name: 'needs-cache'
             })
-            if ('${{ needs.build.result }}' == 'success') {
+            if ('${{ needs.pr-build.result }}' == 'success') {
               github.rest.issues.addLabels({
                 issue_number: context.issue.number,
                 owner: context.repo.owner,
@@ -125,7 +127,7 @@ jobs:
                   body: 'This PR has been built and cached successfully! All changed derivations have built successfully.'
                 })
             }
-            else if ('${{ needs.build.result }}' == 'failure')
+            else if ('${{ needs.pr-build.result }}' == 'failure')
               github.rest.issues.createComment({
                 issue_number: context.issue.number,
                 owner: context.repo.owner,

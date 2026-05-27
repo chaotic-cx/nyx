@@ -14,7 +14,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  generate-matrix:
+  prepare-matrix-x86_64-linux:
     name: Generate Build Matrix
     if: github.event_name == 'merge_group' || github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_call'
     runs-on: ubuntu-latest
@@ -46,13 +46,13 @@ jobs:
           # Write to GitHub step outputs
           echo "matrix=$MATRIX_JSON" >> "$GITHUB_OUTPUT"
 
-  run-build:
-    needs: generate-matrix
+  build-matrix-x86_64-linux:
+    needs: prepare-matrix-x86_64-linux
     strategy:
       fail-fast: false # Ensure one package group failing doesn't cancel all other bumps
       max-parallel: 12
       matrix:
-        script_content: ${{ fromJson(needs.generate-matrix.outputs.matrix) }}
+        script_content: ${{ fromJson(needs.prepare-matrix-x86_64-linux.outputs.matrix) }}
     runs-on: ubuntu-latest
     timeout-minutes: 1440
     outputs:

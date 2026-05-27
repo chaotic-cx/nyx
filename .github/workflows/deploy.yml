@@ -28,15 +28,17 @@ permissions:
   pull-requests: write
 
 jobs:
-  build:
+  deploy-build:
+    name: Build-all x86-64 Linux (to deploy)
     # Skip it if github try to force it over an unexpected trigger
     uses: ./.github/workflows/build-all-x86_64-linux.yml
     secrets: inherit
     with:
       commit-failures: ${{ inputs.commit-x86_64-linux-failures || false }}
-  deploy:
-    needs: build
-    if: needs.build.outputs.built == 'true'
+  deploy-push:
+    name: Push to nyxpkgs-unstable
+    needs: deploy-build
+    if: needs.deploy-build.outputs.built == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     outputs:
@@ -51,25 +53,25 @@ jobs:
         id: push
         run: |
           git push origin HEAD:nyxpkgs-unstable --force
-  docs:
-    needs: deploy
+  deploy-docs:
+    needs: deploy-push
     uses: ./.github/workflows/document.yml
-    if: needs.deploy.outputs.pushed == 'true'
+    if: needs.deploy-push.outputs.pushed == 'true'
   flakehub:
-    needs: docs
+    needs: deploy-docs
     uses: ./.github/workflows/flakehub-publish-rolling.yml
     if: needs.docs.outputs.built == 'true'
-  build-aarch64-linux:
-    needs: build
+  deploy-build-aarch64-linux:
+    needs: deploy-build
     uses: ./.github/workflows/build-all-aarch64-linux.yml
-    if: needs.build.outputs.built == 'true'
+    if: needs.deploy-build.outputs.built == 'true'
     secrets: inherit
     with:
       commit-failures: ${{ inputs.commit-aarch64-linux-failures || false }}
-  build-aarch64-darwin:
-    needs: build
+  deploy-build-aarch64-darwin:
+    needs: deploy-build
     uses: ./.github/workflows/build-all-aarch64-darwin.yml
-    if: needs.build.outputs.built == 'true'
+    if: needs.deploy-build.outputs.built == 'true'
     secrets: inherit
     with:
       commit-failures: ${{ inputs.commit-aarch64-darwin-failures || false }}

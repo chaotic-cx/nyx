@@ -232,7 +232,7 @@ function deploy() {
     sleep 10
 
     # Push all new deriations with compression
-    cat push.txt | niks3 push
+    cat push.txt | xargs niks3 push
 
     # Pin packages
     #if [ -e to-pin.txt ]; then

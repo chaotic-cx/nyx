@@ -7,7 +7,8 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
 
 jobs:
-  lint:
+  pr-lint:
+    name: Lint PR
     # Never ever ever run this on self-hosted runners
     runs-on: ubuntu-latest # Did you read the disclaimer?
     outputs:
@@ -28,16 +29,17 @@ jobs:
         run: nix run ./maintenance#chaotic-nyx.linter
         id: linter
         working-directory: ${{ github.workspace }}
-  organize:
+  pr-lint-organize:
+    name: Organize Linted PR
     # Never ever ever run this on self-hosted runners
     runs-on: ubuntu-latest # Did you read the disclaimer?
     permissions:
       pull-requests: write
-    needs: lint
-    if: (!cancelled() && (contains(github.event.pull_request.labels.*.name, 'cached') || (needs.lint.outputs.fmt == 'failure' && github.event.action == 'opened')))
+    needs: pr-lint
+    if: (!cancelled() && (contains(github.event.pull_request.labels.*.name, 'cached') || (needs.pr-lint.outputs.fmt == 'failure' && github.event.action == 'opened')))
     steps:
       - name: Add comment
-        if: needs.lint.outputs.fmt == 'failure' && github.event.action == 'opened'
+        if: needs.pr-lint.outputs.fmt == 'failure' && github.event.action == 'opened'
         uses: actions/github-script@v8
         with:
           script: |

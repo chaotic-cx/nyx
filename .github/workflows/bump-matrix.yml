@@ -15,7 +15,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  generate-matrix:
+  prepare-bump-matrix:
     name: Generate Update Matrix
     runs-on: ubuntu-latest
     outputs:
@@ -46,13 +46,13 @@ jobs:
           # Write to GitHub step outputs
           echo "matrix=$MATRIX_JSON" >> "$GITHUB_OUTPUT"
 
-  run-bumps:
+  run-bump-matrix:
     name: Bump ${{ matrix.packages }}
-    needs: generate-matrix
+    needs: prepare-bump-matrix
     strategy:
       fail-fast: false # Ensure one package group failing doesn't cancel all other bumps
       matrix:
-        packages: ${{ fromJson(needs.generate-matrix.outputs.matrix) }}
+        packages: ${{ fromJson(needs.prepare-bump-matrix.outputs.matrix) }}
 
     # Call your existing reusable workflow
     uses: ./.github/workflows/group-bump.yml

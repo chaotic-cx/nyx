@@ -26,7 +26,8 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build:
+  build-all-x86_64-linux:
+    name: Build-all x86-64 Linux
     if: github.event_name == 'merge_group' || github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_call'
     runs-on: nyxbuilder
     timeout-minutes: 1440

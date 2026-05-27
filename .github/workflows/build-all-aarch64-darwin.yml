@@ -24,7 +24,8 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build:
+  build-all-aarch64-darwin:
+    name: Build-all Aarch64 Darwin
     runs-on: macos-latest
     timeout-minutes: 1440
     outputs:

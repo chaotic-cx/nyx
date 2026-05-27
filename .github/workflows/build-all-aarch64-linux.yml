@@ -24,7 +24,8 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build:
+  build-all-aarch64-linux:
+    name: Build-all Aarch64 Linux
     runs-on: ubuntu-24.04-arm
     timeout-minutes: 1440
     outputs:

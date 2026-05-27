@@ -23,6 +23,7 @@ concurrency:
 
 jobs:
   group-bump:
+    name: Bump package group
     runs-on: ubuntu-latest
     timeout-minutes: 1440
     steps:
