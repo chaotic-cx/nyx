@@ -24,7 +24,7 @@ permissions:
   pull-requests: write
 
 concurrency:
-  group: build-all-aarch64-linux
+  group: build-all-aarch64-linux-${{ github.sha }}
   cancel-in-progress: false
 
 jobs:

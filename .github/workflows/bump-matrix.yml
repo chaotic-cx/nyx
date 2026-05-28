@@ -12,7 +12,7 @@ permissions:
 
 concurrency:
   group: bump-matrix
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   prepare-bump-matrix:
