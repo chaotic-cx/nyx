@@ -1,1 +1,6 @@
-* @chaotic-cx/nyxers
+/.github/ @chaotic-cx/nyxers
+/maintenance/ @chaotic-cx/nyxers
+/modules/ @chaotic-cx/nyxers
+/overlays/ @chaotic-cx/nyxers
+/shared/ @chaotic-cx/nyxers
+/*.* @chaotic-cx/nyxers
