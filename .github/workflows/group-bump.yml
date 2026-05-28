@@ -45,6 +45,7 @@ jobs:
           git config --global user.name 'Chaotic Github Actions'
           git config --global user.email 'actions@chaotic.cx'
       - name: Update and Rebase
+        id: update
         run: |
           set -euo pipefail
 
@@ -79,7 +80,9 @@ jobs:
           # Check against main: Did the commit hash change?
           if [ "$START_COMMIT" = "$END_COMMIT" ]; then
             echo "${FIRST_PKG} (and its group) is already up to date. No bump needed!"
-            exit 42
+
+            echo "should_pr=false" >> "$GITHUB_OUTPUT"
+            exit 0
           fi
 
           # Check against remote branch: Is this exact state already pushed?
@@ -91,14 +94,20 @@ jobs:
             # This ignores commit timestamps and checks if the code is exactly the same.
             if git diff HEAD "origin/$BRANCH_NAME" --quiet; then
               echo "The exact same update is already pushed. Avoiding noisy force-push!"
-              exit 23
+
+              echo "should_pr=false" >> "$GITHUB_OUTPUT"
+              exit 0
             fi
             echo "Differences found. Proceeding to push..."
           fi
+
+          # If the script hasn't exited by now, a PR is needed
+          echo "should_pr=true" >> "$GITHUB_OUTPUT"
         env:
           GH_TOKEN: ${{ github.token }}
           TARGETPKG: ${{ inputs.bumpWhat }}
-      - name: PR
+      - name: Push and PR
+        if: steps.update.outputs.should_pr == 'true'
         run: |
           set -euo pipefail
 
