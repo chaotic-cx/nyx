@@ -6,7 +6,9 @@
 let
   inherit (dry-build.passthru) groupedBuildable;
 
-  updatableGroups = builtins.filter (xs: xs != [ ]) groupedBuildable;
+  filteredGroups = builtins.map (builtins.filter (xs: xs.updatable)) groupedBuildable;
+
+  updatableGroups = builtins.filter (xs: xs != [ ]) filteredGroups;
 
   groupedUpdatableKeys = builtins.map (builtins.map (x: x.key)) updatableGroups;
 in
