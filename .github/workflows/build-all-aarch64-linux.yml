@@ -24,7 +24,7 @@ permissions:
   pull-requests: write
 
 concurrency:
-  group: ${{ github.workflow }}
+  group: build-all-aarch64-linux
   cancel-in-progress: false
 
 jobs:

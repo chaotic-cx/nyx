@@ -10,7 +10,7 @@ permissions:
   pull-requests: write
 
 concurrency:
-  group: ${{ github.workflow }}
+  group: build-matrix-x86_64-linux
   cancel-in-progress: false
 
 jobs:

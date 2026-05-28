@@ -11,7 +11,7 @@ permissions:
   pull-requests: write
 
 concurrency:
-  group: ${{ github.workflow }}
+  group: bump-matrix
   cancel-in-progress: false
 
 jobs:

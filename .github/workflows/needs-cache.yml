@@ -4,7 +4,7 @@ on:
     types: [labeled]
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  group: needs-cache-${{ github.event.pull_request.number }}
   cancel-in-progress: true
 
 jobs:

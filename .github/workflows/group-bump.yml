@@ -18,7 +18,7 @@ permissions:
   pull-requests: write
 
 concurrency:
-  group: ${{ github.workflow }}-${{ inputs.bumpWhat }}
+  group: group-bump-${{ inputs.bumpWhat }}
   cancel-in-progress: true
 
 jobs:

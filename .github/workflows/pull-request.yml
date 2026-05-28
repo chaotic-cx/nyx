@@ -4,7 +4,7 @@ on:
     types: [opened, synchronize, reopened]
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  group: concurrency-${{ github.event.pull_request.number }}
 
 jobs:
   pr-lint:

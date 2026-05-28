@@ -10,7 +10,7 @@ permissions:
   actions: read
 
 concurrency:
-  group: ${{ github.workflow }}
+  group: document
   cancel-in-progress: true
 
 jobs:
