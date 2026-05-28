@@ -1,7 +1,5 @@
 name: Build x86-64 Linux (Garuda-hosted)
 on:
-  merge_group:
-    branches: [main]
   workflow_call:
     inputs:
       commit-failures:
@@ -34,7 +32,6 @@ concurrency:
 jobs:
   garuda-build-all-x86_64-linux:
     name: Build-all x86-64 Linux (Garuda-hosted)
-    if: github.event_name == 'merge_group' || github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_call'
     runs-on: nyxbuilder
     timeout-minutes: 1440
     outputs:
