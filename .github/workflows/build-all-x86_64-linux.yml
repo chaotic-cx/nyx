@@ -9,6 +9,10 @@ on:
         required: false
         default: true
         type: boolean
+    outputs:
+      built:
+        description: "Returns true if the build step succeeded"
+        value: ${{ jobs.build-all-x86_64-linux.outputs.built }}
   workflow_dispatch:
     inputs:
       commit-failures:
@@ -16,6 +20,8 @@ on:
         required: false
         default: true
         type: boolean
+  # actually skipping `pull_request_target` below, but needed for PR status
+  pull_request_target:
 
 permissions:
   contents: write

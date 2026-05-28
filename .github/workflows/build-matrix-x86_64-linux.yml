@@ -55,8 +55,6 @@ jobs:
         script_content: ${{ fromJson(needs.prepare-matrix-x86_64-linux.outputs.matrix) }}
     runs-on: ubuntu-latest
     timeout-minutes: 1440
-    outputs:
-      built: ${{ steps.build.outcome == 'success' }}
     steps:
       - name: Write matrix content to a shell script
         env:

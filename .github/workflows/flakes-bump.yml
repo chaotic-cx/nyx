@@ -86,4 +86,4 @@ jobs:
           # Trigger auto-merge for the PR using a standard merge commit
           gh pr merge "$BRANCH_NAME" --auto --merge
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.PAT_CHAOTIC }}

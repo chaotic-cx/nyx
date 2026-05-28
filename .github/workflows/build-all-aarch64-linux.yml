@@ -7,6 +7,10 @@ on:
         required: false
         default: true
         type: boolean
+    outputs:
+      built:
+        description: "Returns true if the build step succeeded"
+        value: ${{ jobs.build-all-aarch64-linux.outputs.built }}
   workflow_dispatch:
     inputs:
       commit-failures:

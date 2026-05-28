@@ -44,7 +44,7 @@ jobs:
           set -e
           git config --global user.name 'Chaotic Github Actions'
           git config --global user.email 'actions@chaotic.cx'
-      - name: Update, Rebase & PR
+      - name: Update and Rebase
         run: |
           set -euo pipefail
 
@@ -79,7 +79,7 @@ jobs:
           # Check against main: Did the commit hash change?
           if [ "$START_COMMIT" = "$END_COMMIT" ]; then
             echo "${FIRST_PKG} (and its group) is already up to date. No bump needed!"
-            exit 0
+            exit 42
           fi
 
           # Check against remote branch: Is this exact state already pushed?
@@ -91,10 +91,19 @@ jobs:
             # This ignores commit timestamps and checks if the code is exactly the same.
             if git diff HEAD "origin/$BRANCH_NAME" --quiet; then
               echo "The exact same update is already pushed. Avoiding noisy force-push!"
-              exit 0
+              exit 23
             fi
             echo "Differences found. Proceeding to push..."
           fi
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TARGETPKG: ${{ inputs.bumpWhat }}
+      - name: PR
+        run: |
+          set -euo pipefail
+
+          FIRST_PKG=$(echo "$TARGETPKG" | jq -r '.[0]')
+          BRANCH_NAME="bump/${FIRST_PKG}"
 
           # Force push to the branch
           git push origin "$BRANCH_NAME" --force
@@ -117,5 +126,5 @@ jobs:
           # Trigger auto-merge for the PR using a standard merge commit
           gh pr merge "$BRANCH_NAME" --auto --merge
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.PAT_CHAOTIC }}
           TARGETPKG: ${{ inputs.bumpWhat }}
