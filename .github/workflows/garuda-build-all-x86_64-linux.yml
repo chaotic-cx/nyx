@@ -1,4 +1,4 @@
-name: Build x86-64 Linux
+name: Build x86-64 Linux (Garuda-hosted)
 on:
   merge_group:
     branches: [main]
@@ -12,7 +12,7 @@ on:
     outputs:
       built:
         description: "Returns true if the build step succeeded"
-        value: ${{ jobs.build-all-x86_64-linux.outputs.built }}
+        value: ${{ jobs.garuda-build-all-x86_64-linux.outputs.built }}
   workflow_dispatch:
     inputs:
       commit-failures:
@@ -28,14 +28,14 @@ permissions:
   pull-requests: write
 
 concurrency:
-  group: build-all-x86_64-linux
+  group: garuda-build-all-x86_64-linux
   cancel-in-progress: false
 
 jobs:
-  build-all-x86_64-linux:
-    name: Build-all x86-64 Linux
+  garuda-build-all-x86_64-linux:
+    name: Build-all x86-64 Linux (Garuda-hosted)
     if: github.event_name == 'merge_group' || github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_call'
-    runs-on: ubuntu-latest
+    runs-on: nyxbuilder
     timeout-minutes: 1440
     outputs:
       built: ${{ steps.build.outcome == 'success' }}
@@ -48,13 +48,15 @@ jobs:
             accept-flake-config = true
             sandbox-fallback = false
             system-features = big-parallel gccarch-x86-64-v3
-            substituters = https://nyx-cache.chaotic.cx/ https://cache.nixos.org/
-            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nyx-cache.chaotic.cx:dJxTrgMC3V3cFfyIiBQDQorG6k1LsqurH/srpMSq7qk=
           install_options: --daemon
       - name: Checkout
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
+      - name: Configure sandboxing
+        run: |
+          sed -i -e '/^build-users-group =/d' -e 's/max-jobs =.*/max-jobs = 8/g' /etc/nix/nix.conf
+          nix eval ./maintenance#_dev.nixConfig --json | jq -r 'to_entries[] | "\(.key) = \(.value | join(" "))"' >> /etc/nix/nix.conf
       # config to commit
       - name: Bat-signal
         run: |

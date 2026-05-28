@@ -17,6 +17,13 @@ on:
         required: false
         default: true
         type: boolean
+      force:
+        description: Force deploy (skip sync check)
+        required: false
+        default: false
+        type: boolean
+  schedule:
+    - cron: "0 7,15,23 * * *"
 
 permissions:
   contents: write
@@ -28,10 +35,29 @@ permissions:
   pull-requests: write
 
 jobs:
+  check-sync:
+    name: Check if deployment is needed
+    runs-on: ubuntu-latest
+    outputs:
+      should_run: ${{ steps.check.outputs.should_run }}
+    steps:
+      - id: check
+        run: |
+          if [ "${{ inputs.force || "false" }}" = "true" ]; then
+            echo "should_run=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          UNSTABLE_SHA=$(git ls-remote https://github.com/${{ github.repository }} nyxpkgs-unstable | awk '{print $1}')
+          if [ "$UNSTABLE_SHA" = "${{ github.sha }}" ]; then
+            echo "should_run=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "should_run=true" >> "$GITHUB_OUTPUT"
+          fi
   deploy-build:
     name: Build-all x86-64 Linux (to deploy)
-    # Skip it if github try to force it over an unexpected trigger
-    uses: ./.github/workflows/build-all-x86_64-linux.yml
+    needs: check-sync
+    if: needs.check-sync.outputs.should_run == 'true'
+    uses: ./.github/workflows/garuda-build-all-x86_64-linux.yml
     secrets: inherit
     with:
       commit-failures: ${{ inputs.commit-x86_64-linux-failures || false }}
