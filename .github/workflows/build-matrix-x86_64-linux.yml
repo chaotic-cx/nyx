@@ -1,7 +1,5 @@
 name: Build (Matrix) x86-64 Linux
 on:
-  merge_group:
-    branches: [main]
   workflow_call:
   workflow_dispatch:
 
@@ -16,7 +14,6 @@ concurrency:
 jobs:
   prepare-matrix-x86_64-linux:
     name: Generate Build Matrix
-    if: github.event_name == 'merge_group' || github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_call'
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
