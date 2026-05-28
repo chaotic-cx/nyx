@@ -1,5 +1,6 @@
 name: Organize pull requests
 on:
+  merge_group:
   pull_request_target:
     types: [opened, synchronize, reopened]
 
@@ -9,6 +10,7 @@ concurrency:
 jobs:
   pr-lint:
     name: Lint PR
+    if: github.event_name != 'merge_group'
     # Never ever ever run this on self-hosted runners
     runs-on: ubuntu-latest # Did you read the disclaimer?
     outputs:
