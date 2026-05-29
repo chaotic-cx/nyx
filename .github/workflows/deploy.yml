@@ -43,7 +43,7 @@ jobs:
     steps:
       - id: check
         run: |
-          if [ "${{ inputs.force || "false" }}" = "true" ]; then
+          if [ "${{ inputs.force }}" = "true" ]; then
             echo "should_run=true" >> "$GITHUB_OUTPUT"
             exit 0
           fi
