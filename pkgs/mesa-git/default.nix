@@ -62,7 +62,7 @@ gitOverride (current: {
     ] (prevAttrs.patches or [ ]);
 
     postPatch = (prevAttrs.postPatch or "") + ''
-      export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -I$PWD/include"
+      export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -I$PWD/include -Wno-error=format"
     '';
 
     mesonFlags = map (builtins.replaceStrings
