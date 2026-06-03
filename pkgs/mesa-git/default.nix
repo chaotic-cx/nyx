@@ -61,7 +61,11 @@ gitOverride (current: {
       "musl.patch"
     ] (prevAttrs.patches or [ ]);
 
-    mesonFlags = builtins.map (builtins.replaceStrings
+    postPatch = (prevAttrs.postPatch or "") + ''
+      export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -I$PWD/include"
+    '';
+
+    mesonFlags = map (builtins.replaceStrings
       [ "imagination-experimental" ]
       [ "imagination" ]
     ) prevAttrs.mesonFlags;
