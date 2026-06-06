@@ -48,6 +48,14 @@ let
       hash = "sha256-Ny61JRA+y046BNAwsql3jrxnhTu9yCzmdH3jdX1DKtk=";
     };
   };
+
+  vkroots = rec {
+    version = "5106d8a0df95de66cc58dc1ea37e69c99afc9540";
+    src = final.fetchurl {
+      url = "https://github.com/Joshua-Ashton/vkroots/archive/${version}.tar.gz";
+      hash = "sha256-N7d1hukffr7nA4Dc3dc78BrkrO8QU+a+QdBIXt4CJCI=";
+    };
+  };
 in
 gitOverride {
   nyxKey = if is32bit then "mangohud32_git" else "mangohud_git";
@@ -64,6 +72,26 @@ gitOverride {
 
   postOverride = prevAttrs: {
     nativeBuildInputs = (prevAttrs.nativeBuildInputs or [ ]) ++ [ final.unzip ];
+
+    buildInputs = (prevAttrs.buildInputs or [ ]) ++ [
+      final.vulkan-loader
+      final.vk-bootstrap
+      final.libdrm
+      final.libgbm
+      final.systemd
+      final.libcap
+      final.yaml-cpp
+    ];
+
+    patches = (
+      builtins.filter (
+        p:
+        let
+          name = if p ? name then p.name else baseNameOf (toString p);
+        in
+        builtins.match ".*preload-nix-workaround.*" name == null
+      ) (prevAttrs.patches or [ ])
+    );
 
     # Overlay nixpkgs' postUnpack to use our updated versions
     postUnpack = ''
@@ -93,11 +121,34 @@ gitOverride {
         tar -xzf ${vulkan-utility-libraries.src} -C vulkan-utility-libraries-src --strip-components=1
         cp -R vulkan-utility-libraries-src Vulkan-Utility-Libraries-${vulkan-utility-libraries.version}
         rm -rf vulkan-utility-libraries-src
+
+        mkdir vkroots-src
+        tar -xzf ${vkroots.src} -C vkroots-src --strip-components=1
+        cp -R vkroots-src vkroots-${vkroots.version}
+        rm -rf vkroots-src
+
+        cp -R ${final.vk-bootstrap.src} vk-bootstrap
+        chmod -R +w vk-bootstrap
       )
     '';
 
     # Completely override postPatch to avoid version mismatches and conflicts
     postPatch = ''
+      # preload-nix-workaround.patch
+      substituteInPlace bin/mangohud.in \
+        --replace '@ld_libdir_mangohud@@mangohud_lib_name@' '@mangohud_lib_name@'
+
+      substituteInPlace bin/mangohud.in \
+        --replace 'disable_preload=false' 'disable_preload=false
+          XDG_DATA_DIRS="@dataDir@''${XDG_DATA_DIRS:+:$XDG_DATA_DIRS}"'
+
+      substituteInPlace bin/mangohud.in \
+        --replace 'exec env @mangohud_env@=1 "$@"' 'exec env @mangohud_env@=1 XDG_DATA_DIRS="''${XDG_DATA_DIRS}" "$@"'
+
+      substituteInPlace bin/mangohud.in \
+        --replace 'exec env @mangohud_env@=1 LD_PRELOAD="''${LD_PRELOAD}" "$@"' \
+                  'LD_LIBRARY_PATH="@libraryPath@''${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"; exec env @mangohud_env@=1 LD_PRELOAD="''${LD_PRELOAD}" LD_LIBRARY_PATH="''${LD_LIBRARY_PATH}" XDG_DATA_DIRS="''${XDG_DATA_DIRS}" "$@"'
+
       # Re-apply the substituteInPlace logic from nixpkgs but with correct version context
       substituteInPlace bin/mangohud.in \
         --subst-var-by libraryPath ${
@@ -125,6 +176,7 @@ gitOverride {
         mv implot-${implot.version} implot
         mv Vulkan-Headers-${vulkan-headers.version} vulkan-headers
         mv Vulkan-Utility-Libraries-${vulkan-utility-libraries.version} vulkan-utility-libraries
+        mv vkroots-${vkroots.version} vkroots
 
         # Use bundled meson.build for vulkan-headers if available
         if [ -d packagefiles/vulkan-headers ]; then
@@ -134,6 +186,10 @@ gitOverride {
         # Use bundled meson.build for vulkan-utility-libraries if available
         if [ -d packagefiles/vulkan-utility-libraries ]; then
           cp packagefiles/vulkan-utility-libraries/meson.build vulkan-utility-libraries/
+        fi
+
+        if [ -d packagefiles/vk-bootstrap ]; then
+          cp -R packagefiles/vk-bootstrap/* vk-bootstrap/
         fi
       )
     '';
