@@ -83,15 +83,13 @@ gitOverride {
       final.yaml-cpp
     ];
 
-    patches = (
-      builtins.filter (
-        p:
-        let
-          name = if p ? name then p.name else baseNameOf (toString p);
-        in
-        builtins.match ".*preload-nix-workaround.*" name == null
-      ) (prevAttrs.patches or [ ])
-    );
+    patches = builtins.filter (
+      p:
+      let
+        name = p.name or (baseNameOf (toString p));
+      in
+      builtins.match ".*preload-nix-workaround.*" name == null
+    ) (prevAttrs.patches or [ ]);
 
     # Overlay nixpkgs' postUnpack to use our updated versions
     postUnpack = ''
