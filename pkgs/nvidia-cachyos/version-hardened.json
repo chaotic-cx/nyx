@@ -1,8 +1,8 @@
 {
-  "version": "595.71.05",
-  "hash": "sha256-NiA7iWC35JyKQva6H1hjzeNKBek9KyS3mK8G3YRva4I=",
-  "aarch64Hash": "sha256-XzKloS00dFKTd4ATWkTIhm9eG/OzR/Sim6MboNZWPu8=",
-  "openHash": "sha256-yyYRTJfvJWg3en61Xvl+VZxC8baGI4tNCdem+r0MrVA=",
-  "settingsHash": "sha256-mXnf3jyvznfB3OfKd657rxv0rYHQb/dX/Riw/+N9EKU=",
-  "persistencedHash": "sha256-6CGwMd+Zc2kZNkMVUBpin1/P4/c3Mz1PaC8EzF2yjfc="
+  "version": "610.43.02",
+  "hash": "sha256-MDSgVLtM33dS/43CclZMsQVROAS/9TU4lFkBsWyndGM=",
+  "aarch64Hash": "sha256-isWTnokUA/dzWocFBLalnk4+O5gSExVjs3dVpdYTU88=",
+  "openHash": "sha256-Yvu+KVJ+ML4yyzizDfrS6U2xyof3elgJDlY8dmmFfmA=",
+  "settingsHash": "sha256-0YAhufRgjDW+uR+kjaTb154fibpcDw8QowfrucoZsKE=",
+  "persistencedHash": "sha256-dObfc/suksLZr0CsU1GHtDJS2EeHO93eopkN2BLGklg="
 }
