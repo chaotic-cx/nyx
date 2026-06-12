@@ -13,7 +13,7 @@ gitOverride {
       let
         realCall = callPackage file args;
       in
-      if builtins.baseNameOf file == "tg_owt.nix" then tg-owt_git else realCall;
+      if baseNameOf file == "tg_owt.nix" then tg-owt_git else realCall;
   };
 
   nyxKey = "telegram-desktop-unwrapped_git";
@@ -31,6 +31,9 @@ gitOverride {
   postOverride = prevAttrs: {
     patches = [ ];
     postPatch = "";
-    buildInputs = prevAttrs.buildInputs ++ [ final.tde2e_git ];
+    buildInputs = prevAttrs.buildInputs ++ [
+      final.tde2e_git
+      final.minizip
+    ];
   };
 }
