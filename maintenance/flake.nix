@@ -6,7 +6,6 @@
     yafas = {
       url = "github:UbiqueLambda/yafas";
       inputs.systems.follows = "systems";
-      inputs.flake-schemas.follows = "chaotic/flake-schemas";
     };
   };
   outputs =

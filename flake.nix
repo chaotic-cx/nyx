@@ -9,34 +9,29 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # Third-party republished repositories
-    jovian = {
-      url = "github:Jovian-Experiments/Jovian-NixOS";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        nix-github-actions.follows = ""; # https://github.com/NixOS/nix/issues/7807
-      };
-    };
-    # Used by "schemas" output (for FlakeHub and "nix show", pinned)
-    flake-schemas.url = "https://flakehub.com/f/DeterminateSystems/flake-schemas/=0.1.5.tar.gz";
-    # Newer rustc
-    rust-overlay = {
-      url = "github:oxalica/rust-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    # Pinned to the version we're using (sorry to forward this to your locks, we need it cached)
-    niks3 = {
-      url = "github:Mic92/niks3/c74d275536d9a38ff279b498612fae0fd68cfe85";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        treefmt-nix.follows = ""; # https://github.com/NixOS/nix/issues/7807
-      };
-    };
+    # If you need to replace any of our vendored dependencies set this input to something more useful
+    vendored.follows = "";
   };
 
   outputs =
-    { self, nixpkgs, ... }@inputs:
+    { self, nixpkgs, ... }@publicInputs:
     let
+      loadPrivateFlake =
+        path:
+        let
+          flakeHash = builtins.replaceStrings [ "\n" ] [ "" ] (builtins.readFile "${toString path}.narHash");
+          flakePath = "path:${toString path}?narHash=${flakeHash}";
+        in
+        builtins.getFlake (builtins.unsafeDiscardStringContext flakePath);
+
+      privateVendorFlake =
+        if publicInputs.vendored.sourceInfo != self.sourceInfo then
+          publicInputs.vendored
+        else
+          loadPrivateFlake ./private/vendor;
+
+      inputs = builtins.removeAttrs (privateVendorFlake.inputs // publicInputs) [ "vendored" ];
+
       eachSystem =
         accu: system:
         let
