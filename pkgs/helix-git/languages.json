@@ -1092,17 +1092,17 @@
     "version": "0-unstable-2022-05-04"
   },
   {
-    "lastModified": 1777540702,
-    "lastModifiedDate": "20260430091822",
+    "lastModified": 1781270492,
+    "lastModifiedDate": "20260612132132",
     "name": "gleam",
-    "narHash": "sha256-On7dNd5YpUvIZ+2BatLjdzurAavFSw+SxRjSf0Sr0Xw=",
+    "narHash": "sha256-BeLkPEsigTKZxWZHx9qPtcREtgpiP5EkiHFyNqgrKyI=",
     "owner": "gleam-lang",
     "repo": "tree-sitter-gleam",
-    "rev": "4e4643c2215c2b2343d9ec179c798818c132c9cc",
+    "rev": "c610c282ef73f830d80c1f0999dce8e83f024ef5",
     "subpath": null,
     "type": "github",
     "url": null,
-    "version": "0-unstable-2026-04-30"
+    "version": "0-unstable-2026-06-12"
   },
   {
     "lastModified": 1768249976,
