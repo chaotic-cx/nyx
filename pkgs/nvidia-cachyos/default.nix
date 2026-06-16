@@ -45,7 +45,12 @@ if cachyosLinuxPackages ? nvidiaPackages then
     }
   )
 else
-  final.runCommand "unsupported-nvidia-cachyos" { } ''
+  (final.runCommand "unsupported-nvidia-cachyos" { } ''
     mkdir -p $out
     echo "nvidia-cachyos is unsupported on ${final.system}" > $out/README
-  ''
+  '').overrideAttrs
+    (prevAttrs: {
+      meta = prevAttrs.meta // {
+        broken = true;
+      };
+    })
