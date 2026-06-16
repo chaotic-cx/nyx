@@ -1,3 +1,10 @@
+# Hey Pedro, what is this?
+# So, basically, the right way to build kernel modules is to build them with the exact toolchain,
+# patched sources, and kconfig as the kernel itself. Nix is perfect for abstraction; kernel
+# modules are in kernelspace and as the kernel doesn't have additional dependencies, we easily
+# change the compiler in the “scope” and call it a day, right? Absolutely not! Some friends decided
+# to add userspace applications as derivations within these kernel modules. E.g., nvidia-settings.
+# Besides that, some things are warnings in one compiler and errors in the other, so let's have fun.
 {
   final,
   nyxUtils,
