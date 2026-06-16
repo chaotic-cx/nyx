@@ -218,7 +218,7 @@ in
 
   libportal_git = callOverride ../pkgs/libportal-git { };
 
-  linux_cachyos = drvDropUpdateScript cachyosPackages.cachyos-gcc.kernel;
+  linux_cachyos = drvDropUpdateScript cachyosPackages.cachyos-lto.kernel;
   linux_cachyos-lto = drvDropUpdateScript cachyosPackages.cachyos-lto.kernel;
   linux_cachyos-lto-znver4 = cachyosPackages.cachyos-lto-znver4.kernel;
   linux_cachyos-gcc = drvDropUpdateScript cachyosPackages.cachyos-gcc.kernel;
@@ -227,7 +227,7 @@ in
   linux_cachyos-rc = cachyosPackages.cachyos-rc.kernel;
   linux_cachyos-lts = cachyosPackages.cachyos-lts.kernel;
 
-  linuxPackages_cachyos = cachyosPackages.cachyos-gcc;
+  linuxPackages_cachyos = cachyosPackages.cachyos-lto;
   linuxPackages_cachyos-lto = cachyosPackages.cachyos-lto;
   linuxPackages_cachyos-lto-znver4 = cachyosPackages.cachyos-lto-znver4;
   linuxPackages_cachyos-gcc = cachyosPackages.cachyos-gcc;
@@ -253,8 +253,12 @@ in
   niks3_nyx = niks3.packages.${system}.niks3;
 
   nvidia_cachyos = callOverride ../pkgs/nvidia-cachyos { };
-  nvidia_cachyos-gcc = final.nvidia_cachyos;
-  nvidia_cachyos-lto = final.nvidia_cachyos;
+  nvidia_cachyos-gcc = callOverride ../pkgs/nvidia-cachyos {
+    linuxPackages_cachyos = final.linuxPackages_cachyos-gcc;
+  };
+  nvidia_cachyos-lto = callOverride ../pkgs/nvidia-cachyos {
+    linuxPackages_cachyos = final.linuxPackages_cachyos-lto;
+  };
   nvidia_cachyos-rc = callOverride ../pkgs/nvidia-cachyos { variant = "rc"; };
   nvidia_cachyos-server = callOverride ../pkgs/nvidia-cachyos { variant = "server"; };
   nvidia_cachyos-hardened = callOverride ../pkgs/nvidia-cachyos { variant = "hardened"; };

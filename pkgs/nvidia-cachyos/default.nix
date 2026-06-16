@@ -2,6 +2,7 @@
   final,
   nyxUtils,
   variant ? "stable",
+  linuxPackages_cachyos ? final.linuxPackages_cachyos,
   ...
 }:
 
@@ -16,10 +17,7 @@ let
 
   # Select the appropriate CachyOS Linux packages based on the variant
   cachyosLinuxPackages =
-    if variant == "stable" then
-      final.linuxPackages_cachyos
-    else
-      final."linuxPackages_cachyos-${variant}";
+    if variant == "stable" then linuxPackages_cachyos else final."linuxPackages_cachyos-${variant}";
 
   # Mirrors the logic in pkgs/linux-cachyos/lib/llvm-module-overlay.nix
   fixNoVideo =
