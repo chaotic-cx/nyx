@@ -7,6 +7,9 @@
   kernel,
   ogKernelConfigfile,
   commonMakeFlags,
+  # Only to passthru
+  rustc,
+  rust-bindgen,
 }:
 let
   inherit (cachyConfig.versions.linux) version;
@@ -374,7 +377,13 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   passthru = {
-    inherit cachyConfig commonMakeFlags stdenv;
+    inherit
+      cachyConfig
+      commonMakeFlags
+      stdenv
+      rustc
+      rust-bindgen
+      ;
     kernelPatches = patches;
     extraVerPatch = ''
       sed -Ei"" 's/EXTRAVERSION = ?(.*)$/EXTRAVERSION = \1${cachyConfig.versions.suffix}/g' Makefile

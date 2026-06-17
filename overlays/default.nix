@@ -358,6 +358,9 @@ in
 
   river_git = callOverride ../pkgs/river-git { };
 
+  rust-bindgen_kernel-lto = cachyosPackages.cachyos-lto.kernel_configfile.passthru.rust-bindgen;
+  rustc_kernel-lto = cachyosPackages.cachyos-lto.kernel_configfile.passthru.rustc;
+
   rustc_nightly = rust-overlay.packages.${system}.rust-nightly;
 
   sdl_git = callOverride ../pkgs/sdl-git { };
