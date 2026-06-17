@@ -1,18 +1,17 @@
 {
-  "linuxPackages_cachyos.facetimehd" = "/nix/store/57w3bj9yp4gxd8mlql2k8pwmn5hmwcwn-facetimehd-0.6.13-7.0.12";
   "linuxPackages_cachyos.lttng-modules" = "/nix/store/rqg7y0wz9v0lad2ijcr2rwci9fm70pwj-lttng-modules-7.0.12-2.14.3";
   "linuxPackages_cachyos.mbp2018-bridge-drv" = "/nix/store/1pk5bn7mc4sgqx1k58zbdlmyj9dr3m6f-mbp2018-bridge-drv-2020-01-31";
   "linuxPackages_cachyos.vmm_clock" = "/nix/store/nysm3qdzv44knw4gsnchaq1wpkxp2pf4-vmm_clock-0.2.1";
   "linuxPackages_cachyos.yt6801" = "/nix/store/ap8dp2i4n0jsw2l7slz2cw37pr81c1rw-yt6801-1.0.30-20250430";
   "linuxPackages_cachyos-lto.amdgpu-i2c" = "/nix/store/rkgib5n9jvxjdvypawn195ndad662wmj-amdgpu-i2c-0-unstable-2024-12-16";
-  "linuxPackages_cachyos-lto.bcachefs" = "/nix/store/i2xb9nni7k89kixdgbg13mj02nb6f8yr-bcachefs-7.0.12-1.38.3";
-  "linuxPackages_cachyos-lto.bcc" = "/nix/store/zcxdsws6yj779pqb7ay42534z47hf6gr-bcc-0.36.1-x86_64-unknown-linux-gnu";
-  "linuxPackages_cachyos-lto.bpftrace" = "/nix/store/chr3kqkw7a8mxhp52jklq2yqwmb85vhf-bpftrace-x86_64-unknown-linux-gnu-0.26.1";
+  "linuxPackages_cachyos-lto.bcachefs" = "/nix/store/6ggj7scpcvfa93i5kkynpfvjanrbzdwb-bcachefs-7.0.12-1.38.5";
+  "linuxPackages_cachyos-lto.bcc" = "/nix/store/hpgkf8a1l3xa87y8kbjslrawylqhwglf-bcc-0.36.1-x86_64-unknown-linux-gnu";
+  "linuxPackages_cachyos-lto.bpftrace" = "/nix/store/lcayralv14f2qxyyd1iwnv386sqmm9rp-bpftrace-x86_64-unknown-linux-gnu-0.26.1";
   "linuxPackages_cachyos-lto.chipsec" = "/nix/store/iw5l6rr9r4j38acab80iz0mhh6f9kdpm-chipsec-1.13.20-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos-lto.corefreq" = "/nix/store/1nzxil3chlq143qn7rv004yk3srlv08s-corefreq-2.1.0";
   "linuxPackages_cachyos-lto.dpdk" = "/nix/store/ld4y06lcvlb2pmp5gf5rfdwqfhfd8zlv-dpdk-x86_64-unknown-linux-gnu-25.07";
   "linuxPackages_cachyos-lto.ecapture" = "/nix/store/8dm9mjikmyrl8dqpim50jg7cd7q2ihhp-ecapture-x86_64-unknown-linux-gnu-1.5.2";
-  "linuxPackages_cachyos-lto.facetimehd" = "/nix/store/ncag1jqhb84yryyn0hai1rnxw5wrclxl-facetimehd-0.6.13-7.0.12";
+  "linuxPackages_cachyos-lto.ethercat" = "/nix/store/jngnfmcyq2p7f2jnbqw25vigy431qzlg-ethercat-7.0.12-1.6.9";
   "linuxPackages_cachyos-lto.hyperv-daemons" = "/nix/store/bb8gyvgc2vlbc7la20l7i1wjx4q3xln3-hyperv-daemons-7.0.12-bin";
   "linuxPackages_cachyos-lto.linux-gpib" = "/nix/store/m2ndwa3z7vj8fs2qfpchwwspwvfjp5ik-linux-gpib-kernel-4.3.7";
   "linuxPackages_cachyos-lto.lttng-modules" = "/nix/store/d28y28x9miyymrf04j149d5m6qvplr2d-lttng-modules-7.0.12-2.14.3";
@@ -22,7 +21,7 @@
   "linuxPackages_cachyos-lto.nvidia_x11_beta_open" = "/nix/store/41kqbhvha7s6apqrlq6vhbyg554ardc0-nvidia-open-595.45.04-7.0.12";
   "linuxPackages_cachyos-lto.nvidia_x11_production_open" = "/nix/store/5m87l01v1f75vzsylj990hifvxhrgsqm-nvidia-open-595.80-7.0.12";
   "linuxPackages_cachyos-lto.nvidia_x11_vulkan_beta_open" = "/nix/store/6db2ghcpm4i4kyziryqwx81r0l73mia1-nvidia-open-595.44.09-7.0.12";
-  "linuxPackages_cachyos-lto.oci-seccomp-bpf-hook" = "/nix/store/x4ydhgdj9f7m1xdzx77i9vfkg6yfn22b-oci-seccomp-bpf-hook-x86_64-unknown-linux-gnu-1.3.0";
+  "linuxPackages_cachyos-lto.oci-seccomp-bpf-hook" = "/nix/store/m25gq3wvx90dwi7hibav9rgnyhmdmhn6-oci-seccomp-bpf-hook-x86_64-unknown-linux-gnu-1.3.0";
   "linuxPackages_cachyos-lto.odp-dpdk" = "/nix/store/jkji4hd6ad4df9pjmrgq65fkivxf1sci-odp-dpdk-x86_64-unknown-linux-gnu-1.46.0.0_DPDK_22.11";
   "linuxPackages_cachyos-lto.openafs" = "/nix/store/4pvimvm4gjj6vnb72jiv47c05b085x0i-openafs-1.8.15-7.0.12-cachyos";
   "linuxPackages_cachyos-lto.openrazer" = "/nix/store/b4x112jbpcvwjrgcsf5lm07fvip8mip5-openrazer-3.12.3-7.0.12";
@@ -47,5 +46,5 @@
   "linuxPackages_cachyos-lto.zenpower" = "/nix/store/pr0i0gp76frdg0hrfhxj1gcpmgwdyq6v-zenpower-unstable-2025-12-20";
   "linux_cachyos-hardened" = "/nix/store/3c5rmykzmfjyhsvfndbf1nl96pyzaqn9-linux-7.0.10";
   "linux_cachyos-lts" = "/nix/store/wz7ka66rqmmvszzs3by4rspsjbl7df79-linux-6.18.35";
-  "torzu_git" = "/nix/store/007vllh206d9izp1b3n8lywaq9pd7lr7-torzu-unstable-20250422-fd90833";
+  "torzu_git" = "/nix/store/a8grh0jkl3rnhz789cx1x3x9jb6rnrrn-torzu-unstable-20250422-fd90833";
 }
