@@ -86,7 +86,12 @@ let
   linuxConfigTransfomed = import configPath;
 
   kernel = callPackage ./kernel.nix {
-    inherit cachyConfig stdenv kconfigToNix;
+    inherit
+      cachyConfig
+      stdenv
+      kconfigToNix
+      commonMakeFlags
+      ;
     kernelPatches = [ ];
     configfile = preparedConfigfile;
     config = linuxConfigTransfomed;

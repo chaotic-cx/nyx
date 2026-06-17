@@ -8,6 +8,7 @@
   lib,
   linuxManualConfig,
   stdenv,
+  commonMakeFlags,
   # Weird injections
   kernelPatches ? [ ],
   features ? null,
@@ -55,6 +56,12 @@ in
 }).overrideAttrs
   (prevAttrs: {
     postPatch = prevAttrs.postPatch + configfile.extraVerPatch;
+    # mirrors https://github.com/NixOS/nixpkgs/blob/92fe0f1e295e816522f33fdcc3701b9b636bc474/pkgs/os-specific/linux/kernel/build.nix#L273
+    makeFlags = [
+      "O=$(buildRoot)"
+      "--eval=undefine modules"
+    ]
+    ++ commonMakeFlags;
     # bypasses https://github.com/NixOS/nixpkgs/issues/216529
     passthru =
       prevAttrs.passthru
