@@ -10,6 +10,7 @@
   nyxUtils,
   lib,
   buildPackages,
+  llvmPackages,
   ogKernelConfigfile ? linuxPackages.kernel.passthru.configfile,
   withUpdateScript ? null,
   packagesExtend ? null,
@@ -91,14 +92,27 @@ let
     kernelPackages = packagesWithRightPlatforms;
   };
 
-  commonMakeFlags = import "${inputs.flakes.nixpkgs}/pkgs/os-specific/linux/kernel/common-flags.nix" {
-    inherit
-      lib
-      stdenv
-      buildPackages
-      extraMakeFlags
-      ;
-  };
+  commonMakeFlagsBintools =
+    import "${inputs.flakes.nixpkgs}/pkgs/os-specific/linux/kernel/common-flags.nix"
+      {
+        inherit
+          lib
+          stdenv
+          buildPackages
+          ;
+        extraMakeFlags = if cachyConfig.useLTO == "none" then extraMakeFlags else [ ];
+      };
+
+  commonMakeFlags =
+    if cachyConfig.useLTO != "none" then
+      lib.trivial.pipe commonMakeFlagsBintools [
+        (nyxUtils.replaceStartingWith "LD=" (lib.getExe' llvmPackages.lld "ld.lld"))
+        (nyxUtils.replaceStartingWith "AR=" (lib.getExe' llvmPackages.llvm "llvm-ar"))
+        (nyxUtils.replaceStartingWith "NM=" (lib.getExe' llvmPackages.llvm "llvm-nm"))
+      ]
+      ++ extraMakeFlags
+    else
+      commonMakeFlagsBintools;
 
   # CachyOS repeating stuff.
   addOurs = finalAttrs: prevAttrs: {
