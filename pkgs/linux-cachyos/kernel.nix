@@ -66,7 +66,7 @@ in
     passthru =
       prevAttrs.passthru
       // {
-        inherit cachyConfig kconfigToNix;
+        inherit cachyConfig kconfigToNix commonMakeFlags;
         features = {
           efiBootStub = true;
           ia32Emulation = true;
