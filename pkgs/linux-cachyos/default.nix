@@ -19,13 +19,16 @@ let
   rcVars = importJSON ./config-vars/cachyos-rc.json;
   serverVars = importJSON ./config-vars/cachyos-server.json;
 
+  # Clang/LTO things
+  pkgsLLVM = import ./lib/llvm-pkgs.nix inputs;
+
   ltoKernelAttrs = {
     taste = "linux-cachyos";
     configPath = ./config-nix/cachyos-lto.x86_64-linux.nix;
     cachyVars = ltoVars;
 
-    inherit (import ./lib/llvm-pkgs.nix inputs) callPackage;
-    stdenv = final.clangStdenv;
+    inherit (pkgsLLVM) callPackage;
+    stdenv = pkgsLLVM.clangStdenv;
 
     packagesExtend = import ./lib/llvm-module-overlay.nix inputs;
 
