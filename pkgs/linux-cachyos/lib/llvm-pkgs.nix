@@ -6,7 +6,7 @@
 }:
 
 (final.pkgsLLVM.extend flakes.self.overlays.default).extend (
-  _finalLLVM: prevLLVM: {
+  finalLLVM: prevLLVM: {
     inherit (final)
       dbus
       libdrm
@@ -18,5 +18,8 @@
       xorg
       ;
     cups = nyxUtils.markBroken prevLLVM.cups;
+
+    # NOTE: Don't use the one from the cross-compiled pkgsLLVM
+    llvmPackages = final.llvmPackages_22;
   }
 )
