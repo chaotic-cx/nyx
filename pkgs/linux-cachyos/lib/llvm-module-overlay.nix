@@ -25,6 +25,9 @@ let
 in
 with prevModules;
 {
+  cpupower = prevModules.cpupower.override {
+    inherit (final) pciutils gettext which;
+  };
   evdi =
     multiOverride prevModules.evdi
       {
