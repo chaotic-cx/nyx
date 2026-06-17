@@ -44,38 +44,31 @@ let
       };
 
   schedPatches =
-    if cachyConfig.cpuSched == "eevdf" then
-      [ ]
-    else if cachyConfig.cpuSched == "hardened" then
-      [ ] # BORE disabled in CachyOS/linux-cachyos/commit/4ffae8ab9947f35495dfa7b62b7a22f023488dfb
-    else if (cachyConfig.cpuSched == "cachyos" || cachyConfig.cpuSched == "sched-ext") then
-      lib.optionals (lib.strings.versionOlder majorMinor "6.12") [
-        "${patches-src}/${majorMinor}/sched/0001-sched-ext.patch"
+    if cachyConfig.cpuSched == "bore" then
+      [ "${patches-src}/${majorMinor}/sched/0001-bore-cachy.patch" ]
+    else if cachyConfig.cpuSched == "bmq" then
+      [ "${patches-src}/${majorMinor}/sched/0001-prjc-cachy.patch" ]
+    else if (cachyConfig.cpuSched == "hardened") then
+      [
+        "${patches-src}/${majorMinor}/sched/0001-bore-cachy.patch"
+        "${patches-src}/${majorMinor}/misc/0001-hardened.patch"
       ]
-      ++ lib.optionals (cachyConfig.cpuSched == "cachyos" && version != "6.17-rc1") [
-        (
-          if
-            version == "6.18.33"
-            && toString (cachyConfig.versions.linux.tagrel or "") == "1"
-            && cachyConfig.taste == "linux-cachyos-lts"
-          then
-            "${./0001-bore-cachy.patch}"
-          else
-            "${patches-src}/${majorMinor}/sched/0001-bore-cachy.patch"
-        )
+    else if (cachyConfig.cpuSched == "rt-bore") then
+      [
+        "${patches-src}/${majorMinor}/sched/0001-bore-cachy.patch"
+        "${patches-src}/${majorMinor}/misc/0001-rt-i915.patch"
       ]
+    else if (cachyConfig.cpuSched == "rt") then
+      [ "${patches-src}/${majorMinor}/misc/0001-rt-i915.patch" ]
     else
-      throw "Unsupported cachyos _cpu_sched=${toString cachyConfig.cpuSched}";
+      [ ];
 
   # If tagrel is provided, base patch is in the GitHub release tarball
   patches =
     lib.optionals (!(cachyConfig.versions.linux ? tagrel)) [
       "${patches-src}/${majorMinor}/all/0001-cachyos-base-all.patch"
     ]
-    ++ schedPatches
-    ++ lib.optional (
-      cachyConfig.cpuSched == "hardened"
-    ) "${patches-src}/${majorMinor}/misc/0001-hardened.patch";
+    ++ schedPatches;
 
   # There are some configurations set by the PKGBUILD
   pkgbuildConfig =
@@ -83,52 +76,24 @@ let
     basicCachyConfig
     ++ mArchConfig
     ++ cpuSchedConfig
-    ++ [
-      # _nr_cpus, defaults to empty, which later set this
-      "--set-val NR_CPUS 320"
-
-      # _per_gov, defaults to empty [but PERSONAL CHANGE to "y"]
-      "-d CPU_FREQ_DEFAULT_GOV_SCHEDUTIL"
-      "-e CPU_FREQ_DEFAULT_GOV_PERFORMANCE"
-
-      # _tcp_bbr3, defaults to "y"
-      "-m TCP_CONG_CUBIC"
-      "-d DEFAULT_CUBIC"
-      "-e TCP_CONG_BBR"
-      "-e DEFAULT_BBR"
-      "--set-str DEFAULT_TCP_CONG bbr"
-      "-m NET_SCH_FQ_CODEL"
-      "-e NET_SCH_FQ"
-      "-d DEFAULT_FQ_CODEL"
-      "-e DEFAULT_FQ"
-      "--set-str DEFAULT_NET_SCH fq"
-
-      # Nixpkgs don't support this
-      "-d CONFIG_SECURITY_TOMOYO"
-    ]
+    ++ perGovConfig
+    ++ tcpBBR3Config
+    ++ kcfiConfig
     ++ ltoConfig
     ++ ticksHzConfig
     ++ tickRateConfig
     ++ preemptConfig
-    ++ [
-      # _cc_harder, defaults to "y"
-      "-d CC_OPTIMIZE_FOR_PERFORMANCE"
-      "-e CC_OPTIMIZE_FOR_PERFORMANCE_O3"
-
-      # _lru_config, defaults to "standard"
-      "-e LRU_GEN"
-      "-e LRU_GEN_ENABLED"
-      "-d LRU_GEN_STATS"
-
-      # _vma_config, defaults to "standard"
-      "-e PER_VMA_LOCK"
-      "-d PER_VMA_LOCK_STATS"
-    ]
+    ++ ccHarderConfig
     ++ hugePagesConfig
-    ++ damonConfig
-    ++ ntSyncConfig
+    ++ qrCodePanicConfig
+    ++ autoFDOConfig
+    ++ propellerConfig
     ++ hdrConfig
-    ++ disableDebug;
+    ++ disableDebug
+    ++ [
+      # Nixpkgs don't support this
+      "-d CONFIG_SECURITY_TOMOYO"
+    ];
 
   # _cachy_config, defaults to "y"
   basicCachyConfig = lib.optional cachyConfig.basicCachy "-e CACHY";
@@ -160,20 +125,32 @@ let
         "--set-val X86_64_VERSION ${v}"
       ]
     else
-      throw "Unsupported cachyos mArch";
+      throw "Unsupported cachyos mArch: ${cachyConfig.mArch}";
 
   # _cpusched, defaults to "cachyos"
   cpuSchedConfig =
-    if cachyConfig.cpuSched == "eevdf" then
-      [ ]
-    else if cachyConfig.cpuSched == "hardened" then
-      [ "-e SCHED_BORE" ]
-    else if cachyConfig.cpuSched == "sched-ext" then
-      [ "-e SCHED_CLASS_EXT" ]
-    else if cachyConfig.cpuSched == "cachyos" then
+    if cachyConfig.cpuSched == "cachyos" then
       [
         "-e SCHED_BORE"
         "-e SCHED_CLASS_EXT"
+      ]
+    else if cachyConfig.cpuSched == "bore" then
+      [ "-e SCHED_BORE" ]
+    else if cachyConfig.cpuSched == "hardened" then
+      [ "-e SCHED_BORE" ]
+    else if cachyConfig.cpuSched == "bmq" then
+      [
+        "-e SCHED_ALT"
+        "-e SCHED_BMQ"
+      ]
+    else if cachyConfig.cpuSched == "eevdf" then
+      [ ]
+    else if cachyConfig.cpuSched == "rt" then
+      [ "-e PREEMPT_RT" ]
+    else if cachyConfig.cpuSched == "rt-bore" then
+      [
+        "-e SCHED_BORE"
+        "-e PREEMPT_RT"
       ]
     else
       throw "Unsupported cachyos scheduler";
@@ -196,37 +173,38 @@ let
   ltoConfig =
     assert (cachyConfig.useLTO == "none" || stdenv.cc.isClang);
     if cachyConfig.useLTO == "thin" then
-      [
-        "-e LTO"
-        "-e LTO_CLANG"
-        "-e ARCH_SUPPORTS_LTO_CLANG"
-        "-e ARCH_SUPPORTS_LTO_CLANG_THIN"
-        "-d LTO_NONE"
-        "-e HAS_LTO_CLANG"
-        "-d LTO_CLANG_FULL"
-        "-e LTO_CLANG_THIN"
-        "-e HAVE_GCC_PLUGINS"
-      ]
+      [ "-e LTO_CLANG_THIN" ]
+    else if cachyConfig.useLTO == "thin-dist" then
+      [ "-e LTO_CLANG_THIN_DIST" ]
     else if cachyConfig.useLTO == "full" then
-      [
-        "-e LTO"
-        "-e LTO_CLANG"
-        "-e ARCH_SUPPORTS_LTO_CLANG"
-        "-e ARCH_SUPPORTS_LTO_CLANG_THIN"
-        "-d LTO_NONE"
-        "-e HAS_LTO_CLANG"
-        "-e LTO_CLANG_FULL"
-        "-d LTO_CLANG_THIN"
-        "-e HAVE_GCC_PLUGINS"
-      ]
+      [ "-e LTO_CLANG_FULL" ]
     else if cachyConfig.useLTO == "none" then
-      [ ]
+      [ "-e LTO_NONE" ]
     else
       throw "Unsupported cachyos _use_llvm_lto";
 
+  qrCodePanicConfig =
+    if cachyConfig.useLTO == "none" then
+      [
+        "--set-str DRM_PANIC_SCREEN qr_code"
+        "-e DRM_PANIC_SCREEN_QR_CODE"
+        "--set-str DRM_PANIC_SCREEN_QR_CODE_URL https://panic.archlinux.org/panic_report#"
+        "--set-val CONFIG_DRM_PANIC_SCREEN_QR_VERSION 40"
+      ]
+    else
+      [ ];
+
   # _tickrate defaults to "full"
   tickRateConfig =
-    if cachyConfig.tickRate == "idle" then
+    if cachyConfig.tickRate == "periodic" then
+      [
+        "-d NO_HZ_IDLE"
+        "-d NO_HZ_FULL"
+        "-d NO_HZ"
+        "-d NO_HZ_COMMON"
+        "-e HZ_PERIODIC"
+      ]
+    else if cachyConfig.tickRate == "idle" then
       [
         "-d HZ_PERIODIC"
         "-d NO_HZ_FULL"
@@ -252,25 +230,76 @@ let
   preemptConfig =
     if cachyConfig.preempt == "full" then
       [
-        "-e PREEMPT_BUILD"
-        "-d PREEMPT_NONE"
-        "-d PREEMPT_VOLUNTARY"
         "-e PREEMPT"
-        "-e PREEMPT_COUNT"
-        "-e PREEMPTION"
-        "-e PREEMPT_DYNAMIC"
+        "-d PREEMPT_LAZY"
       ]
-    else if cachyConfig.preempt == "server" then
+    else if cachyConfig.preempt == "lazy" then
       [
-        "-e PREEMPT_NONE_BUILD"
-        "-e PREEMPT_NONE"
-        "-d PREEMPT_VOLUNTARY"
         "-d PREEMPT"
-        "-d PREEMPTION"
-        "-d PREEMPT_DYNAMIC"
+        "-e PREEMP_LAZY"
       ]
     else
       throw "Unsupported cachyos _preempt";
+
+  kcfiConfig =
+    if cachyConfig.useKCFI then
+      [
+        "-e ARCH_SUPPORTS_CFI_CLANG"
+        "-e CFI_CLANG"
+        "-e CFI_AUTO_DEFAULT"
+      ]
+    else
+      [ ];
+
+  perGovConfig =
+    if cachyConfig.perGov then
+      [
+        "-d CPU_FREQ_DEFAULT_GOV_SCHEDUTIL"
+        "-e CPU_FREQ_DEFAULT_GOV_PERFORMANCE"
+      ]
+    else
+      [ ];
+
+  tcpBBR3Config =
+    if cachyConfig.tcpBBR3 then
+      [
+        "-m TCP_CONG_CUBIC"
+        "-d DEFAULT_CUBIC"
+        "-e TCP_CONG_BBR"
+        "-e DEFAULT_BBR"
+        "--set-str DEFAULT_TCP_CONG bbr"
+        "-m NET_SCH_FQ_CODEL"
+        "-e NET_SCH_FQ"
+        "-d DEFAULT_FQ_CODEL"
+        "-e DEFAULT_FQ"
+      ]
+    else
+      [ ];
+
+  ccHarderConfig =
+    if cachyConfig.ccHarder then
+      [
+        "-d CC_OPTIMIZE_FOR_PERFORMANCE"
+        "-e CC_OPTIMIZE_FOR_PERFORMANCE_O3"
+      ]
+    else
+      [ ];
+
+  autoFDOConfig =
+    if cachyConfig.autoFDO then
+      [
+        "-e AUTOFDO_CLANG"
+      ]
+    else
+      [ ];
+
+  propellerConfig =
+    if cachyConfig.propeller then
+      [
+        "-e PROPELLER_CLANG"
+      ]
+    else
+      [ ];
 
   # _hugepage, defaults to "always"
   hugePagesConfig =
@@ -287,45 +316,26 @@ let
     else
       throw "Unsupported cachyos _hugepage";
 
-  # _damon, defaults to empty
-  damonConfig = lib.optionals cachyConfig.withDAMON [
-    "-e DAMON"
-    "-e DAMON_VADDR"
-    "-e DAMON_DBGFS"
-    "-e DAMON_SYSFS"
-    "-e DAMON_PADDR"
-    "-e DAMON_RECLAIM"
-    "-e DAMON_LRU_SORT"
-  ];
-
-  # _ntsync, defaults to empty
-  ntSyncConfig = lib.optionals cachyConfig.withNTSync [ "-m NTSYNC" ];
-
   # custom made
   hdrConfig = lib.optionals cachyConfig.withHDR [ "-e AMD_PRIVATE_COLOR" ];
 
   # https://github.com/CachyOS/linux-cachyos/issues/187
-  disableDebug =
-    lib.optionals
-      (
-        cachyConfig.withoutDebug && cachyConfig.cpuSched != "sched-ext" && cachyConfig.cpuSched != "cachyos"
-      )
-      [
-        "-d DEBUG_INFO"
-        "-d DEBUG_INFO_BTF"
-        "-d DEBUG_INFO_DWARF4"
-        "-d DEBUG_INFO_DWARF5"
-        "-d PAHOLE_HAS_SPLIT_BTF"
-        "-d DEBUG_INFO_BTF_MODULES"
-        "-d SLUB_DEBUG"
-        "-d PM_DEBUG"
-        "-d PM_ADVANCED_DEBUG"
-        "-d PM_SLEEP_DEBUG"
-        "-d ACPI_DEBUG"
-        "-d SCHED_DEBUG"
-        "-d LATENCYTOP"
-        "-d DEBUG_PREEMPT"
-      ];
+  disableDebug = lib.optionals cachyConfig.withoutDebug [
+    "-d DEBUG_INFO"
+    "-d DEBUG_INFO_BTF"
+    "-d DEBUG_INFO_DWARF4"
+    "-d DEBUG_INFO_DWARF5"
+    "-d PAHOLE_HAS_SPLIT_BTF"
+    "-d DEBUG_INFO_BTF_MODULES"
+    "-d SLUB_DEBUG"
+    "-d PM_DEBUG"
+    "-d PM_ADVANCED_DEBUG"
+    "-d PM_SLEEP_DEBUG"
+    "-d ACPI_DEBUG"
+    "-d SCHED_DEBUG"
+    "-d LATENCYTOP"
+    "-d DEBUG_PREEMPT"
+  ];
 in
 stdenv.mkDerivation (finalAttrs: {
   inherit src patches;

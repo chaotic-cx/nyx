@@ -16,17 +16,7 @@
   cachyOverride,
   extraMakeFlags ? [ ],
   zfsOverride ? { },
-  # those are set in their PKGBUILDs
-  basicCachy ? true,
-  mArch ? null,
-  cpuSched ? "cachyos",
-  useLTO ? "none",
-  ticksHz ? 500,
-  tickRate ? "full",
-  preempt ? "full",
-  hugePages ? "always",
-  withDAMON ? false,
-  withNTSync ? true,
+  cachyVars,
   withHDR ? true,
   withoutDebug ? false,
   description ? "Linux EEVDF-BORE scheduler Kernel by CachyOS with other patches and improvements",
@@ -39,22 +29,39 @@ let
     inherit
       taste
       versions
-      basicCachy
-      mArch
-      cpuSched
-      useLTO
-      ticksHz
-      tickRate
-      preempt
-      hugePages
-      withDAMON
-      withNTSync
+      cachyVars
       withHDR
       withoutDebug
       description
       withUpdateScript
       ;
+
+    basicCachy = yesOrNo cachyVars."_cachy_config";
+    mArch = nullIfEmpty cachyVars."_processor_opt";
+    cpuSched = cachyVars."_cpusched";
+    ccHarder = yesOrNo cachyVars."_cc_harder";
+    perGov = yesOrNo cachyVars."_per_gov";
+    tcpBBR3 = yesOrNo cachyVars."_tcp_bbr3";
+    useLTO = cachyVars."_use_llvm_lto";
+    useKCFI = yesOrNo cachyVars."_use_kcfi";
+    ticksHz = lib.strings.toInt cachyVars."_HZ_ticks";
+    tickRate = cachyVars."_tickrate";
+    preempt = cachyVars."_preempt";
+    hugePages = cachyVars."_hugepage";
+    autoFDO = yesOrNo (cachyVars."_autofdo" or "no");
+    propeller = yesOrNo (cachyVars."_propeller" or "no");
   };
+
+  yesOrNo =
+    str:
+    if str == "yes" then
+      true
+    else if str == "no" then
+      false
+    else
+      throw "Unsupported yes/no value";
+
+  nullIfEmpty = str: if str == "" then null else str;
 
   # The three phases of the config
   # - First we apply the changes fromt their PKGBUILD using kconfig;

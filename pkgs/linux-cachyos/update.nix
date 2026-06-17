@@ -34,26 +34,32 @@ let
     stable = {
       versionsFile = "versions.json";
       suffix = "";
+      mainFlavor = "-lto";
       flavors = [
         "-gcc"
         "-lto"
-        "-server"
+        #-znver4 (we're not creating the config-nix for this one)
       ];
-    };
-    rc = {
-      versionsFile = "versions-rc.json";
-      suffix = "-rc";
-      flavors = [ "-rc" ];
     };
     hardened = {
       versionsFile = "versions-hardened.json";
       suffix = "-hardened";
-      flavors = [ "-hardened" ];
+      mainFlavor = "-hardened";
     };
     lts = {
       versionsFile = "versions-lts.json";
       suffix = "-lts";
-      flavors = [ "-lts" ];
+      mainFlavor = "-lts";
+    };
+    rc = {
+      versionsFile = "versions-rc.json";
+      suffix = "-rc";
+      mainFlavor = "-rc";
+    };
+    server = {
+      versionsFile = "versions-server.json";
+      suffix = "-server";
+      mainFlavor = "-server";
     };
   };
 
@@ -208,6 +214,12 @@ writeShellScript "update-cachyos" ''
       .zfs.hash = $zfsHash
     ' "$srcJson" | sponge "$srcJson"
 
+  printf "%s\n" "$pkgbuild" | grep '^:' | jq -Rn '
+    [inputs
+    | capture(":\\s*\"\\$\\{(?<key>[a-zA-Z0-9_]+):=(?<value>.*)\\}\"$") // empty]
+    | reduce .[] as $i ({}; .[$i.key] = $i.value)
+  ' > pkgs/linux-cachyos/config-vars/cachyos${mainFlavor}.json
+
   ${lib.strings.concatMapStrings (flavor: ''
     out=$(nix build \
       ".#legacyPackages.x86_64-linux.linuxPackages_cachyos${flavor}.kernel.kconfigToNix" \
@@ -216,7 +228,7 @@ writeShellScript "update-cachyos" ''
     if [ -n "$out" ] && [ -f "$out" ]; then
       cat "$out" > pkgs/linux-cachyos/config-nix/cachyos${flavor}.x86_64-linux.nix
     fi
-  '') flavors}
+  '') (major.flavors or [ mainFlavor ])}
 
   git add pkgs/linux-cachyos
   git commit -m \

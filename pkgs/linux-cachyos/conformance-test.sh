@@ -16,7 +16,8 @@ CACHY_URL="https://mirror.cachyos.org/repo/x86_64${CACHY_REPO_SUFFIX:-}/cachyos/
 
 [ -e ./linux-cachy/.PKGINFO ] || (mkdir -p linux-cachy && cd linux-cachy && tar --zstd -xf ../linux-cachy.pkg.tar.zst)
 
-[ -e ./linux-nyx ] || nix build --out-link ./linux-nyx "$NYX_FLAKE#${NYX_PKG:-linux_cachyos-lto}"
+# [ -e ./linux-nyx ] || nix build --out-link ./linux-nyx "$NYX_FLAKE#${NYX_PKG:-linux_cachyos-lto}"
+[ -e ./linux-nyx.kconfig ] || nix build --out-link ./linux-nyx.kconfig "$NYX_FLAKE#${NYX_PKG:-linux_cachyos-lto}.passthru.configfile"
 
 [ -n "$(find ./linux-nyx-src -mindepth 2 -maxdepth 2 -name Makefile -print -quit)" ] || (
   mkdir -p linux-nyx-src &&
@@ -29,11 +30,12 @@ EXTRACTOR=$(echo ./linux-nyx-src/*/scripts/extract-ikconfig)
 test -e "$EXTRACTOR"
 
 CACHY_VMLINUZ="./linux-cachy/usr/lib/modules/${CACHY_MODDIR:-$CACHY_VERSION-cachyos}/vmlinuz"
-NYX_VMLINUZ="./linux-nyx/bzImage"
+# NYX_VMLINUZ="./linux-nyx/bzImage"
 
 "$EXTRACTOR" "$CACHY_VMLINUZ" | sort -u >cachy-config.txt
 
-"$EXTRACTOR" "$NYX_VMLINUZ" | sort -u >nyx-config.txt
+# "$EXTRACTOR" "$NYX_VMLINUZ" | sort -u >nyx-config.txt
+sort -u linux-nyx.kconfig >nyx-config.txt
 
 echo 'Done, diff:'
 
