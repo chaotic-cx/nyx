@@ -8,7 +8,7 @@ let
   bumpedFinal = final.extend (finalFinal: _prevFinal: { llvmPackages = finalFinal.llvmPackages_22; });
 in
 (final.pkgsLLVM.extend flakes.self.overlays.default).extend (
-  finalLLVM: prevLLVM: {
+  _finalLLVM: prevLLVM: {
     inherit (final)
       dbus
       libdrm
