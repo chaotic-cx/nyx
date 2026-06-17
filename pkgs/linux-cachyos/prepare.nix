@@ -317,7 +317,7 @@ let
       throw "Unsupported cachyos _hugepage";
 
   # custom made
-  hdrConfig = lib.optionals cachyConfig.withHDR [ "-e AMD_PRIVATE_COLOR" ];
+  hdrConfig = lib.optionals cachyConfig.withPrivateHDR [ "-e AMD_PRIVATE_COLOR" ];
 
   # https://github.com/CachyOS/linux-cachyos/issues/187
   disableDebug = lib.optionals cachyConfig.withoutDebug [

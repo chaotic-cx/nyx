@@ -17,7 +17,7 @@
   extraMakeFlags ? [ ],
   zfsOverride ? { },
   cachyVars,
-  withHDR ? true,
+  withPrivateHDR ? false,
   withoutDebug ? false,
   description ? "Linux EEVDF-BORE scheduler Kernel by CachyOS with other patches and improvements",
   # For flakes
@@ -30,7 +30,7 @@ let
       taste
       versions
       cachyVars
-      withHDR
+      withPrivateHDR
       withoutDebug
       description
       withUpdateScript
