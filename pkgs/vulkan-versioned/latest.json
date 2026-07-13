@@ -1,6 +1,6 @@
 {
   "gfxreconstruct": {
-    "version": "1.4.350.0",
+    "version": "1.4.350.1",
     "rev": "vulkan-sdk-#{version}",
     "hash": "sha256-Qp4msQ8yzbOQIk9tFEDZ47+u/8yFiKPZ5H/oqyy+qZw="
   },
