@@ -30,7 +30,10 @@ gitOverride {
 
   postOverride = prevAttrs: {
     patches = [ ];
-    postPatch = "";
+    # AssertIsDebug() is only available in _DEBUG builds, define it away
+    env = (prevAttrs.env or { }) // {
+      NIX_CFLAGS_COMPILE = (prevAttrs.env.NIX_CFLAGS_COMPILE or "") + " -DAssertIsDebug(...)=;";
+    };
     buildInputs = prevAttrs.buildInputs ++ [
       final.tde2e_git
       final.minizip
