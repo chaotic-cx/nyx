@@ -454,7 +454,7 @@ enable_seq  hotplug_seq  nr_rejected  root  state  switch_all
 
 <p>If the third is different from the first, you're most likely using an overlay that's changing the kernel or one of its dependencies; check your <code>nixpkgs.overlays</code> config.</p>
 
-<hr width="50%" />
+<hr style="width: 50%; margin: 0 auto;">
 
 <p>If they all match, and you're still rebuilding the kernel, copy the hash from the result above, then change it in the following <code>curl</code> command:</p>
 

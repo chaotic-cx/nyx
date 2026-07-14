@@ -1,5 +1,4 @@
 {
-  "bytecode-viewer_git" = "/nix/store/3bhinfgr9di9nbfa1snjnr29s7cp0jf3-bytecode-viewer-unstable-20260402202244-3a3a314";
   "linuxPackages_cachyos.amdgpu-i2c" = "/nix/store/7ygsfxv5shk5sdqp8ky0fyzd08rgnh60-amdgpu-i2c-x86_64-unknown-linux-gnu-0-unstable-2024-12-16";
   "linuxPackages_cachyos.amneziawg" = "/nix/store/nxsdyj98pp0b5y45dr48l2chz22ha4gp-amneziawg-x86_64-unknown-linux-gnu-1.0.20260611";
   "linuxPackages_cachyos.bcachefs" = "/nix/store/0iz7f4lx7qzr9cpjx5w302vdxkpjksna-bcachefs-x86_64-unknown-linux-gnu-7.1.3-1.38.8";
@@ -18,7 +17,6 @@
   "linuxPackages_cachyos.mm-tools" = "/nix/store/fax7r0lpy34x4bmzignr9n7acpj2v8bi-mm-tools-x86_64-unknown-linux-gnu-6.18.38";
   "linuxPackages_cachyos.netatop" = "/nix/store/pjapxcjva3mxffyxl09hih81vv87l31d-netatop-7.1.3-3.2.2-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos.nvidia_x11_beta_open" = "/nix/store/l4a6znm06n8rah32c6vf2hcyhdq7q0w9-nvidia-open-x86_64-unknown-linux-gnu-595.45.04-7.1.3";
-  "linuxPackages_cachyos.nvidia_x11_latest_open" = "/nix/store/7h00ly7cp60jm490k3xxrkfah1ch72wh-nvidia-open-x86_64-unknown-linux-gnu-610.43.02-7.1.3";
   "linuxPackages_cachyos.nxp-pn5xx" = "/nix/store/ny205bca8w56i2db5fn1b8l5z8hx2s52-nxp-pn5xx-x86_64-unknown-linux-gnu-0.4-unstable-2025-02-08-7.1.3";
   "linuxPackages_cachyos.oci-seccomp-bpf-hook" = "/nix/store/hzwyqgih78mr94wpajzp2lrw1z23zkwv-oci-seccomp-bpf-hook-x86_64-unknown-linux-gnu-1.3.0";
   "linuxPackages_cachyos.odp-dpdk" = "/nix/store/dq49b46c4r6c9wa6601hy9kiayjnh8q2-odp-dpdk-x86_64-unknown-linux-gnu-1.50.0.0_DPDK_24.11";
@@ -62,13 +60,4 @@
   "linuxPackages_cachyos-gcc.tt-kmd" = "/nix/store/49lnglv7rl5n8v41dfvzzjjwrm6xph5i-tt-kmd-2.7.0";
   "linuxPackages_cachyos-gcc.vmm_clock" = "/nix/store/i44w0ivd7pxw3kap054n6x4xm8gdgb5k-vmm_clock-0.2.1";
   "linuxPackages_cachyos-gcc.yt6801" = "/nix/store/6ng3d30h0jpg0x5hq5y3ni2wap37bqk4-yt6801-1.0.30-20250430";
-  "mwc_git" = "/nix/store/8vhgz331s25vy9q1k4kmkdy8a3pwjz6g-mwc-wlr-unstable-20250316235640-33b4968";
-  "sdl_git" = "/nix/store/bsib2c1bj1gsjqa2avky188vj5nf5ax6-sdl3-unstable-20260626183202-4bebbec-lib";
-  "spirv-headers_git" = "/nix/store/xz2qspnkq7xdv8bazi2ps6ysvyrfd2dw-spirv-headers-unstable-20260708154953-29981f6";
-  "torzu_git" = "/nix/store/z2887c1saafm88sacv5sjfz561ca9wh1-torzu-unstable-20250422-fd90833";
-  "vulkanPackages_latest.spirv-headers" = "/nix/store/jg9y8a75a0z3rlg4qd44rzvwpd64f9ka-spirv-headers-1.4.352-unstable";
-  "vulkanPackages_latest.spirv-tools" = "/nix/store/mj0wjvy3cyhp2pgqsl9yr6hxsxlsnfpb-spirv-tools-1.4.352-unstable";
-  "vulkanPackages_latest.glslang" = "/nix/store/r5l6vsyhf2fkfazjf9a31smjk1nkdl0r-glslang-1.4.352-unstable-bin";
-  "vulkanPackages_latest.vulkan-validation-layers" = "/nix/store/fz3bhn7hmccn18km4ri5a7fqx4ihd9xa-vulkan-validation-layers-1.4.352";
-  "yt-dlp_git" = "/nix/store/1rynx4145qb9vkzwd2cvnh5ln7m0202i-yt-dlp-unstable-20260709231100-59d9ae6";
 }

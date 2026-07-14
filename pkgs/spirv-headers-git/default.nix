@@ -10,4 +10,8 @@ gitOverride {
     owner = "KhronosGroup";
     repo = "SPIRV-Headers";
   };
+
+  postOverride = _prevAttrs: {
+    patches = [ ];
+  };
 }

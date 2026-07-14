@@ -71,7 +71,10 @@ gitOverride {
   withUpdateScript = !final.stdenv.is32bit;
 
   postOverride = prevAttrs: {
-    nativeBuildInputs = (prevAttrs.nativeBuildInputs or [ ]) ++ [ final.unzip ];
+    nativeBuildInputs = (prevAttrs.nativeBuildInputs or [ ]) ++ [
+      final.unzip
+      final.wayland-scanner
+    ];
 
     buildInputs = (prevAttrs.buildInputs or [ ]) ++ [
       final.vulkan-loader
@@ -81,6 +84,7 @@ gitOverride {
       final.systemd
       final.libcap
       final.yaml-cpp
+      final.wayland-protocols
     ];
 
     patches = builtins.filter (

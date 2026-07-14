@@ -6,7 +6,7 @@
 }:
 
 let
-  override = x: final.python312Packages.toPythonApplication (gitOverride x);
+  override = x: final.python3Packages.toPythonApplication (gitOverride x);
 in
 override (
   current:
@@ -19,7 +19,7 @@ override (
   in
   {
     nyxKey = "yt-dlp_git";
-    prev = prev.python312Packages.yt-dlp;
+    prev = prev.python3Packages.yt-dlp;
 
     versionNyxPath = "pkgs/yt-dlp-git/version.json";
     fetcher = "fetchFromGitHub";
@@ -35,7 +35,7 @@ override (
       format = "pyproject";
 
       nativeBuildInputs =
-        with final.python312Packages;
+        with final.python3Packages;
         [
           hatchling
         ]

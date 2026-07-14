@@ -101,6 +101,16 @@ final.lib.makeScope final.newScope (self: {
 
     # updated by validation-layer
     withUpdateScript = false;
+
+    extraAttrs = prevAttrs: {
+      patches = builtins.filter (
+        patch:
+        !(
+          final.lib.hasInfix "1a22b167081842915a1c78a0b5b5a353a23284aa" (toString patch)
+          || final.lib.hasInfix "b8a32968473ce852a809b9de5f04f02a5a9dfa78" (toString patch)
+        )
+      ) (prevAttrs.patches or [ ]);
+    };
   };
 
   spirv-tools = genericOverride {
@@ -111,6 +121,12 @@ final.lib.makeScope final.newScope (self: {
 
     # updated by validation-layer
     withUpdateScript = false;
+
+    extraAttrs = prevAttrs: {
+      patches = builtins.filter (
+        patch: !final.lib.hasInfix "2ec8457ab33d539b6f1fecc998360c0b8b05ed4f" (toString patch)
+      ) (prevAttrs.patches or [ ]);
+    };
   };
 
   vulkan-extension-layer = genericOverride {

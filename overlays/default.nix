@@ -173,15 +173,11 @@ in
     overrideDescription (old: old + " (without applets' symlinks)")
   );
 
-  bytecode-viewer_git = final.callPackage ../pkgs/bytecode-viewer-git { };
-
   cutty_git = callOverride ../pkgs/cutty-git { };
 
   discord-krisp = callOverride ../pkgs/discord-krisp { };
 
   distrobox_git = callOverride ../pkgs/distrobox-git { };
-
-  dns-over-wikipedia_git = final.callPackage ../pkgs/dns-over-wikipedia-git { };
 
   dr460nized-kde-theme = final.callPackage ../pkgs/dr460nized-kde-theme { };
 
@@ -289,8 +285,6 @@ in
       };
     }).overrideAttrs
       (overrideDescription (old: old + " (includes vapoursynth-mvtools)"));
-
-  mwc_git = callOverride ../pkgs/mwc-git { };
 
   niri_git = callOverride ../pkgs/niri-git { };
 
@@ -407,11 +401,6 @@ in
     unwrapped = final.telegram-desktop-unwrapped_git;
   };
   tg-owt_git = callOverride ../pkgs/tg-owt-git { };
-
-  torzu_git = final.kdePackages.callPackage ../pkgs/torzu-git {
-    current = importJSON ../pkgs/torzu-git/version.json;
-    inherit (final) fetchTorGit;
-  };
 
   vulkanPackages_latest = callOverride ../pkgs/vulkan-versioned {
     vulkanVersions = importJSON ../pkgs/vulkan-versioned/latest.json;

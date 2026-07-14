@@ -10,6 +10,10 @@ gitOverride {
   nyxKey = "qtile-module_git";
   prev = prev.python3Packages.qtile;
 
+  newInputs = {
+    wlroots = final.wlroots_0_20;
+  };
+
   versionNyxPath = "pkgs/qtile-git/version.json";
   fetcher = "fetchFromGitHub";
   fetcherData = {
