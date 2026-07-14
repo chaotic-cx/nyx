@@ -74,6 +74,10 @@ let
       expected-pins = callPackage ../tools/expected-pins {
         allSystems = builtins.mapAttrs (_system: { chaotic-nyx, ... }: chaotic-nyx.dry-build) newSet;
       };
+      packages-flat-list = callPackage ../tools/packages-flat-list {
+        allPackages = nyxPkgs;
+        inherit nyxRecursionHelper;
+      };
     };
 
   mkDevPackagesSet = nyxPkgs: nixPkgs: {

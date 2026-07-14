@@ -78,6 +78,9 @@
         # In case you need something from our vendored flakes
         inherit vendored;
 
+        # Beloved flakes making me have a flat list of packages
+        packages = import ./maintenance/flat-packages-cache.nix self.legacyPackages;
+
         # Dev stuff.
         utils = import ./shared/utils.nix {
           nyxOverlay = self.overlays.default;

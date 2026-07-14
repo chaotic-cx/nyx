@@ -129,10 +129,10 @@ let
       in
       (builtins.removeAttrs jovianWithoutUpdateScript [ "jovian-documentation" ])
       // {
-        recurseForDerivations = true;
         linuxPackages_jovian = jovianWithoutUpdateScript.linuxPackages_jovian // {
           recurseForDerivations = false;
         };
+        _description = "We cache Jovian-NixOS packages for you!";
       }
     else
       { };
