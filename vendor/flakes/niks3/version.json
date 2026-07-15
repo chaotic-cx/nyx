@@ -1,4 +1,4 @@
 {
-  "url": "github:Mic92/niks3",
-  "lock": "/6c40621993fa46f186d512f3060872c005d307b2?narHash=sha256-%2BAj5ca1iUqbDW9MjFGoGoylnVjcMQLlT/OlH2yMrg/I%3D"
+  "url": "github:Mic92/niks3?ref=v1.7.0",
+  "lock": "github:Mic92/niks3/6c40621993fa46f186d512f3060872c005d307b2?narHash=sha256-%2BAj5ca1iUqbDW9MjFGoGoylnVjcMQLlT/OlH2yMrg/I%3D"
 }

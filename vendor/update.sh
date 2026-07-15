@@ -13,10 +13,7 @@ function eachFlake() {
   NEW_METADATA=$(nix flake metadata --json "$BASE_URL")
 
   # Get the new full URL from metadata
-  NEW_URL=$(printf "%s\n" "$NEW_METADATA" | jq -r '.url')
-
-  # Strip the base URL to isolate the lock string
-  NEW_LOCK="${NEW_URL#"$BASE_URL"}"
+  NEW_LOCK=$(printf "%s\n" "$NEW_METADATA" | jq -r '.url')
 
   # Skip the rest when already up-to-date
   if [ "$NEW_LOCK" = "$OLD_LOCK" ]; then
@@ -24,7 +21,7 @@ function eachFlake() {
   fi
 
   # Fetch the old metadata
-  OLD_METADATA=$(nix flake metadata --json "$BASE_URL$OLD_LOCK")
+  OLD_METADATA=$(nix flake metadata --json "$OLD_LOCK")
 
   # Update the JSON file
   OLD_FILE=$(cat "$FILE")

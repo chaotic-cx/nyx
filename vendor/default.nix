@@ -1,11 +1,10 @@
 let
   fetchFlake =
     {
-      url,
       lock,
       ...
     }:
-    builtins.getFlake (builtins.unsafeDiscardStringContext "${url}${lock}");
+    builtins.getFlake (builtins.unsafeDiscardStringContext lock);
 
   forEachFlake =
     name: _directory_or_regular:
