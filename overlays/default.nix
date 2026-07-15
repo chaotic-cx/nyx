@@ -1,24 +1,20 @@
 # Conventions:
 # - Sort packages in alphabetic order.
-# - If the recipe uses `override` or `overrideAttrs`, then use callOverride,
-#   otherwise use `final`.
+# - If the recipe uses `override` or `overrideAttrs`, then use callOverride, otherwise use `final`.
 # - Composed names are separated with minus: `lan-mouse`
 # - Versions/patches are suffixed with an underline: `mesa_git`, `libei_0_5`, `linux_hdr`
 
 {
   flakes,
-  nixpkgs ? flakes.nixpkgs,
-  self ? flakes.self,
-  selfOverlay ? self.overlays.default,
-  jovian ? flakes.jovian,
-  rust-overlay ? flakes.rust-overlay,
-  niks3 ? flakes.niks3,
   nixpkgsExtraConfig ? { },
 }:
 final: prev:
 
 let
+  # Shortcuts
+  inherit (flakes) herdr jovian niks3 nixpkgs rust-overlay self;
   inherit (final.stdenv.hostPlatform) system;
+  selfOverlay = self.overlays.default;
 
   # Required to load version files.
   inherit (final.lib.trivial) importJSON;
