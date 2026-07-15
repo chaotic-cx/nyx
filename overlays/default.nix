@@ -290,8 +290,6 @@ in
 
   nix_git = callOverride ../pkgs/nix-git { };
 
-  nix-top_abandoned = final.callPackage ../pkgs/nix-top { };
-
   nss_git = callOverride ../pkgs/nss-git { };
 
   openmohaa = final.callPackage ../pkgs/openmohaa {

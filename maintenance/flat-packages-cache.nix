@@ -94,8 +94,6 @@ legacyPackages: {
 
   x86_64-linux."niri_git" = legacyPackages.x86_64-linux.niri_git;
 
-  x86_64-linux."nix-top_abandoned" = legacyPackages.x86_64-linux.nix-top_abandoned;
-
   x86_64-linux."nix_git" = legacyPackages.x86_64-linux.nix_git;
 
   x86_64-linux."nss_git" = legacyPackages.x86_64-linux.nss_git;
