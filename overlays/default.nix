@@ -12,7 +12,13 @@ final: prev:
 
 let
   # Shortcuts
-  inherit (flakes) herdr jovian niks3 nixpkgs rust-overlay self;
+  inherit (flakes)
+    jovian
+    niks3
+    nixpkgs
+    rust-overlay
+    self
+    ;
   inherit (final.stdenv.hostPlatform) system;
   selfOverlay = self.overlays.default;
 
