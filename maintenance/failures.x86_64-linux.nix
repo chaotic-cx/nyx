@@ -7,7 +7,7 @@
   "linuxPackages_cachyos.chipsec" = "/nix/store/31y295hm8235i2g50zx4qjyli8lqk38b-chipsec-1.13.20-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos.corefreq" = "/nix/store/f4znmyprlh17m4dy8g12x8ls2gkxk2z1-corefreq-x86_64-unknown-linux-gnu-2.1.0";
   "linuxPackages_cachyos.dpdk" = "/nix/store/2biv6g4d3wp5cn0f1d9hambh7h7k0scc-dpdk-x86_64-unknown-linux-gnu-26.03";
-  "linuxPackages_cachyos.ecapture" = "/nix/store/4jndhi63h78w41am5yfvf5npn6ym99xr-ecapture-x86_64-unknown-linux-gnu-1.5.2";
+  "linuxPackages_cachyos.ecapture" = "/nix/store/g1jml7pywijxqw4j4xrqp0v7nm3v3rfn-ecapture-x86_64-unknown-linux-gnu-1.5.2";
   "linuxPackages_cachyos.ethercat" = "/nix/store/mkxw4g85na6bkhns5icgfggbdyvz7qmg-ethercat-x86_64-unknown-linux-gnu-7.1.3-1.6.9";
   "linuxPackages_cachyos.gasket" = "/nix/store/snhn5lii5hn3rfa2vcwfxldvrpypsidf-gasket-x86_64-unknown-linux-gnu-1.0-18-unstable-2024-04-25";
   "linuxPackages_cachyos.hyperv-daemons" = "/nix/store/kxfk350bnvllhpaasrxl1q8yv7qkkzdx-hyperv-daemons-x86_64-unknown-linux-gnu-7.1.3-bin";
