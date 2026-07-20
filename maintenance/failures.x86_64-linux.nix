@@ -14,7 +14,7 @@
   "linuxPackages_cachyos.linux-gpib" = "/nix/store/whfl7cbag3dikfqg8mnc4garip7chdpi-linux-gpib-kernel-x86_64-unknown-linux-gnu-4.3.7";
   "linuxPackages_cachyos.lttng-modules" = "/nix/store/r2w1ihaqii818am5i2k16sdiiyxrdpxl-lttng-modules-7.1.4-x86_64-unknown-linux-gnu-2.14.3";
   "linuxPackages_cachyos.mbp2018-bridge-drv" = "/nix/store/camd9m2f4h0hk4kwvz1r3v8kyzgxvx4n-mbp2018-bridge-drv-x86_64-unknown-linux-gnu-2020-01-31";
-  "linuxPackages_cachyos.mm-tools" = "/nix/store/fax7r0lpy34x4bmzignr9n7acpj2v8bi-mm-tools-x86_64-unknown-linux-gnu-6.18.38";
+  "linuxPackages_cachyos.mm-tools" = "/nix/store/axdyqbvxkcdqc1wsh94w49bvjck3dc19-mm-tools-x86_64-unknown-linux-gnu-6.18.39";
   "linuxPackages_cachyos.netatop" = "/nix/store/73sva9zazzfmv43ww687i8wzlsa5aglg-netatop-7.1.4-3.2.2-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos.nvidia_x11_beta_open" = "/nix/store/yj8s1wm56xzvwn477xw1qgaj61z3f492-nvidia-open-x86_64-unknown-linux-gnu-595.45.04-7.1.4";
   "linuxPackages_cachyos.nvidia_x11_production_open" = "/nix/store/qwvyy20nk31mr2k1wbc2vy6zyqwpa7yk-nvidia-open-x86_64-unknown-linux-gnu-595.84-7.1.4";
@@ -41,12 +41,12 @@
   "linuxPackages_cachyos.tuxedo-drivers" = "/nix/store/dnmlh3drynb0cjqpzz8rfy6w31s47vbi-tuxedo-drivers-7.1.4-x86_64-unknown-linux-gnu-4.20.1";
   "linuxPackages_cachyos.usbip" = "/nix/store/wyq0qnmcjs5w66nh7hvixl7hh32rihw8-usbip-linux-x86_64-unknown-linux-gnu-7.1.4";
   "linuxPackages_cachyos.v86d" = "/nix/store/ihxwsa0gb7i9qrvfn7s5nv75d156wwf1-v86d-x86_64-unknown-linux-gnu-0.1.10-7.1.4";
-  "linuxPackages_cachyos.virtualboxGuestAdditions" = "/nix/store/13fj99nz9bgnw496498hlgiimrn32j4w-VirtualBox-GuestAdditions-x86_64-unknown-linux-gnu-7.2.10-7.1.4";
+  "linuxPackages_cachyos.virtualboxGuestAdditions" = "/nix/store/zxa6rmjj924h4sbz5xl2phzsnmj0c73z-VirtualBox-GuestAdditions-x86_64-unknown-linux-gnu-7.2.12-7.1.4";
   "linuxPackages_cachyos.vmm_clock" = "/nix/store/a2n67wsrv4nxa25g3hna78v8y5vwb22x-vmm_clock-x86_64-unknown-linux-gnu-0.2.1";
   "linuxPackages_cachyos.vmware" = "/nix/store/pxqlsflpvzcxihhmxjs375bwm45fni6r-vmware-modules-x86_64-unknown-linux-gnu-workstation-25h2-20251015-7.1.4";
   "linuxPackages_cachyos.x86_energy_perf_policy" = "/nix/store/y9c44jb7ly11cin1dack2w32ay3q6dhf-x86_energy_perf_policy-x86_64-unknown-linux-gnu-7.1.4";
   "linuxPackages_cachyos.yt6801" = "/nix/store/bhhbdcgak184k9h3ll8d44gvhzfi2ghr-yt6801-x86_64-unknown-linux-gnu-1.0.30-20250430";
-  "linuxPackages_cachyos.zenpower" = "/nix/store/nqsz6b9bznvcbfjqm2n1rh87wligdn41-zenpower-x86_64-unknown-linux-gnu-unstable-2025-12-20";
+  "linuxPackages_cachyos.zenpower" = "/nix/store/wggrqp19qw36613ijah07zg8a87ipyb6-zenpower-x86_64-unknown-linux-gnu-0.2.0";
   "linuxPackages_cachyos-gcc.amneziawg" = "/nix/store/xffzl8j6njfdy5wwh1ljpa28cnxmyh91-amneziawg-1.0.20260611";
   "linuxPackages_cachyos-gcc.corefreq" = "/nix/store/vwplh5k22n7r3aqsyn9hq39z6wiars6g-corefreq-2.1.0";
   "linuxPackages_cachyos-gcc.gasket" = "/nix/store/g2l2sw4nqz1d0l150ydfd54kvx0y9yfv-gasket-1.0-18-unstable-2024-04-25";
