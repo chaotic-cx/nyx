@@ -1742,17 +1742,17 @@
     "version": "0-unstable-2025-11-08"
   },
   {
-    "lastModified": 1755945210,
-    "lastModifiedDate": "20250823103330",
+    "lastModified": 1784194057,
+    "lastModifiedDate": "20260716092737",
     "name": "just",
-    "narHash": "sha256-vn4YerjgEn0oVwMYXRb8Kp+Li4e9jQ0s9DbFEnj45+U=",
+    "narHash": "sha256-ZKgn869O3eB5SmVilhxB9GQe9vCGXckJbWFKYnPtDD8=",
     "owner": "poliorcetics",
     "repo": "tree-sitter-just",
-    "rev": "f749ec853adcacc5f14e9ec375f244104e033d88",
+    "rev": "00859eebfb774d371af174ea1e582d46e697b469",
     "subpath": null,
     "type": "github",
     "url": null,
-    "version": "0-unstable-2025-08-23"
+    "version": "0-unstable-2026-07-16"
   },
   {
     "lastModified": 1759846153,
