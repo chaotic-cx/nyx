@@ -3042,17 +3042,17 @@
     "version": "0-unstable-2025-04-19"
   },
   {
-    "lastModified": 1776400079,
-    "lastModifiedDate": "20260417042759",
+    "lastModified": 1783908933,
+    "lastModifiedDate": "20260713021533",
     "name": "slint",
-    "narHash": "sha256-ugdB7gN3zTAGLm9Jk2hjuuZWxIYxEWYXW72qLpXM+1Q=",
+    "narHash": "sha256-CeNOS8u3kKkD5+3OyFyGq0MOWYF0lPrqlsZ6Jii7dvE=",
     "owner": "slint-ui",
     "repo": "tree-sitter-slint",
-    "rev": "68b25244cec6eb9d7f8f790ef781c29c822d8f84",
+    "rev": "f94f96ce093ec153f037228ac2fac5f1a3cd9ac6",
     "subpath": null,
     "type": "github",
     "url": null,
-    "version": "0-unstable-2026-04-17"
+    "version": "0-unstable-2026-07-13"
   },
   {
     "lastModified": 1783098267,
