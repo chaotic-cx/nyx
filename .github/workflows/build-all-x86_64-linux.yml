@@ -213,3 +213,22 @@ jobs:
           path: |
             ${{ runner.temp }}/*.txt
             ${{ runner.temp }}/*.nix
+
+  build-all-status-check-x86_64-linux:
+    name: Build-all Status Check x86-64 Linux
+    needs:
+      [
+        build-all-x86_64-linux,
+        call-build-matrix-x86_64-linux,
+        call-garuda-build-all-x86_64-linux,
+      ]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify build outcomes
+        if: contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled')
+        run: |
+          echo "One or more required jobs failed or were cancelled."
+          exit 1
+      - name: Report success
+        run: echo "All routed jobs succeeded or were cleanly skipped."
