@@ -55,6 +55,15 @@ jobs:
     outputs:
       built: ${{ steps.build.outcome == 'success' }}
     steps:
+      - name: Check PR Trust
+        id: trust
+        uses: ./.github/actions/check-pr-trust
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          allow-unsafe-pr-checkout: ${{ steps.trust.outputs.is_safe == 'true' }}
       # identical to build.yml
       - name: Install Nix
         uses: cachix/install-nix-action@v31
@@ -64,12 +73,6 @@ jobs:
             sandbox-fallback = false
             system-features = big-parallel gccarch-x86-64-v3
           install_options: --daemon
-      - name: Checkout
-        uses: actions/checkout@v7
-        with:
-          fetch-depth: 0
-          ref: ${{ github.event.pull_request.head.sha || github.sha }}
-          allow-unsafe-pr-checkout: ${{ contains(github.event.pull_request.labels.*.name, 'safe-to-test') || contains(fromJSON('["COLLABORATOR", "MEMBER", "OWNER"]'), github.event.pull_request.author_association) }}
       - name: Configure sandboxing
         run: |
           sed -i -e '/^build-users-group =/d' -e 's/max-jobs =.*/max-jobs = 8/g' /etc/nix/nix.conf

@@ -59,12 +59,15 @@ jobs:
     outputs:
       class: ${{ steps.check.outputs.class }}
     steps:
+      - name: Check PR Trust
+        id: trust
+        uses: ./.github/actions/check-pr-trust
       - name: Checkout
         uses: actions/checkout@v7
         with:
           fetch-depth: 0
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
-          allow-unsafe-pr-checkout: ${{ contains(github.event.pull_request.labels.*.name, 'safe-to-test') || contains(fromJSON('["COLLABORATOR", "MEMBER", "OWNER"]'), github.event.pull_request.author_association) }}
+          allow-unsafe-pr-checkout: ${{ steps.trust.outputs.is_safe == 'true' }}
       - name: Check changed files
         id: check
         run: |
@@ -111,6 +114,15 @@ jobs:
     env:
       SAVE_FAILURES: ${{ inputs.commit-failures || false }}
     steps:
+      - name: Check PR Trust
+        id: trust
+        uses: ./.github/actions/check-pr-trust
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          allow-unsafe-pr-checkout: ${{ steps.trust.outputs.is_safe == 'true' }}
       # identical to build.yml
       - name: Install Nix
         uses: cachix/install-nix-action@v31
@@ -122,12 +134,6 @@ jobs:
             substituters = https://nyx-cache.chaotic.cx/ https://cache.nixos.org/
             trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nyx-cache.chaotic.cx:dJxTrgMC3V3cFfyIiBQDQorG6k1LsqurH/srpMSq7qk=
           install_options: --daemon
-      - name: Checkout
-        uses: actions/checkout@v7
-        with:
-          fetch-depth: 0
-          ref: ${{ github.event.pull_request.head.sha || github.sha }}
-          allow-unsafe-pr-checkout: ${{ contains(github.event.pull_request.labels.*.name, 'safe-to-test') || contains(fromJSON('["COLLABORATOR", "MEMBER", "OWNER"]'), github.event.pull_request.author_association) }}
       # config to commit
       - name: Bat-signal
         run: |

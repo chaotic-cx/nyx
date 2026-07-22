@@ -16,6 +16,14 @@ jobs:
     outputs:
       fmt: ${{ steps.linter.outcome }}
     steps:
+      - name: Check PR Trust
+        id: trust
+        uses: ./.github/actions/check-pr-trust
+      - name: Checkout code
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          allow-unsafe-pr-checkout: ${{ steps.trust.outputs.is_safe == 'true' }}
       - name: Install Nix
         uses: cachix/install-nix-action@v31
         with:
@@ -23,11 +31,6 @@ jobs:
             accept-flake-config = true
             system-features = big-parallel gccarch-x86-64-v3
           nix_path: "nixpkgs=channel:nixpkgs-unstable"
-      - name: Checkout code
-        uses: actions/checkout@v7
-        with:
-          ref: ${{ github.event.pull_request.head.sha || github.sha }}
-          allow-unsafe-pr-checkout: ${{ contains(github.event.pull_request.labels.*.name, 'safe-to-test') || contains(fromJSON('["COLLABORATOR", "MEMBER", "OWNER"]'), github.event.pull_request.author_association) }}
       - name: Run linter
         run: nix run ./maintenance#chaotic-nyx.linter
         id: linter
