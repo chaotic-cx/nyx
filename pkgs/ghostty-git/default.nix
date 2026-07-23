@@ -11,7 +11,7 @@ let
     src:
     final.callPackage (src + "/build.zig.zon.nix") {
       name = "ghostty-git-zig-deps";
-      inherit (final) zig_0_15;
+      inherit (final) zig_0_16;
     };
 in
 gitOverride {
@@ -33,8 +33,8 @@ gitOverride {
     doCheck = false;
     dontVersionCheck = true;
     deps = generateDeps prevAttrs.src;
-    nativeBuildInputs = builtins.map (
-      pkg: if pkg.pname or null == "zig" then final.zig_0_15 else pkg
+    nativeBuildInputs = map (
+      pkg: if pkg.pname or null == "zig" then final.zig_0_16 else pkg
     ) prevAttrs.nativeBuildInputs;
 
     # Use base appVersion from build.zig.zon instead of custom version-string
