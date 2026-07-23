@@ -59,6 +59,8 @@ jobs:
     outputs:
       class: ${{ steps.check.outputs.class }}
     steps:
+      - name: Checkout base for local actions
+        uses: actions/checkout@v7
       - name: Check PR Trust
         id: trust
         uses: ./.github/actions/check-pr-trust
@@ -114,6 +116,8 @@ jobs:
     env:
       SAVE_FAILURES: ${{ inputs.commit-failures || false }}
     steps:
+      - name: Checkout base for local actions
+        uses: actions/checkout@v7
       - name: Check PR Trust
         id: trust
         uses: ./.github/actions/check-pr-trust

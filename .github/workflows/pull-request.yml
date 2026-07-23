@@ -16,6 +16,8 @@ jobs:
     outputs:
       fmt: ${{ steps.linter.outcome }}
     steps:
+      - name: Checkout base for local actions
+        uses: actions/checkout@v7
       - name: Check PR Trust
         id: trust
         uses: ./.github/actions/check-pr-trust
