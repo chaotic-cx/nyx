@@ -61,5 +61,4 @@
   "linuxPackages_cachyos-gcc.rtl88x2bu" = "/nix/store/r0msjkpdsjbwchpbbgfa0nyrg8kdn9f3-rtl88x2bu-7.1.4-unstable-2025-12-04";
   "linuxPackages_cachyos-gcc.vmm_clock" = "/nix/store/bqhfwa06gkfmcf6kw8zx2ac3s57vbi0m-vmm_clock-0.2.1";
   "linuxPackages_cachyos-gcc.yt6801" = "/nix/store/mscspc07icfr8gp1vfcl43jlrzcr29y1-yt6801-1.0.30-20250430";
-  "qtile-extras_git" = "/nix/store/ch61wkdgx5l19wmm1jj4zy4c81yb8shc-python3.14-qtile-extras-0.36.99.99";
 }
