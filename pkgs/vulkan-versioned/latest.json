@@ -10,9 +10,9 @@
     "hash": "sha256-+1VfNKnvNXFZWuF7+FD9JA9vrHdF/KiIsa2RAiYwTWI="
   },
   "SPIRV-Cross": {
-    "version": "1.4.350.1",
+    "version": "1.4.357.0",
     "rev": "vulkan-sdk-#{version}",
-    "hash": "sha256-JdVAS5uVSfe0mOGtyodkgmvgD4of9Amq8PbDSAtgaXc="
+    "hash": "sha256-HjAVP+yMeybM8VQQO3aKmuxpvjA03EGjKUPWVQKoRuc="
   },
   "SPIRV-Headers": {
     "version": "1.4.352-unstable",
