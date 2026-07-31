@@ -136,6 +136,15 @@ gitOverride {
 
     # Completely override postPatch to avoid version mismatches and conflicts
     postPatch = ''
+      # Fix spdlog and fmt includes for system spdlog/fmt
+      substituteInPlace mangohud-next/server/metrics/metrics.cpp \
+        --replace '<spdlog/fmt/bundled/format.h>' '<fmt/format.h>
+      #include <fmt/ranges.h>'
+
+      substituteInPlace mangohud-next/client/wayland.cpp \
+        --replace '#include "wayland.h"' '#include "wayland.h"
+      #include <fmt/ranges.h>'
+
       # preload-nix-workaround.patch
       substituteInPlace bin/mangohud.in \
         --replace '@ld_libdir_mangohud@@mangohud_lib_name@' '@mangohud_lib_name@'
