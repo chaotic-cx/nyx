@@ -53,6 +53,7 @@
   "linuxPackages_cachyos-gcc.rtl88x2bu" = "/nix/store/0iw3lzldyxbcsrnyyzqfrhqqnbkwmzqb-rtl88x2bu-7.1.5-unstable-2025-12-04";
   "linuxPackages_cachyos-gcc.vmm_clock" = "/nix/store/gh303yp7k356xvpi9jg12348s0r2a4l8-vmm_clock-0.2.1";
   "linuxPackages_cachyos-gcc.yt6801" = "/nix/store/q0a9fgpw64zznj372a0ibph045482xxq-yt6801-1.0.30-20250430";
+  "linux_cachyos-rc" = "/nix/store/nid3cqzrq9q4f4swk4jhxy2r608d11vg-linux-x86_64-unknown-linux-gnu-7.2-rc6";
   "niri_git" = "/nix/store/f5yjgzsghq27mgpnz8fwpdmf3mfsf60r-niri-unstable-20260720180526-7f26c3e";
   "river_git" = "/nix/store/lgwph3vlgr4kbp5hcvpqvc4kn8arr886-river-classic-unstable-20260521070523-b1af960";
 }
