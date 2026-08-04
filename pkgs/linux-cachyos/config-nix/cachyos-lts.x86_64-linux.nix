@@ -1964,6 +1964,7 @@
   "CONFIG_CXL_SUSPEND" = "y";
   "CONFIG_CXL_REGION" = "y";
   "CONFIG_CXL_MCE" = "y";
+  "CONFIG_CXL_RAS" = "y";
   "CONFIG_PCCARD" = "m";
   "CONFIG_PCMCIA" = "m";
   "CONFIG_PCMCIA_LOAD_CIS" = "y";
@@ -5709,6 +5710,7 @@
   "CONFIG_AGP_VIA" = "m";
   "CONFIG_INTEL_GTT" = "m";
   "CONFIG_VGA_SWITCHEROO" = "y";
+  "CONFIG_GPU_BUDDY" = "y";
   "CONFIG_DRM" = "y";
   "CONFIG_DRM_MIPI_DBI" = "m";
   "CONFIG_DRM_MIPI_DSI" = "y";
