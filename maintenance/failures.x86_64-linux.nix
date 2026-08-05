@@ -13,7 +13,7 @@
   "linuxPackages_cachyos.linux-gpib" = "/nix/store/5s9jwgg8la77j83b41plin98wrjz6lp4-linux-gpib-kernel-x86_64-unknown-linux-gnu-4.3.7";
   "linuxPackages_cachyos.lttng-modules" = "/nix/store/h2l0yzanllz3gsg3mxym3annwm8xwvcc-lttng-modules-7.1.6-x86_64-unknown-linux-gnu-2.14.3";
   "linuxPackages_cachyos.mbp2018-bridge-drv" = "/nix/store/lrc0b6xzsb61i99k7zhslf136mzy5x2f-mbp2018-bridge-drv-x86_64-unknown-linux-gnu-2020-01-31";
-  "linuxPackages_cachyos.mm-tools" = "/nix/store/3pry3xvsns2bk3k0b1q2r3fcwaic32n5-mm-tools-x86_64-unknown-linux-gnu-6.18.41";
+  "linuxPackages_cachyos.mm-tools" = "/nix/store/5xnxmzxrcfkpnqmpwxjrrxcbxp7xwm87-mm-tools-x86_64-unknown-linux-gnu-6.18.42";
   "linuxPackages_cachyos.netatop" = "/nix/store/yz8959inq5vjwaqmmmiswwd4hn01lscg-netatop-7.1.6-3.2.2-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos.nvidia_x11_beta_open" = "/nix/store/lickng85b86yzv9zjvpyxs7birpf6ppy-nvidia-open-x86_64-unknown-linux-gnu-595.45.04-7.1.6";
   "linuxPackages_cachyos.nvidia_x11_production_open" = "/nix/store/4p452zqplqfv6in7xfrsliaig2plkmgp-nvidia-open-x86_64-unknown-linux-gnu-595.84-7.1.6";
@@ -22,7 +22,7 @@
   "linuxPackages_cachyos.odp-dpdk" = "/nix/store/b7lcb74m15pasnacs5ymlhh8bm043lgs-odp-dpdk-x86_64-unknown-linux-gnu-1.50.0.0_DPDK_24.11";
   "linuxPackages_cachyos.openafs" = "/nix/store/lmazjaywrqpxbnb2g2r1czrl33xpp6m1-openafs-x86_64-unknown-linux-gnu-1.8.16-7.1.6-cachyos";
   "linuxPackages_cachyos.openrazer" = "/nix/store/y6snyqr3zqg7hqzfx5ak7qs09imnnzlb-openrazer-x86_64-unknown-linux-gnu-3.12.4-7.1.6";
-  "linuxPackages_cachyos.pktgen" = "/nix/store/6q3n3nycb8s36m0x8vlvszbzvm1j5855-pktgen-x86_64-unknown-linux-gnu-26.03.0";
+  "linuxPackages_cachyos.pktgen" = "/nix/store/l95fpwwmjzawdmjr073w8a8c182cikbg-pktgen-x86_64-unknown-linux-gnu-26.03.0";
   "linuxPackages_cachyos.rr-zen_workaround" = "/nix/store/z2w22w4va5f1ambh6v1rc1nlzzksjdrw-rr-zen_workaround-x86_64-unknown-linux-gnu-5.9.0";
   "linuxPackages_cachyos.rtl8188eus-aircrack" = "/nix/store/n9sy2msda4n7agfqfdfbmnnnvx44in29-rtl8188eus-aircrack-x86_64-unknown-linux-gnu-7.1.6-unstable-2026-06-22";
   "linuxPackages_cachyos.rtl8189es" = "/nix/store/kakpvrsfxjv8i9m967xywis91xdhglvq-rtl8189es-2025-09-26-7.1.6-x86_64-unknown-linux-gnu";
