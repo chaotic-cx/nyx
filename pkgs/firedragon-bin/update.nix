@@ -25,16 +25,16 @@ writeShellScript "update-firedragon-bin" ''
    set -euo pipefail
    PATH=${path}
 
-   version_file="pkgs/firedragon-bin/version.json"
+   manifest_file="pkgs/firedragon-bin/manifest.json"
 
    err() { printf '%s\n' "$*" >&2; }
 
    # Read current version and whether sources already present
    current_version=""
    existing_sources=0
-   if [[ -f "$version_file" ]]; then
-  	    current_version="$(jq -r '.version // ""' "$version_file" 2>/dev/null || echo "")"
-      	existing_sources="$(jq -r '.sources | length // 0' "$version_file" 2>/dev/null || echo 0)"
+   if [[ -f "$manifest_file" ]]; then
+  	    current_version="$(jq -r '.version // ""' "$manifest_file" 2>/dev/null || echo "")"
+      	existing_sources="$(jq -r '.sources | length // 0' "$manifest_file" 2>/dev/null || echo 0)"
    fi
 
    err "Current: ''${current_version:-<none>}, existing sources: $existing_sources"
@@ -123,7 +123,7 @@ writeShellScript "update-firedragon-bin" ''
    } >"$tmpfile"
 
    if jq -e . "$tmpfile" >/dev/null 2>&1; then
-      	jq . "$tmpfile" >"$version_file"
+      	jq . "$tmpfile" >"$manifest_file"
       	rm -f "$tmpfile"
    else
       	err "Error: generated JSON is invalid; aborting."
@@ -131,6 +131,6 @@ writeShellScript "update-firedragon-bin" ''
       	exit 1
    fi
 
-   git add "$version_file"
+   git add "$manifest_file"
    git commit -m "firedragon-bin: $current_version -> $latest_version"
 ''

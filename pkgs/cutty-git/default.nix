@@ -9,7 +9,7 @@ gitOverride {
   nyxKey = "cutty_git";
   prev = prev.alacritty;
 
-  versionNyxPath = "pkgs/cutty-git/version.json";
+  manifestPath = "pkgs/cutty-git/manifest.json";
   fetcher = "fetchFromGitHub";
   fetcherData = {
     owner = "gold-silver-copper";

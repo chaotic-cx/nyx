@@ -12,7 +12,7 @@
 }:
 
 let
-  current = lib.trivial.importJSON ./version.json;
+  current = lib.trivial.importJSON ./manifest.json;
 
   srcMeta = {
     group = "garuda-linux";
@@ -60,7 +60,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   passthru.updateScript = callPackage ../../shared/git-update.nix {
     inherit (finalAttrs) pname;
     nyxKey = "beautyline-icons";
-    versionPath = "pkgs/beautyline-icons/version.json";
+    manifestPath = "pkgs/beautyline-icons/manifest.json";
     fetchLatestRev = callPackage ../../shared/gitlab-rev-fetcher.nix { } "master" srcMeta;
     inherit gitUrl;
   };

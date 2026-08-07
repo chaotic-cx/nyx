@@ -12,7 +12,7 @@
 }:
 
 let
-  current = lib.trivial.importJSON ./version.json;
+  current = lib.trivial.importJSON ./manifest.json;
 
   srcMeta = {
     group = "garuda-linux";
@@ -84,7 +84,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   passthru.updateScript = callPackage ../../shared/git-update.nix {
     inherit (finalAttrs) pname;
     nyxKey = "dr460nized-kde-theme";
-    versionPath = "pkgs/dr460nized-kde-theme/version.json";
+    manifestPath = "pkgs/dr460nized-kde-theme/manifest.json";
     fetchLatestRev = callPackage ../../shared/gitlab-rev-fetcher.nix { } "main" srcMeta;
     inherit gitUrl;
   };

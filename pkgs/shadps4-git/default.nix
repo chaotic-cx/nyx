@@ -16,7 +16,7 @@ gitOverride (current: {
     renderdoc = null;
   };
 
-  versionNyxPath = "pkgs/shadps4-git/version.json";
+  manifestPath = "pkgs/shadps4-git/manifest.json";
   fetcher = "fetchFromGitHub";
   fetcherData = {
     owner = "shadps4-emu";

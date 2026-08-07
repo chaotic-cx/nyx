@@ -29,7 +29,7 @@ writeShellScript "update-openmohaa" ''
 
   PATH=${path}
 
-  srcJson=pkgs/openmohaa/version.json
+  srcJson=pkgs/openmohaa/manifest.json
 
   localVersion=$(jq -r .version "$srcJson")
   latestTag=$(curl -s https://api.github.com/repos/openmoh/openmohaa/releases/latest | jq .tag_name -r)

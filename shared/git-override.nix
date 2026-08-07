@@ -16,7 +16,7 @@ let
   arrange =
     {
       nyxKey,
-      versionNyxPath,
+      manifestPath,
       prev,
       fetcher,
       fetcherData,
@@ -34,8 +34,8 @@ let
       extraPassthru ? { },
     }:
     let
-      versionLocalPath = "${nyx}/${versionNyxPath}";
-      current = importJSON versionLocalPath;
+      manifestFullPath = "${nyx}/${manifestPath}";
+      current = importJSON manifestFullPath;
 
       fetchers = { inherit fetchFromGitHub fetchFromGitLab fetchFromGitea; };
       fullFetcherData = fetcherData // {
@@ -66,9 +66,9 @@ let
               withLastModified
               withLastModifiedDate
               withBump
+              manifestPath
               ;
             hasSubmodules = fetcherData.fetchSubmodules or false;
-            versionPath = versionNyxPath;
             fetchLatestRev = fetchLatestRev ref fullFetcherData;
             gitUrl = src.gitRepoUrl;
             withExtraCommands = withExtraUpdateCommands;

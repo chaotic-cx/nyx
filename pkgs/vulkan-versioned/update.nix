@@ -38,7 +38,7 @@ writeShellScript "update-vulkan-package" ''
 
   PATH=${path}
 
-  srcJson=pkgs/vulkan-versioned/latest.json
+  srcJson=pkgs/vulkan-versioned/manifest-latest.json
 
   function join_by { # https://stackoverflow.com/a/17841619
     local d=''${1-} f=''${2-}

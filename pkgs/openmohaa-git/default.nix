@@ -8,7 +8,7 @@ gitOverride {
   nyxKey = "openmohaa_git";
   prev = final.openmohaa;
 
-  versionNyxPath = "pkgs/openmohaa-git/version.json";
+  manifestPath = "pkgs/openmohaa-git/manifest.json";
   fetcher = "fetchFromGitHub";
   fetcherData = {
     owner = "openmoh";

@@ -28,7 +28,7 @@ writeShellScript "update-nvidia-cachyos-${variant}" ''
   set -euo pipefail
   PATH=${path}
 
-  srcJson="pkgs/nvidia-cachyos/version${suffix}.json"
+  srcJson="pkgs/nvidia-cachyos/manifest${suffix}.json"
   localVer=$(jq -r .version < "$srcJson")
 
   pkgbuild=$(curl -fsSL "https://raw.githubusercontent.com/CachyOS/linux-cachyos/master/linux-cachyos${suffix}/PKGBUILD")

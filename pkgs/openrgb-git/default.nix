@@ -13,7 +13,7 @@
 }:
 
 let
-  current = lib.importJSON ./version.json;
+  current = lib.importJSON ./manifest.json;
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "openrgb";
@@ -87,7 +87,7 @@ stdenv.mkDerivation (finalAttrs: {
   passthru.updateScript = callPackage ../../shared/git-update.nix {
     inherit (finalAttrs) pname;
     nyxKey = "openrgb_git";
-    versionPath = "pkgs/openrgb-git/version.json";
+    manifestPath = "pkgs/openrgb-git/manifest.json";
     fetchLatestRev = callPackage ../../shared/github-rev-fetcher.nix { } "master" finalAttrs.src;
     gitUrl = finalAttrs.src.gitRepoUrl;
   };

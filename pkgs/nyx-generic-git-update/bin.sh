@@ -10,16 +10,16 @@ WITH_LAST_STAMP="${WITH_LAST_STAMP:-0}"
 WITH_BUMP_STAMP="${WITH_BUMP_STAMP:-0}"
 _PNAME="$1"
 _NYX_KEY="$2"
-_VERSION_JSON="$3"
+_MANIFEST_JSON="$3"
 _GIT_URL="$4"
 _LATEST_REV="$5"
 
-_LOCAL_REV=$(jq -r .rev "$_VERSION_JSON")
+_LOCAL_REV=$(jq -r .rev "$_MANIFEST_JSON")
 [ "$_LOCAL_REV" == "$_LATEST_REV" ] && exit 0
-_LOCAL_VER=$(jq -r .version "$_VERSION_JSON")
+_LOCAL_VER=$(jq -r .version "$_MANIFEST_JSON")
 
 _NYX_DIR="$PWD"
-_PKG_DIR=$(dirname "$_VERSION_JSON")
+_PKG_DIR=$(dirname "$_MANIFEST_JSON")
 
 _NIX_PREFETCH_ARGS=(--quiet)
 if [ "$HAS_SUBMODULES" -eq 1 ]; then
@@ -88,16 +88,16 @@ fi
 
 jq "${JQ_ARGS[@]}" \
   "${JQ_OPS[*]}" \
-  "$_VERSION_JSON" | sponge "$_VERSION_JSON"
+  "$_MANIFEST_JSON" | sponge "$_MANIFEST_JSON"
 
 if [ "$HAS_CARGO" -eq 1 ]; then
   _LATEST_CARGO_HASH=$(nix build .#"${_NYX_KEY}".cargoDeps 2>&1 | grep "got:" | awk '{print $2}' || true)
   jq --arg cargo "$_LATEST_CARGO_HASH" \
     '.cargoHash = $cargo' \
-    "$_VERSION_JSON" | sponge "$_VERSION_JSON"
+    "$_MANIFEST_JSON" | sponge "$_MANIFEST_JSON"
 fi
 
-git add "$_VERSION_JSON"
+git add "$_MANIFEST_JSON"
 
 # shellcheck disable=SC1090
 [ -n "${WITH_EXTRA:-}" ] && source "$WITH_EXTRA"

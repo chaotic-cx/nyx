@@ -4,7 +4,7 @@ gitOverride {
   nyxKey = "tg-owt_git";
   prev = prev.telegram-desktop.tg_owt;
 
-  versionNyxPath = "pkgs/tg-owt-git/version.json";
+  manifestPath = "pkgs/tg-owt-git/manifest.json";
   fetcher = "fetchFromGitHub";
   fetcherData = {
     owner = "desktop-app";

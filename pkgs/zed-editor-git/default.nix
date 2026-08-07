@@ -13,7 +13,7 @@ gitOverride (current: {
     rustPlatform = rustPlatform_latest;
   };
 
-  versionNyxPath = "pkgs/zed-editor-git/version.json";
+  manifestPath = "pkgs/zed-editor-git/manifest.json";
   fetcher = "fetchFromGitHub";
   fetcherData = {
     owner = "zed-industries";

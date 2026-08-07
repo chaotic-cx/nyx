@@ -69,7 +69,7 @@ gitOverride (current: {
   nyxKey = if evil then "evil-helix_git" else "helix_git";
   prev = basePkg;
 
-  versionNyxPath = if evil then "pkgs/helix-git/version-evil.json" else "pkgs/helix-git/version.json";
+  manifestPath = if evil then "pkgs/helix-git/manifest-evil.json" else "pkgs/helix-git/manifest.json";
   fetcher = "fetchFromGitHub";
   fetcherData =
     if evil then

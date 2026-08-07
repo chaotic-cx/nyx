@@ -4,7 +4,7 @@ gitOverride {
   nyxKey = "ananicy-rules-cachyos";
   prev = prev.ananicy-rules-cachyos;
 
-  versionNyxPath = "pkgs/ananicy-cpp-rules/version.json";
+  manifestPath = "pkgs/ananicy-cpp-rules/manifest.json";
   fetcher = "fetchFromGitHub";
   fetcherData = {
     owner = "CachyOS";

@@ -26,7 +26,7 @@ writeShellScript "firefox-nightly-update" ''
 
   export PATH=${path}
 
-  version_json="''${VERSION_JSON:-pkgs/firefox-nightly/version.json}"
+  manifest_json="''${MANIFEST_JSON:-pkgs/firefox-nightly/manifest.json}"
   mozilla_versions_url="https://product-details.mozilla.org/1.0/firefox_versions.json"
   github_repo_slug="mozilla-firefox/firefox"
   github_repo_url="https://github.com/$github_repo_slug"
@@ -49,9 +49,9 @@ writeShellScript "firefox-nightly-update" ''
       json_field '.FIREFOX_NIGHTLY'
   )
 
-  local_version=$(jq -er '.version' "$version_json")
-  local_rev=$(jq -er '.rev' "$version_json")
-  local_build_id=$(jq -er '.buildId' "$version_json")
+  local_version=$(jq -er '.version' "$manifest_json")
+  local_rev=$(jq -er '.rev' "$manifest_json")
+  local_build_id=$(jq -er '.buildId' "$manifest_json")
 
   nightly_metadata_url="https://archive.mozilla.org/pub/firefox/nightly/latest-mozilla-central/firefox-$latest_version.en-US.linux-x86_64.json"
   nightly_metadata_json=$(fetch_json "$nightly_metadata_url")
@@ -113,10 +113,10 @@ writeShellScript "firefox-nightly-update" ''
       | .version = $version
       | .hash = $hash
     ' \
-    "$version_json" |
-    sponge "$version_json"
+    "$manifest_json" |
+    sponge "$manifest_json"
 
-  git add "$version_json"
+  git add "$manifest_json"
 
   git commit -m "firefox_nightly: $local_version-$local_build_id-$(git_short "$local_rev") -> $latest_version-$latest_build_id-$(git_short "$latest_rev")"
 ''

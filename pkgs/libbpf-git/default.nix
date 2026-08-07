@@ -4,7 +4,7 @@ gitOverride {
   nyxKey = "libbpf_git";
   prev = prev.libbpf;
 
-  versionNyxPath = "pkgs/libbpf-git/version.json";
+  manifestPath = "pkgs/libbpf-git/manifest.json";
   fetcher = "fetchFromGitHub";
   fetcherData = {
     owner = "libbpf";

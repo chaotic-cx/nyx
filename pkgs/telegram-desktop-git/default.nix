@@ -19,7 +19,7 @@ gitOverride {
   nyxKey = "telegram-desktop-unwrapped_git";
   prev = prev.telegram-desktop.unwrapped;
 
-  versionNyxPath = "pkgs/telegram-desktop-git/version.json";
+  manifestPath = "pkgs/telegram-desktop-git/manifest.json";
   fetcher = "fetchFromGitHub";
   fetcherData = {
     owner = "telegramdesktop";

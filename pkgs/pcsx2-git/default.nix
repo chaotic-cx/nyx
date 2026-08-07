@@ -8,7 +8,7 @@ gitOverride {
   nyxKey = "pcsx2_git";
   prev = prev.pcsx2;
 
-  versionNyxPath = "pkgs/pcsx2-git/version.json";
+  manifestPath = "pkgs/pcsx2-git/manifest.json";
   fetcher = "fetchFromGitHub";
   fetcherData = {
     owner = "PCSX2";

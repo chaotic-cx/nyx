@@ -5,7 +5,7 @@
   fetchurl,
   fetchzip,
   # Required
-  versionFilename,
+  manifestFilename,
   owner,
   repo,
   # Optional
@@ -16,7 +16,7 @@
   tarballSuffix ? "",
   releasePrefix ? "proton-",
   releaseSuffix ? "",
-  version ? lib.trivial.importJSON ./${versionFilename},
+  version ? lib.trivial.importJSON ./${manifestFilename},
   releaseVersion ? "${releasePrefix}${version.base}-${version.release}${releaseSuffix}",
   homepage ? "https://github.com/${owner}/${repo}",
   url ? "${homepage}/releases/download/${releaseVersion}/${tarballPrefix}${releaseVersion}${tarballSuffix}",
@@ -62,7 +62,7 @@ stdenvNoCC.mkDerivation {
             tarballSuffix
             releasePrefix
             releaseSuffix
-            versionFilename
+            manifestFilename
             owner
             repo
             ;

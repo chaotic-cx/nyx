@@ -1,7 +1,7 @@
 {
   pname,
   nyxKey,
-  versionPath,
+  manifestPath,
   hasCargo ? false,
   hasSubmodules ? false,
   withLastModifiedDate ? false,
@@ -38,6 +38,6 @@ writeShellScript "update-${pname}-git" ''
   WITH_BUMP_STAMP=${if withBump then "1" else "0"} \
   WITH_EXTRA=${withExtraCommands} \
     exec "${nyx-generic-git-update}/bin/nyx-generic-update" \
-    "${pname}" "${nyxKey}" "${versionPath}" \
+    "${pname}" "${nyxKey}" "${manifestPath}" \
     "${gitUrl}" "$_LATEST_REV"
 ''

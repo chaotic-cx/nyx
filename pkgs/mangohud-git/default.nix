@@ -61,7 +61,7 @@ gitOverride {
   nyxKey = if is32bit then "mangohud32_git" else "mangohud_git";
   prev = prev.mangohud;
 
-  versionNyxPath = "pkgs/mangohud-git/version.json";
+  manifestPath = "pkgs/mangohud-git/manifest.json";
   fetcher = "fetchFromGitHub";
   fetcherData = {
     owner = "flightlessmango";

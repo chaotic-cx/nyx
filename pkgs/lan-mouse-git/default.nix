@@ -8,7 +8,7 @@ gitOverride (current: {
   nyxKey = "lan-mouse_git";
   prev = prev.lan-mouse;
 
-  versionNyxPath = "pkgs/lan-mouse-git/version.json";
+  manifestPath = "pkgs/lan-mouse-git/manifest.json";
   fetcher = "fetchFromGitHub";
   fetcherData = {
     owner = "feschber";

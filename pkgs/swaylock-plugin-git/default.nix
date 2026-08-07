@@ -9,7 +9,7 @@ gitOverride {
   nyxKey = "swaylock-plugin_git";
   prev = prev.swaylock;
 
-  versionNyxPath = "pkgs/swaylock-plugin-git/version.json";
+  manifestPath = "pkgs/swaylock-plugin-git/manifest.json";
   fetcher = "fetchFromGitHub";
   fetcherData = {
     owner = "mstoeckl";

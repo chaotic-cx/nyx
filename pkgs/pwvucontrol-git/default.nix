@@ -9,7 +9,7 @@ gitOverride {
   nyxKey = "pwvucontrol_git";
   prev = prev.pwvucontrol;
 
-  versionNyxPath = "pkgs/pwvucontrol-git/version.json";
+  manifestPath = "pkgs/pwvucontrol-git/manifest.json";
   fetcher = "fetchFromGitHub";
   fetcherData = {
     owner = "saivert";

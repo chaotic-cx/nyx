@@ -4,7 +4,7 @@ gitOverride {
   nyxKey = "openvr_git";
   prev = prev.openvr;
 
-  versionNyxPath = "pkgs/openvr-git/version.json";
+  manifestPath = "pkgs/openvr-git/manifest.json";
   fetcher = "fetchFromGitHub";
   fetcherData = {
     owner = "ValveSoftware";

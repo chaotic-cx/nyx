@@ -16,7 +16,7 @@
   tarballSuffix,
   releasePrefix,
   releaseSuffix,
-  versionFilename,
+  manifestFilename,
   owner,
   repo,
 }:
@@ -38,7 +38,7 @@ writeShellScript "update-${repo}" ''
   set -euo pipefail
   PATH=${path}
 
-  srcJson=pkgs/proton-bin/${versionFilename}
+  srcJson=pkgs/proton-bin/${manifestFilename}
   localBase=$(jq -r .base < $srcJson)
   localRelease=$(jq -r .release < $srcJson)
 

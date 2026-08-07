@@ -4,7 +4,7 @@ gitOverride {
   nyxKey = "sdl_git";
   prev = prev.sdl3;
 
-  versionNyxPath = "pkgs/sdl-git/version.json";
+  manifestPath = "pkgs/sdl-git/manifest.json";
   fetcher = "fetchFromGitHub";
   fetcherData = {
     owner = "libsdl-org";

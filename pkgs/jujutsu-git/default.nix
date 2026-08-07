@@ -4,7 +4,7 @@ gitOverride {
   nyxKey = "jujutsu_git";
   prev = prev.jujutsu;
 
-  versionNyxPath = "pkgs/jujutsu-git/version.json";
+  manifestPath = "pkgs/jujutsu-git/manifest.json";
   fetcher = "fetchFromGitHub";
   fetcherData = {
     owner = "jj-vcs";

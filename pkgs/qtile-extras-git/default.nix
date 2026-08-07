@@ -13,7 +13,7 @@ gitOverride {
   nyxKey = "qtile-extras_git";
   prev = prev.python3Packages.qtile-extras;
 
-  versionNyxPath = "pkgs/qtile-extras-git/version.json";
+  manifestPath = "pkgs/qtile-extras-git/manifest.json";
   fetcher = "fetchFromGitHub";
   fetcherData = {
     owner = "elParaguayo";

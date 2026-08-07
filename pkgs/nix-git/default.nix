@@ -1,7 +1,7 @@
 { final, flakes, ... }:
 
 let
-  current = final.lib.importJSON ./version.json;
+  current = final.lib.importJSON ./manifest.json;
 
   versionDate = builtins.substring 0 8 current.lastModifiedDate;
   versionRev = builtins.substring 0 8 current.rev;
@@ -72,7 +72,7 @@ nixComponents_git.nix-everything.overrideAttrs (prevAttrs: {
     updateScript = final.callPackage ../../shared/git-update.nix {
       inherit (prevAttrs) pname;
       nyxKey = "nix_git";
-      versionPath = "pkgs/nix-git/version.json";
+      manifestPath = "pkgs/nix-git/manifest.json";
       fetchLatestRev = final.callPackage ../../shared/github-rev-fetcher.nix { } "master" src;
       gitUrl = src.gitRepoUrl;
       withLastModifiedDate = true;

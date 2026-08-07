@@ -1,6 +1,6 @@
 {
   lib,
-  current ? importJSON ./version.json,
+  current ? importJSON ./manifest.json,
   importJSON ? lib.trivial.importJSON,
   buildMozillaMach,
   callPackage,

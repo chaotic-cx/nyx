@@ -4,7 +4,7 @@ gitOverride {
   nyxKey = "alacritty_git";
   prev = prev.alacritty;
 
-  versionNyxPath = "pkgs/alacritty-git/version.json";
+  manifestPath = "pkgs/alacritty-git/manifest.json";
   fetcher = "fetchFromGitHub";
   fetcherData = {
     owner = "alacritty";

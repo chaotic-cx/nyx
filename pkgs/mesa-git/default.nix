@@ -40,7 +40,7 @@ gitOverride (current: {
   nyxKey = if is32bit then "mesa32_git" else "mesa_git";
   prev = prev.mesa;
 
-  versionNyxPath = "pkgs/mesa-git/version.json";
+  manifestPath = "pkgs/mesa-git/manifest.json";
   fetcher = "fetchFromGitHub";
   fetcherData = {
     owner = "chaotic-cx";

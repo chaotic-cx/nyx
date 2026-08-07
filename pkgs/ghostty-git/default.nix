@@ -18,7 +18,7 @@ gitOverride {
   nyxKey = "ghostty_git";
   prev = prev.ghostty;
 
-  versionNyxPath = "pkgs/ghostty-git/version.json";
+  manifestPath = "pkgs/ghostty-git/manifest.json";
   fetcher = "fetchFromGitHub";
   fetcherData = {
     owner = "ghostty-org";

@@ -8,7 +8,7 @@ gitOverride {
   nyxKey = "distrobox_git";
   prev = final.callPackage ./package.nix { };
 
-  versionNyxPath = "pkgs/distrobox-git/version.json";
+  manifestPath = "pkgs/distrobox-git/manifest.json";
   fetcher = "fetchFromGitHub";
   fetcherData = {
     owner = "89luca89";

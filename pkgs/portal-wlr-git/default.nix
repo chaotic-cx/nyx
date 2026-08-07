@@ -15,7 +15,7 @@ gitOverride {
   nyxKey = "xdg-desktop-portal-wlr_git";
   prev = prev.xdg-desktop-portal-wlr;
 
-  versionNyxPath = "pkgs/portal-wlr-git/version.json";
+  manifestPath = "pkgs/portal-wlr-git/manifest.json";
   fetcher = "fetchFromGitHub";
   fetcherData = {
     owner = "emersion";

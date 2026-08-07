@@ -10,7 +10,7 @@ gitOverride (current: {
   nyxKey = if isWSI then "gamescope-wsi_git" else "gamescope_git";
   prev = if isWSI then prev.gamescope-wsi else prev.gamescope;
 
-  versionNyxPath = "pkgs/gamescope-git/version.json";
+  manifestPath = "pkgs/gamescope-git/manifest.json";
   fetcher = "fetchFromGitHub";
   fetcherData = {
     owner = "ValveSoftware";

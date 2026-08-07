@@ -17,7 +17,7 @@ gitOverride {
   nyxKey = "wlroots_git";
   prev = prev.wlroots;
 
-  versionNyxPath = "pkgs/wlroots-git/version.json";
+  manifestPath = "pkgs/wlroots-git/manifest.json";
   fetcher = "fetchFromGitLab";
   fetcherData = {
     domain = "gitlab.freedesktop.org";

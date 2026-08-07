@@ -21,7 +21,7 @@ override (
     nyxKey = "yt-dlp_git";
     prev = prev.python3Packages.yt-dlp;
 
-    versionNyxPath = "pkgs/yt-dlp-git/version.json";
+    manifestPath = "pkgs/yt-dlp-git/manifest.json";
     fetcher = "fetchFromGitHub";
     fetcherData = {
       owner = "yt-dlp";

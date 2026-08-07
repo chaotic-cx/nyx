@@ -14,7 +14,7 @@ gitOverride {
     wlroots = final.wlroots_0_20;
   };
 
-  versionNyxPath = "pkgs/qtile-git/version.json";
+  manifestPath = "pkgs/qtile-git/manifest.json";
   fetcher = "fetchFromGitHub";
   fetcherData = {
     owner = "qtile";

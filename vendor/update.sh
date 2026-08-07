@@ -3,7 +3,7 @@ set -euo pipefail
 
 function eachFlake() {
   # Define your target file
-  FILE="vendor/flakes/$1/version.json"
+  FILE="vendor/flakes/$1/manifest.json"
 
   # Extract the base URL
   BASE_URL=$(jq -r '.url' "$FILE")

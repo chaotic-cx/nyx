@@ -27,7 +27,7 @@ writeShellScript "update-luxtorpeda" ''
 
   PATH=${path}
 
-  srcJson=pkgs/luxtorpeda/version.json
+  srcJson=pkgs/luxtorpeda/manifest.json
 
   localVersion=$(jq -r .version "$srcJson")
   latestRelease=$(curl -s https://api.github.com/repos/luxtorpeda-dev/luxtorpeda/releases/latest)

@@ -19,7 +19,7 @@
 }:
 
 let
-  inherit (lib.importJSON ./version.json) version sources;
+  inherit (lib.importJSON ./manifest.json) version sources;
 
   binaryName = "firedragon";
 in

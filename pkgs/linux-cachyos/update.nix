@@ -32,7 +32,7 @@ let
 
   variants = {
     stable = {
-      versionsFile = "versions.json";
+      manifestFile = "manifest.json";
       suffix = "";
       mainFlavor = "-lto";
       flavors = [
@@ -42,22 +42,22 @@ let
       ];
     };
     hardened = {
-      versionsFile = "versions-hardened.json";
+      manifestFile = "manifest-hardened.json";
       suffix = "-hardened";
       mainFlavor = "-hardened";
     };
     lts = {
-      versionsFile = "versions-lts.json";
+      manifestFile = "manifest-lts.json";
       suffix = "-lts";
       mainFlavor = "-lts";
     };
     rc = {
-      versionsFile = "versions-rc.json";
+      manifestFile = "manifest-rc.json";
       suffix = "-rc";
       mainFlavor = "-rc";
     };
     server = {
-      versionsFile = "versions-server.json";
+      manifestFile = "manifest-server.json";
       suffix = "-server";
       mainFlavor = "-server";
     };
@@ -75,7 +75,7 @@ writeShellScript "update-cachyos" ''
 
   echo "USING LOCAL UPDATE SCRIPT"
 
-  srcJson="pkgs/linux-cachyos/${versionsFile}"
+  srcJson="pkgs/linux-cachyos/${manifestFile}"
 
   localVer=$(jq -r .linux.version < "$srcJson")
   localTagrel=$(jq -r '.linux.tagrel // -1' < "$srcJson")

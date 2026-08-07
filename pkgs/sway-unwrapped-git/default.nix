@@ -17,7 +17,7 @@ gitOverride {
   nyxKey = "sway-unwrapped_git";
   prev = prev.sway-unwrapped;
 
-  versionNyxPath = "pkgs/sway-unwrapped-git/version.json";
+  manifestPath = "pkgs/sway-unwrapped-git/manifest.json";
   fetcher = "fetchFromGitHub";
   fetcherData = {
     owner = "swaywm";

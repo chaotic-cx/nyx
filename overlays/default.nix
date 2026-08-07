@@ -22,7 +22,7 @@ let
   inherit (final.stdenv.hostPlatform) system;
   selfOverlay = self.overlays.default;
 
-  # Required to load version files.
+  # Required to load manifest files.
   inherit (final.lib.trivial) importJSON;
 
   # Our utilities/helpers.
@@ -252,7 +252,7 @@ in
   linuxPackages_cachyos-lts = cachyosPackages.cachyos-lts;
 
   luxtorpeda = final.callPackage ../pkgs/luxtorpeda {
-    luxtorpedaVersion = importJSON ../pkgs/luxtorpeda/version.json;
+    luxtorpedaVersion = importJSON ../pkgs/luxtorpeda/manifest.json;
   };
 
   # You should not need "mangohud32_git" since it's embedded in "mangohud_git"
@@ -295,7 +295,7 @@ in
   nss_git = callOverride ../pkgs/nss-git { };
 
   openmohaa = final.callPackage ../pkgs/openmohaa {
-    openmohaaVersion = importJSON ../pkgs/openmohaa/version.json;
+    openmohaaVersion = importJSON ../pkgs/openmohaa/manifest.json;
   };
   openmohaa_git = callOverride ../pkgs/openmohaa-git { };
 
@@ -333,7 +333,7 @@ in
     toolPattern = "proton-cachyos-.*";
     releasePrefix = "cachyos-";
     releaseSuffix = "-slr";
-    versionFilename = "cachyos-version.json";
+    manifestFilename = "cachyos-manifest.json";
     owner = "CachyOS";
     repo = "proton-cachyos";
   };
@@ -343,7 +343,7 @@ in
   proton-cachyos_x86_64_v3 = final.proton-cachyos.override {
     toolTitle = "Proton-CachyOS x86-64-v3";
     tarballSuffix = "-x86_64_v3.tar.xz";
-    versionFilename = "cachyos-v3-version.json";
+    manifestFilename = "cachyos-v3-manifest.json";
   };
 
   proton-cachyos_x86_64_v4 = throw "proton-cachyos_x86_64_v4 was killed in the 20260428 release";
@@ -354,7 +354,7 @@ in
     toolPattern = "GE-Proton.*";
     releasePrefix = "GE-Proton";
     releaseSuffix = "";
-    versionFilename = "ge-version.json";
+    manifestFilename = "ge-manifest.json";
     owner = "GloriousEggroll";
     repo = "proton-ge-custom";
   };
@@ -403,7 +403,7 @@ in
   tg-owt_git = callOverride ../pkgs/tg-owt-git { };
 
   vulkanPackages_latest = callOverride ../pkgs/vulkan-versioned {
-    vulkanVersions = importJSON ../pkgs/vulkan-versioned/latest.json;
+    vulkanVersions = importJSON ../pkgs/vulkan-versioned/manifest-latest.json;
   };
 
   xdg-desktop-portal-wlr_git = callOverride ../pkgs/portal-wlr-git { };

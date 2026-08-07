@@ -6,7 +6,7 @@
 gitOverride (_current: {
   nyxKey = "bees_git";
   prev = prev.bees;
-  versionNyxPath = "pkgs/bees-git/version.json";
+  manifestPath = "pkgs/bees-git/manifest.json";
   fetcher = "fetchFromGitHub";
   fetcherData = {
     owner = "Zygo";

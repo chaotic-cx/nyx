@@ -9,7 +9,7 @@ gitOverride {
   nyxKey = "libportal_git";
   prev = prev.libportal;
 
-  versionNyxPath = "pkgs/libportal-git/version.json";
+  manifestPath = "pkgs/libportal-git/manifest.json";
   fetcher = "fetchFromGitHub";
   fetcherData = {
     owner = "flatpak";

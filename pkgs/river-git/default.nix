@@ -9,7 +9,7 @@ gitOverride {
   nyxKey = "river_git";
   prev = prev.river-classic;
 
-  versionNyxPath = "pkgs/river-git/version.json";
+  manifestPath = "pkgs/river-git/manifest.json";
   fetcher = "fetchFromGitea";
   fetcherData = {
     owner = "river";

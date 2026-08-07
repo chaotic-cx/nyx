@@ -11,7 +11,7 @@ let
   inherit (nyxUtils) overrideFull;
 
   suffix = if variant == "stable" then "" else "-${variant}";
-  versions = importJSON (./. + "/version${suffix}.json");
+  versions = importJSON (./. + "/manifest${suffix}.json");
 
   updater = final.callPackage ./update.nix { inherit variant; };
 

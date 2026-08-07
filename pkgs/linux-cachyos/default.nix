@@ -8,11 +8,11 @@ let
   inherit (final.lib.trivial) importJSON;
 
   # CachyOS repeating stuff.
-  mainVersions = importJSON ./versions.json;
-  hardenedVersions = importJSON ./versions-hardened.json;
-  ltsVersions = importJSON ./versions-lts.json;
-  rcVersions = importJSON ./versions-rc.json;
-  serverVersions = importJSON ./versions-server.json;
+  mainVersions = importJSON ./manifest.json;
+  hardenedVersions = importJSON ./manifest-hardened.json;
+  ltsVersions = importJSON ./manifest-lts.json;
+  rcVersions = importJSON ./manifest-rc.json;
+  serverVersions = importJSON ./manifest-server.json;
   hardenedVars = importJSON ./config-vars/cachyos-hardened.json;
   ltoVars = importJSON ./config-vars/cachyos-lto.json;
   ltsVars = importJSON ./config-vars/cachyos-lts.json;
@@ -90,7 +90,7 @@ let
       "_use_llvm_lto" = "none";
     };
 
-    # since all flavors use the same versions.json, we just need the updateScript in one of them
+    # since all flavors use the same manifest.json, we just need the updateScript in one of them
     withUpdateScript = "stable";
   };
 

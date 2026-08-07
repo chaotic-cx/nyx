@@ -13,7 +13,7 @@ gitOverride {
   nyxKey = "wayland_git";
   prev = prev.wayland;
 
-  versionNyxPath = "pkgs/wayland-git/version.json";
+  manifestPath = "pkgs/wayland-git/manifest.json";
   fetcher = "fetchFromGitLab";
   fetcherData = {
     domain = "gitlab.freedesktop.org";

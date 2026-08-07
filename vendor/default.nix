@@ -8,6 +8,6 @@ let
 
   forEachFlake =
     name: _directory_or_regular:
-    fetchFlake (builtins.fromJSON (builtins.readFile ./flakes/${name}/version.json));
+    fetchFlake (builtins.fromJSON (builtins.readFile ./flakes/${name}/manifest.json));
 in
 builtins.mapAttrs forEachFlake (builtins.readDir ./flakes)

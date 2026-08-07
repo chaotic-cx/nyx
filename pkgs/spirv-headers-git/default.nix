@@ -4,7 +4,7 @@ gitOverride {
   nyxKey = "spirv-headers_git";
   prev = prev.spirv-headers;
 
-  versionNyxPath = "pkgs/spirv-headers-git/version.json";
+  manifestPath = "pkgs/spirv-headers-git/manifest.json";
   fetcher = "fetchFromGitHub";
   fetcherData = {
     owner = "KhronosGroup";

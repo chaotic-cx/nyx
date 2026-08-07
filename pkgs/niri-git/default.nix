@@ -10,7 +10,7 @@ gitOverride {
   nyxKey = "niri_git";
   prev = prev.niri;
 
-  versionNyxPath = "pkgs/niri-git/version.json";
+  manifestPath = "pkgs/niri-git/manifest.json";
   fetcher = "fetchFromGitHub";
   fetcherData = {
     owner = "niri-wm";
