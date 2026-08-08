@@ -1,0 +1,182 @@
+[
+  {
+    "pname": "bitflags",
+    "wname": "bitflags-2-rs",
+    "version": "2.9.1",
+    "hash": "sha256-G45WmF7GLRfpwQAdyJyI7NfcCOR+ul7Hwpx7Xu7N6Wc="
+  },
+  {
+    "pname": "cfg-if",
+    "wname": "cfg-if-1-rs",
+    "version": "1.0.0",
+    "hash": "sha256-uvHeQzl2FYi8Bhnjy8ASDuWC67dLU7Tvv3kRe9LaQP0="
+  },
+  {
+    "pname": "equivalent",
+    "wname": "equivalent-1-rs",
+    "version": "1.0.1",
+    "hash": "sha256-VEOAfW3/aTc9Qzq571N4rY31DKYpjK8V3m5S4kqvVNU="
+  },
+  {
+    "pname": "errno",
+    "wname": "errno-0.3-rs",
+    "version": "0.3.12",
+    "hash": "sha256-zqFO+TVeO+qwY3A6qdqxWv0l8GZ8NBMQweUnS7HQ2hg="
+  },
+  {
+    "pname": "hashbrown",
+    "wname": "hashbrown-0.14-rs",
+    "version": "0.14.1",
+    "hash": "sha256-ff2mKhL1Xa6uUBX4GwuuoUU5HLRSD4bCSPxhXXJkDRI="
+  },
+  {
+    "pname": "indexmap",
+    "wname": "indexmap-2-rs",
+    "version": "2.2.6",
+    "hash": "sha256-Fo+3Fd2kchXjYJEsCWZJ0j1Yvzkqxi9zkZ6DF0XkDyY="
+  },
+  {
+    "pname": "libc",
+    "wname": "libc-0.2-rs",
+    "version": "0.2.185",
+    "hash": "sha256-Uv8sD+m8bLaxSgWSwv9Pqc64PuqduXmwSHzQVJRqK48="
+  },
+  {
+    "pname": "log",
+    "wname": "log-0.4-rs",
+    "version": "0.4.27",
+    "hash": "sha256-E9wt81HjICeDof4NRDdfcpX/tASSZ7DzAYNG3BIqHZQ="
+  },
+  {
+    "pname": "once_cell",
+    "wname": "once_cell-1-rs",
+    "version": "1.8.0",
+    "hash": "sha256-aS/LY7ZLF1gCngqW7mPgSc6MWUhYfy9yCN8EYl5fa1Y="
+  },
+  {
+    "pname": "paste",
+    "wname": "paste-1-rs",
+    "version": "1.0.14",
+    "hash": "sha256-3jFFrwgCTeqfqZFPOBoXuPxgNN+wDzqEAT9/9D8p7Uw="
+  },
+  {
+    "pname": "pest",
+    "wname": "pest-2-rs",
+    "version": "2.8.0",
+    "hash": "sha256-GY23RTHVjHCjYcQiAe/efiWR6XbVGMr3ZipH3Fcg57Y="
+  },
+  {
+    "pname": "pest_derive",
+    "wname": "pest_derive-2-rs",
+    "version": "2.8.0",
+    "hash": "sha256-1yXZz9eeh9zMk0Gi7znRtvY1PWjEszwXf+u+GkAsl8U="
+  },
+  {
+    "pname": "pest_generator",
+    "wname": "pest_generator-2-rs",
+    "version": "2.8.0",
+    "hash": "sha256-230Bcmvoq2arMvnfRnrosRSJBmhbvnXILR5l1/Wz+EE="
+  },
+  {
+    "pname": "pest_meta",
+    "wname": "pest_meta-2-rs",
+    "version": "2.8.0",
+    "hash": "sha256-f5+DJHBJSQbR/KUyn4q1eRzGC+sjDHSBXf9UHL0rXKA="
+  },
+  {
+    "pname": "proc-macro2",
+    "wname": "proc-macro2-1-rs",
+    "version": "1.0.86",
+    "hash": "sha256-XnGejfZl3w0cj7/SOAFXRHNhUdREXsCDa45iiq4QO3c="
+  },
+  {
+    "pname": "quote",
+    "wname": "quote-1-rs",
+    "version": "1.0.35",
+    "hash": "sha256-KR7Jq179k0qvUDpkZsXVJRU10QjudHRyw5d8xazIaO8="
+  },
+  {
+    "pname": "remain",
+    "wname": "remain-0.2-rs",
+    "version": "0.2.12",
+    "hash": "sha256-GtXgESMMrSdNBTJGDFq2mCjqR651aBtCqEFmPv/695Q="
+  },
+  {
+    "pname": "roxmltree",
+    "wname": "roxmltree-0.20-rs",
+    "version": "0.20.0",
+    "hash": "sha256-bCC2eTtcL6ZVOyUBVLeNbQ2zfnJwCuNfrZOHpG9IfJc="
+  },
+  {
+    "pname": "rustc-hash",
+    "wname": "rustc-hash-2-rs",
+    "version": "2.1.1",
+    "hash": "sha256-NXcD1BNltLJ8WQ4+2R6rsbZj8HxMCECV5gy+1DYt/w0="
+  },
+  {
+    "pname": "rustix",
+    "wname": "rustix-1-rs",
+    "version": "1.1.4",
+    "hash": "sha256-tv5FZblRi4PvT5G7R84pYgyoKL0yy35AjwBi6ZMLoZA="
+  },
+  {
+    "pname": "syn",
+    "wname": "syn-2-rs",
+    "version": "2.0.87",
+    "hash": "sha256-JapM40bQOm3NaN2LQBC8t05U5iyQxXPzlMRurpmroy0="
+  },
+  {
+    "pname": "thiserror",
+    "wname": "thiserror-2-rs",
+    "version": "2.0.11",
+    "hash": "sha256-1FLyhLc+bXbdNnWKDIaEsdW+MfkridB/1YIhdXMiBvw="
+  },
+  {
+    "pname": "thiserror-impl",
+    "wname": "thiserror-impl-2-rs",
+    "version": "2.0.11",
+    "hash": "sha256-Jq/BuuqKmJM37rUrbnKgOXgM5Fw+38ycW50RL+6xc8I="
+  },
+  {
+    "pname": "ucd-trie",
+    "wname": "ucd-trie-0.1-rs",
+    "version": "0.1.6",
+    "hash": "sha256-7WRikv/IGI746k0eDgFQ+xWlwuEq2bj8GRrnqKfzxLk="
+  },
+  {
+    "pname": "unicode-ident",
+    "wname": "unicode-ident-1-rs",
+    "version": "1.0.12",
+    "hash": "sha256-M1S5rD+uH/Z1XLbbU2g622YWNPZ1V5Qt6k+s6+wP7ks="
+  },
+  {
+    "pname": "windows-link",
+    "wname": "windows-link-0.2-rs",
+    "version": "0.2.0",
+    "hash": "sha256-ReRsBmGrtxgOe5woHbEVMF1JyhcJq4JCrfCWZtIXPGU="
+  },
+  {
+    "pname": "windows-sys",
+    "wname": "windows-sys-0.6-rs",
+    "version": "0.61.1",
+    "hash": "sha256-bxCeQd1KPISJB+uD1aQuqYs3aUlVl0UM9tFTUHsWbw8="
+  },
+  {
+    "pname": "xml",
+    "wname": "xml-rs",
+    "version": "1.2.1",
+    "hash": "sha256-uKpJjSLJu69IIymDm8ViDEa+J1oZqBLpoiorB1KaZCo="
+  },
+  {
+    "pname": "zerocopy",
+    "wname": "zerocopy-0.8-rs",
+    "version": "0.8.13",
+    "hash": "sha256-Z5FKtFHzv9Lmnl6dLvOFhITnB01j8gT9Fm7DkbVN4h0="
+  },
+  {
+    "pname": "zerocopy-derive",
+    "wname": "zerocopy-derive-0.8-rs",
+    "version": "0.8.13",
+    "hash": "sha256-eYjXOkMDyiid8DMWvEkOk0rM83Gva8dFOTzzwsXE8l0="
+  }
+]
