@@ -3,12 +3,21 @@
   final64 ? final,
   prev,
   gitOverride,
-  nyxUtils,
   ...
 }:
 
 let
   inherit (final.stdenv) is32bit;
+
+  packageCache = final64.callPackage ./package-cache-dir.nix { };
+
+  venus-protocol = final64.fetchFromGitLab {
+    domain = "gitlab.freedesktop.org";
+    owner = "virgl";
+    repo = "venus-protocol";
+    rev = "e94b12f301b9eb27ebead757128a18420b4f7994";
+    hash = "sha256-bRpb8eSgfbOdfKOlxA4P23yEAr0Q7Iq3fh34gZnwKjQ=";
+  };
 in
 gitOverride (current: {
   newInputs =
@@ -52,20 +61,15 @@ gitOverride (current: {
   version = builtins.substring 0 (builtins.stringLength prev.mesa.version) current.rev;
 
   postOverride = prevAttrs: {
-    buildInputs = prevAttrs.buildInputs ++ [ final.libdisplay-info ];
-
-    patches = nyxUtils.removeByBaseNames [
-      "gallivm-llvm-21.patch"
-      "musl.patch"
-    ] (prevAttrs.patches or [ ]);
-
+    postUnpack = (prevAttrs.postUnpack or "") + ''
+      rm source/subprojects/venus-protocol.wrap
+      ln -s ${venus-protocol} source/subprojects/venus-protocol
+    '';
     postPatch = (prevAttrs.postPatch or "") + ''
       export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -I$PWD/include -Wno-error=format"
     '';
-
-    mesonFlags = map (builtins.replaceStrings
-      [ "imagination-experimental" ]
-      [ "imagination" ]
-    ) prevAttrs.mesonFlags;
+    env = prevAttrs.env // {
+      MESON_PACKAGE_CACHE_DIR = packageCache;
+    };
   };
 })
