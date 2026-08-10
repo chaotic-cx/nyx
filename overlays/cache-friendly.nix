@@ -9,9 +9,6 @@ let
 
   isCross = stdenv.buildPlatform != stdenv.hostPlatform;
 
-  # Since nixpkgs f13ff45, `flakeNixpkgs.config` is a deferredModuleWith whose
-  # merged value is { imports = [...] }, not a plain config attrset. Evaluate
-  # it into one, else the config would be silently dropped on re-import.
   config =
     if nixpkgsConfig == null then
       flakes.nixpkgs.legacyPackages.${system}.config
