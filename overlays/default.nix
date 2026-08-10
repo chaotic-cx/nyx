@@ -30,7 +30,12 @@ let
     inherit (final) lib;
     nyxOverlay = selfOverlay;
   };
-  inherit (nyxUtils) multiOverride overrideDescription drvDropUpdateScript;
+  inherit (nyxUtils)
+    markBroken
+    multiOverride
+    overrideDescription
+    drvDropUpdateScript
+    ;
 
   # Helps when calling .nix that will override packages.
   callOverride =
@@ -166,10 +171,7 @@ in
   bees_git = callOverride ../pkgs/bees-git { };
 
   bpftools_full =
-    if isLinux then
-      final.callPackage ../pkgs/bpftools-full { }
-    else
-      throw "No bpftools for your target";
+    if isLinux then final.callPackage ../pkgs/bpftools-full { } else markBroken final.bpftools;
 
   busybox_appletless = multiOverride prev.busybox { enableAppletSymlinks = false; } (
     overrideDescription (old: old + " (without applets' symlinks)")
@@ -212,7 +214,7 @@ in
     if has32 then
       callOverride32 ../pkgs/gamescope-git { isWSI = true; }
     else
-      throw "No gamescope-wsi32_git for non-x86";
+      markBroken final.gamescope-wsi_git;
 
   ghostty_git = callOverride ../pkgs/ghostty-git { };
 
@@ -227,8 +229,7 @@ in
   libbpf_git = callOverride ../pkgs/libbpf-git { };
 
   libdrm_git = callOverride ../pkgs/libdrm-git { };
-  libdrm32_git =
-    if has32 then callOverride32 ../pkgs/libdrm-git { } else throw "No libdrm32_git for non-x86";
+  libdrm32_git = if has32 then callOverride32 ../pkgs/libdrm-git { } else markBroken final.libdrm_git;
 
   libportal_git = callOverride ../pkgs/libportal-git { };
 
@@ -258,11 +259,10 @@ in
   # You should not need "mangohud32_git" since it's embedded in "mangohud_git"
   mangohud_git = callOverride ../pkgs/mangohud-git { };
   mangohud32_git =
-    if has32 then callOverride32 ../pkgs/mangohud-git { } else throw "No mangohud32_git for non-x86";
+    if has32 then callOverride32 ../pkgs/mangohud-git { } else markBroken final.mangohud_git;
 
   mesa_git = callOverride ../pkgs/mesa-git { };
-  mesa32_git =
-    if has32 then callOverride32 ../pkgs/mesa-git { } else throw "No mesa32_git for non-x86";
+  mesa32_git = if has32 then callOverride32 ../pkgs/mesa-git { } else markBroken final.mesa_git;
 
   # Pinned to the version on our server
   niks3_nyx = niks3.packages.${system}.niks3;
@@ -338,15 +338,11 @@ in
     repo = "proton-cachyos";
   };
 
-  proton-cachyos_x86_64_v2 = throw "proton-cachyos_x86_64_v2 was killed in the 20260319 release";
-
   proton-cachyos_x86_64_v3 = final.proton-cachyos.override {
     toolTitle = "Proton-CachyOS x86-64-v3";
     tarballSuffix = "-x86_64_v3.tar.xz";
     manifestFilename = "cachyos-v3-manifest.json";
   };
-
-  proton-cachyos_x86_64_v4 = throw "proton-cachyos_x86_64_v4 was killed in the 20260428 release";
 
   proton-ge-custom = final.callPackage ../pkgs/proton-bin {
     toolTitle = "Proton-GE";
@@ -371,13 +367,13 @@ in
     if final.stdenv.hostPlatform.isLinux && final.stdenv.hostPlatform.isx86_64 then
       cachyosPackages.cachyos-lto.kernel_configfile.passthru.rust-bindgen
     else
-      throw "rust-bindgen_kernel-lto is not supported on this platform";
+      markBroken final.rust-bindgen;
 
   rustc_kernel-lto =
     if final.stdenv.hostPlatform.isLinux && final.stdenv.hostPlatform.isx86_64 then
       cachyosPackages.cachyos-lto.kernel_configfile.passthru.rustc
     else
-      throw "rustc_kernel-lto is not supported on this platform";
+      markBroken final.rustc;
 
   rustc_nightly = rust-overlay.packages.${system}.rust-nightly;
 
