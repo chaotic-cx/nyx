@@ -68,7 +68,7 @@ gitOverride (current: {
     postPatch = (prevAttrs.postPatch or "") + ''
       export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -I$PWD/include -Wno-error=format"
     '';
-    env = prevAttrs.env // {
+    env = (prevAttrs.env or { }) // {
       MESON_PACKAGE_CACHE_DIR = packageCache;
     };
   };
