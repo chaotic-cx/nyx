@@ -54,5 +54,4 @@
   "linuxPackages_cachyos-gcc.vmm_clock" = "/nix/store/cilzpcv9rry6y51kpr0098mafw6a50gy-vmm_clock-0.2.1";
   "linuxPackages_cachyos-gcc.yt6801" = "/nix/store/8rqr6p3bzb4gzfnxzfla7qsxl7bhnz4q-yt6801-1.0.30-20250430";
   "linux_cachyos-rc" = "/nix/store/nid3cqzrq9q4f4swk4jhxy2r608d11vg-linux-x86_64-unknown-linux-gnu-7.2-rc6";
-  "niri_git" = "/nix/store/f5yjgzsghq27mgpnz8fwpdmf3mfsf60r-niri-unstable-20260720180526-7f26c3e";
 }

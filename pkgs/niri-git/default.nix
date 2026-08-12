@@ -18,7 +18,7 @@ gitOverride {
   };
 
   postOverride = prevAttrs: {
-    buildInputs = [ final.libdisplay-info ] ++ prevAttrs.buildInputs;
+    buildInputs = [ final.libdisplay-info_0_3 ] ++ prevAttrs.buildInputs;
     postPatch = ''
       patchShebangs resources/niri-session
 
