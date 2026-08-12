@@ -13,7 +13,7 @@
   "linuxPackages_cachyos.linux-gpib" = "/nix/store/2dn3cnwd1n2x5pfhr8dawrcdd8ng1i2a-linux-gpib-kernel-x86_64-unknown-linux-gnu-4.3.7";
   "linuxPackages_cachyos.lttng-modules" = "/nix/store/jckl2q8p8zr6f3123bmfy0v7qy7n09fk-lttng-modules-7.1.8-x86_64-unknown-linux-gnu-2.14.3";
   "linuxPackages_cachyos.mbp2018-bridge-drv" = "/nix/store/snkg5bqag98pdhw3dgl1xyyp891fmp8y-mbp2018-bridge-drv-x86_64-unknown-linux-gnu-2020-01-31";
-  "linuxPackages_cachyos.mm-tools" = "/nix/store/h3cas922mrzfwcmgw2x28xbv6b08x6cj-mm-tools-x86_64-unknown-linux-gnu-6.18.43";
+  "linuxPackages_cachyos.mm-tools" = "/nix/store/jw0xqrdd28ii9i9i8sl6567rqfqfwbax-mm-tools-x86_64-unknown-linux-gnu-6.18.44";
   "linuxPackages_cachyos.netatop" = "/nix/store/36bg0bdrfnlcx2x965rr0wqic7sgyp3s-netatop-7.1.8-3.2.2-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos.nvidia_x11_beta_open" = "/nix/store/ns0ns3qydx6m0w6adx7lr4z60kxi1521-nvidia-open-x86_64-unknown-linux-gnu-595.45.04-7.1.8";
   "linuxPackages_cachyos.oci-seccomp-bpf-hook" = "/nix/store/vwizhchlyfmn44zhvkf5wn3rbvry9mz5-oci-seccomp-bpf-hook-x86_64-unknown-linux-gnu-1.3.0";
@@ -55,5 +55,5 @@
   "linuxPackages_cachyos-gcc.yt6801" = "/nix/store/8rqr6p3bzb4gzfnxzfla7qsxl7bhnz4q-yt6801-1.0.30-20250430";
   "linux_cachyos-rc" = "/nix/store/nid3cqzrq9q4f4swk4jhxy2r608d11vg-linux-x86_64-unknown-linux-gnu-7.2-rc6";
   "niri_git" = "/nix/store/f5yjgzsghq27mgpnz8fwpdmf3mfsf60r-niri-unstable-20260720180526-7f26c3e";
-  "river_git" = "/nix/store/lgwph3vlgr4kbp5hcvpqvc4kn8arr886-river-classic-unstable-20260521070523-b1af960";
+  "river_git" = "/nix/store/38gbia7ivw2vg3qlkiispylgxp70lkfa-river-classic-unstable-20260521070523-b1af960";
 }
