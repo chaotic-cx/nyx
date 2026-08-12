@@ -5,7 +5,7 @@
   fetchgit,
   callPackage,
 
-  gnome-icon-theme,
+  adwaita-icon-theme,
   gtk3,
   hicolor-icon-theme,
   jdupes,
@@ -38,7 +38,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   ];
 
   propagatedBuildInputs = [
-    gnome-icon-theme
+    adwaita-icon-theme
     hicolor-icon-theme
   ];
 

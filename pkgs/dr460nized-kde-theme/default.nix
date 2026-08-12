@@ -34,7 +34,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   malefor = fetchurl {
     url = "https://gitlab.com/garuda-linux/themes-and-settings/artwork/garuda-wallpapers/-/raw/master/src/garuda-wallpapers/Malefor.jpg";
-    hash = "sha256-hlt3hyPKqn88JryyqegEglf8Tu8rkPv3iARPIuYYy2Q=";
+    hash = "sha256-aT8o5Vtj17m45q4hUF4CQ/lbRtu3zxrKR3qcgua8q6M=";
   };
 
   buildInputs = [
