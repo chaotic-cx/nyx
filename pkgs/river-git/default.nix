@@ -28,6 +28,7 @@ gitOverride {
 
   postOverride = _prevAttrs: {
     deps = final.callPackage ./build.zig.zon.nix { };
+    patches = [ ];
     # river outputs its own dev version (e.g. "0.3.16-dev") from the zig build,
     # which never matches the Nix-side "unstable-YYYYMMDD-rev" format.
     doInstallCheck = false;
