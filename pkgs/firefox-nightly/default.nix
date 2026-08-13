@@ -25,13 +25,10 @@
 let
   firefoxRepo = "mozilla-firefox/firefox";
   firefoxSourceRepo = "https://github.com/${firefoxRepo}";
-
   binaryName = "firefox-nightly";
   version = "${current.version}-${current.buildId}-${builtins.substring 0 7 current.rev}";
-
   firefoxSrc = fetchurl {
     inherit (current) hash;
-
     url = "https://codeload.github.com/${firefoxRepo}/tar.gz/${current.rev}";
     name = "firefox.tar.gz";
   };
@@ -39,7 +36,6 @@ let
   newtabNpmDeps = fetchNpmDeps {
     src = firefoxSrc;
     sourceRoot = "firefox-${current.rev}/browser/extensions/newtab";
-
     hash = current.newtabNpmDepsHash;
   };
 
@@ -75,6 +71,7 @@ let
     "136-no-buildconfig.patch"
     "139-wayland-drag-animation.patch"
     "140-bindgen-string-view.patch"
+    "153-cbindgen-0.29.4-compat.patch"
   ];
 
   addedPatches = [
@@ -94,34 +91,26 @@ let
 
   mach = buildMozillaMach {
     pname = "firefox-nightly";
-
     inherit
       binaryName
       updateScript
       version
       ;
-
     applicationName = "Firefox Nightly";
     requireSigning = false;
     branding = "browser/branding/nightly";
-
     src = firefoxSrc;
-
     meta = {
       description = "Web browser built from Firefox Nightly source tree";
       homepage = "https://www.firefox.com/";
-
       maintainers = with lib.maintainers; [
         pedrohlc
       ];
-
       platforms = lib.platforms.unix;
       broken = stdenv.buildPlatform.is32bit;
       maxSilent = 14400;
-
       license = lib.licenses.mpl20;
       mainProgram = binaryName;
-
       hydraPlatforms = [
         "x86_64-linux"
       ];
@@ -179,7 +168,6 @@ let
         updateScript
         updateScriptPackage
         ;
-
       rust-cbindgen = rust-cbindgen_latest;
     };
   };
