@@ -53,7 +53,6 @@
   "linuxPackages_cachyos-gcc.rtl88x2bu" = "/nix/store/p7g89hjg4hknsdmg9c1pbpqspgb2mdn8-rtl88x2bu-7.1.8-unstable-2025-12-04";
   "linuxPackages_cachyos-gcc.vmm_clock" = "/nix/store/w263n31jgabcv06vd4870g54rmmmhvhf-vmm_clock-0.2.1";
   "linuxPackages_cachyos-gcc.yt6801" = "/nix/store/sfrq6yr7gpi54bir24gp5w17ql78bngv-yt6801-1.0.30-20250430";
-  "linux_cachyos-rc" = "/nix/store/yd7kg4xzqlpm926k42himi64sayfn6c0-linux-x86_64-unknown-linux-gnu-7.2-rc6";
   "pcsx2_git" = "/nix/store/5024nzfjzl33h4k7bwqwbqxjvyw0aj4m-pcsx2-unstable-20260810163519-2cf8dab";
   "qtile-module_git" = "/nix/store/vrg7yx6dymxm9dxdd6wf8k39n3hn2cnm-python3.14-qtile-0.36.0.99.99";
   "qtile_git" = "/nix/store/nwd7vaxdf4hzxggxfy3wmcwhkc6py41v-python3.14-qtile-0.36.0.99.99";
