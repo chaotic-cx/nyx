@@ -1,6 +1,7 @@
 {
   "version": "155.0a1",
-  "rev": "6aae92eb653e7420b4541609f80e7311f7b7da31",
-  "buildId": "20260806211740",
-  "hash": "sha256-Mxztu46NyT1EljXWSfRKJUs+F6zrPDeWZhPMeEKAkpg="
+  "rev": "6cee80f87168d5aabd9e343099e2a8e5535e5320",
+  "buildId": "20260812202037",
+  "hash": "sha256-VbNBq/DkcD2EzGoMaepkUTqwXzBn16TD0SCpa8+xFYo=",
+  "newtabNpmDepsHash": "sha256-6NhZWVpbB0kX3d+9QaxFIgGeCfhqusNTANI6pwROWWw="
 }
