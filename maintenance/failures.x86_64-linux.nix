@@ -57,5 +57,4 @@
   "pcsx2_git" = "/nix/store/5024nzfjzl33h4k7bwqwbqxjvyw0aj4m-pcsx2-unstable-20260810163519-2cf8dab";
   "qtile-module_git" = "/nix/store/vrg7yx6dymxm9dxdd6wf8k39n3hn2cnm-python3.14-qtile-0.36.0.99.99";
   "qtile_git" = "/nix/store/nwd7vaxdf4hzxggxfy3wmcwhkc6py41v-python3.14-qtile-0.36.0.99.99";
-  "shadps4_git" = "/nix/store/ah3qmf3v8ss3isp7ihx4cppnp64bcq77-shadps4-unstable-20260812025708-4d39337";
 }
