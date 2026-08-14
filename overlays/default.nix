@@ -111,7 +111,7 @@ let
   has32 = final.stdenv.hostPlatform.isLinux && final.stdenv.hostPlatform.isx86;
 
   # Required for kernel packages
-  inherit (final.stdenv) isLinux;
+  inherit (final.stdenv.hostPlatform) isLinux;
 
   # Apply Jovian overlay only on x86_64-linux
   jovian-chaotic =

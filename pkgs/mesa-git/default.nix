@@ -21,7 +21,7 @@ let
 in
 gitOverride (current: {
   newInputs =
-    if final.stdenv.isLinux then
+    if final.stdenv.hostPlatform.isLinux then
       {
         wayland-protocols = final64.wayland-protocols_git;
         vulkanLayers = prev.mesa.vulkanLayers ++ [
