@@ -1,4 +1,5 @@
 {
+  lib,
   coreutils,
   curl,
   diffutils,
@@ -6,13 +7,13 @@
   jq,
   nix,
   prefetch-npm-deps,
-  writeShellApplication,
+  writeShellScript,
 }:
 
-writeShellApplication {
+let
   name = "firefox-nightly-update";
 
-  runtimeInputs = [
+  path = lib.makeBinPath [
     coreutils
     curl
     diffutils
@@ -23,6 +24,8 @@ writeShellApplication {
   ];
 
   text = ''
+    PATH="${path}:$PATH"
+
     readonly manifest_json="''${MANIFEST_JSON:-pkgs/firefox-nightly/manifest.json}"
     readonly buildhub_url="https://buildhub.moz.tools/api/search"
     readonly hg_repo="https://hg.mozilla.org/mozilla-central"
@@ -242,4 +245,6 @@ writeShellApplication {
       -- \
       "$manifest_json"
   '';
-}
+
+in
+writeShellScript name text

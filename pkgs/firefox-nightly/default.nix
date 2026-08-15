@@ -63,8 +63,7 @@ let
     else
       rust-cbindgen;
 
-  updateScriptPackage = callPackage ./update.nix { };
-  updateScript = lib.getExe updateScriptPackage;
+  updateScript = callPackage ./update.nix { };
 
   removedPatches = [
     "133-env-var-for-system-dir.patch"
@@ -166,7 +165,6 @@ let
       inherit
         newtabNpmDeps
         updateScript
-        updateScriptPackage
         ;
       rust-cbindgen = rust-cbindgen_latest;
     };
