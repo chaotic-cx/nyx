@@ -4,7 +4,7 @@
 }@inputs:
 
 let
-  inherit (final.stdenv) isx86_64 isLinux;
+  inherit (final.stdenv.hostPlatform) isx86_64 isLinux;
   inherit (final.lib.trivial) importJSON;
 
   # CachyOS repeating stuff.
