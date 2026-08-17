@@ -19,5 +19,5 @@ gitOverride (current: {
     owner = "mesa";
     repo = "drm";
   };
-  withUpdateScript = !final.stdenv.is32bit;
+  withUpdateScript = !final.stdenv.hostPlatform.is32bit;
 })
