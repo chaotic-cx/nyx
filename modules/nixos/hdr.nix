@@ -11,7 +11,14 @@ let
     assertions = [
       {
         assertion =
-          (config.boot.kernelPackages.kernel.passthru.config.CONFIG_AMD_PRIVATE_COLOR or null) == "y";
+          let
+            inherit (config.boot.kernelPackages) kernel;
+
+            kconfig = config.boot.kernelPackages.kernel.passthru.config;
+
+            olderSupport = (kconfig.CONFIG_AMD_PRIVATE_COLOR or null) == "y";
+          in
+          lib.versionAtLeast kernel.version "6.19" || olderSupport;
         message = "HDR needs a kernel compiled with CONFIG_AMD_PRIVATE_COLOR";
       }
     ];
@@ -71,7 +78,7 @@ in
 
   imports = [
     (lib.mkRemovedOptionModule [ "chaotic" "hdr" "kernelPackages" ]
-      "kernelPackages option is deprecated. Please use a kernel built with the `AMD_PRIVATE_COLOR` flag."
+      "kernelPackages option is deprecated. Please use a kernel 6.19 or newer or built with the `AMD_PRIVATE_COLOR` flag."
     )
   ];
 }
