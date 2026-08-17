@@ -23,22 +23,15 @@
   hardware.nvidia.package = pkgs.nvidia_cachyos;
   hardware.nvidia.open = true;
 
+  # HDR patch
+  chaotic.hdr.enable = true;
+
   assertions = [
     {
       assertion = config.hardware.nvidia.enabled;
       message = "Failing to enable nvidia_cachyos";
     }
   ];
-
-  nixpkgs.config = {
-    allowUnfreePredicate =
-      pkg:
-      builtins.elem (lib.getName pkg) [
-        "nvidia-kernel-modules"
-        "nvidia-settings"
-        "nvidia-x11"
-      ];
-  };
 
   # Stuff to test zfs_cachyos
   boot.supportedFilesystems.zfs = true;

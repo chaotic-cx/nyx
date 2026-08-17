@@ -1,15 +1,23 @@
-# Run with:
+# Run interactively with:
 # nix run .#checks.x86_64-linux.all-in-one.driverInteractive
 {
   nixpkgs,
   chaotic,
+  system,
 }:
 
-import "${nixpkgs}/nixos/tests/make-test-python.nix" (
-  { lib, ... }:
-  {
+let
+  pkgs = import nixpkgs {
+    inherit system;
+    config = {
+      allowUnfree = true;
+    };
+    overlays = [ chaotic.overlays.default ]; # IMPORTANT
+  };
+
+  test = {
     name = "chaotic-nyx-one";
-    meta.maintainers = with lib.maintainers; [ pedrohlc ];
+    meta.maintainers = with pkgs.lib.maintainers; [ pedrohlc ];
 
     nodes.machine = _inputs: {
       imports = [
@@ -19,19 +27,28 @@ import "${nixpkgs}/nixos/tests/make-test-python.nix" (
         ./modules/cachyos.nix
         ./modules/mesa-git.nix
         ./modules/plymouth.nix
-        ./modules/virgl-venus.nix
       ];
 
-      virtualisation.memorySize = 16 * 1024;
+      chaotic.nyx.overlay.enable = false;
+
+      virtualisation.memorySize = 2 * 1024;
+    };
+
+    interactive.nodes.machine = _inputs: {
+      imports = [
+        ./modules/virgl-venus.nix
+      ];
     };
 
     # TODO: TODO
     testScript = ''
       start_all()
 
-      machine.wait_for_unit("graphics.target")
+      machine.wait_for_unit("graphical.target")
 
-
+      out = machine.succeed("(glxinfo | grep 'renderer') || echo NOT INTERACTIVE")
+      print(out)
     '';
-  }
-)
+  };
+in
+pkgs.testers.runNixOSTest test

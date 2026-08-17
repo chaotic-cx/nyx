@@ -51,7 +51,7 @@
             // (
               if system == "x86_64-linux" then
                 {
-                  ${system} = import ./checks flakes pkgs;
+                  ${system} = import ./checks flakes system;
                 }
               else
                 { }
