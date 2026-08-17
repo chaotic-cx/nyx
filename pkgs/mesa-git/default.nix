@@ -7,7 +7,7 @@
 }:
 
 let
-  inherit (final.stdenv) is32bit;
+  inherit (final.stdenv.hostPlatform) is32bit;
 
   packageCache = final64.callPackage ./package-cache-dir.nix { };
 

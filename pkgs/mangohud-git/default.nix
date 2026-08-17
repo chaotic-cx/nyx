@@ -6,7 +6,7 @@
 }:
 
 let
-  inherit (final.stdenv) is32bit;
+  inherit (final.stdenv.hostPlatform) is32bit;
 
   # Subproject definitions from MangoHud master (rev 7f4201f86b6754dbeb8863e404b14e7356186d1c)
   imgui = rec {
