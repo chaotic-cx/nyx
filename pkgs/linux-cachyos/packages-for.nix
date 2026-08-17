@@ -84,7 +84,11 @@ let
   kconfigToNix = inputs.final.callPackage ./lib/kconfig-to-nix.nix {
     configfile = preparedConfigfile;
   };
-  linuxConfigTransfomed = import configPath;
+  linuxConfigTransfomed =
+    (import configPath)
+    // (lib.optionalAttrs cachyConfig.withPrivateHDR {
+      "CONFIG_AMD_PRIVATE_COLOR" = "y";
+    });
 
   updaterScript =
     if withUpdateScript != null then
