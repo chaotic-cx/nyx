@@ -18,7 +18,8 @@ let
   onTopOfUserPkgs = flakes.self.overlays.default;
 
   # Workaround because of https://github.com/NixOS/nixos-search/pull/803#issuecomment-2717855951
-  configType = if (options ? "nixpkgs") then options.nixpkgs.config.type else lib.types.attrs;
+  configType =
+    if (options ? "nixpkgs") then options.nixpkgs.config.type else lib.types.attrsOf lib.types.anything;
 in
 {
   options = with lib; {

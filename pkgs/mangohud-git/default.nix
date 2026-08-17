@@ -68,7 +68,7 @@ gitOverride {
     repo = "MangoHud";
   };
   ref = "master";
-  withUpdateScript = !final.stdenv.is32bit;
+  withUpdateScript = !is32bit;
 
   postOverride = prevAttrs: {
     nativeBuildInputs = (prevAttrs.nativeBuildInputs or [ ]) ++ [
