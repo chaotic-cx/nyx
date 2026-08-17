@@ -65,6 +65,29 @@ jobs:
     with:
       commit-failures: ${{ inputs.commit-x86_64-linux-failures || false }}
       pin: "missing"
+  deploy-check:
+    name: Run flake check
+    needs: deploy-build
+    if: needs.deploy-build.outputs.built == 'true'
+    continue-on-error: true
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    outputs:
+      checked: ${{ steps.check.outcome == 'success' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            accept-flake-config = true
+            sandbox-fallback = false
+            system-features = big-parallel gccarch-x86-64-v3 kvm
+      - name: Run flake check
+        id: check
+        run: |
+          NIXPKGS_ALLOW_UNFREE=1 nix flake check --impure
   deploy-push:
     name: Push to nyxpkgs-unstable
     needs: deploy-build
