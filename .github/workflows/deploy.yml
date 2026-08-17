@@ -83,7 +83,7 @@ jobs:
           extra_nix_config: |
             accept-flake-config = true
             sandbox-fallback = false
-            system-features = big-parallel gccarch-x86-64-v3 kvm
+            system-features = big-parallel gccarch-x86-64-v3 kvm nixos-test
       - name: Run flake check
         id: check
         run: |
