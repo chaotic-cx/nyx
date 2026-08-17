@@ -155,8 +155,6 @@ in
     versions = serverVersions;
     withUpdateScript = "server";
 
-    withPrivateHDR = false;
-
     description = "Linux EEVDF scheduler Kernel by CachyOS targeted for Servers";
 
     packagesExtend = preventBuildingKernelModules;
@@ -169,8 +167,6 @@ in
 
     versions = hardenedVersions;
     withUpdateScript = "hardened";
-
-    withPrivateHDR = false;
 
     packagesExtend = preventBuildingKernelModules;
   };

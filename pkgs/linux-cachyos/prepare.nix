@@ -91,7 +91,6 @@ let
     ++ qrCodePanicConfig
     ++ autoFDOConfig
     ++ propellerConfig
-    ++ hdrConfig
     ++ disableDebug
     ++ [
       # Nixpkgs don't support this
@@ -318,9 +317,6 @@ let
       ]
     else
       throw "Unsupported cachyos _hugepage";
-
-  # custom made
-  hdrConfig = lib.optionals cachyConfig.withPrivateHDR [ "-e AMD_PRIVATE_COLOR" ];
 
   # https://github.com/CachyOS/linux-cachyos/issues/187
   disableDebug = lib.optionals cachyConfig.withoutDebug [
