@@ -4,7 +4,7 @@
   "linuxPackages_cachyos.bcc" = "/nix/store/1hrlcqdl8h99wgwa23mapaib5l71fhrd-bcc-0.37.0-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos.bpftrace" = "/nix/store/ky3n9l328924ch16984gsxgy829gr9x8-bpftrace-x86_64-unknown-linux-gnu-0.26.1";
   "linuxPackages_cachyos.chipsec" = "/nix/store/b98qpcmrm6pmw7yi3nysji0axzscsdvl-chipsec-1.13.20-x86_64-unknown-linux-gnu";
-  "linuxPackages_cachyos.corefreq" = "/nix/store/aijgnfs8lrzj3i88jdxdim92s6ll45xy-corefreq-x86_64-unknown-linux-gnu-2.1.0";
+  "linuxPackages_cachyos.corefreq" = "/nix/store/gf9b89m9wrj00pj7716r9as16d58f8id-corefreq-x86_64-unknown-linux-gnu-2.1.2";
   "linuxPackages_cachyos.dpdk" = "/nix/store/gkvscgc727kdclgw936xj5w7il0n2y23-dpdk-x86_64-unknown-linux-gnu-26.03";
   "linuxPackages_cachyos.ecapture" = "/nix/store/rnmj4v5c5yhdl3xqkgn7dhx7fypqjpz6-ecapture-x86_64-unknown-linux-gnu-1.5.2";
   "linuxPackages_cachyos.ethercat" = "/nix/store/0fmhi98py7c8xnqvpp2xnrh3zb93h7ap-ethercat-x86_64-unknown-linux-gnu-7.1.8-1.6.10";
@@ -42,7 +42,6 @@
   "linuxPackages_cachyos.yt6801" = "/nix/store/whh5yz54mrqkqxba03p0bxibvg9cllsw-yt6801-x86_64-unknown-linux-gnu-1.0.30-20250430";
   "linuxPackages_cachyos.zenpower" = "/nix/store/r1xf1hlssybmymlvzdivqhivdchk0z7s-zenpower-x86_64-unknown-linux-gnu-0.2.0";
   "linuxPackages_cachyos-gcc.chipsec" = "/nix/store/dwlm1ybifyj837s7g5zyds5hf6cdbvpq-chipsec-1.13.20";
-  "linuxPackages_cachyos-gcc.corefreq" = "/nix/store/x7kgypz0m2626zaq5yygph4pn7cpznf5-corefreq-2.1.0";
   "linuxPackages_cachyos-gcc.gasket" = "/nix/store/am4xs2ab66gw1dfqvb10j794d21rjyng-gasket-1.0-18-unstable-2024-04-25";
   "linuxPackages_cachyos-gcc.lttng-modules" = "/nix/store/s8xj0s9xnp8jljq19biyfapzbxnh7qdc-lttng-modules-7.1.8-2.14.3";
   "linuxPackages_cachyos-gcc.mbp2018-bridge-drv" = "/nix/store/0hqw021qxqckl5f5sbx833adga49hjpn-mbp2018-bridge-drv-2020-01-31";
