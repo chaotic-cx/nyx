@@ -79,8 +79,8 @@ jobs:
           fi
 
           # Check if a push is really necessary
-          maintenance/scripts/remote-eq.sh "$BRANCH_NAME" "$START_COMMIT" || conflict=$?
-          case $conflict in
+          maintenance/scripts/remote-eq.sh "$BRANCH_NAME" "$START_COMMIT" || status=$?
+          case ${status:-0} in
             0)
               echo "should_pr=true" >> "$GITHUB_OUTPUT"
               ;;

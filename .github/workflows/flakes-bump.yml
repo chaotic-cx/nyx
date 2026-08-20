@@ -63,8 +63,8 @@ jobs:
           vendor/update.sh
 
           # Check if a push is really necessary
-          maintenance/scripts/remote-eq.sh "$BRANCH_NAME" "$OLD_COMMIT" || conflict=$?
-          case $conflict in
+          maintenance/scripts/remote-eq.sh "$BRANCH_NAME" "$OLD_COMMIT" || status=$?
+          case ${status:-0} in
             0) ;;
             42) exit 0 ;;
             *) exit $conflict ;;
