@@ -49,10 +49,16 @@ jobs:
 
           OLD_COMMIT=$(git rev-parse HEAD)
 
-          nix flake update || exit 1
+          for f in 'nixpkgs' 'home-manager'; do
+            PREV_MODIFIED="$(jq ".nodes.\"$f\".locked.lastModified" flake.lock)"
 
-          git add -A
-          git commit -m "flakes: bump $DATE"
+            nix flake update "$f"
+
+            NEW_MODIFIED="$(jq ".nodes.\"$f\".locked.lastModified" flake.lock)"
+
+            git add -A
+            git commit -m "flakes/$f: $PREV_MODIFIED -> $NEW_MODIFIED" || echo 'Skipping commit'
+          done
 
           vendor/update.sh
 
