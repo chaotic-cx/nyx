@@ -71,7 +71,7 @@ jobs:
     if: needs.deploy-build.outputs.built == 'true'
     continue-on-error: true
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 70
     outputs:
       checked: ${{ steps.check.outcome == 'success' }}
     steps:
@@ -88,6 +88,27 @@ jobs:
         id: check
         run: |
           NIXPKGS_ALLOW_UNFREE=1 nix flake check --impure
+      - name: Send Telegram Failure Notification
+        if: failure()
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            ❌ Flake check failed while deploying!
+            Run: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      - name: Send Matrix Failure Notification
+        if: failure()
+        run: |
+          jq -n --arg msg "$MSG" '{"msgtype": "m.notice", "body": $msg}' | \
+          curl --fail -sS -X PUT -H "Content-Type: application/json" \
+            "https://${{ secrets.MATRIX_SERVER }}/_matrix/client/v3/rooms/${{ secrets.MATRIX_TO }}/send/m.room.message/${TXN_ID}?access_token=${{ secrets.MATRIX_TOKEN }}" \
+            -d @-
+        env:
+          TXN_ID: ${{ github.run_id }}-${{ github.job }}-failure
+          MSG: |
+            ❌ Flake check failed while deploying!
+            Run: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
   deploy-push:
     name: Push to nyxpkgs-unstable
     needs: deploy-build
@@ -137,13 +158,17 @@ jobs:
             ${{ steps.collect_new_commits.outputs.commits }}
       - name: Send Matrix Notification
         run: |
-          jq -n --arg commits "$COMMITS" '{"msgtype": "m.notice", "body": "New update deployed!\n\nNew commits:\n\($commits)"}' | \
+          jq -n --arg msg "$MSG" '{"msgtype": "m.notice", "body": $msg}' | \
           curl --fail -sS -X PUT -H "Content-Type: application/json" \
             "https://${{ secrets.MATRIX_SERVER }}/_matrix/client/v3/rooms/${{ secrets.MATRIX_TO }}/send/m.room.message/${TXN_ID}?access_token=${{ secrets.MATRIX_TOKEN }}" \
             -d @-
         env:
           TXN_ID: ${{ github.run_id }}-${{ github.job }}
-          COMMITS: ${{ steps.collect_new_commits.outputs.commits }}
+          MSG: |
+            New update deployed!
+
+            New commits:
+            ${{ steps.collect_new_commits.outputs.commits }}
   deploy-docs:
     needs: deploy-push
     uses: ./.github/workflows/document.yml
