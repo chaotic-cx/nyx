@@ -9,6 +9,8 @@ let
 
   # CachyOS repeating stuff.
   mainVersions = importJSON ./manifest.json;
+  bmqVars = importJSON ./config-vars/cachyos-bmq.json;
+  bmqVersions = importJSON ./manifest-bmq.json;
   boreVars = importJSON ./config-vars/cachyos-bore.json;
   boreVersions = importJSON ./manifest-bore.json;
   hardenedVars = importJSON ./config-vars/cachyos-hardened.json;
@@ -121,6 +123,19 @@ in
     packagesExtend = preventBuildingKernelModules;
   };
 
+  cachyos-bmq = mkCachyKernel {
+    taste = "linux-cachyos-bore";
+    configPath = ./config-nix/cachyos-bmq.x86_64-linux.nix;
+    cachyVars = bmqVars;
+
+    versions = bmqVersions;
+    withUpdateScript = "bmq";
+
+    description = "Linux BMQ scheduler Kernel by CachyOS";
+
+    packagesExtend = preventBuildingKernelModules;
+  };
+
   cachyos-bore = mkCachyKernel {
     taste = "linux-cachyos-bore";
     configPath = ./config-nix/cachyos-bore.x86_64-linux.nix;
@@ -129,7 +144,7 @@ in
     versions = boreVersions;
     withUpdateScript = "bore";
 
-    description = "Linux EEVDF scheduler Kernel by CachyOS with BORE scheduler";
+    description = "Linux BORE scheduler Kernel by CachyOS";
 
     packagesExtend = preventBuildingKernelModules;
   };

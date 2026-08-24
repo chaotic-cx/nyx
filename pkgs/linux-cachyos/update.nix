@@ -41,6 +41,11 @@ let
         #-znver4 (we're not creating the config-nix for this one)
       ];
     };
+    bmq = {
+      manifestFile = "manifest-bmq.json";
+      suffix = "-bmq";
+      mainFlavor = "-bmq";
+    };
     bore = {
       manifestFile = "manifest-bore.json";
       suffix = "-bore";
