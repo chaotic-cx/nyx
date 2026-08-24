@@ -42,7 +42,7 @@
 
 <h3 id="on-nixos-unstable">On NixOS unstable</h3>
 
-<p>This tutorial does not apply for users using NixOS 24.11 and other stable channels. This tutorial is for unstable users.</p>
+<p>This section does not apply for users using NixOS stable channels. It is only for unstable users!</p>
 
 <p>We recommend integrating this repo using Flakes:</p>
 
@@ -83,9 +83,7 @@
 
 <h3 id="on-nixos-stable">On NixOS stable</h3>
 
-<p>Chaotic-Nyx is <strong>NOT</strong> compatible with NixOS 25.05 and older.</p>
-
-<p>This tutorial does not apply for users using NixOS unstable channel. This tutorial is for 24.11 and other stable channels.</p>
+<p>This section does not apply for users using NixOS unstable channel, it does not apply for users using deprecated stable channels. It is only for THE LATEST stable channel.</p>
 
 <p>You won't have access to all the modules and options available to unstable users, as those are prone to breaking due to the divergence between the channels.
 But you'll have access to all packages, the cache, and the registry.</p>
@@ -98,7 +96,7 @@ But you'll have access to all packages, the cache, and the registry.</p>
   description = "My configuration";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-YY.MM";
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
   };
 
