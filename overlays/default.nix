@@ -237,6 +237,7 @@ in
   linux_cachyos-lto = cachyosPackages.cachyos-lto.kernel;
   linux_cachyos-lto-znver4 = cachyosPackages.cachyos-lto-znver4.kernel;
   linux_cachyos-gcc = cachyosPackages.cachyos-gcc.kernel;
+  linux_cachyos-bore = cachyosPackages.cachyos-bore.kernel;
   linux_cachyos-server = cachyosPackages.cachyos-server.kernel;
   linux_cachyos-hardened = cachyosPackages.cachyos-hardened.kernel;
   linux_cachyos-rc = cachyosPackages.cachyos-rc.kernel;
@@ -246,6 +247,7 @@ in
   linuxPackages_cachyos-lto = cachyosPackages.cachyos-lto;
   linuxPackages_cachyos-lto-znver4 = cachyosPackages.cachyos-lto-znver4;
   linuxPackages_cachyos-gcc = cachyosPackages.cachyos-gcc;
+  linuxPackages_cachyos-bore = cachyosPackages.cachyos-bore;
   linuxPackages_cachyos-server = cachyosPackages.cachyos-server;
   linuxPackages_cachyos-hardened = cachyosPackages.cachyos-hardened;
   linuxPackages_cachyos-rc =
@@ -274,10 +276,11 @@ in
   nvidia_cachyos-lto = callOverride ../pkgs/nvidia-cachyos {
     linuxPackages_cachyos = final.linuxPackages_cachyos-lto;
   };
-  nvidia_cachyos-rc = callOverride ../pkgs/nvidia-cachyos { variant = "rc"; };
-  nvidia_cachyos-server = callOverride ../pkgs/nvidia-cachyos { variant = "server"; };
+  nvidia_cachyos-bore = callOverride ../pkgs/nvidia-cachyos { variant = "bore"; };
   nvidia_cachyos-hardened = callOverride ../pkgs/nvidia-cachyos { variant = "hardened"; };
   nvidia_cachyos-lts = callOverride ../pkgs/nvidia-cachyos { variant = "lts"; };
+  nvidia_cachyos-rc = callOverride ../pkgs/nvidia-cachyos { variant = "rc"; };
+  nvidia_cachyos-server = callOverride ../pkgs/nvidia-cachyos { variant = "server"; };
 
   mpv-vapoursynth =
     (final.mpv.override {

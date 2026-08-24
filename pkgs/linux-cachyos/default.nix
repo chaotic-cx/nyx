@@ -9,15 +9,17 @@ let
 
   # CachyOS repeating stuff.
   mainVersions = importJSON ./manifest.json;
-  hardenedVersions = importJSON ./manifest-hardened.json;
-  ltsVersions = importJSON ./manifest-lts.json;
-  rcVersions = importJSON ./manifest-rc.json;
-  serverVersions = importJSON ./manifest-server.json;
+  boreVars = importJSON ./config-vars/cachyos-bore.json;
+  boreVersions = importJSON ./manifest-bore.json;
   hardenedVars = importJSON ./config-vars/cachyos-hardened.json;
+  hardenedVersions = importJSON ./manifest-hardened.json;
   ltoVars = importJSON ./config-vars/cachyos-lto.json;
   ltsVars = importJSON ./config-vars/cachyos-lts.json;
+  ltsVersions = importJSON ./manifest-lts.json;
   rcVars = importJSON ./config-vars/cachyos-rc.json;
+  rcVersions = importJSON ./manifest-rc.json;
   serverVars = importJSON ./config-vars/cachyos-server.json;
+  serverVersions = importJSON ./manifest-server.json;
 
   # Clang/LTO things
   pkgsLLVM = import ./lib/llvm-pkgs.nix inputs;
@@ -115,6 +117,19 @@ in
 
     versions = ltsVersions;
     withUpdateScript = "lts";
+
+    packagesExtend = preventBuildingKernelModules;
+  };
+
+  cachyos-bore = mkCachyKernel {
+    taste = "linux-cachyos-bore";
+    configPath = ./config-nix/cachyos-bore.x86_64-linux.nix;
+    cachyVars = boreVars;
+
+    versions = boreVersions;
+    withUpdateScript = "bore";
+
+    description = "Linux EEVDF scheduler Kernel by CachyOS with BORE scheduler";
 
     packagesExtend = preventBuildingKernelModules;
   };

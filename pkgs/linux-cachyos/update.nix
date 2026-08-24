@@ -41,6 +41,11 @@ let
         #-znver4 (we're not creating the config-nix for this one)
       ];
     };
+    bore = {
+      manifestFile = "manifest-bore.json";
+      suffix = "-bore";
+      mainFlavor = "-bore";
+    };
     hardened = {
       manifestFile = "manifest-hardened.json";
       suffix = "-hardened";
