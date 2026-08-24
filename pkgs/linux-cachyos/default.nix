@@ -22,6 +22,8 @@ let
   ltsVersions = importJSON ./manifest-lts.json;
   rcVars = importJSON ./config-vars/cachyos-rc.json;
   rcVersions = importJSON ./manifest-rc.json;
+  rtBoreVars = importJSON ./config-vars/cachyos-rt-bore.json;
+  rtBoreVersions = importJSON ./manifest-rt-bore.json;
   serverVars = importJSON ./config-vars/cachyos-server.json;
   serverVersions = importJSON ./manifest-server.json;
 
@@ -197,6 +199,19 @@ in
       packagesExtend = preventBuildingKernelModules;
     }
   );
+
+  cachyos-rt-bore = mkCachyKernel {
+    taste = "linux-cachyos-rt-bore";
+    configPath = ./config-nix/cachyos-rt-bore.x86_64-linux.nix;
+    cachyVars = rtBoreVars;
+
+    versions = rtBoreVersions;
+    withUpdateScript = "rt-bore";
+
+    description = "Linux BORE-RT + Cachy Sauce Kernel by CachyOS with other patches and improvements";
+
+    packagesExtend = preventBuildingKernelModules;
+  };
 
   cachyos-server = mkCachyKernel {
     taste = "linux-cachyos-server";

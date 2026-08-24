@@ -244,6 +244,7 @@ in
   linux_cachyos-hardened = cachyosPackages.cachyos-hardened.kernel;
   linux_cachyos-rc = cachyosPackages.cachyos-rc.kernel;
   linux_cachyos-lts = cachyosPackages.cachyos-lts.kernel;
+  linux_cachyos-rt-bore = cachyosPackages.cachyos-rt-bore.kernel;
 
   linuxPackages_cachyos = cachyosPackages.cachyos-lto;
   linuxPackages_cachyos-lto = cachyosPackages.cachyos-lto;
@@ -256,6 +257,7 @@ in
   linuxPackages_cachyos-hardened = cachyosPackages.cachyos-hardened;
   linuxPackages_cachyos-rc =
     if isCachyosRCLatest then cachyosPackages.cachyos-rc else cachyosPackages.cachyos-lto;
+  linuxPackages_cachyos-rt-bore = cachyosPackages.cachyos-rt-bore;
   linuxPackages_cachyos-lts = cachyosPackages.cachyos-lts;
 
   luxtorpeda = final.callPackage ../pkgs/luxtorpeda {
@@ -286,6 +288,7 @@ in
   nvidia_cachyos-hardened = callOverride ../pkgs/nvidia-cachyos { variant = "hardened"; };
   nvidia_cachyos-lts = callOverride ../pkgs/nvidia-cachyos { variant = "lts"; };
   nvidia_cachyos-rc = callOverride ../pkgs/nvidia-cachyos { variant = "rc"; };
+  nvidia_cachyos-rt-bore = callOverride ../pkgs/nvidia-cachyos { variant = "rt-bore"; };
   nvidia_cachyos-server = callOverride ../pkgs/nvidia-cachyos { variant = "server"; };
 
   mpv-vapoursynth =

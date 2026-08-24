@@ -71,6 +71,11 @@ let
       suffix = "-rc";
       mainFlavor = "-rc";
     };
+    rt-bore = {
+      manifestFile = "manifest-rt-bore.json";
+      suffix = "-rt-bore";
+      mainFlavor = "-rt-bore";
+    };
     server = {
       manifestFile = "manifest-server.json";
       suffix = "-server";
