@@ -81,6 +81,8 @@ let
   };
   linuxConfigTransfomed = import configPath;
 
+  inherit (preparedConfigfile.passthru) preparedMakeFlags;
+
   updaterScript =
     if withUpdateScript != null then
       inputs.final.callPackage ./update.nix { inherit (cachyConfig) withUpdateScript; }
@@ -108,7 +110,7 @@ let
           stdenv
           buildPackages
           ;
-        extraMakeFlags = if cachyConfig.useLTO == "none" then extraMakeFlags else [ ];
+        extraMakeFlags = if cachyConfig.useLTO == "none" then preparedMakeFlags ++ extraMakeFlags else [ ];
       };
 
   commonMakeFlags =
@@ -118,6 +120,7 @@ let
         (nyxUtils.replaceStartingWith "AR=" (lib.getExe' llvmPackages.llvm "llvm-ar"))
         (nyxUtils.replaceStartingWith "NM=" (lib.getExe' llvmPackages.llvm "llvm-nm"))
       ]
+      ++ preparedMakeFlags
       ++ extraMakeFlags
     else
       commonMakeFlagsBintools;

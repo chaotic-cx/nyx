@@ -61,7 +61,7 @@ let
         ;
     };
 
-    description = "Linux EEVDF-BORE scheduler Kernel by CachyOS built with LLVM and Thin LTO";
+    description = "Linux EEVDF + Clang ThinLTO Cachy Sauce Kernel by CachyOS with other patches and improvements";
   };
 
   isUnsupported = !isx86_64 || !isLinux;
@@ -94,6 +94,8 @@ let
       "_use_llvm_lto" = "none";
     };
 
+    description = "Linux EEVDF Cachy Sauce Kernel by CachyOS with other patches and improvements";
+
     # since all flavors use the same manifest.json, we just need the updateScript in one of them
     withUpdateScript = "stable";
   };
@@ -120,6 +122,8 @@ in
     versions = ltsVersions;
     withUpdateScript = "lts";
 
+    description = "Linux EEVDF + Cachy Sauce Kernel by CachyOS with other patches and improvements - Long Term Service";
+
     packagesExtend = preventBuildingKernelModules;
   };
 
@@ -131,7 +135,7 @@ in
     versions = bmqVersions;
     withUpdateScript = "bmq";
 
-    description = "Linux BMQ scheduler Kernel by CachyOS";
+    description = "Linux BMQ + Cachy Sauce scheduler Kernel by CachyOS with other patches and improvements";
 
     packagesExtend = preventBuildingKernelModules;
   };
@@ -144,7 +148,7 @@ in
     versions = boreVersions;
     withUpdateScript = "bore";
 
-    description = "Linux BORE scheduler Kernel by CachyOS";
+    description = "Linux BORE + Cachy Sauce scheduler Kernel by CachyOS with other patches and improvements";
 
     packagesExtend = preventBuildingKernelModules;
   };
@@ -158,6 +162,8 @@ in
 
       versions = rcVersions;
       withUpdateScript = "rc";
+
+      description = "Linux Clang ThinLTO + Cachy Sauce Kernel by CachyOS with other patches and improvements - Release Candidate";
 
       packagesExtend = preventBuildingKernelModules;
     }
@@ -197,6 +203,8 @@ in
 
     versions = hardenedVersions;
     withUpdateScript = "hardened";
+
+    description = "Linux BORE scheduler and hardened Kernel by CachyOS with other patches and improvements";
 
     packagesExtend = preventBuildingKernelModules;
   };

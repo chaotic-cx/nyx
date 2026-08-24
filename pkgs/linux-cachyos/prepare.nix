@@ -288,15 +288,15 @@ let
       [ ];
 
   autoFDOConfig =
-    if cachyConfig.autoFDO then
+    if cachyConfig.autoFDO != false then
       [
         "-e AUTOFDO_CLANG"
       ]
     else
       [ ];
 
-  propellerConfig =
-    if cachyConfig.propeller then
+  propellerConfig = # CLANG_PROPELLER_PROFILE_PREFIX
+    if cachyConfig.propeller != false then
       [
         "-e PROPELLER_CLANG"
       ]
@@ -335,6 +335,12 @@ let
     "-d LATENCYTOP"
     "-d DEBUG_PREEMPT"
   ];
+
+  autoFDOFlags = lib.optional (builtins.isPath cachyConfig.autoFDO) "CLANG_AUTOFDO_PROFILE=${cachyConfig.autoFDO}";
+  propellerFlags = lib.optional (builtins.isPath cachyConfig.propeller) "CLANG_PROPELLER_PROFILE_PREFIX=${cachyConfig.propeller}";
+
+  # passthrued and then re-injected in commonMakeFlags
+  preparedMakeFlags = autoFDOFlags ++ propellerFlags;
 in
 stdenv.mkDerivation (finalAttrs: {
   inherit src patches;
@@ -377,6 +383,7 @@ stdenv.mkDerivation (finalAttrs: {
     inherit
       cachyConfig
       commonMakeFlags
+      preparedMakeFlags
       stdenv
       rustc-unwrapped
       rust-bindgen-unwrapped
