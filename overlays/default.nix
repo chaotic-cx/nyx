@@ -365,13 +365,13 @@ in
 
   rust-bindgen_kernel-lto =
     if final.stdenv.hostPlatform.isLinux && final.stdenv.hostPlatform.isx86_64 then
-      cachyosPackages.cachyos-lto.kernel_configfile.passthru.rust-bindgen
+      cachyosPackages.cachyos-lto.kernel_configfile.passthru.rust-bindgen-unwrapped
     else
       markBroken final.rust-bindgen;
 
   rustc_kernel-lto =
     if final.stdenv.hostPlatform.isLinux && final.stdenv.hostPlatform.isx86_64 then
-      cachyosPackages.cachyos-lto.kernel_configfile.passthru.rustc
+      cachyosPackages.cachyos-lto.kernel_configfile.passthru.rustc-unwrapped
     else
       markBroken final.rustc;
 

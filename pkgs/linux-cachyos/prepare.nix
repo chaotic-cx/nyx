@@ -7,9 +7,9 @@
   kernel,
   ogKernelConfigfile,
   commonMakeFlags,
-  # Only to passthru
-  rustc,
-  rust-bindgen,
+  # Only to passthru for cache
+  rustc-unwrapped,
+  rust-bindgen-unwrapped,
 }:
 let
   inherit (cachyConfig.versions.linux) version;
@@ -340,6 +340,7 @@ stdenv.mkDerivation (finalAttrs: {
   inherit src patches;
   name = "linux-cachyos-config";
   nativeBuildInputs = kernel.nativeBuildInputs ++ kernel.buildInputs;
+  inherit (kernel) env;
 
   makeFlags = commonMakeFlags;
 
@@ -377,8 +378,8 @@ stdenv.mkDerivation (finalAttrs: {
       cachyConfig
       commonMakeFlags
       stdenv
-      rustc
-      rust-bindgen
+      rustc-unwrapped
+      rust-bindgen-unwrapped
       ;
     kernelPatches = patches;
     extraVerPatch = ''

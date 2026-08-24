@@ -11,9 +11,6 @@
   lib,
   buildPackages,
   llvmPackages,
-  rustc,
-  rust-bindgen,
-  rustPlatform,
   ogKernelConfigfile ? linuxPackages.kernel.passthru.configfile,
   withUpdateScript ? null,
   packagesExtend ? null,
@@ -120,11 +117,6 @@ let
         (nyxUtils.replaceStartingWith "LD=" (lib.getExe' llvmPackages.lld "ld.lld"))
         (nyxUtils.replaceStartingWith "AR=" (lib.getExe' llvmPackages.llvm "llvm-ar"))
         (nyxUtils.replaceStartingWith "NM=" (lib.getExe' llvmPackages.llvm "llvm-nm"))
-      ]
-      ++ [
-        "RUSTC=${lib.getExe' rustc "rustc"}"
-        "BINDGEN=${lib.getExe rust-bindgen}"
-        "RUST_LIB_SRC=${rustPlatform.rustLibSrc}"
       ]
       ++ extraMakeFlags
     else
