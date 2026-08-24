@@ -13,6 +13,8 @@ let
   bmqVersions = importJSON ./manifest-bmq.json;
   boreVars = importJSON ./config-vars/cachyos-bore.json;
   boreVersions = importJSON ./manifest-bore.json;
+  eevdfVars = importJSON ./config-vars/cachyos-eevdf.json;
+  eevdfVersions = importJSON ./manifest-eevdf.json;
   hardenedVars = importJSON ./config-vars/cachyos-hardened.json;
   hardenedVersions = importJSON ./manifest-hardened.json;
   ltoVars = importJSON ./config-vars/cachyos-lto.json;
@@ -128,7 +130,7 @@ in
   };
 
   cachyos-bmq = mkCachyKernel {
-    taste = "linux-cachyos-bore";
+    taste = "linux-cachyos-bmq";
     configPath = ./config-nix/cachyos-bmq.x86_64-linux.nix;
     cachyVars = bmqVars;
 
@@ -149,6 +151,19 @@ in
     withUpdateScript = "bore";
 
     description = "Linux BORE + Cachy Sauce scheduler Kernel by CachyOS with other patches and improvements";
+
+    packagesExtend = preventBuildingKernelModules;
+  };
+
+  cachyos-eevdf = mkCachyKernel {
+    taste = "linux-cachyos-eevdf";
+    configPath = ./config-nix/cachyos-eevdf.x86_64-linux.nix;
+    cachyVars = eevdfVars;
+
+    versions = eevdfVersions;
+    withUpdateScript = "eevdf";
+
+    description = "Linux EEVDF scheduler + Cachy Sauce Kernel by CachyOS with other patches and improvements";
 
     packagesExtend = preventBuildingKernelModules;
   };

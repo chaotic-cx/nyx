@@ -51,6 +51,11 @@ let
       suffix = "-bore";
       mainFlavor = "-bore";
     };
+    eevdf = {
+      manifestFile = "manifest-eevdf.json";
+      suffix = "-eevdf";
+      mainFlavor = "-eevdf";
+    };
     hardened = {
       manifestFile = "manifest-hardened.json";
       suffix = "-hardened";
