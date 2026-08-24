@@ -16,6 +16,12 @@
 }:
 let
   version = cachyConfig.versions.linux.version;
+
+  # linuxManualConfig depends dynamically of these
+  enforcedConfigFeatures = config // {
+    "CONFIG_MODULES" = "y";
+    "CONFIG_RUST" = "y";
+  };
 in
 (linuxManualConfig {
   inherit
@@ -27,7 +33,8 @@ in
   inherit (configfile) src;
   modDirVersion = lib.versions.pad 3 "${version}${cachyConfig.versions.suffix}";
 
-  inherit config configfile;
+  inherit configfile;
+  config = enforcedConfigFeatures;
   allowImportFromDerivation = false;
 
   kernelPatches =

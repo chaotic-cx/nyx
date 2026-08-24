@@ -41,6 +41,21 @@ let
         #-znver4 (we're not creating the config-nix for this one)
       ];
     };
+    bmq = {
+      manifestFile = "manifest-bmq.json";
+      suffix = "-bmq";
+      mainFlavor = "-bmq";
+    };
+    bore = {
+      manifestFile = "manifest-bore.json";
+      suffix = "-bore";
+      mainFlavor = "-bore";
+    };
+    eevdf = {
+      manifestFile = "manifest-eevdf.json";
+      suffix = "-eevdf";
+      mainFlavor = "-eevdf";
+    };
     hardened = {
       manifestFile = "manifest-hardened.json";
       suffix = "-hardened";
@@ -55,6 +70,11 @@ let
       manifestFile = "manifest-rc.json";
       suffix = "-rc";
       mainFlavor = "-rc";
+    };
+    rt-bore = {
+      manifestFile = "manifest-rt-bore.json";
+      suffix = "-rt-bore";
+      mainFlavor = "-rt-bore";
     };
     server = {
       manifestFile = "manifest-server.json";

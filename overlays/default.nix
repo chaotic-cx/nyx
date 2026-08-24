@@ -237,19 +237,27 @@ in
   linux_cachyos-lto = cachyosPackages.cachyos-lto.kernel;
   linux_cachyos-lto-znver4 = cachyosPackages.cachyos-lto-znver4.kernel;
   linux_cachyos-gcc = cachyosPackages.cachyos-gcc.kernel;
+  linux_cachyos-bmq = cachyosPackages.cachyos-bmq.kernel;
+  linux_cachyos-bore = cachyosPackages.cachyos-bore.kernel;
+  linux_cachyos-eevdf = cachyosPackages.cachyos-eevdf.kernel;
   linux_cachyos-server = cachyosPackages.cachyos-server.kernel;
   linux_cachyos-hardened = cachyosPackages.cachyos-hardened.kernel;
   linux_cachyos-rc = cachyosPackages.cachyos-rc.kernel;
   linux_cachyos-lts = cachyosPackages.cachyos-lts.kernel;
+  linux_cachyos-rt-bore = cachyosPackages.cachyos-rt-bore.kernel;
 
   linuxPackages_cachyos = cachyosPackages.cachyos-lto;
   linuxPackages_cachyos-lto = cachyosPackages.cachyos-lto;
   linuxPackages_cachyos-lto-znver4 = cachyosPackages.cachyos-lto-znver4;
   linuxPackages_cachyos-gcc = cachyosPackages.cachyos-gcc;
+  linuxPackages_cachyos-bmq = cachyosPackages.cachyos-bmq;
+  linuxPackages_cachyos-bore = cachyosPackages.cachyos-bore;
+  linuxPackages_cachyos-eevdf = cachyosPackages.cachyos-eevdf;
   linuxPackages_cachyos-server = cachyosPackages.cachyos-server;
   linuxPackages_cachyos-hardened = cachyosPackages.cachyos-hardened;
   linuxPackages_cachyos-rc =
     if isCachyosRCLatest then cachyosPackages.cachyos-rc else cachyosPackages.cachyos-lto;
+  linuxPackages_cachyos-rt-bore = cachyosPackages.cachyos-rt-bore;
   linuxPackages_cachyos-lts = cachyosPackages.cachyos-lts;
 
   luxtorpeda = final.callPackage ../pkgs/luxtorpeda {
@@ -274,10 +282,14 @@ in
   nvidia_cachyos-lto = callOverride ../pkgs/nvidia-cachyos {
     linuxPackages_cachyos = final.linuxPackages_cachyos-lto;
   };
-  nvidia_cachyos-rc = callOverride ../pkgs/nvidia-cachyos { variant = "rc"; };
-  nvidia_cachyos-server = callOverride ../pkgs/nvidia-cachyos { variant = "server"; };
+  nvidia_cachyos-bmq = callOverride ../pkgs/nvidia-cachyos { variant = "bmq"; };
+  nvidia_cachyos-bore = callOverride ../pkgs/nvidia-cachyos { variant = "bore"; };
+  nvidia_cachyos-eevdf = callOverride ../pkgs/nvidia-cachyos { variant = "eevdf"; };
   nvidia_cachyos-hardened = callOverride ../pkgs/nvidia-cachyos { variant = "hardened"; };
   nvidia_cachyos-lts = callOverride ../pkgs/nvidia-cachyos { variant = "lts"; };
+  nvidia_cachyos-rc = callOverride ../pkgs/nvidia-cachyos { variant = "rc"; };
+  nvidia_cachyos-rt-bore = callOverride ../pkgs/nvidia-cachyos { variant = "rt-bore"; };
+  nvidia_cachyos-server = callOverride ../pkgs/nvidia-cachyos { variant = "server"; };
 
   mpv-vapoursynth =
     (final.mpv.override {
@@ -365,13 +377,13 @@ in
 
   rust-bindgen_kernel-lto =
     if final.stdenv.hostPlatform.isLinux && final.stdenv.hostPlatform.isx86_64 then
-      cachyosPackages.cachyos-lto.kernel_configfile.passthru.rust-bindgen
+      cachyosPackages.cachyos-lto.kernel_configfile.passthru.rust-bindgen-unwrapped
     else
       markBroken final.rust-bindgen;
 
   rustc_kernel-lto =
     if final.stdenv.hostPlatform.isLinux && final.stdenv.hostPlatform.isx86_64 then
-      cachyosPackages.cachyos-lto.kernel_configfile.passthru.rustc
+      cachyosPackages.cachyos-lto.kernel_configfile.passthru.rustc-unwrapped
     else
       markBroken final.rustc;
 

@@ -9,15 +9,23 @@ let
 
   # CachyOS repeating stuff.
   mainVersions = importJSON ./manifest.json;
-  hardenedVersions = importJSON ./manifest-hardened.json;
-  ltsVersions = importJSON ./manifest-lts.json;
-  rcVersions = importJSON ./manifest-rc.json;
-  serverVersions = importJSON ./manifest-server.json;
+  bmqVars = importJSON ./config-vars/cachyos-bmq.json;
+  bmqVersions = importJSON ./manifest-bmq.json;
+  boreVars = importJSON ./config-vars/cachyos-bore.json;
+  boreVersions = importJSON ./manifest-bore.json;
+  eevdfVars = importJSON ./config-vars/cachyos-eevdf.json;
+  eevdfVersions = importJSON ./manifest-eevdf.json;
   hardenedVars = importJSON ./config-vars/cachyos-hardened.json;
+  hardenedVersions = importJSON ./manifest-hardened.json;
   ltoVars = importJSON ./config-vars/cachyos-lto.json;
   ltsVars = importJSON ./config-vars/cachyos-lts.json;
+  ltsVersions = importJSON ./manifest-lts.json;
   rcVars = importJSON ./config-vars/cachyos-rc.json;
+  rcVersions = importJSON ./manifest-rc.json;
+  rtBoreVars = importJSON ./config-vars/cachyos-rt-bore.json;
+  rtBoreVersions = importJSON ./manifest-rt-bore.json;
   serverVars = importJSON ./config-vars/cachyos-server.json;
+  serverVersions = importJSON ./manifest-server.json;
 
   # Clang/LTO things
   pkgsLLVM = import ./lib/llvm-pkgs.nix inputs;
@@ -57,7 +65,7 @@ let
         ;
     };
 
-    description = "Linux EEVDF-BORE scheduler Kernel by CachyOS built with LLVM and Thin LTO";
+    description = "Linux EEVDF + Clang ThinLTO Cachy Sauce Kernel by CachyOS with other patches and improvements";
   };
 
   isUnsupported = !isx86_64 || !isLinux;
@@ -90,6 +98,8 @@ let
       "_use_llvm_lto" = "none";
     };
 
+    description = "Linux EEVDF Cachy Sauce Kernel by CachyOS with other patches and improvements";
+
     # since all flavors use the same manifest.json, we just need the updateScript in one of them
     withUpdateScript = "stable";
   };
@@ -116,6 +126,47 @@ in
     versions = ltsVersions;
     withUpdateScript = "lts";
 
+    description = "Linux EEVDF + Cachy Sauce Kernel by CachyOS with other patches and improvements - Long Term Service";
+
+    packagesExtend = preventBuildingKernelModules;
+  };
+
+  cachyos-bmq = mkCachyKernel {
+    taste = "linux-cachyos-bmq";
+    configPath = ./config-nix/cachyos-bmq.x86_64-linux.nix;
+    cachyVars = bmqVars;
+
+    versions = bmqVersions;
+    withUpdateScript = "bmq";
+
+    description = "Linux BMQ + Cachy Sauce scheduler Kernel by CachyOS with other patches and improvements";
+
+    packagesExtend = preventBuildingKernelModules;
+  };
+
+  cachyos-bore = mkCachyKernel {
+    taste = "linux-cachyos-bore";
+    configPath = ./config-nix/cachyos-bore.x86_64-linux.nix;
+    cachyVars = boreVars;
+
+    versions = boreVersions;
+    withUpdateScript = "bore";
+
+    description = "Linux BORE + Cachy Sauce scheduler Kernel by CachyOS with other patches and improvements";
+
+    packagesExtend = preventBuildingKernelModules;
+  };
+
+  cachyos-eevdf = mkCachyKernel {
+    taste = "linux-cachyos-eevdf";
+    configPath = ./config-nix/cachyos-eevdf.x86_64-linux.nix;
+    cachyVars = eevdfVars;
+
+    versions = eevdfVersions;
+    withUpdateScript = "eevdf";
+
+    description = "Linux EEVDF scheduler + Cachy Sauce Kernel by CachyOS with other patches and improvements";
+
     packagesExtend = preventBuildingKernelModules;
   };
 
@@ -128,6 +179,8 @@ in
 
       versions = rcVersions;
       withUpdateScript = "rc";
+
+      description = "Linux Clang ThinLTO + Cachy Sauce Kernel by CachyOS with other patches and improvements - Release Candidate";
 
       packagesExtend = preventBuildingKernelModules;
     }
@@ -146,6 +199,19 @@ in
       packagesExtend = preventBuildingKernelModules;
     }
   );
+
+  cachyos-rt-bore = mkCachyKernel {
+    taste = "linux-cachyos-rt-bore";
+    configPath = ./config-nix/cachyos-rt-bore.x86_64-linux.nix;
+    cachyVars = rtBoreVars;
+
+    versions = rtBoreVersions;
+    withUpdateScript = "rt-bore";
+
+    description = "Linux BORE-RT + Cachy Sauce Kernel by CachyOS with other patches and improvements";
+
+    packagesExtend = preventBuildingKernelModules;
+  };
 
   cachyos-server = mkCachyKernel {
     taste = "linux-cachyos-server";
@@ -167,6 +233,8 @@ in
 
     versions = hardenedVersions;
     withUpdateScript = "hardened";
+
+    description = "Linux BORE scheduler and hardened Kernel by CachyOS with other patches and improvements";
 
     packagesExtend = preventBuildingKernelModules;
   };

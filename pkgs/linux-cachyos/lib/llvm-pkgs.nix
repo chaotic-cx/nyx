@@ -25,7 +25,9 @@ in
     inherit (bumpedFinal)
       llvmPackages
       rustc
+      rustc-unwrapped
       rust-bindgen
+      rust-bindgen-unwrapped
       rustPlatform
       ;
   }

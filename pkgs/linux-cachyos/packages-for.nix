@@ -11,9 +11,6 @@
   lib,
   buildPackages,
   llvmPackages,
-  rustc,
-  rust-bindgen,
-  rustPlatform,
   ogKernelConfigfile ? linuxPackages.kernel.passthru.configfile,
   withUpdateScript ? null,
   packagesExtend ? null,
@@ -84,6 +81,8 @@ let
   };
   linuxConfigTransfomed = import configPath;
 
+  inherit (preparedConfigfile.passthru) preparedMakeFlags;
+
   updaterScript =
     if withUpdateScript != null then
       inputs.final.callPackage ./update.nix { inherit (cachyConfig) withUpdateScript; }
@@ -111,7 +110,7 @@ let
           stdenv
           buildPackages
           ;
-        extraMakeFlags = if cachyConfig.useLTO == "none" then extraMakeFlags else [ ];
+        extraMakeFlags = if cachyConfig.useLTO == "none" then preparedMakeFlags ++ extraMakeFlags else [ ];
       };
 
   commonMakeFlags =
@@ -121,11 +120,7 @@ let
         (nyxUtils.replaceStartingWith "AR=" (lib.getExe' llvmPackages.llvm "llvm-ar"))
         (nyxUtils.replaceStartingWith "NM=" (lib.getExe' llvmPackages.llvm "llvm-nm"))
       ]
-      ++ [
-        "RUSTC=${lib.getExe' rustc "rustc"}"
-        "BINDGEN=${lib.getExe rust-bindgen}"
-        "RUST_LIB_SRC=${rustPlatform.rustLibSrc}"
-      ]
+      ++ preparedMakeFlags
       ++ extraMakeFlags
     else
       commonMakeFlagsBintools;
