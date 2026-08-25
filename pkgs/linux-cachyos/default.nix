@@ -56,6 +56,7 @@ let
         gnugrep
         gnused
         systemd
+        systemdMinimal
         smartmontools
         sysstat
         pkg-config
