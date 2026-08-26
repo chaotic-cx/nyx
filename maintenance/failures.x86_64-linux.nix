@@ -51,7 +51,6 @@
   "linuxPackages_cachyos.x86_energy_perf_policy" = "/nix/store/gw3yh5v4vda7ss6jpk4v5hzmx7qlnni6-x86_energy_perf_policy-x86_64-unknown-linux-gnu-7.2.0";
   "linuxPackages_cachyos.yt6801" = "/nix/store/9s5nv47ksa6z2ryfvr1jcjl99yi3nz32-yt6801-x86_64-unknown-linux-gnu-1.0.30-20250430";
   "linuxPackages_cachyos.zenpower" = "/nix/store/xpfy3zbj1x8id8sgm6pxq3s2i2qv3s0s-zenpower-x86_64-unknown-linux-gnu-0.2.0";
-  "linuxPackages_cachyos.zfs_cachyos" = "/nix/store/9046wj2ga0kqvlkh2hzl0bgh5pl08ikw-zfs-all-2.4.4-7.2.0-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos-gcc.ajantv2" = "/nix/store/zbk48y7kcybsjlyyrrhb1s7m5clfb6ma-17.5.0-17.5.0-7.2.0";
   "linuxPackages_cachyos-gcc.chipsec" = "/nix/store/1nqvfrbmgjx2wmp6a4yg3ygp6hwlwzy0-chipsec-1.13.20";
   "linuxPackages_cachyos-gcc.ddcci-driver" = "/nix/store/0nap2b7kji6fly8frkkpzi057pjfxmxd-ddcci-driver-7.2.0-0.4.5-unstable-2025-09-27";
