@@ -3,6 +3,11 @@ name: Bump flakes
 on:
   workflow_call:
   workflow_dispatch:
+    inputs:
+      include_vendors_bump:
+        description: "Include vendors bump"
+        type: boolean
+        default: true
   schedule:
     - cron: "0 0 * * *"
 
@@ -60,7 +65,11 @@ jobs:
             git commit -m "flakes/$f: $PREV_MODIFIED -> $NEW_MODIFIED" || echo 'Skipping commit'
           done
 
-          vendor/update.sh
+          if [[ "${INCLUDE_VENDORS:-true}" == "true" ]]; then
+            vendor/update.sh
+          else
+            echo "Skipping vendors bump."
+          fi
 
           # Check if a push is really necessary
           maintenance/scripts/remote-eq.sh "$BRANCH_NAME" "$OLD_COMMIT" || status=$?
@@ -93,3 +102,4 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.PAT_CHAOTIC }}
           GH_CI_TOKEN: ${{ github.token }}
+          INCLUDE_VENDORS: ${{ inputs.include_vendors_bump }}
