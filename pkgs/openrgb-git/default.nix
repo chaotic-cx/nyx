@@ -6,7 +6,6 @@
   libusb1,
   hidapi,
   pkg-config,
-  coreutils,
   mbedtls,
   symlinkJoin,
   callPackage,
@@ -44,11 +43,13 @@ stdenv.mkDerivation (finalAttrs: {
   ]);
 
   postPatch = ''
-    patchShebangs scripts/build-udev-rules.sh
-    substituteInPlace scripts/build-udev-rules.sh \
-      --replace-fail '/usr/bin/env chmod' "${coreutils}/bin/chmod"
     substituteInPlace OpenRGB.pro \
-      --replace-fail "lrelease" "${qt6Packages.qttools.dev}/bin/lrelease" \
+      --replace-fail "lrelease" "${qt6Packages.qttools.dev}/bin/lrelease"
+  '';
+
+  postInstall = ''
+    mkdir -p $out/lib/udev/rules.d
+    $out/bin/openrgb --generate-udev-rules $out/lib/udev/rules.d/60-openrgb.rules
   '';
 
   doInstallCheck = true;
