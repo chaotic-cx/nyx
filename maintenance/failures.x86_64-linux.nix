@@ -1,6 +1,4 @@
 {
-  "firefox-unwrapped_nightly" = "/nix/store/qfcgyyd9qrg1x5qfbmwdkpxy6swrjql0-firefox-nightly-unwrapped-156.0a1-20260825213824-2aa0bcf";
-  "firefox_nightly" = "/nix/store/d4bp97i2h77jrk51029mfzf99dwd8ynw-firefox-nightly-156.0a1-20260825213824-2aa0bcf";
   "linuxPackages_cachyos.ajantv2" = "/nix/store/j5ixdhb31d8pmri43nwb03x5s6n94bwz-17.5.0-17.5.0-7.2.2-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos.amdgpu-i2c" = "/nix/store/735x9hczmfdap9qnaw211klfsaki3b2c-amdgpu-i2c-x86_64-unknown-linux-gnu-0-unstable-2024-12-16";
   "linuxPackages_cachyos.bcachefs" = "/nix/store/x40j0gcv4i7s5dl098hrs93rfsxs24mk-bcachefs-x86_64-unknown-linux-gnu-7.2.2-1.39.2";
@@ -72,5 +70,4 @@
   "linuxPackages_cachyos-gcc.tsme-test" = "/nix/store/nfhrg160a8cl49qnkl5kgk4wiw0z1939-tsme-test-7.2.2-unstable-2026-02-09";
   "linuxPackages_cachyos-gcc.vmm_clock" = "/nix/store/izqdhf8qq13wf9lkalyj5dkrc3883nxg-vmm_clock-0.2.1";
   "linuxPackages_cachyos-gcc.yt6801" = "/nix/store/kky8y69anysqsymd9kr04fc1bapnw3bw-yt6801-1.0.30-20250430";
-  "nss_git" = "/nix/store/klhfvzmzsgm4m62a3pns7b7mkg5nqmh2-nss-unstable-20260827182751-7b5f00b";
 }
