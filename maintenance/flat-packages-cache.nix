@@ -62,6 +62,12 @@ legacyPackages: {
 
   x86_64-linux."linux_cachyos" = legacyPackages.x86_64-linux.linux_cachyos;
 
+  x86_64-linux."linux_cachyos-bmq" = legacyPackages.x86_64-linux.linux_cachyos-bmq;
+
+  x86_64-linux."linux_cachyos-bore" = legacyPackages.x86_64-linux.linux_cachyos-bore;
+
+  x86_64-linux."linux_cachyos-eevdf" = legacyPackages.x86_64-linux.linux_cachyos-eevdf;
+
   x86_64-linux."linux_cachyos-gcc" = legacyPackages.x86_64-linux.linux_cachyos-gcc;
 
   x86_64-linux."linux_cachyos-hardened" = legacyPackages.x86_64-linux.linux_cachyos-hardened;
@@ -73,6 +79,8 @@ legacyPackages: {
   x86_64-linux."linux_cachyos-lts" = legacyPackages.x86_64-linux.linux_cachyos-lts;
 
   x86_64-linux."linux_cachyos-rc" = legacyPackages.x86_64-linux.linux_cachyos-rc;
+
+  x86_64-linux."linux_cachyos-rt-bore" = legacyPackages.x86_64-linux.linux_cachyos-rt-bore;
 
   x86_64-linux."linux_cachyos-server" = legacyPackages.x86_64-linux.linux_cachyos-server;
 
@@ -100,6 +108,12 @@ legacyPackages: {
 
   x86_64-linux."nvidia_cachyos" = legacyPackages.x86_64-linux.nvidia_cachyos;
 
+  x86_64-linux."nvidia_cachyos-bmq" = legacyPackages.x86_64-linux.nvidia_cachyos-bmq;
+
+  x86_64-linux."nvidia_cachyos-bore" = legacyPackages.x86_64-linux.nvidia_cachyos-bore;
+
+  x86_64-linux."nvidia_cachyos-eevdf" = legacyPackages.x86_64-linux.nvidia_cachyos-eevdf;
+
   x86_64-linux."nvidia_cachyos-gcc" = legacyPackages.x86_64-linux.nvidia_cachyos-gcc;
 
   x86_64-linux."nvidia_cachyos-hardened" = legacyPackages.x86_64-linux.nvidia_cachyos-hardened;
@@ -109,6 +123,8 @@ legacyPackages: {
   x86_64-linux."nvidia_cachyos-lts" = legacyPackages.x86_64-linux.nvidia_cachyos-lts;
 
   x86_64-linux."nvidia_cachyos-rc" = legacyPackages.x86_64-linux.nvidia_cachyos-rc;
+
+  x86_64-linux."nvidia_cachyos-rt-bore" = legacyPackages.x86_64-linux.nvidia_cachyos-rt-bore;
 
   x86_64-linux."nvidia_cachyos-server" = legacyPackages.x86_64-linux.nvidia_cachyos-server;
 
