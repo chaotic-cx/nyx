@@ -20,7 +20,7 @@
   "linuxPackages_cachyos.mm-tools" = "/nix/store/3cwhzad8pb410z30956j32v0mjj7g5ms-mm-tools-x86_64-unknown-linux-gnu-6.18.48";
   "linuxPackages_cachyos.netatop" = "/nix/store/6zviqg3z4ig48pyaidhzhkhhg8rzn1v2-netatop-7.2.2-3.2.2-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos.nvidia_x11_beta_open" = "/nix/store/av41arcyijf58axcrdclb5zarddixy75-nvidia-open-x86_64-unknown-linux-gnu-595.45.04-7.2.2";
-  "linuxPackages_cachyos.nvidia_x11_production_open" = "/nix/store/zs8zr75v7iqsmvyk1mlvwrmgsfp5s9gi-nvidia-open-x86_64-unknown-linux-gnu-595.91.07-7.2.2";
+  "linuxPackages_cachyos.nvidia_x11_production_open" = "/nix/store/nng86bibmgr98czifjcvgl258aasx67x-nvidia-open-x86_64-unknown-linux-gnu-595.99.02-7.2.2";
   "linuxPackages_cachyos.nvidia_x11_vulkan_beta_open" = "/nix/store/j0lyfjzzfl8bl8i1gm6svifq9020y1bg-nvidia-open-x86_64-unknown-linux-gnu-595.44.09-7.2.2";
   "linuxPackages_cachyos.oci-seccomp-bpf-hook" = "/nix/store/manlfw4111yldvvf0b1nql58vjarm83x-oci-seccomp-bpf-hook-x86_64-unknown-linux-gnu-1.3.0";
   "linuxPackages_cachyos.odp-dpdk" = "/nix/store/nxjknx34973kgri82hzd1d77w4sp670v-odp-dpdk-x86_64-unknown-linux-gnu-1.51.0.0_DPDK_24.11";
