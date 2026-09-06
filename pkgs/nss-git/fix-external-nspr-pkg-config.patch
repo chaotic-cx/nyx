@@ -1,0 +1,17 @@
+diff --git a/build.sh b/build.sh
+--- a/build.sh
++++ b/build.sh
+@@ -306,8 +306,11 @@ generate_pkg_config()
+     vpatch=$(sed -n 's/^#define NSS_VPATCH \([0-9]*\).*/\1/p' "$nss_h")
+     [ -n "$vmajor" ] || return 0
+ 
+-    nspr_version=$(sed -n 's/^Version: *//p' \
+-        "$obj_dir/lib/pkgconfig/nspr.pc" 2>/dev/null)
++    nspr_version=
++    if [ -f "$obj_dir/lib/pkgconfig/nspr.pc" ]; then
++        nspr_version=$(sed -n 's/^Version: *//p' \
++            "$obj_dir/lib/pkgconfig/nspr.pc")
++    fi
+     : "${nspr_version:=4.32}"
+     mkdir -p "$obj_dir/lib/pkgconfig"
+     sed -e "s|%prefix%|$obj_dir|g" \
