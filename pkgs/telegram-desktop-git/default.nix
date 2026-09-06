@@ -37,6 +37,7 @@ gitOverride {
     buildInputs = prevAttrs.buildInputs ++ [
       final.tde2e_git
       final.minizip
+      final.pango
     ];
   };
 }
