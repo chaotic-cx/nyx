@@ -88,33 +88,36 @@ let
 
   replaceRustCbindgen = pkg: if isRustCbindgen pkg then rust-cbindgen_latest else pkg;
 
-  mach = buildMozillaMach {
-    pname = "firefox-nightly";
-    inherit
-      binaryName
-      updateScript
-      version
-      ;
-    applicationName = "Firefox Nightly";
-    requireSigning = false;
-    branding = "browser/branding/nightly";
-    src = firefoxSrc;
-    meta = {
-      description = "Web browser built from Firefox Nightly source tree";
-      homepage = "https://www.firefox.com/";
-      maintainers = with lib.maintainers; [
-        pedrohlc
-      ];
-      platforms = lib.platforms.unix;
-      broken = stdenv.buildPlatform.is32bit;
-      maxSilent = 14400;
-      license = lib.licenses.mpl20;
-      mainProgram = binaryName;
-      hydraPlatforms = [
-        "x86_64-linux"
-      ];
-    };
-  };
+  mach =
+    (buildMozillaMach {
+      pname = "firefox-nightly";
+      inherit
+        binaryName
+        updateScript
+        version
+        ;
+      applicationName = "Firefox Nightly";
+      branding = "browser/branding/nightly";
+      src = firefoxSrc;
+      meta = {
+        description = "Web browser built from Firefox Nightly source tree";
+        homepage = "https://www.firefox.com/";
+        maintainers = with lib.maintainers; [
+          pedrohlc
+        ];
+        platforms = lib.platforms.unix;
+        broken = stdenv.buildPlatform.is32bit;
+        maxSilent = 14400;
+        license = lib.licenses.mpl20;
+        mainProgram = binaryName;
+        hydraPlatforms = [
+          "x86_64-linux"
+        ];
+      };
+    }).override
+      {
+        enableAddonSigning = false;
+      };
 
   postOverride = prevAttrs: {
     patches = nyxUtils.removeByBaseNames removedPatches (prevAttrs.patches or [ ]) ++ addedPatches;
