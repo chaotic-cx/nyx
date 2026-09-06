@@ -9,7 +9,7 @@ buildGoModule {
     rev = "4c334118a1334f1616e7c8d24e974c6bbf872d84";
     hash = "sha256-nNeQOvn3sNd8C0lhmzR7ygKwwh6jmdE1vxawoTfMQR0=";
   };
-  vendorHash = "sha256-udnqbmV29B38TYcKL5/YOBDZfwaGhw52neo/vFL+jwg=";
+  vendorHash = "sha256-9/R3LTPzpmL8YEmwiCX1aAT6gNzdB10c4tXAzrnq5Zg=";
   subPackages = [ "cmd/distrobox" ];
 
   installPhase = ''
