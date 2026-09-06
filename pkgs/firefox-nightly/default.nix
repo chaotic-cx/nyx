@@ -4,38 +4,34 @@
   current ? importJSON ./manifest.json,
   buildMozillaMach,
   callPackage,
+  fetchFromGitHub,
   fetchNpmDeps,
-  fetchurl,
-  nodejs,
   npmHooks,
   nss_git,
   nyxUtils,
   python314,
   stdenv,
 
-  # Platform-specific:
-  apple-sdk_26,
-
   # Temporary fixes:
-  fetchFromGitHub,
   rust-cbindgen,
   rustPlatform,
 }:
 
 let
-  firefoxRepo = "mozilla-firefox/firefox";
-  firefoxSourceRepo = "https://github.com/${firefoxRepo}";
+  firefoxOwner = "mozilla-firefox";
+  firefoxRepo = "firefox";
+  firefoxSourceRepo = "https://github.com/${firefoxOwner}/${firefoxRepo}";
+  newtabPath = "browser/extensions/newtab";
   binaryName = "firefox-nightly";
   version = "${current.version}-${current.buildId}-${builtins.substring 0 7 current.rev}";
-  firefoxSrc = fetchurl {
-    inherit (current) hash;
-    url = "https://codeload.github.com/${firefoxRepo}/tar.gz/${current.rev}";
-    name = "firefox.tar.gz";
+  firefoxSrc = fetchFromGitHub {
+    inherit (current) hash rev;
+    owner = firefoxOwner;
+    repo = firefoxRepo;
   };
 
   newtabNpmDeps = fetchNpmDeps {
-    src = firefoxSrc;
-    sourceRoot = "firefox-${current.rev}/browser/extensions/newtab";
+    src = "${firefoxSrc}/${newtabPath}";
     hash = current.newtabNpmDepsHash;
   };
 
@@ -68,25 +64,12 @@ let
   removedPatches = [
     "133-env-var-for-system-dir.patch"
     "136-no-buildconfig.patch"
-    "139-wayland-drag-animation.patch"
-    "140-bindgen-string-view.patch"
-    "153-cbindgen-0.29.4-compat.patch"
   ];
 
   addedPatches = [
     ./env_var_for_system_dir-ff-unstable.patch
     ./no-buildconfig-ffx-unstable.patch
   ];
-
-  isRustCbindgen =
-    pkg:
-    (pkg.outPath or null) == (rust-cbindgen.outPath or null)
-    || lib.elem (pkg.pname or "") [
-      "rust-cbindgen"
-      "cbindgen"
-    ];
-
-  replaceRustCbindgen = pkg: if isRustCbindgen pkg then rust-cbindgen_latest else pkg;
 
   mach =
     (buildMozillaMach {
@@ -99,6 +82,41 @@ let
       applicationName = "Firefox Nightly";
       branding = "browser/branding/nightly";
       src = firefoxSrc;
+      extraPatches = addedPatches;
+      extraPostPatch = ''
+        (
+          readonly newtab_root="$PWD/${newtabPath}"
+
+          export npmDeps=${newtabNpmDeps}
+          export npmRoot="$newtab_root"
+
+          source ${npmHooks.npmConfigHook}/nix-support/setup-hook
+          npmConfigHook
+
+          ${lib.getExe python314} -c ${lib.escapeShellArg ''
+            import hashlib
+            import sys
+            from pathlib import Path
+
+            newtab_root = Path(sys.argv[1])
+            lockfile = newtab_root / "package-lock.json"
+            stamp = newtab_root / "node_modules" / ".newtab-install-stamp"
+
+            with lockfile.open("rb") as lockfile_stream:
+                digest = hashlib.file_digest(lockfile_stream, "sha256").digest()
+
+            stamp.write_bytes(digest)
+          ''} "$newtab_root"
+
+          test -f "$newtab_root/node_modules/webpack/bin/webpack.js"
+        )
+      '';
+
+      extraPassthru = {
+        inherit newtabNpmDeps;
+        rust-cbindgen = rust-cbindgen_latest;
+      };
+
       meta = {
         description = "Web browser built from Firefox Nightly source tree";
         homepage = "https://www.firefox.com/";
@@ -117,64 +135,24 @@ let
     }).override
       {
         enableAddonSigning = false;
+        nss_latest = nss_git;
+        rust-cbindgen = rust-cbindgen_latest;
       };
-
-  postOverride = prevAttrs: {
-    patches = nyxUtils.removeByBaseNames removedPatches (prevAttrs.patches or [ ]) ++ addedPatches;
-
-    env = (prevAttrs.env or { }) // {
-      MOZ_SOURCE_REPO = firefoxSourceRepo;
-      MOZ_SOURCE_CHANGESET = current.rev;
-      MOZ_INCLUDE_SOURCE_INFO = "1";
-    };
-
-    nativeBuildInputs = map replaceRustCbindgen (prevAttrs.nativeBuildInputs or [ ]) ++ [
-      nodejs
-    ];
-
-    buildInputs =
-      (prevAttrs.buildInputs or [ ]) ++ lib.optional stdenv.hostPlatform.isDarwin apple-sdk_26;
-
-    preBuild = (prevAttrs.preBuild or "") + ''
-      (
-        readonly newtab_root="''${MOZ_OBJDIR%/*}/browser/extensions/newtab"
-
-        export npmDeps=${newtabNpmDeps}
-        export npmRoot="$newtab_root"
-
-        source ${npmHooks.npmConfigHook}/nix-support/setup-hook
-        npmConfigHook
-
-        ${lib.getExe python314} -c ${lib.escapeShellArg ''
-          import hashlib
-          import sys
-          from pathlib import Path
-
-          newtab_root = Path(sys.argv[1])
-          lockfile = newtab_root / "package-lock.json"
-          stamp = newtab_root / "node_modules" / ".newtab-install-stamp"
-
-          with lockfile.open("rb") as lockfile_stream:
-              digest = hashlib.file_digest(lockfile_stream, "sha256").digest()
-
-          stamp.write_bytes(digest)
-        ''} "$newtab_root"
-
-        test -f "$newtab_root/node_modules/webpack/bin/webpack.js"
-      )
-    '';
-
-    passthru = (prevAttrs.passthru or { }) // {
-      inherit
-        newtabNpmDeps
-        updateScript
-        ;
-      rust-cbindgen = rust-cbindgen_latest;
-    };
-  };
-
-  newInputs = {
-    nss_latest = nss_git;
-  };
 in
-nyxUtils.multiOverride mach newInputs postOverride
+mach.overrideAttrs (prevAttrs: {
+  configureFlags = lib.filter (
+    flag:
+    !lib.elem flag [
+      "--disable-ffmpeg"
+      "--enable-ffmpeg"
+    ]
+  ) (prevAttrs.configureFlags or [ ]);
+
+  env = (prevAttrs.env or { }) // {
+    MOZ_SOURCE_REPO = firefoxSourceRepo;
+    MOZ_SOURCE_CHANGESET = current.rev;
+    MOZ_INCLUDE_SOURCE_INFO = "1";
+  };
+
+  patches = nyxUtils.removeByBaseNames removedPatches (prevAttrs.patches or [ ]);
+})
