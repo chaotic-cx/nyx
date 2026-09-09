@@ -361,7 +361,7 @@ in
     tarballSuffix = "-x86_64.tar.gz";
     toolPattern = "GE-Proton.*";
     releasePrefix = "GE-Proton";
-    releaseSuffix = "-x86_64";
+    releaseSuffix = "";
     manifestFilename = "ge-manifest.json";
     owner = "GloriousEggroll";
     repo = "proton-ge-custom";
