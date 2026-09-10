@@ -15,8 +15,8 @@ let
     domain = "gitlab.freedesktop.org";
     owner = "virgl";
     repo = "venus-protocol";
-    rev = "v1.1.2";
-    hash = "sha256-AQMuAnYI/LZutHqzERpkS4fs8vLfTNADZLFPFwBKVYE=";
+    rev = "v1.1.3";
+    hash = "sha256-epSb26uLAbHYBDr+ju6rzFu4ozD/LUpRuou6hA/BFRM=";
   };
 in
 gitOverride (current: {
