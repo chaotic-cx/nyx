@@ -29,25 +29,4 @@ jobs:
         env:
           NIKS3_TOKEN: ${{ secrets.NIKS3_TOKEN }}
       - name: Diff and save
-        run: |
-          set -euo pipefail
-
-          NIKS3=$(nix build .#niks3_nyx --no-link --print-out-paths)
-          export PATH="$PATH:$NIKS3/bin"
-
-          EXPECTED_PINS=$(nix build ./maintenance#chaotic-nyx.expected-pins --no-link --print-out-paths)
-          sort -u "$EXPECTED_PINS" > expected-pins.txt
-
-          niks3 pins list | awk 'NR > 1 {print $1}' | sort -u > actual-pins.txt
-
-          test -s expected-pins.txt && test -s actual-pins.txt || { echo "Pins list empty, aborting." >&2; exit 2; }
-
-          comm -13 expected-pins.txt actual-pins.txt | tee orphan-pins.txt
-
-          ORPHAN_PINS_SIZE=$(wc -c < orphan-pins.txt)
-          if (( ORPHAN_PINS_SIZE < $(wc -c < actual-pins.txt) && ORPHAN_PINS_SIZE < $(wc -c < expected-pins.txt) )); then
-            xargs -r -n 1 niks3 pins delete < orphan-pins.txt
-          else
-            echo "Trying to delete all pins or something which are not pins" >&2
-            exit 1
-          fi
+        run: bash ../../maintenance/scripts/clear-pins.sh

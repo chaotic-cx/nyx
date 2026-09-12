@@ -187,6 +187,8 @@ legacyPackages: {
 
   x86_64-linux."tg-owt_git" = legacyPackages.x86_64-linux.tg-owt_git;
 
+  x86_64-linux."tlottie_git" = legacyPackages.x86_64-linux.tlottie_git;
+
   x86_64-linux."vulkanPackages_latest.gfxreconstruct" =
     legacyPackages.x86_64-linux.vulkanPackages_latest.gfxreconstruct;
 
