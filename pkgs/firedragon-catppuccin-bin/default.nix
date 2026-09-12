@@ -109,7 +109,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   meta = {
-    changelog = "https://gitlab.com/garuda-linux/firedragon/firedragon12/-/blob/main/CHANGELOG.md";
+    changelog = "https://gitlab.com/garuda-linux/firedragon/firedragon13/-/blob/main/CHANGELOG.md";
     description = "Floorp fork with custom branding and opinionated defaults, Catppuccin variant";
     homepage = "https://firedragon.garudalinux.org/";
     license = with lib.licenses; [
