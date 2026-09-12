@@ -177,6 +177,8 @@ in
     overrideDescription (old: old + " (without applets' symlinks)")
   );
 
+  colmena_git = callOverride ../pkgs/colmena-git { };
+
   cutty_git = callOverride ../pkgs/cutty-git { };
 
   discord-krisp = callOverride ../pkgs/discord-krisp { };
