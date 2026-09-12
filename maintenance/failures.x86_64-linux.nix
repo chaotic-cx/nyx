@@ -1,4 +1,6 @@
 {
+  "firefox-unwrapped_nightly" = "/nix/store/bpcsl760sgzfr699g24hmcd029x9fjp3-firefox-nightly-unwrapped-158.0a1-20260911201051-b14ad10";
+  "firefox_nightly" = "/nix/store/s2ilm23f0f61xivk6rcasgpxyzk6hj1i-firefox-nightly-158.0a1-20260911201051-b14ad10";
   "linuxPackages_cachyos.ajantv2" = "/nix/store/zx2vbr2fazgwv7xyvj6nzrsjg5k90nbg-17.5.0-17.5.0-7.2.4-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos.amdgpu-i2c" = "/nix/store/0w4raxypim75brp3k2mmyd7kjslmdx5g-amdgpu-i2c-x86_64-unknown-linux-gnu-0-unstable-2024-12-16";
   "linuxPackages_cachyos.bcachefs" = "/nix/store/l8b6v1yaqyv8f0k5n984ylnllz96ijdn-bcachefs-x86_64-unknown-linux-gnu-7.2.4-1.39.4";
@@ -68,6 +70,4 @@
   "linuxPackages_cachyos-gcc.vmm_clock" = "/nix/store/frg8bma3rb3qf3ir0b27rhjzjyjx1lny-vmm_clock-0.2.1";
   "linuxPackages_cachyos-gcc.yt6801" = "/nix/store/6fqaw5jfnjayxyi0si0j252w00y6wff2-yt6801-1.0.30-20250430";
   "linux_cachyos-rc" = "/nix/store/7qjp0gzdjndklacr7xjhdjcvaax0pcka-linux-x86_64-unknown-linux-gnu-7.3-rc2";
-  "telegram-desktop-unwrapped_git" = "/nix/store/867syf1iiidl8qcs8ml9lwx4fm71gfcq-telegram-desktop-unwrapped-unstable-20260909070957-efb596a";
-  "telegram-desktop_git" = "/nix/store/nllpyv9jxpl3kicqfzc4f8l20s3c7430-telegram-desktop-unstable-20260909070957-efb596a";
 }
