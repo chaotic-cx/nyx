@@ -145,6 +145,9 @@ mach.overrideAttrs (prevAttrs: {
     !lib.elem flag [
       "--disable-ffmpeg"
       "--enable-ffmpeg"
+
+      # Temporarily use bundled nss since --with-system-nss is broken as of 2026/09/13
+      "--with-system-nss"
     ]
   ) (prevAttrs.configureFlags or [ ]);
 
