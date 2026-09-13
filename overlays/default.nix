@@ -274,6 +274,8 @@ in
   mesa_git = callOverride ../pkgs/mesa-git { };
   mesa32_git = if has32 then callOverride32 ../pkgs/mesa-git { } else markBroken final.mesa_git;
 
+  mokka-kde-theme = final.callPackage ../pkgs/mokka-kde-theme { };
+
   # Pinned to the version on our server
   niks3_nyx = niks3.packages.${system}.niks3;
 
