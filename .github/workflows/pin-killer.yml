@@ -29,4 +29,4 @@ jobs:
         env:
           NIKS3_TOKEN: ${{ secrets.NIKS3_TOKEN }}
       - name: Diff and save
-        run: bash ../../maintenance/scripts/clear-pins.sh
+        run: bash ../../maintenance/scripts/clear-pins.sh --no-dry-run

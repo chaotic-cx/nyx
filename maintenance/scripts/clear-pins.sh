@@ -20,7 +20,11 @@ comm -13 tmp/expected-pins.txt tmp/actual-pins.txt | tee tmp/orphan-pins.txt
 
 ORPHAN_PINS_SIZE=$(wc -c <tmp/orphan-pins.txt)
 if ((ORPHAN_PINS_SIZE < $(wc -c <tmp/actual-pins.txt) && ORPHAN_PINS_SIZE < $(wc -c <tmp/expected-pins.txt))); then
-  xargs -r -n 1 niks3 pins delete <tmp/orphan-pins.txt
+  if [[ "$*" != '--no-dry-run' ]]; then
+    xargs -r -n 1 niks3 pins delete <tmp/orphan-pins.txt
+  else
+    echo 'Run: xargs -r -n 1 niks3 pins delete <tmp/orphan-pins.txt'
+  fi
 else
   echo "Trying to delete all pins or something which are not pins" >&2
   exit 1
