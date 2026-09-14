@@ -2,8 +2,7 @@
   description = "Nix flake for \"too much bleeding-edge\" and unreleased packages (e.g., mesa_git, linux_cachyos, firefox_nightly, sway_git, gamescope_git). And experimental modules (e.g., HDR, duckdns).";
 
   inputs = {
-    # For all users
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.zst";
     # Used by "homeManagerModules" (for HM users)
     home-manager = {
       url = "github:nix-community/home-manager";
