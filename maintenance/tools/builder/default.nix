@@ -48,9 +48,7 @@ let
   cmdMap =
     cmd:
     let
-      depsCond = lib.strings.concatStrings (
-        builtins.map (dep: "[ ${depVarQuoted dep} == '1' ] && ") cmd.deps
-      );
+      depsCond = lib.strings.concatStrings (map (dep: "[ ${depVarQuoted dep} == '1' ] && ") cmd.deps);
       thisVar = depVar cmd.this;
       knownIssue = cmd.issue or null;
     in
