@@ -127,14 +127,14 @@ let
           pkg:
           if (pkg.passthru.updateScript or null) != null then
             pkg.overrideAttrs (prev: {
-              passthru = builtins.removeAttrs prev.passthru [ "updateScript" ];
+              passthru = removeAttrs prev.passthru [ "updateScript" ];
             })
           else
             pkg;
         # Remove updateScript from all jovian-chaotic packages (they use nix-update incorrectly)
         jovianWithoutUpdateScript = builtins.mapAttrs (_k: removeUpdateScript) base;
       in
-      (builtins.removeAttrs jovianWithoutUpdateScript [ "jovian-documentation" ])
+      (removeAttrs jovianWithoutUpdateScript [ "jovian-documentation" ])
       // {
         linuxPackages_jovian = jovianWithoutUpdateScript.linuxPackages_jovian // {
           recurseForDerivations = false;
@@ -327,7 +327,7 @@ in
 
   pkgsAMD64Microarchs =
     builtins.mapAttrs (arch: _inferiors: makeMicroarchPkgs "x86_64" arch) (
-      builtins.removeAttrs final.lib.systems.architectures.inferiors [
+      removeAttrs final.lib.systems.architectures.inferiors [
         "default"
         "armv5te"
         "armv6"

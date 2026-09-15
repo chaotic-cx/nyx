@@ -75,7 +75,6 @@ let
 
   # There are some configurations set by the PKGBUILD
   pkgbuildConfig =
-    with cachyConfig;
     basicCachyConfig
     ++ mArchConfig
     ++ cpuSchedConfig
