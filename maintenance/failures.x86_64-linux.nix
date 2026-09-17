@@ -7,7 +7,7 @@
   "linuxPackages_cachyos.chipsec" = "/nix/store/s0aqzn2zfdlkwyb14fd1f7bam0i1wy3n-chipsec-1.13.20-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos.corefreq" = "/nix/store/v13g6214fz0x4j7qm3xl3v77lym2m2yh-corefreq-x86_64-unknown-linux-gnu-2.1.2";
   "linuxPackages_cachyos.dpdk" = "/nix/store/m5hdlzxkwwlj04c9dsm3q26drcrm0dzc-dpdk-x86_64-unknown-linux-gnu-26.03";
-  "linuxPackages_cachyos.ecapture" = "/nix/store/br72pq0xr90wigq3milbh5w6g8xhnlrv-ecapture-x86_64-unknown-linux-gnu-1.5.2";
+  "linuxPackages_cachyos.ecapture" = "/nix/store/g8fvg2lhki31sy5ys370c6a8p5kdj8lh-ecapture-x86_64-unknown-linux-gnu-1.5.2";
   "linuxPackages_cachyos.ethercat" = "/nix/store/cz4qnflpxrip7nhagjk97krwh6qk94id-ethercat-x86_64-unknown-linux-gnu-7.2.6-1.6.10";
   "linuxPackages_cachyos.facetimehd" = "/nix/store/glz4ar1dqfag3z44wfvi34zf59a5xf9d-facetimehd-0.7.0.2-7.2.6-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos.gasket" = "/nix/store/hqs02bhkbj4f4gb3mbxvc91n7vgvr0hk-gasket-x86_64-unknown-linux-gnu-1.0-18-unstable-2024-04-25";
@@ -49,7 +49,7 @@
   "linuxPackages_cachyos.zenpower" = "/nix/store/ncjkzynfds7858bs7x7jwa1nqpy7agi0-zenpower5-x86_64-unknown-linux-gnu-0.5.0-unstable-2026-01-07";
   "linuxPackages_cachyos-gcc.ajantv2" = "/nix/store/n5cizrm6vx74wps9q34qkhs0jmz7n97v-17.5.0-17.5.0-7.2.6";
   "linuxPackages_cachyos-gcc.chipsec" = "/nix/store/rdxil397hx0s0ja0mb27wk79ppfs4nl7-chipsec-1.13.20";
-  "linuxPackages_cachyos-gcc.ecapture" = "/nix/store/a6rka6c6nvz541acc5zkbm5smq6xmdz7-ecapture-1.5.2";
+  "linuxPackages_cachyos-gcc.ecapture" = "/nix/store/r0pvvf7jqksjb45k24m8587v5wcx5f55-ecapture-1.5.2";
   "linuxPackages_cachyos-gcc.ethercat" = "/nix/store/5zc6lvmf27kbq1f4qfxc93sfwan5b7v4-ethercat-7.2.6-1.6.10";
   "linuxPackages_cachyos-gcc.facetimehd" = "/nix/store/9d19fjjy7xmp2pgnyqqg6bmv29q9ivl3-facetimehd-0.7.0.2-7.2.6";
   "linuxPackages_cachyos-gcc.gasket" = "/nix/store/bc3cmk25pbxy547ji35739ajhflzhxb3-gasket-1.0-18-unstable-2024-04-25";
@@ -68,4 +68,5 @@
   "linuxPackages_cachyos-gcc.vmm_clock" = "/nix/store/ssai0p0j2r9a2v67cdzz9h6vrsj6s806-vmm_clock-0.2.1";
   "linuxPackages_cachyos-gcc.yt6801" = "/nix/store/x77sw27z8aga85qfdbknx0gd9w3q0z02-yt6801-1.0.30-20250430";
   "linux_cachyos-rc" = "/nix/store/bkymckbw3fbfbjfqw0nh4y997r4rx2mq-linux-x86_64-unknown-linux-gnu-7.3-rc2";
+  "mangohud32_git" = "/nix/store/a56ahgbnyq3f06f976kiv2b7jfx99vg1-mangohud-unstable-20260912100906-1319124";
 }
