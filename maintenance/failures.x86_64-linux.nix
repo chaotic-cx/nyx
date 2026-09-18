@@ -68,5 +68,5 @@
   "linuxPackages_cachyos-gcc.vmm_clock" = "/nix/store/ssai0p0j2r9a2v67cdzz9h6vrsj6s806-vmm_clock-0.2.1";
   "linuxPackages_cachyos-gcc.yt6801" = "/nix/store/x77sw27z8aga85qfdbknx0gd9w3q0z02-yt6801-1.0.30-20250430";
   "linux_cachyos-rc" = "/nix/store/bkymckbw3fbfbjfqw0nh4y997r4rx2mq-linux-x86_64-unknown-linux-gnu-7.3-rc2";
-  "mangohud32_git" = "/nix/store/a56ahgbnyq3f06f976kiv2b7jfx99vg1-mangohud-unstable-20260912100906-1319124";
+  "mangohud32_git" = "/nix/store/k2ayqwnyvlm3j41mlxdd3nkkkyvzqjpc-mangohud-unstable-20260916141354-73931de";
 }
