@@ -3,7 +3,7 @@
   "linuxPackages_cachyos.amdgpu-i2c" = "/nix/store/hpiscrv637cqs5rdmvjiziivnrv0szp3-amdgpu-i2c-x86_64-unknown-linux-gnu-0-unstable-2024-12-16";
   "linuxPackages_cachyos.bcachefs" = "/nix/store/p97dxkxgkq44yvnajpcgivcpicf9276j-bcachefs-x86_64-unknown-linux-gnu-7.2.6-1.39.6";
   "linuxPackages_cachyos.bcc" = "/nix/store/cfr8iqvvj6kavmxl588cvnks6lj5dqbw-bcc-0.37.0-x86_64-unknown-linux-gnu";
-  "linuxPackages_cachyos.bpftrace" = "/nix/store/g94lbbyliw62wp7j73g3j7yvv0v9l1mi-bpftrace-x86_64-unknown-linux-gnu-0.26.1";
+  "linuxPackages_cachyos.bpftrace" = "/nix/store/jxss7pmkhvg5gg9m9cywnslyqji5fzjf-bpftrace-x86_64-unknown-linux-gnu-0.27.0";
   "linuxPackages_cachyos.chipsec" = "/nix/store/s0aqzn2zfdlkwyb14fd1f7bam0i1wy3n-chipsec-1.13.20-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos.corefreq" = "/nix/store/v13g6214fz0x4j7qm3xl3v77lym2m2yh-corefreq-x86_64-unknown-linux-gnu-2.1.2";
   "linuxPackages_cachyos.dpdk" = "/nix/store/m5hdlzxkwwlj04c9dsm3q26drcrm0dzc-dpdk-x86_64-unknown-linux-gnu-26.03";
@@ -41,7 +41,7 @@
   "linuxPackages_cachyos.tuxedo-drivers" = "/nix/store/rdy7bms2zzhp98nxkfjfqp21j28f4622-tuxedo-drivers-7.2.6-x86_64-unknown-linux-gnu-4.20.1";
   "linuxPackages_cachyos.usbip" = "/nix/store/y646rdfbz39aaddqrf6daaccasng0ndy-usbip-linux-x86_64-unknown-linux-gnu-7.2.6";
   "linuxPackages_cachyos.v86d" = "/nix/store/58g3habqi2fkvg8a975kb3z84202ia32-v86d-x86_64-unknown-linux-gnu-0.1.10-7.2.6";
-  "linuxPackages_cachyos.virtualboxGuestAdditions" = "/nix/store/9wsimvbw5zvjj30d8vj9pfv4whh3j35f-VirtualBox-GuestAdditions-x86_64-unknown-linux-gnu-7.2.16-7.2.6";
+  "linuxPackages_cachyos.virtualboxGuestAdditions" = "/nix/store/fk7fzm3cxnjd7a0ypn5555js26y55qa0-VirtualBox-GuestAdditions-x86_64-unknown-linux-gnu-7.2.18-7.2.6";
   "linuxPackages_cachyos.vmm_clock" = "/nix/store/0k36nybxvq3w502dfkjgqmsmvi3iyybv-vmm_clock-x86_64-unknown-linux-gnu-0.2.1";
   "linuxPackages_cachyos.vmware" = "/nix/store/l8w75byk2rs6asjgrv6vprc1pn99kd1s-vmware-modules-x86_64-unknown-linux-gnu-workstation-25h2-20251015-7.2.6";
   "linuxPackages_cachyos.x86_energy_perf_policy" = "/nix/store/jg0hvcjbbmvkvg6wa33f03bfz760jf8x-x86_energy_perf_policy-x86_64-unknown-linux-gnu-7.2.6";
@@ -68,5 +68,5 @@
   "linuxPackages_cachyos-gcc.vmm_clock" = "/nix/store/ssai0p0j2r9a2v67cdzz9h6vrsj6s806-vmm_clock-0.2.1";
   "linuxPackages_cachyos-gcc.yt6801" = "/nix/store/x77sw27z8aga85qfdbknx0gd9w3q0z02-yt6801-1.0.30-20250430";
   "linux_cachyos-rc" = "/nix/store/bkymckbw3fbfbjfqw0nh4y997r4rx2mq-linux-x86_64-unknown-linux-gnu-7.3-rc2";
-  "mangohud32_git" = "/nix/store/a56ahgbnyq3f06f976kiv2b7jfx99vg1-mangohud-unstable-20260912100906-1319124";
+  "mangohud32_git" = "/nix/store/k2ayqwnyvlm3j41mlxdd3nkkkyvzqjpc-mangohud-unstable-20260916141354-73931de";
 }
