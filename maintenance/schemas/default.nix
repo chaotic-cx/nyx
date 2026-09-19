@@ -45,7 +45,7 @@
     inventory = output: {
       children = builtins.mapAttrs (_name: _value: {
         what = "function";
-      }) (builtins.removeAttrs output [ "_description" ]);
+      }) (removeAttrs output [ "_description" ]);
     };
   };
   vendored = {

@@ -15,7 +15,7 @@ let
   );
   languagesFile = if evil then "languages-evil.json" else "languages.json";
 
-  languages = builtins.map (
+  languages = map (
     source:
     let
       # The fetcher logic was moved here from the old grammar-artifact.nix
@@ -55,7 +55,7 @@ let
     }@source:
     "ln -s ${grammarArtifact source}/parser $out/${name}.so";
 
-  grammarLinks = builtins.map grammarLink languages;
+  grammarLinks = map grammarLink languages;
 
   grammars = final.runCommand "consolidated-helix-grammars" { } ''
     mkdir -p $out
@@ -141,7 +141,7 @@ gitOverride (current: {
 
   extraPassthru = {
     grammars = builtins.listToAttrs (
-      builtins.map (source: {
+      map (source: {
         inherit (source) name;
         value = grammarArtifact source;
       }) languages
