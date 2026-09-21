@@ -45,12 +45,12 @@ stdenvNoCC.mkDerivation {
   };
 
   buildCommand = ''
-    mkdir -p $out/bin
-    tar -C $out/bin --strip=1 -x -f ${intake.input}
+    mkdir -p $out
+    tar -C $out --strip=1 -x -f ${intake.input}
   ''
   # Allow to keep the same name between updates
   + lib.strings.optionalString (toolTitle != null) ''
-    sed -i -r 's|"${toolPattern}"|"${toolTitle}"|' $out/bin/compatibilitytool.vdf
+    sed -i -r 's|"${toolPattern}"|"${toolTitle}"|' $out/compatibilitytool.vdf
   '';
 
   passthru =
