@@ -15,7 +15,7 @@
   "linuxPackages_cachyos.linux-gpib" = "/nix/store/4qc346id9jbl0cd11hmfqsvljppn49g5-linux-gpib-kernel-x86_64-unknown-linux-gnu-4.3.7";
   "linuxPackages_cachyos.lttng-modules" = "/nix/store/acazdim37xrw99swd1n7wgzd6jvjsc27-lttng-modules-7.2.6-x86_64-unknown-linux-gnu-2.14.3";
   "linuxPackages_cachyos.mbp2018-bridge-drv" = "/nix/store/49gwpajp7nqfv32n33rj8wadd6j2b8qi-mbp2018-bridge-drv-x86_64-unknown-linux-gnu-2020-01-31";
-  "linuxPackages_cachyos.mm-tools" = "/nix/store/icjnk65ps9vi22qa1whkzqqifhlpddkc-mm-tools-x86_64-unknown-linux-gnu-6.18.52";
+  "linuxPackages_cachyos.mm-tools" = "/nix/store/xyibxr98xz8mbjghrz5v72psf52q7ljz-mm-tools-x86_64-unknown-linux-gnu-6.18.53";
   "linuxPackages_cachyos.netatop" = "/nix/store/gfnywrf697a13jpyh03pz350yrmpcyir-netatop-7.2.6-3.2.2-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos.nvidia_x11_beta_open" = "/nix/store/khqapi2az5v0lbzkk9myi3qmvkd5p8xk-nvidia-open-x86_64-unknown-linux-gnu-595.45.04-7.2.6";
   "linuxPackages_cachyos.nvidia_x11_production_open" = "/nix/store/7w8f2rnlrcvfxw69rvz4753p9rcph6jl-nvidia-open-x86_64-unknown-linux-gnu-595.99.02-7.2.6";
