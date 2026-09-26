@@ -39,8 +39,8 @@ in
 
   kernelPatches =
     kernelPatches
-    ++ builtins.map (filename: {
-      name = builtins.baseNameOf filename;
+    ++ map (filename: {
+      name = baseNameOf filename;
       patch = filename;
     }) configfile.passthru.kernelPatches;
 
