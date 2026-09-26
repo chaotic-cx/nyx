@@ -18,7 +18,7 @@
   "linuxPackages_cachyos.mm-tools" = "/nix/store/xyibxr98xz8mbjghrz5v72psf52q7ljz-mm-tools-x86_64-unknown-linux-gnu-6.18.53";
   "linuxPackages_cachyos.netatop" = "/nix/store/l75hg702xv7bsfcd64dd7fjy3g1hzi06-netatop-7.2.7-3.2.2-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos.nvidia_x11_beta_open" = "/nix/store/szy4zy7scrj0f2x94hx8dzm9yvr3r1wf-nvidia-open-x86_64-unknown-linux-gnu-595.45.04-7.2.7";
-  "linuxPackages_cachyos.nvidia_x11_production_open" = "/nix/store/acqssc8p8vnpn693l7znb640bn726vw9-nvidia-open-x86_64-unknown-linux-gnu-595.99.02-7.2.7";
+  "linuxPackages_cachyos.nvidia_x11_production_open" = "/nix/store/lamamr8m70wqkq2bgqzl04vgg7s1v0a0-nvidia-open-x86_64-unknown-linux-gnu-595.104.02-7.2.7";
   "linuxPackages_cachyos.nvidia_x11_vulkan_beta_open" = "/nix/store/wdmjrjp2dj5hw8d79lgh5qdmg2d53jjf-nvidia-open-x86_64-unknown-linux-gnu-595.44.09-7.2.7";
   "linuxPackages_cachyos.oci-seccomp-bpf-hook" = "/nix/store/shnyjwyj1p6mml6laybsljhdq09mdvw5-oci-seccomp-bpf-hook-x86_64-unknown-linux-gnu-1.3.0";
   "linuxPackages_cachyos.odp-dpdk" = "/nix/store/9a2maq0y7cpr4s3msk7934m04yh1nf7c-odp-dpdk-x86_64-unknown-linux-gnu-1.51.0.0_DPDK_24.11";
@@ -41,7 +41,7 @@
   "linuxPackages_cachyos.tuxedo-drivers" = "/nix/store/mnpfswi6vl6wly0lcx519k214wsg9am5-tuxedo-drivers-7.2.7-x86_64-unknown-linux-gnu-4.20.1";
   "linuxPackages_cachyos.usbip" = "/nix/store/rlgk6pjds692hm5d05gp4lsv9js3slad-usbip-linux-x86_64-unknown-linux-gnu-7.2.7";
   "linuxPackages_cachyos.v86d" = "/nix/store/y6sx530cm83kidq2bwhhzvjyzx64vnjj-v86d-x86_64-unknown-linux-gnu-0.1.10-7.2.7";
-  "linuxPackages_cachyos.virtualboxGuestAdditions" = "/nix/store/b4iss7mj1ac6ibsfp0xxxf16s3v6zyg7-VirtualBox-GuestAdditions-x86_64-unknown-linux-gnu-7.2.18-7.2.7";
+  "linuxPackages_cachyos.virtualboxGuestAdditions" = "/nix/store/knpnd3pnpwn2x86xsmqm32l3dwqqjqg4-VirtualBox-GuestAdditions-x86_64-unknown-linux-gnu-7.2.18-7.2.7";
   "linuxPackages_cachyos.vmm_clock" = "/nix/store/qcdzhgjk5dzgg9wav8h4m8ax0x5ndrn0-vmm_clock-x86_64-unknown-linux-gnu-0.2.1";
   "linuxPackages_cachyos.vmware" = "/nix/store/0yz0k2pxg76sfg7im7nsi7y6v9q0gnfh-vmware-modules-x86_64-unknown-linux-gnu-workstation-25h2-20251015-7.2.7";
   "linuxPackages_cachyos.x86_energy_perf_policy" = "/nix/store/8svmpiip74196yx3110771b0xl1vp1rs-x86_energy_perf_policy-x86_64-unknown-linux-gnu-7.2.7";
