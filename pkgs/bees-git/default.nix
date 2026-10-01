@@ -13,4 +13,8 @@ gitOverride (_current: {
     repo = "bees";
   };
   ref = "master";
+
+  postOverride = _prevAttrs: {
+    patches = [ ];
+  };
 })

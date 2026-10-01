@@ -1,9 +1,5 @@
 {
-  "bees_git" = "/nix/store/7avqwjqd0f7nz5ajmfgqwghc6m8jkjr2-bees-unstable-20260503221818-2d53565";
   "evil-helix_git" = "/nix/store/3vyirfjd35csmcwihmqgkqxrm36vkmvl-helix-unwrapped-unstable-20260831150816-50bf201";
-  "gamescope-wsi32_git" = "/nix/store/b9hxl51wbb8xn8kyf8ivsbb1pacqmgqx-gamescope-unstable-20260930225928-0e590c7";
-  "gamescope-wsi_git" = "/nix/store/rjki997snz5zzz1lc1h1sa0rly3apj6g-gamescope-unstable-20260930225928-0e590c7";
-  "gamescope_git" = "/nix/store/d1ywwrx7sfbi8wg5mqcdkr09w3aqzgg5-gamescope-unstable-20260930225928-0e590c7";
   "helix_git" = "/nix/store/qvhlcf3qz0kvqlc2kwsd6v5hhg8p4mns-helix-unwrapped-unstable-20260723160337-079a789";
   "jovian-chaotic.opensd" = "/nix/store/44269s5060qin4c0alq4fmx1h7wr0962-opensd-0.52";
   "linuxPackages_cachyos.ajantv2" = "/nix/store/19h4hgl0nnh40hzc80b757cf1n2wkn99-17.5.0-17.5.0-7.2.8-x86_64-unknown-linux-gnu";
