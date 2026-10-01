@@ -1,6 +1,4 @@
 {
-  "evil-helix_git" = "/nix/store/3vyirfjd35csmcwihmqgkqxrm36vkmvl-helix-unwrapped-unstable-20260831150816-50bf201";
-  "helix_git" = "/nix/store/qvhlcf3qz0kvqlc2kwsd6v5hhg8p4mns-helix-unwrapped-unstable-20260723160337-079a789";
   "jovian-chaotic.opensd" = "/nix/store/44269s5060qin4c0alq4fmx1h7wr0962-opensd-0.52";
   "linuxPackages_cachyos.ajantv2" = "/nix/store/19h4hgl0nnh40hzc80b757cf1n2wkn99-17.5.0-17.5.0-7.2.8-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos.amdgpu-i2c" = "/nix/store/bziwwavz9izlpwm1vk5zlrhzry2cf724-amdgpu-i2c-x86_64-unknown-linux-gnu-0-unstable-2024-12-16";
