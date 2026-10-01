@@ -1,5 +1,6 @@
---- a/grammars.nix	2026-03-15 06:12:00.543589655 +0800
-+++ b/grammars.nix	2026-03-15 06:27:18.842871829 +0800
+diff '--color=auto' -u a/grammars.nix b/grammars.nix
+--- a/grammars.nix	2026-10-01 17:03:08.797301696 -0300
++++ b/grammars.nix	2026-10-01 17:07:25.763041620 -0300
 @@ -19,9 +19,6 @@
      owner = builtins.elemAt match 0;
      repo = builtins.elemAt match 1;
@@ -48,125 +49,25 @@
      sourceGit = builtins.fetchTree {
        type = "git";
        url = grammar.source.git;
-@@ -49,61 +75,62 @@
-       if isGitHubGrammar grammar
-       then sourceGitHub
-       else sourceGit;
--  in
--    stdenv.mkDerivation {
--      # see https://github.com/NixOS/nixpkgs/blob/fbdd1a7c0bc29af5325e0d7dd70e804a972eb465/pkgs/development/tools/parsing/tree-sitter/grammar.nix
--
--      pname = "helix-tree-sitter-${grammar.name}";
--      version = grammar.source.rev;
--
--      src = source;
--      sourceRoot =
+@@ -58,7 +84,7 @@
+ 
+       src = source;
+       sourceRoot =
 -        if builtins.hasAttr "subpath" grammar.source
--        then "source/${grammar.source.subpath}"
--        else "source";
--
--      dontConfigure = true;
--
--      FLAGS = [
--        "-Isrc"
--        "-g"
--        "-O3"
--        "-fPIC"
--        "-fno-exceptions"
--        "-Wl,-z,relro,-z,now"
--      ];
--
--      SHARED_LIB = grammar.name + stdenv.hostPlatform.extensions.sharedLibrary;
--
--      buildPhase = ''
--        runHook preBuild
--
--        if [[ -e src/scanner.cc ]]; then
--          $CXX -c src/scanner.cc -o scanner.o $FLAGS
--        elif [[ -e src/scanner.c ]]; then
--          $CC -c src/scanner.c -o scanner.o $FLAGS
--        fi
--
--        $CC -c src/parser.c -o parser.o $FLAGS
--        $CXX -shared -o $SHARED_LIB *.o
--
--        runHook postBuild
--      '';
--
--      installPhase = ''
--        runHook preInstall
--        mkdir $out
--        mv $SHARED_LIB $out/
--        runHook postInstall
--      '';
--
--      # Strip failed on darwin: strip: error: symbols referenced by indirect symbol table entries that can't be stripped
--      fixupPhase = lib.optionalString stdenv.isLinux ''
--        runHook preFixup
--        $STRIP $out/$SHARED_LIB
--        runHook postFixup
--      '';
--    };
-+  in stdenv.mkDerivation {
-+    # see https://github.com/NixOS/nixpkgs/blob/fbdd1a7c0bc29af5325e0d7dd70e804a972eb465/pkgs/development/tools/parsing/tree-sitter/grammar.nix
++        if hasSubpath
+         then "source/${grammar.source.subpath}"
+         else "source";
+ 
+@@ -103,6 +129,8 @@
+         $STRIP $out/$SHARED_LIB
+         runHook postFixup
+       '';
 +
-+    pname = "helix-tree-sitter-${grammar.name}";
-+    version = grammar.source.rev;
-+
-+    src = source;
-+    sourceRoot =
-+      if hasSubpath
-+      then "source/${grammar.source.subpath}"
-+      else "source";
-+
-+    dontConfigure = true;
-+
-+    FLAGS = [
-+      "-Isrc"
-+      "-g"
-+      "-O3"
-+      "-fPIC"
-+      "-fno-exceptions"
-+      "-Wl,-z,relro,-z,now"
-+    ];
-+
-+    SHARED_LIB = grammar.name + stdenv.hostPlatform.extensions.sharedLibrary;
-+
-+    buildPhase = ''
-+      runHook preBuild
-+
-+      if [[ -e src/scanner.cc ]]; then
-+        $CXX -c src/scanner.cc -o scanner.o $FLAGS
-+      elif [[ -e src/scanner.c ]]; then
-+        $CC -c src/scanner.c -o scanner.o $FLAGS
-+      fi
-+
-+      $CC -c src/parser.c -o parser.o $FLAGS
-+      $CXX -shared -o $SHARED_LIB *.o
-+
-+      runHook postBuild
-+    '';
-+
-+    installPhase = ''
-+      runHook preInstall
-+      mkdir $out
-+      mv $SHARED_LIB $out/
-+      runHook postInstall
-+    '';
-+
-+    # Strip failed on darwin: strip: error: symbols referenced by indirect symbol table entries that can't be stripped
-+    fixupPhase = lib.optionalString stdenv.isLinux ''
-+      runHook preFixup
-+      $STRIP $out/$SHARED_LIB
-+      runHook postFixup
-+    '';
-+
-+    passthru.__grammarMeta = fetchGrammarMeta grammar;
-+  };
++      passthru.__grammarMeta = fetchGrammarMeta grammar;
+     };
    grammarsToBuild = builtins.filter includeGrammarIf gitGrammars;
    builtGrammars =
-     builtins.map (grammar: {
-@@ -116,13 +143,6 @@
+@@ -116,13 +144,6 @@
    overlaidGrammars =
      lib.pipe extensibleGrammars
      (builtins.map (overlay: grammar: grammar.extend overlay) grammarOverlays);

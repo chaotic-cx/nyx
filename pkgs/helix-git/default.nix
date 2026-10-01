@@ -89,12 +89,7 @@ gitOverride (current: {
     cp -r "$_LATEST_PATH/." "$_TMPDIR/"
 
     pushd "$_TMPDIR"
-    ${
-      if evil then
-        "rm -f grammars.nix && ${final.wget}/bin/wget 'https://raw.githubusercontent.com/helix-editor/helix/refs/heads/master/grammars.nix'"
-      else
-        ""
-    }
+    rm -f grammars.nix && ${final.wget}/bin/wget 'https://raw.githubusercontent.com/helix-editor/helix/refs/heads/master/grammars.nix'
     ${final.patch}/bin/patch -p1 -i "$_NYX_DIR/$_PKG_DIR/grammars.patch"
     NIX_PATH="nixpkgs=${flakes.nixpkgs}:''${NIX_PATH:-}" \
       ${final.nix}/bin/nix eval --impure --write-to ./languages.json --expr 'with import <nixpkgs> { }; callPackage ./grammars.nix { }'
