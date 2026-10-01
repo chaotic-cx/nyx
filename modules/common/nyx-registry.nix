@@ -20,13 +20,13 @@ in
         example = false;
         type = types.bool;
         description = ''
-          Whether to add Chaotic-Nyx to `nix.nixPath`.
+          Whether to add Chaotic-Nyx to `nix.settings.nix-path`.
         '';
       };
     };
   };
   config = {
-    nix.nixPath = lib.mkDefault (
+    nix.settings.nix-path = lib.mkDefault (
       lib.lists.optionals registryCfg.enable [
         "chaotic=${if pathCfg.enable then "flake:chaotic" else flakes.self}"
       ]
