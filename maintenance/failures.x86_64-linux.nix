@@ -70,4 +70,5 @@
   "linuxPackages_cachyos-gcc.vmm_clock" = "/nix/store/jwfjr6l6zvs5yx0g174hkxf33z6p2p55-vmm_clock-0.2.1";
   "linuxPackages_cachyos-gcc.yt6801" = "/nix/store/21crpmcb4x5szwsr4q88f6hh98i3wlxi-yt6801-1.0.30-20250430";
   "linux_cachyos-rc" = "/nix/store/rbbly4fj8ya0zava780j7sgywsgmabq0-linux-x86_64-unknown-linux-gnu-7.3-rc2";
+  "mangohud32_git" = "/nix/store/47725pas5vwd6ccs514ml5wsa6d7rgx1-mangohud-unstable-20260930160442-8bd15ed";
 }
