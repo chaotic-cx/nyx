@@ -1,6 +1,5 @@
 {
   "appmenu-gtk3-module" = "skip";
-  "discord-krisp" = "skip";
   "firedragon-bin-unwrapped" = "skip";
   "firedragon-bin" = "skip";
   "firedragon-catppuccin-bin-unwrapped" = "skip";

@@ -17,8 +17,6 @@ legacyPackages: {
 
   x86_64-linux."cutty_git" = legacyPackages.x86_64-linux.cutty_git;
 
-  x86_64-linux."discord-krisp" = legacyPackages.x86_64-linux.discord-krisp;
-
   x86_64-linux."distrobox_git" = legacyPackages.x86_64-linux.distrobox_git;
 
   x86_64-linux."dr460nized-kde-theme" = legacyPackages.x86_64-linux.dr460nized-kde-theme;

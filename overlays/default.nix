@@ -181,8 +181,6 @@ in
 
   cutty_git = callOverride ../pkgs/cutty-git { };
 
-  discord-krisp = callOverride ../pkgs/discord-krisp { };
-
   distrobox_git = callOverride ../pkgs/distrobox-git { };
 
   dr460nized-kde-theme = final.callPackage ../pkgs/dr460nized-kde-theme { };
