@@ -4,6 +4,7 @@ set -euo pipefail
 
 # Options
 HAS_CARGO="${HAS_CARGO:-0}"
+HAS_VENDOR="${HAS_VENDOR:-0}"
 HAS_SUBMODULES="${HAS_SUBMODULES:-0}"
 WITH_LAST_DATE="${WITH_LAST_DATE:-0}"
 WITH_LAST_STAMP="${WITH_LAST_STAMP:-0}"
@@ -86,6 +87,11 @@ if [ "$HAS_CARGO" -eq 1 ]; then
   JQ_OPS+=('| .cargoHash = $cargo')
 fi
 
+if [ "$HAS_VENDOR" -eq 1 ]; then
+  JQ_ARGS+=(--arg vendor 'sha256-1112111211121112111211121112111211121112069=')
+  JQ_OPS+=('| .vendorHash = $vendor')
+fi
+
 jq "${JQ_ARGS[@]}" \
   "${JQ_OPS[*]}" \
   "$_MANIFEST_JSON" | sponge "$_MANIFEST_JSON"
@@ -94,6 +100,13 @@ if [ "$HAS_CARGO" -eq 1 ]; then
   _LATEST_CARGO_HASH=$(nix build .#"${_NYX_KEY}".cargoDeps 2>&1 | grep "got:" | awk '{print $2}' || true)
   jq --arg cargo "$_LATEST_CARGO_HASH" \
     '.cargoHash = $cargo' \
+    "$_MANIFEST_JSON" | sponge "$_MANIFEST_JSON"
+fi
+
+if [ "$HAS_VENDOR" -eq 1 ]; then
+  _LATEST_VENDOR_HASH=$(nix build .#"${_NYX_KEY}" 2>&1 | grep "got:" | awk '{print $2}' || true)
+  jq --arg vendor "$_LATEST_VENDOR_HASH" \
+    '.vendorHash = $vendor' \
     "$_MANIFEST_JSON" | sponge "$_MANIFEST_JSON"
 fi
 

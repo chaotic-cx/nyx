@@ -3,6 +3,7 @@
   nyxKey,
   manifestPath,
   hasCargo ? false,
+  hasVendor ? false,
   hasSubmodules ? false,
   withLastModifiedDate ? false,
   withLastModified ? false,
@@ -32,6 +33,7 @@ writeShellScript "update-${pname}-git" ''
   _LATEST_REV=$(${fetchLatestRev})
 
   HAS_CARGO=${if hasCargo then "1" else "0"} \
+  HAS_VENDOR=${if hasVendor then "1" else "0"} \
   HAS_SUBMODULES=${if hasSubmodules then "1" else "0"} \
   WITH_LAST_DATE=${moreThanABoolean "1" withLastModifiedDate} \
   WITH_LAST_STAMP=${if withLastModified then "1" else "0"} \
