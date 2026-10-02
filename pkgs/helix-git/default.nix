@@ -46,6 +46,14 @@ let
       final.lib.optionalAttrs (source.name == "qmljs") {
         dontCheckForBrokenSymlinks = true;
       }
+      // final.lib.optionalAttrs (source.name == "perl") {
+        # glibc >= 2.44 defines `bsearch` as a macro; drop the bundled copy
+        postPatch = ''
+          rm src/bsearch.c
+          substituteInPlace src/tsp_unicode.h \
+            --replace-fail '#include "bsearch.c"' ""
+        '';
+      }
     );
 
   grammarLink =
