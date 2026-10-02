@@ -58,11 +58,14 @@ let
 
           hasCargo = prevAttrs ? cargoDeps;
 
+          hasVendor = prevAttrs ? vendorHash;
+
           updateScript = callPackage ./git-update.nix {
             inherit (prevAttrs) pname;
             inherit
               nyxKey
               hasCargo
+              hasVendor
               withLastModified
               withLastModifiedDate
               withBump
@@ -97,8 +100,12 @@ let
               hash = current.cargoHash;
             });
           };
+
+          whenVendor = lib.attrsets.optionalAttrs hasVendor {
+            vendorHash = current.vendorHash or prevAttrs.vendorHash;
+          };
         in
-        common // whenCargo;
+        common // whenCargo // whenVendor;
 
       optionalPreOverride = lib.lists.optional (preOverride != null) preOverride;
 
