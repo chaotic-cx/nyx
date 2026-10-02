@@ -53,6 +53,18 @@ gitOverride (
     extractSubprojectRename = { directory, name, ... }: ''
       mv ${directory} ${name}
     '';
+
+    # yaml-cpp 0.9.0 truncates dragonbox's 64-bit significand to `size_t` on 32-bit platforms.
+    yaml-cpp =
+      if is32bit then
+        final.yaml-cpp.overrideAttrs (old: {
+          postPatch = (old.postPatch or "") + ''
+            substituteInPlace src/fptostring.cpp \
+              --replace-fail 'size_t value' 'uint64_t value'
+          '';
+        })
+      else
+        final.yaml-cpp;
   in
   {
     nyxKey = if is32bit then "mangohud32_git" else "mangohud_git";
@@ -86,7 +98,7 @@ gitOverride (
         final.libgbm
         final.systemdLibs
         final.libcap
-        final.yaml-cpp
+        yaml-cpp
         final.wayland-protocols
       ];
 
