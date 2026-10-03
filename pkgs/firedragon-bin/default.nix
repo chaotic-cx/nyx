@@ -29,7 +29,7 @@ let
   variantName = if withCatppuccin then "firedragon-catppuccin-bin" else "firedragon-bin";
   libName = "${variantName}-${version}";
 in
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation {
   pname = "${variantName}-unwrapped";
   inherit version;
 
@@ -130,4 +130,4 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "firedragon";
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
   };
-})
+}
