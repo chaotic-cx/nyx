@@ -8,6 +8,15 @@ jobs:
   pin-kill:
     name: Unpin orphans
     runs-on: nyxbuilder
+    container:
+      image: nixpkgs/nix:nixos-unstable
+    env:
+      NIX_CONFIG: |
+        accept-flake-config = true
+        system-features = nixos-test benchmark big-parallel kvm gccarch-x86-64-v3 kvm
+        max-jobs = 8
+        experimental-features = nix-command flakes
+        extra-access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -15,10 +24,6 @@ jobs:
         uses: cachix/install-nix-action@v31
         with:
           extra_nix_config: |
-            accept-flake-config = true
-            sandbox-fallback = false
-            system-features = big-parallel gccarch-x86-64-v3 kvm
-          install_options: --daemon
       # similar to build.yml
       - name: Create niks3 auth-token
         run: |
