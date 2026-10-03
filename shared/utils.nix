@@ -37,19 +37,17 @@ rec {
 
   # NOTE: Don't use in your system's configuration, this helps in the repo's infra.
   # Checks if a derivation is in a list.
-  drvElem = x: xs: builtins.elem x.drvPath (builtins.map (xsx: xsx.drvPath) xs);
+  drvElem = x: xs: builtins.elem x.drvPath (map (xsx: xsx.drvPath) xs);
 
   # NOTE: Don't use in your system's configuration, this helps in the repo's infra
   # Get's the hash of a derivation.
   drvHash =
-    drv:
-    builtins.substring 0 32 (builtins.baseNameOf (builtins.unsafeDiscardStringContext drv.drvPath));
+    drv: builtins.substring 0 32 (baseNameOf (builtins.unsafeDiscardStringContext drv.drvPath));
 
   # NOTE: Don't use in your system's configuration, this helps in the repo's infra
   # Get's the hash of a derivation.
   outHash =
-    drv:
-    builtins.substring 0 32 (builtins.baseNameOf (builtins.unsafeDiscardStringContext drv.outPath));
+    drv: builtins.substring 0 32 (baseNameOf (builtins.unsafeDiscardStringContext drv.outPath));
 
   # NOTE: Don't use in your system's configuration, this helps in the repo's infra.
   # Finds dependencies in a derivation that are also present in a attrset filled with derivations.
@@ -117,7 +115,7 @@ rec {
   rejectAttr = x: lib.attrsets.filterAttrs (k: _v: k != x);
 
   # Helps when dropping patches.
-  removeByBaseName = baseName: builtins.filter (x: builtins.baseNameOf x != baseName);
+  removeByBaseName = baseName: builtins.filter (x: baseNameOf x != baseName);
 
   # Helps when dropping patches.
   removeByName = baseName: builtins.filter (x: (x.name or null) != baseName);
@@ -126,8 +124,7 @@ rec {
   removeByNames = baseNames: builtins.filter (x: !builtins.elem (x.name or null) baseNames);
 
   # Helps when dropping patches.
-  removeByBaseNames =
-    baseNames: builtins.filter (x: !builtins.elem (builtins.baseNameOf x) baseNames);
+  removeByBaseNames = baseNames: builtins.filter (x: !builtins.elem (baseNameOf x) baseNames);
 
   # Helps when dropping patches.
   removeByURL = url: builtins.filter (x: !(lib.attrsets.isDerivation x) || (x.url or null) != url);
@@ -146,8 +143,7 @@ rec {
 
   # Helps updating flags
   replaceStartingWith =
-    prefix: newSuffix:
-    builtins.map (x: if lib.strings.hasPrefix prefix x then prefix + newSuffix else x);
+    prefix: newSuffix: map (x: if lib.strings.hasPrefix prefix x then prefix + newSuffix else x);
 
   # Helps when batch-overriding.
   setAttrsPlatforms =

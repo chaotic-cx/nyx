@@ -49,7 +49,7 @@ let
         else if fetcher == "fetchFromGitea" then
           fetchRevFromGitea
         else
-          throw "Unrecognized fetcher ${builtins.toString fetcher}";
+          throw "Unrecognized fetcher ${toString fetcher}";
 
       main =
         prevAttrs:
