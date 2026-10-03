@@ -1,4 +1,5 @@
 {
+  withCatppuccin ? false,
   callPackage,
   lib,
   stdenv,
@@ -9,7 +10,7 @@
   curl,
   dbus-glib,
   gtk3,
-  libXtst,
+  libxtst,
   libva,
   pciutils,
   pipewire,
@@ -19,12 +20,17 @@
 }:
 
 let
-  inherit (lib.importJSON ./manifest.json) version sources;
+  inherit (lib.importJSON (if withCatppuccin then ./manifest-catppuccin.json else ./manifest.json))
+    version
+    sources
+    ;
 
   binaryName = "firedragon";
+  variantName = if withCatppuccin then "firedragon-catppuccin-bin" else "firedragon-bin";
+  libName = "${variantName}-${version}";
 in
 stdenv.mkDerivation (finalAttrs: {
-  pname = "firedragon-bin-unwrapped";
+  pname = "${variantName}-unwrapped";
   inherit version;
 
   src = fetchurl {
@@ -49,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
     adwaita-icon-theme
     alsa-lib
     dbus-glib
-    libXtst
+    libxtst
   ];
 
   runtimeDependencies = [
@@ -91,8 +97,8 @@ stdenv.mkDerivation (finalAttrs: {
         rm -v updater icons/updater.png updater.ini update-settings.ini
 
         mkdir -p "$prefix/lib" "$prefix/bin"
-        cp -r . "$prefix/lib/firedragon-bin-${finalAttrs.version}"
-        ln -s "$prefix/lib/firedragon-bin-${finalAttrs.version}/firedragon" "$out/bin/${binaryName}"
+        cp -r . "$prefix/lib/${libName}"
+        ln -s "$prefix/lib/${libName}/firedragon" "$out/bin/${binaryName}"
       ''
   )
   + ''
@@ -100,17 +106,18 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    inherit binaryName gtk3;
+    inherit binaryName libName gtk3;
     applicationName = "FireDragon";
-    libName = "firedragon-bin-${finalAttrs.version}";
-    ffmpegSupport = true;
-    gssSupport = true;
-    updateScript = callPackage ./update.nix { };
+    withFFmpeg = true;
+    withGSSAPI = true;
+    updateScript = callPackage ./update.nix { inherit withCatppuccin; };
   };
 
   meta = {
     changelog = "https://gitlab.com/garuda-linux/firedragon/firedragon13/-/blob/main/CHANGELOG.md";
-    description = "Floorp fork with custom branding and opinionated defaults";
+    description =
+      "Floorp fork with custom branding and opinionated defaults"
+      + lib.optionalString withCatppuccin ", Catppuccin variant";
     homepage = "https://firedragon.garudalinux.org/";
     license = with lib.licenses; [
       mpl20

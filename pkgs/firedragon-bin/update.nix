@@ -1,4 +1,5 @@
 {
+  withCatppuccin ? false,
   coreutils,
   curl,
   findutils,
@@ -11,6 +12,9 @@
   ...
 }:
 let
+  variantName = if withCatppuccin then "firedragon-catppuccin-bin" else "firedragon-bin";
+  manifestFile = if withCatppuccin then "manifest-catppuccin.json" else "manifest.json";
+  filePrefix = if withCatppuccin then "firedragon-catppuccin" else "firedragon";
   path = lib.makeBinPath [
     coreutils
     curl
@@ -21,11 +25,11 @@ let
     nix-prefetch-git
   ];
 in
-writeShellScript "update-firedragon-bin" ''
+writeShellScript "update-${variantName}" ''
   set -euo pipefail
   PATH=${path}
 
-  manifest_file="pkgs/firedragon-bin/manifest.json"
+  manifest_file="pkgs/firedragon-bin/${manifestFile}"
 
   err() { printf '%s\n' "$*" >&2; }
 
@@ -62,10 +66,10 @@ writeShellScript "update-firedragon-bin" ''
 
   arch_keys=(aarch64-linux x86_64-linux aarch64-darwin x86_64-darwin)
   declare -A filenames=(
-    ["aarch64-linux"]="firedragon-v$latest_version.linux-arm64.tar.xz"
-    ["x86_64-linux"]="firedragon-v$latest_version.linux-x64.tar.xz"
-    ["aarch64-darwin"]="firedragon-v$latest_version.darwin-arm64.dmg"
-    ["x86_64-darwin"]="firedragon-v$latest_version.darwin-x64.dmg"
+    ["aarch64-linux"]="${filePrefix}-v$latest_version.linux-arm64.tar.xz"
+    ["x86_64-linux"]="${filePrefix}-v$latest_version.linux-x64.tar.xz"
+    ["aarch64-darwin"]="${filePrefix}-v$latest_version.darwin-arm64.dmg"
+    ["x86_64-darwin"]="${filePrefix}-v$latest_version.darwin-x64.dmg"
   )
   base_download="https://gitlab.com/api/v4/projects/75420733/packages/generic/firedragon/$latest_version"
 
@@ -131,5 +135,5 @@ writeShellScript "update-firedragon-bin" ''
   fi
 
   git add "$manifest_file"
-  git commit -m "firedragon-bin: $current_version -> $latest_version"
+  git commit -m "${variantName}: $current_version -> $latest_version"
 ''
