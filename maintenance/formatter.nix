@@ -20,6 +20,21 @@ let
         command = "nixfmt";
         includes = [ "*.nix" ];
       };
+      formatter.shfmt = {
+        command = lib.getExe shfmt;
+        options = [ "-w" ];
+        includes = [ "*.sh" ];
+      };
+      formatter.prettier = {
+        command = lib.getExe prettier;
+        options = [ "-w" ];
+        includes = [
+          "*.json"
+          "*.md"
+          "*.yaml"
+          "*.yml"
+        ];
+      };
     };
   };
 
@@ -27,19 +42,6 @@ let
     set -euo pipefail
 
     ${lib.getExe nixFormatter} "$@"
-
-    filtered_args=()
-    for arg in "$@"; do
-        if [[ ! "$arg" == -* ]]; then
-            filtered_args+=("$arg")
-        else
-          echo 'Unable to run other formatters with these arguments.' >&2
-          exit 0
-        fi
-    done
-
-    ${lib.getExe shfmt} -w "''${filtered_args[@]}"
-    ${lib.getExe prettier} -lw "''${filtered_args[@]}"
 
     filtered_scripts=()
     for arg in "$@"; do
@@ -49,8 +51,10 @@ let
     done
 
     if [ "''${#filtered_scripts[@]}" -gt 0 ]; then
-      _SHELLCHECK_OUT=$(${lib.getExe shellcheck} -af diff "''${filtered_scripts[@]}")
-      [ -n "$_SHELLCHECK_OUT" ] && echo "$_SHELLCHECK_OUT" | git apply
+      _SHELLCHECK_OUT=$(${lib.getExe shellcheck} -af diff "''${filtered_scripts[@]}" || true)
+      if [ -n "$_SHELLCHECK_OUT" ]; then
+        echo "$_SHELLCHECK_OUT" | git apply
+      fi
     fi
   '';
 in

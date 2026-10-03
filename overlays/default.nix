@@ -152,6 +152,10 @@ let
         inherit (pkg.meta) hydraPlatforms;
       };
     });
+
+  # wrapFirefox picks ffmpeg by comparing browser.version against Firefox versions,
+  # which doesn't fit FireDragon's own versioning. 13.x is based on Gecko 157 (libavcodec 63)
+  wrapFiredragon = final.wrapFirefox.override { ffmpeg_8 = final.ffmpeg_9; };
 in
 {
   inherit nyxUtils jovian-chaotic rustc_latest;
@@ -190,18 +194,20 @@ in
   fetchTorGit = callOverride ../pkgs/fetchtorgit { };
 
   firedragon-bin-unwrapped = final.callPackage ../pkgs/firedragon-bin { };
-  firedragon-bin = final.wrapFirefox final.firedragon-bin-unwrapped {
+  firedragon-bin = wrapFiredragon final.firedragon-bin-unwrapped {
     pname = "firedragon-bin";
     extraPoliciesFiles = [
-      "${final.firedragon-bin-unwrapped}/lib/firedragon-bin-${final.firedragon-bin-unwrapped.version}/distribution/policies.json"
+      "${final.firedragon-bin-unwrapped}/lib/${final.firedragon-bin-unwrapped.libName}/distribution/policies.json"
     ];
   };
 
-  firedragon-catppuccin-bin-unwrapped = final.callPackage ../pkgs/firedragon-catppuccin-bin { };
-  firedragon-catppuccin-bin = final.wrapFirefox final.firedragon-catppuccin-bin-unwrapped {
+  firedragon-catppuccin-bin-unwrapped = final.callPackage ../pkgs/firedragon-bin {
+    withCatppuccin = true;
+  };
+  firedragon-catppuccin-bin = wrapFiredragon final.firedragon-catppuccin-bin-unwrapped {
     pname = "firedragon-catppuccin-bin";
     extraPoliciesFiles = [
-      "${final.firedragon-catppuccin-bin-unwrapped}/lib/firedragon-catppuccin-bin-${final.firedragon-catppuccin-bin-unwrapped.version}/distribution/policies.json"
+      "${final.firedragon-catppuccin-bin-unwrapped}/lib/${final.firedragon-catppuccin-bin-unwrapped.libName}/distribution/policies.json"
     ];
   };
 
