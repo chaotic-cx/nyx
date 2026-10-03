@@ -74,11 +74,10 @@ jobs:
             accept-flake-config = true
             sandbox-fallback = false
             system-features = big-parallel gccarch-x86-64-v3
-          install_options: --daemon
-      - name: Configure sandboxing
-        run: |
-          sed -i -e '/^build-users-group =/d' -e 's/max-jobs =.*/max-jobs = 8/g' /etc/nix/nix.conf
-          nix eval ./maintenance#_dev.nixConfig --json | jq -r 'to_entries[] | "\(.key) = \(.value | join(" "))"' >> /etc/nix/nix.conf
+            build-users-group =
+            max-jobs = 8
+            extra-substituters = https://nyx-cache.chaotic.cx/
+            extra-trusted-public-keys = nyx-cache.chaotic.cx:dJxTrgMC3V3cFfyIiBQDQorG6k1LsqurH/srpMSq7qk=
       # config to commit
       - name: Bat-signal
         run: |

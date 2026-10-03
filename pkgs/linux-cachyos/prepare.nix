@@ -71,7 +71,10 @@ let
     lib.optionals (!(cachyConfig.versions.linux ? tagrel)) [
       "${patches-src}/${majorMinor}/all/0001-cachyos-base-all.patch"
     ]
-    ++ schedPatches;
+    ++ schedPatches
+    ++ lib.optionals (cachyConfig.taste == "linux-cachyos-rc") [
+      "${./patches/gud-fortify-lto.patch}"
+    ];
 
   # There are some configurations set by the PKGBUILD
   pkgbuildConfig =
