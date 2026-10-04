@@ -9,7 +9,7 @@ jobs:
     name: Unpin orphans
     runs-on: nyxbuilder
     container:
-      image: mcr.microsoft.com/devcontainers/base:ubuntu
+      image: ghcr.io/catthehacker/ubuntu:act-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -23,7 +23,7 @@ jobs:
             build-users-group =
             max-jobs = 8
             extra-access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-          install_options: --no-daemon
+          install_options: --daemon
       # similar to build.yml
       - name: Create niks3 auth-token
         run: |
