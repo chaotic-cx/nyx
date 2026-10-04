@@ -18,12 +18,12 @@ jobs:
         with:
           extra_nix_config: |
             accept-flake-config = true
-            sandbox-fallback = false
+            sandbox = false
             system-features = benchmark big-parallel gccarch-x86-64-v2 gccarch-x86-64-v3 kvm nixos-test
             build-users-group =
             max-jobs = 8
             extra-access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-          install_options: --daemon --no-sandbox
+          install_options: --daemon
       # similar to build.yml
       - name: Create niks3 auth-token
         run: |
