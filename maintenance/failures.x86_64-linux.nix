@@ -1,6 +1,4 @@
 {
-  "evil-helix_git" = "/nix/store/3vyirfjd35csmcwihmqgkqxrm36vkmvl-helix-unwrapped-unstable-20260831150816-50bf201";
-  "helix_git" = "/nix/store/4g8ljs70fcarwcpvzcckc5p85cv1vc79-helix-unwrapped-unstable-20260929023219-ba40e54";
   "jovian-chaotic.opensd" = "/nix/store/44269s5060qin4c0alq4fmx1h7wr0962-opensd-0.52";
   "linuxPackages_cachyos.ajantv2" = "/nix/store/19h4hgl0nnh40hzc80b757cf1n2wkn99-17.5.0-17.5.0-7.2.8-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos.amdgpu-i2c" = "/nix/store/bziwwavz9izlpwm1vk5zlrhzry2cf724-amdgpu-i2c-x86_64-unknown-linux-gnu-0-unstable-2024-12-16";
@@ -18,7 +16,7 @@
   "linuxPackages_cachyos.linux-gpib" = "/nix/store/45pwi21ibqw05xhfhkkqvz21mkbki3d4-linux-gpib-kernel-x86_64-unknown-linux-gnu-4.3.7";
   "linuxPackages_cachyos.lttng-modules" = "/nix/store/m4myqqbpc0p76d8jxybxw7hhfw3bzlq2-lttng-modules-7.2.8-x86_64-unknown-linux-gnu-2.14.3";
   "linuxPackages_cachyos.mbp2018-bridge-drv" = "/nix/store/9izqch2x5l5zwxh33d5ywv2phd04437d-mbp2018-bridge-drv-x86_64-unknown-linux-gnu-2020-01-31";
-  "linuxPackages_cachyos.mm-tools" = "/nix/store/g3cwwkgy2d80727iwin1xgikm3jbky2p-mm-tools-x86_64-unknown-linux-gnu-6.18.54";
+  "linuxPackages_cachyos.mm-tools" = "/nix/store/hihc3fjb19sfr46yh5x7fw3dfp3ypl27-mm-tools-x86_64-unknown-linux-gnu-6.18.55";
   "linuxPackages_cachyos.netatop" = "/nix/store/ikscjqjhr4ic977c028prxxv088w9ikw-netatop-7.2.8-3.2.2-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos.nvidia_x11_beta_open" = "/nix/store/h51fzh6nwyby2k2pjvlgpg6j28gngw7d-nvidia-open-x86_64-unknown-linux-gnu-595.45.04-7.2.8";
   "linuxPackages_cachyos.nvidia_x11_production_open" = "/nix/store/s6iam25i8bchmcfa9fg91wdga7k350j6-nvidia-open-x86_64-unknown-linux-gnu-595.104.02-7.2.8";
@@ -69,6 +67,4 @@
   "linuxPackages_cachyos-gcc.tsme-test" = "/nix/store/lhpcqvyp1z5napdif778glirgl7h51x5-tsme-test-7.2.8-unstable-2026-02-09";
   "linuxPackages_cachyos-gcc.vmm_clock" = "/nix/store/jwfjr6l6zvs5yx0g174hkxf33z6p2p55-vmm_clock-0.2.1";
   "linuxPackages_cachyos-gcc.yt6801" = "/nix/store/21crpmcb4x5szwsr4q88f6hh98i3wlxi-yt6801-1.0.30-20250430";
-  "linux_cachyos-rc" = "/nix/store/rbbly4fj8ya0zava780j7sgywsgmabq0-linux-x86_64-unknown-linux-gnu-7.3-rc2";
-  "mangohud32_git" = "/nix/store/47725pas5vwd6ccs514ml5wsa6d7rgx1-mangohud-unstable-20260930160442-8bd15ed";
 }
