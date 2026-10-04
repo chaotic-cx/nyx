@@ -8,19 +8,17 @@ jobs:
   pin-kill:
     name: Unpin orphans
     runs-on: nyxbuilder
-    container:
-      image: ghcr.io/lucernae/devcontainer-nix:base--nixos-unstable
     steps:
       - name: Checkout
         uses: actions/checkout@v7
-      - name: Configure Nix
-        run: |
-          sed -i \
-            -e '/^build-users-group =/d' \
-            -e 's/max-jobs =.*/max-jobs = 8/g' \
-            -e 's/system-features =.*/system-features = benchmark big-parallel gccarch-x86-64-v2 gccarch-x86-64-v3 kvm nixos-test/g' \
-            /etc/nix/nix.conf
-          nix eval ./maintenance#_dev.nixConfig --json | jq -r 'to_entries[] | "\(.key) = \(.value | join(" "))"' >> /etc/nix/nix.conf
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            accept-flake-config = true
+            sandbox-fallback = false
+            system-features = big-parallel gccarch-x86-64-v3 kvm
+          install_options: --daemon
       # similar to build.yml
       - name: Create niks3 auth-token
         run: |
