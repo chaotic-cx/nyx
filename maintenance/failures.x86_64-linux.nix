@@ -36,7 +36,7 @@
   "linuxPackages_cachyos.shufflecake" = "/nix/store/lxz8xgljf7gwkxy401hrk32sq2whffdn-shufflecake-0.5.8-7.2.9-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos.system76-acpi" = "/nix/store/q9nrddz1jndgb26s43ypzm385zfx4y13-system76-acpi-module-1.0.2-7.2.9-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos.systemtap" = "/nix/store/x6lphi1mgfs5n58p4xx62lf2xf365f09-systemtap-5.5";
-  "linuxPackages_cachyos.tp_smapi" = "/nix/store/305djiz7fbjymrnaf0v9wb8bnzi2dyrj-tp_smapi-0.45-7.2.9-x86_64-unknown-linux-gnu";
+  "linuxPackages_cachyos.tp_smapi" = "/nix/store/hn2gjrdrylf57qkffy7yy7ckhsp9rcff-tp_smapi-0.45-7.2.9-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos.tsme-test" = "/nix/store/3mzf287zd558h6ip4ly8si4v515w3w9n-tsme-test-x86_64-unknown-linux-gnu-7.2.9-unstable-2026-02-09";
   "linuxPackages_cachyos.turbostat" = "/nix/store/cr40knb3gh9lbdh12pk37iqkkf3n027x-turbostat-x86_64-unknown-linux-gnu-7.2.9";
   "linuxPackages_cachyos.tuxedo-drivers" = "/nix/store/0hj1hiv8dcaw0vnm4yxgz2zl0fmbi9ay-tuxedo-drivers-7.2.9-x86_64-unknown-linux-gnu-4.20.1";
@@ -63,8 +63,8 @@
   "linuxPackages_cachyos-gcc.rtl8821cu" = "/nix/store/widphln5gpfwcjcdvmfcgb90rxzj59r6-rtl8821cu-7.2.9-unstable-2025-12-15";
   "linuxPackages_cachyos-gcc.rtl88x2bu" = "/nix/store/vwkvmdkwn7yxhf79hkcikzmjk3ngpig0-rtl88x2bu-7.2.9-unstable-2026-08-18";
   "linuxPackages_cachyos-gcc.shufflecake" = "/nix/store/k0h2hhdbxhcnbijr6kflx4cxw3v4mr9n-shufflecake-0.5.8-7.2.9";
-  "linuxPackages_cachyos-gcc.tp_smapi" = "/nix/store/a12jqqph1zpd25n7d40k3mi4h9krp0hj-tp_smapi-0.45-7.2.9";
   "linuxPackages_cachyos-gcc.tsme-test" = "/nix/store/78a1py01ca6j3bniyv2ips1hq3pd8hrz-tsme-test-7.2.9-unstable-2026-02-09";
   "linuxPackages_cachyos-gcc.vmm_clock" = "/nix/store/hqgy3m2ymwjn6y43qf4rjardb05823fa-vmm_clock-0.2.1";
   "linuxPackages_cachyos-gcc.yt6801" = "/nix/store/34p5n9rsp42k8l4gqnmrkvc9dlw64d4i-yt6801-1.0.30-20250430";
+  "mokka-kde-theme" = "/nix/store/0v2ljdp7g99xm0anh699cfx2a1qn3sqk-mokka-kde-theme-unstable-20260809074459-227de23";
 }
