@@ -54,28 +54,26 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     for file in $(find ./* \( -type f \( -name "*.profile" -o -name "*.conf" -o ! -name "*.*" \) \) -o -type l ); do
       if [ -h "$file" ]; then
         ln -fs "$(readlink "$file" | sed -e 's|/usr/share|/run/current-system/sw/share|g')" "$file"
-      else
+      elif grep -q "/usr/bin\|/usr/share" "$file"; then
         substituteInPlace "$file" \
-          --replace "/usr/bin" "/run/current-system/sw/bin" \
-          --replace "/usr/share" "/run/current-system/sw/share"
+          --replace-quiet "/usr/bin" "/run/current-system/sw/bin" \
+          --replace-quiet "/usr/share" "/run/current-system/sw/share"
       fi
     done
 
     substituteInPlace \
-      usr/share/plasma/look-and-feel/Dr460nized/contents/layouts/org.kde.plasma.desktop-layout.js \
       usr/share/plasma/layout-templates/org.garuda.desktop.defaultDock/contents/layout.js \
-      --replace "applications:garuda-welcome.desktop," "" \
-      --replace "applications:garuda-toolbox.desktop," "" \
-      --replace "applications:snapper-tools.desktop," "" \
-      --replace ",applications:octopi.desktop" ""
+      --replace-fail "applications:garuda-toolbox.desktop," "" \
+      --replace-fail ",applications:snapper-tools.desktop" "" \
+      --replace-fail ",applications:octopi.desktop" ""
 
     substituteInPlace usr/share/plasma/layout-templates/org.garuda.desktop.defaultPanel/contents/layout.js \
       usr/share/plasma/layout-templates/org.garuda.desktop.defaultDock/contents/layout.js \
-      --replace "/usr/share" "/run/current-system/sw/share" \
-      --replace "plasma/plasmoids/luisbocanegra.panel.colorizer/contents/ui/presets" "dr460nized-panel-colorizer-presets"
+      --replace-fail "/usr/share" "/run/current-system/sw/share" \
+      --replace-fail "plasma/plasmoids/luisbocanegra.panel.colorizer/contents/ui/presets" "dr460nized-panel-colorizer-presets"
 
     substituteInPlace usr/share/fastfetch/presets/dr460nized.jsonc \
-      --replace "/usr/share" "/run/current-system/sw/share"
+      --replace-fail "/usr/share" "/run/current-system/sw/share"
   '';
 
   installPhase = ''
