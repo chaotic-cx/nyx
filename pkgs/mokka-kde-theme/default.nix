@@ -70,42 +70,44 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   postPatch = ''
     for file in $(find ./* \( -type f \( -name "*.profile" -o -name "*.conf" -o ! -name "*.*" \) \) -o -type l ); do
-      if [ -h $file ]; then
-        ln -fs $(readlink $file | sed -e 's|/usr/share|/run/current-system/sw/share|g') $file
-      else
-        substituteInPlace $file --replace "/usr/bin" "/run/current-system/sw/bin" --replace "/usr/share" "/run/current-system/sw/share"
+      if [ -h "$file" ]; then
+        ln -fs "$(readlink "$file" | sed -e 's|/usr/share|/run/current-system/sw/share|g')" "$file"
+      elif grep -q "/usr/bin\|/usr/share" "$file"; then
+        substituteInPlace "$file" --replace-quiet "/usr/bin" "/run/current-system/sw/bin" --replace-quiet "/usr/share" "/run/current-system/sw/share"
       fi
     done
 
     substituteInPlace etc/skel/.config/autostart/initial-setup.desktop \
-      --replace "/etc/skel/.config/autostart/initial-setup.sh" "~/.config/autostart/initial-setup.sh"
+      --replace-fail "/etc/skel/.config/autostart/initial-setup.sh" "~/.config/autostart/initial-setup.sh"
 
     substituteInPlace usr/share/fastfetch/presets/mokka.jsonc \
-      --replace "/usr/share/icons/garuda/mokka-fastfetch.png" "/run/current-system/sw/share/icons/garuda/mokka-fastfetch.png"
+      --replace-fail "/usr/share/icons/garuda/mokka-fastfetch.png" "/run/current-system/sw/share/icons/garuda/mokka-fastfetch.png"
 
     substituteInPlace usr/share/plasma/layout-templates/org.garuda.desktop.defaultPanel/contents/layout.js usr/share/plasma/layout-templates/org.garuda.desktop.defaultDock/contents/layout.js \
-      --replace "/usr/share" "/run/current-system/sw/share" \
-      --replace "applications:garuda-toolbox.desktop," "" \
-      --replace ",applications:snapper-tools.desktop" "" \
-      --replace ",applications:octopi.desktop" ""
+      --replace-fail "/usr/share" "/run/current-system/sw/share"
+
+    substituteInPlace usr/share/plasma/layout-templates/org.garuda.desktop.defaultDock/contents/layout.js \
+      --replace-fail "applications:garuda-toolbox.desktop," "" \
+      --replace-fail ",applications:snapper-tools.desktop" "" \
+      --replace-fail ",applications:octopi.desktop" ""
 
     substituteInPlace usr/share/plasma/layout-templates/org.garuda.desktop.defaultPanel/contents/layout.js \
-      --replace '"distributor-logo-garuda"' '"/run/current-system/sw/share/icons/garuda/distributor-logo-garuda-cat.svg"'
+      --replace-fail '"distributor-logo-garuda"' '"/run/current-system/sw/share/icons/garuda/distributor-logo-garuda-cat.svg"'
 
     substituteInPlace usr/share/plasma/layout-templates/org.garuda.desktop.defaultPanel/contents/layout.js usr/share/plasma/layout-templates/org.garuda.desktop.defaultDock/contents/layout.js usr/share/plasma/look-and-feel/MokkaKitty/contents/layouts/org.kde.plasma.desktop-layout.js \
-      --replace "plasma/plasmoids/luisbocanegra.panel.colorizer/contents/ui/presets" "mokka-panel-colorizer-presets"
+      --replace-fail "plasma/plasmoids/luisbocanegra.panel.colorizer/contents/ui/presets" "mokka-panel-colorizer-presets"
 
     substituteInPlace usr/share/plasma/look-and-feel/MokkaKitty/contents/layouts/org.kde.plasma.desktop-layout.js \
-      --replace "/usr/share" "/run/current-system/sw/share"
+      --replace-fail "/usr/share" "/run/current-system/sw/share"
 
     substituteInPlace etc/skel/.config/kscreenlockerrc \
-      --replace "wallpapers/garuda-mokka/City-horizon Mocha.jpg" "wallpapers/Mokka-tree/contents/images/3840x2160.jpg"
+      --replace-fail "wallpapers/garuda-mokka/City-horizon Mocha.jpg" "wallpapers/Mokka-tree/contents/images/3840x2160.jpg"
 
     substituteInPlace usr/share/plasma/look-and-feel/Mokka/contents/defaults usr/share/plasma/look-and-feel/MokkaKitty/contents/defaults etc/skel/.config/gtk-3.0/settings.ini etc/skel/.config/gtk-4.0/settings.ini \
-      --replace "Tela-circle-dracula-dark" "Tela-circle-dark"
+      --replace-fail "Tela-circle-dracula-dark" "Tela-circle-catppuccin-dark"
 
     substituteInPlace usr/share/plasma/look-and-feel/Mokka/contents/defaults \
-      --replace "wallpapers/garuda-mokka/Mokka-tree.jpg" "wallpapers/Mokka-tree/contents/images/3840x2160.jpg"
+      --replace-fail "wallpapers/garuda-mokka/Mokka-tree.jpg" "wallpapers/Mokka-tree/contents/images/3840x2160.jpg"
   '';
 
   installPhase = ''

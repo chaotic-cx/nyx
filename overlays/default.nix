@@ -278,7 +278,26 @@ in
   mesa_git = callOverride ../pkgs/mesa-git { };
   mesa32_git = if has32 then callOverride32 ../pkgs/mesa-git { } else markBroken final.mesa_git;
 
-  mokka-kde-theme = final.callPackage ../pkgs/mokka-kde-theme { };
+  mokka-kde-theme = final.callPackage ../pkgs/mokka-kde-theme {
+    tela-circle-icon-theme = final.tela-circle-icon-theme.overrideAttrs (old: {
+      version = "unstable-2026-08-16";
+      src = final.fetchFromGitHub {
+        owner = "vinceliuice";
+        repo = "tela-circle-icon-theme";
+        rev = "ee3cf47bcb05c3d99a0860b54254d2ff3d1d2c69";
+        hash = "sha256-kvAJH/ptMvSCjk5Equi+8ZzHjSDKQUURUImNDZZXQcs=";
+      };
+      patches = (old.patches or [ ]) ++ [ ../pkgs/mokka-kde-theme/catppuccin-tela-circle.patch ];
+      installPhase = ''
+        runHook preInstall
+        ./install.sh -d $out/share/icons standard catppuccin
+        jdupes --quiet --link-soft --recurse $out/share
+        runHook postInstall
+      '';
+      # Upstream rev ships dangling symlinks
+      dontCheckForBrokenSymlinks = true;
+    });
+  };
 
   # Pinned to the version on our server
   niks3_nyx = niks3.packages.${system}.niks3;

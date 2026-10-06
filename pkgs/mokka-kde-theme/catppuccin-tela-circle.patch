@@ -1,0 +1,56 @@
+--- a/install.sh
++++ b/install.sh
+@@ -8,7 +8,7 @@
+ 
+ readonly SRC_DIR=$(cd $(dirname $0) && pwd)
+ 
+-readonly COLOR_VARIANTS=("standard" "black" "blue" "brown" "green" "grey" "orange" "pink" "purple" "red" "yellow" "manjaro" "ubuntu" "dracula" "nord")
++readonly COLOR_VARIANTS=("standard" "black" "blue" "brown" "green" "grey" "orange" "pink" "purple" "red" "yellow" "manjaro" "ubuntu" "dracula" "nord" "catppuccin")
+ readonly BRIGHT_VARIANTS=("" "light" "dark")
+ 
+ if command -v lsb_release &> /dev/null; then
+@@ -50,6 +50,7 @@
+   ubuntu                   Ubuntu default color folder version
+   dracula                  Dracula default color folder version
+   nord                     nord color folder version
++  catppuccin               Catppuccin Mocha Mauve color folder version
+ 
+   By default, only the standard one is selected.
+ 
+@@ -113,6 +114,9 @@
+         ;;
+       nord)
+         local -r theme_color='#4d576a'
++        ;;
++      catppuccin)
++        local -r theme_color='#313244'
+         ;;
+     esac
+   fi
+@@ -166,6 +170,15 @@
+         sed -i "s/${theme_color}/#dd86e0/g" "${THEME_DIR}/scalable/places/"default-user-desktop.svg
+         sed -i '/\id="highlight"/s/opacity=".25"/opacity="0"/' "${THEME_DIR}/scalable/places/"default-user-desktop.svg
+         sed -i "s/#5294e2/#bd93f9/g" "${THEME_DIR}/scalable/devices/"*.svg "${THEME_DIR}/32/devices/"*.svg
++      elif [[ "$1" == "catppuccin" ]]; then
++        sed -i '/\id="shadow"/s/#000000/#cba6f7/' "${THEME_DIR}/scalable/apps/"*.svg "${THEME_DIR}/scalable/places/"default-*.svg
++        sed -i '/\id="shadow"/s/ opacity=".2"//' "${THEME_DIR}/scalable/apps/"*.svg "${THEME_DIR}/scalable/places/"default-*.svg
++        sed -i '/\id="bottom_layer"/s/#313244/#cba6f7/' "${THEME_DIR}/16/places/"folder*.svg
++        sed -i '/\id="bottom_layer"/s/ opacity="0.5"//' "${THEME_DIR}/16/places/"folder*.svg
++        sed -i "s/color:#ffffff/color:#cdd6f4/g" "${THEME_DIR}/scalable/places/"default-*.svg
++        sed -i "s/${theme_color}/#f5c2e7/g" "${THEME_DIR}/scalable/places/"default-user-desktop.svg
++        sed -i '/\id="highlight"/s/opacity=".25"/opacity="0"/' "${THEME_DIR}/scalable/places/"default-user-desktop.svg
++        sed -i "s/#5294e2/#cba6f7/g" "${THEME_DIR}/scalable/devices/"*.svg "${THEME_DIR}/32/devices/"*.svg
+       elif [[ "$1" == "grey" ]]; then
+         sed -i "s/color:#ffffff/color:#666666/g" "${THEME_DIR}/scalable/places/"default-*.svg
+         sed -i "s/#5294e2/#666666/g" "${THEME_DIR}/scalable/devices/"*.svg "${THEME_DIR}/32/devices/"*.svg
+@@ -241,6 +254,10 @@
+ 
+       if [[ "$1" == "dracula" ]]; then
+         sed -i '/\id="bottom_layer"/s/currentColor/#bd93f9/' "${THEME_DIR}/16/places/"folder*.svg
++        sed -i '/\id="bottom_layer"/s/ opacity="0.5"//' "${THEME_DIR}/16/places/"folder*.svg
++      fi
++      if [[ "$1" == "catppuccin" ]]; then
++        sed -i '/\id="bottom_layer"/s/currentColor/#cba6f7/' "${THEME_DIR}/16/places/"folder*.svg
+         sed -i '/\id="bottom_layer"/s/ opacity="0.5"//' "${THEME_DIR}/16/places/"folder*.svg
+       fi
+     fi
