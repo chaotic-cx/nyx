@@ -5,11 +5,8 @@
   buildMozillaMach,
   callPackage,
   fetchFromGitHub,
-  fetchNpmDeps,
-  npmHooks,
   nss_git,
   nyxUtils,
-  python314,
   stdenv,
 
   # Temporary fixes:
@@ -21,18 +18,12 @@ let
   firefoxOwner = "mozilla-firefox";
   firefoxRepo = "firefox";
   firefoxSourceRepo = "https://github.com/${firefoxOwner}/${firefoxRepo}";
-  newtabPath = "browser/extensions/newtab";
   binaryName = "firefox-nightly";
   version = "${current.version}-${current.buildId}-${builtins.substring 0 7 current.rev}";
   firefoxSrc = fetchFromGitHub {
     inherit (current) hash rev;
     owner = firefoxOwner;
     repo = firefoxRepo;
-  };
-
-  newtabNpmDeps = fetchNpmDeps {
-    src = "${firefoxSrc}/${newtabPath}";
-    hash = current.newtabNpmDepsHash;
   };
 
   rust-cbindgen_latest =
@@ -83,37 +74,8 @@ let
       branding = "browser/branding/nightly";
       src = firefoxSrc;
       extraPatches = addedPatches;
-      extraPostPatch = ''
-        (
-          readonly newtab_root="$PWD/${newtabPath}"
-
-          export npmDeps=${newtabNpmDeps}
-          export npmRoot="$newtab_root"
-
-          source ${npmHooks.npmConfigHook}/nix-support/setup-hook
-          npmConfigHook
-
-          ${lib.getExe python314} -c ${lib.escapeShellArg ''
-            import hashlib
-            import sys
-            from pathlib import Path
-
-            newtab_root = Path(sys.argv[1])
-            lockfile = newtab_root / "package-lock.json"
-            stamp = newtab_root / "node_modules" / ".newtab-install-stamp"
-
-            with lockfile.open("rb") as lockfile_stream:
-                digest = hashlib.file_digest(lockfile_stream, "sha256").digest()
-
-            stamp.write_bytes(digest)
-          ''} "$newtab_root"
-
-          test -f "$newtab_root/node_modules/webpack/bin/webpack.js"
-        )
-      '';
 
       extraPassthru = {
-        inherit newtabNpmDeps;
         rust-cbindgen = rust-cbindgen_latest;
       };
 
@@ -140,17 +102,6 @@ let
       };
 in
 mach.overrideAttrs (prevAttrs: {
-  configureFlags = lib.filter (
-    flag:
-    !lib.elem flag [
-      "--disable-ffmpeg"
-      "--enable-ffmpeg"
-
-      # Temporarily use bundled nss since --with-system-nss is broken as of 2026/09/13
-      "--with-system-nss"
-    ]
-  ) (prevAttrs.configureFlags or [ ]);
-
   env = (prevAttrs.env or { }) // {
     MOZ_SOURCE_REPO = firefoxSourceRepo;
     MOZ_SOURCE_CHANGESET = current.rev;
