@@ -66,5 +66,4 @@
   "linuxPackages_cachyos-gcc.tsme-test" = "/nix/store/78a1py01ca6j3bniyv2ips1hq3pd8hrz-tsme-test-7.2.9-unstable-2026-02-09";
   "linuxPackages_cachyos-gcc.vmm_clock" = "/nix/store/hqgy3m2ymwjn6y43qf4rjardb05823fa-vmm_clock-0.2.1";
   "linuxPackages_cachyos-gcc.yt6801" = "/nix/store/34p5n9rsp42k8l4gqnmrkvc9dlw64d4i-yt6801-1.0.30-20250430";
-  "mokka-kde-theme" = "/nix/store/aai1mzd5cbr58f9zsyrr45j578w8mqah-mokka-kde-theme-unstable-20260809074459-227de23";
 }
