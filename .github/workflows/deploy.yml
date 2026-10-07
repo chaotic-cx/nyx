@@ -138,13 +138,27 @@ jobs:
         uses: actions/checkout@v7
         with:
           fetch-depth: 0
-      - name: Collect newly deployed commits
-        id: collect_new_commits
+      - name: Collect changes
+        id: collect_changes
         run: |
-          COMMITS=$(git log --pretty=format:"- %s" ${{ needs.check-sync.outputs.old_sha }}..HEAD || echo "- Multiple updates")
+          COMMITS=$(git log --pretty=format:"- %s" --reverse --no-merges ${{ needs.check-sync.outputs.old_sha }}..HEAD || echo "- Multiple updates")
           EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
           echo "commits<<$EOF" >> "$GITHUB_OUTPUT"
           echo "$COMMITS" >> "$GITHUB_OUTPUT"
+          echo "$EOF" >> "$GITHUB_OUTPUT"
+
+          # Extract keys using jq regex to bypass non-JSON Nix syntax
+          OLD_KEYS=$(git show ${{ needs.check-sync.outputs.old_sha }}:failures.x86_64-linux.nix 2>/dev/null | jq -R -s '[match("\"([^\"]+)\"\\s*="; "g") | .captures[0].string]' || echo "[]")
+          NEW_KEYS=$(jq -R -s '[match("\"([^\"]+)\"\\s*="; "g") | .captures[0].string]' failures.x86_64-linux.nix 2>/dev/null || echo "[]")
+
+          ADDED_FAILURES=$(jq -n -r --argjson old "$OLD_KEYS" --argjson new "$NEW_KEYS" '($new - $old) | map("+ " + .) | join("\n")')
+          REMOVED_FAILURES=$(jq -n -r --argjson old "$OLD_KEYS" --argjson new "$NEW_KEYS" '($old - $new) | map("- " + .) | join("\n")')
+
+          echo "added_failures<<$EOF" >> "$GITHUB_OUTPUT"
+          echo "${ADDED_FAILURES:-None}" >> "$GITHUB_OUTPUT"
+          echo "$EOF" >> "$GITHUB_OUTPUT"
+          echo "removed_failures<<$EOF" >> "$GITHUB_OUTPUT"
+          echo "${REMOVED_FAILURES:-None}" >> "$GITHUB_OUTPUT"
           echo "$EOF" >> "$GITHUB_OUTPUT"
       - name: Send Telegram Message
         uses: appleboy/telegram-action@master
@@ -155,7 +169,13 @@ jobs:
             New update deployed!
 
             New commits:
-            ${{ steps.collect_new_commits.outputs.commits }}
+            ${{ steps.collect_changes.outputs.commits }}
+
+            Fixed:
+            ${{ steps.collect_changes.outputs.removed_failures }}
+
+            New failures:
+            ${{ steps.collect_changes.outputs.added_failures }}
       - name: Send Matrix Notification
         run: |
           jq -n --arg msg "$MSG" '{"msgtype": "m.notice", "body": $msg}' | \
@@ -168,7 +188,13 @@ jobs:
             New update deployed!
 
             New commits:
-            ${{ steps.collect_new_commits.outputs.commits }}
+            ${{ steps.collect_changes.outputs.commits }}
+
+            Fixed:
+            ${{ steps.collect_changes.outputs.removed_failures }}
+
+            New failures:
+            ${{ steps.collect_changes.outputs.added_failures }}
   deploy-docs:
     needs: deploy-push
     uses: ./.github/workflows/document.yml
