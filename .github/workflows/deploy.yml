@@ -147,12 +147,13 @@ jobs:
           echo "$COMMITS" >> "$GITHUB_OUTPUT"
           echo "$EOF" >> "$GITHUB_OUTPUT"
 
-          # Extract keys using jq regex to bypass non-JSON Nix syntax
-          OLD_KEYS=$(git show ${{ needs.check-sync.outputs.old_sha }}:failures.x86_64-linux.nix 2>/dev/null | jq -R -s '[match("\"([^\"]+)\"\\s*="; "g") | .captures[0].string]' || echo "[]")
-          NEW_KEYS=$(jq -R -s '[match("\"([^\"]+)\"\\s*="; "g") | .captures[0].string]' failures.x86_64-linux.nix 2>/dev/null || echo "[]")
+          # Extract keys using awk by splitting on quotes, and sort them for comparison
+          OLD_KEYS=$(git show ${{ needs.check-sync.outputs.old_sha }}:maintenance/failures.x86_64-linux.nix 2>/dev/null | awk -F'"' '/=/ {print $2}' | sort || true)
+          NEW_KEYS=$(awk -F'"' '/=/ {print $2}' ./maintenance/failures.x86_64-linux.nix 2>/dev/null | sort || true)
 
-          ADDED_FAILURES=$(jq -n -r --argjson old "$OLD_KEYS" --argjson new "$NEW_KEYS" '($new - $old) | map("+ " + .) | join("\n")')
-          REMOVED_FAILURES=$(jq -n -r --argjson old "$OLD_KEYS" --argjson new "$NEW_KEYS" '($old - $new) | map("- " + .) | join("\n")')
+          # Use comm to find added (-13) and removed (-23) lines, appending prefixes
+          ADDED_FAILURES=$(comm -13 <(echo "$OLD_KEYS") <(echo "$NEW_KEYS") | awk 'NF {print "+ " $0}')
+          REMOVED_FAILURES=$(comm -23 <(echo "$OLD_KEYS") <(echo "$NEW_KEYS") | awk 'NF {print "- " $0}')
 
           echo "added_failures<<$EOF" >> "$GITHUB_OUTPUT"
           echo "${ADDED_FAILURES:-None}" >> "$GITHUB_OUTPUT"
