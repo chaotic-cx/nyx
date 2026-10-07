@@ -1,7 +1,7 @@
 {
-  "version": "unstable-20260930160442-8bd15ed",
-  "rev": "8bd15ed92667a31427af2c219bc8d2847702f274",
-  "hash": "sha256-RwYF2OthRnAHK57bNciVO1mMYazq792KbpzryeJ0tec=",
+  "version": "unstable-20261006192101-c68dcf3",
+  "rev": "c68dcf3d8137961e72f08cb634e0111830b627e8",
+  "hash": "sha256-TENTdkjRgZzF7hYzyDi84ScB3AP+9ChU0chRMNBQgis=",
   "subprojects": {
     "vkroots": {
       "directory": "vkroots-unstable",
@@ -15,10 +15,6 @@
       "src": {
         "url": "https://github.com/ocornut/imgui/archive/refs/tags/v1.91.6.tar.gz",
         "hash": "c5fbc5dcab1d46064001c3b84d7a88812985cde7e0e9ced03f5677bec1ba502a"
-      },
-      "patch": {
-        "url": "https://wrapdb.mesonbuild.com/v2/imgui_1.91.6-3/get_patch",
-        "hash": "sha256-L3l3EUugfQZVmq+IkKkqTr0lGGWS1ER5VGBaryJEY00="
       }
     },
     "implot": {
