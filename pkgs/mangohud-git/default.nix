@@ -29,6 +29,8 @@ gitOverride (
           null;
     }) current.subprojects;
 
+    imguiDir = current.subprojects.imgui.directory;
+
     extractSubproject =
       { directory, src, ... }:
       if final.lib.strings.hasSuffix ".zip" src then
@@ -98,8 +100,10 @@ gitOverride (
         final.libgbm
         final.systemdLibs
         final.libcap
+        final.libxcb
         yaml-cpp
         final.wayland-protocols
+        final.wlr-protocols
       ];
 
       patches = builtins.filter (
@@ -187,6 +191,10 @@ gitOverride (
 
           if [ -d packagefiles/vk-bootstrap ]; then
             cp -R packagefiles/vk-bootstrap/* vk-bootstrap/
+          fi
+
+          if [ -d "packagefiles/${imguiDir}" ]; then
+            cp -R "packagefiles/${imguiDir}"/* imgui/
           fi
         )
       '';
