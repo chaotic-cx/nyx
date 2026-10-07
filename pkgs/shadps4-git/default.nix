@@ -29,10 +29,10 @@ gitOverride (current: {
     ];
     postPatch = (prevAttrs.postPatch or "") + ''
       # fmt 12 no longer pulls in format.h via core.h
-      for file in src/core/loader/elf.cpp src/emulator.cpp; do
-        substituteInPlace "$file" \
-          --replace-fail '#include <fmt/core.h>' '#include <fmt/format.h>'
-      done
+      if grep -q '#include <fmt/core.h>' src/emulator.cpp; then
+        substituteInPlace "src/emulator.cpp" \
+          --replace '#include <fmt/core.h>' '#include <fmt/format.h>'
+      fi
 
       # glibc 2.42 no longer transitively provides <cstring>.
       # Inject it into files that use std::mem* / std::str* APIs but lack the include.
