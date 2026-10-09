@@ -42,7 +42,7 @@
   "linuxPackages_cachyos.tuxedo-drivers" = "/nix/store/0hj1hiv8dcaw0vnm4yxgz2zl0fmbi9ay-tuxedo-drivers-7.2.9-x86_64-unknown-linux-gnu-4.20.1";
   "linuxPackages_cachyos.usbip" = "/nix/store/znx93jb2fdh8rvs18bq62l18grb0ynz8-usbip-linux-x86_64-unknown-linux-gnu-7.2.9";
   "linuxPackages_cachyos.v86d" = "/nix/store/w1b9fh1479xf9jgmy33b5faj04l18lj8-v86d-x86_64-unknown-linux-gnu-0.1.10-7.2.9";
-  "linuxPackages_cachyos.virtualboxGuestAdditions" = "/nix/store/imc5d7nvpgw6qzn7a18scqx5kf3h1ca5-VirtualBox-GuestAdditions-x86_64-unknown-linux-gnu-7.2.18-7.2.9";
+  "linuxPackages_cachyos.virtualboxGuestAdditions" = "/nix/store/v1kyxlrxwkkpnakhcaip4qnjfwwbdg5j-VirtualBox-GuestAdditions-x86_64-unknown-linux-gnu-7.2.20-7.2.9";
   "linuxPackages_cachyos.vmm_clock" = "/nix/store/1z5wi1kmbzqymh4734s91gka95jib720-vmm_clock-x86_64-unknown-linux-gnu-0.2.1";
   "linuxPackages_cachyos.vmware" = "/nix/store/90y4czs082vsvhi88fnj8b8j9fr76w5j-vmware-modules-x86_64-unknown-linux-gnu-workstation-25h2-20251015-7.2.9";
   "linuxPackages_cachyos.x86_energy_perf_policy" = "/nix/store/l2cpb4bn41ddnzgcjrk9i7y4gz0gyq6l-x86_energy_perf_policy-x86_64-unknown-linux-gnu-7.2.9";
