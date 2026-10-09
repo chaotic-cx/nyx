@@ -51,8 +51,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     runHook postInstall
   '';
 
-  runChecks = false;
-
   passthru.updateScript = callPackage ../../shared/git-update.nix {
     inherit (finalAttrs) pname;
     nyxKey = "tlottie_git";
