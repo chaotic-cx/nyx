@@ -437,6 +437,8 @@ in
   };
   tg-owt_git = callOverride ../pkgs/tg-owt-git { };
   tlottie_git = final.callPackage ../pkgs/tlottie-git { };
+  wallet-engine-bindgen_git = final.callPackage ../pkgs/wallet-engine-bindgen-git { };
+  wallet-engine_git = final.callPackage ../pkgs/wallet-engine-git { };
 
   vulkanPackages_latest = callOverride ../pkgs/vulkan-versioned {
     vulkanVersions = importJSON ../pkgs/vulkan-versioned/manifest-latest.json;
