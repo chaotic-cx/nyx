@@ -58,6 +58,11 @@ gitOverride (current: {
   version = builtins.substring 0 (builtins.stringLength prev.mesa.version) current.rev;
 
   postOverride = prevAttrs: {
+    # Filter out unsupported vulkan-layers and use current valid choices
+    mesonFlags =
+      builtins.filter (f: builtins.match "-Dvulkan-layers=.*" f == null) (prevAttrs.mesonFlags or [ ])
+      ++ [ "-Dvulkan-layers=device-select,overlay,screenshot,vram-report-limit" ];
+
     postUnpack = (prevAttrs.postUnpack or "") + ''
       rm source/subprojects/venus-protocol.wrap
       ln -s ${venus-protocol} source/subprojects/venus-protocol
