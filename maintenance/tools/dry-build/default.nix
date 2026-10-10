@@ -9,9 +9,7 @@
 }:
 
 let
-  allPackagesList = builtins.map (xsx: xsx.drv) (
-    lib.lists.filter (xsx: xsx.drv != null) packagesEval
-  );
+  allPackagesList = map (xsx: xsx.drv) (lib.lists.filter (xsx: xsx.drv != null) packagesEval);
 
   inherit (stdenv.hostPlatform) system;
 
@@ -31,7 +29,7 @@ let
     key: drv:
     let
       deps = nyxUtils.internalDeps allPackagesList drv;
-      depsCond = builtins.map (dep: nyxUtils.drvHash dep) deps;
+      depsCond = map (dep: nyxUtils.drvHash dep) deps;
       mainOutPath = builtins.unsafeDiscardStringContext drv.outPath;
       thisVar = nyxUtils.drvHash drv;
       failed = failures.${key} or null;
@@ -89,7 +87,7 @@ let
 
   packagesEvalSorted = lib.lists.toposort depFirstSorter uniqPackagesEval;
 
-  packagesCmds = builtins.map (pkg: pkg.cmd) packagesEvalSorted.result;
+  packagesCmds = map (pkg: pkg.cmd) packagesEvalSorted.result;
 
   finalJSON = writeText "chaotic-dry-build.json" (lib.generators.toJSON { } packagesCmds);
 

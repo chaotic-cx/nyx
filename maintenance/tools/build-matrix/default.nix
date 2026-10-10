@@ -8,7 +8,7 @@ let
 
   getBuildCmds = xs: (builder.override { subset = xs; }).passthru.packagesCmds;
 
-  groupedPackagesCmds = builtins.map (
+  groupedPackagesCmds = map (
     xs: lib.strings.concatStringsSep "\n" (getBuildCmds xs)
   ) groupedBuildable;
 in
