@@ -66,4 +66,5 @@
   "linuxPackages_cachyos-gcc.tsme-test" = "/nix/store/78a1py01ca6j3bniyv2ips1hq3pd8hrz-tsme-test-7.2.9-unstable-2026-02-09";
   "linuxPackages_cachyos-gcc.vmm_clock" = "/nix/store/hqgy3m2ymwjn6y43qf4rjardb05823fa-vmm_clock-0.2.1";
   "linuxPackages_cachyos-gcc.yt6801" = "/nix/store/34p5n9rsp42k8l4gqnmrkvc9dlw64d4i-yt6801-1.0.30-20250430";
+  "linux_cachyos-bmq" = "/nix/store/yipzh7cprsyyj5gn12l8zplrd9nxj723-linux-7.2.9";
 }
