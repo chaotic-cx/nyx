@@ -58,6 +58,13 @@ gitOverride (current: {
   version = builtins.substring 0 (builtins.stringLength prev.mesa.version) current.rev;
 
   postOverride = prevAttrs: {
+    patches = prevAttrs.patches ++ [
+      (final64.fetchpatch {
+        url = "https://gitlab.freedesktop.org/bbrezillon/mesa/-/commit/ef90af10a46da27c5c21d90a1bb2e64913810294.patch";
+        hash = "sha256-pdMSBzYp9qTk1+xbNfmFCO0a1ulUS+Nq1ECVdZHxM6Q=";
+      })
+    ];
+
     # Filter out unsupported vulkan-layers and use current valid choices
     mesonFlags =
       builtins.filter (f: builtins.match "-Dvulkan-layers=.*" f == null) (prevAttrs.mesonFlags or [ ])
