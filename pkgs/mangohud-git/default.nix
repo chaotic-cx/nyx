@@ -101,6 +101,7 @@ gitOverride (
         final.systemdLibs
         final.libcap
         final.libxcb
+        final.libxi
         yaml-cpp
         final.wayland-protocols
         final.wlr-protocols
@@ -128,28 +129,32 @@ gitOverride (
 
       # Completely override postPatch to avoid version mismatches and conflicts
       postPatch = ''
+        # Upstream uses XInput2 in mangoapp but forgot to link xi_dep; make optional to avoid build failure.
+        substituteInPlace meson.build \
+          --replace-fail "xi_dep = dependency('xi')" "xi_dep = dependency('xi', required: false)"
+
         # Fix spdlog and fmt includes for system spdlog/fmt
         substituteInPlace mangohud-next/server/metrics/metrics.cpp \
-          --replace '<spdlog/fmt/bundled/format.h>' '<fmt/format.h>
+          --replace-fail '<spdlog/fmt/bundled/format.h>' '<fmt/format.h>
         #include <fmt/ranges.h>'
 
         substituteInPlace mangohud-next/client/wayland.cpp \
-          --replace '#include "wayland.h"' '#include "wayland.h"
+          --replace-fail '#include "wayland.h"' '#include "wayland.h"
         #include <fmt/ranges.h>'
 
         # preload-nix-workaround.patch
         substituteInPlace bin/mangohud.in \
-          --replace '@ld_libdir_mangohud@@mangohud_lib_name@' '@mangohud_lib_name@'
+          --replace-fail '@ld_libdir_mangohud@@mangohud_lib_name@' '@mangohud_lib_name@'
 
         substituteInPlace bin/mangohud.in \
-          --replace 'disable_preload=false' 'disable_preload=false
+          --replace-fail 'disable_preload=false' 'disable_preload=false
             XDG_DATA_DIRS="@dataDir@''${XDG_DATA_DIRS:+:$XDG_DATA_DIRS}"'
 
         substituteInPlace bin/mangohud.in \
-          --replace 'exec env @mangohud_env@=1 "$@"' 'exec env @mangohud_env@=1 XDG_DATA_DIRS="''${XDG_DATA_DIRS}" "$@"'
+          --replace-fail 'exec env @mangohud_env@=1 "$@"' 'exec env @mangohud_env@=1 XDG_DATA_DIRS="''${XDG_DATA_DIRS}" "$@"'
 
         substituteInPlace bin/mangohud.in \
-          --replace 'exec env @mangohud_env@=1 LD_PRELOAD="''${LD_PRELOAD}" "$@"' \
+          --replace-fail 'exec env @mangohud_env@=1 LD_PRELOAD="''${LD_PRELOAD}" "$@"' \
                     'LD_LIBRARY_PATH="@libraryPath@''${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"; exec env @mangohud_env@=1 LD_PRELOAD="''${LD_PRELOAD}" LD_LIBRARY_PATH="''${LD_LIBRARY_PATH}" XDG_DATA_DIRS="''${XDG_DATA_DIRS}" "$@"'
 
         # Re-apply the substituteInPlace logic from nixpkgs but with correct version context
