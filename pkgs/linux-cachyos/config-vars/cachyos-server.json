@@ -12,7 +12,7 @@
   "_HZ_ticks": "300",
   "_tickrate": "full",
   "_preempt": "lazy",
-  "_hugepage": "always",
+  "_hugepage": "madvise",
   "_processor_opt": "",
   "_use_llvm_lto": "none",
   "_use_lto_suffix": "yes",
