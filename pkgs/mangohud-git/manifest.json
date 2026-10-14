@@ -1,7 +1,7 @@
 {
-  "version": "unstable-20261012185652-e6986de",
-  "rev": "e6986de9cb446e1ae60b7b037665e8d1b9fb4d84",
-  "hash": "sha256-Jb62CtBib6aOiSj2L04dk147pn2EAvguTsSZD06zmqY=",
+  "version": "unstable-20261014051337-5e12f92",
+  "rev": "5e12f921d931002b0ee139078d84859e4e74cc97",
+  "hash": "sha256-HuL2CUV7i6yeZ9JeyG4XbbCFkms5NH+1dSVNigQgNbQ=",
   "subprojects": {
     "vkroots": {
       "directory": "vkroots-unstable",
