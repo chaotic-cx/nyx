@@ -13,7 +13,12 @@
 kernel: _finalModules: prevModules:
 
 let
-  inherit (nyxUtils) markBroken overrideFull multiOverride;
+  inherit (nyxUtils)
+    markBroken
+    overrideFull
+    overrideMost
+    multiOverride
+    ;
 
   fixNoVideo =
     prevDrv:
@@ -89,4 +94,6 @@ with prevModules;
         "KBUILD_CFLAGS="
       ];
   });
+  # this one is hard
+  systemd = overrideMost [ "vmlinux-btf" ] final systemd;
 }

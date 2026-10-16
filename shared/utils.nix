@@ -104,10 +104,13 @@ rec {
   };
 
   # Helps replacing all the dependencies in a derivation.
-  overrideFull =
-    newScope: prev:
+  overrideFull = overrideMost [ ];
+
+  # Helps replacing most the dependencies in a derivation.
+  overrideMost =
+    rejectArgs: newScope: prev:
     let
-      args = prev.override.__functionArgs;
+      args = builtins.removeAttrs prev.override.__functionArgs rejectArgs;
       names = builtins.filter (arg: builtins.hasAttr arg newScope) (builtins.attrNames args);
       values = lib.attrsets.genAttrs names (arg: builtins.getAttr arg newScope);
     in

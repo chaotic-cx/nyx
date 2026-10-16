@@ -36,7 +36,6 @@
   "linuxPackages_cachyos.rust-out-of-tree-module" = "/nix/store/36k0z7bp109dyrdkd62x29wm7ifsn7pg-rust-out-of-tree-module-x86_64-unknown-linux-gnu-0-unstable-2025-11-12";
   "linuxPackages_cachyos.shufflecake" = "/nix/store/a5lk120ks6pjdc4w44ss8jbhccib6qpg-shufflecake-0.5.8-7.2.11-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos.system76-acpi" = "/nix/store/3pkmyi9n445wnp2mx4qfxhqwvhwzyxdz-system76-acpi-module-1.0.2-7.2.11-x86_64-unknown-linux-gnu";
-  "linuxPackages_cachyos.systemd" = "/nix/store/blpf3x4awi6d9r02wbmlhg57p2pljixz-systemd-x86_64-unknown-linux-gnu-261.3";
   "linuxPackages_cachyos.systemtap" = "/nix/store/18n45dvvs9si2zvx65ah7vkrvsk4d397-systemtap-5.5";
   "linuxPackages_cachyos.tp_smapi" = "/nix/store/z7xbxr84igzla5hn1qmg4ym6pp5g4jh6-tp_smapi-0.45-7.2.11-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos.tsme-test" = "/nix/store/dg9iiny5z4cnr8a20788cnjkqpws5jaj-tsme-test-x86_64-unknown-linux-gnu-7.2.11-unstable-2026-02-09";
