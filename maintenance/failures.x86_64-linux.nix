@@ -1,9 +1,8 @@
 {
-  "jovian-chaotic.opensd" = "/nix/store/44269s5060qin4c0alq4fmx1h7wr0962-opensd-0.52";
   "linuxPackages_cachyos.acer-wmi-battery" = "/nix/store/cy10g08g8wwfabks4xbjwcal3vsw649i-acer-wmi-battery-x86_64-unknown-linux-gnu-7.2.11-0.1.0-unstable-2025-04-24";
   "linuxPackages_cachyos.ajantv2" = "/nix/store/5d1bswpmv75rav3891c3mf7zkj0rv1hp-17.5.0-17.5.0-7.2.11-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos.amdgpu-i2c" = "/nix/store/fjxaq3mmwlxasqy5csiryhclgway88ff-amdgpu-i2c-x86_64-unknown-linux-gnu-0-unstable-2024-12-16";
-  "linuxPackages_cachyos.bcachefs" = "/nix/store/flnvjf5kf8j30vl8kxqassdnyzd003sh-bcachefs-x86_64-unknown-linux-gnu-7.2.11-1.39.6";
+  "linuxPackages_cachyos.bcachefs" = "/nix/store/i7x066vrv3x7910ik1jm21nmsk1f3wxc-bcachefs-x86_64-unknown-linux-gnu-7.2.11-1.39.7";
   "linuxPackages_cachyos.bcc" = "/nix/store/95vwf47mqw7pwg0hixbxkb7hlnz9id7k-bcc-0.37.0-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos.bpftrace" = "/nix/store/zqn9ri4bmp6f8qf52l65ljxmc6k8lnp3-bpftrace-x86_64-unknown-linux-gnu-0.27.0";
   "linuxPackages_cachyos.chipsec" = "/nix/store/nd7g8ninkqhrbmbxcidh3z4l7mklwfis-chipsec-1.13.20-x86_64-unknown-linux-gnu";
