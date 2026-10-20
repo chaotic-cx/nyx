@@ -28,6 +28,12 @@ gitOverride (current: {
       "-DSPDLOG_FMT_EXTERNAL=ON"
     ];
     postPatch = (prevAttrs.postPatch or "") + ''
+      # ZArchive fork has OpenFromStream, upstream nixpkgs 0.1.2 only has OpenFromFile.
+      substituteInPlace src/core/file_sys/backends/zarchive_fs.cpp \
+        --replace-fail \
+        'ZArchiveReader::OpenFromStream(std::make_unique<IOFileStream>(file))' \
+        'ZArchiveReader::OpenFromFile(archive_path)'
+
       # fmt 12 no longer pulls in format.h via core.h
       if grep -q '#include <fmt/core.h>' src/emulator.cpp; then
         substituteInPlace "src/emulator.cpp" \
