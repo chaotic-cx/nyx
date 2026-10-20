@@ -117,11 +117,15 @@ let
   jovian-chaotic =
     if final.stdenv.hostPlatform.isLinux && final.stdenv.hostPlatform.isx86_64 then
       let
-        base = nyxUtils.applyOverlay {
+        applied = nyxUtils.applyOverlay {
           overlay = jovian.overlays.default;
           replace = true;
           pkgs = prev;
         };
+        base = applied.jovianPackages;
+        buildable = final.lib.filterAttrs (
+          _name: drv: !builtins.isFunction drv && (drv.type or "") == "derivation"
+        ) base;
         # Helper to remove updateScript from a package
         removeUpdateScript =
           pkg:
@@ -132,11 +136,13 @@ let
           else
             pkg;
         # Remove updateScript from all jovian-chaotic packages (they use nix-update incorrectly)
-        jovianWithoutUpdateScript = builtins.mapAttrs (_k: removeUpdateScript) base;
+        jovianWithoutUpdateScript = builtins.mapAttrs (_k: removeUpdateScript) (
+          builtins.removeAttrs buildable [ "docs" ]
+        );
       in
-      (builtins.removeAttrs jovianWithoutUpdateScript [ "jovian-documentation" ])
+      jovianWithoutUpdateScript
       // {
-        linuxPackages_jovian = jovianWithoutUpdateScript.linuxPackages_jovian // {
+        linuxPackages_jovian = base.linuxPackages // {
           recurseForDerivations = false;
         };
         _description = "We cache Jovian-NixOS packages for you!";
