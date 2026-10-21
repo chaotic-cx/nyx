@@ -3,4 +3,7 @@
 /modules/ @chaotic-cx/nyxers
 /overlays/ @chaotic-cx/nyxers
 /shared/ @chaotic-cx/nyxers
-/*.* @chaotic-cx/nyxers
+/.* @chaotic-cx/nyxers
+/flake.nix @chaotic-cx/nyxers
+/*.md @chaotic-cx/nyxers
+/*.toml @chaotic-cx/nyxers
