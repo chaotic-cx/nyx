@@ -309,20 +309,31 @@ in
   niks3_nyx = niks3.packages.${system}.niks3;
 
   nvidia_cachyos = callOverride ../pkgs/nvidia-cachyos { };
+  nvidia_cachyos_open = final.nvidia_cachyos.open;
   nvidia_cachyos-gcc = callOverride ../pkgs/nvidia-cachyos {
     linuxPackages_cachyos = final.linuxPackages_cachyos-gcc;
   };
+  nvidia_cachyos-gcc_open = final.nvidia_cachyos-gcc.open;
   nvidia_cachyos-lto = callOverride ../pkgs/nvidia-cachyos {
     linuxPackages_cachyos = final.linuxPackages_cachyos-lto;
   };
+  nvidia_cachyos-lto_open = final.nvidia_cachyos-lto.open;
   nvidia_cachyos-bmq = callOverride ../pkgs/nvidia-cachyos { variant = "bmq"; };
+  nvidia_cachyos-bmq_open = final.nvidia_cachyos-bmq.open;
   nvidia_cachyos-bore = callOverride ../pkgs/nvidia-cachyos { variant = "bore"; };
+  nvidia_cachyos-bore_open = final.nvidia_cachyos-bore.open;
   nvidia_cachyos-eevdf = callOverride ../pkgs/nvidia-cachyos { variant = "eevdf"; };
+  nvidia_cachyos-eevdf_open = final.nvidia_cachyos-eevdf.open;
   nvidia_cachyos-hardened = callOverride ../pkgs/nvidia-cachyos { variant = "hardened"; };
+  nvidia_cachyos-hardened_open = final.nvidia_cachyos-hardened.open;
   nvidia_cachyos-lts = callOverride ../pkgs/nvidia-cachyos { variant = "lts"; };
+  nvidia_cachyos-lts_open = final.nvidia_cachyos-lts.open;
   nvidia_cachyos-rc = callOverride ../pkgs/nvidia-cachyos { variant = "rc"; };
+  nvidia_cachyos-rc_open = final.nvidia_cachyos-rc.open;
   nvidia_cachyos-rt-bore = callOverride ../pkgs/nvidia-cachyos { variant = "rt-bore"; };
+  nvidia_cachyos-rt-bore_open = final.nvidia_cachyos-rt-bore.open;
   nvidia_cachyos-server = callOverride ../pkgs/nvidia-cachyos { variant = "server"; };
+  nvidia_cachyos-server_open = final.nvidia_cachyos-server.open;
 
   mpv-vapoursynth =
     (final.mpv.override {

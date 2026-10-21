@@ -15,6 +15,8 @@ legacyPackages: {
 
   x86_64-linux."busybox_appletless" = legacyPackages.x86_64-linux.busybox_appletless;
 
+  x86_64-linux."colmena_git" = legacyPackages.x86_64-linux.colmena_git;
+
   x86_64-linux."cutty_git" = legacyPackages.x86_64-linux.cutty_git;
 
   x86_64-linux."distrobox_git" = legacyPackages.x86_64-linux.distrobox_git;
@@ -94,6 +96,8 @@ legacyPackages: {
 
   x86_64-linux."mesa_git" = legacyPackages.x86_64-linux.mesa_git;
 
+  x86_64-linux."mokka-kde-theme" = legacyPackages.x86_64-linux.mokka-kde-theme;
+
   x86_64-linux."mpv-vapoursynth" = legacyPackages.x86_64-linux.mpv-vapoursynth;
 
   x86_64-linux."niks3_nyx" = legacyPackages.x86_64-linux.niks3_nyx;
@@ -108,23 +112,47 @@ legacyPackages: {
 
   x86_64-linux."nvidia_cachyos-bmq" = legacyPackages.x86_64-linux.nvidia_cachyos-bmq;
 
+  x86_64-linux."nvidia_cachyos-bmq_open" = legacyPackages.x86_64-linux.nvidia_cachyos-bmq_open;
+
   x86_64-linux."nvidia_cachyos-bore" = legacyPackages.x86_64-linux.nvidia_cachyos-bore;
+
+  x86_64-linux."nvidia_cachyos-bore_open" = legacyPackages.x86_64-linux.nvidia_cachyos-bore_open;
 
   x86_64-linux."nvidia_cachyos-eevdf" = legacyPackages.x86_64-linux.nvidia_cachyos-eevdf;
 
+  x86_64-linux."nvidia_cachyos-eevdf_open" = legacyPackages.x86_64-linux.nvidia_cachyos-eevdf_open;
+
   x86_64-linux."nvidia_cachyos-gcc" = legacyPackages.x86_64-linux.nvidia_cachyos-gcc;
+
+  x86_64-linux."nvidia_cachyos-gcc_open" = legacyPackages.x86_64-linux.nvidia_cachyos-gcc_open;
 
   x86_64-linux."nvidia_cachyos-hardened" = legacyPackages.x86_64-linux.nvidia_cachyos-hardened;
 
+  x86_64-linux."nvidia_cachyos-hardened_open" =
+    legacyPackages.x86_64-linux.nvidia_cachyos-hardened_open;
+
   x86_64-linux."nvidia_cachyos-lto" = legacyPackages.x86_64-linux.nvidia_cachyos-lto;
+
+  x86_64-linux."nvidia_cachyos-lto_open" = legacyPackages.x86_64-linux.nvidia_cachyos-lto_open;
 
   x86_64-linux."nvidia_cachyos-lts" = legacyPackages.x86_64-linux.nvidia_cachyos-lts;
 
+  x86_64-linux."nvidia_cachyos-lts_open" = legacyPackages.x86_64-linux.nvidia_cachyos-lts_open;
+
   x86_64-linux."nvidia_cachyos-rc" = legacyPackages.x86_64-linux.nvidia_cachyos-rc;
+
+  x86_64-linux."nvidia_cachyos-rc_open" = legacyPackages.x86_64-linux.nvidia_cachyos-rc_open;
 
   x86_64-linux."nvidia_cachyos-rt-bore" = legacyPackages.x86_64-linux.nvidia_cachyos-rt-bore;
 
+  x86_64-linux."nvidia_cachyos-rt-bore_open" =
+    legacyPackages.x86_64-linux.nvidia_cachyos-rt-bore_open;
+
   x86_64-linux."nvidia_cachyos-server" = legacyPackages.x86_64-linux.nvidia_cachyos-server;
+
+  x86_64-linux."nvidia_cachyos-server_open" = legacyPackages.x86_64-linux.nvidia_cachyos-server_open;
+
+  x86_64-linux."nvidia_cachyos_open" = legacyPackages.x86_64-linux.nvidia_cachyos_open;
 
   x86_64-linux."nyx-generic-git-update" = legacyPackages.x86_64-linux.nyx-generic-git-update;
 
@@ -225,6 +253,10 @@ legacyPackages: {
 
   x86_64-linux."vulkanPackages_latest.vulkan-volk" =
     legacyPackages.x86_64-linux.vulkanPackages_latest.vulkan-volk;
+
+  x86_64-linux."wallet-engine-bindgen_git" = legacyPackages.x86_64-linux.wallet-engine-bindgen_git;
+
+  x86_64-linux."wallet-engine_git" = legacyPackages.x86_64-linux.wallet-engine_git;
 
   x86_64-linux."wayland-protocols_git" = legacyPackages.x86_64-linux.wayland-protocols_git;
 
