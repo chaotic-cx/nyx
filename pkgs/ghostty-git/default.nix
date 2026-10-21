@@ -11,7 +11,7 @@ let
     src:
     final.callPackage (src + "/build.zig.zon.nix") {
       name = "ghostty-git-zig-deps";
-      inherit (final) zig_0_16;
+      inherit (final) zig_0_17;
     };
 in
 gitOverride {
@@ -34,8 +34,16 @@ gitOverride {
     dontVersionCheck = true;
     deps = generateDeps prevAttrs.src;
     nativeBuildInputs = map (
-      pkg: if pkg.pname or null == "zig" then final.zig_0_16 else pkg
+      pkg: if pkg.pname or null == "zig" then final.zig_0_17 else pkg
     ) prevAttrs.nativeBuildInputs;
+
+    postFixup =
+      builtins.replaceStrings
+        [
+          "\nsubstituteInPlace $out/share/applications/com.mitchellh.ghostty.desktop \\\n  --replace-fail \"Exec=$out/bin/ghostty\" \"Exec=ghostty\"\n"
+        ]
+        [ "" ]
+        (prevAttrs.postFixup or "");
 
     # Use base appVersion from build.zig.zon instead of custom version-string
     # This avoids semantic version parsing errors for git builds
