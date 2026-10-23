@@ -75,5 +75,4 @@
   "linuxPackages_cachyos-gcc.vmm_clock" = "/nix/store/dwslgyxhaw7j88f8x1xd5844sbysi1z1-vmm_clock-0.2.1";
   "linuxPackages_cachyos-gcc.yt6801" = "/nix/store/c918nn2whw5azlyh771xhfd4bk9yza5j-yt6801-1.0.30-20250430";
   "linuxPackages_cachyos-gcc.zfs_cachyos" = "/nix/store/88w5fh8midk9wkndc658lcyyjm398xmj-zfs-all-2.4.4-7.3.0";
-  "nvidia_cachyos-server_open" = "/nix/store/iqyhxp7chx9zdic15sn5magb3hdz0yp5-nvidia-open-615.71.09-7.3.0";
 }
