@@ -1,21 +1,21 @@
 {
-  "version": "13.9.0",
+  "version": "13.10.0",
   "sources": {
     "aarch64-linux": {
-      "url": "https://gitlab.com/api/v4/projects/75420733/packages/generic/firedragon/13.9.0/firedragon-v13.9.0.linux-arm64.tar.xz",
-      "sha256": "0n8xd5hcg642azz4694jwvb1la3c8fydbcdiz9v5r3425d7kpg9f"
+      "url": "https://gitlab.com/api/v4/projects/75420733/packages/generic/firedragon/13.10.0/firedragon-v13.10.0.linux-arm64.tar.xz",
+      "sha256": "0ns8sl7yb76j7cw0pd0w5z6hqvzc35q9x0r0wnh4dk729qlaf0sd"
     },
     "x86_64-linux": {
-      "url": "https://gitlab.com/api/v4/projects/75420733/packages/generic/firedragon/13.9.0/firedragon-v13.9.0.linux-x64.tar.xz",
-      "sha256": "1mzr41y73nkkyx0ycrw23q75visb8pg2ix5vhyn0nz6cgkmmzp4c"
+      "url": "https://gitlab.com/api/v4/projects/75420733/packages/generic/firedragon/13.10.0/firedragon-v13.10.0.linux-x64.tar.xz",
+      "sha256": "0m07i3iyc04ykfsqjvwf1v1vi380q235cnzmy8ayzvrlj6w4wckn"
     },
     "aarch64-darwin": {
-      "url": "https://gitlab.com/api/v4/projects/75420733/packages/generic/firedragon/13.9.0/firedragon-v13.9.0.darwin-arm64.dmg",
-      "sha256": "06mg2178dp2ny732mvfn5anw60nv37nc7sd2na2hlshd5cfgm21v"
+      "url": "https://gitlab.com/api/v4/projects/75420733/packages/generic/firedragon/13.10.0/firedragon-v13.10.0.darwin-arm64.dmg",
+      "sha256": "1gy7djf277rxl0mzjhkdx5qw137qym0nfs2yxvrvdxq58im0xz33"
     },
     "x86_64-darwin": {
-      "url": "https://gitlab.com/api/v4/projects/75420733/packages/generic/firedragon/13.9.0/firedragon-v13.9.0.darwin-x64.dmg",
-      "sha256": "1m0ny5x0by3lxh5xicsi0qi9f1pn1a3sspl5qicx9h41ca4nswvf"
+      "url": "https://gitlab.com/api/v4/projects/75420733/packages/generic/firedragon/13.10.0/firedragon-v13.10.0.darwin-x64.dmg",
+      "sha256": "1n8w69yi1ji7dj8r3r170vnwnxfr4zv4caf1b1bk58mbncr7g7sj"
     }
   }
 }
