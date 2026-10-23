@@ -130,7 +130,7 @@ let
     kernel_configfile = prevAttrs.kernel.configfile;
     zfs_cachyos =
       (finalAttrs.callPackage "${inputs.flakes.nixpkgs}/pkgs/os-specific/linux/zfs/generic.nix"
-        zfsOverride
+        (zfsOverride // { configFile = "kernel"; })
         {
           kernelModuleAttribute = "zfs_cachyos";
           kernelMinSupportedMajorMinor = "1.0";
