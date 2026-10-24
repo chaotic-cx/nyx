@@ -49,7 +49,6 @@
   "linuxPackages_cachyos.x86_energy_perf_policy" = "/nix/store/3yz54j22i2bh762g0qa8i3n37q4xv901-x86_energy_perf_policy-x86_64-unknown-linux-gnu-7.3.0";
   "linuxPackages_cachyos.yt6801" = "/nix/store/gmffivf45p8rffgagm51hb3g9kzwcwlr-yt6801-x86_64-unknown-linux-gnu-1.0.30-20250430";
   "linuxPackages_cachyos.zenpower" = "/nix/store/699cmw10f4qfah6gnmsrvm0av7hbf9cn-zenpower5-x86_64-unknown-linux-gnu-0.5.0-unstable-2026-01-07";
-  "linuxPackages_cachyos.zfs_cachyos" = "/nix/store/31zxrxw90x3lhm5bgh8ih8crn3cswzd2-zfs-all-2.4.4-7.3.0-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos-gcc.ajantv2" = "/nix/store/zrm7h43fi72hzir4y4jj1cwf4zb0xip2-17.5.0-17.5.0-7.3.0";
   "linuxPackages_cachyos-gcc.apfs" = "/nix/store/jdk59vc9lvc0qg17pk7914dshjxcq0pq-apfs-0.3.21-unstable-2025-08-15-7.3.0";
   "linuxPackages_cachyos-gcc.chipsec" = "/nix/store/px8vhjjfh48lm1mphhq594y804zxckcy-chipsec-1.13.20";
@@ -74,5 +73,4 @@
   "linuxPackages_cachyos-gcc.tuxedo-drivers" = "/nix/store/6jj8b9lc473sxrs4d51g2mxl5zf7vjc9-tuxedo-drivers-7.3.0-4.20.1";
   "linuxPackages_cachyos-gcc.vmm_clock" = "/nix/store/dwslgyxhaw7j88f8x1xd5844sbysi1z1-vmm_clock-0.2.1";
   "linuxPackages_cachyos-gcc.yt6801" = "/nix/store/c918nn2whw5azlyh771xhfd4bk9yza5j-yt6801-1.0.30-20250430";
-  "linuxPackages_cachyos-gcc.zfs_cachyos" = "/nix/store/88w5fh8midk9wkndc658lcyyjm398xmj-zfs-all-2.4.4-7.3.0";
 }
