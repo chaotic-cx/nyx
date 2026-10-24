@@ -4,7 +4,7 @@
   "_makenconfig": "no",
   "_makexconfig": "no",
   "_localmodcfg": "no",
-  "_localmodcfg_path": "\"$HOME/.config/modprobed.db\"",
+  "_localmodcfg_path": "\"$XDG_DATA_HOME/modprobed-db/modprobed.db\"",
   "_use_current": "no",
   "_cc_harder": "yes",
   "_per_gov": "no",
