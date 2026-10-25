@@ -53,9 +53,6 @@ with prevModules;
         '';
         # Don't build userspace stuff
         postBuild = "";
-        installPhase =
-          builtins.replaceStrings [ "install -Dm755 library/libevdi.so" ] [ "#" ]
-            prevAttrs.installPhase;
       });
   nvidia_x11 = fixNoVideo nvidia_x11;
   nvidia_x11_beta = fixNoVideo nvidia_x11_beta;
