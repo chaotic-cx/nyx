@@ -25,27 +25,14 @@ in
       };
     };
   };
-  config =
-    let
-      path = lib.mkDefault (
-        lib.lists.optionals registryCfg.enable [
-          "chaotic=${if pathCfg.enable then "flake:chaotic" else flakes.self}"
-        ]
-      );
-    in
-    {
-      nix = lib.mkMerge [
-        (
-          if lib.versionAtLeast lib.version "26.11pre" then
-            { settings.nix-path = path; }
-          else
-            { nixPath = path; }
-        )
-        {
-          registry = lib.mkIf pathCfg.enable {
-            chaotic.flake = flakes.self;
-          };
-        }
-      ];
+  config = {
+    nix.nixPath = lib.mkDefault (
+      lib.lists.optionals pathCfg.enable [
+        "chaotic=${if registryCfg.enable then "flake:chaotic" else flakes.self}"
+      ]
+    );
+    nix.registry = lib.mkIf registryCfg.enable {
+      chaotic.flake = flakes.self;
     };
+  };
 }
