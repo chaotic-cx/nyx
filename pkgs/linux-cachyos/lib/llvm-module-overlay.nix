@@ -70,6 +70,9 @@ with prevModules;
       legacy_580 = fixNoVideo legacy_580;
     }
   );
+  openrazer = prevModules.openrazer.override {
+    inherit (final) coreutils util-linux;
+  };
   # perf needs systemtap fixed first
   perf = markBroken perf;
   ryzen-smu = prevModules.ryzen-smu.overrideAttrs (prevAttrs: {

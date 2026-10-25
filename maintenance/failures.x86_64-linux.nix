@@ -27,7 +27,6 @@
   "linuxPackages_cachyos.oci-seccomp-bpf-hook" = "/nix/store/4w1q37m28b0zh4v8l3gfpmrbvap9pcsr-oci-seccomp-bpf-hook-x86_64-unknown-linux-gnu-1.3.0";
   "linuxPackages_cachyos.odp-dpdk" = "/nix/store/l144bnkry6adh2g07cc5a4knq1da11d9-odp-dpdk-x86_64-unknown-linux-gnu-1.51.0.0_DPDK_24.11";
   "linuxPackages_cachyos.openafs" = "/nix/store/03zaz2dvvbwsc2pcxm7ykr0v8aghvj07-openafs-x86_64-unknown-linux-gnu-1.8.16.1-7.3.0-cachyos";
-  "linuxPackages_cachyos.openrazer" = "/nix/store/bzgsa0mw5lwclhxlw7f4dmvgfvj19g3m-openrazer-x86_64-unknown-linux-gnu-3.12.4-7.3.0";
   "linuxPackages_cachyos.pktgen" = "/nix/store/sk06jzgv788i7ppxc45ywcjfg86cfrjp-pktgen-x86_64-unknown-linux-gnu-26.03.0";
   "linuxPackages_cachyos.rr-zen_workaround" = "/nix/store/gs4fm4sm604whp4p2am5yr7g10b6xsbv-rr-zen_workaround-x86_64-unknown-linux-gnu-5.9.0";
   "linuxPackages_cachyos.rtl8188eus-aircrack" = "/nix/store/gv6vs5i0y8y8yf4svpwpbsfpaj24dj0v-rtl8188eus-aircrack-x86_64-unknown-linux-gnu-7.3.0-unstable-2026-08-18";
