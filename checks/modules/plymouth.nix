@@ -14,7 +14,6 @@
     };
 
     consoleLogLevel = lib.mkForce 3;
-    initrd.verbose = false;
     # using mkForce to properly mix with virtualisation stuff
     kernelParams = lib.mkForce [
       "console=ttyS0"
