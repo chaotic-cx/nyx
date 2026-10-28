@@ -60,8 +60,16 @@ gitOverride (current: {
   postOverride = prevAttrs: {
     # Filter out unsupported vulkan-layers and use current valid choices
     mesonFlags =
-      builtins.filter (f: builtins.match "-Dvulkan-layers=.*" f == null) (prevAttrs.mesonFlags or [ ])
-      ++ [ "-Dvulkan-layers=device-select,overlay,screenshot,vram-report-limit" ];
+      builtins.filter (
+        flag:
+        builtins.match "-Dvulkan-layers=.*" flag == null
+        && builtins.match "-Damdgpu-virtio=.*" flag == null
+        && builtins.match "-Damd-options=.*" flag == null
+      ) (prevAttrs.mesonFlags or [ ])
+      ++ [ "-Dvulkan-layers=device-select,overlay,screenshot,vram-report-limit" ]
+      # mesa renamed amdgpu-virtio to amd-options
+      # valid choices are use-llvm and virtio
+      ++ [ "-Damd-options=virtio" ];
 
     postUnpack = (prevAttrs.postUnpack or "") + ''
       rm source/subprojects/venus-protocol.wrap
