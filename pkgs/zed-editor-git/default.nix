@@ -30,8 +30,10 @@ gitOverride (current: {
     installPhase =
       builtins.replaceStrings [ "zed-remote-server-stable-$version" ] [ "zed-remote-server-dev-build" ]
         (
-          builtins.replaceStrings [ "dev.zed.Zed.desktop" ] [ "dev.zed.Zed-Dev.desktop" ]
-            prevAttrs.installPhase
+          builtins.replaceStrings [ "dev.zed.Zed.desktop" ] [ "dev.zed.Zed-Dev.desktop" ] (
+            builtins.replaceStrings [ "$release_target/remote_server" ] [ "$release_target/remote-server" ]
+              prevAttrs.installPhase
+          )
         );
     # Nothing wrong on it, just saving compilation time for me!
     dontCheck = true;
