@@ -1,6 +1,6 @@
 {
   "linuxPackages_cachyos.ajantv2" = "/nix/store/2sfwk66mizzjmj01hz8qh9cf8n629njb-17.5.0-17.5.0-7.3.0-x86_64-unknown-linux-gnu";
-  "linuxPackages_cachyos.amdgpu-i2c" = "/nix/store/s7cq39cyzi2kv1rvpgghqjkrh7gqhxnr-amdgpu-i2c-x86_64-unknown-linux-gnu-0-unstable-2024-12-16";
+  "linuxPackages_cachyos.amdgpu-i2c" = "/nix/store/k5jk6z83svyf19jb2pk7f7fg8k1b71bi-amdgpu-i2c-x86_64-unknown-linux-gnu-0-unstable-2024-12-16";
   "linuxPackages_cachyos.apfs" = "/nix/store/5j6bvf1ldiw0bgjnqm5p3hw58m89kmb8-apfs-x86_64-unknown-linux-gnu-0.3.21-unstable-2025-08-15-7.3.0";
   "linuxPackages_cachyos.bcachefs" = "/nix/store/jbb9nksw8i0lm4471z7qrqi5359m39jp-bcachefs-x86_64-unknown-linux-gnu-7.3.0-1.39.7";
   "linuxPackages_cachyos.bcc" = "/nix/store/7bl6iz1hqnbpsq6qc77ji9h259xnvmjw-bcc-0.37.0-x86_64-unknown-linux-gnu";
@@ -13,7 +13,6 @@
   "linuxPackages_cachyos.ethercat" = "/nix/store/phdgpdmvlvm5jnaf05i9a9x8n74pzpbm-ethercat-x86_64-unknown-linux-gnu-7.3.0-1.6.13";
   "linuxPackages_cachyos.evdi" = "/nix/store/kzw79y7dl0jhd36h7s0m1wd0nw19d0vl-evdi-x86_64-unknown-linux-gnu-1.15.1";
   "linuxPackages_cachyos.facetimehd" = "/nix/store/wmq3ch8ds65rmzxrpn5vgzbjvhcach56-facetimehd-0.7.0.2-7.3.0-x86_64-unknown-linux-gnu";
-  "linuxPackages_cachyos.gasket" = "/nix/store/vby0knbq28x1wsm746kg10dmzk9ldwir-gasket-x86_64-unknown-linux-gnu-1.0-18-unstable-2024-04-25";
   "linuxPackages_cachyos.hyperv-daemons" = "/nix/store/k0mdr22165yg0v9cd2s247qwmkc86hhx-hyperv-daemons-x86_64-unknown-linux-gnu-7.3.0-bin";
   "linuxPackages_cachyos.linux-gpib" = "/nix/store/21ma3wlhfyi38qaqsyn3gmmdc8zc7ii1-linux-gpib-kernel-x86_64-unknown-linux-gnu-4.3.7";
   "linuxPackages_cachyos.mbp2018-bridge-drv" = "/nix/store/m64dq8nwg5nji58lakbnici01n1aslf1-mbp2018-bridge-drv-x86_64-unknown-linux-gnu-2020-01-31";
@@ -54,7 +53,6 @@
   "linuxPackages_cachyos-gcc.chipsec" = "/nix/store/wcac6017jp5aqb4bxmz7ns8srcb4zikm-chipsec-1.13.20";
   "linuxPackages_cachyos-gcc.ecapture" = "/nix/store/0ykwws8jliliyzidnv99rs97g3ibkmgm-ecapture-1.5.2";
   "linuxPackages_cachyos-gcc.facetimehd" = "/nix/store/29kxinb50cxxksakm6wabqa291b4v8bl-facetimehd-0.7.0.2-7.3.0";
-  "linuxPackages_cachyos-gcc.gasket" = "/nix/store/32mpndf2mj4ck7jbfb6y1xza9hmvwbbx-gasket-1.0-18-unstable-2024-04-25";
   "linuxPackages_cachyos-gcc.mbp2018-bridge-drv" = "/nix/store/s39na5vbdkyhllp4hwy4s88i9nr4v4wj-mbp2018-bridge-drv-2020-01-31";
   "linuxPackages_cachyos-gcc.nullfs" = "/nix/store/mdaran7rkd9y3hfif2c68hj8c1kybm6k-nullfsvfs-0.27";
   "linuxPackages_cachyos-gcc.nvidia_x11_beta_open" = "/nix/store/357ib15g84yrpq5wzf6dqz9d4n1pbydr-nvidia-open-595.45.04-7.3.0";
