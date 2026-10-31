@@ -68,4 +68,6 @@
   "linuxPackages_cachyos-gcc.tuxedo-drivers" = "/nix/store/f5cq3xaxiy7f9k0pqqjwwvypsk078rk4-tuxedo-drivers-7.3.0-4.20.1";
   "linuxPackages_cachyos-gcc.vmm_clock" = "/nix/store/88g12wzcps5xa7bf7csx4g3f84n9vypr-vmm_clock-0.2.1";
   "linuxPackages_cachyos-gcc.yt6801" = "/nix/store/vkcqli2281q7is9hrzh1ylzcnl3p3gdh-yt6801-1.0.30-20250430";
+  "linux_cachyos-bore" = "/nix/store/vmm279cly5fkh4dpk67anx343c56ddzi-linux-7.3.1";
+  "nvidia_cachyos-bore_open" = "/nix/store/qk4jcn2hcxayljdqx4y565warfzwgl1v-nvidia-open-615.78.08-7.3.1";
 }
