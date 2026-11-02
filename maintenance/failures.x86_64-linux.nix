@@ -1,4 +1,5 @@
 {
+  "linuxPackages_cachyos.acer-wmi-battery" = "/nix/store/f60fxzjr6vfmqz4s04ldszwmapdff0fv-acer-wmi-battery-x86_64-unknown-linux-gnu-7.3.1-0.1.0-unstable-2025-04-24";
   "linuxPackages_cachyos.ajantv2" = "/nix/store/adx090rvdylh4y8kfmxgrxslfn8z328k-17.5.0-17.5.0-7.3.1-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos.amdgpu-i2c" = "/nix/store/pj58j5x2zmdf9xw551h38c6gs7182hlw-amdgpu-i2c-x86_64-unknown-linux-gnu-0-unstable-2024-12-16";
   "linuxPackages_cachyos.apfs" = "/nix/store/5rc01zhcqdjfa9np76xg6p45f72xx6gi-apfs-x86_64-unknown-linux-gnu-0.3.21-unstable-2025-08-15-7.3.1";
@@ -8,7 +9,7 @@
   "linuxPackages_cachyos.chipsec" = "/nix/store/66vdd8hhgqchjfnwg1az44ssshp78m3m-chipsec-1.13.20-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos.corefreq" = "/nix/store/bdrkggz8px8184d5vw3056nh5fc5cgz6-corefreq-x86_64-unknown-linux-gnu-2.1.2";
   "linuxPackages_cachyos.dpdk" = "/nix/store/65w7f9hkjfaimqbvp8v1fk4f61qki0ws-dpdk-x86_64-unknown-linux-gnu-26.03";
-  "linuxPackages_cachyos.ecapture" = "/nix/store/iya29vjin32wfhckyvx34gj3ajkbjp29-ecapture-x86_64-unknown-linux-gnu-1.5.2";
+  "linuxPackages_cachyos.ecapture" = "/nix/store/m71252n1sg9yfa94algs449il3jfmi3f-ecapture-x86_64-unknown-linux-gnu-1.5.2";
   "linuxPackages_cachyos.ena" = "/nix/store/qrp6v458cwmmldyi8b0qgvxwg31y9502-ena-2.17.4-7.3.1-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos.ethercat" = "/nix/store/07k0ylhw0y8ijjrnrxwai6zrxvxw0jiw-ethercat-x86_64-unknown-linux-gnu-7.3.1-1.6.13";
   "linuxPackages_cachyos.evdi" = "/nix/store/dq2m5z8g62aav3dp8dg7iysjybfgcp8z-evdi-x86_64-unknown-linux-gnu-1.15.1";
@@ -16,12 +17,12 @@
   "linuxPackages_cachyos.hyperv-daemons" = "/nix/store/ldxy8mm6nhnhr546x9b4fkh7d5mcc74n-hyperv-daemons-x86_64-unknown-linux-gnu-7.3.1-bin";
   "linuxPackages_cachyos.linux-gpib" = "/nix/store/fhxsa8z21yi97hijdyynnsw9mh8dw9zm-linux-gpib-kernel-x86_64-unknown-linux-gnu-4.3.7";
   "linuxPackages_cachyos.mbp2018-bridge-drv" = "/nix/store/ghngg9zdl62w9nf09yybhqa2l0aj90xd-mbp2018-bridge-drv-x86_64-unknown-linux-gnu-2020-01-31";
-  "linuxPackages_cachyos.mm-tools" = "/nix/store/nxx652nfhgl1c3s88h0663qb4pfwah7p-mm-tools-x86_64-unknown-linux-gnu-6.18.59";
+  "linuxPackages_cachyos.mm-tools" = "/nix/store/gm5ph523f116d5fkr8grjz9s5r11glqa-mm-tools-x86_64-unknown-linux-gnu-6.18.60";
   "linuxPackages_cachyos.mwprocapture" = "/nix/store/l0far5qb31ah4hkn887vpscafvkgpyzr-mwprocapture-x86_64-unknown-linux-gnu-1.3.4458-7.3.1";
   "linuxPackages_cachyos.netatop" = "/nix/store/vwrm8ana7ykxy0l69asfgqviy0fd9xhc-netatop-7.3.1-3.2.2-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos.nullfs" = "/nix/store/dhhlhhlpw90dy2yka3yjd6gxhsknablg-nullfsvfs-x86_64-unknown-linux-gnu-0.27";
   "linuxPackages_cachyos.nvidia_x11_beta_open" = "/nix/store/k27z8x65w910c8xr145cqc766rg2cx9q-nvidia-open-x86_64-unknown-linux-gnu-595.45.04-7.3.1";
-  "linuxPackages_cachyos.oci-seccomp-bpf-hook" = "/nix/store/4w1q37m28b0zh4v8l3gfpmrbvap9pcsr-oci-seccomp-bpf-hook-x86_64-unknown-linux-gnu-1.3.0";
+  "linuxPackages_cachyos.oci-seccomp-bpf-hook" = "/nix/store/d5f5bkqpwrgvqza97h7nldvmivbc7ic0-oci-seccomp-bpf-hook-x86_64-unknown-linux-gnu-1.3.0";
   "linuxPackages_cachyos.odp-dpdk" = "/nix/store/l144bnkry6adh2g07cc5a4knq1da11d9-odp-dpdk-x86_64-unknown-linux-gnu-1.51.0.0_DPDK_24.11";
   "linuxPackages_cachyos.openafs" = "/nix/store/0gki0xpqkfar4l8x26vb71wc2byydpkc-openafs-x86_64-unknown-linux-gnu-1.8.16.1-7.3.1-cachyos";
   "linuxPackages_cachyos.pktgen" = "/nix/store/sk06jzgv788i7ppxc45ywcjfg86cfrjp-pktgen-x86_64-unknown-linux-gnu-26.03.0";
@@ -48,10 +49,11 @@
   "linuxPackages_cachyos.x86_energy_perf_policy" = "/nix/store/dgqsjsvh15cchz5hrkcrf7i1n2vsdnj2-x86_energy_perf_policy-x86_64-unknown-linux-gnu-7.3.1";
   "linuxPackages_cachyos.yt6801" = "/nix/store/8hm3jmx642201xzwwj1w0a0lfap2kf32-yt6801-x86_64-unknown-linux-gnu-1.0.30-20250430";
   "linuxPackages_cachyos.zenpower" = "/nix/store/adjvi0hh32jdjmy08xbhdr1afhyhmlrb-zenpower5-x86_64-unknown-linux-gnu-0.5.0-unstable-2026-01-07";
+  "linuxPackages_cachyos-gcc.acer-wmi-battery" = "/nix/store/r0gx6hwharry5dxhaj4wbfa8njcrlny5-acer-wmi-battery-7.3.1-0.1.0-unstable-2025-04-24";
   "linuxPackages_cachyos-gcc.ajantv2" = "/nix/store/qflx595kb9vz5jfqba87jhmwv1bcljpb-17.5.0-17.5.0-7.3.1";
   "linuxPackages_cachyos-gcc.apfs" = "/nix/store/08caj644yq75dd8k496l4j8ibnj70rvm-apfs-0.3.21-unstable-2025-08-15-7.3.1";
   "linuxPackages_cachyos-gcc.chipsec" = "/nix/store/146m9qxjh8scai268m2pgi8lmqj3dwj1-chipsec-1.13.20";
-  "linuxPackages_cachyos-gcc.ecapture" = "/nix/store/7mn3w6rd4vl730243kn8j8nl6xnhj8br-ecapture-1.5.2";
+  "linuxPackages_cachyos-gcc.ecapture" = "/nix/store/qskrnhsp7qlf6iixdkasmr0qr5i11al3-ecapture-1.5.2";
   "linuxPackages_cachyos-gcc.facetimehd" = "/nix/store/77pgbap5j1ijyhdwwlp64b49isj0r2zb-facetimehd-0.7.0.2-7.3.1";
   "linuxPackages_cachyos-gcc.mbp2018-bridge-drv" = "/nix/store/3dddxlb10sgnkz9w0bqcc8n0y276dc6i-mbp2018-bridge-drv-2020-01-31";
   "linuxPackages_cachyos-gcc.nullfs" = "/nix/store/c4wp87kpwi77plkq5nzqqm9f89ql389s-nullfsvfs-0.27";
