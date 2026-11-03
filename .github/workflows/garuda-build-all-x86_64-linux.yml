@@ -119,6 +119,8 @@ jobs:
           NYX_PIN: ${{ inputs.pin || 'none' }}
           SAVE_FAILURES: ${{ inputs.commit-failures || false }}
           TARGET_BRANCH: ${{ github.event.pull_request.head.ref || github.ref_name }}
+          WORKER_URL: ${{ secrets.WORKER_URL }}
+          WORKER_AUTH_SECRET: ${{ secrets.WORKER_AUTH_SECRET }}
       - name: Comment on commit
         if: (success())
         uses: actions/github-script@v9
