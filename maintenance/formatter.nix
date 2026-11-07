@@ -15,6 +15,7 @@ let
         "maintenance/failures.aarch64-darwin.nix"
         "maintenance/failures.aarch64-linux.nix"
         "maintenance/failures.x86_64-linux.nix"
+        "pkgs/ghostty-git/deps.nix"
       ];
       formatter.nixfmt = {
         command = "nixfmt";
