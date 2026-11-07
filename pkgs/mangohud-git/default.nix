@@ -135,8 +135,7 @@ gitOverride (
 
         # Fix spdlog and fmt includes for system spdlog/fmt
         substituteInPlace mangohud-next/server/metrics/metrics.cpp \
-          --replace-fail '<spdlog/fmt/bundled/format.h>' '<fmt/format.h>
-        #include <fmt/ranges.h>'
+          --replace-fail '<spdlog/fmt/bundled/' '<fmt/'
 
         substituteInPlace mangohud-next/client/wayland.cpp \
           --replace-fail '#include "wayland.h"' '#include "wayland.h"
