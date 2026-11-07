@@ -1,11 +1,18 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Generated files skipped by deadnix and the short-lambda check.
+GENERATED_NIX=("pkgs/ghostty-git/deps.nix")
+
 treefmt --ci
 statix check .
-deadnix --fail .
+deadnix --fail . --exclude "${GENERATED_NIX[@]}"
 
-_SHORT_FILES=$(find . -type f -name '*.nix' -print0 | (xargs -0 rg -P '[^\w"-\/\{](?!_?xs|_?id|_?[kvx]:)(_?[a-zA-Z_][a-zA-Z_-]?:)(?!\w)' || true) )
+_FIND_EXCLUDES=()
+for _f in "${GENERATED_NIX[@]}"; do
+  _FIND_EXCLUDES+=(-not -path "*/$_f")
+done
+_SHORT_FILES=$(find . -type f -name '*.nix' "${_FIND_EXCLUDES[@]}" -print0 | (xargs -0 rg -P '[^\w"-\/\{](?!_?xs|_?id|_?[kvx]:)(_?[a-zA-Z_][a-zA-Z_-]?:)(?!\w)' || true) )
 if [[ -n "$_SHORT_FILES" ]]; then
   echo "Lambda parameters can't have two letters or less (except: x, xs, id, k, v):"
   echo "$_SHORT_FILES"
