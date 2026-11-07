@@ -4,7 +4,7 @@
   "_makenconfig": "no",
   "_makexconfig": "no",
   "_localmodcfg": "no",
-  "_localmodcfg_path": "\"$HOME/.config/modprobed.db\"",
+  "_localmodcfg_path": "\"$XDG_DATA_HOME/modprobed-db/modprobed.db\"",
   "_use_current": "no",
   "_cc_harder": "yes",
   "_per_gov": "no",
@@ -20,6 +20,7 @@
   "_use_kcfi": "no",
   "_build_zfs": "no",
   "_build_nvidia_open": "no",
+  "_build_nvidia_580xx": "no",
   "_build_r8125": "no",
   "_build_debug": "no"
 }
