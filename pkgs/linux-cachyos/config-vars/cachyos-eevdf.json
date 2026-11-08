@@ -20,6 +20,7 @@
   "_use_kcfi": "no",
   "_build_zfs": "no",
   "_build_nvidia_open": "no",
+  "_build_nvidia_580xx": "no",
   "_build_r8125": "no",
   "_build_debug": "no"
 }
