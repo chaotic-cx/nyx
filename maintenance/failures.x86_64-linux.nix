@@ -65,5 +65,5 @@
   "linuxPackages_cachyos-gcc.tsme-test" = "/nix/store/xi03zmjm01sdh0q2mf9rxx8i3rpmd1ar-tsme-test-7.3.3-unstable-2026-02-09";
   "linuxPackages_cachyos-gcc.vmm_clock" = "/nix/store/lriqm2rawr3rpsgli4i9n5ywcind1rhl-vmm_clock-0.2.1";
   "linuxPackages_cachyos-gcc.yt6801" = "/nix/store/zlskqm1g3jls3541q0i01r6ff8ff2yfg-yt6801-1.0.30-20250430";
-  "nvidia_cachyos-rc_open" = "/nix/store/52sw0kd0xin4h7ml21414s1s2ydqv9dv-nvidia-open-x86_64-unknown-linux-gnu-615.78.08-7.4-rc1";
+  "nvidia_cachyos-rc_open" = "/nix/store/b5465gz5x1mwrvj9x57mnf4xdmpqjl27-nvidia-open-x86_64-unknown-linux-gnu-615.78.08-7.4-rc2";
 }
