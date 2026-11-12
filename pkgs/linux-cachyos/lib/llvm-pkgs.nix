@@ -27,7 +27,6 @@ in
       rustc
       rustc-unwrapped
       rust-bindgen
-      rust-bindgen-unwrapped
       rustPlatform
       ;
   }

@@ -419,18 +419,6 @@ in
 
   river_git = callOverride ../pkgs/river-git { };
 
-  rust-bindgen_kernel-lto =
-    if final.stdenv.hostPlatform.isLinux && final.stdenv.hostPlatform.isx86_64 then
-      cachyosPackages.cachyos-lto.kernel_configfile.passthru.rust-bindgen-unwrapped
-    else
-      markBroken final.rust-bindgen;
-
-  rustc_kernel-lto =
-    if final.stdenv.hostPlatform.isLinux && final.stdenv.hostPlatform.isx86_64 then
-      cachyosPackages.cachyos-lto.kernel_configfile.passthru.rustc-unwrapped
-    else
-      markBroken final.rustc;
-
   rustc_nightly = rust-overlay.packages.${system}.rust-nightly;
 
   sdl_git = callOverride ../pkgs/sdl-git { };

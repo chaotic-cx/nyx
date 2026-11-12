@@ -7,9 +7,6 @@
   kernel,
   ogKernelConfigfile,
   commonMakeFlags,
-  # Only to passthru for cache
-  rustc-unwrapped,
-  rust-bindgen-unwrapped,
 }:
 let
   inherit (cachyConfig.versions.linux) version;
@@ -388,8 +385,6 @@ stdenv.mkDerivation (finalAttrs: {
       commonMakeFlags
       preparedMakeFlags
       stdenv
-      rustc-unwrapped
-      rust-bindgen-unwrapped
       ;
     kernelPatches = patches;
     extraVerPatch = ''
