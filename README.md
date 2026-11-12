@@ -267,53 +267,6 @@ We do this automatically, so we can gracefully update the cache's address and ke
 
 <p>We support a few other variables from CachyOS' PKGBUILD in the <code>cachyVars</code> atttrset.</p>
 
-<h4 id="using-sched-ext-schedulers">Using sched-ext schedulers</h4>
-
-<p> From version 6.12 onwards, sched-ext support is officially available on the upstream kernel. You can use the latest kernel (<code>pkgs.linuxPackages_latest</code>) or our provided CachyOS kernel (<code>pkgs.linuxPackages_cachyos</code>). Not all variants of CachyOS support it.</p>
-
-<p>Just add this to your configuration:</p>
-
-<pre lang="nix"><code class="language-nix">
-# configuration.nix
-{
-  boot.kernelPackages = pkgs.linuxPackages_cachyos;
-  services.scx.enable = true; # by default uses scx_rustland scheduler
-}
-</code></pre>
-
-<p> Then, reboot with the new configuration, check if the scheduler is running: </p>
-
-<pre lang="text"><code class="language-text">
-╰─λ systemctl status scx.service
-</code></pre>
-
-<p> If this is not working, check if the current kernel support <code>sched-ext</code> feature. </p>
-
-<pre lang="text"><code class="language-text">
-╰─λ ls /sys/kernel/sched_ext/
-enable_seq  hotplug_seq  nr_rejected  root  state  switch_all
-</code></pre>
-
-<p> You can also manually start a scheduler like: </p>
-
-<pre lang="text"><code class="language-text">
-╰─λ sudo scx_rusty
-21:38:53 [INFO] CPUs: online/possible = 24/32
-21:38:53 [INFO] DOM[00] cpumask 00000000FF03F03F (20 cpus)
-21:38:53 [INFO] DOM[01] cpumask 0000000000FC0FC0 (12 cpus)
-21:38:53 [INFO] Rusty Scheduler Attached
-</code></pre>
-
-<p>You can choose a different scheduler too.</p>
-<pre lang="nix"><code class="language-nix">
-# configuration.nix
-{
-  services.scx.scheduler = "scx_rusty";
-}
-</code></pre>
-
-<p>There are other scx_* binaries for you to play with, or head to <a href="https://github.com/sched-ext/scx" target="_blank">github.com/sched-ext/scx</a> for instructions on how to write one of your own.</p>
-
 <h3 id="using-with-read-only-pkgs">Using with read-only pkgs</h3>
 
 <p>If you use <code>nixpkgs.nixosModules.readOnlyPkgs</code> in your setup, you need to disable our overlay module, and import the cache-friendly overlay directly instead.</p>
