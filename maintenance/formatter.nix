@@ -16,6 +16,7 @@ let
         "maintenance/failures.aarch64-linux.nix"
         "maintenance/failures.x86_64-linux.nix"
         "pkgs/ghostty-git/deps.nix"
+        "pkgs/river-git/build.zig.zon.nix"
       ];
       formatter.nixfmt = {
         command = "nixfmt";
