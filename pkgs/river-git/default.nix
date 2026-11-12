@@ -11,6 +11,9 @@ gitOverride {
 
   manifestPath = "pkgs/river-git/manifest.json";
   fetcher = "fetchFromGitea";
+  newInputs = {
+    zig_0_16 = final.zig_0_17;
+  };
   fetcherData = {
     owner = "river";
     repo = "river-classic";
@@ -21,6 +24,8 @@ gitOverride {
   withExtraUpdateCommands = final.writeShellScript "bump-zig-zon" ''
     pushd "$_LATEST_PATH"
     ${final.zon2nix}/bin/zon2nix > "$_NYX_DIR/$_PKG_DIR/build.zig.zon.nix"
+    # strip zon2nix "?ref=" from fetchgit urls
+    sed -i -E '/fetchgit \{/,/\};/ s#(url = "[^"]*)\?ref=[^"]*(")#\1\2#' -- "$_NYX_DIR/$_PKG_DIR/build.zig.zon.nix"
     popd
 
     git add "$_PKG_DIR/build.zig.zon.nix"

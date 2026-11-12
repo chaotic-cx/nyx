@@ -6,7 +6,7 @@ linkFarm "zig-packages" [
   {
     name = "aro-0.0.0-JSD1QvCRNwC2O1Jkop9TO6sXb1U1vhrH8FnYK1VdEMKn";
     path = fetchgit {
-      url = "https://codeberg.org/ziglang/arocc?ref=zig-0.17.x";
+      url = "https://codeberg.org/ziglang/arocc";
       rev = "630d99ed60fe61ccabe721f1af60881f8b2adde3";
       hash = "sha256-lG+T8svTkI3pHJrgTNccZS5sU2pMOMTs2gZ8qbTH5dQ=";
     };
@@ -28,7 +28,7 @@ linkFarm "zig-packages" [
   {
     name = "translate_c-2.0.2-Q_BUWvBNBwDnyehSiuAJmdFcMYHYGA-Jc3KiYdrV2Dqx";
     path = fetchgit {
-      url = "https://codeberg.org/ziglang/translate-c?ref=zig-0.17.x";
+      url = "https://codeberg.org/ziglang/translate-c";
       rev = "cfac21f3199b2b02ce3fd7db652aa456421fe4ab";
       hash = "sha256-s3kHcl0SEgpTrPsjpzUsQS/6YDCfLCflj/HkIU59Kk0=";
     };
