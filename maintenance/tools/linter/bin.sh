@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # Generated files skipped by deadnix and the short-lambda check.
-GENERATED_NIX=("pkgs/ghostty-git/deps.nix")
+GENERATED_NIX=("pkgs/ghostty-git/deps.nix" "pkgs/river-git/build.zig.zon.nix")
 
 treefmt --ci
 statix check .
