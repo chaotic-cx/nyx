@@ -5,7 +5,7 @@
   ...
 }:
 let
-  bumpedFinal = final.extend (finalFinal: _prevFinal: { llvmPackages = finalFinal.llvmPackages_22; });
+  bumpedFinal = final.extend (finalFinal: _prevFinal: { llvmPackages = finalFinal.llvmPackages_23; });
 in
 (final.pkgsLLVM.extend flakes.self.overlays.default).extend (
   _finalLLVM: prevLLVM: {

@@ -185,16 +185,12 @@ let
     else
       throw "Unsupported cachyos _use_llvm_lto";
 
-  qrCodePanicConfig =
-    if cachyConfig.useLTO == "none" then
-      [
-        "--set-str DRM_PANIC_SCREEN qr_code"
-        "-e DRM_PANIC_SCREEN_QR_CODE"
-        "--set-str DRM_PANIC_SCREEN_QR_CODE_URL https://panic.archlinux.org/panic_report#"
-        "--set-val CONFIG_DRM_PANIC_SCREEN_QR_VERSION 40"
-      ]
-    else
-      [ ];
+  qrCodePanicConfig = [
+    "--set-str DRM_PANIC_SCREEN qr_code"
+    "-e DRM_PANIC_SCREEN_QR_CODE"
+    "--set-str DRM_PANIC_SCREEN_QR_CODE_URL https://panic.archlinux.org/panic_report#"
+    "--set-val CONFIG_DRM_PANIC_SCREEN_QR_VERSION 40"
+  ];
 
   # _tickrate defaults to "full"
   tickRateConfig =
