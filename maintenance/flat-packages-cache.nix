@@ -182,10 +182,6 @@ legacyPackages: {
 
   x86_64-linux."river_git" = legacyPackages.x86_64-linux.river_git;
 
-  x86_64-linux."rust-bindgen_kernel-lto" = legacyPackages.x86_64-linux.rust-bindgen_kernel-lto;
-
-  x86_64-linux."rustc_kernel-lto" = legacyPackages.x86_64-linux.rustc_kernel-lto;
-
   x86_64-linux."rustc_latest" = legacyPackages.x86_64-linux.rustc_latest;
 
   x86_64-linux."rustc_nightly" = legacyPackages.x86_64-linux.rustc_nightly;
