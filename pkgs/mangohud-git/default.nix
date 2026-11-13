@@ -141,6 +141,11 @@ gitOverride (
           --replace-fail '#include "wayland.h"' '#include "wayland.h"
         #include <fmt/ranges.h>'
 
+        # shim_deps missing vulkan_headers_dep for wayland_color.cpp
+        substituteInPlace src/meson.build \
+          --replace-fail 'dearimgui_dep.partial_dependency(compile_args: true, includes: true)]' \
+                            'dearimgui_dep.partial_dependency(compile_args: true, includes: true), vulkan_headers_dep]'
+
         # preload-nix-workaround.patch
         substituteInPlace bin/mangohud.in \
           --replace-fail '@ld_libdir_mangohud@@mangohud_lib_name@' '@mangohud_lib_name@'
