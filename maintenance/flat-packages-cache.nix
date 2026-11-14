@@ -1,4 +1,6 @@
 legacyPackages: {
+  x86_64-linux."ai-memory" = legacyPackages.x86_64-linux.ai-memory;
+
   x86_64-linux."alacritty_git" = legacyPackages.x86_64-linux.alacritty_git;
 
   x86_64-linux."ananicy-rules-cachyos_git" = legacyPackages.x86_64-linux.ananicy-rules-cachyos_git;

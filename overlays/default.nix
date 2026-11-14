@@ -13,6 +13,7 @@ final: prev:
 let
   # Shortcuts
   inherit (flakes)
+    ai-memory
     jovian
     niks3
     nixpkgs
@@ -167,6 +168,8 @@ in
   inherit nyxUtils jovian-chaotic rustc_latest;
 
   nyx-generic-git-update = final.callPackage ../pkgs/nyx-generic-git-update { };
+
+  ai-memory = ai-memory.packages.${system}.default;
 
   alacritty_git = callOverride ../pkgs/alacritty-git { };
 
