@@ -27,12 +27,11 @@
   "linuxPackages_cachyos.opensnitch-ebpf" = "/nix/store/2c3280day2f53z9l1dmadq8jnw7sb0pi-opensnitch_ebpf-x86_64-unknown-linux-gnu-1.8.0-7.3.4";
   "linuxPackages_cachyos.pktgen" = "/nix/store/9vjhvi05227wsc7mgbx4qj42jmqwk3qg-pktgen-x86_64-unknown-linux-gnu-26.03.0";
   "linuxPackages_cachyos.rr-zen_workaround" = "/nix/store/zylwmia73qj2iyf4p0rb3bv79004qns4-rr-zen_workaround-x86_64-unknown-linux-gnu-5.9.0";
-  "linuxPackages_cachyos.rtl8188eus-aircrack" = "/nix/store/c5c094zi30g2cwrsg1x7ssg4i2q8fifn-rtl8188eus-aircrack-x86_64-unknown-linux-gnu-7.3.4-unstable-2026-10-23";
+  "linuxPackages_cachyos.rtl8188eus-aircrack" = "/nix/store/s13m0n51sgzjka53bf4fhsyraa19q9m9-rtl8188eus-aircrack-x86_64-unknown-linux-gnu-7.3.4-unstable-2026-10-23";
   "linuxPackages_cachyos.rtl8189es" = "/nix/store/n0vns3jsw6y9aqjn4s81pb74xixfkdg3-rtl8189es-2025-09-26-7.3.4-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos.rtl8189fs" = "/nix/store/y6xkqdm6qp7s81y71sanjik6l36z5ini-rtl8189fs-2025-09-26-7.3.4-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos.rtl8821cu" = "/nix/store/jr706yc6q5w5325ykzlr57c68ww44z8y-rtl8821cu-x86_64-unknown-linux-gnu-7.3.4-unstable-2025-12-15";
   "linuxPackages_cachyos.rtl8852bu" = "/nix/store/wql8wp8n516jhj58i0dyxd9nhrs8v8n7-rtl8852bu-x86_64-unknown-linux-gnu-7.3.4-unstable-2026-10-02";
-  "linuxPackages_cachyos.rtl88x2bu" = "/nix/store/3vp500y35fym0z2gdhnsrg68jfffb7kg-rtl88x2bu-x86_64-unknown-linux-gnu-7.3.4-unstable-2026-08-18";
   "linuxPackages_cachyos.rust-out-of-tree-module" = "/nix/store/709ii062cxdnmkxy7f4972y59kshqm8g-rust-out-of-tree-module-x86_64-unknown-linux-gnu-0-unstable-2026-10-27";
   "linuxPackages_cachyos.shufflecake" = "/nix/store/1zbakbml3b0n94rng35w777kj71705dw-shufflecake-0.5.8-7.3.4-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos.system76-acpi" = "/nix/store/gfylqnv6w8slwp5la43hy0k7z940mb2i-system76-acpi-module-1.0.2-7.3.4-x86_64-unknown-linux-gnu";
@@ -59,7 +58,6 @@
   "linuxPackages_cachyos-gcc.rtl8189es" = "/nix/store/wqidkg4a1wp74mvw305vzzfxjzkyzp62-rtl8189es-2025-09-26-7.3.4";
   "linuxPackages_cachyos-gcc.rtl8189fs" = "/nix/store/fhyf706zqv1k5vrjjjzxbdpbw5qajsxv-rtl8189fs-2025-09-26-7.3.4";
   "linuxPackages_cachyos-gcc.rtl8821cu" = "/nix/store/4qmwi5yj33yvvfmlf6s1hdxyrqcmjrkz-rtl8821cu-7.3.4-unstable-2025-12-15";
-  "linuxPackages_cachyos-gcc.rtl88x2bu" = "/nix/store/3gy0sdlh541lh82q2rp3i8yhvyqgwrnh-rtl88x2bu-7.3.4-unstable-2026-08-18";
   "linuxPackages_cachyos-gcc.shufflecake" = "/nix/store/x3cabkzk71p463ax8ly7gyxjsl2xp5a5-shufflecake-0.5.8-7.3.4";
   "linuxPackages_cachyos-gcc.system76-acpi" = "/nix/store/g0zr9jj7fpakg9902lkba1phjg21i5lb-system76-acpi-module-1.0.2-7.3.4";
   "linuxPackages_cachyos-gcc.tsme-test" = "/nix/store/c27x0pgm8mx41db96x986wwlrvix5y3b-tsme-test-7.3.4-unstable-2026-02-09";
