@@ -24,7 +24,11 @@ let
   selfOverlay = self.overlays.default;
 
   # Required to load manifest files.
-  inherit (final.lib.trivial) importJSON;
+  inherit (final.lib.trivial) importJSON warn;
+
+  # Helps with renames
+  renamed =
+    oldName: newName: warn "Chaotic-Nyx's `${oldName}` was renamed to `${newName}`" final.${newName};
 
   # Our utilities/helpers.
   nyxUtils = import ../shared/utils.nix {
@@ -275,7 +279,9 @@ in
   linuxPackages_cachyos-rt-bore = cachyosPackages.cachyos-rt-bore;
   linuxPackages_cachyos-lts = cachyosPackages.cachyos-lts;
 
-  luxtorpeda = final.callPackage ../pkgs/luxtorpeda {
+  luxtorpeda = renamed "luxtorpeda" "luxtorpeda-bin-edge";
+
+  luxtorpeda-bin-edge = final.callPackage ../pkgs/luxtorpeda {
     luxtorpedaVersion = importJSON ../pkgs/luxtorpeda/manifest.json;
   };
 
@@ -385,11 +391,12 @@ in
       _description = "Nixpkgs + Chaotic-Nyx packages built for many AMD64 microarchitecture.";
     };
 
-  proton-cachyos = final.callPackage ../pkgs/proton-bin {
+  proton-cachyos = renamed "proton-cachyos" "proton-cachyos-bin_edge";
+
+  proton-cachyos-bin_edge = final.callPackage ../pkgs/proton-bin {
     toolTitle = "Proton-CachyOS";
     tarballPrefix = "proton-";
     tarballSuffix = "-x86_64.tar.xz";
-    toolPattern = "proton-cachyos-.*";
     releasePrefix = "cachyos-";
     releaseSuffix = "-slr";
     manifestFilename = "cachyos-manifest.json";
@@ -397,16 +404,20 @@ in
     repo = "proton-cachyos";
   };
 
-  proton-cachyos_x86_64_v3 = final.proton-cachyos.override {
+  proton-cachyos_x86_64_v3 = renamed "proton-cachyos_x86_64_v3" "proton-cachyos-bin_x86_64_v3";
+
+  proton-cachyos-bin_x86_64_v3 = final.proton-cachyos.override {
     toolTitle = "Proton-CachyOS x86-64-v3";
+    toolArch = "x86_64_v3";
     tarballSuffix = "-x86_64_v3.tar.xz";
     manifestFilename = "cachyos-v3-manifest.json";
   };
 
-  proton-ge-custom = final.callPackage ../pkgs/proton-bin {
+  proton-ge-custom = renamed "proton-ge-custom" "proton-ge-bin_edge";
+
+  proton-ge-bin_edge = final.callPackage ../pkgs/proton-bin {
     toolTitle = "Proton-GE";
     tarballSuffix = "-x86_64.tar.gz";
-    toolPattern = "GE-Proton.*";
     releasePrefix = "GE-Proton";
     releaseSuffix = "";
     manifestFilename = "ge-manifest.json";

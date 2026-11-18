@@ -1,8 +1,7 @@
 {
   callPackage,
-  stdenvNoCC,
+  mkProtonBinDerivation,
   lib,
-  fetchurl,
   fetchzip,
   # Required
   manifestFilename,
@@ -11,7 +10,8 @@
   # Optional
   withUpdateScript ? true,
   toolTitle ? null,
-  toolPattern ? "proton-.*",
+  toolArch ? "x86_64",
+  toolName ? "${tarballPrefix}${releaseVersion}-${toolArch}",
   tarballPrefix ? "",
   tarballSuffix ? "",
   releasePrefix ? "proton-",
@@ -22,36 +22,19 @@
   url ? "${homepage}/releases/download/${releaseVersion}/${tarballPrefix}${releaseVersion}${tarballSuffix}",
 }:
 
-let
-  intake =
-    if lib.strings.hasSuffix ".zip" url then
-      {
-        fetcher = fetchzip;
-        input = "$src/*.tar.xz";
-      }
-    else
-      {
-        fetcher = fetchurl;
-        input = "$src";
-      };
-in
-stdenvNoCC.mkDerivation {
-  name = repo;
+mkProtonBinDerivation {
+  pname = repo;
   version = "${version.base}.${version.release}";
+  steamDisplayName = if toolTitle != null then toolTitle else toolName;
 
-  src = intake.fetcher {
-    inherit url;
-    inherit (version) hash;
+  variants.x86_64-linux = {
+    inherit toolName;
+    src = fetchzip {
+      inherit url;
+      inherit (version) hash;
+      stripRoot = true;
+    };
   };
-
-  buildCommand = ''
-    mkdir -p $out
-    tar -C $out --strip=1 -x -f ${intake.input}
-  ''
-  # Allow to keep the same name between updates
-  + lib.strings.optionalString (toolTitle != null) ''
-    sed -i -r 's|"${toolPattern}"|"${toolTitle}"|' $out/compatibilitytool.vdf
-  '';
 
   passthru =
     if withUpdateScript then
@@ -75,7 +58,6 @@ stdenvNoCC.mkDerivation {
     inherit homepage;
     description = "Compatibility tool for Steam Play based on Wine and additional components (patched and built by ${owner})";
     license = licenses.bsd3;
-    platforms = [ "x86_64-linux" ];
     maintainers = with maintainers; [
       pedrohlc
     ];

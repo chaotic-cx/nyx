@@ -50,7 +50,8 @@ writeShellScript "update-${repo}" ''
 
   latestBase=$(echo $latestVer | grep -Po '(?<=^${releasePrefix})[^-]+')
   latestRelease=$(echo $latestVer | grep -Po '(?<=-)[^-]+(?=${releaseSuffix}$)')
-  latestSha256=$(nix-prefetch-url --type sha256 "https://github.com/${owner}/${repo}/releases/download/''${latestVer}/${tarballPrefix}''${latestVer}${tarballSuffix}")
+  # Match fetchzip's unpacked hash with stripRoot = true.
+  latestSha256=$(nix-prefetch-url --unpack --type sha256 "https://github.com/${owner}/${repo}/releases/download/''${latestVer}/${tarballPrefix}''${latestVer}${tarballSuffix}")
   latestHash=$(nix-hash --to-sri --type sha256 $latestSha256)
 
   jq \
