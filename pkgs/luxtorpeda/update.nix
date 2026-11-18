@@ -30,15 +30,15 @@ writeShellScript "update-luxtorpeda" ''
   srcJson=pkgs/luxtorpeda/manifest.json
 
   localVersion=$(jq -r .version "$srcJson")
-  latestRelease=$(curl -s https://api.github.com/repos/luxtorpeda-dev/luxtorpeda/releases/latest)
-  latestTag=$(jq .tag_name -r <<< $latestRelease)
-  latestUrl=$(jq .assets[0].browser_download_url -r <<< $latestRelease)
+  latestRelease=$(curl -fsSL 'https://codeberg.org/api/v1/repos/luxtorpeda/luxtorpeda/releases?pre-release=false&limit=10' | jq -er '[.[] | select(.prerelease == false and .draft == false)][0] // error("no stable release")')
+  latestTag=$(jq -er .tag_name <<< "$latestRelease")
 
   [ "v$localVersion" == "$latestTag" ] && exit 0
 
   latestVersion=''${latestTag#v}
+  latestUrl=$(jq -er --arg tag "$latestTag" '.assets[] | select(.name == ("luxtorpeda-" + $tag + ".tar.xz")) | .browser_download_url' <<< "$latestRelease")
 
-  latestSha256=$(nix-prefetch-url --type sha256 "$latestUrl")
+  latestSha256=$(nix-prefetch-url --unpack --type sha256 "$latestUrl")
   latestHash=$(nix-hash --to-sri --type sha256 $latestSha256)
 
   jq --arg version "$latestVersion" \
