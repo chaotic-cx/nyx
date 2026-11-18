@@ -5,17 +5,17 @@ on:
       commit-x86_64-linux-failures:
         description: Commit X86-64 Linux failures.nix
         required: false
-        default: true
+        default: false
         type: boolean
       commit-aarch64-linux-failures:
         description: Commit Aarch64 Linux failures.nix
         required: false
-        default: true
+        default: false
         type: boolean
       commit-aarch64-darwin-failures:
         description: Commit Aarch64 Darwin failures.nix
         required: false
-        default: true
+        default: false
         type: boolean
       force:
         description: Force deploy (skip sync check)

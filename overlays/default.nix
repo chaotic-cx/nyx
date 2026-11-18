@@ -389,7 +389,6 @@ in
     toolTitle = "Proton-CachyOS";
     tarballPrefix = "proton-";
     tarballSuffix = "-x86_64.tar.xz";
-    toolPattern = "proton-cachyos-.*";
     releasePrefix = "cachyos-";
     releaseSuffix = "-slr";
     manifestFilename = "cachyos-manifest.json";
@@ -399,6 +398,7 @@ in
 
   proton-cachyos_x86_64_v3 = final.proton-cachyos.override {
     toolTitle = "Proton-CachyOS x86-64-v3";
+    toolArch = "x86_64_v3";
     tarballSuffix = "-x86_64_v3.tar.xz";
     manifestFilename = "cachyos-v3-manifest.json";
   };
@@ -406,7 +406,6 @@ in
   proton-ge-custom = final.callPackage ../pkgs/proton-bin {
     toolTitle = "Proton-GE";
     tarballSuffix = "-x86_64.tar.gz";
-    toolPattern = "GE-Proton.*";
     releasePrefix = "GE-Proton";
     releaseSuffix = "";
     manifestFilename = "ge-manifest.json";
