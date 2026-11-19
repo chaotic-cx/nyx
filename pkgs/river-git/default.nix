@@ -11,9 +11,6 @@ gitOverride {
 
   manifestPath = "pkgs/river-git/manifest.json";
   fetcher = "fetchFromGitea";
-  newInputs = {
-    zig_0_16 = final.zig_0_17;
-  };
   fetcherData = {
     owner = "river";
     repo = "river-classic";
