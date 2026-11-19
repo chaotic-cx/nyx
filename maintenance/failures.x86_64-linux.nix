@@ -1,12 +1,12 @@
 {
   "linuxPackages_cachyos.acer-wmi-battery" = "/nix/store/smp88hpx6nqh3cxpsx34033hy880pyjc-acer-wmi-battery-x86_64-unknown-linux-gnu-7.3.5-0.1.0-unstable-2025-04-24";
   "linuxPackages_cachyos.amdgpu-i2c" = "/nix/store/w2i372z15qybxal43zazjx9x5chcbynd-amdgpu-i2c-x86_64-unknown-linux-gnu-0-unstable-2024-12-16";
-  "linuxPackages_cachyos.apfs" = "/nix/store/f12h9g9klb3m4dm0gg9i375niyc79rkf-apfs-x86_64-unknown-linux-gnu-0.3.21-unstable-2025-08-15-7.3.5";
   "linuxPackages_cachyos.bcachefs" = "/nix/store/rfg8mz3wndxhrsm51d5kq2lxj5crm85p-bcachefs-x86_64-unknown-linux-gnu-7.3.5-1.39.7";
   "linuxPackages_cachyos.bcc" = "/nix/store/dk9dwgy6ad794jxkxg8zplz45iyc0pi8-bcc-0.37.0-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos.bpftrace" = "/nix/store/xv9zqfn6ivd5pp651xwrxq8s52dagd5k-bpftrace-x86_64-unknown-linux-gnu-0.27.1";
   "linuxPackages_cachyos.chipsec" = "/nix/store/014hq309w2wf5zwqmzipxf8gahlsd87c-chipsec-1.13.20-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos.corefreq" = "/nix/store/cd8cp8yy0rz9zibm583s07jgrh0kmgc4-corefreq-x86_64-unknown-linux-gnu-2.1.2";
+  "linuxPackages_cachyos.dddvb" = "/nix/store/2bdwsc2d09x8c5zbsi84ma4kx1ad2pvr-dddvb-x86_64-unknown-linux-gnu-0.9.42";
   "linuxPackages_cachyos.dpdk" = "/nix/store/wqhfwwl4lwjg1w72i702jdn9260a3b18-dpdk-x86_64-unknown-linux-gnu-26.07";
   "linuxPackages_cachyos.ecapture" = "/nix/store/ap4nc57phk4wnbkd6pgrbvmwv57lyv5n-ecapture-x86_64-unknown-linux-gnu-1.5.2";
   "linuxPackages_cachyos.efa" = "/nix/store/73mmlb4ivfkmdzqrzwvjqwdw018n54bf-efa-3.4.0-7.3.5-x86_64-unknown-linux-gnu";
@@ -47,7 +47,6 @@
   "linuxPackages_cachyos.yt6801" = "/nix/store/xm40cg60lvq46sq4m6v6yas9shp34wqh-yt6801-x86_64-unknown-linux-gnu-1.0.30-20250430";
   "linuxPackages_cachyos.zenpower" = "/nix/store/1wyvhknnhp7hb3p774i0mjxn23v2d9q2-zenpower5-x86_64-unknown-linux-gnu-0.5.0-unstable-2026-01-07";
   "linuxPackages_cachyos-gcc.acer-wmi-battery" = "/nix/store/qhv1ky4wvai1jnx7a412ma3sn0py3v77-acer-wmi-battery-7.3.5-0.1.0-unstable-2025-04-24";
-  "linuxPackages_cachyos-gcc.apfs" = "/nix/store/9frmbypk8a6x6kn707wqgdi68a89dqyj-apfs-0.3.21-unstable-2025-08-15-7.3.5";
   "linuxPackages_cachyos-gcc.chipsec" = "/nix/store/w2mqd9by52q2h0fdrpk565g28ddw63vv-chipsec-1.13.20";
   "linuxPackages_cachyos-gcc.ecapture" = "/nix/store/brhpyys73cfkrhd8nylb78d7yja5vi4c-ecapture-1.5.2";
   "linuxPackages_cachyos-gcc.mbp2018-bridge-drv" = "/nix/store/qryga1nz55mh514i9gmaddn7ipzj5wzn-mbp2018-bridge-drv-2020-01-31";
