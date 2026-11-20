@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+export NIKS3_SERVER_URL="${NIKS3_SERVER_URL:-https://nyx-niks3.chaotic.cx}"
+
 NIKS3=$(nix build .#niks3_nyx --no-link --print-out-paths)
 export PATH="$NIKS3/bin:$PATH"
 
