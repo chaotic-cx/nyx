@@ -90,6 +90,8 @@ legacyPackages: {
 
   x86_64-linux."luxtorpeda" = legacyPackages.x86_64-linux.luxtorpeda;
 
+  x86_64-linux."luxtorpeda-bin_edge" = legacyPackages.x86_64-linux.luxtorpeda-bin_edge;
+
   x86_64-linux."mangohud32_git" = legacyPackages.x86_64-linux.mangohud32_git;
 
   x86_64-linux."mangohud_git" = legacyPackages.x86_64-linux.mangohud_git;
@@ -170,7 +172,14 @@ legacyPackages: {
 
   x86_64-linux."proton-cachyos" = legacyPackages.x86_64-linux.proton-cachyos;
 
+  x86_64-linux."proton-cachyos-bin_edge" = legacyPackages.x86_64-linux.proton-cachyos-bin_edge;
+
+  x86_64-linux."proton-cachyos-bin_x86_64_v3" =
+    legacyPackages.x86_64-linux.proton-cachyos-bin_x86_64_v3;
+
   x86_64-linux."proton-cachyos_x86_64_v3" = legacyPackages.x86_64-linux.proton-cachyos_x86_64_v3;
+
+  x86_64-linux."proton-ge-bin_edge" = legacyPackages.x86_64-linux.proton-ge-bin_edge;
 
   x86_64-linux."proton-ge-custom" = legacyPackages.x86_64-linux.proton-ge-custom;
 
