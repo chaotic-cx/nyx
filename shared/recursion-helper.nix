@@ -22,12 +22,12 @@ rec {
               (
                 if (v.meta.broken or true) then
                   warnFn fullKey v "marked broken"
-                else if !(builtins.tryEval v.outPath).success then
-                  warnFn fullKey v "out eval broken"
                 else if isImplicitlyUnsupported (v.meta.platforms or [ ]) then
                   warnFn fullKey v "not marked compatible"
                 else if isExplicitlyUnsupported (v.meta.badPlatforms or [ ]) then
                   warnFn fullKey v "marked incompatible"
+                else if !(builtins.tryEval v.outPath).success then
+                  warnFn fullKey v "out eval broken"
                 else if
                   (
                     v.meta.unfree or true
