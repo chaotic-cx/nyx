@@ -6,6 +6,9 @@ export NIKS3_SERVER_URL="${NIKS3_SERVER_URL:-https://nyx-niks3.chaotic.cx}"
 NIKS3=$(nix build .#niks3_nyx --no-link --print-out-paths)
 export PATH="$NIKS3/bin:$PATH"
 
+# Extremely impotant for "sort" reliability
+export LC_ALL=C
+
 mkdir -p ./tmp
 
 EXPECTED_PINS=$(nix build ./maintenance#chaotic-nyx.expected-pins --no-link --print-out-paths)
