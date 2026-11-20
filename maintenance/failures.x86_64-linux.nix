@@ -16,10 +16,9 @@
   "linuxPackages_cachyos.hyperv-daemons" = "/nix/store/8qxb22hcdsqbyyb5bnsdahak480q9jwp-hyperv-daemons-x86_64-unknown-linux-gnu-7.3.5-bin";
   "linuxPackages_cachyos.linux-gpib" = "/nix/store/3z8svvs4rycxv7l8wg2q6qgiq0by7f9n-linux-gpib-kernel-x86_64-unknown-linux-gnu-4.3.7";
   "linuxPackages_cachyos.mbp2018-bridge-drv" = "/nix/store/vlfbxh1sdgyi3g7id0vggsb7qx1s2a20-mbp2018-bridge-drv-x86_64-unknown-linux-gnu-2020-01-31";
-  "linuxPackages_cachyos.mm-tools" = "/nix/store/q162v8zm6gbbi66w0bf3c1bnz7f2zwvy-mm-tools-x86_64-unknown-linux-gnu-6.18.63";
+  "linuxPackages_cachyos.mm-tools" = "/nix/store/hyw3vi1wyr8a4783jvbadwdrvmk5a8dk-mm-tools-x86_64-unknown-linux-gnu-6.18.64";
   "linuxPackages_cachyos.mwprocapture" = "/nix/store/1y4h54r9zbh07ic0l23qvl1vhydma1lg-mwprocapture-x86_64-unknown-linux-gnu-1.3.4458-7.3.5";
   "linuxPackages_cachyos.netatop" = "/nix/store/jjdg8jd951licb3hvwzyswzrqnl88ld6-netatop-7.3.5-3.2.2-x86_64-unknown-linux-gnu";
-  "linuxPackages_cachyos.nullfs" = "/nix/store/6bzd993mq3jnj5k7fgcd3z7nnfsr6fmb-nullfsvfs-x86_64-unknown-linux-gnu-0.27";
   "linuxPackages_cachyos.nvidia_x11_beta_open" = "/nix/store/2q5c52f4znn65kqj1sr5h0vr981vrl3a-nvidia-open-x86_64-unknown-linux-gnu-595.45.04-7.3.5";
   "linuxPackages_cachyos.oci-seccomp-bpf-hook" = "/nix/store/fw3m1hdm8h3pnzc7571lpn5rgc8v6w1v-oci-seccomp-bpf-hook-x86_64-unknown-linux-gnu-1.3.0";
   "linuxPackages_cachyos.odp-dpdk" = "/nix/store/bsg534jw7xwr394y2d9ylky282cdwq0r-odp-dpdk-x86_64-unknown-linux-gnu-1.51.0.0_DPDK_24.11";
@@ -50,7 +49,6 @@
   "linuxPackages_cachyos-gcc.chipsec" = "/nix/store/db0xi84ha78mb8chbhhwm8mwkxrm8z1r-chipsec-1.13.20";
   "linuxPackages_cachyos-gcc.ecapture" = "/nix/store/ib7lp59yjypxyvi3lgacb7xbr7sw9n1m-ecapture-1.5.2";
   "linuxPackages_cachyos-gcc.mbp2018-bridge-drv" = "/nix/store/sl2jwipw28320ih1n3vzlg3kwv90bl9y-mbp2018-bridge-drv-2020-01-31";
-  "linuxPackages_cachyos-gcc.nullfs" = "/nix/store/62r1h6sd4fsp1cg9mhs2l849awdh2x5k-nullfsvfs-0.27";
   "linuxPackages_cachyos-gcc.nvidia_x11_beta_open" = "/nix/store/4kpphl1nn0vcm905kycmk0mg8s8fzzix-nvidia-open-595.45.04-7.3.5";
   "linuxPackages_cachyos-gcc.rtl8821cu" = "/nix/store/w5l7kffydlf5ywr2amanjx90811a55p2-rtl8821cu-7.3.5-unstable-2025-12-15";
   "linuxPackages_cachyos-gcc.system76-acpi" = "/nix/store/rnd857s9xhy6z7fairgkripwvsq7yv9v-system76-acpi-module-1.0.2-7.3.5";
