@@ -279,9 +279,9 @@ in
   linuxPackages_cachyos-rt-bore = cachyosPackages.cachyos-rt-bore;
   linuxPackages_cachyos-lts = cachyosPackages.cachyos-lts;
 
-  luxtorpeda = renamed "luxtorpeda" "luxtorpeda-bin-edge";
+  luxtorpeda = renamed "luxtorpeda" "luxtorpeda-bin_edge";
 
-  luxtorpeda-bin-edge = final.callPackage ../pkgs/luxtorpeda {
+  luxtorpeda-bin_edge = final.callPackage ../pkgs/luxtorpeda {
     luxtorpedaVersion = importJSON ../pkgs/luxtorpeda/manifest.json;
   };
 
