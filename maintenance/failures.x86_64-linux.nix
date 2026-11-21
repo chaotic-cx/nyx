@@ -1,4 +1,6 @@
 {
+  "firefox-unwrapped_nightly" = "/nix/store/lbmpjw0dxcxgl9l6640zzaiqhcycl4a1-firefox-nightly-unwrapped-163.0a1-20261120213402-893a7ba";
+  "firefox_nightly" = "/nix/store/c25wbsfnx36xd8qmvrj5rjzrh7l0l0fg-firefox-nightly-163.0a1-20261120213402-893a7ba";
   "linuxPackages_cachyos.acer-wmi-battery" = "/nix/store/q1pc4mhb5rkph7dcah6pzf3jnaz2dzvb-acer-wmi-battery-x86_64-unknown-linux-gnu-7.3.5-0.1.0-unstable-2025-04-24";
   "linuxPackages_cachyos.amdgpu-i2c" = "/nix/store/4c2y49vgwkh59q6haib7wai4dm5sf029-amdgpu-i2c-x86_64-unknown-linux-gnu-0-unstable-2024-12-16";
   "linuxPackages_cachyos.bcachefs" = "/nix/store/riw11f689xqwz9g9i3jc9jsg8fw1wlfd-bcachefs-x86_64-unknown-linux-gnu-7.3.5-1.39.7";
