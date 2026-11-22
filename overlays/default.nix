@@ -17,6 +17,7 @@ let
     jovian
     niks3
     nixpkgs
+    recomplauncher
     rust-overlay
     self
     ;
@@ -430,6 +431,8 @@ in
   qtile_git = with final; python311Packages.toPythonApplication qtile-module_git;
   qtile-module_git = callOverride ../pkgs/qtile-git { };
   qtile-extras_git = callOverride ../pkgs/qtile-extras-git { };
+
+  inherit (recomplauncher.packages.x86_64-linux) recomplauncher recomplauncher-unwrapped;
 
   river_git = callOverride ../pkgs/river-git { };
 

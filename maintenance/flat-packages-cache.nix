@@ -191,6 +191,10 @@ legacyPackages: {
 
   x86_64-linux."qtile_git" = legacyPackages.x86_64-linux.qtile_git;
 
+  x86_64-linux."recomplauncher" = legacyPackages.x86_64-linux.recomplauncher;
+
+  x86_64-linux."recomplauncher-unwrapped" = legacyPackages.x86_64-linux.recomplauncher-unwrapped;
+
   x86_64-linux."river_git" = legacyPackages.x86_64-linux.river_git;
 
   x86_64-linux."rustc_latest" = legacyPackages.x86_64-linux.rustc_latest;
