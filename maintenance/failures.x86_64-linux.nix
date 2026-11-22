@@ -13,6 +13,7 @@
   "linuxPackages_cachyos.ena" = "/nix/store/darlk4sh5yikrvqc0h3psmd6ac1kv279-ena-2.17.4-7.3.5-x86_64-unknown-linux-gnu";
   "linuxPackages_cachyos.ethercat" = "/nix/store/z67ajv2dl6i1mbkd2p8b5h88ivfj38hg-ethercat-x86_64-unknown-linux-gnu-7.3.5-1.6.13";
   "linuxPackages_cachyos.evdi" = "/nix/store/d32fisajsw8a5cq98bbafs1j4mapq0vi-evdi-x86_64-unknown-linux-gnu-1.15.1";
+  "linuxPackages_cachyos.hailo8" = "/nix/store/jj4j6gpjywq6x2dwpqwnkksyhraqsp39-hailo8-x86_64-unknown-linux-gnu-4.24.0";
   "linuxPackages_cachyos.hyperv-daemons" = "/nix/store/8qxb22hcdsqbyyb5bnsdahak480q9jwp-hyperv-daemons-x86_64-unknown-linux-gnu-7.3.5-bin";
   "linuxPackages_cachyos.linux-gpib" = "/nix/store/3z8svvs4rycxv7l8wg2q6qgiq0by7f9n-linux-gpib-kernel-x86_64-unknown-linux-gnu-4.3.7";
   "linuxPackages_cachyos.mbp2018-bridge-drv" = "/nix/store/vlfbxh1sdgyi3g7id0vggsb7qx1s2a20-mbp2018-bridge-drv-x86_64-unknown-linux-gnu-2020-01-31";
