@@ -108,5 +108,19 @@ mach.overrideAttrs (prevAttrs: {
     MOZ_INCLUDE_SOURCE_INFO = "1";
   };
 
+  #temp fix until nixpkgs fix
+  preConfigure = (prevAttrs.preConfigure or "") + ''
+    export MOZ_BUILD_DATE='${current.buildId}'
+  '';
+
+  #temp fix until nixpkgs fix
+  preBuild = (prevAttrs.preBuild or "") + ''
+    printf '%s\n' "$MOZ_BUILD_DATE" > buildid.txt
+
+    printf '%s\n%s\n' \
+      "$MOZ_SOURCE_CHANGESET" \
+      "$MOZ_SOURCE_REPO" > source-repo.txt
+  '';
+
   patches = nyxUtils.removeByBaseNames removedPatches (prevAttrs.patches or [ ]);
 })
