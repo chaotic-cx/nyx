@@ -1,7 +1,7 @@
 {
-  "version": "unstable-20261115061249-199227b",
-  "rev": "199227b197455f8099d5ffef688bfee875e62efc",
-  "hash": "sha256-onpQ2UgDSLO6N0setFaa4732LODC6jFhbXzFA9alM4A=",
+  "version": "unstable-20261122195023-735d652",
+  "rev": "735d65268c982b56c0af194144c9ded2af1a3b47",
+  "hash": "sha256-vCUBMdbgF9f308JxT6T6/M26c9rmouKv71/0C4q9Tk4=",
   "subprojects": {
     "vkroots": {
       "directory": "vkroots-unstable",
@@ -51,6 +51,13 @@
       "src": {
         "url": "https://github.com/KhronosGroup/Vulkan-Utility-Libraries/archive/v1.4.346.tar.gz",
         "hash": "372eb525103ecb4e3a04d030b2a9778ebc67853bbdc82ce6747de3757d432ad9"
+      }
+    },
+    "wlr-protocols": {
+      "directory": "wlr-protocols-bf4fc79abc359eea5a0edec0ac6d4a2b2955f82a",
+      "src": {
+        "url": "https://gitlab.freedesktop.org/wlroots/wlr-protocols/-/archive/bf4fc79abc359eea5a0edec0ac6d4a2b2955f82a/wlr-protocols-bf4fc79abc359eea5a0edec0ac6d4a2b2955f82a.tar.gz",
+        "hash": "9e0fd2be5ba7c84b81acdd086f84c2da2c2b5e4946a17bda3e9850c62e14057f"
       }
     }
   }
