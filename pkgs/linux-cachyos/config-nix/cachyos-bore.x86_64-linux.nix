@@ -5884,6 +5884,7 @@
   "CONFIG_DRM_AMD_DC" = "y";
   "CONFIG_DRM_AMD_DC_FP" = "y";
   "CONFIG_DRM_AMD_DC_SI" = "y";
+  "CONFIG_DRM_AMD_DC_DCE" = "y";
   "CONFIG_DRM_AMD_SECURE_DISPLAY" = "y";
   "CONFIG_HSA_AMD" = "y";
   "CONFIG_HSA_AMD_SVM" = "y";
