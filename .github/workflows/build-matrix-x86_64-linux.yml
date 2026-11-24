@@ -1,6 +1,11 @@
 name: Build (Matrix) x86-64 Linux
 on:
   workflow_call:
+    inputs:
+      prebuilt-targets:
+        description: JSON array of package attributes whose dependents should be built
+        type: string
+        default: ""
   workflow_dispatch:
 
 permissions:
@@ -35,9 +40,20 @@ jobs:
 
       - name: Build and extract matrix
         id: set-matrix
+        env:
+          PREBUILT_TARGETS: ${{ inputs.prebuilt-targets }}
         run: |
           # Build the derivation and capture the resulting store path
-          OUT_PATH=$(nix build --no-link --print-out-paths ./maintenance#chaotic-nyx.build-matrix)
+          if [ -n "$PREBUILT_TARGETS" ]; then
+            OUT_PATH=$(nix build --no-link --print-out-paths --impure --expr '
+              let flake = builtins.getFlake (toString ./maintenance);
+              in flake.legacyPackages.x86_64-linux.chaotic-nyx.build-matrix.override {
+                prebuiltTargets = builtins.fromJSON (builtins.getEnv "PREBUILT_TARGETS");
+              }
+            ')
+          else
+            OUT_PATH=$(nix build --no-link --print-out-paths ./maintenance#chaotic-nyx.build-matrix)
+          fi
 
           #  Read the contents of the generated file
           MATRIX_JSON=$(jq -c . "$OUT_PATH")
@@ -47,6 +63,7 @@ jobs:
 
   build-matrix-x86_64-linux:
     needs: prepare-matrix-x86_64-linux
+    if: needs.prepare-matrix-x86_64-linux.outputs.matrix != '[]'
     continue-on-error: true
     strategy:
       fail-fast: false # Ensure one package group failing doesn't cancel all other bumps
@@ -109,7 +126,7 @@ jobs:
         if: ((success() || failure()) && steps.build.outcome != 'skipped')
         uses: actions/upload-artifact@v7
         with:
-          name: logs
+          name: matrix-logs-${{ strategy.job-index }}
           path: |
             ${{ runner.temp }}/*.txt
             ${{ runner.temp }}/*.nix

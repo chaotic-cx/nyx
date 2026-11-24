@@ -97,7 +97,7 @@ let
 
   buildable = buildStatus.right;
 
-  groupedBuildable = lib.lists.foldl' (
+  groupBuildable = lib.lists.foldl' (
     acc: cmd:
     let
       isConnected = group: lib.lists.any (gCmd: builtins.elem gCmd.this cmd.deps) group;
@@ -107,7 +107,7 @@ let
       mergedGroup = lib.lists.flatten partitions.right ++ [ cmd ];
     in
     partitions.wrong ++ [ mergedGroup ]
-  ) [ ] buildable;
+  ) [ ];
 
   unbuildableGroup = buildStatus.wrong;
 in
@@ -115,11 +115,12 @@ finalJSON.overrideAttrs (oldAttrs: {
   passthru = (oldAttrs.passthru or { }) // {
     inherit
       flakeSelf
-      groupedBuildable
+      groupBuildable
       packagesCmds
       packagesEval
       system
       unbuildableGroup
       ;
+    groupedBuildable = groupBuildable buildable;
   };
 })

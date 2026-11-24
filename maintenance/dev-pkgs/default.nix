@@ -48,6 +48,7 @@ let
       };
       build-matrix = callPackage ../tools/build-matrix {
         inherit builder;
+        allPackages = nyxPkgs;
       };
       documentation = callPackage ../tools/document {
         allPackages = nyxPkgs;

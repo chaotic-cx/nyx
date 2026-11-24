@@ -8,6 +8,10 @@ on:
         type: boolean
         required: false
         default: true
+      prebuild-targets:
+        description: JSON array of package attributes to build and publish in order
+        type: string
+        default: ""
       commit-failures:
         description: Commit failures.nix
         required: false
@@ -53,7 +57,7 @@ jobs:
     runs-on: nyxbuilder
     timeout-minutes: 1440
     outputs:
-      built: ${{ steps.build.outcome == 'success' }}
+      built: ${{ steps.build.outcome == 'success' || steps.prebuild.outcome == 'success' }}
     steps:
       - name: Checkout base for local actions
         uses: actions/checkout@v7
@@ -95,8 +99,26 @@ jobs:
         env:
           NIKS3_TOKEN: ${{ secrets.NIKS3_TOKEN }}
       # the building
+      - name: Build and publish prebuild targets
+        if: inputs.prebuild-targets != ''
+        id: prebuild
+        env:
+          PREBUILD_TARGETS: ${{ inputs.prebuild-targets }}
+        run: |
+          export NIKS3_SERVER_URL="${NIKS3_SERVER_URL:-https://nyx-niks3.chaotic.cx}"
+          export NIKS3_AUTH_TOKEN_FILE="${NIKS3_AUTH_TOKEN_FILE:-${XDG_CONFIG_HOME:-$HOME/.config}/niks3/auth-token}"
+
+          targets=$(jq -er '.[]' <<< "$PREBUILD_TARGETS")
+          outputs=()
+          while IFS= read -r target; do
+            echo "Building $target"
+            paths=$(nix build --no-link --print-out-paths ".#unrestrictedPackages.x86_64-linux.$target^*")
+            mapfile -t target_outputs <<< "$paths"
+            outputs+=("${target_outputs[@]}")
+          done <<< "$targets"
+          nix run .#niks3_nyx -- push "${outputs[@]}"
       - name: Build
-        if: (success())
+        if: inputs.prebuild-targets == ''
         id: build
         run: |
           nix run ./maintenance#chaotic-nyx.builder || [ $? -eq 42 ]
@@ -122,7 +144,7 @@ jobs:
           WORKER_URL: ${{ secrets.WORKER_URL }}
           WORKER_AUTH_SECRET: ${{ secrets.WORKER_AUTH_SECRET }}
       - name: Comment on commit
-        if: (success())
+        if: steps.build.outcome == 'success'
         uses: actions/github-script@v9
         with:
           script: |

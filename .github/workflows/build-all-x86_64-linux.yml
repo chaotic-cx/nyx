@@ -58,6 +58,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       class: ${{ steps.check.outputs.class }}
+      prebuild-targets: ${{ steps.check.outputs.prebuild-targets }}
     steps:
       - name: Checkout base for local actions
         uses: actions/checkout@v7
@@ -72,34 +73,62 @@ jobs:
           allow-unsafe-pr-checkout: ${{ steps.trust.outputs.is_safe == 'true' }}
       - name: Check changed files
         id: check
+        env:
+          CACHYOS_PREBUILD_TARGETS: >-
+            ["linuxPackages_cachyos-gcc.kernel_configfile",
+             "linuxPackages_cachyos-gcc.kernel",
+             "linuxPackages_cachyos-lto.kernel_configfile",
+             "linuxPackages_cachyos-lto.kernel",
+             "linux_cachyos-lto-znver4"]
         run: |
           diff=$(git diff --no-renames --name-only ${{ github.event.pull_request.base.sha }}...${{ github.event.pull_request.head.sha }})
 
           # GCC and LTO share the main manifest and build out-of-tree modules.
           mainline_files='^pkgs/linux-cachyos/(manifest\.json|config-vars/cachyos(-gcc|-lto)?\.json|config-nix/cachyos(-gcc|-lto)?\.x86_64-linux\.nix)$'
 
-          if grep -qE "^flake\.lock$|$mainline_files" <<< "$diff"; then
+          if grep -qE '^flake\.lock$' <<< "$diff"; then
             echo "class=massive" >> "$GITHUB_OUTPUT"
+          elif grep -qE "$mainline_files" <<< "$diff"; then
+            prebuild_targets=$(jq -c . <<< "$CACHYOS_PREBUILD_TARGETS")
+            echo "class=massive" >> "$GITHUB_OUTPUT"
+            echo "prebuild-targets=$prebuild_targets" >> "$GITHUB_OUTPUT"
           elif grep -qE '^pkgs/(linux-cachyos|nss-git|firefox-nightly)/' <<< "$diff"; then
             echo "class=heavy" >> "$GITHUB_OUTPUT"
           else
             echo "class=normal" >> "$GITHUB_OUTPUT"
           fi
 
+  call-garuda-prebuild-x86_64-linux:
+    name: Call Garuda Prebuild x86-64 Linux
+    needs: build-all-check-files
+    if: needs.build-all-check-files.outputs.prebuild-targets != ''
+    uses: ./.github/workflows/garuda-build-all-x86_64-linux.yml
+    secrets: inherit
+    with:
+      prebuild-targets: ${{ needs.build-all-check-files.outputs.prebuild-targets }}
+      commit-failures: false
+
   call-build-matrix-x86_64-linux:
     name: Call Build Matrix x86-64 Linux
-    needs: build-all-check-files
-    if: needs.build-all-check-files.outputs.class == 'massive'
+    needs: [build-all-check-files, call-garuda-prebuild-x86_64-linux]
+    if: |
+      !failure() && !cancelled() &&
+      needs.build-all-check-files.outputs.class == 'massive' &&
+      (needs.build-all-check-files.outputs.prebuild-targets == '' ||
+        needs.call-garuda-prebuild-x86_64-linux.result == 'success')
     uses: ./.github/workflows/build-matrix-x86_64-linux.yml
     secrets: inherit
+    with:
+      prebuilt-targets: ${{ needs.build-all-check-files.outputs.prebuild-targets }}
 
   call-garuda-build-all-x86_64-linux:
     name: Call Garuda Build-all x86-64 Linux
-    needs: [build-all-check-files, call-build-matrix-x86_64-linux]
+    needs: [build-all-check-files, call-garuda-prebuild-x86_64-linux, call-build-matrix-x86_64-linux]
     if: |
-      !failure() && !cancelled() &&
-      github.event_name == 'pull_request_target' &&
-      (needs.build-all-check-files.outputs.class == 'massive' || needs.build-all-check-files.outputs.class == 'heavy')
+      !cancelled() && github.event_name == 'pull_request_target' &&
+      (needs.build-all-check-files.outputs.class == 'heavy' ||
+        needs.call-build-matrix-x86_64-linux.result == 'success' ||
+        needs.call-garuda-prebuild-x86_64-linux.result == 'success')
     uses: ./.github/workflows/garuda-build-all-x86_64-linux.yml
     secrets: inherit
     with:
@@ -235,6 +264,7 @@ jobs:
       [
         build-all-check-files,
         build-all-x86_64-linux,
+        call-garuda-prebuild-x86_64-linux,
         call-build-matrix-x86_64-linux,
         call-garuda-build-all-x86_64-linux,
       ]
