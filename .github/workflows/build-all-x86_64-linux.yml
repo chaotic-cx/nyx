@@ -166,7 +166,7 @@ jobs:
           allow-unsafe-pr-checkout: ${{ steps.trust.outputs.is_safe == 'true' }}
       # identical to build.yml
       - name: Install Nix
-        uses: cachix/install-nix-action@v31
+        uses: cachix/install-nix-action@v32
         with:
           extra_nix_config: |
             accept-flake-config = true
