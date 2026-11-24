@@ -73,11 +73,14 @@ jobs:
       - name: Check changed files
         id: check
         run: |
-          DIFF=$(git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }})
+          diff=$(git diff --no-renames --name-only ${{ github.event.pull_request.base.sha }}...${{ github.event.pull_request.head.sha }})
 
-          if echo "$DIFF" | grep -qE "^flake\.lock$|^pkgs/linux-cachyos/"; then
+          # GCC and LTO share the main manifest and build out-of-tree modules.
+          mainline_files='^pkgs/linux-cachyos/(manifest\.json|config-vars/cachyos(-gcc|-lto)?\.json|config-nix/cachyos(-gcc|-lto)?\.x86_64-linux\.nix)$'
+
+          if grep -qE "^flake\.lock$|$mainline_files" <<< "$diff"; then
             echo "class=massive" >> "$GITHUB_OUTPUT"
-          elif echo "$DIFF" | grep -qE "^pkgs/(nss-git|firefox-nightly)/"; then
+          elif grep -qE '^pkgs/(linux-cachyos|nss-git|firefox-nightly)/' <<< "$diff"; then
             echo "class=heavy" >> "$GITHUB_OUTPUT"
           else
             echo "class=normal" >> "$GITHUB_OUTPUT"
@@ -230,6 +233,7 @@ jobs:
     name: Build-all Status Check x86-64 Linux
     needs:
       [
+        build-all-check-files,
         build-all-x86_64-linux,
         call-build-matrix-x86_64-linux,
         call-garuda-build-all-x86_64-linux,
