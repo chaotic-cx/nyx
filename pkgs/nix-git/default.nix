@@ -15,8 +15,11 @@ let
 
   addFixes = _finalScope: prevScope: {
     nix-expr = prevScope.nix-expr.overrideAttrs (prevAttrs: {
-      nativeBuildInputs = prevAttrs.nativeBuildInputs ++ [ final.pkg-config ];
-      buildInputs = prevAttrs.buildInputs ++ [ final.sqlite ];
+      nativeBuildInputs = (prevAttrs.nativeBuildInputs or [ ]) ++ [
+        final.pkg-config
+        final.re2c
+      ];
+      buildInputs = (prevAttrs.buildInputs or [ ]) ++ [ final.sqlite ];
     });
 
     # nix-util's meson.build requires libzstd but nixpkgs doesn't include it
