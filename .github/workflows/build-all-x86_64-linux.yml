@@ -123,7 +123,12 @@ jobs:
 
   call-garuda-build-all-x86_64-linux:
     name: Call Garuda Build-all x86-64 Linux
-    needs: [build-all-check-files, call-garuda-prebuild-x86_64-linux, call-build-matrix-x86_64-linux]
+    needs:
+      [
+        build-all-check-files,
+        call-garuda-prebuild-x86_64-linux,
+        call-build-matrix-x86_64-linux,
+      ]
     if: |
       !cancelled() && github.event_name == 'pull_request_target' &&
       (needs.build-all-check-files.outputs.class == 'heavy' ||
