@@ -1339,17 +1339,17 @@
     "version": "0-unstable-2024-06-13"
   },
   {
-    "lastModified": 1738310106,
-    "lastModifiedDate": "20250131075506",
+    "lastModified": 1790782639,
+    "lastModifiedDate": "20260930153719",
     "name": "haskell",
-    "narHash": "sha256-0wmdbXHZbHkv4pTrB1fCbExx9E83l+zaocGa+SvQsZQ=",
+    "narHash": "sha256-R4KAAaBoDUGuQtR2U+0xdB9iLclWBrm+/blqsCX5ZjQ=",
     "owner": "tree-sitter",
     "repo": "tree-sitter-haskell",
-    "rev": "0975ef72fc3c47b530309ca93937d7d143523628",
+    "rev": "97288e585b0bd44199720280d067fa35bacd81ff",
     "subpath": null,
     "type": "github",
     "url": null,
-    "version": "0-unstable-2025-01-31"
+    "version": "0-unstable-2026-09-30"
   },
   {
     "lastModified": 1761837767,
@@ -2717,17 +2717,17 @@
     "version": "0-unstable-2024-11-11"
   },
   {
-    "lastModified": 1665542475,
-    "lastModifiedDate": "20221012024115",
+    "lastModified": 1783769726,
+    "lastModifiedDate": "20260711113526",
     "name": "qmljs",
-    "narHash": "sha256-Hf8LfrN3YjN9hpGtTVmK3ZjJ/b/fsRCg9FG7hSSj/mk=",
+    "narHash": "sha256-Yn3/adOETfPHBVCIVfI5qXUwC2wQr14pbhK2aUtdCiY=",
     "owner": "yuja",
     "repo": "tree-sitter-qmljs",
-    "rev": "0b2b25bcaa7d4925d5f0dda16f6a99c588a437f1",
+    "rev": "de96ed62abded51fcdfcbeaaa120e0dd0d20c697",
     "subpath": null,
     "type": "github",
     "url": null,
-    "version": "0-unstable-2022-10-12"
+    "version": "0-unstable-2026-07-11"
   },
   {
     "lastModified": 1731309839,
