@@ -28,7 +28,7 @@ let
     repo = "garuda-mokka";
   };
 
-  gitUrl = "https://gitlab.com/${srcMeta.group}/${srcMeta.owner}/${srcMeta.repo}";
+  gitUrl = "https://gitlab.com/${srcMeta.group}/${srcMeta.owner}/${srcMeta.repo}.git";
 
   distributorLogo = fetchurl {
     url = "https://gitlab.com/garuda-linux/themes-and-settings/artwork/garuda-icons/-/raw/master/usr/share/icons/garuda/distributor-logo-garuda-cat.svg";
@@ -69,6 +69,12 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   dontWrapQtApps = true;
 
   postPatch = ''
+    mokkaWallpaper="$out/share/wallpapers/Mokka-tree/contents/images/3840x2160.jpg"
+    substituteInPlace etc/skel/.config/kscreenlockerrc \
+      --replace-fail "/usr/share/wallpapers/garuda-wallpapers/City Horizon Mocha.jpg" "$mokkaWallpaper"
+    substituteInPlace usr/share/plasma/look-and-feel/Mokka/contents/defaults \
+      --replace-fail "/usr/share/wallpapers/garuda-wallpapers/Mokka-tree.jpg" "$mokkaWallpaper"
+
     for file in $(find ./* \( -type f \( -name "*.profile" -o -name "*.conf" -o ! -name "*.*" \) \) -o -type l ); do
       if [ -h "$file" ]; then
         ln -fs "$(readlink "$file" | sed -e 's|/usr/share|/run/current-system/sw/share|g')" "$file"
@@ -100,14 +106,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     substituteInPlace usr/share/plasma/look-and-feel/MokkaKitty/contents/layouts/org.kde.plasma.desktop-layout.js \
       --replace-fail "/usr/share" "/run/current-system/sw/share"
 
-    substituteInPlace etc/skel/.config/kscreenlockerrc \
-      --replace-fail "wallpapers/garuda-mokka/City-horizon Mocha.jpg" "wallpapers/Mokka-tree/contents/images/3840x2160.jpg"
-
     substituteInPlace usr/share/plasma/look-and-feel/Mokka/contents/defaults usr/share/plasma/look-and-feel/MokkaKitty/contents/defaults etc/skel/.config/gtk-3.0/settings.ini etc/skel/.config/gtk-4.0/settings.ini \
       --replace-fail "Tela-circle-dracula-dark" "Tela-circle-catppuccin-dark"
-
-    substituteInPlace usr/share/plasma/look-and-feel/Mokka/contents/defaults \
-      --replace-fail "wallpapers/garuda-mokka/Mokka-tree.jpg" "wallpapers/Mokka-tree/contents/images/3840x2160.jpg"
   '';
 
   installPhase = ''
