@@ -1,0 +1,18 @@
+# Generated package lists and configuration.
+maintenance/failures.*.nix linguist-generated
+maintenance/flat-packages-cache.nix linguist-generated
+pkgs/ghostty-git/deps.nix linguist-generated
+pkgs/helix-git/languages*.json linguist-generated
+pkgs/linux-cachyos/config-vars/cachyos-*.json linguist-generated
+pkgs/linux-cachyos/config-nix/cachyos-*.nix linguist-generated
+pkgs/mesa-git/wraps.json linguist-generated
+pkgs/river-git/build.zig.zon.nix linguist-generated
+
+# The znver4 configuration is maintained by hand.
+pkgs/linux-cachyos/config-nix/cachyos-znver4.x86_64-linux.nix -linguist-generated
+
+# Vendored dependency locks.
+flake.lock linguist-vendored
+manifest.json linguist-vendored
+pkgs/**/manifest-*.json linguist-vendored
+pkgs/**/*-manifest.json linguist-vendored
