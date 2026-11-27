@@ -407,7 +407,7 @@ in
 
   proton-cachyos_x86_64_v3 = renamed "proton-cachyos_x86_64_v3" "proton-cachyos-bin_x86_64_v3";
 
-  proton-cachyos-bin_x86_64_v3 = final.proton-cachyos.override {
+  proton-cachyos-bin_x86_64_v3 = final.proton-cachyos-bin_edge.override {
     toolTitle = "Proton-CachyOS x86-64-v3";
     toolArch = "x86_64_v3";
     tarballSuffix = "-x86_64_v3.tar.xz";
