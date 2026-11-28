@@ -1,4 +1,7 @@
 {
+  "nss_git" = "/nix/store/0svais1j14pcxqi70ph883l74xgswd1x-nss-unstable-20261125183548-5eae8b1";
+  "firefox-unwrapped_nightly" = "/nix/store/clil9b3y6sd7cwllf8s3lx0i0km3q7zs-firefox-nightly-unwrapped-163.0a1-20261127214327-ac1fc47";
+  "firefox_nightly" = "/nix/store/13nrd9l04irdn279nm7nbkjynf5vm7n5-firefox-nightly-163.0a1-20261127214327-ac1fc47";
   "linuxPackages_cachyos.acer-wmi-battery" = "/nix/store/ihczr4hwxaay9p1hna7gkqr5visfm9zk-acer-wmi-battery-x86_64-unknown-linux-gnu-7.3.6-0.1.0-unstable-2025-04-24";
   "linuxPackages_cachyos.amdgpu-i2c" = "/nix/store/fmfvimj1dvsjdj1n3ws5qikhybymmf2d-amdgpu-i2c-x86_64-unknown-linux-gnu-0-unstable-2024-12-16";
   "linuxPackages_cachyos.bcachefs" = "/nix/store/9kv37yxcnnm9zbpncgb6y9j6qww25w8p-bcachefs-x86_64-unknown-linux-gnu-7.3.6-1.39.7";
